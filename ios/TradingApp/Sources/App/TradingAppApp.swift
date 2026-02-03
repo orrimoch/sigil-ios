@@ -5,16 +5,28 @@ import UserNotifications
 @main
 struct SigilApp: App {
     @StateObject private var appState = AppState()
+    @StateObject private var authVM = AuthViewModel()
     @StateObject private var lockManager = AppLockManager.shared
     @StateObject private var notificationService = NotificationService.shared
     @State private var showLaunch = true
     @State private var showPinSetup = false
+    @State private var authCheckDone = false
     
     var body: some Scene {
         WindowGroup {
             ZStack {
                 if showLaunch {
                     LaunchView(showLaunch: $showLaunch)
+                        .transition(.opacity)
+                } else if !authCheckDone {
+                    // Brief loading while checking auth state
+                    ProgressView()
+                        .tint(.Brand.primary)
+                        .onAppear { checkAuthState() }
+                } else if !authVM.isLoggedIn {
+                    // Auth gate — show login if not authenticated
+                    LoginView()
+                        .environmentObject(authVM)
                         .transition(.opacity)
                 } else if lockManager.isSetUp && lockManager.isLocked {
                     // App is locked → show lock screen
@@ -23,6 +35,7 @@ struct SigilApp: App {
                 } else if appState.hasCompletedOnboarding {
                     ContentView()
                         .environmentObject(appState)
+                        .environmentObject(authVM)
                         .onOpenURL { url in
                             handleURL(url)
                         }
@@ -61,9 +74,58 @@ struct SigilApp: App {
             }
             .animation(.easeInOut(duration: 0.3), value: showLaunch)
             .animation(.easeInOut(duration: 0.3), value: lockManager.isLocked)
+            .animation(.easeInOut(duration: 0.3), value: authVM.isLoggedIn)
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)) { _ in
                 // Lock when app goes to background
                 lockManager.lock()
+            }
+        }
+    }
+    
+    /// Check auth state on launch.
+    /// If no server-side auth required (dev mode), auto-login with graceful fallback.
+    private func checkAuthState() {
+        // If already has a stored session, we're good
+        if AuthService.shared.isLoggedIn {
+            authCheckDone = true
+            return
+        }
+        
+        // Graceful fallback: try to validate with backend.
+        // If backend has AUTH_REQUIRED = False, we allow skip.
+        Task {
+            do {
+                // Quick health check — if server is reachable, check if auth is required
+                let url = URL(string: "http://127.0.0.1:8000/api/v1/health")!
+                let (_, response) = try await URLSession.shared.data(from: url)
+                
+                if let http = response as? HTTPURLResponse, http.statusCode == 200 {
+                    // Server reachable — check if auth is actually required
+                    // Try accessing a protected endpoint without token
+                    let scoresURL = URL(string: "http://127.0.0.1:8000/api/v1/scores?limit=1")!
+                    let (_, scoresResponse) = try await URLSession.shared.data(from: scoresURL)
+                    
+                    if let scoresHttp = scoresResponse as? HTTPURLResponse, scoresHttp.statusCode == 200 {
+                        // Auth not required (dev mode) — auto-grant access
+                        await MainActor.run {
+                            authVM.isLoggedIn = true
+                            authCheckDone = true
+                        }
+                        return
+                    }
+                }
+            } catch {
+                // Server not reachable — allow offline access (graceful fallback)
+                await MainActor.run {
+                    authVM.isLoggedIn = true
+                    authCheckDone = true
+                }
+                return
+            }
+            
+            // Server requires auth and user isn't logged in — show login
+            await MainActor.run {
+                authCheckDone = true
             }
         }
     }

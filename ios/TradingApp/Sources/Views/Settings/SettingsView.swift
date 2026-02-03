@@ -264,6 +264,23 @@ struct SettingsView: View {
                 }
                 .listRowBackground(Color.Background.secondary)
                 
+                // Account Section
+                Section {
+                    Button {
+                        AuthService.shared.logout()
+                    } label: {
+                        HStack {
+                            Image(systemName: "rectangle.portrait.and.arrow.right")
+                                .foregroundColor(.Signal.sell)
+                            Text("Sign Out")
+                                .foregroundColor(.Signal.sell)
+                        }
+                    }
+                } header: {
+                    Text("Account")
+                }
+                .listRowBackground(Color.Background.secondary)
+                
                 // About Section
                 Section {
                     HStack {
