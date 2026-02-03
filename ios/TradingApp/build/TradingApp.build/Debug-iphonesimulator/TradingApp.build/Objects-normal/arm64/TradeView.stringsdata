@@ -1,0 +1,256 @@
+{
+  "source": "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/Sources/Views/Trade/TradeView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Trade",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 34
+        }
+      },
+      {
+        "comment": "",
+        "key": "Order Submitted",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 44
+        }
+      },
+      {
+        "comment": "",
+        "key": "OK",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 45
+        }
+      },
+      {
+        "comment": "",
+        "key": "%@ %lld %@ - %@",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 48
+        }
+      },
+      {
+        "comment": "",
+        "key": "PAPER TRADING",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 63
+        }
+      },
+      {
+        "comment": "",
+        "key": "LIVE TRADING",
+        "location": {
+          "startingColumn": 46,
+          "startingLine": 63
+        }
+      },
+      {
+        "comment": "",
+        "key": "Search Stock",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 83
+        }
+      },
+      {
+        "comment": "",
+        "key": "Ticker or sector...",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 91
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 148
+        }
+      },
+      {
+        "comment": "",
+        "key": "$%@",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 194
+        }
+      },
+      {
+        "comment": "",
+        "key": "Order Details",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 256
+        }
+      },
+      {
+        "comment": "",
+        "key": "Order Type",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 283
+        }
+      },
+      {
+        "comment": "",
+        "key": "Order Type",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 287
+        }
+      },
+      {
+        "comment": "",
+        "key": "Shares",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 301
+        }
+      },
+      {
+        "comment": "",
+        "key": "0",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 305
+        }
+      },
+      {
+        "comment": "",
+        "key": "Limit Price",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 317
+        }
+      },
+      {
+        "comment": "",
+        "key": "$",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 322
+        }
+      },
+      {
+        "comment": "",
+        "key": "0.00",
+        "location": {
+          "startingColumn": 35,
+          "startingLine": 324
+        }
+      },
+      {
+        "comment": "",
+        "key": "Estimated Total",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 338
+        }
+      },
+      {
+        "comment": "",
+        "key": "$%@",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 341
+        }
+      },
+      {
+        "comment": "",
+        "key": "Preview Order",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 354
+        }
+      },
+      {
+        "comment": "",
+        "key": "Review Order",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 459
+        }
+      },
+      {
+        "comment": "",
+        "key": "This is a simulated trade. No real money will be used.",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 384
+        }
+      },
+      {
+        "comment": "",
+        "key": "Estimated Total",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 410
+        }
+      },
+      {
+        "comment": "",
+        "key": "$%@",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 413
+        }
+      },
+      {
+        "comment": "",
+        "key": "Submit %@ Order",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 445
+        }
+      },
+      {
+        "comment": "",
+        "key": "Cancel",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 463
+        }
+      },
+      {
+        "comment": "",
+        "key": "Today's Orders",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 499
+        }
+      },
+      {
+        "comment": "",
+        "key": "No orders today",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 516
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld %@",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 560
+        }
+      },
+      {
+        "comment": "",
+        "key": "$%@",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 578
+        }
+      }
+    ]
+  },
+  "version": 1
+}

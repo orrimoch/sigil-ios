@@ -1,0 +1,6777 @@
+{
+  "updated_at": "2026-02-03T15:28:06.459678",
+  "count": 677,
+  "min_market_cap": 10000000000,
+  "stocks": [
+    {
+      "ticker": "NVDA",
+      "name": "NVIDIA Corporation",
+      "sector": "Technology",
+      "industry": "Semiconductors",
+      "market_cap": 4519046938624,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:21.955175"
+    },
+    {
+      "ticker": "GOOG",
+      "name": "Alphabet Inc.",
+      "sector": "Communication Services",
+      "industry": "Internet Content & Information",
+      "market_cap": 4163575218176,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:22.465932"
+    },
+    {
+      "ticker": "GOOGL",
+      "name": "Alphabet Inc.",
+      "sector": "Communication Services",
+      "industry": "Internet Content & Information",
+      "market_cap": 4162815262720,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:23.039753"
+    },
+    {
+      "ticker": "AAPL",
+      "name": "Apple Inc.",
+      "sector": "Technology",
+      "industry": "Consumer Electronics",
+      "market_cap": 3968587005952,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:23.616886"
+    },
+    {
+      "ticker": "MSFT",
+      "name": "Microsoft Corporation",
+      "sector": "Technology",
+      "industry": "Software - Infrastructure",
+      "market_cap": 3143788658688,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:24.189341"
+    },
+    {
+      "ticker": "AMZN",
+      "name": "Amazon.com, Inc.",
+      "sector": "Consumer Cyclical",
+      "industry": "Internet Retail",
+      "market_cap": 2597294964736,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:25.251276"
+    },
+    {
+      "ticker": "META",
+      "name": "Meta Platforms, Inc.",
+      "sector": "Communication Services",
+      "industry": "Internet Content & Information",
+      "market_cap": 1786903265280,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:25.966716"
+    },
+    {
+      "ticker": "TSM",
+      "name": "Taiwan Semiconductor Manufacturing Company Limited",
+      "sector": "Technology",
+      "industry": "Semiconductors",
+      "market_cap": 1770465132544,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:28.338584"
+    },
+    {
+      "ticker": "TSLA",
+      "name": "Tesla, Inc.",
+      "sector": "Consumer Cyclical",
+      "industry": "Auto Manufacturers",
+      "market_cap": 1582813282304,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:26.529405"
+    },
+    {
+      "ticker": "AVGO",
+      "name": "Broadcom Inc.",
+      "sector": "Technology",
+      "industry": "Semiconductors",
+      "market_cap": 1569883029504,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:27.062965"
+    },
+    {
+      "ticker": "WMT",
+      "name": "Walmart Inc.",
+      "sector": "Consumer Defensive",
+      "industry": "Discount Stores",
+      "market_cap": 989111910400,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:27.883836"
+    },
+    {
+      "ticker": "LLY",
+      "name": "Eli Lilly and Company",
+      "sector": "Healthcare",
+      "industry": "Drug Manufacturers - General",
+      "market_cap": 936017395712,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:46.081629"
+    },
+    {
+      "ticker": "JPM",
+      "name": "JPMorgan Chase & Co.",
+      "sector": "Financial Services",
+      "industry": "Banks - Diversified",
+      "market_cap": 838837927936,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:46.614398"
+    },
+    {
+      "ticker": "V",
+      "name": "Visa Inc.",
+      "sector": "Financial Services",
+      "industry": "Credit Services",
+      "market_cap": 642048851968,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:47.172687"
+    },
+    {
+      "ticker": "AZN",
+      "name": "AstraZeneca PLC",
+      "sector": "Healthcare",
+      "industry": "Drug Manufacturers - General",
+      "market_cap": 584177876992,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:47.689920"
+    },
+    {
+      "ticker": "XOM",
+      "name": "Exxon Mobil Corporation",
+      "sector": "Energy",
+      "industry": "Oil & Gas Integrated",
+      "market_cap": 583655686144,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:48.253536"
+    },
+    {
+      "ticker": "ASML",
+      "name": "ASML Holding N.V.",
+      "sector": "Technology",
+      "industry": "Semiconductor Equipment & Materials",
+      "market_cap": 559472181248,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:28.443456"
+    },
+    {
+      "ticker": "JNJ",
+      "name": "Johnson & Johnson",
+      "sector": "Healthcare",
+      "industry": "Drug Manufacturers - General",
+      "market_cap": 555944837120,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:48.767817"
+    },
+    {
+      "ticker": "MA",
+      "name": "Mastercard Incorporated",
+      "sector": "Financial Services",
+      "industry": "Credit Services",
+      "market_cap": 496188489728,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:49.533379"
+    },
+    {
+      "ticker": "MU",
+      "name": "Micron Technology, Inc.",
+      "sector": "Technology",
+      "industry": "Semiconductors",
+      "market_cap": 492747948032,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:28.967479"
+    },
+    {
+      "ticker": "ORCL",
+      "name": "Oracle Corporation",
+      "sector": "Technology",
+      "industry": "Software - Infrastructure",
+      "market_cap": 460027002880,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:50.049209"
+    },
+    {
+      "ticker": "COST",
+      "name": "Costco Wholesale Corporation",
+      "sector": "Consumer Defensive",
+      "industry": "Discount Stores",
+      "market_cap": 429910884352,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:29.489165"
+    },
+    {
+      "ticker": "BABA",
+      "name": "Alibaba Group Holding Limited",
+      "sector": "Consumer Cyclical",
+      "industry": "Internet Retail",
+      "market_cap": 402001559552,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:51.867250"
+    },
+    {
+      "ticker": "AMD",
+      "name": "Advanced Micro Devices, Inc.",
+      "sector": "Technology",
+      "industry": "Semiconductors",
+      "market_cap": 400937811968,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:30.017135"
+    },
+    {
+      "ticker": "ABBV",
+      "name": "AbbVie Inc.",
+      "sector": "Healthcare",
+      "industry": "Drug Manufacturers - General",
+      "market_cap": 398792654848,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:50.650545"
+    },
+    {
+      "ticker": "BAC",
+      "name": "Bank of America Corporation",
+      "sector": "Financial Services",
+      "industry": "Banks - Diversified",
+      "market_cap": 394553851904,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:51.333798"
+    },
+    {
+      "ticker": "HD",
+      "name": "The Home Depot, Inc.",
+      "sector": "Consumer Cyclical",
+      "industry": "Home Improvement Retail",
+      "market_cap": 376422793216,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:52.384871"
+    },
+    {
+      "ticker": "PG",
+      "name": "The Procter & Gamble Company",
+      "sector": "Consumer Defensive",
+      "industry": "Household & Personal Products",
+      "market_cap": 357964185600,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:53.392667"
+    },
+    {
+      "ticker": "PLTR",
+      "name": "Palantir Technologies Inc.",
+      "sector": "Technology",
+      "industry": "Software - Infrastructure",
+      "market_cap": 352176537600,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:30.533043"
+    },
+    {
+      "ticker": "NFLX",
+      "name": "Netflix, Inc.",
+      "sector": "Communication Services",
+      "industry": "Entertainment",
+      "market_cap": 351058788352,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:31.107544"
+    },
+    {
+      "ticker": "CVX",
+      "name": "Chevron Corporation",
+      "sector": "Energy",
+      "industry": "Oil & Gas Integrated",
+      "market_cap": 347947499520,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:53.949069"
+    },
+    {
+      "ticker": "GE",
+      "name": "GE Aerospace",
+      "sector": "Industrials",
+      "industry": "Aerospace & Defense",
+      "market_cap": 325631574016,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:55.099507"
+    },
+    {
+      "ticker": "KO",
+      "name": "The Coca-Cola Company",
+      "sector": "Consumer Defensive",
+      "industry": "Beverages - Non-Alcoholic",
+      "market_cap": 324195254272,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:54.533331"
+    },
+    {
+      "ticker": "CAT",
+      "name": "Caterpillar Inc.",
+      "sector": "Industrials",
+      "industry": "Farm & Heavy Construction Machinery",
+      "market_cap": 323676766208,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:55.618136"
+    },
+    {
+      "ticker": "CSCO",
+      "name": "Cisco Systems, Inc.",
+      "sector": "Technology",
+      "industry": "Communication Equipment",
+      "market_cap": 318616272896,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:31.638652"
+    },
+    {
+      "ticker": "HSBC",
+      "name": "HSBC Holdings plc",
+      "sector": "Financial Services",
+      "industry": "Banks - Diversified",
+      "market_cap": 307613532160,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:56.131741"
+    },
+    {
+      "ticker": "TM",
+      "name": "Toyota Motor Corporation",
+      "sector": "Consumer Cyclical",
+      "industry": "Auto Manufacturers",
+      "market_cap": 303251750912,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:56.640703"
+    },
+    {
+      "ticker": "LRCX",
+      "name": "Lam Research Corporation",
+      "sector": "Technology",
+      "industry": "Semiconductor Equipment & Materials",
+      "market_cap": 298307125248,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:32.151261"
+    },
+    {
+      "ticker": "IBM",
+      "name": "International Business Machines Corporation",
+      "sector": "Technology",
+      "industry": "Information Technology Services",
+      "market_cap": 294189236224,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:57.735025"
+    },
+    {
+      "ticker": "MS",
+      "name": "Morgan Stanley",
+      "sector": "Financial Services",
+      "industry": "Capital Markets",
+      "market_cap": 294181175296,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:58.306207"
+    },
+    {
+      "ticker": "NVS",
+      "name": "Novartis AG",
+      "sector": "Healthcare",
+      "industry": "Drug Manufacturers - General",
+      "market_cap": 289814347776,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:57.156002"
+    },
+    {
+      "ticker": "WFC",
+      "name": "Wells Fargo & Company",
+      "sector": "Financial Services",
+      "industry": "Banks - Diversified",
+      "market_cap": 289643331584,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:58.810229"
+    },
+    {
+      "ticker": "GS",
+      "name": "The Goldman Sachs Group, Inc.",
+      "sector": "Financial Services",
+      "industry": "Capital Markets",
+      "market_cap": 286474043392,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:59.377952"
+    },
+    {
+      "ticker": "MRK",
+      "name": "Merck & Co., Inc.",
+      "sector": "Healthcare",
+      "industry": "Drug Manufacturers - General",
+      "market_cap": 283173683200,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:59.896711"
+    },
+    {
+      "ticker": "PM",
+      "name": "Philip Morris International Inc.",
+      "sector": "Consumer Defensive",
+      "industry": "Tobacco",
+      "market_cap": 280101584896,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:00.510865"
+    },
+    {
+      "ticker": "RTX",
+      "name": "RTX Corporation",
+      "sector": "Industrials",
+      "industry": "Aerospace & Defense",
+      "market_cap": 269615824896,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:01.081380"
+    },
+    {
+      "ticker": "NVO",
+      "name": "Novo Nordisk A/S",
+      "sector": "Healthcare",
+      "industry": "Drug Manufacturers - General",
+      "market_cap": 261854248960,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:01.847825"
+    },
+    {
+      "ticker": "AMAT",
+      "name": "Applied Materials, Inc.",
+      "sector": "Technology",
+      "industry": "Semiconductor Equipment & Materials",
+      "market_cap": 260658118656,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:32.876664"
+    },
+    {
+      "ticker": "UNH",
+      "name": "UnitedHealth Group Incorporated",
+      "sector": "Healthcare",
+      "industry": "Healthcare Plans",
+      "market_cap": 258698444800,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:02.370104"
+    },
+    {
+      "ticker": "INTC",
+      "name": "Intel Corporation",
+      "sector": "Technology",
+      "industry": "Semiconductors",
+      "market_cap": 243814662144,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:33.397422"
+    },
+    {
+      "ticker": "AXP",
+      "name": "American Express Company",
+      "sector": "Financial Services",
+      "industry": "Credit Services",
+      "market_cap": 243047514112,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:03.518132"
+    },
+    {
+      "ticker": "SAP",
+      "name": "SAP SE",
+      "sector": "Technology",
+      "industry": "Software - Application",
+      "market_cap": 241794793472,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:02.948573"
+    },
+    {
+      "ticker": "RY",
+      "name": "Royal Bank of Canada",
+      "sector": "Financial Services",
+      "industry": "Banks - Diversified",
+      "market_cap": 236886392832,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:04.785159"
+    },
+    {
+      "ticker": "MCD",
+      "name": "McDonald's Corporation",
+      "sector": "Consumer Cyclical",
+      "industry": "Restaurants",
+      "market_cap": 227304407040,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:05.342369"
+    },
+    {
+      "ticker": "TMUS",
+      "name": "T-Mobile US, Inc.",
+      "sector": "Communication Services",
+      "industry": "Telecom Services",
+      "market_cap": 219445460992,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:33.985279"
+    },
+    {
+      "ticker": "TMO",
+      "name": "Thermo Fisher Scientific Inc.",
+      "sector": "Healthcare",
+      "industry": "Diagnostics & Research",
+      "market_cap": 218575683584,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:06.372797"
+    },
+    {
+      "ticker": "LIN",
+      "name": "Linde plc",
+      "sector": "Basic Materials",
+      "industry": "Specialty Chemicals",
+      "market_cap": 215773413376,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:34.550490"
+    },
+    {
+      "ticker": "SHEL",
+      "name": "Shell plc",
+      "sector": "Energy",
+      "industry": "Oil & Gas Integrated",
+      "market_cap": 214487449600,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:05.853978"
+    },
+    {
+      "ticker": "PEP",
+      "name": "PepsiCo, Inc.",
+      "sector": "Consumer Defensive",
+      "industry": "Beverages - Non-Alcoholic",
+      "market_cap": 212480786432,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:35.062674"
+    },
+    {
+      "ticker": "C",
+      "name": "Citigroup Inc.",
+      "sector": "Financial Services",
+      "industry": "Banks - Diversified",
+      "market_cap": 207966420992,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:07.560597"
+    },
+    {
+      "ticker": "MUFG",
+      "name": "Mitsubishi UFJ Financial Group, Inc.",
+      "sector": "Financial Services",
+      "industry": "Banks - Diversified",
+      "market_cap": 206329954304,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:06.994516"
+    },
+    {
+      "ticker": "GEV",
+      "name": "GE Vernova Inc.",
+      "sector": "Industrials",
+      "industry": "Specialty Industrial Machinery",
+      "market_cap": 204838797312,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:08.078492"
+    },
+    {
+      "ticker": "TXN",
+      "name": "Texas Instruments Incorporated",
+      "sector": "Technology",
+      "industry": "Semiconductors",
+      "market_cap": 204449267712,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:35.642302"
+    },
+    {
+      "ticker": "CRM",
+      "name": "Salesforce, Inc.",
+      "sector": "Technology",
+      "industry": "Software - Application",
+      "market_cap": 200691122176,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:08.593056"
+    },
+    {
+      "ticker": "SAN",
+      "name": "Banco Santander, S.A.",
+      "sector": "Financial Services",
+      "industry": "Banks - Diversified",
+      "market_cap": 193125105664,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:09.099743"
+    },
+    {
+      "ticker": "SCHW",
+      "name": "The Charles Schwab Corporation",
+      "sector": "Financial Services",
+      "industry": "Capital Markets",
+      "market_cap": 190906613760,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:10.384492"
+    },
+    {
+      "ticker": "ABT",
+      "name": "Abbott Laboratories",
+      "sector": "Healthcare",
+      "industry": "Medical Devices",
+      "market_cap": 190423629824,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:09.674489"
+    },
+    {
+      "ticker": "T",
+      "name": "AT&T Inc.",
+      "sector": "Communication Services",
+      "industry": "Telecom Services",
+      "market_cap": 186452508672,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:10.984444"
+    },
+    {
+      "ticker": "AMGN",
+      "name": "Amgen Inc.",
+      "sector": "Healthcare",
+      "industry": "Drug Manufacturers - General",
+      "market_cap": 185603506176,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:36.176608"
+    },
+    {
+      "ticker": "KLAC",
+      "name": "KLA Corporation",
+      "sector": "Technology",
+      "industry": "Semiconductor Equipment & Materials",
+      "market_cap": 185322307584,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:36.776473"
+    },
+    {
+      "ticker": "DIS",
+      "name": "The Walt Disney Company",
+      "sector": "Communication Services",
+      "industry": "Entertainment",
+      "market_cap": 185230262272,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:11.546413"
+    },
+    {
+      "ticker": "RIO",
+      "name": "Rio Tinto Group",
+      "sector": "Basic Materials",
+      "industry": "Other Industrial Metals & Mining",
+      "market_cap": 184655069184,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:35.274950"
+    },
+    {
+      "ticker": "BA",
+      "name": "The Boeing Company",
+      "sector": "Industrials",
+      "industry": "Aerospace & Defense",
+      "market_cap": 183001579520,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:12.117871"
+    },
+    {
+      "ticker": "NEE",
+      "name": "NextEra Energy, Inc.",
+      "sector": "Utilities",
+      "industry": "Utilities - Regulated Electric",
+      "market_cap": 179791691776,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:12.679104"
+    },
+    {
+      "ticker": "BX",
+      "name": "Blackstone Inc.",
+      "sector": "Financial Services",
+      "industry": "Asset Management",
+      "market_cap": 178596790272,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:40.736770"
+    },
+    {
+      "ticker": "BHP",
+      "name": "BHP Group Limited",
+      "sector": "Basic Materials",
+      "industry": "Other Industrial Metals & Mining",
+      "market_cap": 178253365248,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:13.849694"
+    },
+    {
+      "ticker": "ISRG",
+      "name": "Intuitive Surgical, Inc.",
+      "sector": "Healthcare",
+      "industry": "Medical Instruments & Supplies",
+      "market_cap": 178066046976,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:38.002300"
+    },
+    {
+      "ticker": "APH",
+      "name": "Amphenol Corporation",
+      "sector": "Technology",
+      "industry": "Electronic Components",
+      "market_cap": 177402363904,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:13.202690"
+    },
+    {
+      "ticker": "GILD",
+      "name": "Gilead Sciences, Inc.",
+      "sector": "Healthcare",
+      "industry": "Drug Manufacturers - General",
+      "market_cap": 177298898944,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:37.486272"
+    },
+    {
+      "ticker": "ANET",
+      "name": "Arista Networks, Inc.",
+      "sector": "Technology",
+      "industry": "Computer Hardware",
+      "market_cap": 174247280640,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:15.012609"
+    },
+    {
+      "ticker": "BLK",
+      "name": "BlackRock, Inc.",
+      "sector": "Financial Services",
+      "industry": "Asset Management",
+      "market_cap": 173716275200,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:15.527296"
+    },
+    {
+      "ticker": "HDB",
+      "name": "HDFC Bank Limited",
+      "sector": "Financial Services",
+      "industry": "Banks - Regional",
+      "market_cap": 173320355840,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:16.123800"
+    },
+    {
+      "ticker": "SHOP",
+      "name": "Shopify Inc.",
+      "sector": "Technology",
+      "industry": "Software - Application",
+      "market_cap": 172532056064,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:38.524228"
+    },
+    {
+      "ticker": "UBER",
+      "name": "Uber Technologies, Inc.",
+      "sector": "Technology",
+      "industry": "Software - Application",
+      "market_cap": 168585232384,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:16.639450"
+    },
+    {
+      "ticker": "TJX",
+      "name": "The TJX Companies, Inc.",
+      "sector": "Consumer Cyclical",
+      "industry": "Apparel Retail",
+      "market_cap": 167130005504,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:17.213887"
+    },
+    {
+      "ticker": "BKNG",
+      "name": "Booking Holdings Inc.",
+      "sector": "Consumer Cyclical",
+      "industry": "Travel Services",
+      "market_cap": 166011535360,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:39.112286"
+    },
+    {
+      "ticker": "ACN",
+      "name": "Accenture plc",
+      "sector": "Technology",
+      "industry": "Information Technology Services",
+      "market_cap": 165446860800,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:14.479186"
+    },
+    {
+      "ticker": "QCOM",
+      "name": "QUALCOMM Incorporated",
+      "sector": "Technology",
+      "industry": "Semiconductors",
+      "market_cap": 163456008192,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:40.262422"
+    },
+    {
+      "ticker": "APP",
+      "name": "AppLovin Corporation",
+      "sector": "Communication Services",
+      "industry": "Advertising Agencies",
+      "market_cap": 163374710784,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:39.683165"
+    },
+    {
+      "ticker": "SPGI",
+      "name": "S&P Global Inc.",
+      "sector": "Financial Services",
+      "industry": "Financial Data & Stock Exchanges",
+      "market_cap": 161094582272,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:19.044031"
+    },
+    {
+      "ticker": "TD",
+      "name": "The Toronto-Dominion Bank",
+      "sector": "Financial Services",
+      "industry": "Banks - Diversified",
+      "market_cap": 159211438080,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:17.757049"
+    },
+    {
+      "ticker": "DHR",
+      "name": "Danaher Corporation",
+      "sector": "Healthcare",
+      "industry": "Diagnostics & Research",
+      "market_cap": 157935583232,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:19.615454"
+    },
+    {
+      "ticker": "SCCO",
+      "name": "Southern Copper Corporation",
+      "sector": "Basic Materials",
+      "industry": "Copper",
+      "market_cap": 157922492416,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:20.708867"
+    },
+    {
+      "ticker": "ADI",
+      "name": "Analog Devices, Inc.",
+      "sector": "Technology",
+      "industry": "Semiconductors",
+      "market_cap": 155151794176,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:40.805010"
+    },
+    {
+      "ticker": "TTE",
+      "name": "TotalEnergies SE",
+      "sector": "Energy",
+      "industry": "Oil & Gas Integrated",
+      "market_cap": 154003439616,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:20.139017"
+    },
+    {
+      "ticker": "HON",
+      "name": "Honeywell International Inc.",
+      "sector": "Industrials",
+      "industry": "Conglomerates",
+      "market_cap": 153345785856,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:42.002284"
+    },
+    {
+      "ticker": "PFE",
+      "name": "Pfizer Inc.",
+      "sector": "Healthcare",
+      "industry": "Drug Manufacturers - General",
+      "market_cap": 151580966912,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:22.671950"
+    },
+    {
+      "ticker": "LOW",
+      "name": "Lowe's Companies, Inc.",
+      "sector": "Consumer Cyclical",
+      "industry": "Home Improvement Retail",
+      "market_cap": 150929604608,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:23.221541"
+    },
+    {
+      "ticker": "UBS",
+      "name": "UBS Group AG",
+      "sector": "Financial Services",
+      "industry": "Banks - Diversified",
+      "market_cap": 150501326848,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:21.853150"
+    },
+    {
+      "ticker": "UL",
+      "name": "Unilever PLC",
+      "sector": "Consumer Defensive",
+      "industry": "Household & Personal Products",
+      "market_cap": 150051454976,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:21.222689"
+    },
+    {
+      "ticker": "BBVA",
+      "name": "Banco Bilbao Vizcaya Argentaria, S.A.",
+      "sector": "Financial Services",
+      "industry": "Banks - Diversified",
+      "market_cap": 147392331776,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:23.743345"
+    },
+    {
+      "ticker": "LMT",
+      "name": "Lockheed Martin Corporation",
+      "sector": "Industrials",
+      "industry": "Aerospace & Defense",
+      "market_cap": 147169001472,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:24.375142"
+    },
+    {
+      "ticker": "PDD",
+      "name": "PDD Holdings Inc.",
+      "sector": "Consumer Cyclical",
+      "industry": "Internet Retail",
+      "market_cap": 146862424064,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:41.463614"
+    },
+    {
+      "ticker": "DE",
+      "name": "Deere & Company",
+      "sector": "Industrials",
+      "industry": "Farm & Heavy Construction Machinery",
+      "market_cap": 144279388160,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:24.947909"
+    },
+    {
+      "ticker": "COF",
+      "name": "Capital One Financial Corporation",
+      "sector": "Financial Services",
+      "industry": "Credit Services",
+      "market_cap": 142200897536,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:25.464377"
+    },
+    {
+      "ticker": "BUD",
+      "name": "Anheuser-Busch InBev SA/NV",
+      "sector": "Consumer Defensive",
+      "industry": "Beverages - Brewers",
+      "market_cap": 140847562752,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:30.459126"
+    },
+    {
+      "ticker": "SYK",
+      "name": "Stryker Corporation",
+      "sector": "Healthcare",
+      "industry": "Medical Devices",
+      "market_cap": 140785451008,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:26.024479"
+    },
+    {
+      "ticker": "ETN",
+      "name": "Eaton Corporation plc",
+      "sector": "Industrials",
+      "industry": "Specialty Industrial Machinery",
+      "market_cap": 139929993216,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:26.600145"
+    },
+    {
+      "ticker": "UNP",
+      "name": "Union Pacific Corporation",
+      "sector": "Industrials",
+      "industry": "Railroads",
+      "market_cap": 139529240576,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:27.130443"
+    },
+    {
+      "ticker": "TBB",
+      "name": "AT&T Inc. 5.35% GLB NTS 66",
+      "sector": "Unknown",
+      "industry": "Unknown",
+      "market_cap": 138022256640,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:18.276667"
+    },
+    {
+      "ticker": "BSX",
+      "name": "Boston Scientific Corporation",
+      "sector": "Healthcare",
+      "industry": "Medical Devices",
+      "market_cap": 136245026816,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:28.225965"
+    },
+    {
+      "ticker": "INTU",
+      "name": "Intuit Inc.",
+      "sector": "Technology",
+      "industry": "Software - Application",
+      "market_cap": 135614210048,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:42.522924"
+    },
+    {
+      "ticker": "SMFG",
+      "name": "Sumitomo Mitsui Financial Group, Inc.",
+      "sector": "Financial Services",
+      "industry": "Banks - Diversified",
+      "market_cap": 134224650240,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:27.654630"
+    },
+    {
+      "ticker": "SONY",
+      "name": "Sony Group Corporation",
+      "sector": "Technology",
+      "industry": "Consumer Electronics",
+      "market_cap": 132880154624,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:28.797527"
+    },
+    {
+      "ticker": "BTI",
+      "name": "British American Tobacco p.l.c.",
+      "sector": "Consumer Defensive",
+      "industry": "Tobacco",
+      "market_cap": 132350263296,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:29.377734"
+    },
+    {
+      "ticker": "MDT",
+      "name": "Medtronic plc",
+      "sector": "Healthcare",
+      "industry": "Medical Devices",
+      "market_cap": 131737493504,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:29.943496"
+    },
+    {
+      "ticker": "WELL",
+      "name": "Welltower Inc.",
+      "sector": "Real Estate",
+      "industry": "REIT - Healthcare Facilities",
+      "market_cap": 128638468096,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:30.963638"
+    },
+    {
+      "ticker": "IBKR",
+      "name": "Interactive Brokers Group, Inc.",
+      "sector": "Financial Services",
+      "industry": "Capital Markets",
+      "market_cap": 127954288640,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:34.758439"
+    },
+    {
+      "ticker": "COP",
+      "name": "ConocoPhillips",
+      "sector": "Energy",
+      "industry": "Oil & Gas E&P",
+      "market_cap": 127129837568,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:31.477253"
+    },
+    {
+      "ticker": "NOW",
+      "name": "ServiceNow, Inc.",
+      "sector": "Technology",
+      "industry": "Software - Application",
+      "market_cap": 124506873856,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:32.079180"
+    },
+    {
+      "ticker": "CB",
+      "name": "Chubb Limited",
+      "sector": "Financial Services",
+      "industry": "Insurance - Property & Casualty",
+      "market_cap": 124092358656,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:33.156796"
+    },
+    {
+      "ticker": "NEM",
+      "name": "Newmont Corporation",
+      "sector": "Basic Materials",
+      "industry": "Gold",
+      "market_cap": 123960041472,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:32.594380"
+    },
+    {
+      "ticker": "ADBE",
+      "name": "Adobe Inc.",
+      "sector": "Technology",
+      "industry": "Software - Application",
+      "market_cap": 122808868864,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:43.668618"
+    },
+    {
+      "ticker": "PANW",
+      "name": "Palo Alto Networks, Inc.",
+      "sector": "Technology",
+      "industry": "Software - Infrastructure",
+      "market_cap": 122267738112,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:43.163515"
+    },
+    {
+      "ticker": "VRTX",
+      "name": "Vertex Pharmaceuticals Incorporated",
+      "sector": "Healthcare",
+      "industry": "Biotechnology",
+      "market_cap": 121018957824,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:44.181032"
+    },
+    {
+      "ticker": "PLD",
+      "name": "Prologis, Inc.",
+      "sector": "Real Estate",
+      "industry": "REIT - Industrial",
+      "market_cap": 120455462912,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:33.674540"
+    },
+    {
+      "ticker": "PH",
+      "name": "Parker-Hannifin Corporation",
+      "sector": "Industrials",
+      "industry": "Specialty Industrial Machinery",
+      "market_cap": 120158134272,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:34.248341"
+    },
+    {
+      "ticker": "PGR",
+      "name": "The Progressive Corporation",
+      "sector": "Financial Services",
+      "industry": "Insurance - Property & Casualty",
+      "market_cap": 119022043136,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:34.760087"
+    },
+    {
+      "ticker": "CMCSA",
+      "name": "Comcast Corporation",
+      "sector": "Communication Services",
+      "industry": "Telecom Services",
+      "market_cap": 116619059200,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:47.439376"
+    },
+    {
+      "ticker": "HCA",
+      "name": "HCA Healthcare, Inc.",
+      "sector": "Healthcare",
+      "industry": "Medical Care Facilities",
+      "market_cap": 116259676160,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:36.359729"
+    },
+    {
+      "ticker": "SNY",
+      "name": "Sanofi",
+      "sector": "Healthcare",
+      "industry": "Drug Manufacturers - General",
+      "market_cap": 114813657088,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:44.748017"
+    },
+    {
+      "ticker": "BMY",
+      "name": "Bristol-Myers Squibb Company",
+      "sector": "Healthcare",
+      "industry": "Drug Manufacturers - General",
+      "market_cap": 113778237440,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:35.784317"
+    },
+    {
+      "ticker": "ARM",
+      "name": "Arm Holdings plc",
+      "sector": "Technology",
+      "industry": "Semiconductors",
+      "market_cap": 113452580864,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:45.802605"
+    },
+    {
+      "ticker": "IBN",
+      "name": "ICICI Bank Limited",
+      "sector": "Financial Services",
+      "industry": "Banks - Regional",
+      "market_cap": 110864211968,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:37.511409"
+    },
+    {
+      "ticker": "CRWD",
+      "name": "CrowdStrike Holdings, Inc.",
+      "sector": "Technology",
+      "industry": "Software - Infrastructure",
+      "market_cap": 110633402368,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:46.367207"
+    },
+    {
+      "ticker": "MELI",
+      "name": "MercadoLibre, Inc.",
+      "sector": "Consumer Cyclical",
+      "industry": "Internet Retail",
+      "market_cap": 108858007552,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:46.914964"
+    },
+    {
+      "ticker": "MFG",
+      "name": "Mizuho Financial Group, Inc.",
+      "sector": "Financial Services",
+      "industry": "Banks - Regional",
+      "market_cap": 108776693760,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:36.923906"
+    },
+    {
+      "ticker": "GSK",
+      "name": "GSK plc",
+      "sector": "Healthcare",
+      "industry": "Drug Manufacturers - General",
+      "market_cap": 106044276736,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:38.023057"
+    },
+    {
+      "ticker": "KKR",
+      "name": "KKR & Co. Inc.",
+      "sector": "Financial Services",
+      "industry": "Asset Management",
+      "market_cap": 105888440320,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:41.875332"
+    },
+    {
+      "ticker": "ENB",
+      "name": "Enbridge Inc.",
+      "sector": "Energy",
+      "industry": "Oil & Gas Midstream",
+      "market_cap": 105395240960,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:38.599409"
+    },
+    {
+      "ticker": "MCK",
+      "name": "McKesson Corporation",
+      "sector": "Healthcare",
+      "industry": "Medical Distribution",
+      "market_cap": 105292636160,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:39.684973"
+    },
+    {
+      "ticker": "SPOT",
+      "name": "Spotify Technology S.A.",
+      "sector": "Communication Services",
+      "industry": "Internet Content & Information",
+      "market_cap": 104713576448,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:41.332839"
+    },
+    {
+      "ticker": "BN",
+      "name": "Brookfield Corporation",
+      "sector": "Financial Services",
+      "industry": "Asset Management",
+      "market_cap": 104699478016,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:39.161014"
+    },
+    {
+      "ticker": "CME",
+      "name": "CME Group Inc.",
+      "sector": "Financial Services",
+      "industry": "Financial Data & Stock Exchanges",
+      "market_cap": 104535425024,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:47.948157"
+    },
+    {
+      "ticker": "MO",
+      "name": "Altria Group, Inc.",
+      "sector": "Consumer Defensive",
+      "industry": "Tobacco",
+      "market_cap": 104463736832,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:40.209300"
+    },
+    {
+      "ticker": "SBUX",
+      "name": "Starbucks Corporation",
+      "sector": "Consumer Cyclical",
+      "industry": "Restaurants",
+      "market_cap": 104462417920,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:48.504574"
+    },
+    {
+      "ticker": "ADP",
+      "name": "Automatic Data Processing, Inc.",
+      "sector": "Technology",
+      "industry": "Software - Application",
+      "market_cap": 100125327360,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:49.018137"
+    },
+    {
+      "ticker": "BMO",
+      "name": "Bank of Montreal",
+      "sector": "Financial Services",
+      "industry": "Banks - Diversified",
+      "market_cap": 99514105856,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:44.024323"
+    },
+    {
+      "ticker": "ICE",
+      "name": "Intercontinental Exchange, Inc.",
+      "sector": "Financial Services",
+      "industry": "Financial Data & Stock Exchanges",
+      "market_cap": 99132227584,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:42.980623"
+    },
+    {
+      "ticker": "BP",
+      "name": "BP p.l.c.",
+      "sector": "Energy",
+      "industry": "Oil & Gas Integrated",
+      "market_cap": 98530852864,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:43.492980"
+    },
+    {
+      "ticker": "SNDK",
+      "name": "Sandisk Corporation",
+      "sector": "Technology",
+      "industry": "Computer Hardware",
+      "market_cap": 98167635968,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:49.602452"
+    },
+    {
+      "ticker": "CEG",
+      "name": "Constellation Energy Corporation",
+      "sector": "Utilities",
+      "industry": "Utilities - Independent Power Producers",
+      "market_cap": 98137137152,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:50.209294"
+    },
+    {
+      "ticker": "NOC",
+      "name": "Northrop Grumman Corporation",
+      "sector": "Industrials",
+      "industry": "Aerospace & Defense",
+      "market_cap": 97219149824,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:44.542199"
+    },
+    {
+      "ticker": "SO",
+      "name": "The Southern Company",
+      "sector": "Utilities",
+      "industry": "Utilities - Regulated Electric",
+      "market_cap": 97106444288,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:45.086961"
+    },
+    {
+      "ticker": "PBR",
+      "name": "Petr\u00f3leo Brasileiro S.A. - Petrobras",
+      "sector": "Energy",
+      "industry": "Oil & Gas Integrated",
+      "market_cap": 96858824704,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:45.654924"
+    },
+    {
+      "ticker": "ITUB",
+      "name": "Ita\u00fa Unibanco Holding S.A.",
+      "sector": "Financial Services",
+      "industry": "Banks - Regional",
+      "market_cap": 95930761216,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:42.396268"
+    },
+    {
+      "ticker": "AEM",
+      "name": "Agnico Eagle Mines Limited",
+      "sector": "Basic Materials",
+      "industry": "Gold",
+      "market_cap": 95800524800,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:46.170310"
+    },
+    {
+      "ticker": "CVS",
+      "name": "CVS Health Corporation",
+      "sector": "Healthcare",
+      "industry": "Healthcare Plans",
+      "market_cap": 95740592128,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:46.695023"
+    },
+    {
+      "ticker": "BCS",
+      "name": "Barclays PLC",
+      "sector": "Financial Services",
+      "industry": "Banks - Diversified",
+      "market_cap": 94886436864,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:47.470543"
+    },
+    {
+      "ticker": "GLW",
+      "name": "Corning Incorporated",
+      "sector": "Technology",
+      "industry": "Electronic Components",
+      "market_cap": 94618296320,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:48.505529"
+    },
+    {
+      "ticker": "TT",
+      "name": "Trane Technologies plc",
+      "sector": "Industrials",
+      "industry": "Building Products & Equipment",
+      "market_cap": 94589050880,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:49.096462"
+    },
+    {
+      "ticker": "STX",
+      "name": "Seagate Technology Holdings plc",
+      "sector": "Technology",
+      "industry": "Computer Hardware",
+      "market_cap": 94414741504,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:50.717752"
+    },
+    {
+      "ticker": "BNS",
+      "name": "The Bank of Nova Scotia",
+      "sector": "Financial Services",
+      "industry": "Banks - Diversified",
+      "market_cap": 93704085504,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:50.955005"
+    },
+    {
+      "ticker": "GD",
+      "name": "General Dynamics Corporation",
+      "sector": "Industrials",
+      "industry": "Aerospace & Defense",
+      "market_cap": 93654900736,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:49.616328"
+    },
+    {
+      "ticker": "UPS",
+      "name": "United Parcel Service, Inc.",
+      "sector": "Industrials",
+      "industry": "Integrated Freight & Logistics",
+      "market_cap": 93551476736,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:50.177868"
+    },
+    {
+      "ticker": "DUK",
+      "name": "Duke Energy Corporation",
+      "sector": "Utilities",
+      "industry": "Utilities - Regulated Electric",
+      "market_cap": 92922740736,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:51.466823"
+    },
+    {
+      "ticker": "MCO",
+      "name": "Moody's Corporation",
+      "sector": "Financial Services",
+      "industry": "Financial Data & Stock Exchanges",
+      "market_cap": 92737380352,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:51.988507"
+    },
+    {
+      "ticker": "MRSH",
+      "name": "Marsh & McLennan Companies, Inc.",
+      "sector": "Financial Services",
+      "industry": "Insurance Brokers",
+      "market_cap": 92225503232,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:52.513128"
+    },
+    {
+      "ticker": "NKE",
+      "name": "NIKE, Inc.",
+      "sector": "Consumer Cyclical",
+      "industry": "Footwear & Accessories",
+      "market_cap": 92050235392,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:53.033743"
+    },
+    {
+      "ticker": "PNC",
+      "name": "The PNC Financial Services Group, Inc.",
+      "sector": "Financial Services",
+      "industry": "Banks - Regional",
+      "market_cap": 92033974272,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:55.628849"
+    },
+    {
+      "ticker": "WDC",
+      "name": "Western Digital Corporation",
+      "sector": "Technology",
+      "industry": "Computer Hardware",
+      "market_cap": 91618222080,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:51.278498"
+    },
+    {
+      "ticker": "LYG",
+      "name": "Lloyds Banking Group plc",
+      "sector": "Financial Services",
+      "industry": "Banks - Regional",
+      "market_cap": 91511988224,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:53.541467"
+    },
+    {
+      "ticker": "RCL",
+      "name": "Royal Caribbean Cruises Ltd.",
+      "sector": "Consumer Cyclical",
+      "industry": "Travel Services",
+      "market_cap": 91099758592,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:54.072297"
+    },
+    {
+      "ticker": "WM",
+      "name": "Waste Management, Inc.",
+      "sector": "Industrials",
+      "industry": "Waste Management",
+      "market_cap": 89903808512,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:54.588749"
+    },
+    {
+      "ticker": "DASH",
+      "name": "DoorDash, Inc.",
+      "sector": "Consumer Cyclical",
+      "industry": "Internet Retail",
+      "market_cap": 89505464320,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:51.857987"
+    },
+    {
+      "ticker": "USB",
+      "name": "U.S. Bancorp",
+      "sector": "Financial Services",
+      "industry": "Banks - Regional",
+      "market_cap": 89194807296,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:55.120049"
+    },
+    {
+      "ticker": "SHW",
+      "name": "The Sherwin-Williams Company",
+      "sector": "Basic Materials",
+      "industry": "Specialty Chemicals",
+      "market_cap": 88852414464,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:56.809382"
+    },
+    {
+      "ticker": "CVNA",
+      "name": "Carvana Co.",
+      "sector": "Consumer Cyclical",
+      "industry": "Auto & Truck Dealerships",
+      "market_cap": 88431960064,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:56.245897"
+    },
+    {
+      "ticker": "CM",
+      "name": "Canadian Imperial Bank of Commerce",
+      "sector": "Financial Services",
+      "industry": "Banks - Diversified",
+      "market_cap": 88333967360,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:57.318486"
+    },
+    {
+      "ticker": "ING",
+      "name": "ING Groep N.V.",
+      "sector": "Financial Services",
+      "industry": "Banks - Diversified",
+      "market_cap": 87924645888,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:47.992931"
+    },
+    {
+      "ticker": "NU",
+      "name": "Nu Holdings Ltd.",
+      "sector": "Financial Services",
+      "industry": "Banks - Regional",
+      "market_cap": 87753375744,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:57.850084"
+    },
+    {
+      "ticker": "SNPS",
+      "name": "Synopsys, Inc.",
+      "sector": "Technology",
+      "industry": "Software - Infrastructure",
+      "market_cap": 87602700288,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:52.416180"
+    },
+    {
+      "ticker": "FCX",
+      "name": "Freeport-McMoRan Inc.",
+      "sector": "Basic Materials",
+      "industry": "Copper",
+      "market_cap": 87247142912,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:58.379813"
+    },
+    {
+      "ticker": "MAR",
+      "name": "Marriott International, Inc.",
+      "sector": "Consumer Cyclical",
+      "industry": "Lodging",
+      "market_cap": 86673768448,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:52.972978"
+    },
+    {
+      "ticker": "BK",
+      "name": "The Bank of New York Mellon Corporation",
+      "sector": "Financial Services",
+      "industry": "Banks - Diversified",
+      "market_cap": 84804624384,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:58.953548"
+    },
+    {
+      "ticker": "NGG",
+      "name": "National Grid plc",
+      "sector": "Utilities",
+      "industry": "Utilities - Regulated Electric",
+      "market_cap": 84079714304,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:59.474809"
+    },
+    {
+      "ticker": "EMR",
+      "name": "Emerson Electric Co.",
+      "sector": "Industrials",
+      "industry": "Specialty Industrial Machinery",
+      "market_cap": 83574964224,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:59.984238"
+    },
+    {
+      "ticker": "HWM",
+      "name": "Howmet Aerospace Inc.",
+      "sector": "Industrials",
+      "industry": "Aerospace & Defense",
+      "market_cap": 83402031104,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:01.015676"
+    },
+    {
+      "ticker": "CRH",
+      "name": "CRH plc",
+      "sector": "Basic Materials",
+      "industry": "Building Materials",
+      "market_cap": 83274989568,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:00.501181"
+    },
+    {
+      "ticker": "NTES",
+      "name": "NetEase, Inc.",
+      "sector": "Communication Services",
+      "industry": "Electronic Gaming & Multimedia",
+      "market_cap": 83025805312,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:54.046806"
+    },
+    {
+      "ticker": "ORLY",
+      "name": "O'Reilly Automotive, Inc.",
+      "sector": "Consumer Cyclical",
+      "industry": "Auto Parts",
+      "market_cap": 82919628800,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:53.532570"
+    },
+    {
+      "ticker": "CMI",
+      "name": "Cummins Inc.",
+      "sector": "Industrials",
+      "industry": "Specialty Industrial Machinery",
+      "market_cap": 82149515264,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:01.533391"
+    },
+    {
+      "ticker": "BAM",
+      "name": "Brookfield Asset Management Ltd.",
+      "sector": "Financial Services",
+      "industry": "Asset Management",
+      "market_cap": 81925873664,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:02.120320"
+    },
+    {
+      "ticker": "MMM",
+      "name": "3M Company",
+      "sector": "Industrials",
+      "industry": "Conglomerates",
+      "market_cap": 81505853440,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:03.256264"
+    },
+    {
+      "ticker": "AMT",
+      "name": "American Tower Corporation",
+      "sector": "Real Estate",
+      "industry": "REIT - Specialty",
+      "market_cap": 81335238656,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:03.905892"
+    },
+    {
+      "ticker": "TDG",
+      "name": "TransDigm Group Incorporated",
+      "sector": "Industrials",
+      "industry": "Aerospace & Defense",
+      "market_cap": 81038458880,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:04.534427"
+    },
+    {
+      "ticker": "WMB",
+      "name": "The Williams Companies, Inc.",
+      "sector": "Energy",
+      "industry": "Oil & Gas Midstream",
+      "market_cap": 81015652352,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:05.097562"
+    },
+    {
+      "ticker": "HOOD",
+      "name": "Robinhood Markets, Inc.",
+      "sector": "Financial Services",
+      "industry": "Capital Markets",
+      "market_cap": 80846077952,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:54.619825"
+    },
+    {
+      "ticker": "ECL",
+      "name": "Ecolab Inc.",
+      "sector": "Basic Materials",
+      "industry": "Specialty Chemicals",
+      "market_cap": 80450199552,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:05.674734"
+    },
+    {
+      "ticker": "ABNB",
+      "name": "Airbnb, Inc.",
+      "sector": "Consumer Cyclical",
+      "industry": "Travel Services",
+      "market_cap": 80392658944,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:55.134158"
+    },
+    {
+      "ticker": "REGN",
+      "name": "Regeneron Pharmaceuticals, Inc.",
+      "sector": "Healthcare",
+      "industry": "Biotechnology",
+      "market_cap": 80022642688,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:56.157059"
+    },
+    {
+      "ticker": "DELL",
+      "name": "Dell Technologies Inc.",
+      "sector": "Technology",
+      "industry": "Computer Hardware",
+      "market_cap": 79861055488,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:06.283103"
+    },
+    {
+      "ticker": "EQIX",
+      "name": "Equinix, Inc.",
+      "sector": "Real Estate",
+      "industry": "REIT - Specialty",
+      "market_cap": 79568035840,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:55.643793"
+    },
+    {
+      "ticker": "B",
+      "name": "Barrick Mining Corporation",
+      "sector": "Basic Materials",
+      "industry": "Gold",
+      "market_cap": 79387049984,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:07.585176"
+    },
+    {
+      "ticker": "MNST",
+      "name": "Monster Beverage Corporation",
+      "sector": "Consumer Defensive",
+      "industry": "Beverages - Non-Alcoholic",
+      "market_cap": 79236415488,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:56.724102"
+    },
+    {
+      "ticker": "FDX",
+      "name": "FedEx Corporation",
+      "sector": "Industrials",
+      "industry": "Integrated Freight & Logistics",
+      "market_cap": 79115862016,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:07.008308"
+    },
+    {
+      "ticker": "CDNS",
+      "name": "Cadence Design Systems, Inc.",
+      "sector": "Technology",
+      "industry": "Software - Application",
+      "market_cap": 78801379328,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:57.246671"
+    },
+    {
+      "ticker": "GM",
+      "name": "General Motors Company",
+      "sector": "Consumer Cyclical",
+      "industry": "Auto Manufacturers",
+      "market_cap": 78612217856,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:10.821413"
+    },
+    {
+      "ticker": "APO",
+      "name": "Apollo Global Management, Inc.",
+      "sector": "Financial Services",
+      "industry": "Asset Management",
+      "market_cap": 77306486784,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:08.153610"
+    },
+    {
+      "ticker": "ITW",
+      "name": "Illinois Tool Works Inc.",
+      "sector": "Industrials",
+      "industry": "Specialty Industrial Machinery",
+      "market_cap": 77017210880,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:09.192737"
+    },
+    {
+      "ticker": "ELV",
+      "name": "Elevance Health, Inc.",
+      "sector": "Healthcare",
+      "industry": "Healthcare Plans",
+      "market_cap": 76972695552,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:11.926185"
+    },
+    {
+      "ticker": "CTAS",
+      "name": "Cintas Corporation",
+      "sector": "Industrials",
+      "industry": "Specialty Business Services",
+      "market_cap": 76720373760,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:57.811357"
+    },
+    {
+      "ticker": "CNQ",
+      "name": "Canadian Natural Resources Limited",
+      "sector": "Energy",
+      "industry": "Oil & Gas E&P",
+      "market_cap": 76086099968,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:11.384111"
+    },
+    {
+      "ticker": "MDLZ",
+      "name": "Mondelez International, Inc.",
+      "sector": "Consumer Defensive",
+      "industry": "Confectioners",
+      "market_cap": 75941658624,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:58.513112"
+    },
+    {
+      "ticker": "DB",
+      "name": "Deutsche Bank Aktiengesellschaft",
+      "sector": "Financial Services",
+      "industry": "Banks - Regional",
+      "market_cap": 75658919936,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:08.672752"
+    },
+    {
+      "ticker": "NWG",
+      "name": "NatWest Group plc",
+      "sector": "Financial Services",
+      "industry": "Banks - Regional",
+      "market_cap": 75636637696,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:12.649122"
+    },
+    {
+      "ticker": "JCI",
+      "name": "Johnson Controls International plc",
+      "sector": "Industrials",
+      "industry": "Building Products & Equipment",
+      "market_cap": 75271897088,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:13.164834"
+    },
+    {
+      "ticker": "AON",
+      "name": "Aon plc",
+      "sector": "Financial Services",
+      "industry": "Insurance Brokers",
+      "market_cap": 75143512064,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:13.694201"
+    },
+    {
+      "ticker": "CL",
+      "name": "Colgate-Palmolive Company",
+      "sector": "Consumer Defensive",
+      "industry": "Household & Personal Products",
+      "market_cap": 74267410432,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:14.269823"
+    },
+    {
+      "ticker": "INFY",
+      "name": "Infosys Limited",
+      "sector": "Technology",
+      "industry": "Information Technology Services",
+      "market_cap": 74197958656,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:10.280436"
+    },
+    {
+      "ticker": "VRT",
+      "name": "Vertiv Holdings Co",
+      "sector": "Industrials",
+      "industry": "Electrical Equipment & Parts",
+      "market_cap": 72648097792,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:14.803154"
+    },
+    {
+      "ticker": "CI",
+      "name": "The Cigna Group",
+      "sector": "Healthcare",
+      "industry": "Healthcare Plans",
+      "market_cap": 72535351296,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:15.372980"
+    },
+    {
+      "ticker": "SPG",
+      "name": "Simon Property Group, Inc.",
+      "sector": "Real Estate",
+      "industry": "REIT - Retail",
+      "market_cap": 72129527808,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:30.415200"
+    },
+    {
+      "ticker": "SLB",
+      "name": "SLB N.V.",
+      "sector": "Energy",
+      "industry": "Oil & Gas Equipment & Services",
+      "market_cap": 71850672128,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:15.921161"
+    },
+    {
+      "ticker": "EPD",
+      "name": "Enterprise Products Partners L.P.",
+      "sector": "Energy",
+      "industry": "Oil & Gas Midstream",
+      "market_cap": 71669686272,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:16.552542"
+    },
+    {
+      "ticker": "CSX",
+      "name": "CSX Corporation",
+      "sector": "Industrials",
+      "industry": "Railroads",
+      "market_cap": 71569596416,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:59.031261"
+    },
+    {
+      "ticker": "NSC",
+      "name": "Norfolk Southern Corporation",
+      "sector": "Industrials",
+      "industry": "Railroads",
+      "market_cap": 71329906688,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:24.451673"
+    },
+    {
+      "ticker": "HLT",
+      "name": "Hilton Worldwide Holdings Inc.",
+      "sector": "Consumer Cyclical",
+      "industry": "Lodging",
+      "market_cap": 71247241216,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:18.294141"
+    },
+    {
+      "ticker": "PWR",
+      "name": "Quanta Services, Inc.",
+      "sector": "Industrials",
+      "industry": "Engineering & Construction",
+      "market_cap": 71243096064,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:17.101465"
+    },
+    {
+      "ticker": "COR",
+      "name": "Cencora, Inc.",
+      "sector": "Healthcare",
+      "industry": "Medical Distribution",
+      "market_cap": 70721904640,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:17.730420"
+    },
+    {
+      "ticker": "VALE",
+      "name": "Vale S.A.",
+      "sector": "Basic Materials",
+      "industry": "Other Industrial Metals & Mining",
+      "market_cap": 68898103296,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:19.117091"
+    },
+    {
+      "ticker": "WBD",
+      "name": "Warner Bros. Discovery, Inc.",
+      "sector": "Communication Services",
+      "industry": "Entertainment",
+      "market_cap": 68235476992,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:20:59.742086"
+    },
+    {
+      "ticker": "MRVL",
+      "name": "Marvell Technology, Inc.",
+      "sector": "Technology",
+      "industry": "Semiconductors",
+      "market_cap": 67812786176,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:00.415293"
+    },
+    {
+      "ticker": "CP",
+      "name": "Canadian Pacific Kansas City Limited",
+      "sector": "Industrials",
+      "industry": "Railroads",
+      "market_cap": 67372695552,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:19.653935"
+    },
+    {
+      "ticker": "TFC",
+      "name": "Truist Financial Corporation",
+      "sector": "Financial Services",
+      "industry": "Banks - Regional",
+      "market_cap": 67365113856,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:20.409668"
+    },
+    {
+      "ticker": "RSG",
+      "name": "Republic Services, Inc.",
+      "sector": "Industrials",
+      "industry": "Waste Management",
+      "market_cap": 67354316800,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:22.774799"
+    },
+    {
+      "ticker": "MSI",
+      "name": "Motorola Solutions, Inc.",
+      "sector": "Technology",
+      "industry": "Communication Equipment",
+      "market_cap": 67254657024,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:21.661772"
+    },
+    {
+      "ticker": "SE",
+      "name": "Sea Limited",
+      "sector": "Consumer Cyclical",
+      "industry": "Internet Retail",
+      "market_cap": 67247538176,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:20.982876"
+    },
+    {
+      "ticker": "TEL",
+      "name": "TE Connectivity plc",
+      "sector": "Technology",
+      "industry": "Electronic Components",
+      "market_cap": 66670714880,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:23.353443"
+    },
+    {
+      "ticker": "KMI",
+      "name": "Kinder Morgan, Inc.",
+      "sector": "Energy",
+      "industry": "Oil & Gas Midstream",
+      "market_cap": 65875152896,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:23.916575"
+    },
+    {
+      "ticker": "PCAR",
+      "name": "PACCAR Inc",
+      "sector": "Industrials",
+      "industry": "Farm & Heavy Construction Machinery",
+      "market_cap": 65470095360,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:01.002008"
+    },
+    {
+      "ticker": "SNOW",
+      "name": "Snowflake Inc.",
+      "sector": "Technology",
+      "industry": "Software - Application",
+      "market_cap": 65250693120,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:25.024928"
+    },
+    {
+      "ticker": "EQNR",
+      "name": "Equinor ASA",
+      "sector": "Energy",
+      "industry": "Oil & Gas Integrated",
+      "market_cap": 64785944576,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:09.756055"
+    },
+    {
+      "ticker": "MFC",
+      "name": "Manulife Financial Corporation",
+      "sector": "Financial Services",
+      "industry": "Insurance - Life",
+      "market_cap": 64684789760,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:26.350297"
+    },
+    {
+      "ticker": "RELX",
+      "name": "RELX PLC",
+      "sector": "Industrials",
+      "industry": "Specialty Business Services",
+      "market_cap": 64381796352,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:25.812241"
+    },
+    {
+      "ticker": "SU",
+      "name": "Suncor Energy Inc.",
+      "sector": "Energy",
+      "industry": "Oil & Gas Integrated",
+      "market_cap": 64103587840,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:29.179858"
+    },
+    {
+      "ticker": "NET",
+      "name": "Cloudflare, Inc.",
+      "sector": "Technology",
+      "industry": "Software - Infrastructure",
+      "market_cap": 63898288128,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:26.928650"
+    },
+    {
+      "ticker": "TRV",
+      "name": "The Travelers Companies, Inc.",
+      "sector": "Financial Services",
+      "industry": "Insurance - Property & Casualty",
+      "market_cap": 63713607680,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:27.445951"
+    },
+    {
+      "ticker": "LHX",
+      "name": "L3Harris Technologies, Inc.",
+      "sector": "Industrials",
+      "industry": "Aerospace & Defense",
+      "market_cap": 63657132032,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:28.085412"
+    },
+    {
+      "ticker": "AEP",
+      "name": "American Electric Power Company, Inc.",
+      "sector": "Utilities",
+      "industry": "Utilities - Regulated Electric",
+      "market_cap": 63337979904,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:01.528701"
+    },
+    {
+      "ticker": "AJG",
+      "name": "Arthur J. Gallagher & Co.",
+      "sector": "Financial Services",
+      "industry": "Insurance Brokers",
+      "market_cap": 63028506624,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:29.805004"
+    },
+    {
+      "ticker": "AMX",
+      "name": "Am\u00e9rica M\u00f3vil, S.A.B. de C.V.",
+      "sector": "Communication Services",
+      "industry": "Telecom Services",
+      "market_cap": 62813368320,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:28.606750"
+    },
+    {
+      "ticker": "FTNT",
+      "name": "Fortinet, Inc.",
+      "sector": "Technology",
+      "industry": "Software - Infrastructure",
+      "market_cap": 62289768448,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:02.690682"
+    },
+    {
+      "ticker": "ET",
+      "name": "Energy Transfer LP",
+      "sector": "Energy",
+      "industry": "Oil & Gas Midstream",
+      "market_cap": 62281633792,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:31.039787"
+    },
+    {
+      "ticker": "AZO",
+      "name": "AutoZone, Inc.",
+      "sector": "Consumer Cyclical",
+      "industry": "Auto Parts",
+      "market_cap": 61913591808,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:31.750315"
+    },
+    {
+      "ticker": "ROST",
+      "name": "Ross Stores, Inc.",
+      "sector": "Consumer Cyclical",
+      "industry": "Apparel Retail",
+      "market_cap": 61828767744,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:02.095504"
+    },
+    {
+      "ticker": "CCZ",
+      "name": "Comcast Holdings Corp.",
+      "sector": "Unknown",
+      "industry": "Unknown",
+      "market_cap": 61570207744,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:24:04.020303"
+    },
+    {
+      "ticker": "TRP",
+      "name": "TC Energy Corporation",
+      "sector": "Energy",
+      "industry": "Oil & Gas Midstream",
+      "market_cap": 60841025536,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:32.263023"
+    },
+    {
+      "ticker": "APD",
+      "name": "Air Products and Chemicals, Inc.",
+      "sector": "Basic Materials",
+      "industry": "Specialty Chemicals",
+      "market_cap": 60337549312,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:33.363940"
+    },
+    {
+      "ticker": "E",
+      "name": "Eni S.p.A.",
+      "sector": "Energy",
+      "industry": "Oil & Gas Integrated",
+      "market_cap": 60213288960,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:22.178025"
+    },
+    {
+      "ticker": "WPM",
+      "name": "Wheaton Precious Metals Corp.",
+      "sector": "Basic Materials",
+      "industry": "Gold",
+      "market_cap": 60105220096,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:34.001133"
+    },
+    {
+      "ticker": "AFL",
+      "name": "Aflac Incorporated",
+      "sector": "Financial Services",
+      "industry": "Insurance - Life",
+      "market_cap": 59874381824,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:35.048444"
+    },
+    {
+      "ticker": "RACE",
+      "name": "Ferrari N.V.",
+      "sector": "Consumer Cyclical",
+      "industry": "Auto Manufacturers",
+      "market_cap": 59577556992,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:02.684230"
+    },
+    {
+      "ticker": "EOG",
+      "name": "EOG Resources, Inc.",
+      "sector": "Energy",
+      "industry": "Oil & Gas E&P",
+      "market_cap": 59191148544,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:32.834456"
+    },
+    {
+      "ticker": "CNI",
+      "name": "Canadian National Railway Company",
+      "sector": "Industrials",
+      "industry": "Railroads",
+      "market_cap": 58701914112,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:34.514634"
+    },
+    {
+      "ticker": "NXPI",
+      "name": "NXP Semiconductors N.V.",
+      "sector": "Technology",
+      "industry": "Semiconductors",
+      "market_cap": 58258640896,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:03.821563"
+    },
+    {
+      "ticker": "DLR",
+      "name": "Digital Realty Trust, Inc.",
+      "sector": "Real Estate",
+      "industry": "REIT - Specialty",
+      "market_cap": 57739718656,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:36.774512"
+    },
+    {
+      "ticker": "BDX",
+      "name": "Becton, Dickinson and Company",
+      "sector": "Healthcare",
+      "industry": "Medical Instruments & Supplies",
+      "market_cap": 57628864512,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:35.583224"
+    },
+    {
+      "ticker": "PSX",
+      "name": "Phillips 66",
+      "sector": "Energy",
+      "industry": "Oil & Gas Refining & Marketing",
+      "market_cap": 57482637312,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:36.209253"
+    },
+    {
+      "ticker": "FITB",
+      "name": "Fifth Third Bancorp",
+      "sector": "Financial Services",
+      "industry": "Banks - Regional",
+      "market_cap": 56470790144,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:32.213126"
+    },
+    {
+      "ticker": "MPLX",
+      "name": "MPLX LP",
+      "sector": "Energy",
+      "industry": "Oil & Gas Midstream",
+      "market_cap": 56374726656,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:37.945610"
+    },
+    {
+      "ticker": "SRE",
+      "name": "Sempra",
+      "sector": "Utilities",
+      "industry": "Utilities - Diversified",
+      "market_cap": 56274202624,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:37.383470"
+    },
+    {
+      "ticker": "MPWR",
+      "name": "Monolithic Power Systems, Inc.",
+      "sector": "Technology",
+      "industry": "Semiconductors",
+      "market_cap": 56205447168,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:04.382725"
+    },
+    {
+      "ticker": "VLO",
+      "name": "Valero Energy Corporation",
+      "sector": "Energy",
+      "industry": "Oil & Gas Refining & Marketing",
+      "market_cap": 55985655808,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:41.544588"
+    },
+    {
+      "ticker": "BKR",
+      "name": "Baker Hughes Company",
+      "sector": "Energy",
+      "industry": "Oil & Gas Equipment & Services",
+      "market_cap": 55703388160,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:04.896018"
+    },
+    {
+      "ticker": "O",
+      "name": "Realty Income Corporation",
+      "sector": "Real Estate",
+      "industry": "REIT - Retail",
+      "market_cap": 55572942848,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:38.662514"
+    },
+    {
+      "ticker": "NDAQ",
+      "name": "Nasdaq, Inc.",
+      "sector": "Financial Services",
+      "industry": "Financial Data & Stock Exchanges",
+      "market_cap": 55549116416,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:05.536762"
+    },
+    {
+      "ticker": "ZTS",
+      "name": "Zoetis Inc.",
+      "sector": "Healthcare",
+      "industry": "Drug Manufacturers - Specialty & Generic",
+      "market_cap": 55371345920,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:39.845906"
+    },
+    {
+      "ticker": "TAK",
+      "name": "Takeda Pharmaceutical Company Limited",
+      "sector": "Healthcare",
+      "industry": "Drug Manufacturers - Specialty & Generic",
+      "market_cap": 55254282240,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:40.362916"
+    },
+    {
+      "ticker": "F",
+      "name": "Ford Motor Company",
+      "sector": "Consumer Cyclical",
+      "industry": "Auto Manufacturers",
+      "market_cap": 55025930240,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:41.014176"
+    },
+    {
+      "ticker": "ADSK",
+      "name": "Autodesk, Inc.",
+      "sector": "Technology",
+      "industry": "Software - Application",
+      "market_cap": 54436413440,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:06.155568"
+    },
+    {
+      "ticker": "MPC",
+      "name": "Marathon Petroleum Corporation",
+      "sector": "Energy",
+      "industry": "Oil & Gas Refining & Marketing",
+      "market_cap": 53784236032,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:42.113813"
+    },
+    {
+      "ticker": "BSBR",
+      "name": "Banco Santander (Brasil) S.A.",
+      "sector": "Financial Services",
+      "industry": "Banks - Regional",
+      "market_cap": 53194297344,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:45.977332"
+    },
+    {
+      "ticker": "MET",
+      "name": "MetLife, Inc.",
+      "sector": "Financial Services",
+      "industry": "Insurance - Life",
+      "market_cap": 53089030144,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:43.202283"
+    },
+    {
+      "ticker": "ALL",
+      "name": "The Allstate Corporation",
+      "sector": "Financial Services",
+      "industry": "Insurance - Property & Casualty",
+      "market_cap": 52901326848,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:43.773029"
+    },
+    {
+      "ticker": "RKT",
+      "name": "Rocket Companies, Inc.",
+      "sector": "Financial Services",
+      "industry": "Mortgage Finance",
+      "market_cap": 52854255616,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:42.693894"
+    },
+    {
+      "ticker": "AME",
+      "name": "AMETEK, Inc.",
+      "sector": "Industrials",
+      "industry": "Specialty Industrial Machinery",
+      "market_cap": 52592832512,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:44.329953"
+    },
+    {
+      "ticker": "CCJ",
+      "name": "Cameco Corporation",
+      "sector": "Energy",
+      "industry": "Uranium",
+      "market_cap": 52489936896,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:44.841296"
+    },
+    {
+      "ticker": "GWW",
+      "name": "W.W. Grainger, Inc.",
+      "sector": "Industrials",
+      "industry": "Industrial Distribution",
+      "market_cap": 52432752640,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:46.562960"
+    },
+    {
+      "ticker": "VST",
+      "name": "Vistra Corp.",
+      "sector": "Utilities",
+      "industry": "Utilities - Independent Power Producers",
+      "market_cap": 52267220992,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:45.408241"
+    },
+    {
+      "ticker": "CAH",
+      "name": "Cardinal Health, Inc.",
+      "sector": "Healthcare",
+      "industry": "Medical Distribution",
+      "market_cap": 52016680960,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:47.085704"
+    },
+    {
+      "ticker": "BIDU",
+      "name": "Baidu, Inc.",
+      "sector": "Communication Services",
+      "industry": "Internet Content & Information",
+      "market_cap": 51792334848,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:08.404231"
+    },
+    {
+      "ticker": "ARGX",
+      "name": "argenx SE",
+      "sector": "Healthcare",
+      "industry": "Biotechnology",
+      "market_cap": 51714727936,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:09.452774"
+    },
+    {
+      "ticker": "CMG",
+      "name": "Chipotle Mexican Grill, Inc.",
+      "sector": "Consumer Cyclical",
+      "industry": "Restaurants",
+      "market_cap": 51637477376,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:49.312406"
+    },
+    {
+      "ticker": "FAST",
+      "name": "Fastenal Company",
+      "sector": "Industrials",
+      "industry": "Industrial Distribution",
+      "market_cap": 51432972288,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:07.824177"
+    },
+    {
+      "ticker": "CARR",
+      "name": "Carrier Global Corporation",
+      "sector": "Industrials",
+      "industry": "Building Products & Equipment",
+      "market_cap": 51367739392,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:49.907157"
+    },
+    {
+      "ticker": "D",
+      "name": "Dominion Energy, Inc.",
+      "sector": "Utilities",
+      "industry": "Utilities - Regulated Electric",
+      "market_cap": 51260411904,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:48.185415"
+    },
+    {
+      "ticker": "FERG",
+      "name": "Ferguson Enterprises Inc.",
+      "sector": "Industrials",
+      "industry": "Industrial Distribution",
+      "market_cap": 51187163136,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:47.614452"
+    },
+    {
+      "ticker": "IDXX",
+      "name": "IDEXX Laboratories, Inc.",
+      "sector": "Healthcare",
+      "industry": "Diagnostics & Research",
+      "market_cap": 51171000320,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:08.931293"
+    },
+    {
+      "ticker": "DEO",
+      "name": "Diageo plc",
+      "sector": "Consumer Defensive",
+      "industry": "Beverages - Wineries & Distilleries",
+      "market_cap": 51133243392,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:48.796943"
+    },
+    {
+      "ticker": "EA",
+      "name": "Electronic Arts Inc.",
+      "sector": "Communication Services",
+      "industry": "Electronic Gaming & Multimedia",
+      "market_cap": 50921607168,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:09.983409"
+    },
+    {
+      "ticker": "COIN",
+      "name": "Coinbase Global, Inc.",
+      "sector": "Financial Services",
+      "industry": "Financial Data & Stock Exchanges",
+      "market_cap": 50657878016,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:10.548713"
+    },
+    {
+      "ticker": "CBRE",
+      "name": "CBRE Group, Inc.",
+      "sector": "Real Estate",
+      "industry": "Real Estate Services",
+      "market_cap": 50400350208,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:50.486561"
+    },
+    {
+      "ticker": "PYPL",
+      "name": "PayPal Holdings, Inc.",
+      "sector": "Financial Services",
+      "industry": "Credit Services",
+      "market_cap": 49994956800,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:11.844059"
+    },
+    {
+      "ticker": "TGT",
+      "name": "Target Corporation",
+      "sector": "Consumer Defensive",
+      "industry": "Discount Stores",
+      "market_cap": 49770336256,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:51.059710"
+    },
+    {
+      "ticker": "CTVA",
+      "name": "Corteva, Inc.",
+      "sector": "Basic Materials",
+      "industry": "Agricultural Inputs",
+      "market_cap": 49710120960,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:51.683826"
+    },
+    {
+      "ticker": "URI",
+      "name": "United Rentals, Inc.",
+      "sector": "Industrials",
+      "industry": "Rental & Leasing Services",
+      "market_cap": 49566609408,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:52.954957"
+    },
+    {
+      "ticker": "AMP",
+      "name": "Ameriprise Financial, Inc.",
+      "sector": "Financial Services",
+      "industry": "Asset Management",
+      "market_cap": 49442562048,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:52.247589"
+    },
+    {
+      "ticker": "TRI",
+      "name": "Thomson Reuters Corporation",
+      "sector": "Industrials",
+      "industry": "Specialty Business Services",
+      "market_cap": 49284902912,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:12.415298"
+    },
+    {
+      "ticker": "FER",
+      "name": "Ferrovial SE",
+      "sector": "Industrials",
+      "industry": "Engineering & Construction",
+      "market_cap": 48803737600,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:11.123125"
+    },
+    {
+      "ticker": "EW",
+      "name": "Edwards Lifesciences Corporation",
+      "sector": "Healthcare",
+      "industry": "Medical Devices",
+      "market_cap": 48523816960,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:54.005443"
+    },
+    {
+      "ticker": "ROK",
+      "name": "Rockwell Automation, Inc.",
+      "sector": "Industrials",
+      "industry": "Specialty Industrial Machinery",
+      "market_cap": 48250699776,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:53.470309"
+    },
+    {
+      "ticker": "ARES",
+      "name": "Ares Management Corporation",
+      "sector": "Financial Services",
+      "industry": "Asset Management",
+      "market_cap": 47987175424,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:54.566911"
+    },
+    {
+      "ticker": "AU",
+      "name": "AngloGold Ashanti plc",
+      "sector": "Basic Materials",
+      "industry": "Gold",
+      "market_cap": 47888654336,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:55.095047"
+    },
+    {
+      "ticker": "PSA",
+      "name": "Public Storage",
+      "sector": "Real Estate",
+      "industry": "REIT - Industrial",
+      "market_cap": 47692599296,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:55.613098"
+    },
+    {
+      "ticker": "OKE",
+      "name": "ONEOK, Inc.",
+      "sector": "Energy",
+      "industry": "Oil & Gas Midstream",
+      "market_cap": 47433220096,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:56.125287"
+    },
+    {
+      "ticker": "RBLX",
+      "name": "Roblox Corporation",
+      "sector": "Communication Services",
+      "industry": "Electronic Gaming & Multimedia",
+      "market_cap": 47365935104,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:56.687366"
+    },
+    {
+      "ticker": "HLN",
+      "name": "Haleon plc",
+      "sector": "Healthcare",
+      "industry": "Drug Manufacturers - Specialty & Generic",
+      "market_cap": 47023992832,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:57.193811"
+    },
+    {
+      "ticker": "MSCI",
+      "name": "MSCI Inc.",
+      "sector": "Financial Services",
+      "industry": "Financial Data & Stock Exchanges",
+      "market_cap": 46943424512,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:57.706670"
+    },
+    {
+      "ticker": "CRWV",
+      "name": "CoreWeave, Inc.",
+      "sector": "Technology",
+      "industry": "Software - Infrastructure",
+      "market_cap": 46360268800,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:16.008261"
+    },
+    {
+      "ticker": "HEI",
+      "name": "HEICO Corporation",
+      "sector": "Industrials",
+      "industry": "Aerospace & Defense",
+      "market_cap": 46320209920,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:58.222079"
+    },
+    {
+      "ticker": "WDAY",
+      "name": "Workday, Inc.",
+      "sector": "Technology",
+      "industry": "Software - Application",
+      "market_cap": 46292459520,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:13.238343"
+    },
+    {
+      "ticker": "FANG",
+      "name": "Diamondback Energy, Inc.",
+      "sector": "Energy",
+      "industry": "Oil & Gas E&P",
+      "market_cap": 45924077568,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:13.806736"
+    },
+    {
+      "ticker": "LNG",
+      "name": "Cheniere Energy, Inc.",
+      "sector": "Energy",
+      "industry": "Oil & Gas Midstream",
+      "market_cap": 45659017216,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:01.075079"
+    },
+    {
+      "ticker": "DDOG",
+      "name": "Datadog, Inc.",
+      "sector": "Technology",
+      "industry": "Software - Application",
+      "market_cap": 45254062080,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:14.326779"
+    },
+    {
+      "ticker": "DAL",
+      "name": "Delta Air Lines, Inc.",
+      "sector": "Industrials",
+      "industry": "Airlines",
+      "market_cap": 45106667520,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:59.983221"
+    },
+    {
+      "ticker": "FNV",
+      "name": "Franco-Nevada Corporation",
+      "sector": "Basic Materials",
+      "industry": "Gold",
+      "market_cap": 45091241984,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:00.503808"
+    },
+    {
+      "ticker": "GFI",
+      "name": "Gold Fields Limited",
+      "sector": "Basic Materials",
+      "industry": "Gold",
+      "market_cap": 44953882624,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:01.591854"
+    },
+    {
+      "ticker": "CCL",
+      "name": "Carnival Corporation & plc",
+      "sector": "Consumer Cyclical",
+      "industry": "Travel Services",
+      "market_cap": 44856188928,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:58.734379"
+    },
+    {
+      "ticker": "ALNY",
+      "name": "Alnylam Pharmaceuticals, Inc.",
+      "sector": "Healthcare",
+      "industry": "Biotechnology",
+      "market_cap": 44801114112,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:14.916776"
+    },
+    {
+      "ticker": "ABEV",
+      "name": "Ambev S.A.",
+      "sector": "Consumer Defensive",
+      "industry": "Beverages - Brewers",
+      "market_cap": 44437651456,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:02.813443"
+    },
+    {
+      "ticker": "EXC",
+      "name": "Exelon Corporation",
+      "sector": "Utilities",
+      "industry": "Utilities - Regulated Electric",
+      "market_cap": 44348538880,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:15.439594"
+    },
+    {
+      "ticker": "XEL",
+      "name": "Xcel Energy Inc.",
+      "sector": "Utilities",
+      "industry": "Utilities - Regulated Electric",
+      "market_cap": 44069711872,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:16.590727"
+    },
+    {
+      "ticker": "DHI",
+      "name": "D.R. Horton, Inc.",
+      "sector": "Consumer Cyclical",
+      "industry": "Residential Construction",
+      "market_cap": 43597979648,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:05.650455"
+    },
+    {
+      "ticker": "YUM",
+      "name": "Yum! Brands, Inc.",
+      "sector": "Consumer Cyclical",
+      "industry": "Restaurants",
+      "market_cap": 43361042432,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:06.230542"
+    },
+    {
+      "ticker": "BBD",
+      "name": "Banco Bradesco S.A.",
+      "sector": "Financial Services",
+      "industry": "Banks - Regional",
+      "market_cap": 43259977728,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:04.127189"
+    },
+    {
+      "ticker": "WCN",
+      "name": "Waste Connections, Inc.",
+      "sector": "Industrials",
+      "industry": "Waste Management",
+      "market_cap": 43220836352,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:06.742703"
+    },
+    {
+      "ticker": "OXY",
+      "name": "Occidental Petroleum Corporation",
+      "sector": "Energy",
+      "industry": "Oil & Gas E&P",
+      "market_cap": 43152216064,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:07.253614"
+    },
+    {
+      "ticker": "MT",
+      "name": "ArcelorMittal S.A.",
+      "sector": "Basic Materials",
+      "industry": "Steel",
+      "market_cap": 42981502976,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:05.002775"
+    },
+    {
+      "ticker": "EBAY",
+      "name": "eBay Inc.",
+      "sector": "Consumer Cyclical",
+      "industry": "Internet Retail",
+      "market_cap": 42857459712,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:17.209179"
+    },
+    {
+      "ticker": "EL",
+      "name": "The Est\u00e9e Lauder Companies Inc.",
+      "sector": "Consumer Defensive",
+      "industry": "Household & Personal Products",
+      "market_cap": 42796384256,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:08.327675"
+    },
+    {
+      "ticker": "TRGP",
+      "name": "Targa Resources Corp.",
+      "sector": "Energy",
+      "industry": "Oil & Gas Midstream",
+      "market_cap": 42752163840,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:08.905386"
+    },
+    {
+      "ticker": "ETR",
+      "name": "Entergy Corporation",
+      "sector": "Utilities",
+      "industry": "Utilities - Regulated Electric",
+      "market_cap": 42645536768,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:09.470482"
+    },
+    {
+      "ticker": "CUK",
+      "name": "Carnival Corporation & plc",
+      "sector": "Consumer Cyclical",
+      "industry": "Travel Services",
+      "market_cap": 42510761984,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:25:59.357243"
+    },
+    {
+      "ticker": "PUK",
+      "name": "Prudential plc",
+      "sector": "Financial Services",
+      "industry": "Insurance - Life",
+      "market_cap": 42375786496,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:10.035657"
+    },
+    {
+      "ticker": "ASX",
+      "name": "ASE Technology Holding Co., Ltd.",
+      "sector": "Technology",
+      "industry": "Semiconductors",
+      "market_cap": 42344865792,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:07.767922"
+    },
+    {
+      "ticker": "MCHP",
+      "name": "Microchip Technology Incorporated",
+      "sector": "Technology",
+      "industry": "Semiconductors",
+      "market_cap": 42198089728,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:17.846525"
+    },
+    {
+      "ticker": "JD",
+      "name": "JD.com, Inc.",
+      "sector": "Consumer Cyclical",
+      "industry": "Internet Retail",
+      "market_cap": 42093334528,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:18.897814"
+    },
+    {
+      "ticker": "CCEP",
+      "name": "Coca-Cola Europacific Partners PLC",
+      "sector": "Consumer Defensive",
+      "industry": "Beverages - Non-Alcoholic",
+      "market_cap": 42069987328,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:18.379810"
+    },
+    {
+      "ticker": "KR",
+      "name": "The Kroger Co.",
+      "sector": "Consumer Defensive",
+      "industry": "Grocery Stores",
+      "market_cap": 41788489728,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:15.709444"
+    },
+    {
+      "ticker": "FIX",
+      "name": "Comfort Systems USA, Inc.",
+      "sector": "Industrials",
+      "industry": "Engineering & Construction",
+      "market_cap": 41500160000,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:11.085425"
+    },
+    {
+      "ticker": "NUE",
+      "name": "Nucor Corporation",
+      "sector": "Basic Materials",
+      "industry": "Steel",
+      "market_cap": 41414262784,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:11.604766"
+    },
+    {
+      "ticker": "TTWO",
+      "name": "Take-Two Interactive Software, Inc.",
+      "sector": "Communication Services",
+      "industry": "Electronic Gaming & Multimedia",
+      "market_cap": 40985792512,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:19.427840"
+    },
+    {
+      "ticker": "AIG",
+      "name": "American International Group, Inc.",
+      "sector": "Financial Services",
+      "industry": "Insurance - Diversified",
+      "market_cap": 40951963648,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:16.213246"
+    },
+    {
+      "ticker": "BBDO",
+      "name": "Banco Bradesco S.A.",
+      "sector": "Financial Services",
+      "industry": "Banks - Regional",
+      "market_cap": 40781553664,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:20.136461"
+    },
+    {
+      "ticker": "TEVA",
+      "name": "Teva Pharmaceutical Industries Limited",
+      "sector": "Healthcare",
+      "industry": "Drug Manufacturers - Specialty & Generic",
+      "market_cap": 40751476736,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:12.124636"
+    },
+    {
+      "ticker": "TCOM",
+      "name": "Trip.com Group Limited",
+      "sector": "Consumer Cyclical",
+      "industry": "Travel Services",
+      "market_cap": 40529948672,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:19.994171"
+    },
+    {
+      "ticker": "CTSH",
+      "name": "Cognizant Technology Solutions Corporation",
+      "sector": "Technology",
+      "industry": "Information Technology Services",
+      "market_cap": 40492908544,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:22.156364"
+    },
+    {
+      "ticker": "VMC",
+      "name": "Vulcan Materials Company",
+      "sector": "Basic Materials",
+      "industry": "Building Materials",
+      "market_cap": 40421486592,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:12.698151"
+    },
+    {
+      "ticker": "MSTR",
+      "name": "Strategy Inc",
+      "sector": "Technology",
+      "industry": "Software - Application",
+      "market_cap": 40401195008,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:20.506629"
+    },
+    {
+      "ticker": "HSY",
+      "name": "The Hershey Company",
+      "sector": "Consumer Defensive",
+      "industry": "Confectioners",
+      "market_cap": 40153481216,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:13.901646"
+    },
+    {
+      "ticker": "ROP",
+      "name": "Roper Technologies, Inc.",
+      "sector": "Technology",
+      "industry": "Software - Application",
+      "market_cap": 40106782720,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:21.073124"
+    },
+    {
+      "ticker": "PEG",
+      "name": "Public Service Enterprise Group Incorporated",
+      "sector": "Utilities",
+      "industry": "Utilities - Regulated Electric",
+      "market_cap": 40087056384,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:14.517116"
+    },
+    {
+      "ticker": "WAB",
+      "name": "Westinghouse Air Brake Technologies Corporation",
+      "sector": "Industrials",
+      "industry": "Railroads",
+      "market_cap": 39950983168,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:15.091549"
+    },
+    {
+      "ticker": "HMC",
+      "name": "Honda Motor Co., Ltd.",
+      "sector": "Consumer Cyclical",
+      "industry": "Auto Manufacturers",
+      "market_cap": 39941001216,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:02.184555"
+    },
+    {
+      "ticker": "GRMN",
+      "name": "Garmin Ltd.",
+      "sector": "Technology",
+      "industry": "Scientific & Technical Instruments",
+      "market_cap": 39830847488,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:16.840017"
+    },
+    {
+      "ticker": "TER",
+      "name": "Teradyne, Inc.",
+      "sector": "Technology",
+      "industry": "Semiconductor Equipment & Materials",
+      "market_cap": 39693619200,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:23.313492"
+    },
+    {
+      "ticker": "SYY",
+      "name": "Sysco Corporation",
+      "sector": "Consumer Defensive",
+      "industry": "Food Distribution",
+      "market_cap": 39684194304,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:17.355970"
+    },
+    {
+      "ticker": "RKLB",
+      "name": "Rocket Lab Corporation",
+      "sector": "Industrials",
+      "industry": "Aerospace & Defense",
+      "market_cap": 39607693312,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:22.739059"
+    },
+    {
+      "ticker": "MLM",
+      "name": "Martin Marietta Materials, Inc.",
+      "sector": "Basic Materials",
+      "industry": "Building Materials",
+      "market_cap": 39460773888,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:17.864391"
+    },
+    {
+      "ticker": "IQV",
+      "name": "IQVIA Holdings Inc.",
+      "sector": "Healthcare",
+      "industry": "Diagnostics & Research",
+      "market_cap": 39378468864,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:18.481156"
+    },
+    {
+      "ticker": "PRU",
+      "name": "Prudential Financial, Inc.",
+      "sector": "Financial Services",
+      "industry": "Insurance - Life",
+      "market_cap": 39319064576,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:03.591641"
+    },
+    {
+      "ticker": "ALC",
+      "name": "Alcon Inc.",
+      "sector": "Healthcare",
+      "industry": "Medical Instruments & Supplies",
+      "market_cap": 39141113856,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:19.076540"
+    },
+    {
+      "ticker": "ODFL",
+      "name": "Old Dominion Freight Line, Inc.",
+      "sector": "Industrials",
+      "industry": "Trucking",
+      "market_cap": 39118598144,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:23.842749"
+    },
+    {
+      "ticker": "KGC",
+      "name": "Kinross Gold Corporation",
+      "sector": "Basic Materials",
+      "industry": "Gold",
+      "market_cap": 38607298560,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:22.382790"
+    },
+    {
+      "ticker": "ASTS",
+      "name": "AST SpaceMobile, Inc.",
+      "sector": "Technology",
+      "industry": "Communication Equipment",
+      "market_cap": 38411808768,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:24.873575"
+    },
+    {
+      "ticker": "CPRT",
+      "name": "Copart, Inc.",
+      "sector": "Industrials",
+      "industry": "Specialty Business Services",
+      "market_cap": 38410940416,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:24.361017"
+    },
+    {
+      "ticker": "A",
+      "name": "Agilent Technologies, Inc.",
+      "sector": "Healthcare",
+      "industry": "Diagnostics & Research",
+      "market_cap": 38383120384,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:20.764842"
+    },
+    {
+      "ticker": "KEYS",
+      "name": "Keysight Technologies, Inc.",
+      "sector": "Technology",
+      "industry": "Scientific & Technical Instruments",
+      "market_cap": 38359887872,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:21.324482"
+    },
+    {
+      "ticker": "HIG",
+      "name": "The Hartford Insurance Group, Inc.",
+      "sector": "Financial Services",
+      "industry": "Insurance - Diversified",
+      "market_cap": 38256750592,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:21.852659"
+    },
+    {
+      "ticker": "LVS",
+      "name": "Las Vegas Sands Corp.",
+      "sector": "Consumer Cyclical",
+      "industry": "Resorts & Casinos",
+      "market_cap": 38194278400,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:23.978824"
+    },
+    {
+      "ticker": "ONC",
+      "name": "BeOne Medicines AG",
+      "sector": "Healthcare",
+      "industry": "Biotechnology",
+      "market_cap": 38176989184,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:25.470163"
+    },
+    {
+      "ticker": "ED",
+      "name": "Consolidated Edison, Inc.",
+      "sector": "Utilities",
+      "industry": "Utilities - Regulated Electric",
+      "market_cap": 38049832960,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:22.897605"
+    },
+    {
+      "ticker": "CIEN",
+      "name": "Ciena Corporation",
+      "sector": "Technology",
+      "industry": "Communication Equipment",
+      "market_cap": 37872099328,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:23.416904"
+    },
+    {
+      "ticker": "RYAAY",
+      "name": "Ryanair Holdings plc",
+      "sector": "Industrials",
+      "industry": "Airlines",
+      "market_cap": 37792743424,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:26.136756"
+    },
+    {
+      "ticker": "MDLN",
+      "name": "Medline Inc.",
+      "sector": "Healthcare",
+      "industry": "Medical Instruments & Supplies",
+      "market_cap": 37465870336,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:03.255535"
+    },
+    {
+      "ticker": "NOK",
+      "name": "Nokia Oyj",
+      "sector": "Technology",
+      "industry": "Communication Equipment",
+      "market_cap": 37442719744,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:24.493463"
+    },
+    {
+      "ticker": "KDP",
+      "name": "Keurig Dr Pepper Inc.",
+      "sector": "Consumer Defensive",
+      "industry": "Beverages - Non-Alcoholic",
+      "market_cap": 37320278016,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:26.731245"
+    },
+    {
+      "ticker": "ERIC",
+      "name": "Telefonaktiebolaget LM Ericsson (publ)",
+      "sector": "Technology",
+      "industry": "Communication Equipment",
+      "market_cap": 37267685376,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:28.325212"
+    },
+    {
+      "ticker": "RMD",
+      "name": "ResMed Inc.",
+      "sector": "Healthcare",
+      "industry": "Medical Instruments & Supplies",
+      "market_cap": 37183451136,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:25.036383"
+    },
+    {
+      "ticker": "STT",
+      "name": "State Street Corporation",
+      "sector": "Financial Services",
+      "industry": "Asset Management",
+      "market_cap": 37031243776,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:25.808848"
+    },
+    {
+      "ticker": "CCI",
+      "name": "Crown Castle Inc.",
+      "sector": "Real Estate",
+      "industry": "REIT - Specialty",
+      "market_cap": 36998295552,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:26.387373"
+    },
+    {
+      "ticker": "BE",
+      "name": "Bloom Energy Corporation",
+      "sector": "Industrials",
+      "industry": "Electrical Equipment & Parts",
+      "market_cap": 36926423040,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:26.900306"
+    },
+    {
+      "ticker": "XYZ",
+      "name": "Block, Inc.",
+      "sector": "Technology",
+      "industry": "Software - Infrastructure",
+      "market_cap": 36818874368,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:27.421756"
+    },
+    {
+      "ticker": "PAYX",
+      "name": "Paychex, Inc.",
+      "sector": "Technology",
+      "industry": "Software - Application",
+      "market_cap": 36783394816,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:27.801562"
+    },
+    {
+      "ticker": "CVE",
+      "name": "Cenovus Energy Inc.",
+      "sector": "Energy",
+      "industry": "Oil & Gas Integrated",
+      "market_cap": 36709396480,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:32.926629"
+    },
+    {
+      "ticker": "CPNG",
+      "name": "Coupang, Inc.",
+      "sector": "Consumer Cyclical",
+      "industry": "Internet Retail",
+      "market_cap": 36606017536,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:28.186055"
+    },
+    {
+      "ticker": "GEHC",
+      "name": "GE HealthCare Technologies Inc.",
+      "sector": "Healthcare",
+      "industry": "Medical Devices",
+      "market_cap": 36575186944,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:29.419405"
+    },
+    {
+      "ticker": "AXON",
+      "name": "Axon Enterprise, Inc.",
+      "sector": "Industrials",
+      "industry": "Aerospace & Defense",
+      "market_cap": 36540346368,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:28.895297"
+    },
+    {
+      "ticker": "VTR",
+      "name": "Ventas, Inc.",
+      "sector": "Real Estate",
+      "industry": "REIT - Healthcare Facilities",
+      "market_cap": 36362018816,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:29.256455"
+    },
+    {
+      "ticker": "FMX",
+      "name": "Fomento Econ\u00f3mico Mexicano, S.A.B. de C.V.",
+      "sector": "Consumer Defensive",
+      "industry": "Beverages - Brewers",
+      "market_cap": 36291772416,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:28.694553"
+    },
+    {
+      "ticker": "HBAN",
+      "name": "Huntington Bancshares Incorporated",
+      "sector": "Financial Services",
+      "industry": "Banks - Regional",
+      "market_cap": 36275699712,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:46.865655"
+    },
+    {
+      "ticker": "ACGL",
+      "name": "Arch Capital Group Ltd.",
+      "sector": "Financial Services",
+      "industry": "Insurance - Diversified",
+      "market_cap": 36094132224,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:31.070974"
+    },
+    {
+      "ticker": "WEC",
+      "name": "WEC Energy Group, Inc.",
+      "sector": "Utilities",
+      "industry": "Utilities - Regulated Electric",
+      "market_cap": 35730317312,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:29.881376"
+    },
+    {
+      "ticker": "SLF",
+      "name": "Sun Life Financial Inc.",
+      "sector": "Financial Services",
+      "industry": "Insurance - Diversified",
+      "market_cap": 35494998016,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:31.102537"
+    },
+    {
+      "ticker": "IR",
+      "name": "Ingersoll Rand Inc.",
+      "sector": "Industrials",
+      "industry": "Specialty Industrial Machinery",
+      "market_cap": 35349426176,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:32.343167"
+    },
+    {
+      "ticker": "VOD",
+      "name": "Vodafone Group Public Limited Company",
+      "sector": "Communication Services",
+      "industry": "Telecom Services",
+      "market_cap": 35332481024,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:30.494546"
+    },
+    {
+      "ticker": "MTB",
+      "name": "M&T Bank Corporation",
+      "sector": "Financial Services",
+      "industry": "Banks - Regional",
+      "market_cap": 35244974080,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:34.274747"
+    },
+    {
+      "ticker": "COHR",
+      "name": "Coherent Corp.",
+      "sector": "Technology",
+      "industry": "Scientific & Technical Instruments",
+      "market_cap": 34957250560,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:10.569539"
+    },
+    {
+      "ticker": "UAL",
+      "name": "United Airlines Holdings, Inc.",
+      "sector": "Industrials",
+      "industry": "Airlines",
+      "market_cap": 34753273856,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:31.643896"
+    },
+    {
+      "ticker": "FICO",
+      "name": "Fair Isaac Corporation",
+      "sector": "Technology",
+      "industry": "Software - Application",
+      "market_cap": 34418683904,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:34.912451"
+    },
+    {
+      "ticker": "EXPE",
+      "name": "Expedia Group, Inc.",
+      "sector": "Consumer Cyclical",
+      "industry": "Travel Services",
+      "market_cap": 34228391936,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:32.843662"
+    },
+    {
+      "ticker": "FISV",
+      "name": "Fiserv, Inc.",
+      "sector": "Unknown",
+      "industry": "Unknown",
+      "market_cap": 34213752832,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:33.359214"
+    },
+    {
+      "ticker": "EQT",
+      "name": "EQT Corporation",
+      "sector": "Energy",
+      "industry": "Oil & Gas E&P",
+      "market_cap": 34167879680,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:35.427704"
+    },
+    {
+      "ticker": "XYL",
+      "name": "Xylem Inc.",
+      "sector": "Industrials",
+      "industry": "Specialty Industrial Machinery",
+      "market_cap": 34056452096,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:36.048927"
+    },
+    {
+      "ticker": "IX",
+      "name": "ORIX Corporation",
+      "sector": "Financial Services",
+      "industry": "Financial Conglomerates",
+      "market_cap": 33911136256,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:30.513977"
+    },
+    {
+      "ticker": "KB",
+      "name": "KB Financial Group Inc.",
+      "sector": "Financial Services",
+      "industry": "Banks - Regional",
+      "market_cap": 33872195584,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:31.721964"
+    },
+    {
+      "ticker": "OTIS",
+      "name": "Otis Worldwide Corporation",
+      "sector": "Industrials",
+      "industry": "Specialty Industrial Machinery",
+      "market_cap": 33811742720,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:37.209844"
+    },
+    {
+      "ticker": "WDS",
+      "name": "Woodside Energy Group Ltd",
+      "sector": "Energy",
+      "industry": "Oil & Gas E&P",
+      "market_cap": 33811429376,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:43.739010"
+    },
+    {
+      "ticker": "VIK",
+      "name": "Viking Holdings Ltd",
+      "sector": "Consumer Cyclical",
+      "industry": "Travel Services",
+      "market_cap": 33581297664,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:38.462368"
+    },
+    {
+      "ticker": "RDDT",
+      "name": "Reddit, Inc.",
+      "sector": "Communication Services",
+      "industry": "Internet Content & Information",
+      "market_cap": 33569173504,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:37.740578"
+    },
+    {
+      "ticker": "SATS",
+      "name": "EchoStar Corporation",
+      "sector": "Communication Services",
+      "industry": "Telecom Services",
+      "market_cap": 33551986688,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:34.164024"
+    },
+    {
+      "ticker": "NTR",
+      "name": "Nutrien Ltd.",
+      "sector": "Basic Materials",
+      "industry": "Agricultural Inputs",
+      "market_cap": 33454751744,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:40.482570"
+    },
+    {
+      "ticker": "VEEV",
+      "name": "Veeva Systems Inc.",
+      "sector": "Healthcare",
+      "industry": "Health Information Services",
+      "market_cap": 33427050496,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:39.364373"
+    },
+    {
+      "ticker": "LYV",
+      "name": "Live Nation Entertainment, Inc.",
+      "sector": "Communication Services",
+      "industry": "Entertainment",
+      "market_cap": 33424199680,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:36.615377"
+    },
+    {
+      "ticker": "KVUE",
+      "name": "Kenvue Inc.",
+      "sector": "Consumer Defensive",
+      "industry": "Household & Personal Products",
+      "market_cap": 33299806208,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:39.892004"
+    },
+    {
+      "ticker": "PCG",
+      "name": "PG&E Corporation",
+      "sector": "Utilities",
+      "industry": "Utilities - Regulated Electric",
+      "market_cap": 33144489984,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:13.340591"
+    },
+    {
+      "ticker": "KMB",
+      "name": "Kimberly-Clark Corporation",
+      "sector": "Consumer Defensive",
+      "industry": "Household & Personal Products",
+      "market_cap": 33023365120,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:36.065957"
+    },
+    {
+      "ticker": "RJF",
+      "name": "Raymond James Financial, Inc.",
+      "sector": "Financial Services",
+      "industry": "Asset Management",
+      "market_cap": 32965980160,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:40.996075"
+    },
+    {
+      "ticker": "UI",
+      "name": "Ubiquiti Inc.",
+      "sector": "Technology",
+      "industry": "Communication Equipment",
+      "market_cap": 32962633728,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:41.529881"
+    },
+    {
+      "ticker": "CLS",
+      "name": "Celestica Inc.",
+      "sector": "Technology",
+      "industry": "Electronic Components",
+      "market_cap": 32889686016,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:42.061923"
+    },
+    {
+      "ticker": "INSM",
+      "name": "Insmed Incorporated",
+      "sector": "Healthcare",
+      "industry": "Biotechnology",
+      "market_cap": 32839847936,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:36.902552"
+    },
+    {
+      "ticker": "EME",
+      "name": "EMCOR Group, Inc.",
+      "sector": "Industrials",
+      "industry": "Engineering & Construction",
+      "market_cap": 32753838080,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:42.646609"
+    },
+    {
+      "ticker": "ADM",
+      "name": "Archer-Daniels-Midland Company",
+      "sector": "Consumer Defensive",
+      "industry": "Farm Products",
+      "market_cap": 32717187072,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:43.167810"
+    },
+    {
+      "ticker": "CHT",
+      "name": "Chunghwa Telecom Co., Ltd.",
+      "sector": "Communication Services",
+      "industry": "Telecom Services",
+      "market_cap": 32566165504,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:44.359082"
+    },
+    {
+      "ticker": "ESLT",
+      "name": "Elbit Systems Ltd.",
+      "sector": "Industrials",
+      "industry": "Aerospace & Defense",
+      "market_cap": 32406994944,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:38.485297"
+    },
+    {
+      "ticker": "NTRA",
+      "name": "Natera, Inc.",
+      "sector": "Healthcare",
+      "industry": "Diagnostics & Research",
+      "market_cap": 32226693120,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:39.578645"
+    },
+    {
+      "ticker": "NRG",
+      "name": "NRG Energy, Inc.",
+      "sector": "Utilities",
+      "industry": "Utilities - Independent Power Producers",
+      "market_cap": 32191268864,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:51.523365"
+    },
+    {
+      "ticker": "FOXA",
+      "name": "Fox Corporation",
+      "sector": "Communication Services",
+      "industry": "Entertainment",
+      "market_cap": 32132573184,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:37.917136"
+    },
+    {
+      "ticker": "SYM",
+      "name": "Symbotic Inc.",
+      "sector": "Industrials",
+      "industry": "Specialty Industrial Machinery",
+      "market_cap": 32087853056,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:37.411128"
+    },
+    {
+      "ticker": "ZS",
+      "name": "Zscaler, Inc.",
+      "sector": "Technology",
+      "industry": "Software - Infrastructure",
+      "market_cap": 31991517184,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:39.015698"
+    },
+    {
+      "ticker": "DG",
+      "name": "Dollar General Corporation",
+      "sector": "Consumer Defensive",
+      "industry": "Discount Stores",
+      "market_cap": 31589257216,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:44.929960"
+    },
+    {
+      "ticker": "WTW",
+      "name": "Willis Towers Watson Public Limited Company",
+      "sector": "Financial Services",
+      "industry": "Insurance Brokers",
+      "market_cap": 30884667392,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:40.726556"
+    },
+    {
+      "ticker": "FOX",
+      "name": "Fox Corporation",
+      "sector": "Communication Services",
+      "industry": "Entertainment",
+      "market_cap": 30741178368,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:44.282371"
+    },
+    {
+      "ticker": "QSR",
+      "name": "Restaurant Brands International Inc.",
+      "sector": "Consumer Cyclical",
+      "industry": "Restaurants",
+      "market_cap": 30613282816,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:46.086605"
+    },
+    {
+      "ticker": "ROL",
+      "name": "Rollins, Inc.",
+      "sector": "Consumer Cyclical",
+      "industry": "Personal Services",
+      "market_cap": 30557872128,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:45.508948"
+    },
+    {
+      "ticker": "MDB",
+      "name": "MongoDB, Inc.",
+      "sector": "Technology",
+      "industry": "Software - Infrastructure",
+      "market_cap": 30333079552,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:40.154411"
+    },
+    {
+      "ticker": "LPLA",
+      "name": "LPL Financial Holdings Inc.",
+      "sector": "Financial Services",
+      "industry": "Capital Markets",
+      "market_cap": 30129307648,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:41.264578"
+    },
+    {
+      "ticker": "LITE",
+      "name": "Lumentum Holdings Inc.",
+      "sector": "Technology",
+      "industry": "Communication Equipment",
+      "market_cap": 30025809920,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:41.821979"
+    },
+    {
+      "ticker": "EXR",
+      "name": "Extra Space Storage Inc.",
+      "sector": "Real Estate",
+      "industry": "REIT - Industrial",
+      "market_cap": 29960515584,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:51.007148"
+    },
+    {
+      "ticker": "TEAM",
+      "name": "Atlassian Corporation",
+      "sector": "Technology",
+      "industry": "Software - Application",
+      "market_cap": 29929402368,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:42.732879"
+    },
+    {
+      "ticker": "VRSK",
+      "name": "Verisk Analytics, Inc.",
+      "sector": "Industrials",
+      "industry": "Consulting Services",
+      "market_cap": 29919961088,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:43.255548"
+    },
+    {
+      "ticker": "VICI",
+      "name": "VICI Properties Inc.",
+      "sector": "Real Estate",
+      "industry": "REIT - Diversified",
+      "market_cap": 29873278976,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:47.178813"
+    },
+    {
+      "ticker": "ULTA",
+      "name": "Ulta Beauty, Inc.",
+      "sector": "Consumer Cyclical",
+      "industry": "Specialty Retail",
+      "market_cap": 29843070976,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:43.772127"
+    },
+    {
+      "ticker": "HPE",
+      "name": "Hewlett Packard Enterprise Company",
+      "sector": "Technology",
+      "industry": "Communication Equipment",
+      "market_cap": 29373073408,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:48.216156"
+    },
+    {
+      "ticker": "FIS",
+      "name": "Fidelity National Information Services, Inc.",
+      "sector": "Technology",
+      "industry": "Information Technology Services",
+      "market_cap": 29294993408,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:49.927451"
+    },
+    {
+      "ticker": "AMRZ",
+      "name": "Amrize Ltd",
+      "sector": "Basic Materials",
+      "industry": "Building Materials",
+      "market_cap": 29280163840,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:48.795156"
+    },
+    {
+      "ticker": "BAP",
+      "name": "Credicorp Ltd.",
+      "sector": "Financial Services",
+      "industry": "Banks - Regional",
+      "market_cap": 29199663104,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:33.648336"
+    },
+    {
+      "ticker": "TDY",
+      "name": "Teledyne Technologies Incorporated",
+      "sector": "Technology",
+      "industry": "Scientific & Technical Instruments",
+      "market_cap": 28791752704,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:50.442365"
+    },
+    {
+      "ticker": "NTRS",
+      "name": "Northern Trust Corporation",
+      "sector": "Financial Services",
+      "industry": "Asset Management",
+      "market_cap": 28673976320,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:44.787052"
+    },
+    {
+      "ticker": "STLA",
+      "name": "Stellantis N.V.",
+      "sector": "Consumer Cyclical",
+      "industry": "Auto Manufacturers",
+      "market_cap": 28598366208,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:52.107347"
+    },
+    {
+      "ticker": "MTD",
+      "name": "Mettler-Toledo International Inc.",
+      "sector": "Healthcare",
+      "industry": "Diagnostics & Research",
+      "market_cap": 28542234624,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:53.714855"
+    },
+    {
+      "ticker": "FLUT",
+      "name": "Flutter Entertainment plc",
+      "sector": "Consumer Cyclical",
+      "industry": "Gambling",
+      "market_cap": 28475662336,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:52.616311"
+    },
+    {
+      "ticker": "DXCM",
+      "name": "DexCom, Inc.",
+      "sector": "Healthcare",
+      "industry": "Medical Devices",
+      "market_cap": 28443021312,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:45.816192"
+    },
+    {
+      "ticker": "DOV",
+      "name": "Dover Corporation",
+      "sector": "Industrials",
+      "industry": "Specialty Industrial Machinery",
+      "market_cap": 28434606080,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:53.147163"
+    },
+    {
+      "ticker": "WIT",
+      "name": "Wipro Limited",
+      "sector": "Technology",
+      "industry": "Information Technology Services",
+      "market_cap": 28180058112,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:54.222633"
+    },
+    {
+      "ticker": "FTAI",
+      "name": "FTAI Aviation Ltd.",
+      "sector": "Industrials",
+      "industry": "Rental & Leasing Services",
+      "market_cap": 28144988160,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:47.495918"
+    },
+    {
+      "ticker": "SHG",
+      "name": "Shinhan Financial Group Co., Ltd.",
+      "sector": "Financial Services",
+      "industry": "Banks - Regional",
+      "market_cap": 28070010880,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:47.690453"
+    },
+    {
+      "ticker": "TSCO",
+      "name": "Tractor Supply Company",
+      "sector": "Consumer Cyclical",
+      "industry": "Specialty Retail",
+      "market_cap": 27994822656,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:48.002412"
+    },
+    {
+      "ticker": "HAL",
+      "name": "Halliburton Company",
+      "sector": "Energy",
+      "industry": "Oil & Gas Equipment & Services",
+      "market_cap": 27990929408,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:55.977194"
+    },
+    {
+      "ticker": "SOFI",
+      "name": "SoFi Technologies, Inc.",
+      "sector": "Financial Services",
+      "industry": "Credit Services",
+      "market_cap": 27901562880,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:49.600612"
+    },
+    {
+      "ticker": "TME",
+      "name": "Tencent Music Entertainment Group",
+      "sector": "Communication Services",
+      "industry": "Internet Content & Information",
+      "market_cap": 27873531904,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:27:09.562546"
+    },
+    {
+      "ticker": "CFG",
+      "name": "Citizens Financial Group, Inc.",
+      "sector": "Financial Services",
+      "industry": "Banks - Regional",
+      "market_cap": 27856474112,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:54.839709"
+    },
+    {
+      "ticker": "KHC",
+      "name": "The Kraft Heinz Company",
+      "sector": "Consumer Defensive",
+      "industry": "Packaged Foods",
+      "market_cap": 27815905280,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:49.083002"
+    },
+    {
+      "ticker": "ZM",
+      "name": "Zoom Communications, Inc.",
+      "sector": "Technology",
+      "industry": "Software - Application",
+      "market_cap": 27793506304,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:50.682190"
+    },
+    {
+      "ticker": "AEE",
+      "name": "Ameren Corporation",
+      "sector": "Utilities",
+      "industry": "Utilities - Regulated Electric",
+      "market_cap": 27698679808,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:55.410881"
+    },
+    {
+      "ticker": "CHTR",
+      "name": "Charter Communications, Inc.",
+      "sector": "Communication Services",
+      "industry": "Telecom Services",
+      "market_cap": 27643136000,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:53.155259"
+    },
+    {
+      "ticker": "DTE",
+      "name": "DTE Energy Company",
+      "sector": "Utilities",
+      "industry": "Utilities - Regulated Electric",
+      "market_cap": 27607300096,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:56.518274"
+    },
+    {
+      "ticker": "PHG",
+      "name": "Koninklijke Philips N.V.",
+      "sector": "Healthcare",
+      "industry": "Medical Devices",
+      "market_cap": 27483293696,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:27:00.360471"
+    },
+    {
+      "ticker": "STLD",
+      "name": "Steel Dynamics, Inc.",
+      "sector": "Basic Materials",
+      "industry": "Steel",
+      "market_cap": 27461017600,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:52.646118"
+    },
+    {
+      "ticker": "BNTX",
+      "name": "BioNTech SE",
+      "sector": "Healthcare",
+      "industry": "Biotechnology",
+      "market_cap": 27321337856,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:56.132483"
+    },
+    {
+      "ticker": "FE",
+      "name": "FirstEnergy Corp.",
+      "sector": "Utilities",
+      "industry": "Utilities - Regulated Electric",
+      "market_cap": 27144505344,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:57.094292"
+    },
+    {
+      "ticker": "CQP",
+      "name": "Cheniere Energy Partners, L.P.",
+      "sector": "Energy",
+      "industry": "Oil & Gas Midstream",
+      "market_cap": 27102105600,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:58.138843"
+    },
+    {
+      "ticker": "STZ",
+      "name": "Constellation Brands, Inc.",
+      "sector": "Consumer Defensive",
+      "industry": "Beverages - Brewers",
+      "market_cap": 27099453440,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:58.840767"
+    },
+    {
+      "ticker": "ATO",
+      "name": "Atmos Energy Corporation",
+      "sector": "Utilities",
+      "industry": "Utilities - Regulated Gas",
+      "market_cap": 26934278144,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:59.345847"
+    },
+    {
+      "ticker": "LEN",
+      "name": "Lennar Corporation",
+      "sector": "Consumer Cyclical",
+      "industry": "Residential Construction",
+      "market_cap": 26870439936,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:59.856241"
+    },
+    {
+      "ticker": "TPR",
+      "name": "Tapestry, Inc.",
+      "sector": "Consumer Cyclical",
+      "industry": "Luxury Goods",
+      "market_cap": 26842402816,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:27:01.969382"
+    },
+    {
+      "ticker": "TECK",
+      "name": "Teck Resources Limited",
+      "sector": "Basic Materials",
+      "industry": "Other Industrial Metals & Mining",
+      "market_cap": 26707523584,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:27:01.461529"
+    },
+    {
+      "ticker": "FTS",
+      "name": "Fortis Inc.",
+      "sector": "Utilities",
+      "industry": "Utilities - Regulated Electric",
+      "market_cap": 26639634432,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:27:00.888746"
+    },
+    {
+      "ticker": "PPL",
+      "name": "PPL Corporation",
+      "sector": "Utilities",
+      "industry": "Utilities - Regulated Electric",
+      "market_cap": 26497458176,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:27:02.554191"
+    },
+    {
+      "ticker": "SYF",
+      "name": "Synchrony Financial",
+      "sector": "Financial Services",
+      "industry": "Credit Services",
+      "market_cap": 26479777792,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:27:03.140061"
+    },
+    {
+      "ticker": "IRM",
+      "name": "Iron Mountain Incorporated",
+      "sector": "Real Estate",
+      "industry": "REIT - Specialty",
+      "market_cap": 26431612928,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:27:03.705951"
+    },
+    {
+      "ticker": "EC",
+      "name": "Ecopetrol S.A.",
+      "sector": "Energy",
+      "industry": "Oil & Gas Integrated",
+      "market_cap": 26409023488,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:27:12.410099"
+    },
+    {
+      "ticker": "HUBB",
+      "name": "Hubbell Incorporated",
+      "sector": "Industrials",
+      "industry": "Electrical Equipment & Parts",
+      "market_cap": 26338007040,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:27:04.230326"
+    },
+    {
+      "ticker": "PPG",
+      "name": "PPG Industries, Inc.",
+      "sector": "Basic Materials",
+      "industry": "Specialty Chemicals",
+      "market_cap": 26285021184,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:27:04.736037"
+    },
+    {
+      "ticker": "BIIB",
+      "name": "Biogen Inc.",
+      "sector": "Healthcare",
+      "industry": "Drug Manufacturers - General",
+      "market_cap": 26272909312,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:55.569872"
+    },
+    {
+      "ticker": "LUV",
+      "name": "Southwest Airlines Co.",
+      "sector": "Industrials",
+      "industry": "Airlines",
+      "market_cap": 26070317056,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:27:08.486049"
+    },
+    {
+      "ticker": "STE",
+      "name": "STERIS plc",
+      "sector": "Healthcare",
+      "industry": "Medical Devices",
+      "market_cap": 26025156608,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:27:05.300279"
+    },
+    {
+      "ticker": "STM",
+      "name": "STMicroelectronics N.V.",
+      "sector": "Technology",
+      "industry": "Semiconductors",
+      "market_cap": 25981696000,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:27:05.805865"
+    },
+    {
+      "ticker": "JBL",
+      "name": "Jabil Inc.",
+      "sector": "Technology",
+      "industry": "Electronic Components",
+      "market_cap": 25981480960,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:27:07.450022"
+    },
+    {
+      "ticker": "CSGP",
+      "name": "CoStar Group, Inc.",
+      "sector": "Real Estate",
+      "industry": "Real Estate Services",
+      "market_cap": 25929478144,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:56.716911"
+    },
+    {
+      "ticker": "AER",
+      "name": "AerCap Holdings N.V.",
+      "sector": "Industrials",
+      "industry": "Rental & Leasing Services",
+      "market_cap": 25911975936,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:57.624918"
+    },
+    {
+      "ticker": "WRB",
+      "name": "W. R. Berkley Corporation",
+      "sector": "Financial Services",
+      "industry": "Insurance - Property & Casualty",
+      "market_cap": 25754034176,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:27:06.384555"
+    },
+    {
+      "ticker": "ALAB",
+      "name": "Astera Labs, Inc.",
+      "sector": "Technology",
+      "industry": "Semiconductors",
+      "market_cap": 25747666944,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:57.230648"
+    },
+    {
+      "ticker": "MKL",
+      "name": "Markel Group Inc.",
+      "sector": "Financial Services",
+      "industry": "Insurance - Property & Casualty",
+      "market_cap": 25734043648,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:27:09.046776"
+    },
+    {
+      "ticker": "CNP",
+      "name": "CenterPoint Energy, Inc.",
+      "sector": "Utilities",
+      "industry": "Utilities - Regulated Electric",
+      "market_cap": 25709953024,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:27:06.889560"
+    },
+    {
+      "ticker": "FCNCA",
+      "name": "First Citizens BancShares, Inc.",
+      "sector": "Financial Services",
+      "industry": "Banks - Regional",
+      "market_cap": 25702356992,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:58.697579"
+    },
+    {
+      "ticker": "KEP",
+      "name": "Korea Electric Power Corporation",
+      "sector": "Utilities",
+      "industry": "Utilities - Regulated Electric",
+      "market_cap": 25678563328,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:27:07.972436"
+    },
+    {
+      "ticker": "WSM",
+      "name": "Williams-Sonoma, Inc.",
+      "sector": "Consumer Cyclical",
+      "industry": "Specialty Retail",
+      "market_cap": 25551052800,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:27:10.074017"
+    },
+    {
+      "ticker": "RF",
+      "name": "Regions Financial Corporation",
+      "sector": "Financial Services",
+      "industry": "Banks - Regional",
+      "market_cap": 25534644224,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:27:10.585942"
+    },
+    {
+      "ticker": "ES",
+      "name": "Eversource Energy",
+      "sector": "Utilities",
+      "industry": "Utilities - Regulated Electric",
+      "market_cap": 25479096320,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:27:11.695771"
+    },
+    {
+      "ticker": "EXE",
+      "name": "Expand Energy Corporation",
+      "sector": "Energy",
+      "industry": "Oil & Gas E&P",
+      "market_cap": 25469868032,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:58.135581"
+    },
+    {
+      "ticker": "CINF",
+      "name": "Cincinnati Financial Corporation",
+      "sector": "Financial Services",
+      "industry": "Insurance - Property & Casualty",
+      "market_cap": 25408038912,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:59.276858"
+    },
+    {
+      "ticker": "NMR",
+      "name": "Nomura Holdings, Inc.",
+      "sector": "Financial Services",
+      "industry": "Capital Markets",
+      "market_cap": 25289830400,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:27:11.121616"
+    },
+    {
+      "ticker": "UMC",
+      "name": "United Microelectronics Corporation",
+      "sector": "Technology",
+      "industry": "Semiconductors",
+      "market_cap": 25277018112,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:27:13.185126"
+    },
+    {
+      "ticker": "VLTO",
+      "name": "Veralto Corporation",
+      "sector": "Industrials",
+      "industry": "Pollution & Treatment Controls",
+      "market_cap": 25197215744,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:27:13.691309"
+    },
+    {
+      "ticker": "DVN",
+      "name": "Devon Energy Corporation",
+      "sector": "Energy",
+      "industry": "Oil & Gas E&P",
+      "market_cap": 25179820032,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:27:14.212536"
+    },
+    {
+      "ticker": "ON",
+      "name": "ON Semiconductor Corporation",
+      "sector": "Technology",
+      "industry": "Semiconductors",
+      "market_cap": 25164169216,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:21:59.898864"
+    },
+    {
+      "ticker": "PHM",
+      "name": "PulteGroup, Inc.",
+      "sector": "Consumer Cyclical",
+      "industry": "Residential Construction",
+      "market_cap": 25070602240,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:27:15.361772"
+    },
+    {
+      "ticker": "CW",
+      "name": "Curtiss-Wright Corporation",
+      "sector": "Industrials",
+      "industry": "Aerospace & Defense",
+      "market_cap": 25017888768,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:27:17.020966"
+    },
+    {
+      "ticker": "AVB",
+      "name": "AvalonBay Communities, Inc.",
+      "sector": "Real Estate",
+      "industry": "REIT - Residential",
+      "market_cap": 24962592768,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:27:14.785393"
+    },
+    {
+      "ticker": "FSLR",
+      "name": "First Solar, Inc.",
+      "sector": "Technology",
+      "industry": "Solar",
+      "market_cap": 24739893248,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:00.411762"
+    },
+    {
+      "ticker": "AWK",
+      "name": "American Water Works Company, Inc.",
+      "sector": "Utilities",
+      "industry": "Utilities - Regulated Water",
+      "market_cap": 24703574016,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:27:15.877908"
+    },
+    {
+      "ticker": "RPRX",
+      "name": "Royalty Pharma plc",
+      "sector": "Healthcare",
+      "industry": "Biotechnology",
+      "market_cap": 24703262720,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:00.935626"
+    },
+    {
+      "ticker": "EFX",
+      "name": "Equifax Inc.",
+      "sector": "Industrials",
+      "industry": "Consulting Services",
+      "market_cap": 24537221120,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:27:18.148667"
+    },
+    {
+      "ticker": "BRO",
+      "name": "Brown & Brown, Inc.",
+      "sector": "Financial Services",
+      "industry": "Insurance Brokers",
+      "market_cap": 24343304192,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:27:18.749606"
+    },
+    {
+      "ticker": "GIS",
+      "name": "General Mills, Inc.",
+      "sector": "Consumer Defensive",
+      "industry": "Packaged Foods",
+      "market_cap": 24342013952,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:27:19.319007"
+    },
+    {
+      "ticker": "KEY",
+      "name": "KeyCorp",
+      "sector": "Financial Services",
+      "industry": "Banks - Regional",
+      "market_cap": 24252821504,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:27:21.502410"
+    },
+    {
+      "ticker": "EQR",
+      "name": "Equity Residential",
+      "sector": "Real Estate",
+      "industry": "REIT - Residential",
+      "market_cap": 24247347200,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:27:23.748664"
+    },
+    {
+      "ticker": "FLEX",
+      "name": "Flex Ltd.",
+      "sector": "Technology",
+      "industry": "Electronic Components",
+      "market_cap": 24187506688,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:02.555415"
+    },
+    {
+      "ticker": "LDOS",
+      "name": "Leidos Holdings, Inc.",
+      "sector": "Technology",
+      "industry": "Information Technology Services",
+      "market_cap": 24125030400,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:27:22.037859"
+    },
+    {
+      "ticker": "BCE",
+      "name": "BCE Inc.",
+      "sector": "Communication Services",
+      "industry": "Telecom Services",
+      "market_cap": 24087142400,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:27:20.995604"
+    },
+    {
+      "ticker": "DLTR",
+      "name": "Dollar Tree, Inc.",
+      "sector": "Consumer Defensive",
+      "industry": "Discount Stores",
+      "market_cap": 23909109760,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:04.286548"
+    },
+    {
+      "ticker": "AXIA",
+      "name": "AXIA Energia SA",
+      "sector": "Utilities",
+      "industry": "Utilities - Renewable",
+      "market_cap": 23833745408,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:46.657560"
+    },
+    {
+      "ticker": "PBA",
+      "name": "Pembina Pipeline Corporation",
+      "sector": "Energy",
+      "industry": "Oil & Gas Midstream",
+      "market_cap": 23806590976,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:27:22.560369"
+    },
+    {
+      "ticker": "CHD",
+      "name": "Church & Dwight Co., Inc.",
+      "sector": "Consumer Defensive",
+      "industry": "Household & Personal Products",
+      "market_cap": 23712870400,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:27:25.171655"
+    },
+    {
+      "ticker": "CHRW",
+      "name": "C.H. Robinson Worldwide, Inc.",
+      "sector": "Industrials",
+      "industry": "Integrated Freight & Logistics",
+      "market_cap": 23450228736,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:03.079209"
+    },
+    {
+      "ticker": "VRSN",
+      "name": "VeriSign, Inc.",
+      "sector": "Technology",
+      "industry": "Software - Infrastructure",
+      "market_cap": 23445557248,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:06.317209"
+    },
+    {
+      "ticker": "GFS",
+      "name": "GlobalFoundries Inc.",
+      "sector": "Technology",
+      "industry": "Semiconductors",
+      "market_cap": 23438655488,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:03.641791"
+    },
+    {
+      "ticker": "TROW",
+      "name": "T. Rowe Price Group, Inc.",
+      "sector": "Financial Services",
+      "industry": "Asset Management",
+      "market_cap": 23432632320,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:05.795613"
+    },
+    {
+      "ticker": "EIX",
+      "name": "Edison International",
+      "sector": "Utilities",
+      "industry": "Utilities - Regulated Electric",
+      "market_cap": 23378665472,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:27:24.556504"
+    },
+    {
+      "ticker": "PSTG",
+      "name": "Pure Storage, Inc.",
+      "sector": "Technology",
+      "industry": "Computer Hardware",
+      "market_cap": 23224272896,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:27:26.244351"
+    },
+    {
+      "ticker": "TPL",
+      "name": "Texas Pacific Land Corporation",
+      "sector": "Energy",
+      "industry": "Oil & Gas E&P",
+      "market_cap": 23210123264,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:27:26.760085"
+    },
+    {
+      "ticker": "CASY",
+      "name": "Casey's General Stores, Inc.",
+      "sector": "Consumer Cyclical",
+      "industry": "Specialty Retail",
+      "market_cap": 23198709760,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:06.881387"
+    },
+    {
+      "ticker": "TSN",
+      "name": "Tyson Foods, Inc.",
+      "sector": "Consumer Defensive",
+      "industry": "Farm Products",
+      "market_cap": 23145670656,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:27:27.271299"
+    },
+    {
+      "ticker": "VIV",
+      "name": "Telef\u00f4nica Brasil S.A.",
+      "sector": "Communication Services",
+      "industry": "Telecom Services",
+      "market_cap": 22816628736,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:27:25.679559"
+    },
+    {
+      "ticker": "TS",
+      "name": "Tenaris S.A.",
+      "sector": "Energy",
+      "industry": "Oil & Gas Equipment & Services",
+      "market_cap": 22550906880,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:27:19.908386"
+    },
+    {
+      "ticker": "FUTU",
+      "name": "Futu Holdings Limited",
+      "sector": "Financial Services",
+      "industry": "Capital Markets",
+      "market_cap": 22515871744,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:07.917521"
+    },
+    {
+      "ticker": "TW",
+      "name": "Tradeweb Markets Inc.",
+      "sector": "Financial Services",
+      "industry": "Capital Markets",
+      "market_cap": 22466674688,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:01.998200"
+    },
+    {
+      "ticker": "TPG",
+      "name": "TPG Inc.",
+      "sector": "Financial Services",
+      "industry": "Asset Management",
+      "market_cap": 22317776896,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:09.057396"
+    },
+    {
+      "ticker": "SOJC",
+      "name": "The Southern Company JR 2017B NT 77",
+      "sector": "Unknown",
+      "industry": "Unknown",
+      "market_cap": 22233298944,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:27:17.580324"
+    },
+    {
+      "ticker": "NBIS",
+      "name": "Nebius Group N.V.",
+      "sector": "Communication Services",
+      "industry": "Internet Content & Information",
+      "market_cap": 22199324672,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:13.639820"
+    },
+    {
+      "ticker": "RGLD",
+      "name": "Royal Gold, Inc.",
+      "sector": "Basic Materials",
+      "industry": "Gold",
+      "market_cap": 21897920512,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:09.778373"
+    },
+    {
+      "ticker": "CG",
+      "name": "The Carlyle Group Inc.",
+      "sector": "Financial Services",
+      "industry": "Asset Management",
+      "market_cap": 21832507392,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:10.289928"
+    },
+    {
+      "ticker": "ILMN",
+      "name": "Illumina, Inc.",
+      "sector": "Healthcare",
+      "industry": "Diagnostics & Research",
+      "market_cap": 21691680768,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:11.337802"
+    },
+    {
+      "ticker": "CRDO",
+      "name": "Credo Technology Group Holding Ltd",
+      "sector": "Technology",
+      "industry": "Semiconductors",
+      "market_cap": 21668579328,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:10.829290"
+    },
+    {
+      "ticker": "CYBR",
+      "name": "CyberArk Software Ltd.",
+      "sector": "Technology",
+      "industry": "Software - Infrastructure",
+      "market_cap": 21567287296,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:12.457312"
+    },
+    {
+      "ticker": "UTHR",
+      "name": "United Therapeutics Corporation",
+      "sector": "Healthcare",
+      "industry": "Drug Manufacturers - Specialty & Generic",
+      "market_cap": 21482475520,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:14.731793"
+    },
+    {
+      "ticker": "FWONA",
+      "name": "Formula One Group",
+      "sector": "Communication Services",
+      "industry": "Entertainment",
+      "market_cap": 21465837568,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:18.126483"
+    },
+    {
+      "ticker": "PFG",
+      "name": "Principal Financial Group, Inc.",
+      "sector": "Financial Services",
+      "industry": "Asset Management",
+      "market_cap": 21385771008,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:13.039504"
+    },
+    {
+      "ticker": "FWONK",
+      "name": "Formula One Group",
+      "sector": "Communication Services",
+      "industry": "Entertainment",
+      "market_cap": 21379637248,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:11.912792"
+    },
+    {
+      "ticker": "LULU",
+      "name": "lululemon athletica inc.",
+      "sector": "Consumer Cyclical",
+      "industry": "Apparel Retail",
+      "market_cap": 21236946944,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:16.966374"
+    },
+    {
+      "ticker": "GMAB",
+      "name": "Genmab A/S",
+      "sector": "Healthcare",
+      "industry": "Biotechnology",
+      "market_cap": 20625215488,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:08.442095"
+    },
+    {
+      "ticker": "AFRM",
+      "name": "Affirm Holdings, Inc.",
+      "sector": "Financial Services",
+      "industry": "Credit Services",
+      "market_cap": 20461264896,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:14.216393"
+    },
+    {
+      "ticker": "JBHT",
+      "name": "J.B. Hunt Transport Services, Inc.",
+      "sector": "Industrials",
+      "industry": "Integrated Freight & Logistics",
+      "market_cap": 20158676992,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:15.867304"
+    },
+    {
+      "ticker": "INCY",
+      "name": "Incyte Corporation",
+      "sector": "Healthcare",
+      "industry": "Biotechnology",
+      "market_cap": 20156450816,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:16.449627"
+    },
+    {
+      "ticker": "SSNC",
+      "name": "SS&C Technologies Holdings, Inc.",
+      "sector": "Technology",
+      "industry": "Software - Application",
+      "market_cap": 20077379584,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:17.484493"
+    },
+    {
+      "ticker": "WWD",
+      "name": "Woodward, Inc.",
+      "sector": "Industrials",
+      "industry": "Aerospace & Defense",
+      "market_cap": 19633948672,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:18.650149"
+    },
+    {
+      "ticker": "EXAS",
+      "name": "Exact Sciences Corporation",
+      "sector": "Healthcare",
+      "industry": "Diagnostics & Research",
+      "market_cap": 19466479616,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:19.679705"
+    },
+    {
+      "ticker": "NTAP",
+      "name": "NetApp, Inc.",
+      "sector": "Technology",
+      "industry": "Software - Infrastructure",
+      "market_cap": 19454808064,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:20.235998"
+    },
+    {
+      "ticker": "CHKP",
+      "name": "Check Point Software Technologies Ltd.",
+      "sector": "Technology",
+      "industry": "Software - Infrastructure",
+      "market_cap": 19346395136,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:19.166693"
+    },
+    {
+      "ticker": "SBAC",
+      "name": "SBA Communications Corporation",
+      "sector": "Real Estate",
+      "industry": "REIT - Specialty",
+      "market_cap": 19302821888,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:20.744607"
+    },
+    {
+      "ticker": "RVMD",
+      "name": "Revolution Medicines, Inc.",
+      "sector": "Healthcare",
+      "industry": "Biotechnology",
+      "market_cap": 18782953472,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:21.261743"
+    },
+    {
+      "ticker": "PTC",
+      "name": "PTC Inc.",
+      "sector": "Technology",
+      "industry": "Software - Application",
+      "market_cap": 18743822336,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:21.945315"
+    },
+    {
+      "ticker": "ENTG",
+      "name": "Entegris, Inc.",
+      "sector": "Technology",
+      "industry": "Semiconductor Equipment & Materials",
+      "market_cap": 18113169408,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:22.517598"
+    },
+    {
+      "ticker": "PODD",
+      "name": "Insulet Corporation",
+      "sector": "Healthcare",
+      "industry": "Medical Devices",
+      "market_cap": 18064132096,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:23.229390"
+    },
+    {
+      "ticker": "GRAB",
+      "name": "Grab Holdings Limited",
+      "sector": "Technology",
+      "industry": "Software - Application",
+      "market_cap": 18023669760,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:23.734368"
+    },
+    {
+      "ticker": "FITBI",
+      "name": "Fifth Third Bancorp",
+      "sector": "Financial Services",
+      "industry": "Banks - Regional",
+      "market_cap": 17915195392,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:32.406717"
+    },
+    {
+      "ticker": "SMCI",
+      "name": "Super Micro Computer, Inc.",
+      "sector": "Technology",
+      "industry": "Computer Hardware",
+      "market_cap": 17736011776,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:24.324503"
+    },
+    {
+      "ticker": "RIVN",
+      "name": "Rivian Automotive, Inc.",
+      "sector": "Consumer Cyclical",
+      "industry": "Auto Manufacturers",
+      "market_cap": 17702184960,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:24.875892"
+    },
+    {
+      "ticker": "EVRG",
+      "name": "Evergy, Inc.",
+      "sector": "Utilities",
+      "industry": "Utilities - Regulated Electric",
+      "market_cap": 17487067136,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:29.123749"
+    },
+    {
+      "ticker": "IREN",
+      "name": "IREN Limited",
+      "sector": "Financial Services",
+      "industry": "Capital Markets",
+      "market_cap": 17428377600,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:29.638951"
+    },
+    {
+      "ticker": "NXT",
+      "name": "Nextpower Inc.",
+      "sector": "Technology",
+      "industry": "Solar",
+      "market_cap": 17384468480,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:30.790110"
+    },
+    {
+      "ticker": "NWS",
+      "name": "News Corporation",
+      "sector": "Communication Services",
+      "industry": "Entertainment",
+      "market_cap": 17151376384,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:30.225343"
+    },
+    {
+      "ticker": "MTSI",
+      "name": "MACOM Technology Solutions Holdings, Inc.",
+      "sector": "Technology",
+      "industry": "Semiconductors",
+      "market_cap": 17144487936,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:31.880825"
+    },
+    {
+      "ticker": "LI",
+      "name": "Li Auto Inc.",
+      "sector": "Consumer Cyclical",
+      "industry": "Auto Manufacturers",
+      "market_cap": 16759723008,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:28.591472"
+    },
+    {
+      "ticker": "LNT",
+      "name": "Alliant Energy Corporation",
+      "sector": "Utilities",
+      "industry": "Utilities - Regulated Electric",
+      "market_cap": 16736765952,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:32.970461"
+    },
+    {
+      "ticker": "HOLX",
+      "name": "Hologic, Inc.",
+      "sector": "Healthcare",
+      "industry": "Medical Instruments & Supplies",
+      "market_cap": 16685324288,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:33.550436"
+    },
+    {
+      "ticker": "MRNA",
+      "name": "Moderna, Inc.",
+      "sector": "Healthcare",
+      "industry": "Biotechnology",
+      "market_cap": 16625716224,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:34.120552"
+    },
+    {
+      "ticker": "CDW",
+      "name": "CDW Corporation",
+      "sector": "Technology",
+      "industry": "Information Technology Services",
+      "market_cap": 16622434304,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:35.272815"
+    },
+    {
+      "ticker": "MEDP",
+      "name": "Medpace Holdings, Inc.",
+      "sector": "Healthcare",
+      "industry": "Diagnostics & Research",
+      "market_cap": 16567703552,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:34.691371"
+    },
+    {
+      "ticker": "TKO",
+      "name": "TKO Group Holdings, Inc.",
+      "sector": "Communication Services",
+      "industry": "Entertainment",
+      "market_cap": 16470088704,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:19.618962"
+    },
+    {
+      "ticker": "FFIV",
+      "name": "F5, Inc.",
+      "sector": "Technology",
+      "industry": "Software - Infrastructure",
+      "market_cap": 16306917376,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:36.437160"
+    },
+    {
+      "ticker": "KTOS",
+      "name": "Kratos Defense & Security Solutions, Inc.",
+      "sector": "Industrials",
+      "industry": "Aerospace & Defense",
+      "market_cap": 16235722752,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:38.085892"
+    },
+    {
+      "ticker": "TRMB",
+      "name": "Trimble Inc.",
+      "sector": "Technology",
+      "industry": "Scientific & Technical Instruments",
+      "market_cap": 16153340928,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:38.812827"
+    },
+    {
+      "ticker": "COO",
+      "name": "The Cooper Companies, Inc.",
+      "sector": "Healthcare",
+      "industry": "Medical Instruments & Supplies",
+      "market_cap": 16033940480,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:39.390724"
+    },
+    {
+      "ticker": "VTRS",
+      "name": "Viatris Inc.",
+      "sector": "Healthcare",
+      "industry": "Drug Manufacturers - Specialty & Generic",
+      "market_cap": 15793112064,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:41.046661"
+    },
+    {
+      "ticker": "WMG",
+      "name": "Warner Music Group Corp.",
+      "sector": "Communication Services",
+      "industry": "Entertainment",
+      "market_cap": 15776573440,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:39.964981"
+    },
+    {
+      "ticker": "EWBC",
+      "name": "East West Bancorp, Inc.",
+      "sector": "Financial Services",
+      "industry": "Banks - Regional",
+      "market_cap": 15771437056,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:40.529160"
+    },
+    {
+      "ticker": "MKSI",
+      "name": "MKS Inc.",
+      "sector": "Technology",
+      "industry": "Scientific & Technical Instruments",
+      "market_cap": 15688773632,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:41.780435"
+    },
+    {
+      "ticker": "OKTA",
+      "name": "Okta, Inc.",
+      "sector": "Technology",
+      "industry": "Software - Infrastructure",
+      "market_cap": 15619299328,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:42.927073"
+    },
+    {
+      "ticker": "NWSA",
+      "name": "News Corporation",
+      "sector": "Communication Services",
+      "industry": "Entertainment",
+      "market_cap": 15617856512,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:47.309191"
+    },
+    {
+      "ticker": "TLN",
+      "name": "Talen Energy Corporation",
+      "sector": "Utilities",
+      "industry": "Utilities - Independent Power Producers",
+      "market_cap": 15570411520,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:43.552099"
+    },
+    {
+      "ticker": "ZG",
+      "name": "Zillow Group, Inc.",
+      "sector": "Communication Services",
+      "industry": "Internet Content & Information",
+      "market_cap": 15493053440,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:47.825883"
+    },
+    {
+      "ticker": "NDSN",
+      "name": "Nordson Corporation",
+      "sector": "Industrials",
+      "industry": "Specialty Industrial Machinery",
+      "market_cap": 15458089984,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:44.062437"
+    },
+    {
+      "ticker": "TSEM",
+      "name": "Tower Semiconductor Ltd.",
+      "sector": "Technology",
+      "industry": "Semiconductors",
+      "market_cap": 15392970752,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:44.588530"
+    },
+    {
+      "ticker": "KSPI",
+      "name": "Joint Stock Company Kaspi.kz",
+      "sector": "Technology",
+      "industry": "Software - Infrastructure",
+      "market_cap": 15352113152,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:52.087063"
+    },
+    {
+      "ticker": "ROIV",
+      "name": "Roivant Sciences Ltd.",
+      "sector": "Healthcare",
+      "industry": "Biotechnology",
+      "market_cap": 15259085824,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:45.155510"
+    },
+    {
+      "ticker": "ONON",
+      "name": "On Holding AG",
+      "sector": "Consumer Cyclical",
+      "industry": "Footwear & Accessories",
+      "market_cap": 15167873024,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:26:49.345462"
+    },
+    {
+      "ticker": "Z",
+      "name": "Zillow Group, Inc.",
+      "sector": "Communication Services",
+      "industry": "Internet Content & Information",
+      "market_cap": 15133004800,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:46.238344"
+    },
+    {
+      "ticker": "BBIO",
+      "name": "BridgeBio Pharma, Inc.",
+      "sector": "Healthcare",
+      "industry": "Biotechnology",
+      "market_cap": 14992894976,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:46.780390"
+    },
+    {
+      "ticker": "GH",
+      "name": "Guardant Health, Inc.",
+      "sector": "Healthcare",
+      "industry": "Diagnostics & Research",
+      "market_cap": 14922571776,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:51.045189"
+    },
+    {
+      "ticker": "LECO",
+      "name": "Lincoln Electric Holdings, Inc.",
+      "sector": "Industrials",
+      "industry": "Tools & Accessories",
+      "market_cap": 14768944128,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:49.421644"
+    },
+    {
+      "ticker": "ERIE",
+      "name": "Erie Indemnity Company",
+      "sector": "Financial Services",
+      "industry": "Insurance Brokers",
+      "market_cap": 14742082560,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:06.111818"
+    },
+    {
+      "ticker": "GEN",
+      "name": "Gen Digital Inc.",
+      "sector": "Technology",
+      "industry": "Software - Infrastructure",
+      "market_cap": 14671676416,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:49.961973"
+    },
+    {
+      "ticker": "TTD",
+      "name": "The Trade Desk, Inc.",
+      "sector": "Communication Services",
+      "industry": "Advertising Agencies",
+      "market_cap": 14546051072,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:53.125540"
+    },
+    {
+      "ticker": "HTHT",
+      "name": "H World Group Limited",
+      "sector": "Consumer Cyclical",
+      "industry": "Lodging",
+      "market_cap": 14491168768,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:51.552716"
+    },
+    {
+      "ticker": "ROKU",
+      "name": "Roku, Inc.",
+      "sector": "Communication Services",
+      "industry": "Entertainment",
+      "market_cap": 14210765824,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:54.365241"
+    },
+    {
+      "ticker": "ARCC",
+      "name": "Ares Capital Corporation",
+      "sector": "Financial Services",
+      "industry": "Asset Management",
+      "market_cap": 13992456192,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:56.655354"
+    },
+    {
+      "ticker": "RGC",
+      "name": "Regencell Bioscience Holdings Limited",
+      "sector": "Healthcare",
+      "industry": "Drug Manufacturers - Specialty & Generic",
+      "market_cap": 13984146432,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:56.095557"
+    },
+    {
+      "ticker": "AKAM",
+      "name": "Akamai Technologies, Inc.",
+      "sector": "Technology",
+      "industry": "Software - Infrastructure",
+      "market_cap": 13901697024,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:57.225894"
+    },
+    {
+      "ticker": "DPZ",
+      "name": "Domino's Pizza, Inc.",
+      "sector": "Consumer Cyclical",
+      "industry": "Restaurants",
+      "market_cap": 13892577280,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:58.344183"
+    },
+    {
+      "ticker": "ICLR",
+      "name": "ICON Public Limited Company",
+      "sector": "Healthcare",
+      "industry": "Diagnostics & Research",
+      "market_cap": 13889324032,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:52.608596"
+    },
+    {
+      "ticker": "NBIX",
+      "name": "Neurocrine Biosciences, Inc.",
+      "sector": "Healthcare",
+      "industry": "Drug Manufacturers - Specialty & Generic",
+      "market_cap": 13722494976,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:58.918870"
+    },
+    {
+      "ticker": "ASND",
+      "name": "Ascendis Pharma A/S",
+      "sector": "Healthcare",
+      "industry": "Biotechnology",
+      "market_cap": 13660936192,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:00.004274"
+    },
+    {
+      "ticker": "DKNG",
+      "name": "DraftKings Inc.",
+      "sector": "Consumer Cyclical",
+      "industry": "Gambling",
+      "market_cap": 13648922624,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:59.486540"
+    },
+    {
+      "ticker": "BILI",
+      "name": "Bilibili Inc.",
+      "sector": "Communication Services",
+      "industry": "Internet Content & Information",
+      "market_cap": 13561699328,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:57.771044"
+    },
+    {
+      "ticker": "PAA",
+      "name": "Plains All American Pipeline, L.P.",
+      "sector": "Energy",
+      "industry": "Oil & Gas Midstream",
+      "market_cap": 13545558016,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:00.535231"
+    },
+    {
+      "ticker": "AVAV",
+      "name": "AeroVironment, Inc.",
+      "sector": "Industrials",
+      "industry": "Aerospace & Defense",
+      "market_cap": 13481196544,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:01.495435"
+    },
+    {
+      "ticker": "NVMI",
+      "name": "Nova Ltd.",
+      "sector": "Technology",
+      "industry": "Semiconductor Equipment & Materials",
+      "market_cap": 13466665984,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:02.726293"
+    },
+    {
+      "ticker": "IONS",
+      "name": "Ionis Pharmaceuticals, Inc.",
+      "sector": "Healthcare",
+      "industry": "Biotechnology",
+      "market_cap": 13455213568,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:02.017733"
+    },
+    {
+      "ticker": "VNOM",
+      "name": "Viper Energy, Inc.",
+      "sector": "Energy",
+      "industry": "Oil & Gas Midstream",
+      "market_cap": 13413575680,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:48.913809"
+    },
+    {
+      "ticker": "REG",
+      "name": "Regency Centers Corporation",
+      "sector": "Real Estate",
+      "industry": "REIT - Retail",
+      "market_cap": 13244149760,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:05.013105"
+    },
+    {
+      "ticker": "CELH",
+      "name": "Celsius Holdings, Inc.",
+      "sector": "Consumer Defensive",
+      "industry": "Beverages - Non-Alcoholic",
+      "market_cap": 13229541376,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:03.256117"
+    },
+    {
+      "ticker": "HAS",
+      "name": "Hasbro, Inc.",
+      "sector": "Consumer Cyclical",
+      "industry": "Leisure",
+      "market_cap": 13169225728,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:04.368209"
+    },
+    {
+      "ticker": "JKHY",
+      "name": "Jack Henry & Associates, Inc.",
+      "sector": "Technology",
+      "industry": "Information Technology Services",
+      "market_cap": 13020149760,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:06.736064"
+    },
+    {
+      "ticker": "HST",
+      "name": "Host Hotels & Resorts, Inc.",
+      "sector": "Real Estate",
+      "industry": "REIT - Hotel & Motel",
+      "market_cap": 13005082624,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:08.463152"
+    },
+    {
+      "ticker": "LAMR",
+      "name": "Lamar Advertising Company",
+      "sector": "Real Estate",
+      "industry": "REIT - Specialty",
+      "market_cap": 12943029248,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:07.373493"
+    },
+    {
+      "ticker": "LOGI",
+      "name": "Logitech International S.A.",
+      "sector": "Technology",
+      "industry": "Computer Hardware",
+      "market_cap": 12923824128,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:07.940371"
+    },
+    {
+      "ticker": "GLPI",
+      "name": "Gaming and Leisure Properties, Inc.",
+      "sector": "Real Estate",
+      "industry": "REIT - Specialty",
+      "market_cap": 12557080576,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:08.985237"
+    },
+    {
+      "ticker": "AGNC",
+      "name": "AGNC Investment Corp.",
+      "sector": "Real Estate",
+      "industry": "REIT - Mortgage",
+      "market_cap": 12371892224,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:12.209155"
+    },
+    {
+      "ticker": "PSKY",
+      "name": "Paramount Skydance Corporation",
+      "sector": "Communication Services",
+      "industry": "Entertainment",
+      "market_cap": 12333408256,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:09.507411"
+    },
+    {
+      "ticker": "ZBRA",
+      "name": "Zebra Technologies Corporation",
+      "sector": "Technology",
+      "industry": "Communication Equipment",
+      "market_cap": 12305035264,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:10.041557"
+    },
+    {
+      "ticker": "RMBS",
+      "name": "Rambus Inc.",
+      "sector": "Technology",
+      "industry": "Semiconductors",
+      "market_cap": 12240897024,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:10.658924"
+    },
+    {
+      "ticker": "TXRH",
+      "name": "Texas Roadhouse, Inc.",
+      "sector": "Consumer Cyclical",
+      "industry": "Restaurants",
+      "market_cap": 12133881856,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:11.384205"
+    },
+    {
+      "ticker": "AMKR",
+      "name": "Amkor Technology, Inc.",
+      "sector": "Technology",
+      "industry": "Semiconductor Equipment & Materials",
+      "market_cap": 11914724352,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:12.741081"
+    },
+    {
+      "ticker": "ALGN",
+      "name": "Align Technology, Inc.",
+      "sector": "Healthcare",
+      "industry": "Medical Instruments & Supplies",
+      "market_cap": 11860944896,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:13.309827"
+    },
+    {
+      "ticker": "EXEL",
+      "name": "Exelixis, Inc.",
+      "sector": "Healthcare",
+      "industry": "Biotechnology",
+      "market_cap": 11524560896,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:13.835758"
+    },
+    {
+      "ticker": "WYNN",
+      "name": "Wynn Resorts, Limited",
+      "sector": "Consumer Cyclical",
+      "industry": "Resorts & Casinos",
+      "market_cap": 11352157184,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:14.347047"
+    },
+    {
+      "ticker": "LSCC",
+      "name": "Lattice Semiconductor Corporation",
+      "sector": "Technology",
+      "industry": "Semiconductors",
+      "market_cap": 11350011904,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:14.912389"
+    },
+    {
+      "ticker": "STRL",
+      "name": "Sterling Infrastructure, Inc.",
+      "sector": "Industrials",
+      "industry": "Engineering & Construction",
+      "market_cap": 11303193600,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:15.429132"
+    },
+    {
+      "ticker": "RNA",
+      "name": "Avidity Biosciences, Inc.",
+      "sector": "Healthcare",
+      "industry": "Biotechnology",
+      "market_cap": 11236792320,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:17.532854"
+    },
+    {
+      "ticker": "FIGR",
+      "name": "Figure Technology Solutions, Inc.",
+      "sector": "Financial Services",
+      "industry": "Capital Markets",
+      "market_cap": 11194003456,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:15.985470"
+    },
+    {
+      "ticker": "BMRN",
+      "name": "BioMarin Pharmaceutical Inc.",
+      "sector": "Healthcare",
+      "industry": "Biotechnology",
+      "market_cap": 11133026304,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:16.490620"
+    },
+    {
+      "ticker": "MDGL",
+      "name": "Madrigal Pharmaceuticals, Inc.",
+      "sector": "Healthcare",
+      "industry": "Biotechnology",
+      "market_cap": 11122463744,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:17.006664"
+    },
+    {
+      "ticker": "FIVE",
+      "name": "Five Below, Inc.",
+      "sector": "Consumer Cyclical",
+      "industry": "Specialty Retail",
+      "market_cap": 10910071808,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:18.058892"
+    },
+    {
+      "ticker": "SEIC",
+      "name": "SEI Investments Company",
+      "sector": "Financial Services",
+      "industry": "Asset Management",
+      "market_cap": 10859151360,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:18.631444"
+    },
+    {
+      "ticker": "NTNX",
+      "name": "Nutanix, Inc.",
+      "sector": "Technology",
+      "industry": "Software - Infrastructure",
+      "market_cap": 10843036672,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:19.269732"
+    },
+    {
+      "ticker": "CFLT",
+      "name": "Confluent, Inc.",
+      "sector": "Technology",
+      "industry": "Software - Infrastructure",
+      "market_cap": 10838293504,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:20.321496"
+    },
+    {
+      "ticker": "DRS",
+      "name": "Leonardo DRS, Inc.",
+      "sector": "Industrials",
+      "industry": "Aerospace & Defense",
+      "market_cap": 10764700672,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:19.810364"
+    },
+    {
+      "ticker": "GLXY",
+      "name": "Galaxy Digital",
+      "sector": "Financial Services",
+      "industry": "Capital Markets",
+      "market_cap": 10678614016,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:25.790816"
+    },
+    {
+      "ticker": "TTMI",
+      "name": "TTM Technologies, Inc.",
+      "sector": "Technology",
+      "industry": "Electronic Components",
+      "market_cap": 10618265600,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:21.399001"
+    },
+    {
+      "ticker": "SMMT",
+      "name": "Summit Therapeutics Inc.",
+      "sector": "Healthcare",
+      "industry": "Biotechnology",
+      "market_cap": 10466863104,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:21.928477"
+    },
+    {
+      "ticker": "TEM",
+      "name": "Tempus AI, Inc.",
+      "sector": "Healthcare",
+      "industry": "Health Information Services",
+      "market_cap": 10416470016,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:23.046621"
+    },
+    {
+      "ticker": "DOCU",
+      "name": "DocuSign, Inc.",
+      "sector": "Technology",
+      "industry": "Software - Application",
+      "market_cap": 10414182400,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:23.565272"
+    },
+    {
+      "ticker": "BSY",
+      "name": "Bentley Systems, Incorporated",
+      "sector": "Technology",
+      "industry": "Software - Application",
+      "market_cap": 10396323840,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:24.072321"
+    },
+    {
+      "ticker": "PPC",
+      "name": "Pilgrim's Pride Corporation",
+      "sector": "Consumer Defensive",
+      "industry": "Packaged Foods",
+      "market_cap": 10378447872,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:25.207588"
+    },
+    {
+      "ticker": "BPYPP",
+      "name": "Brookfield Property Partners L.P.",
+      "sector": "Real Estate",
+      "industry": "Real Estate Services",
+      "market_cap": 10361862144,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:22:36.999906"
+    },
+    {
+      "ticker": "EDU",
+      "name": "New Oriental Education & Technology Group Inc.",
+      "sector": "Consumer Defensive",
+      "industry": "Education & Training Services",
+      "market_cap": 10349489152,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:27:16.506385"
+    },
+    {
+      "ticker": "XP",
+      "name": "XP Inc.",
+      "sector": "Financial Services",
+      "industry": "Capital Markets",
+      "market_cap": 10278075392,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:20.893307"
+    },
+    {
+      "ticker": "COKE",
+      "name": "Coca-Cola Consolidated, Inc.",
+      "sector": "Consumer Defensive",
+      "industry": "Beverages - Non-Alcoholic",
+      "market_cap": 10251225088,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:05.581258"
+    },
+    {
+      "ticker": "ARWR",
+      "name": "Arrowhead Pharmaceuticals, Inc.",
+      "sector": "Healthcare",
+      "industry": "Biotechnology",
+      "market_cap": 10220780544,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:24.646553"
+    },
+    {
+      "ticker": "SOLS",
+      "name": "Solstice Advanced Materials, Inc.",
+      "sector": "Basic Materials",
+      "industry": "Specialty Chemicals",
+      "market_cap": 10220461056,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:26.300631"
+    },
+    {
+      "ticker": "TECH",
+      "name": "Bio-Techne Corporation",
+      "sector": "Healthcare",
+      "industry": "Biotechnology",
+      "market_cap": 10166778880,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:26.804564"
+    },
+    {
+      "ticker": "JAZZ",
+      "name": "Jazz Pharmaceuticals plc",
+      "sector": "Healthcare",
+      "industry": "Biotechnology",
+      "market_cap": 10165395456,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:27.312689"
+    },
+    {
+      "ticker": "TIGO",
+      "name": "Millicom International Cellular S.A.",
+      "sector": "Communication Services",
+      "industry": "Telecom Services",
+      "market_cap": 10133704704,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:22.443006"
+    },
+    {
+      "ticker": "WTFC",
+      "name": "Wintrust Financial Corporation",
+      "sector": "Financial Services",
+      "industry": "Banks - Regional",
+      "market_cap": 10026814464,
+      "currency": "USD",
+      "is_active": true,
+      "added_date": "2026-02-03T15:23:27.829180"
+    }
+  ]
+}

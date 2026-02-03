@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  backend:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONPATH=/app
+      - LOG_LEVEL=INFO
+    volumes:
+      - ./src:/app/src          # Hot reload
+      - ./data:/app/data        # Persist cache
+    command: uvicorn src.api.main:app --host 0.0.0.0 --port 8000 --reload
+
+  # Database (for future use)
+  # db:
+  #   image: postgres:15
+  #   environment:
+  #     POSTGRES_USER: tradingapp
+  #     POSTGRES_PASSWORD: tradingapp
+  #     POSTGRES_DB: tradingapp
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   ports:
+  #     - "5432:5432"
+
+  # Redis cache (for future use)
+  # redis:
+  #   image: redis:7-alpine
+  #   ports:
+  #     - "6379:6379"
+
+# volumes:
+#   postgres_data:

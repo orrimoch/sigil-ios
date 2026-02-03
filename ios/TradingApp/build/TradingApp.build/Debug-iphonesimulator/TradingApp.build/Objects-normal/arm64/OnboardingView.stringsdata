@@ -1,0 +1,128 @@
+{
+  "source": "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/Sources/Views/Onboarding/OnboardingView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Skip",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 25
+        }
+      },
+      {
+        "comment": "",
+        "key": "Back",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 62
+        }
+      },
+      {
+        "comment": "",
+        "key": "Get Started",
+        "location": {
+          "startingColumn": 60,
+          "startingLine": 70
+        }
+      },
+      {
+        "comment": "",
+        "key": "Next",
+        "location": {
+          "startingColumn": 76,
+          "startingLine": 70
+        }
+      },
+      {
+        "comment": "",
+        "key": "Welcome to TradingApp",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 103
+        }
+      },
+      {
+        "comment": "",
+        "key": "AI-powered stock recommendations\nfor the S&P 500",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 108
+        }
+      },
+      {
+        "comment": "",
+        "key": "How Scoring Works",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 127
+        }
+      },
+      {
+        "comment": "",
+        "key": "Portfolio Size",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 240
+        }
+      },
+      {
+        "comment": "",
+        "key": "This helps us tailor recommendations\nto your investment size",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 245
+        }
+      },
+      {
+        "comment": "",
+        "key": "Paper Trading",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 315
+        }
+      },
+      {
+        "comment": "",
+        "key": "Practice with virtual money before\ntrading with real funds",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 320
+        }
+      },
+      {
+        "comment": "",
+        "key": "Enable Paper Trading",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 327
+        }
+      },
+      {
+        "comment": "",
+        "key": "ON",
+        "location": {
+          "startingColumn": 43,
+          "startingLine": 332
+        }
+      },
+      {
+        "comment": "",
+        "key": "OFF",
+        "location": {
+          "startingColumn": 50,
+          "startingLine": 332
+        }
+      },
+      {
+        "comment": "",
+        "key": "Recommended for beginners",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 347
+        }
+      }
+    ]
+  },
+  "version": 1
+}

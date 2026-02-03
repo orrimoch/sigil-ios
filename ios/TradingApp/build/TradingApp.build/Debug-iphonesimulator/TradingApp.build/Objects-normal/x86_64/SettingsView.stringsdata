@@ -1,0 +1,440 @@
+{
+  "source": "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/Sources/Views/Settings/SettingsView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Settings",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 247
+        }
+      },
+      {
+        "comment": "",
+        "key": "Switch to Live Trading?",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 251
+        }
+      },
+      {
+        "comment": "",
+        "key": "Reset Paper Portfolio?",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 259
+        }
+      },
+      {
+        "comment": "",
+        "key": "Paper Trading",
+        "location": {
+          "startingColumn": 60,
+          "startingLine": 24
+        }
+      },
+      {
+        "comment": "",
+        "key": "Live Trading",
+        "location": {
+          "startingColumn": 78,
+          "startingLine": 24
+        }
+      },
+      {
+        "comment": "",
+        "key": "Simulated trades with virtual money",
+        "location": {
+          "startingColumn": 60,
+          "startingLine": 28
+        }
+      },
+      {
+        "comment": "",
+        "key": "Real trades with real money",
+        "location": {
+          "startingColumn": 100,
+          "startingLine": 28
+        }
+      },
+      {
+        "comment": "",
+        "key": "Go Live",
+        "location": {
+          "startingColumn": 60,
+          "startingLine": 44
+        }
+      },
+      {
+        "comment": "",
+        "key": "Paper Mode",
+        "location": {
+          "startingColumn": 72,
+          "startingLine": 44
+        }
+      },
+      {
+        "comment": "",
+        "key": "Trading Mode",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 55
+        }
+      },
+      {
+        "comment": "",
+        "key": "⚠️ Live trading uses real money. Trade carefully.",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 58
+        }
+      },
+      {
+        "comment": "",
+        "key": "Portfolio Size",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 78
+        }
+      },
+      {
+        "comment": "",
+        "key": "Risk Tolerance",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 92
+        }
+      },
+      {
+        "comment": "",
+        "key": "Account Preferences",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 97
+        }
+      },
+      {
+        "comment": "",
+        "key": "Interactive Brokers",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 114
+        }
+      },
+      {
+        "comment": "",
+        "key": "Connected",
+        "location": {
+          "startingColumn": 66,
+          "startingLine": 117
+        }
+      },
+      {
+        "comment": "",
+        "key": "Not connected",
+        "location": {
+          "startingColumn": 80,
+          "startingLine": 117
+        }
+      },
+      {
+        "comment": "",
+        "key": "Broker",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 131
+        }
+      },
+      {
+        "comment": "",
+        "key": "Connect IBKR to enable live trading with real money.",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 133
+        }
+      },
+      {
+        "comment": "",
+        "key": "Weekly Score Updates",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 144
+        }
+      },
+      {
+        "comment": "",
+        "key": "Sundays at 7pm EST",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 146
+        }
+      },
+      {
+        "comment": "",
+        "key": "Trade Confirmations",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 159
+        }
+      },
+      {
+        "comment": "",
+        "key": "When orders are filled",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 161
+        }
+      },
+      {
+        "comment": "",
+        "key": "Score Alerts",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 174
+        }
+      },
+      {
+        "comment": "",
+        "key": "When watched stocks change signal",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 176
+        }
+      },
+      {
+        "comment": "",
+        "key": "Notifications",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 184
+        }
+      },
+      {
+        "comment": "",
+        "key": "Reset Paper Portfolio",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 196
+        }
+      },
+      {
+        "comment": "",
+        "key": "Clear Cache",
+        "location": {
+          "startingColumn": 34,
+          "startingLine": 207
+        }
+      },
+      {
+        "comment": "",
+        "key": "Data",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 212
+        }
+      },
+      {
+        "comment": "",
+        "key": "Version",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 219
+        }
+      },
+      {
+        "comment": "",
+        "key": "1.0.0 (Build 1)",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 222
+        }
+      },
+      {
+        "comment": "",
+        "key": "Legal & Privacy",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 229
+        }
+      },
+      {
+        "comment": "",
+        "key": "Reset Onboarding",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 236
+        }
+      },
+      {
+        "comment": "",
+        "key": "About",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 240
+        }
+      },
+      {
+        "comment": "",
+        "key": "Cancel",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 252
+        }
+      },
+      {
+        "comment": "",
+        "key": "Enable Live Trading",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 253
+        }
+      },
+      {
+        "comment": "",
+        "key": "Live trading uses real money from your connected broker account. Make sure you understand the risks before proceeding.\n\nYou can switch back to paper trading at any time.",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 257
+        }
+      },
+      {
+        "comment": "",
+        "key": "Cancel",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 260
+        }
+      },
+      {
+        "comment": "",
+        "key": "Reset",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 261
+        }
+      },
+      {
+        "comment": "",
+        "key": "This will clear all paper trading positions and reset your virtual cash to $100,000. This cannot be undone.",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 267
+        }
+      },
+      {
+        "comment": "",
+        "key": "IBKR Connection",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 401
+        }
+      },
+      {
+        "comment": "",
+        "key": "Connect to Interactive Brokers",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 364
+        }
+      },
+      {
+        "comment": "",
+        "key": "Link your IBKR account to enable live trading with real money.",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 368
+        }
+      },
+      {
+        "comment": "",
+        "key": "By connecting, you agree to our Terms of Service",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 393
+        }
+      },
+      {
+        "comment": "",
+        "key": "Connect IBKR",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 388
+        }
+      },
+      {
+        "comment": "",
+        "key": "Risk Disclosure",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 436
+        }
+      },
+      {
+        "comment": "",
+        "key": "Please read and acknowledge the following before enabling live trading:",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 440
+        }
+      },
+      {
+        "comment": "",
+        "key": "Continue to IBKR",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 475
+        }
+      },
+      {
+        "comment": "",
+        "key": "I understand and accept these risks",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 466
+        }
+      },
+      {
+        "comment": "",
+        "key": "Cancel",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 489
+        }
+      },
+      {
+        "comment": "",
+        "key": "Legal",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 545
+        }
+      },
+      {
+        "comment": "",
+        "key": "Terms of Service",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 530
+        }
+      },
+      {
+        "comment": "",
+        "key": "Privacy Policy",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 533
+        }
+      },
+      {
+        "comment": "",
+        "key": "Risk Disclosure",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 536
+        }
+      }
+    ]
+  },
+  "version": 1
+}

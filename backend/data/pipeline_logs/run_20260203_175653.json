@@ -1,0 +1,25 @@
+{
+  "run_id": "20260203_175653",
+  "started_at": "2026-02-03T17:56:53.144761",
+  "completed_at": "2026-02-03T18:34:38.811286",
+  "status": "partial_failure",
+  "total_duration_seconds": 2265.666525,
+  "steps": [
+    {
+      "name": "price_data",
+      "status": "failed",
+      "duration_seconds": 1135.070323,
+      "records_processed": 0,
+      "error": "Unable to find a usable engine; tried using: 'pyarrow', 'fastparquet'.\nA suitable version of pyarrow or fastparquet is required for parquet support.\nTrying to import the above resulted in these errors:\n - Missing optional dependency 'pyarrow'. pyarrow is required for parquet support. Use pip or conda to install pyarrow.\n - Missing optional dependency 'fastparquet'. fastparquet is required for parquet support. Use pip or conda to install fastparquet.",
+      "retries": 2
+    },
+    {
+      "name": "fundamental_data",
+      "status": "success",
+      "duration_seconds": 1130.594004,
+      "records_processed": 677,
+      "error": null,
+      "retries": 0
+    }
+  ]
+}

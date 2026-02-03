@@ -1,0 +1,179 @@
+{
+  "" : {
+    "diagnostics" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/TradingApp-primary.dia",
+    "emit-module-dependencies" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/TradingApp-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/TradingApp-primary-emit-module.dia",
+    "pch" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/TradingApp-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/TradingApp-primary.swiftdeps"
+  },
+  "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/Sources/App/ContentView.swift" : {
+    "const-values" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/ContentView.swiftconstvalues",
+    "dependencies" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/ContentView.d",
+    "diagnostics" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/ContentView.dia",
+    "index-unit-output-path" : "/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/ContentView.o",
+    "llvm-bc" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/ContentView.bc",
+    "object" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/ContentView.o",
+    "swift-dependencies" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/ContentView.swiftdeps",
+    "swiftmodule" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/ContentView~partial.swiftmodule"
+  },
+  "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/Sources/App/TradingAppApp.swift" : {
+    "const-values" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/TradingAppApp.swiftconstvalues",
+    "dependencies" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/TradingAppApp.d",
+    "diagnostics" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/TradingAppApp.dia",
+    "index-unit-output-path" : "/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/TradingAppApp.o",
+    "llvm-bc" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/TradingAppApp.bc",
+    "object" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/TradingAppApp.o",
+    "swift-dependencies" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/TradingAppApp.swiftdeps",
+    "swiftmodule" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/TradingAppApp~partial.swiftmodule"
+  },
+  "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/Sources/Services/APIService.swift" : {
+    "const-values" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/APIService.swiftconstvalues",
+    "dependencies" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/APIService.d",
+    "diagnostics" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/APIService.dia",
+    "index-unit-output-path" : "/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/APIService.o",
+    "llvm-bc" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/APIService.bc",
+    "object" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/APIService.o",
+    "swift-dependencies" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/APIService.swiftdeps",
+    "swiftmodule" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/APIService~partial.swiftmodule"
+  },
+  "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/Sources/Utils/DailyQuotes.swift" : {
+    "const-values" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/DailyQuotes.swiftconstvalues",
+    "dependencies" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/DailyQuotes.d",
+    "diagnostics" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/DailyQuotes.dia",
+    "index-unit-output-path" : "/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/DailyQuotes.o",
+    "llvm-bc" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/DailyQuotes.bc",
+    "object" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/DailyQuotes.o",
+    "swift-dependencies" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/DailyQuotes.swiftdeps",
+    "swiftmodule" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/DailyQuotes~partial.swiftmodule"
+  },
+  "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/Sources/Utils/Theme.swift" : {
+    "const-values" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/Theme.swiftconstvalues",
+    "dependencies" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/Theme.d",
+    "diagnostics" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/Theme.dia",
+    "index-unit-output-path" : "/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/Theme.o",
+    "llvm-bc" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/Theme.bc",
+    "object" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/Theme.o",
+    "swift-dependencies" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/Theme.swiftdeps",
+    "swiftmodule" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/Theme~partial.swiftmodule"
+  },
+  "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/Sources/ViewModels/PortfolioViewModel.swift" : {
+    "const-values" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/PortfolioViewModel.swiftconstvalues",
+    "dependencies" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/PortfolioViewModel.d",
+    "diagnostics" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/PortfolioViewModel.dia",
+    "index-unit-output-path" : "/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/PortfolioViewModel.o",
+    "llvm-bc" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/PortfolioViewModel.bc",
+    "object" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/PortfolioViewModel.o",
+    "swift-dependencies" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/PortfolioViewModel.swiftdeps",
+    "swiftmodule" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/PortfolioViewModel~partial.swiftmodule"
+  },
+  "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/Sources/ViewModels/TradeViewModel.swift" : {
+    "const-values" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/TradeViewModel.swiftconstvalues",
+    "dependencies" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/TradeViewModel.d",
+    "diagnostics" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/TradeViewModel.dia",
+    "index-unit-output-path" : "/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/TradeViewModel.o",
+    "llvm-bc" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/TradeViewModel.bc",
+    "object" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/TradeViewModel.o",
+    "swift-dependencies" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/TradeViewModel.swiftdeps",
+    "swiftmodule" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/TradeViewModel~partial.swiftmodule"
+  },
+  "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/Sources/Views/Home/HomeView.swift" : {
+    "const-values" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/HomeView.swiftconstvalues",
+    "dependencies" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/HomeView.d",
+    "diagnostics" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/HomeView.dia",
+    "index-unit-output-path" : "/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/HomeView.o",
+    "llvm-bc" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/HomeView.bc",
+    "object" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/HomeView.o",
+    "swift-dependencies" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/HomeView.swiftdeps",
+    "swiftmodule" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/HomeView~partial.swiftmodule"
+  },
+  "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/Sources/Views/Home/HomeViewModel.swift" : {
+    "const-values" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/HomeViewModel.swiftconstvalues",
+    "dependencies" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/HomeViewModel.d",
+    "diagnostics" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/HomeViewModel.dia",
+    "index-unit-output-path" : "/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/HomeViewModel.o",
+    "llvm-bc" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/HomeViewModel.bc",
+    "object" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/HomeViewModel.o",
+    "swift-dependencies" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/HomeViewModel.swiftdeps",
+    "swiftmodule" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/HomeViewModel~partial.swiftmodule"
+  },
+  "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/Sources/Views/Onboarding/OnboardingView.swift" : {
+    "const-values" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/OnboardingView.swiftconstvalues",
+    "dependencies" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/OnboardingView.d",
+    "diagnostics" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/OnboardingView.dia",
+    "index-unit-output-path" : "/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/OnboardingView.o",
+    "llvm-bc" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/OnboardingView.bc",
+    "object" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/OnboardingView.o",
+    "swift-dependencies" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/OnboardingView.swiftdeps",
+    "swiftmodule" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/OnboardingView~partial.swiftmodule"
+  },
+  "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/Sources/Views/Portfolio/PortfolioView.swift" : {
+    "const-values" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/PortfolioView.swiftconstvalues",
+    "dependencies" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/PortfolioView.d",
+    "diagnostics" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/PortfolioView.dia",
+    "index-unit-output-path" : "/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/PortfolioView.o",
+    "llvm-bc" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/PortfolioView.bc",
+    "object" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/PortfolioView.o",
+    "swift-dependencies" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/PortfolioView.swiftdeps",
+    "swiftmodule" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/PortfolioView~partial.swiftmodule"
+  },
+  "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/Sources/Views/Scores/ScoresView.swift" : {
+    "const-values" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/ScoresView.swiftconstvalues",
+    "dependencies" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/ScoresView.d",
+    "diagnostics" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/ScoresView.dia",
+    "index-unit-output-path" : "/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/ScoresView.o",
+    "llvm-bc" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/ScoresView.bc",
+    "object" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/ScoresView.o",
+    "swift-dependencies" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/ScoresView.swiftdeps",
+    "swiftmodule" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/ScoresView~partial.swiftmodule"
+  },
+  "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/Sources/Views/Scores/ScoresViewModel.swift" : {
+    "const-values" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/ScoresViewModel.swiftconstvalues",
+    "dependencies" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/ScoresViewModel.d",
+    "diagnostics" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/ScoresViewModel.dia",
+    "index-unit-output-path" : "/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/ScoresViewModel.o",
+    "llvm-bc" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/ScoresViewModel.bc",
+    "object" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/ScoresViewModel.o",
+    "swift-dependencies" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/ScoresViewModel.swiftdeps",
+    "swiftmodule" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/ScoresViewModel~partial.swiftmodule"
+  },
+  "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/Sources/Views/Scores/StockDetailView.swift" : {
+    "const-values" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/StockDetailView.swiftconstvalues",
+    "dependencies" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/StockDetailView.d",
+    "diagnostics" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/StockDetailView.dia",
+    "index-unit-output-path" : "/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/StockDetailView.o",
+    "llvm-bc" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/StockDetailView.bc",
+    "object" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/StockDetailView.o",
+    "swift-dependencies" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/StockDetailView.swiftdeps",
+    "swiftmodule" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/StockDetailView~partial.swiftmodule"
+  },
+  "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/Sources/Views/Scores/StockDetailViewModel.swift" : {
+    "const-values" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/StockDetailViewModel.swiftconstvalues",
+    "dependencies" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/StockDetailViewModel.d",
+    "diagnostics" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/StockDetailViewModel.dia",
+    "index-unit-output-path" : "/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/StockDetailViewModel.o",
+    "llvm-bc" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/StockDetailViewModel.bc",
+    "object" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/StockDetailViewModel.o",
+    "swift-dependencies" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/StockDetailViewModel.swiftdeps",
+    "swiftmodule" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/StockDetailViewModel~partial.swiftmodule"
+  },
+  "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/Sources/Views/Settings/SettingsView.swift" : {
+    "const-values" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/SettingsView.swiftconstvalues",
+    "dependencies" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/SettingsView.d",
+    "diagnostics" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/SettingsView.dia",
+    "index-unit-output-path" : "/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/SettingsView.o",
+    "llvm-bc" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/SettingsView.bc",
+    "object" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/SettingsView.o",
+    "swift-dependencies" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/SettingsView.swiftdeps",
+    "swiftmodule" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/SettingsView~partial.swiftmodule"
+  },
+  "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/Sources/Views/Trade/TradeView.swift" : {
+    "const-values" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/TradeView.swiftconstvalues",
+    "dependencies" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/TradeView.d",
+    "diagnostics" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/TradeView.dia",
+    "index-unit-output-path" : "/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/TradeView.o",
+    "llvm-bc" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/TradeView.bc",
+    "object" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/TradeView.o",
+    "swift-dependencies" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/TradeView.swiftdeps",
+    "swiftmodule" : "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/ios/TradingApp/build/TradingApp.build/Debug-iphonesimulator/TradingApp.build/Objects-normal/x86_64/TradeView~partial.swiftmodule"
+  }
+}
