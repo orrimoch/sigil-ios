@@ -56,7 +56,7 @@ class ScoresViewModel: ObservableObject {
         errorMessage = nil
         
         do {
-            let response = try await APIService.shared.getScores(limit: 500)
+            let response = try await APIService.shared.getScores(limit: 1000)
             
             // Map to local model — prices are now included in scores response (Bug 2 fix)
             var items: [StockScoreItem] = []
