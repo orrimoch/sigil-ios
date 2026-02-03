@@ -23,8 +23,10 @@
 		6071621065F40970DA5CB531 /* AppLockManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142AD971DB4328A38FE98FF8 /* AppLockManager.swift */; };
 		79D7563BCDF1DE0987A2BB13 /* StockDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B48A193806898F710A08BF /* StockDetailView.swift */; };
 		7D318BB9D701E75E238DE195 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E0970BBC9EEF8A622664BE /* HomeViewModel.swift */; };
+		87DCF0D2B7F5CDC00001BC39 /* NotificationServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22ABA1BD0CCCEE1495A5483E /* NotificationServiceTests.swift */; };
 		8850D027F0AEBA64CD154961 /* TradingAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9FDE5CC4CF06B747DCFC13 /* TradingAppApp.swift */; };
 		9F6AF0645DC8F2FD1CCE4A74 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9171BBA83EA1E22DDAB01A07 /* KeychainHelper.swift */; };
+		A2BB0C55437D02735823DE03 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0910B23683CDE01F53EE92 /* NotificationService.swift */; };
 		B2656E746925AA7022B94B45 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90B5975CC99D7B349BEE0A4 /* RegisterView.swift */; };
 		B460AF260E7178E35133AA83 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD804DC0A98BADD4B6546055 /* AuthService.swift */; };
 		B60D8BF184577B935318AA2E /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E0FF42437F27ADD36CF7381 /* AuthViewModel.swift */; };
@@ -37,6 +39,16 @@
 		F16A948B1D986EC8D5FD9A14 /* TradeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BE478C84262BD609CAE217 /* TradeView.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		AD06B3A46177B6CEB5266E79 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CFBEBA5EF4D9BE87324B6B6C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B1DFF483A72449D2A7CEC895;
+			remoteInfo = TradingApp;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		0AFEEE2C58CB8466ADDDC5E4 /* LockScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockScreenView.swift; sourceTree = "<group>"; };
 		0E6FCBAFE203360F593CE742 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
@@ -45,10 +57,12 @@
 		11CF55E8FAB93F6674BE41C1 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		142AD971DB4328A38FE98FF8 /* AppLockManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLockManager.swift; sourceTree = "<group>"; };
 		1E0FF42437F27ADD36CF7381 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		22ABA1BD0CCCEE1495A5483E /* NotificationServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationServiceTests.swift; sourceTree = "<group>"; };
 		25BE478C84262BD609CAE217 /* TradeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeView.swift; sourceTree = "<group>"; };
 		29E0970BBC9EEF8A622664BE /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		34192B20D8BEE8DB24F4E7C4 /* ScoresView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresView.swift; sourceTree = "<group>"; };
 		47B4CB9320BF2F19AA792EF5 /* TradeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeViewModel.swift; sourceTree = "<group>"; };
+		5B0910B23683CDE01F53EE92 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		6134AA754BE7F6A850EC86FD /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		67102CC49BF0A93534CBEF97 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6C9EE7C746B33E5E9E3E26C9 /* TradingApp.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = TradingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -63,6 +77,7 @@
 		BAA5242AC53BACFA5451983D /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 		BF0BE7FD319557839DC2A428 /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 		C84907440C9629455E52205C /* DailyQuotes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyQuotes.swift; sourceTree = "<group>"; };
+		D1E79EFD83BF82BC2E9BB467 /* TradingAppTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = TradingAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE3BD9BDB307D776C0877B6D /* ScoresViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresViewModel.swift; sourceTree = "<group>"; };
 		E55D984C29CB5823089F169A /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		F0ABB835E6047A7E2BB1614B /* PortfolioViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioViewModel.swift; sourceTree = "<group>"; };
@@ -140,6 +155,7 @@
 				142AD971DB4328A38FE98FF8 /* AppLockManager.swift */,
 				FD804DC0A98BADD4B6546055 /* AuthService.swift */,
 				9171BBA83EA1E22DDAB01A07 /* KeychainHelper.swift */,
+				5B0910B23683CDE01F53EE92 /* NotificationService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -168,6 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				6C9EE7C746B33E5E9E3E26C9 /* TradingApp.app */,
+				D1E79EFD83BF82BC2E9BB467 /* TradingAppTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -176,8 +193,17 @@
 			isa = PBXGroup;
 			children = (
 				7524857A70AC63038F9F3171 /* Sources */,
+				A2C0F3360F5DB04CBCB1BD7E /* Tests */,
 				9848E5CD919C002CE59892B8 /* Products */,
 			);
+			sourceTree = "<group>";
+		};
+		A2C0F3360F5DB04CBCB1BD7E /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				22ABA1BD0CCCEE1495A5483E /* NotificationServiceTests.swift */,
+			);
+			path = Tests;
 			sourceTree = "<group>";
 		};
 		A55BE58167B9AB16CD44E8D6 /* Models */ = {
@@ -236,6 +262,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		5356B3DA318A9AB7BAB6F3CD /* TradingAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6562BB2B1D5FCED13DF503A8 /* Build configuration list for PBXNativeTarget "TradingAppTests" */;
+			buildPhases = (
+				3597F4E79155AD39481676CB /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8C43380514027A6ECE11AAE9 /* PBXTargetDependency */,
+			);
+			name = TradingAppTests;
+			packageProductDependencies = (
+			);
+			productName = TradingAppTests;
+			productReference = D1E79EFD83BF82BC2E9BB467 /* TradingAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		B1DFF483A72449D2A7CEC895 /* TradingApp */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8D2AD108DC924AD1C87A0C43 /* Build configuration list for PBXNativeTarget "TradingApp" */;
@@ -263,6 +307,10 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
+					5356B3DA318A9AB7BAB6F3CD = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
 					B1DFF483A72449D2A7CEC895 = {
 						DevelopmentTeam = "";
 						ProvisioningStyle = Automatic;
@@ -284,6 +332,7 @@
 			projectRoot = "";
 			targets = (
 				B1DFF483A72449D2A7CEC895 /* TradingApp */,
+				5356B3DA318A9AB7BAB6F3CD /* TradingAppTests */,
 			);
 		};
 /* End PBXProject section */
@@ -300,6 +349,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		3597F4E79155AD39481676CB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				87DCF0D2B7F5CDC00001BC39 /* NotificationServiceTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		94359E2D5C24E14CB8C9697B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -317,6 +374,7 @@
 				305B16FA0621B26F0FB6E63F /* LaunchView.swift in Sources */,
 				2A2EDECC5B008BAFD4FB1E92 /* LockScreenView.swift in Sources */,
 				5B109A028D39D54D3985A256 /* LoginView.swift in Sources */,
+				A2BB0C55437D02735823DE03 /* NotificationService.swift in Sources */,
 				4B1DEE45FEB7433AFCDB26A4 /* OnboardingView.swift in Sources */,
 				D7259FB9E93F8779E0B1804A /* PinSetupView.swift in Sources */,
 				2FE1A88456AFDDFAF5C6AE7F /* PortfolioView.swift in Sources */,
@@ -335,6 +393,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8C43380514027A6ECE11AAE9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B1DFF483A72449D2A7CEC895 /* TradingApp */;
+			targetProxy = AD06B3A46177B6CEB5266E79 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		579DB9CBEEE6B94F0D785D54 /* Release */ = {
@@ -393,6 +459,25 @@
 			};
 			name = Release;
 		};
+		6A2D40F3826C1F458FF7A81A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.sigil.ios.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sigil.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Sigil";
+			};
+			name = Debug;
+		};
 		8D0C371403B34ECFE4DC5655 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -436,6 +521,25 @@
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		B7EA49402E9E54B0F5905AA4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.sigil.ios.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sigil.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Sigil";
 			};
 			name = Release;
 		};
@@ -505,6 +609,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		6562BB2B1D5FCED13DF503A8 /* Build configuration list for PBXNativeTarget "TradingAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6A2D40F3826C1F458FF7A81A /* Debug */,
+				B7EA49402E9E54B0F5905AA4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
 		8D2AD108DC924AD1C87A0C43 /* Build configuration list for PBXNativeTarget "TradingApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

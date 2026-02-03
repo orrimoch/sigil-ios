@@ -52,3 +52,32 @@ targets:
           - UIInterfaceOrientationPortraitUpsideDown
           - UIInterfaceOrientationLandscapeLeft
           - UIInterfaceOrientationLandscapeRight
+
+  TradingAppTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: Tests
+        type: group
+    dependencies:
+      - target: TradingApp
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.sigil.ios.tests
+        CODE_SIGN_STYLE: Automatic
+        DEVELOPMENT_TEAM: ""
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/Sigil.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Sigil"
+        BUNDLE_LOADER: "$(TEST_HOST)"
+        GENERATE_INFOPLIST_FILE: YES
+
+schemes:
+  TradingApp:
+    build:
+      targets:
+        TradingApp: all
+        TradingAppTests: [test]
+    test:
+      targets:
+        - TradingAppTests
+    run:
+      config: Debug

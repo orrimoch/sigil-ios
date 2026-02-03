@@ -742,13 +742,25 @@ struct TradeEntrySheet: View {
         isSubmitting = true
         errorMessage = nil
         
+        let side = isBuy ? "BUY" : "SELL"
+        
         do {
             _ = try await APIService.shared.createOrder(
                 ticker: ticker,
-                side: isBuy ? "BUY" : "SELL",
+                side: side,
                 quantity: qty,
                 orderType: "MARKET"
             )
+            
+            // F9.2: Send trade confirmation notification
+            NotificationService.shared.sendTradeConfirmation(
+                ticker: ticker,
+                side: side,
+                quantity: qty,
+                price: currentPrice,
+                total: qty * currentPrice
+            )
+            
             showSuccess = true
         } catch let error as APIError {
             errorMessage = error.errorDescription

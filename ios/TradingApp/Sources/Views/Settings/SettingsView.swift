@@ -341,6 +341,7 @@ class SettingsViewModel: ObservableObject {
     @Published var weeklyScoreAlerts: Bool {
         didSet {
             UserDefaults.standard.set(weeklyScoreAlerts, forKey: "weeklyScoreAlerts")
+            NotificationService.shared.scheduleWeeklyScoreUpdate()
         }
     }
     

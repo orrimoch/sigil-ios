@@ -204,6 +204,15 @@ class TradeViewModel: ObservableObject {
             showPreview = false
             showConfirmation = true
             
+            // F9.2: Send trade confirmation notification
+            NotificationService.shared.sendTradeConfirmation(
+                ticker: stock.ticker,
+                side: orderSide.rawValue,
+                quantity: quantityValue,
+                price: executionPrice,
+                total: estimatedTotal
+            )
+            
             // Refresh orders
             await fetchTodaysOrders()
             

@@ -1,10 +1,12 @@
 import SwiftUI
+import UserNotifications
 
 /// Main entry point for Sigil
 @main
 struct SigilApp: App {
     @StateObject private var appState = AppState()
     @StateObject private var lockManager = AppLockManager.shared
+    @StateObject private var notificationService = NotificationService.shared
     @State private var showLaunch = true
     @State private var showPinSetup = false
     
@@ -26,6 +28,14 @@ struct SigilApp: App {
                         }
                         .onAppear {
                             startDemoIfNeeded()
+                            // Request notification permission on first launch
+                            Task {
+                                let granted = await notificationService.requestAuthorization()
+                                if granted {
+                                    // Schedule recurring notifications based on user preferences
+                                    notificationService.scheduleWeeklyScoreUpdate()
+                                }
+                            }
                             // Prompt PIN setup if not set up yet (after first use)
                             if !lockManager.isSetUp && !UserDefaults.standard.bool(forKey: "pinSetupDismissed") {
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
