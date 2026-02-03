@@ -226,7 +226,7 @@ async def health_check():
 @app.get("/api/v1/stocks", response_model=StocksListResponse)
 async def get_stocks(
     sector: Optional[str] = Query(None, description="Filter by sector"),
-    limit: int = Query(100, ge=1, le=500, description="Number of results"),
+    limit: int = Query(100, ge=1, le=1000, description="Number of results"),
     offset: int = Query(0, ge=0, description="Offset for pagination"),
 ):
     """
@@ -691,7 +691,7 @@ async def get_pipeline_history(
 async def get_scores(
     signal: Optional[str] = Query(None, description="Filter by signal: BUY, HOLD, SELL"),
     sector: Optional[str] = Query(None, description="Filter by sector"),
-    limit: int = Query(50, ge=1, le=500, description="Number of results"),
+    limit: int = Query(50, ge=1, le=1000, description="Number of results"),
     order: Optional[str] = Query("desc", description="Sort order: asc or desc"),
     include_prices: bool = Query(True, description="Include current price data"),
 ):
@@ -1130,7 +1130,7 @@ async def create_order(request: OrderRequest):
 async def get_orders(
     status: Optional[str] = Query(None, description="Filter by status: PENDING, FILLED, CANCELLED"),
     ticker: Optional[str] = Query(None, description="Filter by ticker"),
-    limit: int = Query(50, ge=1, le=500),
+    limit: int = Query(50, ge=1, le=1000),
 ):
     """
     Get orders with optional filters.
