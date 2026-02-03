@@ -60,17 +60,38 @@ struct TradeView: View {
 struct TradingModeIndicator: View {
     let isPaper: Bool
     
+    private var isLiveIBKR: Bool {
+        !isPaper && IBKRService.shared.isConnected
+    }
+    
+    private var displayText: String {
+        if isPaper { return "PAPER TRADING" }
+        if isLiveIBKR { return "LIVE TRADING" }
+        return "LIVE MODE (IBKR NOT CONNECTED)"
+    }
+    
+    private var displayColor: Color {
+        isPaper ? .Signal.hold : .Signal.sell
+    }
+    
     var body: some View {
         HStack(spacing: 8) {
+            // Pulsing dot for live mode
+            if isLiveIBKR {
+                Circle()
+                    .fill(Color.Signal.sell)
+                    .frame(width: 8, height: 8)
+            }
+            
             Image(systemName: isPaper ? "doc.text.fill" : "dollarsign.circle.fill")
-            Text(isPaper ? "PAPER TRADING" : "LIVE TRADING")
+            Text(displayText)
                 .font(.caption.bold())
         }
-        .foregroundColor(isPaper ? .Signal.hold : .Signal.sell)
+        .foregroundColor(displayColor)
         .padding(.horizontal, 16)
         .padding(.vertical, 8)
         .background(
-            (isPaper ? Color.Signal.hold : Color.Signal.sell).opacity(0.15)
+            displayColor.opacity(0.15)
         )
         .cornerRadius(20)
     }

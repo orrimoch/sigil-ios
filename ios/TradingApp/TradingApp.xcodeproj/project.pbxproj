@@ -18,6 +18,7 @@
 		31574C2163567C37E4A6DFE8 /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0BE7FD319557839DC2A428 /* ForgotPasswordView.swift */; };
 		34E2839B04A7BAB4876C0792 /* PortfolioViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0ABB835E6047A7E2BB1614B /* PortfolioViewModel.swift */; };
 		38034E8BF33BF5524EA0CF11 /* ScoresView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34192B20D8BEE8DB24F4E7C4 /* ScoresView.swift */; };
+		4054CA088D67C54E0551E951 /* IBKRService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF085E6CC961498A611E900 /* IBKRService.swift */; };
 		4B1DEE45FEB7433AFCDB26A4 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6FCBAFE203360F593CE742 /* OnboardingView.swift */; };
 		5A6A2B484FA095B2451B9A0B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BA11F7F4B50B97513B92DB /* ContentView.swift */; };
 		5B109A028D39D54D3985A256 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11CF55E8FAB93F6674BE41C1 /* LoginView.swift */; };
@@ -28,6 +29,7 @@
 		87DCF0D2B7F5CDC00001BC39 /* NotificationServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22ABA1BD0CCCEE1495A5483E /* NotificationServiceTests.swift */; };
 		8850D027F0AEBA64CD154961 /* TradingAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9FDE5CC4CF06B747DCFC13 /* TradingAppApp.swift */; };
 		8BDE5667403DFE9BD014406A /* ErrorStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84017D4C6F3B4B6500456C6 /* ErrorStateView.swift */; };
+		9090BFD93412DCEA8AA18EEA /* IBKRServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A93A10D107BD4ABBEB74CD /* IBKRServiceTests.swift */; };
 		9F6AF0645DC8F2FD1CCE4A74 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9171BBA83EA1E22DDAB01A07 /* KeychainHelper.swift */; };
 		A2BB0C55437D02735823DE03 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0910B23683CDE01F53EE92 /* NotificationService.swift */; };
 		B2656E746925AA7022B94B45 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90B5975CC99D7B349BEE0A4 /* RegisterView.swift */; };
@@ -67,6 +69,7 @@
 		34192B20D8BEE8DB24F4E7C4 /* ScoresView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresView.swift; sourceTree = "<group>"; };
 		47B4CB9320BF2F19AA792EF5 /* TradeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeViewModel.swift; sourceTree = "<group>"; };
 		5B0910B23683CDE01F53EE92 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		5FF085E6CC961498A611E900 /* IBKRService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IBKRService.swift; sourceTree = "<group>"; };
 		6134AA754BE7F6A850EC86FD /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		646254719DCBFF22BF2793B8 /* AuthGateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthGateTests.swift; sourceTree = "<group>"; };
 		67102CC49BF0A93534CBEF97 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -76,6 +79,7 @@
 		9171BBA83EA1E22DDAB01A07 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		9291D4262615E65F92A438CF /* PortfolioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioView.swift; sourceTree = "<group>"; };
 		A93D2F1A56BA122694B64C62 /* PinSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinSetupView.swift; sourceTree = "<group>"; };
+		A9A93A10D107BD4ABBEB74CD /* IBKRServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IBKRServiceTests.swift; sourceTree = "<group>"; };
 		B4BA11F7F4B50B97513B92DB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B90B5975CC99D7B349BEE0A4 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		B954D091708BAE1C1300E026 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -161,6 +165,7 @@
 				E55D984C29CB5823089F169A /* APIService.swift */,
 				142AD971DB4328A38FE98FF8 /* AppLockManager.swift */,
 				FD804DC0A98BADD4B6546055 /* AuthService.swift */,
+				5FF085E6CC961498A611E900 /* IBKRService.swift */,
 				9171BBA83EA1E22DDAB01A07 /* KeychainHelper.swift */,
 				5B0910B23683CDE01F53EE92 /* NotificationService.swift */,
 			);
@@ -218,6 +223,7 @@
 			children = (
 				646254719DCBFF22BF2793B8 /* AuthGateTests.swift */,
 				1BFF8A3E4DF3C8334D97F83C /* ErrorStateViewTests.swift */,
+				A9A93A10D107BD4ABBEB74CD /* IBKRServiceTests.swift */,
 				22ABA1BD0CCCEE1495A5483E /* NotificationServiceTests.swift */,
 			);
 			path = Tests;
@@ -372,6 +378,7 @@
 			files = (
 				142F4AC4CA6FB57A7A880AB4 /* AuthGateTests.swift in Sources */,
 				67DBA6FA3C3D70196F6B6207 /* ErrorStateViewTests.swift in Sources */,
+				9090BFD93412DCEA8AA18EEA /* IBKRServiceTests.swift in Sources */,
 				87DCF0D2B7F5CDC00001BC39 /* NotificationServiceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -390,6 +397,7 @@
 				31574C2163567C37E4A6DFE8 /* ForgotPasswordView.swift in Sources */,
 				0D5D041793999B909FEB63E0 /* HomeView.swift in Sources */,
 				7D318BB9D701E75E238DE195 /* HomeViewModel.swift in Sources */,
+				4054CA088D67C54E0551E951 /* IBKRService.swift in Sources */,
 				9F6AF0645DC8F2FD1CCE4A74 /* KeychainHelper.swift in Sources */,
 				305B16FA0621B26F0FB6E63F /* LaunchView.swift in Sources */,
 				2A2EDECC5B008BAFD4FB1E92 /* LockScreenView.swift in Sources */,

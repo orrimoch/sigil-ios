@@ -186,6 +186,11 @@ class TradeViewModel: ObservableObject {
         showPreview = true
     }
     
+    /// Whether to route orders through IBKR (live mode + connected)
+    var shouldUseIBKR: Bool {
+        return !AppState.shared.isPaperTrading && IBKRService.shared.isConnected
+    }
+    
     func submitOrder() async {
         guard let stock = selectedStock, canSubmitOrder else { return }
         
@@ -193,15 +198,46 @@ class TradeViewModel: ObservableObject {
         orderError = nil
         
         do {
-            let response = try await api.createOrder(
-                ticker: stock.ticker,
-                side: orderSide.rawValue,
-                quantity: quantityValue,
-                orderType: orderType.rawValue,
-                limitPrice: limitPriceValue
-            )
+            if shouldUseIBKR {
+                // F6.3: Route to IBKR for live trading
+                let ibkrResult = try await IBKRService.shared.submitOrder(
+                    ticker: stock.ticker,
+                    side: orderSide.rawValue,
+                    quantity: quantityValue,
+                    orderType: orderType.rawValue,
+                    limitPrice: limitPriceValue
+                )
+                
+                // Convert IBKR result to OrderData for display
+                lastOrder = OrderData(
+                    orderId: ibkrResult.orderId,
+                    ticker: ibkrResult.ticker,
+                    side: ibkrResult.side,
+                    orderType: ibkrResult.orderType,
+                    quantity: ibkrResult.quantity,
+                    limitPrice: nil,
+                    status: ibkrResult.status,
+                    filledQuantity: ibkrResult.quantity,
+                    filledPrice: ibkrResult.filledPrice,
+                    createdAt: ibkrResult.filledAt ?? "",
+                    updatedAt: ibkrResult.filledAt ?? "",
+                    filledAt: ibkrResult.filledAt,
+                    rejectReason: nil,
+                    isPaper: ibkrResult.isPaper
+                )
+            } else {
+                // Paper trading: use existing endpoint
+                let response = try await api.createOrder(
+                    ticker: stock.ticker,
+                    side: orderSide.rawValue,
+                    quantity: quantityValue,
+                    orderType: orderType.rawValue,
+                    limitPrice: limitPriceValue
+                )
+                
+                lastOrder = response.data
+            }
             
-            lastOrder = response.data
             showPreview = false
             showConfirmation = true
             

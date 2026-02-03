@@ -1,4 +1,5 @@
 import SwiftUI
+import Combine
 
 /// F8.x: Settings Tab
 /// Account settings, IBKR connection, trading mode, notifications
@@ -376,6 +377,8 @@ class SettingsViewModel: ObservableObject {
     
     @Published var isIBKRConnected = false
     
+    private var ibkrCancellable: AnyCancellable?
+    
     init() {
         let riskString = UserDefaults.standard.string(forKey: "riskTolerance") ?? "Moderate"
         self.riskTolerance = RiskTolerance(rawValue: riskString) ?? .moderate
@@ -390,6 +393,12 @@ class SettingsViewModel: ObservableObject {
             scoreAlerts = false
             UserDefaults.standard.set(true, forKey: "settingsInitialized")
         }
+        
+        // Sync IBKR connection state
+        self.isIBKRConnected = IBKRService.shared.isConnected
+        ibkrCancellable = IBKRService.shared.$isConnected
+            .receive(on: RunLoop.main)
+            .assign(to: \.isIBKRConnected, on: self)
     }
     
     func reload() {
@@ -435,57 +444,166 @@ enum RiskTolerance: String, CaseIterable {
 // MARK: - IBKR Connection View
 
 struct IBKRConnectionView: View {
+    @StateObject private var ibkrService = IBKRService.shared
     @State private var showRiskDisclosure = false
+    @State private var showDisconnectAlert = false
+    @State private var connectionError: String?
     
     var body: some View {
         VStack(spacing: 24) {
             Spacer()
             
-            Image(systemName: "link.circle")
-                .font(.system(size: 80))
-                .foregroundColor(.Brand.primary)
-            
-            Text("Connect to Interactive Brokers")
-                .font(.title2.bold())
-                .foregroundColor(.Text.primary)
-            
-            Text("Link your IBKR account to enable live trading with real money.")
-                .font(.body)
-                .foregroundColor(.Text.secondary)
-                .multilineTextAlignment(.center)
-                .padding(.horizontal)
-            
-            VStack(alignment: .leading, spacing: 12) {
-                FeatureRow(icon: "checkmark.shield.fill", text: "Secure OAuth authentication")
-                FeatureRow(icon: "lock.fill", text: "Your credentials stay with IBKR")
-                FeatureRow(icon: "arrow.triangle.2.circlepath", text: "Sync orders and positions")
-                FeatureRow(icon: "bell.fill", text: "Real-time trade notifications")
-            }
-            .padding()
-            .background(Color.Background.secondary)
-            .cornerRadius(12)
-            .padding(.horizontal)
-            
-            Spacer()
-            
-            VStack(spacing: 12) {
-                Button("Connect IBKR") {
-                    showRiskDisclosure = true
-                }
-                .buttonStyle(PrimaryButtonStyle())
+            if ibkrService.isConnected {
+                // Connected state
+                Image(systemName: "checkmark.circle.fill")
+                    .font(.system(size: 80))
+                    .foregroundColor(.Signal.buy)
                 
-                Text("By connecting, you agree to our Terms of Service")
-                    .font(.caption)
-                    .foregroundColor(.Text.tertiary)
+                Text("Connected to IBKR")
+                    .font(.title2.bold())
+                    .foregroundColor(.Text.primary)
+                
+                // Account info
+                VStack(spacing: 12) {
+                    HStack {
+                        Text("Account ID")
+                            .foregroundColor(.Text.secondary)
+                        Spacer()
+                        Text(ibkrService.accountId ?? "—")
+                            .font(.subheadline.monospacedDigit())
+                            .foregroundColor(.Text.primary)
+                    }
+                    
+                    Divider().background(Color.Background.tertiary)
+                    
+                    HStack {
+                        Text("Account Type")
+                            .foregroundColor(.Text.secondary)
+                        Spacer()
+                        Text(ibkrService.isPaperAccount ? "Paper" : "Live")
+                            .font(.subheadline.bold())
+                            .foregroundColor(ibkrService.isPaperAccount ? .Signal.hold : .Signal.sell)
+                    }
+                    
+                    Divider().background(Color.Background.tertiary)
+                    
+                    HStack {
+                        Text("Status")
+                            .foregroundColor(.Text.secondary)
+                        Spacer()
+                        HStack(spacing: 6) {
+                            Circle()
+                                .fill(Color.Signal.buy)
+                                .frame(width: 8, height: 8)
+                            Text("Active")
+                                .font(.subheadline)
+                                .foregroundColor(.Signal.buy)
+                        }
+                    }
+                }
+                .padding()
+                .background(Color.Background.secondary)
+                .cornerRadius(12)
+                .padding(.horizontal)
+                
+                Spacer()
+                
+                Button("Disconnect") {
+                    showDisconnectAlert = true
+                }
+                .foregroundColor(.Signal.sell)
+                .padding(.bottom, 20)
+            } else {
+                // Disconnected state
+                Image(systemName: "link.circle")
+                    .font(.system(size: 80))
+                    .foregroundColor(.Brand.primary)
+                
+                Text("Connect to Interactive Brokers")
+                    .font(.title2.bold())
+                    .foregroundColor(.Text.primary)
+                
+                Text("Link your IBKR account to enable live trading with real money.")
+                    .font(.body)
+                    .foregroundColor(.Text.secondary)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal)
+                
+                VStack(alignment: .leading, spacing: 12) {
+                    FeatureRow(icon: "checkmark.shield.fill", text: "Secure OAuth authentication")
+                    FeatureRow(icon: "lock.fill", text: "Your credentials stay with IBKR")
+                    FeatureRow(icon: "arrow.triangle.2.circlepath", text: "Sync orders and positions")
+                    FeatureRow(icon: "bell.fill", text: "Real-time trade notifications")
+                }
+                .padding()
+                .background(Color.Background.secondary)
+                .cornerRadius(12)
+                .padding(.horizontal)
+                
+                if let error = connectionError {
+                    Text(error)
+                        .font(.caption)
+                        .foregroundColor(.Signal.sell)
+                        .padding(.horizontal)
+                }
+                
+                Spacer()
+                
+                VStack(spacing: 12) {
+                    Button {
+                        showRiskDisclosure = true
+                    } label: {
+                        if ibkrService.isConnecting {
+                            ProgressView()
+                                .tint(.white)
+                                .frame(maxWidth: .infinity)
+                        } else {
+                            Text("Connect IBKR")
+                                .frame(maxWidth: .infinity)
+                        }
+                    }
+                    .buttonStyle(PrimaryButtonStyle())
+                    .disabled(ibkrService.isConnecting)
+                    
+                    Text("By connecting, you agree to our Terms of Service")
+                        .font(.caption)
+                        .foregroundColor(.Text.tertiary)
+                }
+                .padding(.horizontal)
+                .padding(.bottom, 20)
             }
-            .padding(.horizontal)
-            .padding(.bottom, 20)
         }
         .background(Color.Background.primary)
         .navigationTitle("IBKR Connection")
         .navigationBarTitleDisplayMode(.inline)
         .sheet(isPresented: $showRiskDisclosure) {
-            RiskDisclosureSheet()
+            RiskDisclosureSheet(onAccept: {
+                Task {
+                    await performConnect()
+                }
+            })
+        }
+        .alert("Disconnect IBKR?", isPresented: $showDisconnectAlert) {
+            Button("Cancel", role: .cancel) {}
+            Button("Disconnect", role: .destructive) {
+                Task {
+                    try? await ibkrService.disconnect()
+                }
+            }
+        } message: {
+            Text("You will no longer be able to place live trades until you reconnect.")
+        }
+        .task {
+            await ibkrService.refreshStatus()
+        }
+    }
+    
+    private func performConnect() async {
+        connectionError = nil
+        do {
+            try await ibkrService.connect()
+        } catch {
+            connectionError = error.localizedDescription
         }
     }
 }
@@ -512,6 +630,7 @@ struct FeatureRow: View {
 struct RiskDisclosureSheet: View {
     @Environment(\.dismiss) var dismiss
     @State private var acknowledged = false
+    var onAccept: (() -> Void)? = nil
     
     var body: some View {
         NavigationStack {
@@ -557,7 +676,7 @@ struct RiskDisclosureSheet: View {
                     .cornerRadius(12)
                     
                     Button("Continue to IBKR") {
-                        // TODO: Open IBKR OAuth
+                        onAccept?()
                         dismiss()
                     }
                     .buttonStyle(PrimaryButtonStyle())

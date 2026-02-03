@@ -65,6 +65,9 @@ from alerts import Alert, AlertType, AlertManager, get_alert_manager
 # Auth imports
 from auth import auth_router, init_db
 
+# IBKR imports
+from ibkr import ibkr_router
+
 # Auth config — set to False so existing tests/endpoints keep working without tokens
 AUTH_REQUIRED = False
 
@@ -160,6 +163,9 @@ app.add_middleware(
 
 # Include auth router
 app.include_router(auth_router)
+
+# Include IBKR router
+app.include_router(ibkr_router)
 
 
 # ========== Pydantic Models ==========

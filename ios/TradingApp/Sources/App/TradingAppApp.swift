@@ -4,7 +4,7 @@ import UserNotifications
 /// Main entry point for Sigil
 @main
 struct SigilApp: App {
-    @StateObject private var appState = AppState()
+    @StateObject private var appState = AppState.shared
     @StateObject private var authVM = AuthViewModel()
     @StateObject private var lockManager = AppLockManager.shared
     @StateObject private var notificationService = NotificationService.shared
@@ -161,6 +161,8 @@ struct SigilApp: App {
 
 /// Global app state
 class AppState: ObservableObject {
+    static let shared = AppState()
+    
     @Published var hasCompletedOnboarding: Bool {
         didSet {
             UserDefaults.standard.set(hasCompletedOnboarding, forKey: "hasCompletedOnboarding")
