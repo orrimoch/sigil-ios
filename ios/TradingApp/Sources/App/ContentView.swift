@@ -46,6 +46,10 @@ struct ContentView: View {
         }
         .tint(Color.accentColor)
         .animation(.easeInOut(duration: 0.2), value: appState.selectedTab)
+        .task {
+            // F9.3: Check for signal changes on watched stocks
+            await WatchlistService.shared.checkForSignalChanges()
+        }
         .onAppear {
             // Configure tab bar appearance (Institutional Dark theme)
             let appearance = UITabBarAppearance()

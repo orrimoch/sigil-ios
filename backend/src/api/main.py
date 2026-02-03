@@ -762,6 +762,40 @@ async def get_scores(
         raise HTTPException(status_code=500, detail=str(e))
 
 
+@app.get("/api/v1/scores/changes")
+async def get_score_changes():
+    """
+    F9.3: Get signal changes since last scoring run.
+
+    Returns list of tickers whose signal changed (e.g. HOLD→BUY).
+    """
+    try:
+        cached = load_composite_scores()
+
+        if cached is None:
+            return {
+                "success": True,
+                "count": 0,
+                "data": [],
+                "message": "No scores available.",
+            }
+
+        scores_data = cached.get("scores", {})
+
+        from scoring.signal_tracker import detect_signal_changes, load_previous_scores
+        previous = load_previous_scores()
+        changes = detect_signal_changes(scores_data, previous)
+
+        return {
+            "success": True,
+            "count": len(changes),
+            "data": changes,
+        }
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 @app.get("/api/v1/scores/summary")
 async def get_score_summary():
     """

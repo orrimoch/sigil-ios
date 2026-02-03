@@ -6,6 +6,7 @@ import Charts
 struct StockDetailView: View {
     let ticker: String
     @StateObject private var viewModel: StockDetailViewModel
+    @StateObject private var watchlistService = WatchlistService.shared
     @State private var showTradeSheet = false
     @State private var showScoreBreakdown = false
     
@@ -94,6 +95,16 @@ struct StockDetailView: View {
         }
         .refreshable {
             await viewModel.loadData()
+        }
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    watchlistService.toggleWatchlist(ticker)
+                } label: {
+                    Image(systemName: watchlistService.isWatched(ticker) ? "bell.fill" : "bell")
+                        .foregroundColor(watchlistService.isWatched(ticker) ? .Brand.primary : .Text.secondary)
+                }
+            }
         }
         .sheet(isPresented: $showTradeSheet) {
             TradeEntrySheet(ticker: ticker, currentPrice: viewModel.price)

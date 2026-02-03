@@ -107,6 +107,13 @@ class APIService: ObservableObject {
         return try await fetch(url)
     }
     
+    // MARK: - Score Changes (F9.3)
+    
+    func getScoreChanges() async throws -> ScoreChangesResponse {
+        let url = URL(string: "\(baseURL)/scores/changes")!
+        return try await fetch(url)
+    }
+    
     // MARK: - Score History
     
     func getScoreHistory(symbol: String, days: Int = 30) async throws -> ScoreHistoryResponse {
@@ -674,6 +681,23 @@ struct NewBuySignal: Codable {
     let ticker: String
     let score: Double
     let previousSignal: String?
+}
+
+// MARK: - Score Changes Response (F9.3)
+
+struct ScoreChangesResponse: Codable {
+    let success: Bool
+    let count: Int
+    let data: [SignalChange]
+}
+
+struct SignalChange: Codable {
+    let ticker: String
+    let oldSignal: String
+    let newSignal: String
+    let oldScore: Double
+    let newScore: Double
+    let scoreChange: Double
 }
 
 // MARK: - Score History Response Models
