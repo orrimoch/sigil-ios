@@ -1,0 +1,17 @@
+# Build artifacts
+ios/TradingApp/build/
+*.xcuserdata
+DerivedData/
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Data (large files)
+backend/data/prices/*.parquet
+backend/data/sigil.db
+backend/data/.jwt_secret
+
+# OS
+.DS_Store
