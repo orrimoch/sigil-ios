@@ -75,27 +75,28 @@ def calculate_sector_macro_score(
     
     # Calculate alignment scores for each factor
     # Rate sensitivity: negative = hurt by high rates
+    # Amplified impacts for meaningful score differentiation across sectors
     rate_impact = 0
     if sensitivity.get("rate_sensitivity", 0) < 0:
         # Sector hurt by high rates
         if fed_rate < 3:
-            rate_impact = 20  # Low rates = good
+            rate_impact = 30  # Low rates = very good
         elif fed_rate < 4:
-            rate_impact = 10
+            rate_impact = 15
         elif fed_rate < 5:
-            rate_impact = 0
+            rate_impact = -5
         else:
-            rate_impact = -15  # High rates = bad
+            rate_impact = -25  # High rates = very bad
     else:
         # Sector benefits from high rates (e.g., Financials)
         if fed_rate > 5:
-            rate_impact = 15
+            rate_impact = 25
         elif fed_rate > 4:
-            rate_impact = 10
+            rate_impact = 15
         elif fed_rate > 3:
             rate_impact = 5
         else:
-            rate_impact = -5
+            rate_impact = -10
     
     # Scale by sensitivity magnitude
     rate_impact *= abs(sensitivity.get("rate_sensitivity", 0.5))
@@ -104,21 +105,21 @@ def calculate_sector_macro_score(
     vix_impact = 0
     if sensitivity.get("vix_sensitivity", 0) < 0:
         if vix < 15:
-            vix_impact = 15
+            vix_impact = 25
         elif vix < 20:
-            vix_impact = 5
+            vix_impact = 10
         elif vix < 25:
-            vix_impact = -5
+            vix_impact = -10
         else:
-            vix_impact = -15
+            vix_impact = -25
     else:
         # Defensive sectors benefit from volatility
         if vix > 25:
-            vix_impact = 10
+            vix_impact = 20
         elif vix > 20:
-            vix_impact = 5
+            vix_impact = 10
         else:
-            vix_impact = 0
+            vix_impact = -5
     
     vix_impact *= abs(sensitivity.get("vix_sensitivity", 0.3))
     
@@ -127,16 +128,21 @@ def calculate_sector_macro_score(
     if sensitivity.get("gdp_sensitivity", 0.5) > 0.5:
         # Cyclical sector - benefits from growth
         if gdp_growth > 3:
-            gdp_impact = 15
+            gdp_impact = 25
         elif gdp_growth > 2:
-            gdp_impact = 10
+            gdp_impact = 15
         elif gdp_growth > 1:
-            gdp_impact = 0
+            gdp_impact = -5
         else:
-            gdp_impact = -15
+            gdp_impact = -25
     else:
         # Defensive sector
-        gdp_impact = 5  # Stable regardless
+        if gdp_growth > 2:
+            gdp_impact = -5   # Growth economy = less need for defensives
+        elif gdp_growth > 1:
+            gdp_impact = 5
+        else:
+            gdp_impact = 15   # Recession = flight to safety
     
     gdp_impact *= sensitivity.get("gdp_sensitivity", 0.5)
     

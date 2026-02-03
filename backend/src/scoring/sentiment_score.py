@@ -204,6 +204,10 @@ def calculate_sentiment_scores(
     """
     Calculate sentiment scores for all stocks.
     
+    Uses a two-pass approach:
+    1. Match articles directly to tickers (ticker symbol + company name)
+    2. For stocks with no direct matches, use sector-level sentiment as fallback
+    
     Args:
         tickers: List of tickers (if None, uses universe)
         hours: Look back period
@@ -211,18 +215,25 @@ def calculate_sentiment_scores(
     Returns:
         Dict mapping ticker to SentimentScoreResult
     """
+    universe = get_universe()
+    
     if tickers is None:
-        universe = get_universe()
         tickers = [s["ticker"] for s in universe]
+    
+    # Build ticker -> sector map
+    ticker_sectors = {s["ticker"].upper(): s["sector"] for s in universe}
     
     logger.info(f"Calculating sentiment scores for {len(tickers)} stocks...")
     
     # Fetch all news once
     all_news = fetch_all_news(hours=hours)
     
+    # Pass 1: Direct ticker matching
     results = {}
+    no_news_tickers = []
+    
     for ticker in tickers:
-        # Filter news for this ticker
+        # Filter news for this ticker (now uses company name matching too)
         ticker_news = [a for a in all_news if _article_mentions_ticker(a, ticker)]
         
         result = calculate_sentiment_score_for_ticker(
@@ -234,20 +245,167 @@ def calculate_sentiment_scores(
         
         if result.article_count > 0:
             logger.debug(f"  {ticker}: {result.total_score:.1f} ({result.article_count} articles)")
+        else:
+            no_news_tickers.append(ticker)
+    
+    # Pass 2: Sector-level sentiment fallback for stocks without direct news
+    if no_news_tickers:
+        # Calculate sector sentiments
+        sector_sentiments: Dict[str, float] = {}
+        sectors_needed = {ticker_sectors.get(t.upper(), "Unknown") for t in no_news_tickers}
+        
+        for sector in sectors_needed:
+            sector_sentiments[sector] = _calculate_sector_sentiment(all_news, sector, universe)
+        
+        # Apply sector sentiment as fallback
+        for ticker in no_news_tickers:
+            sector = ticker_sectors.get(ticker.upper(), "Unknown")
+            sector_score = sector_sentiments.get(sector, 50.0)
+            
+            if sector_score != 50.0:
+                results[ticker] = SentimentScoreResult(
+                    ticker=ticker,
+                    total_score=round(sector_score, 2),
+                    raw_sentiment=round((sector_score / 50.0) - 1.0, 3),
+                    article_count=0,
+                    positive_count=0,
+                    negative_count=0,
+                    neutral_count=0,
+                    weighted_sentiment=round((sector_score / 50.0) - 1.0, 3),
+                    details={"message": f"Sector-level sentiment ({sector})", "model": SENTIMENT_MODEL}
+                )
     
     # Log summary
     with_news = sum(1 for r in results.values() if r.article_count > 0)
-    logger.info(f"Calculated sentiment for {len(results)} stocks ({with_news} with news)")
+    with_sector = sum(1 for r in results.values() if r.article_count == 0 and r.total_score != 50.0)
+    at_neutral = sum(1 for r in results.values() if r.total_score == 50.0)
+    logger.info(f"Calculated sentiment for {len(results)} stocks "
+                f"({with_news} direct, {with_sector} sector-fallback, {at_neutral} neutral)")
     
     return results
 
 
+def _build_company_name_map() -> Dict[str, List[str]]:
+    """
+    Build a mapping of ticker -> searchable company name keywords.
+    Uses the stock universe data for comprehensive coverage.
+    """
+    # Static map for top/tricky tickers where company name alone isn't enough
+    EXTRA_KEYWORDS = {
+        "AAPL": ["apple", "iphone", "ipad", "mac", "app store"],
+        "MSFT": ["microsoft", "windows", "azure", "xbox", "office 365"],
+        "GOOGL": ["google", "alphabet", "youtube", "android", "waymo"],
+        "GOOG": ["google", "alphabet", "youtube", "android"],
+        "AMZN": ["amazon", "aws", "prime video", "alexa"],
+        "META": ["meta platforms", "facebook", "instagram", "whatsapp", "threads"],
+        "TSLA": ["tesla", "elon musk", "cybertruck", "supercharger"],
+        "NVDA": ["nvidia", "geforce", "cuda", "gpu"],
+        "JPM": ["jpmorgan", "jp morgan", "jamie dimon", "chase"],
+        "V": ["visa"],
+        "MA": ["mastercard"],
+        "BRK-B": ["berkshire", "warren buffett"],
+        "JNJ": ["johnson & johnson", "j&j"],
+        "WMT": ["walmart"],
+        "PG": ["procter & gamble", "procter and gamble"],
+        "UNH": ["unitedhealth"],
+        "HD": ["home depot"],
+        "DIS": ["disney", "marvel", "pixar"],
+        "CRM": ["salesforce"],
+        "NFLX": ["netflix"],
+        "ADBE": ["adobe"],
+        "INTC": ["intel"],
+        "AMD": ["advanced micro devices"],
+        "PYPL": ["paypal"],
+        "COST": ["costco"],
+        "PEP": ["pepsi", "pepsico"],
+        "KO": ["coca-cola", "coca cola", "coke"],
+        "MRK": ["merck"],
+        "LLY": ["eli lilly", "lilly"],
+        "ABBV": ["abbvie"],
+        "TMO": ["thermo fisher"],
+        "AVGO": ["broadcom"],
+        "ORCL": ["oracle"],
+        "CSCO": ["cisco"],
+        "ACN": ["accenture"],
+        "TXN": ["texas instruments"],
+        "QCOM": ["qualcomm"],
+        "IBM": ["ibm"],
+        "NOW": ["servicenow"],
+        "GS": ["goldman sachs"],
+        "MS": ["morgan stanley"],
+        "BA": ["boeing"],
+        "GE": ["general electric"],
+        "GM": ["general motors"],
+        "F": ["ford motor"],
+        "CAT": ["caterpillar"],
+        "CVX": ["chevron"],
+        "XOM": ["exxon", "exxonmobil"],
+        "COP": ["conocophillips"],
+    }
+    
+    # Build from universe
+    name_map: Dict[str, List[str]] = {}
+    try:
+        universe = get_universe()
+        for stock in universe:
+            ticker = stock["ticker"].upper()
+            keywords = []
+            
+            # Add company name (split into meaningful parts)
+            name = stock.get("name", "")
+            if name:
+                # Full name as keyword
+                name_lower = name.lower()
+                # Remove common suffixes for matching
+                for suffix in [" inc.", " inc", " corp.", " corp", " corporation",
+                             " co.", " co", " ltd.", " ltd", " plc", " group",
+                             " holdings", " enterprises", " technologies",
+                             " international", " company", " companies",
+                             " & co", " n.v.", " s.a.", " se", " ag"]:
+                    name_lower = name_lower.replace(suffix, "")
+                name_lower = name_lower.strip()
+                if len(name_lower) > 2:  # Skip very short names to avoid false positives
+                    keywords.append(name_lower)
+            
+            # Add extra keywords if available
+            if ticker in EXTRA_KEYWORDS:
+                keywords.extend(EXTRA_KEYWORDS[ticker])
+            
+            if keywords:
+                name_map[ticker] = keywords
+    except Exception as e:
+        logger.warning(f"Failed to build company name map from universe: {e}")
+    
+    # Merge in extras that might not be in universe
+    for ticker, kws in EXTRA_KEYWORDS.items():
+        if ticker not in name_map:
+            name_map[ticker] = kws
+        else:
+            for kw in kws:
+                if kw not in name_map[ticker]:
+                    name_map[ticker].append(kw)
+    
+    return name_map
+
+
+# Build the map once at module level
+_COMPANY_NAME_MAP: Dict[str, List[str]] = {}
+
+
+def _get_company_name_map() -> Dict[str, List[str]]:
+    """Lazy-load the company name map."""
+    global _COMPANY_NAME_MAP
+    if not _COMPANY_NAME_MAP:
+        _COMPANY_NAME_MAP = _build_company_name_map()
+    return _COMPANY_NAME_MAP
+
+
 def _article_mentions_ticker(article: Dict, ticker: str) -> bool:
-    """Check if article mentions ticker (simple heuristic)."""
+    """Check if article mentions ticker using ticker symbol + company name matching."""
     ticker_upper = ticker.upper()
     text = (article.get("title", "") + " " + article.get("summary", "")).upper()
     
-    # Check ticker
+    # Check ticker symbol (with word boundaries)
     if f" {ticker_upper} " in f" {text} " or f"({ticker_upper})" in text:
         return True
     
@@ -255,7 +413,67 @@ def _article_mentions_ticker(article: Dict, ticker: str) -> bool:
     if "ticker_sentiment" in article and ticker_upper in article["ticker_sentiment"]:
         return True
     
+    # Check company name keywords
+    name_map = _get_company_name_map()
+    keywords = name_map.get(ticker_upper, [])
+    text_lower = (article.get("title", "") + " " + article.get("summary", "")).lower()
+    
+    for keyword in keywords:
+        if keyword in text_lower:
+            return True
+    
     return False
+
+
+def _calculate_sector_sentiment(
+    all_news: List[Dict],
+    sector: str,
+    universe: List[Dict]
+) -> float:
+    """
+    Calculate sector-level sentiment as a fallback for stocks without direct news.
+    Aggregates sentiment from all articles matched to stocks in the same sector.
+    
+    Returns:
+        Sentiment score 0-100 (50 = neutral)
+    """
+    # Get all tickers in this sector
+    sector_tickers = {s["ticker"].upper() for s in universe if s.get("sector") == sector}
+    
+    if not sector_tickers:
+        return 50.0
+    
+    # Find articles that match any ticker in this sector
+    sector_articles = []
+    for article in all_news:
+        for ticker in sector_tickers:
+            if _article_mentions_ticker(article, ticker):
+                sector_articles.append(article)
+                break  # Don't count same article multiple times
+    
+    if not sector_articles:
+        return 50.0
+    
+    # Analyze sentiment of sector articles
+    from data.news_fetcher import analyze_sentiment
+    
+    scores = []
+    for article in sector_articles:
+        sentiment = analyze_sentiment(article["title"] + " " + article.get("summary", ""))
+        # Use Alpha Vantage sentiment if available
+        if "overall_sentiment" in article:
+            scores.append(article["overall_sentiment"])
+        else:
+            scores.append(sentiment["score"])
+    
+    avg_sentiment = sum(scores) / len(scores)  # -1 to 1
+    
+    # Convert to 0-100, but dampen the effect (sector sentiment is less specific)
+    # Apply a 50% dampening factor
+    dampened = avg_sentiment * 0.5
+    sector_score = (dampened + 1) * 50
+    return max(0, min(100, sector_score))
+
 
 
 def get_sentiment_score(ticker: str) -> Optional[SentimentScoreResult]:

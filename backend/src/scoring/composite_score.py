@@ -201,6 +201,23 @@ def calculate_composite_scores(
             }
         )
     
+    # Normalize scores to use full 0-100 range via z-score normalization
+    # This preserves relative ranking while ensuring BUY/SELL signals are generated
+    raw_scores = [r.total_score for r in results.values()]
+    if len(raw_scores) > 1:
+        mean_score = np.mean(raw_scores)
+        std_score = np.std(raw_scores)
+        if std_score > 0:
+            for ticker, result in results.items():
+                # Z-score: how many std devs from mean
+                z = (result.total_score - mean_score) / std_score
+                # Map z-score to 0-100 range (z of ±2.5 maps to 0/100)
+                # This gives ~15-20% BUY and ~15-20% SELL with normal distribution
+                normalized = 50 + z * 15  # 15 points per std dev
+                normalized = max(5, min(95, normalized))  # Cap at 5-95
+                result.total_score = round(normalized, 2)
+                result.signal = get_signal(result.total_score)
+    
     # Calculate ranks and percentiles
     sorted_results = sorted(results.values(), key=lambda x: x.total_score, reverse=True)
     for i, result in enumerate(sorted_results):
