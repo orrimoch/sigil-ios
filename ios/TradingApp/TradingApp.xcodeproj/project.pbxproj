@@ -11,6 +11,7 @@
 		142F4AC4CA6FB57A7A880AB4 /* AuthGateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646254719DCBFF22BF2793B8 /* AuthGateTests.swift */; };
 		15FC11A23C39C5B7DE26A3E1 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6134AA754BE7F6A850EC86FD /* Theme.swift */; };
 		18EC2C02385C89D96F9C4D73 /* DailyQuotes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84907440C9629455E52205C /* DailyQuotes.swift */; };
+		1A446AF6468F7105AAE48E58 /* BiometricAuthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B156ABF6C4838B809B12C48D /* BiometricAuthTests.swift */; };
 		1BCD127188C488157EFD9F82 /* TradeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B4CB9320BF2F19AA792EF5 /* TradeViewModel.swift */; };
 		2A2EDECC5B008BAFD4FB1E92 /* LockScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFEEE2C58CB8466ADDDC5E4 /* LockScreenView.swift */; };
 		2FE1A88456AFDDFAF5C6AE7F /* PortfolioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9291D4262615E65F92A438CF /* PortfolioView.swift */; };
@@ -80,6 +81,7 @@
 		9291D4262615E65F92A438CF /* PortfolioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioView.swift; sourceTree = "<group>"; };
 		A93D2F1A56BA122694B64C62 /* PinSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinSetupView.swift; sourceTree = "<group>"; };
 		A9A93A10D107BD4ABBEB74CD /* IBKRServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IBKRServiceTests.swift; sourceTree = "<group>"; };
+		B156ABF6C4838B809B12C48D /* BiometricAuthTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricAuthTests.swift; sourceTree = "<group>"; };
 		B4BA11F7F4B50B97513B92DB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B90B5975CC99D7B349BEE0A4 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		B954D091708BAE1C1300E026 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -222,6 +224,7 @@
 			isa = PBXGroup;
 			children = (
 				646254719DCBFF22BF2793B8 /* AuthGateTests.swift */,
+				B156ABF6C4838B809B12C48D /* BiometricAuthTests.swift */,
 				1BFF8A3E4DF3C8334D97F83C /* ErrorStateViewTests.swift */,
 				A9A93A10D107BD4ABBEB74CD /* IBKRServiceTests.swift */,
 				22ABA1BD0CCCEE1495A5483E /* NotificationServiceTests.swift */,
@@ -377,6 +380,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				142F4AC4CA6FB57A7A880AB4 /* AuthGateTests.swift in Sources */,
+				1A446AF6468F7105AAE48E58 /* BiometricAuthTests.swift in Sources */,
 				67DBA6FA3C3D70196F6B6207 /* ErrorStateViewTests.swift in Sources */,
 				9090BFD93412DCEA8AA18EEA /* IBKRServiceTests.swift in Sources */,
 				87DCF0D2B7F5CDC00001BC39 /* NotificationServiceTests.swift in Sources */,

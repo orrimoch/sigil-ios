@@ -31,14 +31,28 @@ class AppLockManager: ObservableObject {
         }
     }
     
+    /// Whether the user has opted in to biometric unlock
+    @Published var biometricEnabled: Bool {
+        didSet {
+            UserDefaults.standard.set(biometricEnabled, forKey: biometricEnabledKey)
+        }
+    }
+    
     // MARK: - Keys
     private let pinKey = "sigil_pin_code"
     private let setupKey = "sigil_lock_setup"
+    private let biometricEnabledKey = "sigil_biometric_enabled"
     
     // MARK: - Init
     init() {
-        self.isSetUp = UserDefaults.standard.bool(forKey: setupKey)
-        self.isLocked = isSetUp // Lock on launch if set up
+        let setup = UserDefaults.standard.bool(forKey: setupKey)
+        let bioEnabled = UserDefaults.standard.bool(forKey: biometricEnabledKey)
+        self.biometricEnabled = bioEnabled
+        self.isSetUp = setup
+        self.isLocked = setup // Lock on launch if set up
+        self.biometricType = .none // Set temporarily
+        
+        // Detect after all stored props initialized
         self.biometricType = detectBiometricType()
     }
     
@@ -76,8 +90,20 @@ class AppLockManager: ObservableObject {
     func resetLock() {
         KeychainHelper.shared.delete(key: pinKey)
         UserDefaults.standard.set(false, forKey: setupKey)
+        UserDefaults.standard.set(false, forKey: biometricEnabledKey)
         isSetUp = false
         isLocked = false
+        biometricEnabled = false
+    }
+    
+    /// Enable or disable biometric unlock preference
+    func setBiometricEnabled(_ enabled: Bool) {
+        biometricEnabled = enabled
+    }
+    
+    /// Whether biometric should be auto-triggered on lock screen
+    var shouldAutoTriggerBiometric: Bool {
+        return biometricEnabled && biometricType != .none && isSetUp
     }
     
     // MARK: - Biometric Auth

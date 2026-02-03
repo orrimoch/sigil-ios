@@ -400,7 +400,7 @@ struct LockScreenView: View {
     }
     
     private func tryBiometric() async {
-        guard lockManager.biometricType != .none else {
+        guard lockManager.shouldAutoTriggerBiometric else {
             showPinEntry = true
             return
         }

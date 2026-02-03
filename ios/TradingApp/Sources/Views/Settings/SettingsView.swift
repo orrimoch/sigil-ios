@@ -229,6 +229,27 @@ struct SettingsView: View {
                                 .font(.caption)
                         }
                         
+                        // F11.2: Biometric toggle
+                        if AppLockManager.shared.biometricType != .none {
+                            Toggle(isOn: Binding(
+                                get: { AppLockManager.shared.biometricEnabled },
+                                set: { AppLockManager.shared.setBiometricEnabled($0) }
+                            )) {
+                                HStack {
+                                    Image(systemName: AppLockManager.shared.biometricType.icon)
+                                        .foregroundColor(.Brand.primary)
+                                    VStack(alignment: .leading) {
+                                        Text(AppLockManager.shared.biometricType.label)
+                                            .foregroundColor(.Text.primary)
+                                        Text("Auto-unlock when available")
+                                            .font(.caption)
+                                            .foregroundColor(.Text.tertiary)
+                                    }
+                                }
+                            }
+                            .tint(.Brand.primary)
+                        }
+                        
                         Button {
                             showPinSetup = true
                         } label: {

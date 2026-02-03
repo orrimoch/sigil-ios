@@ -10,16 +10,18 @@ struct PinSetupView: View {
     @State private var confirmPin: String = ""
     @State private var errorMessage: String?
     @State private var shakeOffset: CGFloat = 0
+    @State private var enableBiometric: Bool = true
     
     private let pinLength = 6
     
     enum SetupStep {
-        case create, confirm
+        case create, confirm, biometric
         
         var title: String {
             switch self {
             case .create: return "Create a PIN"
             case .confirm: return "Confirm your PIN"
+            case .biometric: return "Enable Biometric?"
             }
         }
         
@@ -27,6 +29,7 @@ struct PinSetupView: View {
             switch self {
             case .create: return "Choose a 6-digit PIN to secure your app"
             case .confirm: return "Enter the same PIN again"
+            case .biometric: return "Unlock faster with biometrics"
             }
         }
     }
@@ -43,84 +46,148 @@ struct PinSetupView: View {
             VStack(spacing: 32) {
                 Spacer()
                 
-                // Icon
-                Image(systemName: "lock.shield.fill")
-                    .font(.system(size: 48))
-                    .foregroundColor(.Brand.primary)
-                
-                VStack(spacing: 8) {
-                    Text(step.title)
-                        .font(.title2.bold())
-                        .foregroundColor(.Text.primary)
-                    
-                    Text(step.subtitle)
-                        .font(.subheadline)
-                        .foregroundColor(.Text.secondary)
+                if step == .biometric {
+                    biometricSetupView
+                } else {
+                    pinSetupView
                 }
-                
-                // PIN dots
-                HStack(spacing: 16) {
-                    ForEach(0..<pinLength, id: \.self) { index in
-                        let currentCount = step == .create ? pin.count : confirmPin.count
-                        Circle()
-                            .fill(index < currentCount ? (errorMessage != nil ? Color.Signal.sell : Color.Brand.primary) : Color.Background.tertiary)
-                            .frame(width: 16, height: 16)
-                            .overlay(
-                                Circle()
-                                    .stroke((errorMessage != nil ? Color.Signal.sell : Color.Brand.primary).opacity(0.3), lineWidth: 1)
-                            )
-                            .scaleEffect(index < currentCount ? 1.15 : 1.0)
-                            .animation(.spring(response: 0.2, dampingFraction: 0.6), value: currentCount)
-                    }
-                }
-                .offset(x: shakeOffset)
-                
-                if let error = errorMessage {
-                    Text(error)
-                        .font(.caption)
-                        .foregroundColor(.Signal.sell)
-                        .transition(.opacity.combined(with: .move(edge: .top)))
-                }
-                
-                // Number pad
-                LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 3), spacing: 16) {
-                    ForEach(1...9, id: \.self) { num in
-                        numberButton(String(num))
-                    }
-                    
-                    Color.clear.frame(width: 64, height: 64)
-                    
-                    numberButton("0")
-                    
-                    // Delete
-                    Button {
-                        if step == .create && !pin.isEmpty {
-                            pin.removeLast()
-                        } else if step == .confirm && !confirmPin.isEmpty {
-                            confirmPin.removeLast()
-                        }
-                    } label: {
-                        Image(systemName: "delete.backward")
-                            .font(.title2)
-                            .foregroundColor(.Text.secondary)
-                            .frame(width: 64, height: 64)
-                    }
-                }
-                .padding(.horizontal, 40)
-                
-                // Skip button
-                Button {
-                    dismiss()
-                } label: {
-                    Text("Skip for now")
-                        .font(.subheadline)
-                        .foregroundColor(.Text.tertiary)
-                }
-                .padding(.top, 8)
                 
                 Spacer()
             }
             .padding()
+        }
+    }
+    
+    // MARK: - PIN Setup View
+    
+    private var pinSetupView: some View {
+        VStack(spacing: 32) {
+            // Icon
+            Image(systemName: "lock.shield.fill")
+                .font(.system(size: 48))
+                .foregroundColor(.Brand.primary)
+            
+            VStack(spacing: 8) {
+                Text(step.title)
+                    .font(.title2.bold())
+                    .foregroundColor(.Text.primary)
+                
+                Text(step.subtitle)
+                    .font(.subheadline)
+                    .foregroundColor(.Text.secondary)
+            }
+            
+            // PIN dots
+            HStack(spacing: 16) {
+                ForEach(0..<pinLength, id: \.self) { index in
+                    let currentCount = step == .create ? pin.count : confirmPin.count
+                    Circle()
+                        .fill(index < currentCount ? (errorMessage != nil ? Color.Signal.sell : Color.Brand.primary) : Color.Background.tertiary)
+                        .frame(width: 16, height: 16)
+                        .overlay(
+                            Circle()
+                                .stroke((errorMessage != nil ? Color.Signal.sell : Color.Brand.primary).opacity(0.3), lineWidth: 1)
+                        )
+                        .scaleEffect(index < currentCount ? 1.15 : 1.0)
+                        .animation(.spring(response: 0.2, dampingFraction: 0.6), value: currentCount)
+                }
+            }
+            .offset(x: shakeOffset)
+            
+            if let error = errorMessage {
+                Text(error)
+                    .font(.caption)
+                    .foregroundColor(.Signal.sell)
+                    .transition(.opacity.combined(with: .move(edge: .top)))
+            }
+            
+            // Number pad
+            LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 3), spacing: 16) {
+                ForEach(1...9, id: \.self) { num in
+                    numberButton(String(num))
+                }
+                
+                Color.clear.frame(width: 64, height: 64)
+                
+                numberButton("0")
+                
+                // Delete
+                Button {
+                    if step == .create && !pin.isEmpty {
+                        pin.removeLast()
+                    } else if step == .confirm && !confirmPin.isEmpty {
+                        confirmPin.removeLast()
+                    }
+                } label: {
+                    Image(systemName: "delete.backward")
+                        .font(.title2)
+                        .foregroundColor(.Text.secondary)
+                        .frame(width: 64, height: 64)
+                }
+            }
+            .padding(.horizontal, 40)
+            
+            // Skip button
+            Button {
+                dismiss()
+            } label: {
+                Text("Skip for now")
+                    .font(.subheadline)
+                    .foregroundColor(.Text.tertiary)
+            }
+            .padding(.top, 8)
+        }
+    }
+    
+    // MARK: - Biometric Setup View (F11.2)
+    
+    private var biometricSetupView: some View {
+        VStack(spacing: 32) {
+            Image(systemName: lockManager.biometricType.icon)
+                .font(.system(size: 64))
+                .foregroundColor(.Brand.primary)
+            
+            VStack(spacing: 8) {
+                Text("Enable \(lockManager.biometricType.label)?")
+                    .font(.title2.bold())
+                    .foregroundColor(.Text.primary)
+                
+                Text("Use \(lockManager.biometricType.label) for faster unlocking.\nYour PIN will always work as a backup.")
+                    .font(.subheadline)
+                    .foregroundColor(.Text.secondary)
+                    .multilineTextAlignment(.center)
+            }
+            
+            VStack(spacing: 16) {
+                Button {
+                    lockManager.setBiometricEnabled(true)
+                    lockManager.setPin(pin)
+                    let generator = UINotificationFeedbackGenerator()
+                    generator.notificationOccurred(.success)
+                    dismiss()
+                } label: {
+                    Text("Enable \(lockManager.biometricType.label)")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.Brand.primary)
+                        .cornerRadius(12)
+                }
+                
+                Button {
+                    lockManager.setBiometricEnabled(false)
+                    lockManager.setPin(pin)
+                    let generator = UINotificationFeedbackGenerator()
+                    generator.notificationOccurred(.success)
+                    dismiss()
+                } label: {
+                    Text("Use PIN Only")
+                        .font(.subheadline)
+                        .foregroundColor(.Text.tertiary)
+                }
+            }
+            .padding(.horizontal, 32)
         }
     }
     
@@ -159,10 +226,19 @@ struct PinSetupView: View {
             if confirmPin.count == pinLength {
                 // Verify match
                 if confirmPin == pin {
-                    lockManager.setPin(pin)
-                    let generator = UINotificationFeedbackGenerator()
-                    generator.notificationOccurred(.success)
-                    dismiss()
+                    // Check if biometric is available — offer to enable
+                    if lockManager.biometricType != .none {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                            withAnimation {
+                                step = .biometric
+                            }
+                        }
+                    } else {
+                        lockManager.setPin(pin)
+                        let generator = UINotificationFeedbackGenerator()
+                        generator.notificationOccurred(.success)
+                        dismiss()
+                    }
                 } else {
                     errorMessage = "PINs don't match. Try again."
                     let generator = UINotificationFeedbackGenerator()
