@@ -37,12 +37,41 @@ class HomeViewModel: ObservableObject {
         isLoading = true
         errorMessage = nil
         
+        var loadErrors: [String] = []
+        
         // Load in parallel
-        await withTaskGroup(of: Void.self) { group in
-            group.addTask { await self.loadPortfolio() }
-            group.addTask { await self.loadMarketIndices() }
-            group.addTask { await self.loadTopPicks() }
-            group.addTask { await self.loadAlerts() }
+        await withTaskGroup(of: String?.self) { group in
+            group.addTask {
+                await self.loadPortfolio()
+                return nil
+            }
+            group.addTask {
+                await self.loadMarketIndices()
+                return nil
+            }
+            group.addTask {
+                do {
+                    try await self.loadTopPicksThrowing()
+                    return nil
+                } catch {
+                    return "Failed to load data: \(error.localizedDescription)"
+                }
+            }
+            group.addTask {
+                await self.loadAlerts()
+                return nil
+            }
+            
+            for await errorMsg in group {
+                if let msg = errorMsg {
+                    loadErrors.append(msg)
+                }
+            }
+        }
+        
+        // Only show error if ALL critical data failed
+        if topPicks.isEmpty && !loadErrors.isEmpty {
+            errorMessage = loadErrors.first ?? "Unable to load data. Please try again."
         }
         
         lastUpdated = Date()
@@ -136,7 +165,15 @@ class HomeViewModel: ObservableObject {
     
     // MARK: - F4.3: Top AI Picks
     
+    private func loadTopPicksThrowing() async throws {
+        try await loadTopPicksImpl(throwOnError: true)
+    }
+    
     private func loadTopPicks() async {
+        try? await loadTopPicksImpl(throwOnError: false)
+    }
+    
+    private func loadTopPicksImpl(throwOnError: Bool) async throws {
         // Try to fetch from API first
         var picks: [TopPick] = []
         
@@ -161,6 +198,9 @@ class HomeViewModel: ObservableObject {
                 )
             }
         } catch {
+            if throwOnError {
+                throw error
+            }
             print("Top picks API unavailable, using sample data: \(error)")
             // Fallback sample data (matches ScoresViewModel)
             picks = [

@@ -11,6 +11,16 @@ struct PortfolioView: View {
     
     var body: some View {
         NavigationStack {
+            Group {
+                if let error = viewModel.error, viewModel.holdings.isEmpty && !viewModel.isLoading {
+                    ErrorStateView(
+                        title: "Something went wrong",
+                        message: error,
+                        retryAction: {
+                            Task { await viewModel.fetchAll() }
+                        }
+                    )
+                } else {
             ScrollView {
                 VStack(spacing: 20) {
                     // Paper mode indicator
@@ -87,6 +97,8 @@ struct PortfolioView: View {
                 .padding()
             }
             .background(Color.Background.primary)
+                } // else
+            } // Group
             .navigationTitle("Portfolio")
             .navigationBarTitleDisplayMode(.large)
             .toolbarBackground(Color.Background.primary, for: .navigationBar)

@@ -33,6 +33,7 @@ class TradeViewModel: ObservableObject {
     // Order history
     @Published var todaysOrders: [OrderData] = []
     @Published var ordersLoading = false
+    @Published var ordersError: String?
     
     // MARK: - Computed Properties
     
@@ -232,12 +233,14 @@ class TradeViewModel: ObservableObject {
     
     func fetchTodaysOrders() async {
         ordersLoading = true
+        ordersError = nil
         defer { ordersLoading = false }
         
         do {
             let response = try await api.getTodaysOrders()
             todaysOrders = response.data
         } catch {
+            ordersError = error.localizedDescription
             print("Orders error: \(error)")
         }
     }

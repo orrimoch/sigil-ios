@@ -539,7 +539,31 @@ struct OrderHistorySection: View {
                 }
             }
             
-            if viewModel.todaysOrders.isEmpty {
+            if let error = viewModel.ordersError, viewModel.todaysOrders.isEmpty {
+                VStack(spacing: 12) {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .font(.title)
+                        .foregroundColor(.Signal.hold)
+                    Text("Couldn't load orders")
+                        .font(.subheadline)
+                        .foregroundColor(.Text.secondary)
+                    Text(error)
+                        .font(.caption)
+                        .foregroundColor(.Text.tertiary)
+                    Button {
+                        Task { await viewModel.fetchTodaysOrders() }
+                    } label: {
+                        HStack(spacing: 4) {
+                            Image(systemName: "arrow.clockwise")
+                            Text("Retry")
+                        }
+                        .font(.subheadline.bold())
+                        .foregroundColor(.Accent.gold)
+                    }
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 32)
+            } else if viewModel.todaysOrders.isEmpty {
                 VStack(spacing: 8) {
                     Image(systemName: "clock")
                         .font(.title)

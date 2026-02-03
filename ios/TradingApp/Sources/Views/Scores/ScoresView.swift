@@ -13,7 +13,7 @@ struct ScoresView: View {
                 FilterBar(viewModel: viewModel, showSectorPicker: $showSectorPicker)
                 
                 // Stock list
-                if viewModel.isLoading && viewModel.filteredStocks.isEmpty {
+                if viewModel.isLoading && viewModel.filteredStocks.isEmpty && viewModel.errorMessage == nil {
                     Spacer()
                     ProgressView()
                         .tint(.Brand.primary)
@@ -22,6 +22,14 @@ struct ScoresView: View {
                         .foregroundColor(.Text.tertiary)
                         .padding(.top, 8)
                     Spacer()
+                } else if let error = viewModel.errorMessage, viewModel.stocks.isEmpty {
+                    ErrorStateView(
+                        title: "Something went wrong",
+                        message: error,
+                        retryAction: {
+                            Task { await viewModel.loadData() }
+                        }
+                    )
                 } else if viewModel.filteredStocks.isEmpty {
                     Spacer()
                     VStack(spacing: 12) {

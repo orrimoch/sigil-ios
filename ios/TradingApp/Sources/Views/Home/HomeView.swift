@@ -56,9 +56,17 @@ struct HomeView: View {
                 await viewModel.loadData()
             }
             .overlay {
-                if viewModel.isLoading && viewModel.topPicks.isEmpty {
+                if viewModel.isLoading && viewModel.topPicks.isEmpty && viewModel.errorMessage == nil {
                     ProgressView()
                         .tint(.Brand.primary)
+                } else if let error = viewModel.errorMessage, viewModel.topPicks.isEmpty {
+                    ErrorStateView(
+                        title: "Something went wrong",
+                        message: error,
+                        retryAction: {
+                            Task { await viewModel.loadData() }
+                        }
+                    )
                 }
             }
         }

@@ -21,10 +21,12 @@
 		5A6A2B484FA095B2451B9A0B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BA11F7F4B50B97513B92DB /* ContentView.swift */; };
 		5B109A028D39D54D3985A256 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11CF55E8FAB93F6674BE41C1 /* LoginView.swift */; };
 		6071621065F40970DA5CB531 /* AppLockManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142AD971DB4328A38FE98FF8 /* AppLockManager.swift */; };
+		67DBA6FA3C3D70196F6B6207 /* ErrorStateViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BFF8A3E4DF3C8334D97F83C /* ErrorStateViewTests.swift */; };
 		79D7563BCDF1DE0987A2BB13 /* StockDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B48A193806898F710A08BF /* StockDetailView.swift */; };
 		7D318BB9D701E75E238DE195 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E0970BBC9EEF8A622664BE /* HomeViewModel.swift */; };
 		87DCF0D2B7F5CDC00001BC39 /* NotificationServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22ABA1BD0CCCEE1495A5483E /* NotificationServiceTests.swift */; };
 		8850D027F0AEBA64CD154961 /* TradingAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9FDE5CC4CF06B747DCFC13 /* TradingAppApp.swift */; };
+		8BDE5667403DFE9BD014406A /* ErrorStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84017D4C6F3B4B6500456C6 /* ErrorStateView.swift */; };
 		9F6AF0645DC8F2FD1CCE4A74 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9171BBA83EA1E22DDAB01A07 /* KeychainHelper.swift */; };
 		A2BB0C55437D02735823DE03 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0910B23683CDE01F53EE92 /* NotificationService.swift */; };
 		B2656E746925AA7022B94B45 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90B5975CC99D7B349BEE0A4 /* RegisterView.swift */; };
@@ -56,6 +58,7 @@
 		11B48A193806898F710A08BF /* StockDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDetailView.swift; sourceTree = "<group>"; };
 		11CF55E8FAB93F6674BE41C1 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		142AD971DB4328A38FE98FF8 /* AppLockManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLockManager.swift; sourceTree = "<group>"; };
+		1BFF8A3E4DF3C8334D97F83C /* ErrorStateViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorStateViewTests.swift; sourceTree = "<group>"; };
 		1E0FF42437F27ADD36CF7381 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		22ABA1BD0CCCEE1495A5483E /* NotificationServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationServiceTests.swift; sourceTree = "<group>"; };
 		25BE478C84262BD609CAE217 /* TradeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeView.swift; sourceTree = "<group>"; };
@@ -76,6 +79,7 @@
 		B954D091708BAE1C1300E026 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		BAA5242AC53BACFA5451983D /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 		BF0BE7FD319557839DC2A428 /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
+		C84017D4C6F3B4B6500456C6 /* ErrorStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorStateView.swift; sourceTree = "<group>"; };
 		C84907440C9629455E52205C /* DailyQuotes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyQuotes.swift; sourceTree = "<group>"; };
 		D1E79EFD83BF82BC2E9BB467 /* TradingAppTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = TradingAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE3BD9BDB307D776C0877B6D /* ScoresViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresViewModel.swift; sourceTree = "<group>"; };
@@ -114,6 +118,7 @@
 			children = (
 				BAA5242AC53BACFA5451983D /* LaunchView.swift */,
 				8F12DB527DDF65D13D04CC63 /* Auth */,
+				9B10888E28E00C29901BBB9C /* Common */,
 				0D8A5318C78DC312B64FF1DD /* Components */,
 				0D00AE54D0236FAB31C316FC /* Home */,
 				BE7FC1CCFA47714FB0754815 /* Onboarding */,
@@ -189,6 +194,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		9B10888E28E00C29901BBB9C /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				C84017D4C6F3B4B6500456C6 /* ErrorStateView.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		A01F759209BE4D176B8D30D2 = {
 			isa = PBXGroup;
 			children = (
@@ -201,6 +214,7 @@
 		A2C0F3360F5DB04CBCB1BD7E /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				1BFF8A3E4DF3C8334D97F83C /* ErrorStateViewTests.swift */,
 				22ABA1BD0CCCEE1495A5483E /* NotificationServiceTests.swift */,
 			);
 			path = Tests;
@@ -353,6 +367,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				67DBA6FA3C3D70196F6B6207 /* ErrorStateViewTests.swift in Sources */,
 				87DCF0D2B7F5CDC00001BC39 /* NotificationServiceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -367,6 +382,7 @@
 				B60D8BF184577B935318AA2E /* AuthViewModel.swift in Sources */,
 				5A6A2B484FA095B2451B9A0B /* ContentView.swift in Sources */,
 				18EC2C02385C89D96F9C4D73 /* DailyQuotes.swift in Sources */,
+				8BDE5667403DFE9BD014406A /* ErrorStateView.swift in Sources */,
 				31574C2163567C37E4A6DFE8 /* ForgotPasswordView.swift in Sources */,
 				0D5D041793999B909FEB63E0 /* HomeView.swift in Sources */,
 				7D318BB9D701E75E238DE195 /* HomeViewModel.swift in Sources */,
