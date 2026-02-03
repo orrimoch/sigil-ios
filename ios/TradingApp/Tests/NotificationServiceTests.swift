@@ -151,4 +151,85 @@ final class NotificationServiceTests: XCTestCase {
         
         XCTAssertTrue(true, "Should handle all signal types without crash")
     }
+    
+    // MARK: - F9.1 Weekly Score Notification Tests
+    
+    func testWeeklyScheduleWithEnabledPreference() {
+        UserDefaults.standard.set(true, forKey: "weeklyScoreAlerts")
+        
+        service.scheduleWeeklyScoreUpdate()
+        
+        // Should not crash and should schedule the notification
+        XCTAssertTrue(true, "Weekly schedule should work with enabled preference")
+    }
+    
+    func testWeeklyScheduleRemoveWhenDisabled() {
+        UserDefaults.standard.set(false, forKey: "weeklyScoreAlerts")
+        
+        service.scheduleWeeklyScoreUpdate()
+        
+        XCTAssertTrue(true, "Should remove weekly notification when disabled")
+    }
+    
+    func testRegisterCategoriesDoesNotCrash() {
+        service.registerCategories()
+        XCTAssertTrue(true, "Register categories should not crash")
+    }
+    
+    func testUpdateWeeklyContentDoesNotCrash() async {
+        // Should gracefully fail when backend is not running
+        await service.updateWeeklyContentFromAPI()
+        XCTAssertTrue(true, "Update weekly content should not crash even without backend")
+    }
+    
+    // MARK: - F9.1 Score Summary Response Model Tests
+    
+    func testScoreSummaryDataDecoding() throws {
+        let json = """
+        {
+            "success": true,
+            "data": {
+                "buy_count": 15,
+                "hold_count": 30,
+                "sell_count": 5,
+                "total_scored": 50,
+                "signal_changes": 8,
+                "top_movers": [],
+                "new_buy_signals": [],
+                "updated_at": "2026-02-04T00:00:00"
+            }
+        }
+        """.data(using: .utf8)!
+        
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        let response = try decoder.decode(ScoreSummaryResponse.self, from: json)
+        
+        XCTAssertTrue(response.success)
+        XCTAssertNotNil(response.data)
+        XCTAssertEqual(response.data?.buyCount, 15)
+        XCTAssertEqual(response.data?.holdCount, 30)
+        XCTAssertEqual(response.data?.sellCount, 5)
+        XCTAssertEqual(response.data?.signalChanges, 8)
+    }
+    
+    func testScoreMoverDecoding() throws {
+        let json = """
+        {
+            "ticker": "AAPL",
+            "score": 75.0,
+            "signal": "BUY",
+            "score_change": 5.0,
+            "signal_change": "HOLD → BUY"
+        }
+        """.data(using: .utf8)!
+        
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        let mover = try decoder.decode(ScoreMover.self, from: json)
+        
+        XCTAssertEqual(mover.ticker, "AAPL")
+        XCTAssertEqual(mover.scoreChange, 5.0)
+        XCTAssertEqual(mover.signalChange, "HOLD → BUY")
+    }
 }

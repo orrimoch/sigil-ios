@@ -100,6 +100,13 @@ class APIService: ObservableObject {
         return try await fetch(url)
     }
     
+    // MARK: - Score Summary (F9.1)
+    
+    func getScoreSummary() async throws -> ScoreSummaryResponse {
+        let url = URL(string: "\(baseURL)/scores/summary")!
+        return try await fetch(url)
+    }
+    
     // MARK: - Score History
     
     func getScoreHistory(symbol: String, days: Int = 30) async throws -> ScoreHistoryResponse {
@@ -635,6 +642,38 @@ struct OrderData: Codable, Identifiable {
     let filledAt: String?
     let rejectReason: String?
     let isPaper: Bool
+}
+
+// MARK: - Score Summary Response (F9.1)
+
+struct ScoreSummaryResponse: Codable {
+    let success: Bool
+    let data: ScoreSummaryData?
+}
+
+struct ScoreSummaryData: Codable {
+    let buyCount: Int
+    let holdCount: Int
+    let sellCount: Int
+    let totalScored: Int
+    let signalChanges: Int
+    let topMovers: [ScoreMover]
+    let newBuySignals: [NewBuySignal]
+    let updatedAt: String?
+}
+
+struct ScoreMover: Codable {
+    let ticker: String
+    let score: Double
+    let signal: String
+    let scoreChange: Double
+    let signalChange: String?
+}
+
+struct NewBuySignal: Codable {
+    let ticker: String
+    let score: Double
+    let previousSignal: String?
 }
 
 // MARK: - Score History Response Models

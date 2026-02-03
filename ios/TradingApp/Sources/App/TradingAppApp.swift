@@ -47,6 +47,8 @@ struct SigilApp: App {
                                 if granted {
                                     // Schedule recurring notifications based on user preferences
                                     notificationService.scheduleWeeklyScoreUpdate()
+                                    // F9.1: Update weekly notification with dynamic content
+                                    await notificationService.updateWeeklyContentFromAPI()
                                 }
                             }
                             // Prompt PIN setup if not set up yet (after first use)

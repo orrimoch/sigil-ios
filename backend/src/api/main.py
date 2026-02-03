@@ -762,6 +762,76 @@ async def get_scores(
         raise HTTPException(status_code=500, detail=str(e))
 
 
+@app.get("/api/v1/scores/summary")
+async def get_score_summary():
+    """
+    F9.1: Get weekly score summary for notifications.
+
+    Returns BUY/HOLD/SELL counts, top movers (biggest score changes),
+    and new BUY signals this week.
+    """
+    try:
+        cached = load_composite_scores()
+
+        if cached is None:
+            return {
+                "success": False,
+                "error": "No scores available. Run the pipeline first.",
+            }
+
+        scores_data = cached.get("scores", {})
+        summary = cached.get("summary", {})
+
+        # Count signals
+        buy_count = summary.get("buy_count", 0)
+        hold_count = summary.get("hold_count", 0)
+        sell_count = summary.get("sell_count", 0)
+
+        # Find top movers (biggest absolute score changes)
+        movers = []
+        new_buys = []
+        for ticker, s in scores_data.items():
+            score_change = s.get("score_change")
+            signal_change = s.get("signal_change")
+
+            if score_change is not None and score_change != 0:
+                movers.append({
+                    "ticker": ticker,
+                    "score": s.get("total_score", 0),
+                    "signal": s.get("signal", "HOLD"),
+                    "score_change": score_change,
+                    "signal_change": signal_change,
+                })
+
+            # New BUY signals (signal changed to BUY)
+            if signal_change and signal_change.endswith("BUY"):
+                new_buys.append({
+                    "ticker": ticker,
+                    "score": s.get("total_score", 0),
+                    "previous_signal": signal_change.split("→")[0].strip() if "→" in signal_change else None,
+                })
+
+        # Sort movers by absolute score change
+        movers.sort(key=lambda x: abs(x.get("score_change", 0)), reverse=True)
+
+        return {
+            "success": True,
+            "data": {
+                "buy_count": buy_count,
+                "hold_count": hold_count,
+                "sell_count": sell_count,
+                "total_scored": len(scores_data),
+                "signal_changes": len(movers),
+                "top_movers": movers[:10],
+                "new_buy_signals": new_buys[:10],
+                "updated_at": cached.get("updated_at"),
+            }
+        }
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 @app.get("/api/v1/scores/{ticker}")
 async def get_score_for_ticker(ticker: str):
     """

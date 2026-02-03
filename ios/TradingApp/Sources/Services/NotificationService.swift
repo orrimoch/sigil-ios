@@ -126,9 +126,10 @@ final class NotificationService: ObservableObject {
         }
     }
     
-    // MARK: - Weekly Score Update (F9.1 placeholder)
+    // MARK: - Weekly Score Update (F9.1)
     
     /// Schedule a weekly notification for score updates (Sundays 7pm EST)
+    /// Uses dynamic content from the API when available
     func scheduleWeeklyScoreUpdate() {
         guard UserDefaults.standard.bool(forKey: "weeklyScoreAlerts") else {
             // Remove any existing weekly notification
@@ -145,6 +146,10 @@ final class NotificationService: ObservableObject {
         content.body = "New AI scores are ready. Check your top picks!"
         content.sound = .default
         content.categoryIdentifier = "WEEKLY_UPDATE"
+        content.userInfo = [
+            "type": "weekly_update",
+            "url": "sigil://scores"
+        ]
         
         // Sunday at 7pm EST (19:00 America/New_York)
         var dateComponents = DateComponents()
@@ -165,6 +170,98 @@ final class NotificationService: ObservableObject {
                 print("[NotificationService] Failed to schedule weekly notification: \(error)")
             }
         }
+        
+        // Register notification categories with actions
+        registerCategories()
+    }
+    
+    /// Fetch dynamic score summary and update notification content on app launch
+    func updateWeeklyContentFromAPI() async {
+        guard UserDefaults.standard.bool(forKey: "weeklyScoreAlerts") else { return }
+        guard isAuthorized else { return }
+        
+        do {
+            let response = try await APIService.shared.getScoreSummary()
+            guard let data = response.data else { return }
+            
+            // Re-schedule with dynamic content
+            center.removePendingNotificationRequests(withIdentifiers: ["weekly-score-update"])
+            
+            let content = UNMutableNotificationContent()
+            content.title = "📊 Weekly Score Update"
+            
+            var bodyParts: [String] = []
+            bodyParts.append("New scores available.")
+            bodyParts.append("\(data.buyCount) BUY signals")
+            if data.signalChanges > 0 {
+                bodyParts.append("\(data.signalChanges) signal changes this week.")
+            }
+            content.body = bodyParts.joined(separator: " ")
+            content.sound = .default
+            content.categoryIdentifier = "WEEKLY_UPDATE"
+            content.userInfo = [
+                "type": "weekly_update",
+                "url": "sigil://scores",
+                "buy_count": data.buyCount,
+                "signal_changes": data.signalChanges,
+            ]
+            
+            var dateComponents = DateComponents()
+            dateComponents.weekday = 1
+            dateComponents.hour = 19
+            dateComponents.minute = 0
+            dateComponents.timeZone = TimeZone(identifier: "America/New_York")
+            
+            let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+            let request = UNNotificationRequest(
+                identifier: "weekly-score-update",
+                content: content,
+                trigger: trigger
+            )
+            
+            center.add(request) { error in
+                if let error {
+                    print("[NotificationService] Failed to update weekly notification: \(error)")
+                }
+            }
+        } catch {
+            // Silently fail — keep static notification
+            print("[NotificationService] Failed to fetch score summary: \(error)")
+        }
+    }
+    
+    // MARK: - Notification Categories
+    
+    /// Register notification categories with actions for interactive notifications
+    func registerCategories() {
+        let viewScoresAction = UNNotificationAction(
+            identifier: "VIEW_SCORES",
+            title: "View Scores",
+            options: [.foreground]
+        )
+        
+        let weeklyCategory = UNNotificationCategory(
+            identifier: "WEEKLY_UPDATE",
+            actions: [viewScoresAction],
+            intentIdentifiers: [],
+            options: []
+        )
+        
+        let tradeCategory = UNNotificationCategory(
+            identifier: "TRADE_CONFIRMATION",
+            actions: [],
+            intentIdentifiers: [],
+            options: []
+        )
+        
+        let scoreAlertCategory = UNNotificationCategory(
+            identifier: "SCORE_ALERT",
+            actions: [viewScoresAction],
+            intentIdentifiers: [],
+            options: []
+        )
+        
+        center.setNotificationCategories([weeklyCategory, tradeCategory, scoreAlertCategory])
     }
     
     // MARK: - Cleanup
