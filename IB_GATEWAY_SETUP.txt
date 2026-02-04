@@ -202,6 +202,70 @@ API COMMANDS — Account & Status
   curl -X DELETE http://127.0.0.1:8000/api/v1/ibkr/order/ORDER_ID
 
 ================================================================================
+API COMMANDS — Historical Bars (REC-160)
+================================================================================
+
+  # Get 1 day of 5-min bars
+  curl "http://127.0.0.1:8000/api/v1/ibkr/bars/AAPL?duration=1%20D&bar_size=5%20mins"
+
+  # Get 1 week of hourly bars
+  curl "http://127.0.0.1:8000/api/v1/ibkr/bars/AAPL?duration=1%20W&bar_size=1%20hour"
+
+  # Get 1 month of daily bars (including extended hours)
+  curl "http://127.0.0.1:8000/api/v1/ibkr/bars/AAPL?duration=1%20M&bar_size=1%20day&use_rth=false"
+
+================================================================================
+API COMMANDS — Bracket Orders (REC-161)
+================================================================================
+
+  # Submit bracket order: entry at 180, take profit at 200, stop loss at 170
+  curl -X POST http://127.0.0.1:8000/api/v1/ibkr/bracket \
+    -H "Content-Type: application/json" \
+    -d '{"ticker": "AAPL", "side": "BUY", "quantity": 100, "entry_price": 180.0, "take_profit_price": 200.0, "stop_loss_price": 170.0}'
+
+================================================================================
+API COMMANDS — Market Scanner (REC-157)
+================================================================================
+
+  # Top gainers (default)
+  curl "http://127.0.0.1:8000/api/v1/ibkr/scanner"
+
+  # Top losers
+  curl "http://127.0.0.1:8000/api/v1/ibkr/scanner?scan_code=TOP_PERC_LOSE"
+
+  # Most active by volume
+  curl "http://127.0.0.1:8000/api/v1/ibkr/scanner?scan_code=MOST_ACTIVE&num_rows=30"
+
+  # Hot by volume with price filter
+  curl "http://127.0.0.1:8000/api/v1/ibkr/scanner?scan_code=HOT_BY_VOLUME&above_price=10&below_price=500"
+
+  Scan codes: TOP_PERC_GAIN, TOP_PERC_LOSE, MOST_ACTIVE, HOT_BY_VOLUME,
+              HIGH_VS_13W_HL, LOW_VS_13W_HL, HIGH_VS_52W_HL, LOW_VS_52W_HL
+
+================================================================================
+API COMMANDS — What-If Order Simulation (REC-162)
+================================================================================
+
+  # Preview margin impact of buying 100 shares at market
+  curl -X POST http://127.0.0.1:8000/api/v1/ibkr/whatif \
+    -H "Content-Type: application/json" \
+    -d '{"ticker": "AAPL", "side": "BUY", "quantity": 100, "order_type": "MARKET"}'
+
+  # Preview with limit order
+  curl -X POST http://127.0.0.1:8000/api/v1/ibkr/whatif \
+    -H "Content-Type: application/json" \
+    -d '{"ticker": "NVDA", "side": "BUY", "quantity": 50, "order_type": "LIMIT", "limit_price": 800.0}'
+
+================================================================================
+API COMMANDS — Margin Monitor (REC-153)
+================================================================================
+
+  # Get margin status and alerts
+  curl http://127.0.0.1:8000/api/v1/ibkr/margin
+
+  # Returns: margin_used_percent, margin_available_percent, alert_level (CRITICAL/WARNING/ELEVATED/null)
+
+================================================================================
 KEY PATHS
 ================================================================================
 

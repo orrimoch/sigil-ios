@@ -1037,6 +1037,360 @@ class TestDataClasses:
 
 
 # ═══════════════════════════════════════════════════════════════════════
+# Historical Bars Tests (REC-160)
+# ═══════════════════════════════════════════════════════════════════════
+
+class TestIBKRHistoricalBars:
+    """Tests for get_historical_bars() (REC-160)."""
+
+    def test_get_historical_bars_success(self):
+        """Fetch historical bars from IB."""
+        svc = IBKRService()
+        mock_ib = _make_mock_ib()
+        
+        # Mock bar data
+        mock_bar = MagicMock()
+        mock_bar.date = datetime(2026, 1, 15, 10, 0, 0)
+        mock_bar.open = 185.0
+        mock_bar.high = 186.5
+        mock_bar.low = 184.5
+        mock_bar.close = 186.0
+        mock_bar.volume = 1000000
+        mock_ib.reqHistoricalData.return_value = [mock_bar]
+        mock_ib.qualifyContracts.return_value = None
+
+        _patch_ibc_connect(svc, "user1", mock_ib)
+
+        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+            bars = svc.get_historical_bars("user1", "AAPL", duration="1 D", bar_size="5 mins")
+
+        assert len(bars) == 1
+        assert bars[0]["open"] == 185.0
+        assert bars[0]["close"] == 186.0
+        assert bars[0]["volume"] == 1000000
+
+    def test_get_historical_bars_not_connected(self):
+        """Should raise if not connected."""
+        svc = IBKRService()
+        with pytest.raises(ValueError, match="not connected"):
+            svc.get_historical_bars("user1", "AAPL")
+
+    def test_get_historical_bars_parameters(self):
+        """Verify parameters are passed correctly to IB."""
+        svc = IBKRService()
+        mock_ib = _make_mock_ib()
+        mock_ib.reqHistoricalData.return_value = []
+        mock_ib.qualifyContracts.return_value = None
+
+        _patch_ibc_connect(svc, "user1", mock_ib)
+
+        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+            svc.get_historical_bars(
+                "user1", "AAPL",
+                duration="1 W",
+                bar_size="1 hour",
+                what_to_show="MIDPOINT",
+                use_rth=False,
+            )
+
+        # Verify reqHistoricalData was called with correct params
+        call_args = mock_ib.reqHistoricalData.call_args
+        assert call_args.kwargs["durationStr"] == "1 W"
+        assert call_args.kwargs["barSizeSetting"] == "1 hour"
+        assert call_args.kwargs["whatToShow"] == "MIDPOINT"
+        assert call_args.kwargs["useRTH"] is False
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# Bracket Orders Tests (REC-161)
+# ═══════════════════════════════════════════════════════════════════════
+
+class TestIBKRBracketOrders:
+    """Tests for submit_bracket_order() (REC-161)."""
+
+    def test_bracket_order_success(self):
+        """Submit bracket order with entry, TP, and SL."""
+        svc = IBKRService()
+        mock_ib = _make_mock_ib()
+
+        # Mock bracket order
+        mock_trade = MagicMock()
+        mock_trade.order.orderId = 100
+        mock_trade.order.lmtPrice = 180.0
+        mock_trade.order.auxPrice = None
+        mock_trade.orderStatus.status = "Submitted"
+
+        mock_ib.bracketOrder.return_value = [MagicMock(), MagicMock(), MagicMock()]
+        mock_ib.placeOrder.return_value = mock_trade
+        mock_ib.qualifyContracts.return_value = None
+
+        _patch_ibc_connect(svc, "user1", mock_ib)
+
+        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+            result = svc.submit_bracket_order(
+                "user1", "AAPL",
+                side="BUY", quantity=100,
+                entry_price=180.0,
+                take_profit_price=200.0,
+                stop_loss_price=170.0,
+            )
+
+        assert result["ticker"] == "AAPL"
+        assert result["side"] == "BUY"
+        assert result["quantity"] == 100
+        assert "entry" in result
+        assert "take_profit" in result
+        assert "stop_loss" in result
+
+    def test_bracket_order_not_connected(self):
+        """Should raise if not connected."""
+        svc = IBKRService()
+        with pytest.raises(ValueError, match="not connected"):
+            svc.submit_bracket_order(
+                "user1", "AAPL",
+                side="BUY", quantity=100,
+                entry_price=180.0,
+                take_profit_price=200.0,
+                stop_loss_price=170.0,
+            )
+
+    def test_bracket_order_invalid_buy_prices(self):
+        """Buy: TP must be above entry, SL must be below entry."""
+        svc = IBKRService()
+        mock_ib = _make_mock_ib()
+        _patch_ibc_connect(svc, "user1", mock_ib)
+
+        # TP below entry
+        with pytest.raises(ValueError, match="Take profit must be above"):
+            svc.submit_bracket_order(
+                "user1", "AAPL",
+                side="BUY", quantity=100,
+                entry_price=180.0,
+                take_profit_price=170.0,  # Wrong!
+                stop_loss_price=160.0,
+            )
+
+        # SL above entry
+        with pytest.raises(ValueError, match="Stop loss must be below"):
+            svc.submit_bracket_order(
+                "user1", "AAPL",
+                side="BUY", quantity=100,
+                entry_price=180.0,
+                take_profit_price=200.0,
+                stop_loss_price=190.0,  # Wrong!
+            )
+
+    def test_bracket_order_invalid_sell_prices(self):
+        """Sell: TP must be below entry, SL must be above entry."""
+        svc = IBKRService()
+        mock_ib = _make_mock_ib()
+        _patch_ibc_connect(svc, "user1", mock_ib)
+
+        # TP above entry
+        with pytest.raises(ValueError, match="Take profit must be below"):
+            svc.submit_bracket_order(
+                "user1", "AAPL",
+                side="SELL", quantity=100,
+                entry_price=180.0,
+                take_profit_price=190.0,  # Wrong!
+                stop_loss_price=200.0,
+            )
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# Market Scanner Tests (REC-157)
+# ═══════════════════════════════════════════════════════════════════════
+
+class TestIBKRScanner:
+    """Tests for get_scanner_results() (REC-157)."""
+
+    def test_scanner_success(self):
+        """Fetch scanner results from IB."""
+        svc = IBKRService()
+        mock_ib = _make_mock_ib()
+
+        # Mock scanner data
+        mock_contract = MagicMock()
+        mock_contract.symbol = "NVDA"
+        mock_contract.exchange = "SMART"
+        mock_contract.conId = 12345
+
+        mock_contract_details = MagicMock()
+        mock_contract_details.contract = mock_contract
+
+        mock_scan_item = MagicMock()
+        mock_scan_item.rank = 1
+        mock_scan_item.contractDetails = mock_contract_details
+
+        mock_scan_data = [mock_scan_item]
+        mock_ib.reqScannerSubscription.return_value = mock_scan_data
+        mock_ib.cancelScannerSubscription.return_value = None
+
+        _patch_ibc_connect(svc, "user1", mock_ib)
+
+        mock_ibi = _mock_ib_insync_module()
+        mock_ibi.ScannerSubscription.return_value = MagicMock()
+
+        with patch.object(_IBConnection, "_import_ib_insync", return_value=mock_ibi):
+            results = svc.get_scanner_results("user1", scan_code="TOP_PERC_GAIN")
+
+        assert len(results) == 1
+        assert results[0]["rank"] == 1
+        assert results[0]["ticker"] == "NVDA"
+
+    def test_scanner_not_connected(self):
+        """Should raise if not connected."""
+        svc = IBKRService()
+        with pytest.raises(ValueError, match="not connected"):
+            svc.get_scanner_results("user1")
+
+    def test_scanner_parameters(self):
+        """Verify scanner parameters are set correctly."""
+        svc = IBKRService()
+        mock_ib = _make_mock_ib()
+        mock_ib.reqScannerSubscription.return_value = []
+        mock_ib.cancelScannerSubscription.return_value = None
+
+        _patch_ibc_connect(svc, "user1", mock_ib)
+
+        mock_ibi = _mock_ib_insync_module()
+        mock_subscription = MagicMock()
+        mock_ibi.ScannerSubscription.return_value = mock_subscription
+
+        with patch.object(_IBConnection, "_import_ib_insync", return_value=mock_ibi):
+            svc.get_scanner_results(
+                "user1",
+                scan_code="MOST_ACTIVE",
+                num_rows=30,
+                above_price=10.0,
+            )
+
+        # Verify ScannerSubscription was called
+        mock_ibi.ScannerSubscription.assert_called_once()
+        call_kwargs = mock_ibi.ScannerSubscription.call_args.kwargs
+        assert call_kwargs["scanCode"] == "MOST_ACTIVE"
+        assert call_kwargs["numberOfRows"] == 30
+        assert call_kwargs["abovePrice"] == 10.0
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# What-If Order Tests (REC-162)
+# ═══════════════════════════════════════════════════════════════════════
+
+class TestIBKRWhatIf:
+    """Tests for what_if_order() (REC-162)."""
+
+    def test_what_if_success(self):
+        """Simulate order and get margin/commission preview."""
+        svc = IBKRService()
+        mock_ib = _make_mock_ib()
+
+        # Mock what-if result
+        mock_state = MagicMock()
+        mock_state.initMarginBefore = "50000"
+        mock_state.initMarginAfter = "55000"
+        mock_state.initMarginChange = "5000"
+        mock_state.maintMarginBefore = "40000"
+        mock_state.maintMarginAfter = "44000"
+        mock_state.maintMarginChange = "4000"
+        mock_state.equityWithLoanBefore = "100000"
+        mock_state.equityWithLoanAfter = "95000"
+        mock_state.equityWithLoanChange = "-5000"
+        mock_state.commission = "1.50"
+        mock_state.minCommission = "1.00"
+        mock_state.maxCommission = "2.00"
+        mock_state.commissionCurrency = "USD"
+        mock_state.warningText = ""
+
+        mock_ib.whatIfOrder.return_value = mock_state
+        mock_ib.qualifyContracts.return_value = None
+
+        _patch_ibc_connect(svc, "user1", mock_ib)
+
+        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+            result = svc.what_if_order(
+                "user1", "AAPL",
+                side="BUY", quantity=100,
+                order_type="MARKET",
+            )
+
+        assert result["ticker"] == "AAPL"
+        assert result["side"] == "BUY"
+        assert result["quantity"] == 100
+        assert result["init_margin_change"] == 5000.0
+        assert result["commission"] == 1.50
+
+    def test_what_if_not_connected(self):
+        """Should raise if not connected."""
+        svc = IBKRService()
+        with pytest.raises(ValueError, match="not connected"):
+            svc.what_if_order("user1", "AAPL", side="BUY", quantity=100)
+
+    def test_what_if_limit_order(self):
+        """What-if with limit order."""
+        svc = IBKRService()
+        mock_ib = _make_mock_ib()
+
+        mock_state = MagicMock()
+        mock_state.initMarginBefore = "50000"
+        mock_state.initMarginAfter = "55000"
+        mock_state.initMarginChange = "5000"
+        mock_state.maintMarginBefore = "40000"
+        mock_state.maintMarginAfter = "44000"
+        mock_state.maintMarginChange = "4000"
+        mock_state.equityWithLoanBefore = "100000"
+        mock_state.equityWithLoanAfter = "95000"
+        mock_state.equityWithLoanChange = "-5000"
+        mock_state.commission = "1.00"
+        mock_state.minCommission = None
+        mock_state.maxCommission = None
+        mock_state.commissionCurrency = "USD"
+        mock_state.warningText = None
+
+        mock_ib.whatIfOrder.return_value = mock_state
+        mock_ib.qualifyContracts.return_value = None
+
+        _patch_ibc_connect(svc, "user1", mock_ib)
+
+        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+            result = svc.what_if_order(
+                "user1", "AAPL",
+                side="BUY", quantity=50,
+                order_type="LIMIT",
+                limit_price=180.0,
+            )
+
+        assert result["order_type"] == "LIMIT"
+        assert result["limit_price"] == 180.0
+
+    def test_what_if_limit_requires_price(self):
+        """Limit order requires limit_price."""
+        svc = IBKRService()
+        mock_ib = _make_mock_ib()
+        _patch_ibc_connect(svc, "user1", mock_ib)
+
+        with pytest.raises(ValueError, match="Limit price required"):
+            svc.what_if_order(
+                "user1", "AAPL",
+                side="BUY", quantity=50,
+                order_type="LIMIT",
+            )
+
+    def test_what_if_invalid_order_type(self):
+        """Only MARKET and LIMIT supported for what-if."""
+        svc = IBKRService()
+        mock_ib = _make_mock_ib()
+        _patch_ibc_connect(svc, "user1", mock_ib)
+
+        with pytest.raises(ValueError, match="only supports MARKET and LIMIT"):
+            svc.what_if_order(
+                "user1", "AAPL",
+                side="BUY", quantity=50,
+                order_type="STP",
+            )
+
+
+# ═══════════════════════════════════════════════════════════════════════
 
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])
