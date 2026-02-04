@@ -272,6 +272,14 @@ def get_score(ticker: str) -> Optional[CompositeScoreResult]:
 def save_composite_scores(scores: Dict[str, CompositeScoreResult], path: Path = COMPOSITE_CACHE) -> None:
     """Save scores to JSON."""
     path.parent.mkdir(parents=True, exist_ok=True)
+
+    # BUG-026 fix: build ticker→company name map from universe
+    from data.stock_universe import load_universe
+    _ticker_to_company = {}
+    universe = load_universe()
+    if universe:
+        for stock in universe.get("stocks", []):
+            _ticker_to_company[stock["ticker"]] = stock.get("name", stock["ticker"])
     
     data = {
         "updated_at": datetime.now().isoformat(),
@@ -286,6 +294,7 @@ def save_composite_scores(scores: Dict[str, CompositeScoreResult], path: Path = 
         "scores": {
             ticker: {
                 "ticker": r.ticker,
+                "company_name": _ticker_to_company.get(r.ticker),  # BUG-026 fix
                 "sector": r.sector,
                 "total_score": r.total_score,
                 "signal": r.signal.value,

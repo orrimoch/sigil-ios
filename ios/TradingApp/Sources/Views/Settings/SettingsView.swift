@@ -439,7 +439,14 @@ class SettingsViewModel: ObservableObject {
     }
     
     func clearCache() {
+        // Clear URL cache
         URLCache.shared.removeAllCachedResponses()
+        
+        // Clear disk cache (SigilAPICache) — BUG-024 fix
+        if let cachesURL = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first {
+            let apiCache = cachesURL.appendingPathComponent("SigilAPICache")
+            try? FileManager.default.removeItem(at: apiCache)
+        }
     }
 }
 
@@ -773,34 +780,119 @@ struct LegalView: View {
     var termsOfService: String {
         """
         TERMS OF SERVICE
-        
+
         Last updated: February 2026
-        
-        By using Sigil, you agree to these terms...
-        
-        [Full terms would go here]
+
+        1. ACCEPTANCE OF TERMS
+        By downloading, installing, or using Sigil ("the App"), you agree to be bound by these Terms of Service. If you do not agree, do not use the App.
+
+        2. DESCRIPTION OF SERVICE
+        Sigil provides AI-generated stock scores and recommendations for informational purposes only. Scores are derived from fundamental, sentiment, technical, and macroeconomic analysis of publicly available data.
+
+        3. NOT FINANCIAL ADVICE
+        All content, scores, signals, and recommendations provided by Sigil are for informational and educational purposes only. They do not constitute financial advice, investment advice, trading advice, or any other kind of advice. You should consult a qualified financial advisor before making any investment decisions.
+
+        4. NO WARRANTIES
+        The App is provided "as is" without warranties of any kind. We do not guarantee the accuracy, completeness, or timeliness of any scores, data, or analysis. Past performance does not indicate future results.
+
+        5. PAPER TRADING
+        Paper trading features simulate trades using virtual currency and do not involve real money. Live trading via Interactive Brokers is subject to IBKR's own terms and conditions.
+
+        6. LIMITATION OF LIABILITY
+        In no event shall Sigil or its creators be liable for any direct, indirect, incidental, special, or consequential damages arising from your use of the App or reliance on any information provided.
+
+        7. USER ACCOUNTS
+        You are responsible for maintaining the confidentiality of your account credentials. You agree to notify us immediately of any unauthorized use.
+
+        8. MODIFICATIONS
+        We reserve the right to modify these terms at any time. Continued use of the App after changes constitutes acceptance of the modified terms.
+
+        9. GOVERNING LAW
+        These terms shall be governed by applicable law in the jurisdiction where the service is provided.
         """
     }
     
     var privacyPolicy: String {
         """
         PRIVACY POLICY
-        
+
         Last updated: February 2026
-        
-        Your privacy is important to us...
-        
-        [Full policy would go here]
+
+        1. INFORMATION WE COLLECT
+        • Account information: email address and encrypted password
+        • Usage data: app interactions, feature usage, and crash reports
+        • Trading data: paper trading orders, portfolio positions, and watchlists
+        • Device information: device model, OS version, and app version
+
+        2. HOW WE USE YOUR INFORMATION
+        • To provide and improve the App's functionality
+        • To calculate personalized stock scores and alerts
+        • To send notifications you have opted into (score alerts, trade confirmations)
+        • To diagnose technical issues and improve performance
+
+        3. DATA STORAGE
+        • All data is stored locally on your device and on our secured backend servers
+        • Passwords are hashed using bcrypt and never stored in plaintext
+        • JWT tokens are used for authentication with automatic expiration
+
+        4. DATA SHARING
+        We do not sell, trade, or share your personal information with third parties except:
+        • When required by law or legal process
+        • To protect our rights or safety
+        • With Interactive Brokers when you connect a live trading account (subject to their privacy policy)
+
+        5. THIRD-PARTY SERVICES
+        The App uses data from Yahoo Finance, SEC EDGAR, FRED, and news RSS feeds. Your use of the App may be subject to their respective terms.
+
+        6. DATA RETENTION
+        Account data is retained while your account is active. You may request deletion at any time through the App settings.
+
+        7. SECURITY
+        We implement industry-standard security measures including encryption, secure authentication, and biometric protection. However, no system is 100% secure.
+
+        8. YOUR RIGHTS
+        You have the right to access, correct, or delete your personal data. Contact us through the App to exercise these rights.
+
+        9. CHANGES TO THIS POLICY
+        We may update this policy periodically. We will notify you of significant changes through the App.
         """
     }
     
     var riskDisclosure: String {
         """
         RISK DISCLOSURE
-        
-        Trading stocks involves substantial risk of loss...
-        
-        [Full disclosure would go here]
+
+        Last updated: February 2026
+
+        IMPORTANT: Please read this disclosure carefully before using Sigil.
+
+        1. INVESTMENT RISK
+        Trading and investing in stocks involves substantial risk of loss and is not suitable for every investor. The value of stocks can fluctuate significantly, and you may lose some or all of your invested capital.
+
+        2. AI-GENERATED SCORES
+        Sigil's scores and signals are generated by artificial intelligence algorithms analyzing publicly available data. These algorithms have limitations:
+        • They rely on historical data which may not predict future performance
+        • Sentiment analysis may misinterpret news context
+        • Technical indicators can generate false signals
+        • Macro analysis may not capture sudden economic shifts
+
+        3. NO GUARANTEE OF ACCURACY
+        While we strive for accuracy, our scoring system may contain errors. Scores of 677 stocks are updated weekly and may not reflect real-time market conditions.
+
+        4. PAPER TRADING vs LIVE TRADING
+        Paper trading results are simulated and may differ from actual trading due to:
+        • Market liquidity and slippage
+        • Order execution timing
+        • Real market impact of large orders
+        • Fees and commissions
+
+        5. INDEPENDENT JUDGMENT
+        Always use your own judgment and conduct your own research. Sigil is a tool to supplement, not replace, your investment decision-making process.
+
+        6. SEEK PROFESSIONAL ADVICE
+        If you are unsure about any investment, consult a licensed financial advisor who can assess your individual circumstances, risk tolerance, and financial goals.
+
+        BY USING SIGIL, YOU ACKNOWLEDGE THAT YOU HAVE READ AND UNDERSTOOD THIS RISK DISCLOSURE.
         """
     }
 }

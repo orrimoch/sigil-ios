@@ -397,9 +397,20 @@ struct PerformanceChartSection: View {
     }
     
     func parseDate(_ isoString: String) -> Date {
+        // BUG-027 fix: try with fractional seconds first, then without
         let formatter = ISO8601DateFormatter()
         formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-        return formatter.date(from: isoString) ?? Date()
+        if let date = formatter.date(from: isoString) {
+            return date
+        }
+        formatter.formatOptions = [.withInternetDateTime]
+        if let date = formatter.date(from: isoString) {
+            return date
+        }
+        let basic = DateFormatter()
+        basic.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        basic.timeZone = TimeZone(identifier: "UTC")
+        return basic.date(from: isoString) ?? Date()
     }
 }
 

@@ -55,10 +55,9 @@ from trading import (
     OrderType,
     OrderSide,
     OrderStatus,
-    OrderManager,
 )
-from trading.portfolio import get_portfolio, reset_portfolio, get_portfolio_history
-from trading.orders import get_order_manager, reset_order_manager
+# BUG-025 fix: removed OrderManager/get_order_manager/reset_order_manager imports
+# DB (UserTradingService) is the single source of truth — no JSON dual persistence
 
 # F4.4 Alerts imports
 from alerts import Alert, AlertType, AlertManager, get_alert_manager
