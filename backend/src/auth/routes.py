@@ -196,6 +196,22 @@ async def confirm_password_reset(
     }
 
 
+class AuthStatusResponse(BaseModel):
+    auth_required: bool
+    server_version: str
+
+
+@auth_router.get("/status", response_model=AuthStatusResponse)
+async def get_auth_status():
+    """REC-130: Check whether server requires authentication."""
+    from api.main import AUTH_REQUIRED
+
+    return {
+        "auth_required": AUTH_REQUIRED,
+        "server_version": "1.0.0",
+    }
+
+
 @auth_router.get("/me", response_model=ProfileResponse)
 async def get_me(
     current_user: User = Depends(get_current_user),

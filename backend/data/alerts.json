@@ -1,4 +1,50 @@
 {
-  "alerts": [],
-  "updated_at": "2026-02-04T21:11:45.159904"
+  "alerts": [
+    {
+      "id": "00f9d1f9",
+      "type": "score_change",
+      "ticker": "TICK9",
+      "title": "Title",
+      "subtitle": "",
+      "timestamp": "2026-02-04T21:34:02.254112",
+      "read": false
+    },
+    {
+      "id": "655b2467",
+      "type": "score_change",
+      "ticker": "TICK8",
+      "title": "Title",
+      "subtitle": "",
+      "timestamp": "2026-02-04T21:34:02.253962",
+      "read": false
+    },
+    {
+      "id": "5e8b5d60",
+      "type": "score_change",
+      "ticker": "TICK7",
+      "title": "Title",
+      "subtitle": "",
+      "timestamp": "2026-02-04T21:34:02.253837",
+      "read": false
+    },
+    {
+      "id": "e481ca1f",
+      "type": "score_change",
+      "ticker": "TICK6",
+      "title": "Title",
+      "subtitle": "",
+      "timestamp": "2026-02-04T21:34:02.253718",
+      "read": false
+    },
+    {
+      "id": "95c46ada",
+      "type": "score_change",
+      "ticker": "TICK5",
+      "title": "Title",
+      "subtitle": "",
+      "timestamp": "2026-02-04T21:34:02.253596",
+      "read": false
+    }
+  ],
+  "updated_at": "2026-02-04T21:34:02.254157"
 }

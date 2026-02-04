@@ -38,6 +38,12 @@ struct AuthErrorResponse: Codable {
     let detail: String?
 }
 
+/// REC-130: Server auth status response
+struct AuthStatusResponse: Codable {
+    let authRequired: Bool
+    let serverVersion: String
+}
+
 // MARK: - AuthService
 
 /// Manages user authentication state, token storage, and API calls.
@@ -192,6 +198,20 @@ final class AuthService: ObservableObject {
                 keychain.save(key: Keys.currentUser, data: userData)
             }
         }
+    }
+
+    // MARK: - Auth Status (REC-130)
+
+    /// Check whether the server requires authentication.
+    /// Returns `true` if auth is required, `false` otherwise.
+    func checkServerAuthStatus() async throws -> Bool {
+        let url = URL(string: "\(baseURL)/status")!
+        let (data, response) = try await URLSession.shared.data(from: url)
+        guard let http = response as? HTTPURLResponse, 200...299 ~= http.statusCode else {
+            throw AuthError.serverError
+        }
+        let status = try decoder.decode(AuthStatusResponse.self, from: data)
+        return status.authRequired
     }
 
     // MARK: - Networking helpers

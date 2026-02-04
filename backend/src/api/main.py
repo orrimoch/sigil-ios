@@ -13,6 +13,7 @@ from pydantic import BaseModel
 from typing import List, Optional, Dict
 from sqlalchemy.ext.asyncio import AsyncSession
 from datetime import datetime
+import os
 import sys
 import logging
 from pathlib import Path
@@ -65,7 +66,7 @@ from alerts import Alert, AlertType, AlertManager, get_alert_manager
 
 # Auth imports
 from auth import auth_router, init_db
-from auth.middleware import get_optional_user
+from auth.middleware import get_optional_user, get_required_user
 from auth.database import get_db_session
 
 # IBKR imports
@@ -78,8 +79,9 @@ from notifications.push_routes import router as push_router
 from trading.user_trading_service import UserTradingService
 from db.models import ANONYMOUS_USER_ID
 
-# Auth config — set to False so existing tests/endpoints keep working without tokens
-AUTH_REQUIRED = False
+# Auth config — defaults to False so existing tests/endpoints keep working without tokens
+# Set AUTH_REQUIRED=true env var to enforce authentication on data endpoints (REC-130)
+AUTH_REQUIRED = os.environ.get("AUTH_REQUIRED", "false").lower() in ("true", "1", "yes")
 
 # ========== Price Cache (Bug 2 fix) ==========
 # Fast in-memory price cache to avoid slow yfinance calls on every scores request
@@ -184,7 +186,6 @@ async def validation_exception_handler(request, exc):
     )
 
 # CORS — restrict origins (BUG-011 fix)
-import os
 _cors_origins = os.environ.get("CORS_ORIGINS", "http://localhost:3000,http://127.0.0.1:8000").split(",")
 app.add_middleware(
     CORSMiddleware,
@@ -1253,7 +1254,7 @@ async def calculate_all_scores(background_tasks: BackgroundTasks):
 
 @app.get("/api/v1/portfolio")
 async def get_portfolio_endpoint(
-    user=Depends(get_optional_user),
+    user=Depends(get_required_user),
     db: AsyncSession = Depends(get_db_session),
 ):
     """
@@ -1274,7 +1275,7 @@ async def get_portfolio_endpoint(
 
 @app.get("/api/v1/portfolio/summary")
 async def get_portfolio_summary(
-    user=Depends(get_optional_user),
+    user=Depends(get_required_user),
     db: AsyncSession = Depends(get_db_session),
 ):
     """
@@ -1295,7 +1296,7 @@ async def get_portfolio_summary(
 
 @app.get("/api/v1/portfolio/holdings")
 async def get_portfolio_holdings(
-    user=Depends(get_optional_user),
+    user=Depends(get_required_user),
     db: AsyncSession = Depends(get_db_session),
 ):
     """
@@ -1318,7 +1319,7 @@ async def get_portfolio_holdings(
 @app.post("/api/v1/portfolio/reset")
 async def reset_portfolio_endpoint(
     starting_cash: float = Query(100000.0, description="Starting cash amount"),
-    user=Depends(get_optional_user),
+    user=Depends(get_required_user),
     db: AsyncSession = Depends(get_db_session),
 ):
     """
@@ -1391,7 +1392,7 @@ async def get_portfolio_performance(
 
 @app.post("/api/v1/portfolio/snapshot")
 async def record_portfolio_snapshot(
-    user=Depends(get_optional_user),
+    user=Depends(get_required_user),
     db: AsyncSession = Depends(get_db_session),
 ):
     """
@@ -1434,7 +1435,7 @@ async def record_portfolio_snapshot(
 
 @app.get("/api/v1/portfolio/sectors")
 async def get_portfolio_sectors(
-    user=Depends(get_optional_user),
+    user=Depends(get_required_user),
     db: AsyncSession = Depends(get_db_session),
 ):
     """
@@ -1467,7 +1468,7 @@ class OrderRequest(BaseModel):
 @app.post("/api/v1/orders")
 async def create_order(
     request: OrderRequest,
-    user=Depends(get_optional_user),
+    user=Depends(get_required_user),
     db: AsyncSession = Depends(get_db_session),
 ):
     """
@@ -1506,7 +1507,7 @@ async def get_orders(
     status: Optional[str] = Query(None, description="Filter by status: PENDING, FILLED, CANCELLED"),
     ticker: Optional[str] = Query(None, description="Filter by ticker"),
     limit: int = Query(50, ge=1, le=1000),
-    user=Depends(get_optional_user),
+    user=Depends(get_required_user),
     db: AsyncSession = Depends(get_db_session),
 ):
     """
@@ -1537,7 +1538,7 @@ async def get_orders(
 
 @app.get("/api/v1/orders/today")
 async def get_todays_orders(
-    user=Depends(get_optional_user),
+    user=Depends(get_required_user),
     db: AsyncSession = Depends(get_db_session),
 ):
     """
@@ -1559,7 +1560,7 @@ async def get_todays_orders(
 
 @app.get("/api/v1/orders/pending")
 async def get_pending_orders(
-    user=Depends(get_optional_user),
+    user=Depends(get_required_user),
     db: AsyncSession = Depends(get_db_session),
 ):
     """
@@ -1582,7 +1583,7 @@ async def get_pending_orders(
 @app.get("/api/v1/orders/{order_id}")
 async def get_order_by_id(
     order_id: str,
-    user=Depends(get_optional_user),
+    user=Depends(get_required_user),
     db: AsyncSession = Depends(get_db_session),
 ):
     """
@@ -1609,7 +1610,7 @@ async def get_order_by_id(
 @app.delete("/api/v1/orders/{order_id}")
 async def cancel_order(
     order_id: str,
-    user=Depends(get_optional_user),
+    user=Depends(get_required_user),
     db: AsyncSession = Depends(get_db_session),
 ):
     """

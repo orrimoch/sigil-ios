@@ -187,44 +187,64 @@ struct SigilApp: App {
         }
     }
     
-    /// Check auth state on launch.
-    /// If no server-side auth required (dev mode), auto-login with graceful fallback.
+    /// Check auth state on launch (REC-130).
+    ///
+    /// 1. Ask backend `/auth/status` whether auth is required.
+    /// 2. If `auth_required == false` → auto-grant (dev mode).
+    /// 3. If `auth_required == true` AND we have a stored session → validate it.
+    /// 4. If server unreachable → grant if stored session exists, otherwise show login.
     private func checkAuthState() {
-        // If already has a stored session, we're good
-        if AuthService.shared.isLoggedIn {
-            authCheckDone = true
-            return
-        }
-        
-        // Graceful fallback: try to validate with backend.
-        // If backend has AUTH_REQUIRED = False, we allow skip.
+        // Fast path: stored session — try to use it
+        let hasSession = AuthService.shared.isLoggedIn
+
         Task {
             do {
-                // Check if server is reachable and auth is required
-                // by trying to access a known endpoint without token
-                let scoresURL = URL(string: "http://127.0.0.1:8000/api/v1/scores?limit=1")!
-                let (_, scoresResponse) = try await URLSession.shared.data(from: scoresURL)
-                
-                if let scoresHttp = scoresResponse as? HTTPURLResponse, scoresHttp.statusCode == 200 {
-                    // Auth not required (dev mode) — auto-grant access
+                let authRequired = try await AuthService.shared.checkServerAuthStatus()
+
+                if !authRequired {
+                    // Server says auth not required (dev mode) — auto-grant
                     await MainActor.run {
                         authVM.isLoggedIn = true
                         authCheckDone = true
                     }
                     return
                 }
-            } catch {
-                // Server not reachable — allow offline access (graceful fallback)
-                await MainActor.run {
-                    authVM.isLoggedIn = true
-                    authCheckDone = true
+
+                // Auth IS required — need a valid session
+                if hasSession {
+                    // Validate stored token via /auth/me
+                    do {
+                        try await AuthService.shared.fetchProfile()
+                        await MainActor.run { authCheckDone = true }
+                    } catch {
+                        // Token might be expired — try refresh
+                        do {
+                            try await AuthService.shared.refreshToken()
+                            try await AuthService.shared.fetchProfile()
+                            await MainActor.run { authCheckDone = true }
+                        } catch {
+                            // Refresh failed — force login
+                            await MainActor.run {
+                                AuthService.shared.logout()
+                                authCheckDone = true
+                            }
+                        }
+                    }
+                } else {
+                    // No session and auth required — show login
+                    await MainActor.run { authCheckDone = true }
                 }
-                return
-            }
-            
-            // Server requires auth and user isn't logged in — show login
-            await MainActor.run {
-                authCheckDone = true
+            } catch {
+                // Server unreachable — offline fallback
+                await MainActor.run {
+                    if hasSession {
+                        // Trust the stored session offline
+                        authCheckDone = true
+                    } else {
+                        // No session, no server — show login
+                        authCheckDone = true
+                    }
+                }
             }
         }
     }

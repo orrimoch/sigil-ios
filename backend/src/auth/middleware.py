@@ -67,3 +67,21 @@ async def get_optional_user(
         return None
 
     return await AuthService.get_user_by_id(db, user_id)
+
+
+async def get_required_user(
+    credentials: Optional[HTTPAuthorizationCredentials] = Depends(security),
+    db: AsyncSession = Depends(get_db_session),
+) -> Optional[User]:
+    """
+    Auth-gate dependency (REC-130).
+
+    When AUTH_REQUIRED=True: requires valid Bearer token, returns 401 if missing/invalid.
+    When AUTH_REQUIRED=False: falls back to get_optional_user behavior (returns None).
+    """
+    from api.main import AUTH_REQUIRED
+
+    if AUTH_REQUIRED:
+        return await get_current_user(credentials, db)
+    else:
+        return await get_optional_user(credentials, db)
