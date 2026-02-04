@@ -347,12 +347,14 @@ enum OrderType: String, CaseIterable {
     case market = "MARKET"
     case limit = "LIMIT"
     case stop = "STP"
+    case trailingStop = "TRAIL"
     
     var description: String {
         switch self {
         case .market: return "Executes immediately at current price"
         case .limit: return "Executes when price reaches your limit"
         case .stop: return "Triggers when price falls to your stop price"
+        case .trailingStop: return "Stop that follows price up, locking in gains"
         }
     }
     
@@ -361,11 +363,26 @@ enum OrderType: String, CaseIterable {
         case .market: return ""
         case .limit: return "Limit Price"
         case .stop: return "Stop Price"
+        case .trailingStop: return "Trail Amount ($)"
         }
     }
     
     var needsPrice: Bool {
         self != .market
+    }
+}
+
+enum TimeInForce: String, CaseIterable {
+    case day = "DAY"
+    case gtc = "GTC"
+    case gtd = "GTD"
+    
+    var description: String {
+        switch self {
+        case .day: return "Day only"
+        case .gtc: return "Good till canceled"
+        case .gtd: return "Good till date"
+        }
     }
 }
 
