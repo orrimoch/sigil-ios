@@ -390,8 +390,10 @@ struct LockScreenView: View {
             UserDefaults.standard.removePersistentDomain(forName: domain)
         }
         
-        // Clear keychain tokens
+        // Clear keychain tokens and credentials
         AuthService.shared.logout()
+        KeychainHelper.shared.delete(key: "sigil_pin_code")
+        KeychainHelper.shared.delete(key: "sigil_ibkr_account_id")
         
         // Show wiped screen
         withAnimation(.easeInOut(duration: 0.5)) {

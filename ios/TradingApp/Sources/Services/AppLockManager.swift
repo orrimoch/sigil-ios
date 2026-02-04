@@ -146,4 +146,9 @@ class AppLockManager: ObservableObject {
             isLocked = true
         }
     }
+    
+    /// Re-detect biometric type (call on foreground/settings appear)
+    func refreshBiometricType() {
+        biometricType = detectBiometricType()
+    }
 }

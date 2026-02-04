@@ -1034,20 +1034,20 @@ async def get_portfolio_endpoint(
 
 
 @app.get("/api/v1/portfolio/summary")
-async def get_portfolio_summary():
+async def get_portfolio_summary(
+    user=Depends(get_optional_user),
+    db: AsyncSession = Depends(get_db_session),
+):
     """
-    Get portfolio summary (total value, P&L).
+    Get portfolio summary (total value, P&L) — per-user.
     """
     try:
-        portfolio = get_portfolio()
-        summary = portfolio.get_summary()
+        user_id = user.id if user else ANONYMOUS_USER_ID
+        summary = await UserTradingService.get_portfolio_summary(db, user_id)
         
         return {
             "success": True,
-            "data": {
-                **summary.to_dict(),
-                "is_paper": portfolio.is_paper,
-            }
+            "data": summary,
         }
         
     except Exception as e:
@@ -1055,13 +1055,16 @@ async def get_portfolio_summary():
 
 
 @app.get("/api/v1/portfolio/holdings")
-async def get_portfolio_holdings():
+async def get_portfolio_holdings(
+    user=Depends(get_optional_user),
+    db: AsyncSession = Depends(get_db_session),
+):
     """
-    Get all portfolio holdings with current values.
+    Get all portfolio holdings with current values — per-user.
     """
     try:
-        portfolio = get_portfolio()
-        holdings = portfolio.get_holdings()
+        user_id = user.id if user else ANONYMOUS_USER_ID
+        holdings = await UserTradingService.get_portfolio_holdings(db, user_id)
         
         return {
             "success": True,
@@ -1155,16 +1158,35 @@ async def get_portfolio_performance(
 
 
 @app.post("/api/v1/portfolio/snapshot")
-async def record_portfolio_snapshot():
+async def record_portfolio_snapshot(
+    user=Depends(get_optional_user),
+    db: AsyncSession = Depends(get_db_session),
+):
     """
     Record a portfolio snapshot for history tracking.
     
     Call this periodically (e.g., daily) to build history.
+    Uses in-memory history store (TODO: migrate to DB-backed history).
     """
     try:
-        portfolio = get_portfolio()
+        user_id = user.id if user else ANONYMOUS_USER_ID
+        data = await UserTradingService.get_portfolio_data(db, user_id)
+        summary = data["summary"]
+        
+        # Record into file-based history (backward compat — DB history TBD)
+        from trading.portfolio import PortfolioSnapshot
         history = get_portfolio_history()
-        history.record_snapshot(portfolio)
+        snapshot = PortfolioSnapshot(
+            timestamp=datetime.now().isoformat(),
+            total_value=summary["total_value"],
+            cash=summary["cash"],
+            positions_value=summary["invested"],
+            total_pnl=summary["total_pnl"],
+            total_pnl_percent=summary["total_pnl_percent"],
+        )
+        history.snapshots.append(snapshot)
+        history.snapshots = history.snapshots[-365:]
+        history._save()
         
         return {
             "success": True,
@@ -1179,13 +1201,16 @@ async def record_portfolio_snapshot():
 # ========== F7.3 Sector Allocation Endpoint ==========
 
 @app.get("/api/v1/portfolio/sectors")
-async def get_portfolio_sectors():
+async def get_portfolio_sectors(
+    user=Depends(get_optional_user),
+    db: AsyncSession = Depends(get_db_session),
+):
     """
-    F7.3: Get portfolio sector allocation.
+    F7.3: Get portfolio sector allocation — per-user.
     """
     try:
-        portfolio = get_portfolio()
-        allocation = portfolio.get_sector_allocation()
+        user_id = user.id if user else ANONYMOUS_USER_ID
+        allocation = await UserTradingService.get_portfolio_sectors(db, user_id)
         
         return {
             "success": True,
@@ -1314,13 +1339,16 @@ async def get_todays_orders(
 
 
 @app.get("/api/v1/orders/pending")
-async def get_pending_orders():
+async def get_pending_orders(
+    user=Depends(get_optional_user),
+    db: AsyncSession = Depends(get_db_session),
+):
     """
-    Get all pending orders.
+    Get all pending orders — per-user.
     """
     try:
-        manager = get_order_manager()
-        orders = manager.get_pending_orders()
+        user_id = user.id if user else ANONYMOUS_USER_ID
+        orders = await UserTradingService.get_pending_orders(db, user_id)
         
         return {
             "success": True,
@@ -1333,13 +1361,17 @@ async def get_pending_orders():
 
 
 @app.get("/api/v1/orders/{order_id}")
-async def get_order_by_id(order_id: str):
+async def get_order_by_id(
+    order_id: str,
+    user=Depends(get_optional_user),
+    db: AsyncSession = Depends(get_db_session),
+):
     """
-    Get a specific order by ID.
+    Get a specific order by ID — per-user.
     """
     try:
-        manager = get_order_manager()
-        order = manager.get_order(order_id)
+        user_id = user.id if user else ANONYMOUS_USER_ID
+        order = await UserTradingService.get_order_by_id(db, user_id, order_id)
         
         if order is None:
             raise HTTPException(status_code=404, detail=f"Order not found: {order_id}")

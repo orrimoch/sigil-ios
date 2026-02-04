@@ -352,6 +352,103 @@ class UserTradingService:
         return list(result.scalars().all())
 
     @staticmethod
+    async def get_portfolio_summary(
+        db: AsyncSession,
+        user_id: str,
+    ) -> dict:
+        """Get portfolio summary (total value, P&L) for a user."""
+        data = await UserTradingService.get_portfolio_data(db, user_id)
+        summary = data["summary"]
+        summary["is_paper"] = data["is_paper"]
+        return summary
+
+    @staticmethod
+    async def get_portfolio_holdings(
+        db: AsyncSession,
+        user_id: str,
+    ) -> list:
+        """Get portfolio holdings for a user."""
+        data = await UserTradingService.get_portfolio_data(db, user_id)
+        return data["holdings"]
+
+    @staticmethod
+    async def get_portfolio_sectors(
+        db: AsyncSession,
+        user_id: str,
+    ) -> list:
+        """Get sector allocation for a user's portfolio."""
+        from data.stock_universe import get_universe
+
+        portfolio = await UserTradingService.get_or_create_portfolio(db, user_id)
+        positions = await UserTradingService.get_positions(db, portfolio.id)
+
+        if not positions:
+            return []
+
+        # Build sector map from universe
+        universe = get_universe()
+        ticker_sector = {s["ticker"]: s.get("sector", "Unknown") for s in universe}
+
+        sector_totals: dict[str, float] = {}
+        total_invested = 0.0
+
+        for pos in positions:
+            try:
+                price_data = get_price_summary(pos.ticker)
+                price = price_data["price"] if price_data and price_data.get("price") else pos.avg_cost
+            except Exception:
+                price = pos.avg_cost
+            market_value = pos.quantity * price
+            sector = ticker_sector.get(pos.ticker, "Unknown")
+            sector_totals[sector] = sector_totals.get(sector, 0.0) + market_value
+            total_invested += market_value
+
+        if total_invested == 0:
+            return []
+
+        return [
+            {
+                "sector": sector,
+                "value": round(value, 2),
+                "percentage": round(value / total_invested * 100, 2),
+            }
+            for sector, value in sorted(sector_totals.items(), key=lambda x: -x[1])
+        ]
+
+    @staticmethod
+    async def get_pending_orders(
+        db: AsyncSession,
+        user_id: str,
+    ) -> List[UserOrder]:
+        """Get pending orders for a user."""
+        result = await db.execute(
+            select(UserOrder).where(
+                and_(
+                    UserOrder.user_id == user_id,
+                    UserOrder.status == "PENDING",
+                )
+            ).order_by(UserOrder.created_at.desc())
+        )
+        return list(result.scalars().all())
+
+    @staticmethod
+    async def get_order_by_id(
+        db: AsyncSession,
+        user_id: str,
+        order_id: str,
+    ) -> Optional[UserOrder]:
+        """Get a specific order by ID for a user."""
+        result = await db.execute(
+            select(UserOrder).where(
+                and_(
+                    UserOrder.id == order_id,
+                    UserOrder.user_id == user_id,
+                )
+            )
+        )
+        return result.scalar_one_or_none()
+
+    @staticmethod
     async def cancel_order(
         db: AsyncSession,
         user_id: str,

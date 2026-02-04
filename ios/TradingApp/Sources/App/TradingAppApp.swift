@@ -1,6 +1,67 @@
 import SwiftUI
 import UserNotifications
 
+/// Handles notification taps and routes to appropriate tab
+class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate {
+    weak var appState: AppState?
+    
+    func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        didReceive response: UNNotificationResponse,
+        withCompletionHandler completionHandler: @escaping () -> Void
+    ) {
+        let userInfo = response.notification.request.content.userInfo
+        
+        // Handle deep link URL from notification
+        if let urlString = userInfo["url"] as? String,
+           let url = URL(string: urlString),
+           let host = url.host {
+            DispatchQueue.main.async { [weak self] in
+                switch host {
+                case "scores": self?.appState?.selectedTab = .scores
+                case "trade": self?.appState?.selectedTab = .trade
+                case "portfolio": self?.appState?.selectedTab = .portfolio
+                case "settings": self?.appState?.selectedTab = .settings
+                default: self?.appState?.selectedTab = .home
+                }
+            }
+        }
+        
+        // Handle notification action buttons
+        if response.actionIdentifier == "VIEW_SCORES" {
+            DispatchQueue.main.async { [weak self] in
+                self?.appState?.selectedTab = .scores
+            }
+        }
+        
+        // Handle score alert taps — go to scores
+        if let type = userInfo["type"] as? String,
+           (type == "score_alert" || type == "score_alert_batch") {
+            DispatchQueue.main.async { [weak self] in
+                self?.appState?.selectedTab = .scores
+            }
+        }
+        
+        // Handle trade confirmation taps — go to portfolio
+        if let type = userInfo["type"] as? String, type == "trade_confirmation" {
+            DispatchQueue.main.async { [weak self] in
+                self?.appState?.selectedTab = .portfolio
+            }
+        }
+        
+        completionHandler()
+    }
+    
+    /// Show notifications even when app is in foreground
+    func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        willPresent notification: UNNotification,
+        withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
+    ) {
+        completionHandler([.banner, .sound])
+    }
+}
+
 /// Main entry point for Sigil
 @main
 struct SigilApp: App {
@@ -11,6 +72,13 @@ struct SigilApp: App {
     @State private var showLaunch = true
     @State private var showPinSetup = false
     @State private var authCheckDone = false
+    
+    private let notificationDelegate = NotificationDelegate()
+    
+    init() {
+        notificationDelegate.appState = AppState.shared
+        UNUserNotificationCenter.current().delegate = notificationDelegate
+    }
     
     var body: some Scene {
         WindowGroup {
@@ -87,6 +155,10 @@ struct SigilApp: App {
             .animation(.easeInOut(duration: 0.3), value: showLaunch)
             .animation(.easeInOut(duration: 0.3), value: lockManager.isLocked)
             .animation(.easeInOut(duration: 0.3), value: authVM.isLoggedIn)
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+                // Refresh biometric type in case user enrolled Face ID while away
+                lockManager.refreshBiometricType()
+            }
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)) { _ in
                 // Lock when app goes to background
                 lockManager.lock()
