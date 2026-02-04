@@ -184,6 +184,7 @@ class TradeViewModel: ObservableObject {
     
     func previewOrder() {
         guard canSubmitOrder else { return }
+        Analytics.shared.track(.orderPreview, properties: ["ticker": selectedStock?.ticker ?? "unknown"])
         showPreview = true
     }
     
@@ -255,6 +256,14 @@ class TradeViewModel: ObservableObject {
             
             showPreview = false
             showConfirmation = true
+            
+            // Analytics: track successful order submission
+            Analytics.shared.track(.orderSubmitted, properties: [
+                "ticker": stock.ticker,
+                "side": orderSide.rawValue,
+                "quantity": quantityValue,
+                "type": orderType.rawValue
+            ])
             
             // F9.2: Send trade confirmation notification
             NotificationService.shared.sendTradeConfirmation(

@@ -45,6 +45,7 @@ struct ScoresView: View {
                             Divider().background(Color.Utility.divider)
                         }
                     }
+                    .shimmer()
                 } else if let error = viewModel.errorMessage, viewModel.stocks.isEmpty {
                     ErrorStateView(
                         title: "Something went wrong",

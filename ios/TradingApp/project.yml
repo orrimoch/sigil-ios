@@ -31,9 +31,23 @@ targets:
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
         CODE_SIGN_STYLE: Automatic
         DEVELOPMENT_TEAM: ""
+    entitlements:
+      path: Sources/TradingApp.entitlements
+      properties: {}
+    capabilities:
+      backgroundModes:
+        modes:
+          - fetch
+          - processing
     info:
       path: Sources/Info.plist
       properties:
+        BGTaskSchedulerPermittedIdentifiers:
+          - com.sigil.ios.scoreRefresh
+          - com.sigil.ios.dataProcessing
+        UIBackgroundModes:
+          - fetch
+          - processing
         CFBundleURLTypes:
           - CFBundleURLName: "com.sigil.ios"
             CFBundleURLSchemes:

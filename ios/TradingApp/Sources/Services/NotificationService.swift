@@ -3,6 +3,10 @@ import UserNotifications
 
 /// F9.2: Local Notification Service
 /// Wraps UNUserNotificationCenter for trade confirmations and score alerts
+///
+/// NOTE: This service handles LOCAL notifications only (trade confirmations, score alerts, weekly updates).
+/// For REMOTE push notifications (APNs registration, device token management), see PushNotificationService.
+/// Both services coexist — local notifications serve as fallback when push fails or for immediate notifications.
 @MainActor
 final class NotificationService: ObservableObject {
     static let shared = NotificationService()

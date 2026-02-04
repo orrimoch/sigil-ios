@@ -303,3 +303,40 @@ extension Double {
         return self >= 0 ? "+\(formatted)" : "-\(formatted)"
     }
 }
+
+// MARK: - Shimmer Animation
+
+struct ShimmerEffect: ViewModifier {
+    @State private var phase: CGFloat = 0
+    
+    func body(content: Content) -> some View {
+        content
+            .overlay(
+                GeometryReader { geo in
+                    LinearGradient(
+                        colors: [
+                            Color.clear,
+                            Color.white.opacity(0.12),
+                            Color.clear
+                        ],
+                        startPoint: .leading,
+                        endPoint: .trailing
+                    )
+                    .frame(width: geo.size.width * 2)
+                    .offset(x: -geo.size.width + phase * geo.size.width * 3)
+                }
+                .clipped()
+            )
+            .onAppear {
+                withAnimation(.linear(duration: 1.5).repeatForever(autoreverses: false)) {
+                    phase = 1
+                }
+            }
+    }
+}
+
+extension View {
+    func shimmer() -> some View {
+        modifier(ShimmerEffect())
+    }
+}

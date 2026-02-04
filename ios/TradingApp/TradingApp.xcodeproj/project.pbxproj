@@ -13,6 +13,7 @@
 		18EC2C02385C89D96F9C4D73 /* DailyQuotes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84907440C9629455E52205C /* DailyQuotes.swift */; };
 		1A446AF6468F7105AAE48E58 /* BiometricAuthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B156ABF6C4838B809B12C48D /* BiometricAuthTests.swift */; };
 		1BCD127188C488157EFD9F82 /* TradeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B4CB9320BF2F19AA792EF5 /* TradeViewModel.swift */; };
+		2541222DCF69E7086555E3EE /* BackgroundRefreshManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C7E20253A1E68E3D6CB962 /* BackgroundRefreshManager.swift */; };
 		2A2EDECC5B008BAFD4FB1E92 /* LockScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AFEEE2C58CB8466ADDDC5E4 /* LockScreenView.swift */; };
 		2FE1A88456AFDDFAF5C6AE7F /* PortfolioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9291D4262615E65F92A438CF /* PortfolioView.swift */; };
 		305B16FA0621B26F0FB6E63F /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA5242AC53BACFA5451983D /* LaunchView.swift */; };
@@ -41,10 +42,12 @@
 		BB5216A2BD102204B738C324 /* ScoresViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3BD9BDB307D776C0877B6D /* ScoresViewModel.swift */; };
 		BF6B7D4725041304678F3C1D /* WatchlistServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC08546474CCA6A6ED1D6ED5 /* WatchlistServiceTests.swift */; };
 		C29EE84807FDAA20D6E015F2 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55D984C29CB5823089F169A /* APIService.swift */; };
+		C547B4CB000AC8D73C7E0FC4 /* PushNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE83FFCFECC6DE4AEC681EA1 /* PushNotificationService.swift */; };
 		CB28966A8702B36395F8E2BA /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B954D091708BAE1C1300E026 /* SettingsView.swift */; };
 		D35773DDE5D6CBC3EE297C4E /* StockDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DBF657B2C95337664CFD786 /* StockDetailViewModel.swift */; };
 		D7259FB9E93F8779E0B1804A /* PinSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A93D2F1A56BA122694B64C62 /* PinSetupView.swift */; };
 		E4725757DED6CC5852DE4BA1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 67102CC49BF0A93534CBEF97 /* Assets.xcassets */; };
+		E9B8BCC746464E989E5639EA /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D29602030C1E1E5F70B1E4 /* AnalyticsService.swift */; };
 		F16A948B1D986EC8D5FD9A14 /* TradeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BE478C84262BD609CAE217 /* TradeView.swift */; };
 /* End PBXBuildFile section */
 
@@ -73,6 +76,7 @@
 		29E0970BBC9EEF8A622664BE /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		34192B20D8BEE8DB24F4E7C4 /* ScoresView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresView.swift; sourceTree = "<group>"; };
 		47B4CB9320BF2F19AA792EF5 /* TradeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeViewModel.swift; sourceTree = "<group>"; };
+		4F1FDD42DD03EFE0B954DB51 /* TradingApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TradingApp.entitlements; sourceTree = "<group>"; };
 		5B0910B23683CDE01F53EE92 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		5FF085E6CC961498A611E900 /* IBKRService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IBKRService.swift; sourceTree = "<group>"; };
 		6134AA754BE7F6A850EC86FD /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
@@ -91,12 +95,15 @@
 		B4BA11F7F4B50B97513B92DB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B90B5975CC99D7B349BEE0A4 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		B954D091708BAE1C1300E026 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		B9D29602030C1E1E5F70B1E4 /* AnalyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
 		BAA5242AC53BACFA5451983D /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 		BF0BE7FD319557839DC2A428 /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 		C84017D4C6F3B4B6500456C6 /* ErrorStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorStateView.swift; sourceTree = "<group>"; };
 		C84907440C9629455E52205C /* DailyQuotes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyQuotes.swift; sourceTree = "<group>"; };
+		CE83FFCFECC6DE4AEC681EA1 /* PushNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationService.swift; sourceTree = "<group>"; };
 		D1E79EFD83BF82BC2E9BB467 /* TradingAppTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = TradingAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE3BD9BDB307D776C0877B6D /* ScoresViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresViewModel.swift; sourceTree = "<group>"; };
+		E1C7E20253A1E68E3D6CB962 /* BackgroundRefreshManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundRefreshManager.swift; sourceTree = "<group>"; };
 		E55D984C29CB5823089F169A /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		F0ABB835E6047A7E2BB1614B /* PortfolioViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioViewModel.swift; sourceTree = "<group>"; };
 		FD804DC0A98BADD4B6546055 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
@@ -148,6 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				67102CC49BF0A93534CBEF97 /* Assets.xcassets */,
+				4F1FDD42DD03EFE0B954DB51 /* TradingApp.entitlements */,
 				BB7FB16C26D8018454D411A0 /* App */,
 				A55BE58167B9AB16CD44E8D6 /* Models */,
 				7D13C05F2BE3D1682735B53B /* Services */,
@@ -170,12 +178,15 @@
 		7D13C05F2BE3D1682735B53B /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				B9D29602030C1E1E5F70B1E4 /* AnalyticsService.swift */,
 				E55D984C29CB5823089F169A /* APIService.swift */,
 				142AD971DB4328A38FE98FF8 /* AppLockManager.swift */,
 				FD804DC0A98BADD4B6546055 /* AuthService.swift */,
+				E1C7E20253A1E68E3D6CB962 /* BackgroundRefreshManager.swift */,
 				5FF085E6CC961498A611E900 /* IBKRService.swift */,
 				9171BBA83EA1E22DDAB01A07 /* KeychainHelper.swift */,
 				5B0910B23683CDE01F53EE92 /* NotificationService.swift */,
+				CE83FFCFECC6DE4AEC681EA1 /* PushNotificationService.swift */,
 				72D41D3D2C2FE1FB528E76A6 /* WatchlistService.swift */,
 			);
 			path = Services;
@@ -403,9 +414,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				C29EE84807FDAA20D6E015F2 /* APIService.swift in Sources */,
+				E9B8BCC746464E989E5639EA /* AnalyticsService.swift in Sources */,
 				6071621065F40970DA5CB531 /* AppLockManager.swift in Sources */,
 				B460AF260E7178E35133AA83 /* AuthService.swift in Sources */,
 				B60D8BF184577B935318AA2E /* AuthViewModel.swift in Sources */,
+				2541222DCF69E7086555E3EE /* BackgroundRefreshManager.swift in Sources */,
 				5A6A2B484FA095B2451B9A0B /* ContentView.swift in Sources */,
 				18EC2C02385C89D96F9C4D73 /* DailyQuotes.swift in Sources */,
 				8BDE5667403DFE9BD014406A /* ErrorStateView.swift in Sources */,
@@ -422,6 +435,7 @@
 				D7259FB9E93F8779E0B1804A /* PinSetupView.swift in Sources */,
 				2FE1A88456AFDDFAF5C6AE7F /* PortfolioView.swift in Sources */,
 				34E2839B04A7BAB4876C0792 /* PortfolioViewModel.swift in Sources */,
+				C547B4CB000AC8D73C7E0FC4 /* PushNotificationService.swift in Sources */,
 				B2656E746925AA7022B94B45 /* RegisterView.swift in Sources */,
 				38034E8BF33BF5524EA0CF11 /* ScoresView.swift in Sources */,
 				BB5216A2BD102204B738C324 /* ScoresViewModel.swift in Sources */,
@@ -527,6 +541,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Sources/TradingApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -550,6 +565,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Sources/TradingApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;

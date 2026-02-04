@@ -134,9 +134,39 @@ struct StockDetailView: View {
         }
         .overlay {
             if viewModel.isLoading && viewModel.price == 0 {
-                Color.Background.primary.opacity(0.8)
-                ProgressView()
-                    .tint(.Brand.primary)
+                ScrollView {
+                    // Skeleton for stock detail loading
+                    VStack(spacing: 16) {
+                        // Price header skeleton
+                        VStack(alignment: .leading, spacing: 8) {
+                            RoundedRectangle(cornerRadius: 4).fill(Color.Background.tertiary).frame(width: 80, height: 14)
+                            RoundedRectangle(cornerRadius: 4).fill(Color.Background.tertiary).frame(width: 140, height: 28)
+                            RoundedRectangle(cornerRadius: 4).fill(Color.Background.tertiary).frame(width: 100, height: 14)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding()
+                        .background(Color.Background.secondary)
+                        .cornerRadius(12)
+                        .padding(.horizontal)
+                        
+                        // Chart skeleton
+                        RoundedRectangle(cornerRadius: 12).fill(Color.Background.secondary).frame(height: 200).padding(.horizontal)
+                        
+                        // Score skeleton
+                        VStack(spacing: 8) {
+                            RoundedRectangle(cornerRadius: 4).fill(Color.Background.tertiary).frame(width: 60, height: 36)
+                            RoundedRectangle(cornerRadius: 4).fill(Color.Background.tertiary).frame(width: 100, height: 14)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.Background.secondary)
+                        .cornerRadius(12)
+                        .padding(.horizontal)
+                    }
+                    .shimmer()
+                    .padding(.vertical)
+                }
+                .background(Color.Background.primary)
             }
         }
     }
@@ -182,6 +212,9 @@ struct PriceHeader: View {
 
 struct PriceChartCard: View {
     @ObservedObject var viewModel: StockDetailViewModel
+    @State private var selectedPricePoint: (date: Date, value: Double)?
+    @State private var priceTouchLocation: CGFloat?
+    @State private var priceHapticTriggered = false
     
     var body: some View {
         VStack(spacing: 12) {
@@ -219,6 +252,53 @@ struct PriceChartCard: View {
                     AxisMarks(position: .trailing)
                 }
                 .frame(height: 150)
+                .chartOverlay { proxy in
+                    GeometryReader { geo in
+                        Rectangle()
+                            .fill(Color.clear)
+                            .contentShape(Rectangle())
+                            .gesture(
+                                DragGesture(minimumDistance: 0)
+                                    .onChanged { value in
+                                        let x = value.location.x
+                                        guard let date: Date = proxy.value(atX: x) else { return }
+                                        if let closest = viewModel.priceHistory.min(by: { abs($0.date.timeIntervalSince(date)) < abs($1.date.timeIntervalSince(date)) }) {
+                                            selectedPricePoint = (closest.date, closest.close)
+                                            priceTouchLocation = x
+                                            if !priceHapticTriggered {
+                                                UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                                                priceHapticTriggered = true
+                                            }
+                                        }
+                                    }
+                                    .onEnded { _ in
+                                        selectedPricePoint = nil
+                                        priceTouchLocation = nil
+                                        priceHapticTriggered = false
+                                    }
+                            )
+                        
+                        if let priceTouchLocation, let point = selectedPricePoint {
+                            Rectangle()
+                                .fill(Color.Text.secondary.opacity(0.5))
+                                .frame(width: 1)
+                                .position(x: priceTouchLocation, y: geo.size.height / 2)
+                            
+                            VStack(spacing: 2) {
+                                Text(point.value.asCurrency)
+                                    .font(.caption.bold().monospacedDigit())
+                                    .foregroundColor(.Text.primary)
+                                Text(point.date, style: .date)
+                                    .font(.caption2)
+                                    .foregroundColor(.Text.secondary)
+                            }
+                            .padding(8)
+                            .background(Color.Background.tertiary)
+                            .cornerRadius(8)
+                            .position(x: min(max(priceTouchLocation, 60), geo.size.width - 60), y: 20)
+                        }
+                    }
+                }
                 .accessibilityLabel("Price chart for \(viewModel.ticker)")
             } else if viewModel.priceHistoryUnavailable {
                 // Price history API unavailable
@@ -486,6 +566,9 @@ struct ScoreComponentBar: View {
 
 struct ScoreHistoryCard: View {
     let history: [ScoreHistoryPoint]
+    @State private var selectedScorePoint: (date: Date, value: Double)?
+    @State private var scoreTouchLocation: CGFloat?
+    @State private var scoreHapticTriggered = false
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -556,6 +639,53 @@ struct ScoreHistoryCard: View {
                     AxisMarks(position: .trailing)
                 }
                 .frame(height: 150)
+                .chartOverlay { proxy in
+                    GeometryReader { geo in
+                        Rectangle()
+                            .fill(Color.clear)
+                            .contentShape(Rectangle())
+                            .gesture(
+                                DragGesture(minimumDistance: 0)
+                                    .onChanged { value in
+                                        let x = value.location.x
+                                        guard let date: Date = proxy.value(atX: x) else { return }
+                                        if let closest = history.min(by: { abs($0.date.timeIntervalSince(date)) < abs($1.date.timeIntervalSince(date)) }) {
+                                            selectedScorePoint = (closest.date, Double(closest.score))
+                                            scoreTouchLocation = x
+                                            if !scoreHapticTriggered {
+                                                UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                                                scoreHapticTriggered = true
+                                            }
+                                        }
+                                    }
+                                    .onEnded { _ in
+                                        selectedScorePoint = nil
+                                        scoreTouchLocation = nil
+                                        scoreHapticTriggered = false
+                                    }
+                            )
+                        
+                        if let scoreTouchLocation, let point = selectedScorePoint {
+                            Rectangle()
+                                .fill(Color.Text.secondary.opacity(0.5))
+                                .frame(width: 1)
+                                .position(x: scoreTouchLocation, y: geo.size.height / 2)
+                            
+                            VStack(spacing: 2) {
+                                Text("\(Int(point.value))")
+                                    .font(.caption.bold().monospacedDigit())
+                                    .foregroundColor(.Text.primary)
+                                Text(point.date, style: .date)
+                                    .font(.caption2)
+                                    .foregroundColor(.Text.secondary)
+                            }
+                            .padding(8)
+                            .background(Color.Background.tertiary)
+                            .cornerRadius(8)
+                            .position(x: min(max(scoreTouchLocation, 60), geo.size.width - 60), y: 20)
+                        }
+                    }
+                }
                 .accessibilityLabel("Score history chart")
             }
         }

@@ -90,6 +90,7 @@ struct HomeView: View {
                             }.padding().background(Color.Background.secondary).cornerRadius(12).padding(.horizontal)
                         }
                         .padding(.vertical)
+                        .shimmer()
                     }
                     .background(Color.Background.primary)
                 } else if let error = viewModel.errorMessage, viewModel.topPicks.isEmpty {

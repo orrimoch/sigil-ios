@@ -101,6 +101,50 @@ struct PortfolioView: View {
             .navigationBarTitleDisplayMode(.large)
             .toolbarBackground(Color.Background.primary, for: .navigationBar)
             .toolbarColorScheme(.dark, for: .navigationBar)
+            .overlay {
+                if viewModel.isLoading && viewModel.holdings.isEmpty && viewModel.error == nil {
+                    ScrollView {
+                        VStack(spacing: 16) {
+                            // Portfolio value skeleton
+                            VStack(alignment: .leading, spacing: 8) {
+                                RoundedRectangle(cornerRadius: 4).fill(Color.Background.tertiary).frame(width: 120, height: 14)
+                                RoundedRectangle(cornerRadius: 4).fill(Color.Background.tertiary).frame(width: 180, height: 32)
+                                RoundedRectangle(cornerRadius: 4).fill(Color.Background.tertiary).frame(width: 100, height: 14)
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding()
+                            .background(Color.Background.secondary)
+                            .cornerRadius(12)
+                            .padding(.horizontal)
+                            
+                            // Holdings skeleton
+                            VStack(spacing: 0) {
+                                ForEach(0..<3, id: \.self) { _ in
+                                    HStack {
+                                        VStack(alignment: .leading, spacing: 4) {
+                                            RoundedRectangle(cornerRadius: 4).fill(Color.Background.tertiary).frame(width: 50, height: 16)
+                                            RoundedRectangle(cornerRadius: 4).fill(Color.Background.tertiary).frame(width: 80, height: 12)
+                                        }
+                                        Spacer()
+                                        VStack(alignment: .trailing, spacing: 4) {
+                                            RoundedRectangle(cornerRadius: 4).fill(Color.Background.tertiary).frame(width: 70, height: 16)
+                                            RoundedRectangle(cornerRadius: 4).fill(Color.Background.tertiary).frame(width: 50, height: 12)
+                                        }
+                                    }
+                                    .padding(.horizontal)
+                                    .padding(.vertical, 12)
+                                }
+                            }
+                            .background(Color.Background.secondary)
+                            .cornerRadius(12)
+                            .padding(.horizontal)
+                        }
+                        .shimmer()
+                        .padding(.vertical)
+                    }
+                    .background(Color.Background.primary)
+                }
+            }
             .refreshable {
                 await viewModel.fetchAll()
             }
@@ -329,6 +373,9 @@ struct HoldingRow: View {
 
 struct PerformanceChartSection: View {
     @ObservedObject var viewModel: PortfolioViewModel
+    @State private var selectedPortfolioPoint: (date: Date, value: Double)?
+    @State private var portfolioTouchLocation: CGFloat?
+    @State private var portfolioHapticTriggered = false
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -423,6 +470,53 @@ struct PerformanceChartSection: View {
                     AxisMarks(position: .leading)
                 }
                 .frame(height: 200)
+                .chartOverlay { proxy in
+                    GeometryReader { geo in
+                        Rectangle()
+                            .fill(Color.clear)
+                            .contentShape(Rectangle())
+                            .gesture(
+                                DragGesture(minimumDistance: 0)
+                                    .onChanged { value in
+                                        let x = value.location.x
+                                        guard let date: Date = proxy.value(atX: x) else { return }
+                                        if let closest = viewModel.history.min(by: { abs(parseDate($0.timestamp).timeIntervalSince(date)) < abs(parseDate($1.timestamp).timeIntervalSince(date)) }) {
+                                            selectedPortfolioPoint = (parseDate(closest.timestamp), closest.totalValue)
+                                            portfolioTouchLocation = x
+                                            if !portfolioHapticTriggered {
+                                                UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                                                portfolioHapticTriggered = true
+                                            }
+                                        }
+                                    }
+                                    .onEnded { _ in
+                                        selectedPortfolioPoint = nil
+                                        portfolioTouchLocation = nil
+                                        portfolioHapticTriggered = false
+                                    }
+                            )
+                        
+                        if let portfolioTouchLocation, let point = selectedPortfolioPoint {
+                            Rectangle()
+                                .fill(Color.Text.secondary.opacity(0.5))
+                                .frame(width: 1)
+                                .position(x: portfolioTouchLocation, y: geo.size.height / 2)
+                            
+                            VStack(spacing: 2) {
+                                Text(point.value.asCurrency)
+                                    .font(.caption.bold().monospacedDigit())
+                                    .foregroundColor(.Text.primary)
+                                Text(point.date, style: .date)
+                                    .font(.caption2)
+                                    .foregroundColor(.Text.secondary)
+                            }
+                            .padding(8)
+                            .background(Color.Background.tertiary)
+                            .cornerRadius(8)
+                            .position(x: min(max(portfolioTouchLocation, 60), geo.size.width - 60), y: 20)
+                        }
+                    }
+                }
                 // M11: Accessibility for performance chart
                 .accessibilityLabel("Portfolio performance chart")
                 .accessibilityElement(children: .combine)

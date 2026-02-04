@@ -81,6 +81,9 @@ struct SigilApp: App {
         // Defer delegate setup until notification authorization is granted
         // to prevent iOS from showing the permission dialog at launch.
         // The delegate will be set when the user enables notifications in Settings.
+        
+        // REC-133: Register background refresh tasks
+        BackgroundRefreshManager.shared.registerTasks()
     }
     
     var body: some Scene {
@@ -93,7 +96,11 @@ struct SigilApp: App {
                     // Brief loading while checking auth state
                     ProgressView()
                         .tint(.Brand.primary)
-                        .onAppear { checkAuthState() }
+                        .onAppear {
+                            Analytics.shared.configure()
+                            Analytics.shared.track(.appLaunched)
+                            checkAuthState()
+                        }
                 } else if !authVM.isLoggedIn {
                     // Auth gate — show login if not authenticated
                     LoginView()
@@ -166,12 +173,16 @@ struct SigilApp: App {
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)) { _ in
                 // Record time when app goes to background (30s grace period before locking)
                 lastActiveTime = Date()
+                Analytics.shared.track(.appBackgrounded)
+                // REC-133: Schedule background refresh for score data
+                BackgroundRefreshManager.shared.scheduleAppRefresh()
             }
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
                 // Lock only if backgrounded for more than 30 seconds
                 if Date().timeIntervalSince(lastActiveTime) > 30 {
                     lockManager.lock()
                 }
+                Analytics.shared.track(.appForegrounded)
             }
         }
     }

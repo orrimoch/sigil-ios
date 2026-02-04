@@ -47,8 +47,9 @@ struct ContentView: View {
         }
         .tint(Color.Accent.gold)
         .animation(.spring(response: 0.3, dampingFraction: 0.8), value: appState.selectedTab)
-        .onChange(of: appState.selectedTab) { _, _ in
+        .onChange(of: appState.selectedTab) { _, newValue in
             UIImpactFeedbackGenerator(style: .light).impactOccurred()
+            Analytics.shared.track(.tabSwitched, properties: ["tab": newValue.rawValue])
         }
         .task {
             // F9.3: Check for signal changes on watched stocks
