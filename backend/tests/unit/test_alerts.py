@@ -4,6 +4,7 @@ Tests for F4.4 Alerts Module
 
 import pytest
 from pathlib import Path
+from unittest.mock import patch
 import sys
 
 sys.path.insert(0, str(Path(__file__).parent.parent.parent / "src"))
@@ -48,14 +49,19 @@ class TestAlert:
 
 
 class TestAlertManager:
+    """Tests for AlertManager class.
+    
+    Note: We mock _save() and _load() to prevent tests from polluting production data.
+    """
     """Tests for AlertManager class."""
     
     @pytest.fixture
     def manager(self):
-        """Create fresh manager (in memory)."""
-        m = AlertManager()
-        m.alerts = []  # Clear any loaded data
-        return m
+        """Create fresh manager (in memory, no file I/O)."""
+        with patch.object(AlertManager, '_save'), patch.object(AlertManager, '_load'):
+            m = AlertManager()
+            m.alerts = []  # Start with empty alerts
+            yield m
     
     def test_add_alert(self, manager):
         """Test adding an alert."""
