@@ -4,12 +4,17 @@ import SwiftUI
 /// Shows portfolio summary, market overview, top AI picks, alerts
 struct HomeView: View {
     @StateObject private var viewModel = HomeViewModel()
+    @StateObject private var marketHours = MarketHoursService.shared
     @State private var quote = DailyQuote.random()
     
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 24) {
+                    // F4.3: Market Hours Indicator
+                    MarketHoursIndicator(service: marketHours)
+                        .padding(.horizontal)
+                    
                     // F4.1: Portfolio Summary Card (H1: portfolio first)
                     PortfolioSummaryCard(
                         value: viewModel.portfolioValue,
@@ -443,6 +448,71 @@ struct AlertRow: View {
                 .foregroundColor(.Text.tertiary)
         }
         .padding(.vertical, 8)
+    }
+}
+
+// MARK: - Market Hours Indicator
+
+struct MarketHoursIndicator: View {
+    @ObservedObject var service: MarketHoursService
+    
+    private var statusColor: Color {
+        switch service.status {
+        case .open: return .Signal.buy
+        case .preMarket, .afterHours: return .Signal.hold
+        case .closed: return .Text.tertiary
+        }
+    }
+    
+    var body: some View {
+        HStack(spacing: 12) {
+            // Pulsing dot for open market
+            if service.status == .open {
+                Circle()
+                    .fill(Color.Signal.buy)
+                    .frame(width: 8, height: 8)
+                    .modifier(PulseAnimation())
+            }
+            
+            // Status icon
+            Image(systemName: service.status.icon)
+                .font(.body)
+                .foregroundColor(statusColor)
+            
+            // Status text
+            Text(service.statusText)
+                .font(.subheadline.bold())
+                .foregroundColor(statusColor)
+            
+            Spacer()
+            
+            // Next event
+            if !service.nextEventText.isEmpty {
+                Text(service.nextEventText)
+                    .font(.caption)
+                    .foregroundColor(.Text.tertiary)
+            }
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 10)
+        .background(Color.Background.secondary)
+        .cornerRadius(12)
+    }
+}
+
+// Pulse animation for open market indicator
+struct PulseAnimation: ViewModifier {
+    @State private var isPulsing = false
+    
+    func body(content: Content) -> some View {
+        content
+            .scaleEffect(isPulsing ? 1.3 : 1.0)
+            .opacity(isPulsing ? 0.7 : 1.0)
+            .animation(
+                .easeInOut(duration: 1.0).repeatForever(autoreverses: true),
+                value: isPulsing
+            )
+            .onAppear { isPulsing = true }
     }
 }
 

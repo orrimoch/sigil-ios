@@ -544,6 +544,72 @@ class TestIBKROrderCancellation:
 
 
 # ═══════════════════════════════════════════════════════════════════════
+# Real-time Quote Tests (REC-140)
+# ═══════════════════════════════════════════════════════════════════════
+
+class TestIBKRQuotes:
+    """Tests for IBKR real-time quote functionality."""
+
+    @pytest.fixture
+    def service(self):
+        svc = IBKRService()
+        mock_ib = _make_mock_ib()
+        _patch_ibc_connect(svc, "user1", mock_ib)
+        svc._mock_ib = mock_ib
+        return svc
+
+    def test_get_quote_success(self, service):
+        """Quote returns price data from IB."""
+        mock_ticker = MagicMock()
+        mock_ticker.bid = 150.25
+        mock_ticker.ask = 150.30
+        mock_ticker.last = 150.27
+        mock_ticker.close = 149.50
+        mock_ticker.high = 152.00
+        mock_ticker.low = 148.50
+        mock_ticker.volume = 1000000
+
+        service._mock_ib.reqMktData.return_value = mock_ticker
+        service._mock_ib.qualifyContracts.return_value = None
+        service._mock_ib.cancelMktData.return_value = None
+
+        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+            quote = service.get_quote("user1", "AAPL")
+
+        assert quote["ticker"] == "AAPL"
+        assert quote["bid"] == 150.25
+        assert quote["ask"] == 150.30
+        assert quote["last"] == 150.27
+        assert quote["price"] == 150.27
+        assert "mid" in quote
+        assert "timestamp" in quote
+
+    def test_get_quote_not_connected(self):
+        """Getting quote when not connected should fail."""
+        svc = IBKRService()
+        with pytest.raises(ValueError, match="IBKR not connected"):
+            svc.get_quote("user1", "AAPL")
+
+    def test_get_quote_ticker_uppercase(self, service):
+        """Ticker should be uppercased in quote response."""
+        mock_ticker = MagicMock()
+        mock_ticker.bid = 100.0
+        mock_ticker.ask = 100.1
+        mock_ticker.last = 100.05
+        mock_ticker.close = 99.0
+        mock_ticker.high = 101.0
+        mock_ticker.low = 98.0
+        mock_ticker.volume = 500000
+
+        service._mock_ib.reqMktData.return_value = mock_ticker
+
+        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+            quote = service.get_quote("user1", "aapl")
+
+        assert quote["ticker"] == "AAPL"
+
+
+# ═══════════════════════════════════════════════════════════════════════
 # Position Tests
 # ═══════════════════════════════════════════════════════════════════════
 
