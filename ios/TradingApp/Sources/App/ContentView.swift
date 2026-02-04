@@ -21,6 +21,7 @@ struct ContentView: View {
                     Label(Tab.scores.rawValue, systemImage: Tab.scores.icon)
                 }
                 .tag(Tab.scores)
+                // TODO: "NEW" badge not yet connected to backend signal data
                 .badge(scoresHasNewData ? "NEW" : nil)
             
             // Trade Tab
@@ -44,8 +45,11 @@ struct ContentView: View {
                 }
                 .tag(Tab.settings)
         }
-        .tint(Color.accentColor)
-        .animation(.easeInOut(duration: 0.2), value: appState.selectedTab)
+        .tint(Color.Accent.gold)
+        .animation(.spring(response: 0.3, dampingFraction: 0.8), value: appState.selectedTab)
+        .onChange(of: appState.selectedTab) { _, _ in
+            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        }
         .task {
             // F9.3: Check for signal changes on watched stocks
             await WatchlistService.shared.checkForSignalChanges()

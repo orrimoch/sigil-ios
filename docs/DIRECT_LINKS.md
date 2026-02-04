@@ -1,3 +1,5 @@
+<img src="sigil_logo.jpg" alt="Sigil" width="240" />
+
 # Direct Links — Screenshot Sources
 
 **Design Direction:** Institutional Dark (Bloomberg/IBKR style)

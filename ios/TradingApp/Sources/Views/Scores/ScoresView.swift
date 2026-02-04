@@ -14,14 +14,37 @@ struct ScoresView: View {
                 
                 // Stock list
                 if viewModel.isLoading && viewModel.filteredStocks.isEmpty && viewModel.errorMessage == nil {
-                    Spacer()
-                    ProgressView()
-                        .tint(.Brand.primary)
-                    Text("Loading scores...")
-                        .font(.caption)
-                        .foregroundColor(.Text.tertiary)
-                        .padding(.top, 8)
-                    Spacer()
+                    // Skeleton loading state
+                    VStack(spacing: 0) {
+                        ForEach(0..<8, id: \.self) { _ in
+                            HStack {
+                                VStack(alignment: .leading, spacing: 4) {
+                                    RoundedRectangle(cornerRadius: 4)
+                                        .fill(Color.Background.tertiary)
+                                        .frame(width: 60, height: 16)
+                                    RoundedRectangle(cornerRadius: 4)
+                                        .fill(Color.Background.tertiary)
+                                        .frame(width: 100, height: 12)
+                                }
+                                Spacer()
+                                RoundedRectangle(cornerRadius: 4)
+                                    .fill(Color.Background.tertiary)
+                                    .frame(width: 44, height: 28)
+                                    .cornerRadius(6)
+                                VStack(alignment: .trailing, spacing: 4) {
+                                    RoundedRectangle(cornerRadius: 4)
+                                        .fill(Color.Background.tertiary)
+                                        .frame(width: 70, height: 16)
+                                    RoundedRectangle(cornerRadius: 4)
+                                        .fill(Color.Background.tertiary)
+                                        .frame(width: 50, height: 12)
+                                }
+                            }
+                            .padding(.horizontal)
+                            .padding(.vertical, 12)
+                            Divider().background(Color.Utility.divider)
+                        }
+                    }
                 } else if let error = viewModel.errorMessage, viewModel.stocks.isEmpty {
                     ErrorStateView(
                         title: "Something went wrong",
@@ -31,6 +54,10 @@ struct ScoresView: View {
                         }
                     )
                 } else if viewModel.filteredStocks.isEmpty {
+                    // Show recent searches if search is active and text is empty
+                    if viewModel.searchText.isEmpty && !viewModel.recentSearches.isEmpty {
+                        RecentSearchesView(viewModel: viewModel)
+                    }
                     Spacer()
                     VStack(spacing: 12) {
                         Image(systemName: "magnifyingglass")
@@ -42,6 +69,25 @@ struct ScoresView: View {
                         Text("Try adjusting your filters")
                             .font(.caption)
                             .foregroundColor(.Text.tertiary)
+                        
+                        // Clear Filters button
+                        if viewModel.selectedSignal != nil || viewModel.selectedSector != nil || !viewModel.searchText.isEmpty {
+                            Button {
+                                viewModel.setSignalFilter(nil)
+                                viewModel.setSectorFilter(nil)
+                                viewModel.searchText = ""
+                                viewModel.applyFilters()
+                            } label: {
+                                Text("Clear Filters")
+                                    .font(.subheadline.bold())
+                                    .foregroundColor(.Accent.gold)
+                                    .padding(.horizontal, 16)
+                                    .padding(.vertical, 8)
+                                    .background(Color.Accent.gold.opacity(0.15))
+                                    .cornerRadius(8)
+                            }
+                            .padding(.top, 4)
+                        }
                     }
                     Spacer()
                 } else {
@@ -51,6 +97,22 @@ struct ScoresView: View {
                                 StockDetailView(ticker: stock.ticker)
                             } label: {
                                 StockScoreRow(stock: stock)
+                            }
+                            .swipeActions(edge: .trailing) {
+                                NavigationLink {
+                                    StockDetailView(ticker: stock.ticker)
+                                } label: {
+                                    Label("Trade", systemImage: "arrow.left.arrow.right")
+                                }
+                                .tint(.Signal.buy)
+                            }
+                            .swipeActions(edge: .leading) {
+                                Button {
+                                    WatchlistService.shared.toggleWatchlist(stock.ticker)
+                                } label: {
+                                    Label("Watch", systemImage: "bell")
+                                }
+                                .tint(.Accent.gold)
                             }
                             .listRowBackground(Color.Background.primary)
                             .listRowSeparatorTint(Color.Utility.divider)
@@ -67,7 +129,7 @@ struct ScoresView: View {
             .toolbarColorScheme(.dark, for: .navigationBar)
             .searchable(
                 text: $viewModel.searchText,
-                placement: .navigationBarDrawer(displayMode: .always),
+                placement: .navigationBarDrawer(displayMode: .automatic),
                 prompt: "Search ticker or company"
             )
             .onSubmit(of: .search) {
@@ -172,7 +234,7 @@ struct FilterBar: View {
                 // Results count
                 Text("\(viewModel.filteredStocks.count) stocks")
                     .font(.caption)
-                    .foregroundColor(.Text.tertiary)
+                    .foregroundColor(.Text.secondary)
                     .padding(.leading, 8)
             }
             .padding(.horizontal)
@@ -187,11 +249,14 @@ struct FilterBar: View {
 struct FilterChip: View {
     let title: String
     let isSelected: Bool
-    var color: Color = .Brand.primary
+    var color: Color = .Accent.gold
     let action: () -> Void
     
     var body: some View {
-        Button(action: action) {
+        Button {
+            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+            action()
+        } label: {
             Text(title)
                 .font(.caption.bold())
                 .foregroundColor(isSelected ? .white : .Text.secondary)
@@ -221,7 +286,6 @@ struct StockScoreRow: View {
                     .foregroundColor(.Text.secondary)
                     .lineLimit(1)
             }
-            .frame(width: 100, alignment: .leading)
             
             Spacer()
             
@@ -234,14 +298,6 @@ struct StockScoreRow: View {
                 .background(stock.signalColor)
                 .cornerRadius(6)
             
-            // Rank
-            Text("#\(stock.rank)")
-                .font(.caption)
-                .foregroundColor(.Text.tertiary)
-                .frame(width: 40)
-            
-            Spacer()
-            
             // Price and change
             VStack(alignment: .trailing, spacing: 2) {
                 Text(stock.formattedPrice)
@@ -252,7 +308,6 @@ struct StockScoreRow: View {
                     .font(.caption.monospacedDigit())
                     .foregroundColor(stock.isPositive ? .Signal.positive : .Signal.negative)
             }
-            .frame(width: 80, alignment: .trailing)
         }
         .padding(.vertical, 4)
     }

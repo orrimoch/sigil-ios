@@ -1,3 +1,5 @@
+<img src="sigil_logo.jpg" alt="Sigil" width="240" />
+
 # TradingApp iOS - Research & Architecture Report
 
 **Project:** iOS Stock Trading App with AI-Powered Recommendations  

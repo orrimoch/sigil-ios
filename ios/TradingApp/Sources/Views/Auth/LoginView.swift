@@ -10,6 +10,11 @@ struct LoginView: View {
     @State private var showRegister = false
     @State private var showForgotPassword = false
     @State private var canUseBiometrics = false
+    @FocusState private var focusedField: LoginField?
+
+    private enum LoginField {
+        case email, password
+    }
 
     var body: some View {
         NavigationStack {
@@ -19,13 +24,14 @@ struct LoginView: View {
                 ScrollView {
                     VStack(spacing: 32) {
 
-                        Spacer().frame(height: 40)
+                        Spacer().frame(height: 60)
 
                         // Logo
                         Image("SigilLogo")
                             .resizable()
                             .scaledToFit()
                             .frame(maxWidth: 220)
+                            .accessibilityLabel("Sigil - AI Market Intelligence")
 
                         // Title
                         Text("Welcome Back")
@@ -43,17 +49,20 @@ struct LoginView: View {
 
                         // Fields
                         VStack(spacing: 16) {
-                            SigilTextField(placeholder: "Email", text: $email, keyboardType: .emailAddress)
+                            SigilTextField(placeholder: "Email", text: $email, keyboardType: .emailAddress, isFocused: focusedField == .email)
                                 .textContentType(.emailAddress)
-                                .autocapitalization(.none)
+                                .textInputAutocapitalization(.never)
+                                .focused($focusedField, equals: .email)
 
-                            SigilSecureField(placeholder: "Password", text: $password)
+                            SigilSecureField(placeholder: "Password", text: $password, isFocused: focusedField == .password)
                                 .textContentType(.password)
+                                .focused($focusedField, equals: .password)
                         }
                         .padding(.horizontal, 24)
 
                         // Sign In button
                         Button {
+                            UIImpactFeedbackGenerator(style: .light).impactOccurred()
                             authVM.login(email: email, password: password)
                         } label: {
                             Group {
@@ -71,7 +80,8 @@ struct LoginView: View {
                             .background(Color.Accent.gold)
                             .cornerRadius(12)
                         }
-                        .disabled(authVM.isLoading)
+                        .disabled(email.isEmpty || password.isEmpty || authVM.isLoading)
+                        .opacity(email.isEmpty || password.isEmpty ? 0.5 : 1.0)
                         .padding(.horizontal, 24)
 
                         // Forgot Password
@@ -80,7 +90,7 @@ struct LoginView: View {
                         } label: {
                             Text("Forgot Password?")
                                 .font(.subheadline)
-                                .foregroundColor(.Text.secondary)
+                                .foregroundColor(.Accent.gold)
                         }
 
                         // Face ID shortcut
@@ -88,12 +98,19 @@ struct LoginView: View {
                             Button {
                                 authenticateWithBiometrics()
                             } label: {
-                                HStack(spacing: 8) {
+                                HStack(spacing: 10) {
                                     Image(systemName: "faceid")
+                                        .font(.title2)
                                     Text("Sign in with Face ID")
+                                        .font(.subheadline.weight(.medium))
                                 }
-                                .font(.subheadline)
                                 .foregroundColor(.Accent.gold)
+                                .padding(.vertical, 12)
+                                .padding(.horizontal, 24)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(Color.Accent.gold.opacity(0.5), lineWidth: 1)
+                                )
                             }
                         }
 
@@ -109,6 +126,7 @@ struct LoginView: View {
                         Spacer()
                     }
                 }
+                .scrollDismissesKeyboard(.interactively)
             }
             .navigationDestination(isPresented: $showRegister) {
                 RegisterView()
@@ -155,6 +173,7 @@ struct SigilTextField: View {
     let placeholder: String
     @Binding var text: String
     var keyboardType: UIKeyboardType = .default
+    var isFocused: Bool = false
 
     var body: some View {
         TextField("", text: $text, prompt: Text(placeholder).foregroundColor(.Text.tertiary))
@@ -165,7 +184,7 @@ struct SigilTextField: View {
             .cornerRadius(10)
             .overlay(
                 RoundedRectangle(cornerRadius: 10)
-                    .stroke(Color.Utility.border, lineWidth: 1)
+                    .stroke(isFocused ? Color.Accent.gold : Color.Utility.border, lineWidth: isFocused ? 2 : 1)
             )
     }
 }
@@ -173,17 +192,36 @@ struct SigilTextField: View {
 struct SigilSecureField: View {
     let placeholder: String
     @Binding var text: String
+    var isFocused: Bool = false
+    @State private var showPassword: Bool = false
 
     var body: some View {
-        SecureField("", text: $text, prompt: Text(placeholder).foregroundColor(.Text.tertiary))
+        HStack(spacing: 0) {
+            Group {
+                if showPassword {
+                    TextField("", text: $text, prompt: Text(placeholder).foregroundColor(.Text.tertiary))
+                        .textInputAutocapitalization(.never)
+                } else {
+                    SecureField("", text: $text, prompt: Text(placeholder).foregroundColor(.Text.tertiary))
+                }
+            }
             .foregroundColor(.Text.primary)
-            .padding()
-            .background(Color.Background.secondary)
-            .cornerRadius(10)
-            .overlay(
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(Color.Utility.border, lineWidth: 1)
-            )
+
+            Button {
+                showPassword.toggle()
+            } label: {
+                Image(systemName: showPassword ? "eye.slash.fill" : "eye.fill")
+                    .foregroundColor(.Text.tertiary)
+                    .font(.subheadline)
+            }
+        }
+        .padding()
+        .background(Color.Background.secondary)
+        .cornerRadius(10)
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(isFocused ? Color.Accent.gold : Color.Utility.border, lineWidth: isFocused ? 2 : 1)
+        )
     }
 }
 

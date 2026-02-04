@@ -8,11 +8,13 @@ struct ErrorStateView: View {
     var icon: String = "exclamationmark.triangle.fill"
     var retryAction: (() -> Void)?
 
+    @State private var appeared = false
+
     var body: some View {
         VStack(spacing: 20) {
             Image(systemName: icon)
                 .font(.system(size: 48))
-                .foregroundColor(.Signal.hold)
+                .foregroundColor(retryAction != nil ? .Utility.error : .Signal.hold)
 
             Text(title)
                 .font(.headline)
@@ -24,6 +26,7 @@ struct ErrorStateView: View {
                 .foregroundColor(.Text.secondary)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 32)
+                .textSelection(.enabled)
 
             if let retryAction {
                 Button(action: retryAction) {
@@ -43,6 +46,13 @@ struct ErrorStateView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.Background.primary)
+        .opacity(appeared ? 1.0 : 0)
+        .scaleEffect(appeared ? 1.0 : 0.8)
+        .onAppear {
+            withAnimation(.spring(response: 0.5, dampingFraction: 0.7)) {
+                appeared = true
+            }
+        }
     }
 }
 

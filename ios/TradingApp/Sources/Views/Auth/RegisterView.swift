@@ -10,6 +10,11 @@ struct RegisterView: View {
     @State private var password = ""
     @State private var confirmPassword = ""
     @State private var localError: String?
+    @FocusState private var focusedField: RegisterField?
+
+    private enum RegisterField {
+        case fullName, email, password, confirmPassword
+    }
 
     var body: some View {
         ZStack {
@@ -24,7 +29,7 @@ struct RegisterView: View {
                     Image("SigilLogo")
                         .resizable()
                         .scaledToFit()
-                        .frame(maxWidth: 180)
+                        .frame(maxWidth: 120)
 
                     Text("Create Account")
                         .font(.displayMedium)
@@ -41,18 +46,36 @@ struct RegisterView: View {
 
                     // Fields
                     VStack(spacing: 16) {
-                        SigilTextField(placeholder: "Full Name", text: $fullName)
+                        SigilTextField(placeholder: "Full Name", text: $fullName, isFocused: focusedField == .fullName)
                             .textContentType(.name)
+                            .focused($focusedField, equals: .fullName)
 
-                        SigilTextField(placeholder: "Email", text: $email, keyboardType: .emailAddress)
+                        SigilTextField(placeholder: "Email", text: $email, keyboardType: .emailAddress, isFocused: focusedField == .email)
                             .textContentType(.emailAddress)
-                            .autocapitalization(.none)
+                            .textInputAutocapitalization(.never)
+                            .focused($focusedField, equals: .email)
 
-                        SigilSecureField(placeholder: "Password (min 8 chars)", text: $password)
+                        SigilSecureField(placeholder: "Password (min 8 chars)", text: $password, isFocused: focusedField == .password)
                             .textContentType(.newPassword)
+                            .focused($focusedField, equals: .password)
 
-                        SigilSecureField(placeholder: "Confirm Password", text: $confirmPassword)
+                        // Password strength indicator
+                        if !password.isEmpty {
+                            HStack(spacing: 4) {
+                                ForEach(0..<4, id: \.self) { i in
+                                    RoundedRectangle(cornerRadius: 2)
+                                        .fill(i < passwordStrength ? strengthColor : Color.Background.tertiary)
+                                        .frame(height: 4)
+                                }
+                                Text(strengthLabel)
+                                    .font(.caption2)
+                                    .foregroundColor(strengthColor)
+                            }
+                        }
+
+                        SigilSecureField(placeholder: "Confirm Password", text: $confirmPassword, isFocused: focusedField == .confirmPassword)
                             .textContentType(.newPassword)
+                            .focused($focusedField, equals: .confirmPassword)
                     }
                     .padding(.horizontal, 24)
 
@@ -97,10 +120,39 @@ struct RegisterView: View {
                 Button {
                     dismiss()
                 } label: {
-                    Image(systemName: "chevron.left")
+                    Label("Back", systemImage: "chevron.left")
                         .foregroundColor(.Accent.gold)
                 }
             }
+        }
+    }
+
+    // MARK: - Password Strength
+
+    private var passwordStrength: Int {
+        var strength = 0
+        if password.count >= 8 { strength += 1 }
+        if password.rangeOfCharacter(from: .uppercaseLetters) != nil { strength += 1 }
+        if password.rangeOfCharacter(from: .decimalDigits) != nil { strength += 1 }
+        if password.rangeOfCharacter(from: .punctuationCharacters) != nil || password.rangeOfCharacter(from: .symbols) != nil { strength += 1 }
+        return strength
+    }
+
+    private var strengthColor: Color {
+        switch passwordStrength {
+        case 0...1: return .Signal.sell
+        case 2: return .Signal.hold
+        case 3: return .Signal.buy
+        default: return .Signal.buy
+        }
+    }
+
+    private var strengthLabel: String {
+        switch passwordStrength {
+        case 0...1: return "Weak"
+        case 2: return "Fair"
+        case 3: return "Good"
+        default: return "Strong"
         }
     }
 

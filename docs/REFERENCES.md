@@ -1,3 +1,5 @@
+<img src="sigil_logo.jpg" alt="Sigil" width="240" />
+
 # Academic References — TradingApp iOS
 
 ## 1. Multi-Factor Ranking Model

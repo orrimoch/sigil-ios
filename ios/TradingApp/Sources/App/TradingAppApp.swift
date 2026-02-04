@@ -72,6 +72,7 @@ struct SigilApp: App {
     @State private var showLaunch = true
     @State private var showPinSetup = false
     @State private var authCheckDone = false
+    @State private var lastActiveTime = Date()
     
     private let notificationDelegate = NotificationDelegate()
     
@@ -128,7 +129,7 @@ struct SigilApp: App {
                             }
                             // Prompt PIN setup if not set up yet (after first use)
                             if !lockManager.isSetUp && !UserDefaults.standard.bool(forKey: "pinSetupDismissed") {
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
                                     showPinSetup = true
                                 }
                             }
@@ -163,8 +164,14 @@ struct SigilApp: App {
                 lockManager.refreshBiometricType()
             }
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)) { _ in
-                // Lock when app goes to background
-                lockManager.lock()
+                // Record time when app goes to background (30s grace period before locking)
+                lastActiveTime = Date()
+            }
+            .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+                // Lock only if backgrounded for more than 30 seconds
+                if Date().timeIntervalSince(lastActiveTime) > 30 {
+                    lockManager.lock()
+                }
             }
         }
     }
@@ -182,24 +189,18 @@ struct SigilApp: App {
         // If backend has AUTH_REQUIRED = False, we allow skip.
         Task {
             do {
-                // Quick health check — if server is reachable, check if auth is required
-                let url = URL(string: "http://127.0.0.1:8000/api/v1/health")!
-                let (_, response) = try await URLSession.shared.data(from: url)
+                // Check if server is reachable and auth is required
+                // by trying to access a known endpoint without token
+                let scoresURL = URL(string: "http://127.0.0.1:8000/api/v1/scores?limit=1")!
+                let (_, scoresResponse) = try await URLSession.shared.data(from: scoresURL)
                 
-                if let http = response as? HTTPURLResponse, http.statusCode == 200 {
-                    // Server reachable — check if auth is actually required
-                    // Try accessing a protected endpoint without token
-                    let scoresURL = URL(string: "http://127.0.0.1:8000/api/v1/scores?limit=1")!
-                    let (_, scoresResponse) = try await URLSession.shared.data(from: scoresURL)
-                    
-                    if let scoresHttp = scoresResponse as? HTTPURLResponse, scoresHttp.statusCode == 200 {
-                        // Auth not required (dev mode) — auto-grant access
-                        await MainActor.run {
-                            authVM.isLoggedIn = true
-                            authCheckDone = true
-                        }
-                        return
+                if let scoresHttp = scoresResponse as? HTTPURLResponse, scoresHttp.statusCode == 200 {
+                    // Auth not required (dev mode) — auto-grant access
+                    await MainActor.run {
+                        authVM.isLoggedIn = true
+                        authCheckDone = true
                     }
+                    return
                 }
             } catch {
                 // Server not reachable — allow offline access (graceful fallback)
@@ -290,11 +291,11 @@ enum Tab: String, CaseIterable {
     
     var icon: String {
         switch self {
-        case .home: return "house.fill"
-        case .scores: return "chart.bar.fill"
-        case .trade: return "arrow.left.arrow.right"
-        case .portfolio: return "briefcase.fill"
-        case .settings: return "gearshape.fill"
+        case .home: return "house"
+        case .scores: return "chart.bar"
+        case .trade: return "dollarsign.circle"
+        case .portfolio: return "briefcase"
+        case .settings: return "gearshape"
         }
     }
 }

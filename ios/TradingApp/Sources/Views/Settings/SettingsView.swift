@@ -15,46 +15,27 @@ struct SettingsView: View {
     var body: some View {
         NavigationStack {
             List {
-                // F8.3: Trading Mode Section
+                // F8.3: Trading Mode Section (H1: simplified toggle row)
                 Section {
-                    HStack {
-                        Image(systemName: appState.isPaperTrading ? "doc.text.fill" : "dollarsign.circle.fill")
-                            .foregroundColor(appState.isPaperTrading ? .Signal.hold : .Signal.sell)
-                            .font(.title2)
-                        
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text(appState.isPaperTrading ? "Paper Trading" : "Live Trading")
-                                .font(.headline)
-                                .foregroundColor(.Text.primary)
-                            
-                            Text(appState.isPaperTrading ? "Simulated trades with virtual money" : "Real trades with real money")
-                                .font(.caption)
-                                .foregroundColor(.Text.secondary)
+                    Toggle(isOn: Binding(
+                        get: { !appState.isPaperTrading },
+                        set: { newValue in
+                            if newValue { showLiveTradingAlert = true }
+                            else { appState.isPaperTrading = true }
                         }
-                        
-                        Spacer()
-                        
-                        Button {
-                            if appState.isPaperTrading {
-                                // Switching to live - show warning
-                                showLiveTradingAlert = true
-                            } else {
-                                // Switching to paper - no warning needed
-                                appState.isPaperTrading = true
-                            }
-                        } label: {
-                            Text(appState.isPaperTrading ? "Go Live" : "Paper Mode")
-                                .font(.caption.bold())
-                                .foregroundColor(.white)
-                                .padding(.horizontal, 12)
-                                .padding(.vertical, 6)
-                                .background(appState.isPaperTrading ? Color.Signal.sell : Color.Signal.hold)
-                                .cornerRadius(8)
+                    )) {
+                        HStack {
+                            Image(systemName: appState.isPaperTrading ? "doc.text.fill" : "dollarsign.circle.fill")
+                                .foregroundColor(appState.isPaperTrading ? .Signal.hold : .Signal.sell)
+                            Text(appState.isPaperTrading ? "Paper Trading" : "Live Trading")
+                                .foregroundColor(.Text.primary)
                         }
                     }
-                    .padding(.vertical, 4)
+                    .tint(.Accent.gold)
+                    .accessibilityHint("Switches between paper and live trading mode")
                 } header: {
                     Text("Trading Mode")
+                        .accessibilityAddTraits(.isHeader)
                 } footer: {
                     if !appState.isPaperTrading {
                         Text("⚠️ Live trading uses real money. Trade carefully.")
@@ -97,6 +78,7 @@ struct SettingsView: View {
                     }
                 } header: {
                     Text("Account Preferences")
+                        .accessibilityAddTraits(.isHeader)
                 } footer: {
                     Text(viewModel.riskTolerance.description)
                         .foregroundColor(.Text.tertiary)
@@ -131,17 +113,18 @@ struct SettingsView: View {
                     }
                 } header: {
                     Text("Broker")
+                        .accessibilityAddTraits(.isHeader)
                 } footer: {
                     Text("Connect IBKR to enable live trading with real money.")
                 }
                 .listRowBackground(Color.Background.secondary)
                 
-                // F8.4: Notifications Section
+                // F8.4: Notifications Section (M2: differentiated icon colors, H5: gold tints)
                 Section {
                     Toggle(isOn: $viewModel.weeklyScoreAlerts) {
                         HStack {
                             Image(systemName: "chart.bar.fill")
-                                .foregroundColor(.Brand.primary)
+                                .foregroundColor(.Accent.gold)
                             VStack(alignment: .leading) {
                                 Text("Weekly Score Updates")
                                     .foregroundColor(.Text.primary)
@@ -151,12 +134,12 @@ struct SettingsView: View {
                             }
                         }
                     }
-                    .tint(.Brand.primary)
+                    .tint(.Accent.gold)
                     
                     Toggle(isOn: $viewModel.tradeConfirmations) {
                         HStack {
                             Image(systemName: "checkmark.circle.fill")
-                                .foregroundColor(.Brand.primary)
+                                .foregroundColor(.Signal.buy)
                             VStack(alignment: .leading) {
                                 Text("Trade Confirmations")
                                     .foregroundColor(.Text.primary)
@@ -166,12 +149,12 @@ struct SettingsView: View {
                             }
                         }
                     }
-                    .tint(.Brand.primary)
+                    .tint(.Accent.gold)
                     
                     Toggle(isOn: $viewModel.scoreAlerts) {
                         HStack {
                             Image(systemName: "bell.badge.fill")
-                                .foregroundColor(.Brand.primary)
+                                .foregroundColor(.Signal.hold)
                             VStack(alignment: .leading) {
                                 Text("Score Alerts")
                                     .foregroundColor(.Text.primary)
@@ -181,22 +164,28 @@ struct SettingsView: View {
                             }
                         }
                     }
-                    .tint(.Brand.primary)
+                    .tint(.Accent.gold)
                 } header: {
                     Text("Notifications")
+                        .accessibilityAddTraits(.isHeader)
                 }
                 .listRowBackground(Color.Background.secondary)
                 
-                // Data & Storage
+                // Data & Storage (M7: differentiated Reset styling)
                 Section {
                     Button {
                         showResetAlert = true
                     } label: {
-                        HStack {
-                            Image(systemName: "arrow.counterclockwise")
-                                .foregroundColor(.Signal.sell)
-                            Text("Reset Paper Portfolio")
-                                .foregroundColor(.Signal.sell)
+                        VStack(alignment: .leading, spacing: 4) {
+                            HStack {
+                                Image(systemName: "arrow.counterclockwise")
+                                    .foregroundColor(.Signal.sell)
+                                Text("Reset Paper Portfolio")
+                                    .foregroundColor(.Signal.sell)
+                            }
+                            Text("Clears all positions and resets to $100,000")
+                                .font(.caption)
+                                .foregroundColor(.Text.tertiary)
                         }
                     }
                     
@@ -212,20 +201,21 @@ struct SettingsView: View {
                     }
                 } header: {
                     Text("Data")
+                        .accessibilityAddTraits(.isHeader)
                 }
                 .listRowBackground(Color.Background.secondary)
                 
-                // Security Section
+                // Security Section (M14: gold status, H5: gold toggle tint)
                 Section {
                     if AppLockManager.shared.isSetUp {
                         HStack {
                             Image(systemName: "lock.shield.fill")
-                                .foregroundColor(.Signal.buy)
+                                .foregroundColor(.Accent.gold)
                             Text("App Lock")
                                 .foregroundColor(.Text.primary)
                             Spacer()
                             Text("Enabled")
-                                .foregroundColor(.Signal.buy)
+                                .foregroundColor(.Accent.gold)
                                 .font(.caption)
                         }
                         
@@ -237,7 +227,7 @@ struct SettingsView: View {
                             )) {
                                 HStack {
                                     Image(systemName: AppLockManager.shared.biometricType.icon)
-                                        .foregroundColor(.Brand.primary)
+                                        .foregroundColor(.Accent.gold)
                                     VStack(alignment: .leading) {
                                         Text(AppLockManager.shared.biometricType.label)
                                             .foregroundColor(.Text.primary)
@@ -247,14 +237,14 @@ struct SettingsView: View {
                                     }
                                 }
                             }
-                            .tint(.Brand.primary)
+                            .tint(.Accent.gold)
                         }
                         
                         Button {
                             showPinSetup = true
                         } label: {
                             Text("Change PIN")
-                                .foregroundColor(.Brand.primary)
+                                .foregroundColor(.Accent.gold)
                         }
                         
                         Button {
@@ -271,7 +261,7 @@ struct SettingsView: View {
                                 Image(systemName: "lock.open.fill")
                                     .foregroundColor(.Text.tertiary)
                                 Text("Set Up App Lock")
-                                    .foregroundColor(.Brand.primary)
+                                    .foregroundColor(.Accent.gold)
                                 Spacer()
                                 if AppLockManager.shared.biometricType != .none {
                                     Text(AppLockManager.shared.biometricType.label + " + PIN")
@@ -283,6 +273,7 @@ struct SettingsView: View {
                     }
                 } header: {
                     Text("Security")
+                        .accessibilityAddTraits(.isHeader)
                 }
                 .listRowBackground(Color.Background.secondary)
                 
@@ -300,6 +291,7 @@ struct SettingsView: View {
                     }
                 } header: {
                     Text("Account")
+                        .accessibilityAddTraits(.isHeader)
                 }
                 .listRowBackground(Color.Background.secondary)
                 
@@ -328,6 +320,7 @@ struct SettingsView: View {
                     }
                 } header: {
                     Text("About")
+                        .accessibilityAddTraits(.isHeader)
                 }
                 .listRowBackground(Color.Background.secondary)
             }
@@ -502,7 +495,7 @@ struct IBKRConnectionView: View {
                             .foregroundColor(.Text.primary)
                     }
                     
-                    Divider().background(Color.Background.tertiary)
+                    Divider().background(Color.Utility.divider)
                     
                     HStack {
                         Text("Account Type")
@@ -513,7 +506,7 @@ struct IBKRConnectionView: View {
                             .foregroundColor(ibkrService.isPaperAccount ? .Signal.hold : .Signal.sell)
                     }
                     
-                    Divider().background(Color.Background.tertiary)
+                    Divider().background(Color.Utility.divider)
                     
                     HStack {
                         Text("Status")
@@ -540,6 +533,9 @@ struct IBKRConnectionView: View {
                     showDisconnectAlert = true
                 }
                 .foregroundColor(.Signal.sell)
+                .padding(.vertical, 10)
+                .padding(.horizontal, 20)
+                .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.Signal.sell, lineWidth: 1))
                 .padding(.bottom, 20)
             } else {
                 // Disconnected state
@@ -643,7 +639,7 @@ struct FeatureRow: View {
     var body: some View {
         HStack(spacing: 12) {
             Image(systemName: icon)
-                .foregroundColor(.Brand.primary)
+                .foregroundColor(.Accent.gold)
                 .frame(width: 24)
             
             Text(text)
@@ -698,7 +694,7 @@ struct RiskDisclosureSheet: View {
                             .font(.subheadline)
                             .foregroundColor(.Text.primary)
                     }
-                    .tint(.Brand.primary)
+                    .tint(.Accent.gold)
                     .padding()
                     .background(Color.Background.secondary)
                     .cornerRadius(12)
@@ -720,7 +716,7 @@ struct RiskDisclosureSheet: View {
                     Button("Cancel") {
                         dismiss()
                     }
-                    .foregroundColor(.Brand.primary)
+                    .foregroundColor(.Accent.gold)
                 }
             }
         }
@@ -905,7 +901,7 @@ struct LegalTextView: View {
         ScrollView {
             Text(content)
                 .font(.body)
-                .foregroundColor(.Text.secondary)
+                .foregroundColor(.Text.primary)
                 .padding()
         }
         .background(Color.Background.primary)

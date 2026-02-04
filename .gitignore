@@ -2,6 +2,7 @@
 ios/TradingApp/build/
 *.xcuserdata
 DerivedData/
+*.bak
 
 # Python
 __pycache__/

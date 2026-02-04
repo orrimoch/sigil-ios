@@ -55,7 +55,7 @@ struct LockScreenView: View {
     
     var body: some View {
         ZStack {
-            Color(red: 13/255, green: 13/255, blue: 15/255)
+            Color.Background.primary
                 .ignoresSafeArea()
             
             if isWiped {
@@ -118,10 +118,10 @@ struct LockScreenView: View {
             } label: {
                 Text("Sign In")
                     .font(.headline)
-                    .foregroundColor(.white)
+                    .foregroundColor(.Background.primary)
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color.Brand.primary)
+                    .background(Color.Accent.gold)
                     .cornerRadius(12)
             }
             .padding(.horizontal, 48)
@@ -143,7 +143,7 @@ struct LockScreenView: View {
                     VStack(spacing: 12) {
                         Image(systemName: lockManager.biometricType.icon)
                             .font(.system(size: 48))
-                            .foregroundColor(.Brand.primary)
+                            .foregroundColor(.Accent.gold)
                         
                         Text("Tap to unlock with \(lockManager.biometricType.label)")
                             .font(.subheadline)
@@ -158,7 +158,7 @@ struct LockScreenView: View {
             } label: {
                 Text("Use PIN")
                     .font(.subheadline.bold())
-                    .foregroundColor(.Brand.primary)
+                    .foregroundColor(.Accent.gold)
             }
             .padding(.top, 8)
         }
@@ -176,17 +176,18 @@ struct LockScreenView: View {
             HStack(spacing: 16) {
                 ForEach(0..<pinLength, id: \.self) { index in
                     Circle()
-                        .fill(index < pin.count ? (errorMessage != nil ? Color.Signal.sell : Color.Brand.primary) : Color.Background.tertiary)
+                        .fill(index < pin.count ? (errorMessage != nil ? Color.Signal.sell : Color.Accent.gold) : Color.Background.tertiary)
                         .frame(width: 16, height: 16)
                         .overlay(
                             Circle()
-                                .stroke((errorMessage != nil ? Color.Signal.sell : Color.Brand.primary).opacity(0.3), lineWidth: 1)
+                                .stroke((errorMessage != nil ? Color.Signal.sell : Color.Accent.gold).opacity(0.3), lineWidth: 1)
                         )
                         .scaleEffect(index < pin.count ? 1.15 : 1.0)
                         .animation(.spring(response: 0.2, dampingFraction: 0.6), value: pin.count)
                 }
             }
             .offset(x: shakeOffset)
+            .accessibilityLabel("\(pin.count) of \(pinLength) digits entered")
             
             // Error / status messages
             VStack(spacing: 6) {
@@ -203,7 +204,7 @@ struct LockScreenView: View {
                     let timeStr = minutes > 0 ? String(format: "%d:%02d", minutes, seconds) : "\(seconds)s"
                     
                     Text("Try again in \(timeStr)")
-                        .font(.caption.bold())
+                        .font(.subheadline.bold())
                         .foregroundColor(.Signal.sell)
                         .padding(.horizontal, 16)
                         .padding(.vertical, 8)
@@ -215,8 +216,12 @@ struct LockScreenView: View {
                 if currentTier == .second && !isLockedOut {
                     let remaining = currentTier.maxAttempts - tierAttempts
                     Text("⚠️ \(remaining) more failed \(remaining == 1 ? "attempt" : "attempts") will erase all data")
-                        .font(.caption2)
+                        .font(.caption)
                         .foregroundColor(.Signal.hold)
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 10)
+                        .background(Color.Signal.hold.opacity(0.12))
+                        .cornerRadius(8)
                         .padding(.top, 4)
                 }
             }
@@ -247,10 +252,15 @@ struct LockScreenView: View {
                         pin = ""
                         Task { await tryBiometric() }
                     } label: {
-                        Image(systemName: lockManager.biometricType.icon)
-                            .font(.title2)
-                            .foregroundColor(.Brand.primary)
-                            .frame(width: 64, height: 64)
+                        VStack(spacing: 2) {
+                            Image(systemName: lockManager.biometricType.icon)
+                                .font(.title2)
+                                .foregroundColor(.Accent.gold)
+                            Text("Use \(lockManager.biometricType.label)")
+                                .font(.system(size: 9))
+                                .foregroundColor(.Accent.gold)
+                        }
+                        .frame(width: 64, height: 64)
                     }
                 } else {
                     Color.clear.frame(width: 64, height: 64)
@@ -277,8 +287,11 @@ struct LockScreenView: View {
     
     // MARK: - Number Button
     
+    private static let digitWords = ["Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"]
+    
     private func numberButton(_ digit: String) -> some View {
         Button {
+            UIImpactFeedbackGenerator(style: .light).impactOccurred()
             guard pin.count < pinLength, !isLockedOut else { return }
             errorMessage = nil
             pin += digit
@@ -294,6 +307,7 @@ struct LockScreenView: View {
                 .clipShape(Circle())
         }
         .disabled(isLockedOut)
+        .accessibilityLabel(Self.digitWords[Int(digit) ?? 0])
     }
     
     // MARK: - Actions

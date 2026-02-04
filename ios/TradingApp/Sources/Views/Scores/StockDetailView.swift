@@ -20,6 +20,10 @@ struct StockDetailView: View {
             VStack(spacing: 20) {
                 // Price header
                 PriceHeader(viewModel: viewModel)
+                    .padding()
+                    .background(Color.Background.secondary)
+                    .cornerRadius(12)
+                    .padding(.horizontal)
                 
                 // Price chart (F5.3)
                 PriceChartCard(viewModel: viewModel)
@@ -70,15 +74,34 @@ struct StockDetailView: View {
                 
                 // Buy/Sell buttons
                 HStack(spacing: 16) {
-                    Button("Buy") {
+                    Button {
                         showTradeSheet = true
+                    } label: {
+                        Text("Buy")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 14)
+                            .background(Color.Signal.buy)
+                            .cornerRadius(12)
                     }
-                    .buttonStyle(PrimaryButtonStyle())
+                    .accessibilityLabel("Buy \(ticker)")
+                    .accessibilityHint("Opens trade entry. Uses paper trading mode by default.")
                     
-                    Button("Sell") {
+                    Button {
                         showTradeSheet = true
+                    } label: {
+                        Text("Sell")
+                            .font(.headline)
+                            .foregroundColor(.Signal.sell)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 14)
+                            .background(Color.clear)
+                            .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.Signal.sell, lineWidth: 2))
+                            .cornerRadius(12)
                     }
-                    .buttonStyle(SecondaryButtonStyle())
+                    .accessibilityLabel("Sell \(ticker)")
+                    .accessibilityHint("Opens trade entry. Uses paper trading mode by default.")
                 }
                 .padding(.horizontal)
                 .padding(.bottom, 20)
@@ -169,6 +192,7 @@ struct PriceChartCard: View {
                         x: .value("Date", item.date),
                         y: .value("Price", item.close)
                     )
+                    // H5: Keep Brand.primary (blue) intentionally for Bloomberg-style data viz contrast
                     .foregroundStyle(Color.Brand.primary)
                     
                     AreaMark(
@@ -190,10 +214,12 @@ struct PriceChartCard: View {
                         AxisValueLabel(format: .dateTime.month(.abbreviated).day())
                     }
                 }
+                // M6: Y-axis on trailing edge (financial convention)
                 .chartYAxis {
-                    AxisMarks(position: .leading)
+                    AxisMarks(position: .trailing)
                 }
                 .frame(height: 150)
+                .accessibilityLabel("Price chart for \(viewModel.ticker)")
             } else if viewModel.priceHistoryUnavailable {
                 // Price history API unavailable
                 VStack(spacing: 8) {
@@ -273,7 +299,7 @@ struct PriceChartCard: View {
                         viewModel.selectedChartPeriod = period
                     }
                     .font(.caption.bold())
-                    .foregroundColor(viewModel.selectedChartPeriod == period ? .Brand.primary : .Text.secondary)
+                    .foregroundColor(viewModel.selectedChartPeriod == period ? .Accent.gold : .Text.secondary)
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 8)
                     .background(viewModel.selectedChartPeriod == period ? Color.Background.surface : Color.clear)
@@ -315,7 +341,7 @@ struct ScoreCard: View {
                 
                 HStack(alignment: .firstTextBaseline, spacing: 4) {
                     Text("\(score)")
-                        .font(.system(size: 48, weight: .bold, design: .monospaced))
+                        .font(.system(size: 36, weight: .bold, design: .monospaced))
                         .foregroundColor(.Text.primary)
                     
                     Text("/ 100")
@@ -499,14 +525,24 @@ struct ScoreHistoryCard: View {
                         )
                     }
                     
-                    // Signal threshold lines
+                    // Signal threshold lines with labels (M7)
                     RuleMark(y: .value("Buy", 70))
                         .foregroundStyle(Color.Signal.buy.opacity(0.5))
                         .lineStyle(StrokeStyle(dash: [5, 5]))
+                        .annotation(position: .trailing, alignment: .trailing) {
+                            Text("BUY")
+                                .font(.system(size: 9, weight: .bold))
+                                .foregroundColor(.Signal.buy)
+                        }
                     
                     RuleMark(y: .value("Sell", 40))
                         .foregroundStyle(Color.Signal.sell.opacity(0.5))
                         .lineStyle(StrokeStyle(dash: [5, 5]))
+                        .annotation(position: .trailing, alignment: .trailing) {
+                            Text("SELL")
+                                .font(.system(size: 9, weight: .bold))
+                                .foregroundColor(.Signal.sell)
+                        }
                 }
                 .chartYScale(domain: 0...100)
                 .chartXAxis {
@@ -515,10 +551,12 @@ struct ScoreHistoryCard: View {
                         AxisValueLabel(format: .dateTime.month(.abbreviated).day())
                     }
                 }
+                // M6: Y-axis on trailing edge (financial convention)
                 .chartYAxis {
-                    AxisMarks(position: .leading)
+                    AxisMarks(position: .trailing)
                 }
                 .frame(height: 150)
+                .accessibilityLabel("Score history chart")
             }
         }
         .padding()
@@ -654,7 +692,8 @@ struct TradeEntrySheet: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 24) {
-                // Buy/Sell toggle
+                // H11: System segmented picker for Buy/Sell — keeping default style
+                // (custom theming would require complex UISegmentedControl appearance overrides)
                 Picker("", selection: $isBuy) {
                     Text("Buy").tag(true)
                     Text("Sell").tag(false)
@@ -710,6 +749,13 @@ struct TradeEntrySheet: View {
                 }
                 
                 Spacer()
+                
+                // M13: Disclaimer
+                Text("Not financial advice. Paper trading only.")
+                    .font(.caption2)
+                    .foregroundColor(.Text.tertiary)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal)
                 
                 // Submit button
                 Button {

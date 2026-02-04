@@ -40,7 +40,7 @@ struct PinSetupView: View {
     
     var body: some View {
         ZStack {
-            Color(red: 13/255, green: 13/255, blue: 15/255)
+            Color.Background.primary
                 .ignoresSafeArea()
             
             VStack(spacing: 32) {
@@ -65,7 +65,7 @@ struct PinSetupView: View {
             // Icon
             Image(systemName: "lock.shield.fill")
                 .font(.system(size: 48))
-                .foregroundColor(.Brand.primary)
+                .foregroundColor(.Accent.gold)
             
             VStack(spacing: 8) {
                 Text(step.title)
@@ -82,11 +82,11 @@ struct PinSetupView: View {
                 ForEach(0..<pinLength, id: \.self) { index in
                     let currentCount = step == .create ? pin.count : confirmPin.count
                     Circle()
-                        .fill(index < currentCount ? (errorMessage != nil ? Color.Signal.sell : Color.Brand.primary) : Color.Background.tertiary)
+                        .fill(index < currentCount ? (errorMessage != nil ? Color.Signal.sell : Color.Accent.gold) : Color.Background.tertiary)
                         .frame(width: 16, height: 16)
                         .overlay(
                             Circle()
-                                .stroke((errorMessage != nil ? Color.Signal.sell : Color.Brand.primary).opacity(0.3), lineWidth: 1)
+                                .stroke((errorMessage != nil ? Color.Signal.sell : Color.Accent.gold).opacity(0.3), lineWidth: 1)
                         )
                         .scaleEffect(index < currentCount ? 1.15 : 1.0)
                         .animation(.spring(response: 0.2, dampingFraction: 0.6), value: currentCount)
@@ -133,7 +133,7 @@ struct PinSetupView: View {
             } label: {
                 Text("Skip for now")
                     .font(.subheadline)
-                    .foregroundColor(.Text.tertiary)
+                    .foregroundColor(.Text.secondary)
             }
             .padding(.top, 8)
         }
@@ -145,7 +145,7 @@ struct PinSetupView: View {
         VStack(spacing: 32) {
             Image(systemName: lockManager.biometricType.icon)
                 .font(.system(size: 64))
-                .foregroundColor(.Brand.primary)
+                .foregroundColor(.Accent.gold)
             
             VStack(spacing: 8) {
                 Text("Enable \(lockManager.biometricType.label)?")
@@ -168,10 +168,10 @@ struct PinSetupView: View {
                 } label: {
                     Text("Enable \(lockManager.biometricType.label)")
                         .font(.headline)
-                        .foregroundColor(.white)
+                        .foregroundColor(.Background.primary)
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(Color.Brand.primary)
+                        .background(Color.Accent.gold)
                         .cornerRadius(12)
                 }
                 
@@ -184,7 +184,7 @@ struct PinSetupView: View {
                 } label: {
                     Text("Use PIN Only")
                         .font(.subheadline)
-                        .foregroundColor(.Text.tertiary)
+                        .foregroundColor(.Text.secondary)
                 }
             }
             .padding(.horizontal, 32)
@@ -204,7 +204,21 @@ struct PinSetupView: View {
         }
     }
     
+    private func triggerShake() {
+        withAnimation(.spring(response: 0.08, dampingFraction: 0.25)) { shakeOffset = 12 }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            withAnimation(.spring(response: 0.08, dampingFraction: 0.25)) { shakeOffset = -10 }
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            withAnimation(.spring(response: 0.08, dampingFraction: 0.3)) { shakeOffset = 6 }
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            withAnimation(.spring(response: 0.08, dampingFraction: 0.4)) { shakeOffset = 0 }
+        }
+    }
+    
     private func addDigit(_ digit: String) {
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
         errorMessage = nil
         
         if step == .create {
@@ -214,7 +228,7 @@ struct PinSetupView: View {
             if pin.count == pinLength {
                 // Move to confirm step
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                    withAnimation {
+                    withAnimation(.spring(response: 0.4, dampingFraction: 0.85)) {
                         step = .confirm
                     }
                 }
@@ -226,17 +240,16 @@ struct PinSetupView: View {
             if confirmPin.count == pinLength {
                 // Verify match
                 if confirmPin == pin {
+                    UINotificationFeedbackGenerator().notificationOccurred(.success)
                     // Check if biometric is available — offer to enable
                     if lockManager.biometricType != .none {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                            withAnimation {
+                            withAnimation(.spring(response: 0.4, dampingFraction: 0.85)) {
                                 step = .biometric
                             }
                         }
                     } else {
                         lockManager.setPin(pin)
-                        let generator = UINotificationFeedbackGenerator()
-                        generator.notificationOccurred(.success)
                         dismiss()
                     }
                 } else {
@@ -244,30 +257,7 @@ struct PinSetupView: View {
                     let generator = UINotificationFeedbackGenerator()
                     generator.notificationOccurred(.error)
                     
-                    // Shake animation
-                    withAnimation(.spring(response: 0.08, dampingFraction: 0.3)) {
-                        shakeOffset = 12
-                    }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.08) {
-                        withAnimation(.spring(response: 0.08, dampingFraction: 0.3)) {
-                            shakeOffset = -10
-                        }
-                    }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.16) {
-                        withAnimation(.spring(response: 0.08, dampingFraction: 0.3)) {
-                            shakeOffset = 8
-                        }
-                    }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.24) {
-                        withAnimation(.spring(response: 0.08, dampingFraction: 0.3)) {
-                            shakeOffset = -4
-                        }
-                    }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.32) {
-                        withAnimation(.spring(response: 0.1, dampingFraction: 0.5)) {
-                            shakeOffset = 0
-                        }
-                    }
+                    triggerShake()
                     
                     // Clear and go back to create step after shake
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {

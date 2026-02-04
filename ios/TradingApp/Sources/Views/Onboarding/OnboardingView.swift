@@ -34,15 +34,19 @@ struct OnboardingView: View {
                 TabView(selection: $currentPage) {
                     WelcomePage()
                         .tag(0)
+                        .accessibilityLabel("Welcome page")
                     
                     ScoreExplanationPage()
                         .tag(1)
+                        .accessibilityLabel("Score explanation page")
                     
                     PortfolioSizePage(selectedSize: $appState.portfolioSize)
                         .tag(2)
+                        .accessibilityLabel("Portfolio size selection page")
                     
                     PaperTradingPage(isPaperTrading: $appState.isPaperTrading)
                         .tag(3)
+                        .accessibilityLabel("Paper trading page")
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
                 
@@ -50,7 +54,7 @@ struct OnboardingView: View {
                 HStack(spacing: 8) {
                     ForEach(0..<totalPages, id: \.self) { index in
                         Circle()
-                            .fill(index == currentPage ? Color.Brand.primary : Color.Text.tertiary)
+                            .fill(index == currentPage ? Color.Accent.gold : Color.Text.tertiary)
                             .frame(width: 8, height: 8)
                     }
                 }
@@ -59,15 +63,24 @@ struct OnboardingView: View {
                 // Navigation buttons
                 HStack(spacing: 16) {
                     if currentPage > 0 {
-                        Button("Back") {
+                        Button {
+                            UIImpactFeedbackGenerator(style: .light).impactOccurred()
                             withAnimation {
                                 currentPage -= 1
                             }
+                        } label: {
+                            Text("Back")
+                                .font(.headline)
+                                .foregroundColor(.Accent.gold)
+                                .frame(maxWidth: .infinity)
+                                .padding()
+                                .background(Color.Background.secondary)
+                                .cornerRadius(12)
                         }
-                        .buttonStyle(SecondaryButtonStyle())
                     }
                     
-                    Button(currentPage == totalPages - 1 ? "Get Started" : "Next") {
+                    Button {
+                        UIImpactFeedbackGenerator(style: .light).impactOccurred()
                         if currentPage == totalPages - 1 {
                             completeOnboarding()
                         } else {
@@ -75,8 +88,15 @@ struct OnboardingView: View {
                                 currentPage += 1
                             }
                         }
+                    } label: {
+                        Text(currentPage == totalPages - 1 ? "Get Started" : "Next")
+                            .font(.headline)
+                            .foregroundColor(.Background.primary)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.Accent.gold)
+                            .cornerRadius(12)
                     }
-                    .buttonStyle(PrimaryButtonStyle())
                 }
                 .padding(.horizontal, 24)
                 .padding(.bottom, 40)
@@ -97,8 +117,8 @@ struct WelcomePage: View {
             Spacer()
             
             Image(systemName: "chart.line.uptrend.xyaxis")
-                .font(.system(size: 80))
-                .foregroundColor(.Brand.primary)
+                .font(.system(size: 64))
+                .foregroundColor(.Accent.gold)
             
             Text("Welcome to Sigil")
                 .font(.largeTitle)
@@ -184,7 +204,7 @@ struct ScoreComponentRow: View {
         HStack(spacing: 12) {
             Image(systemName: icon)
                 .font(.title2)
-                .foregroundColor(.Brand.primary)
+                .foregroundColor(.Accent.gold)
                 .frame(width: 30)
             
             VStack(alignment: .leading, spacing: 2) {
@@ -201,7 +221,7 @@ struct ScoreComponentRow: View {
             
             Text(weight)
                 .font(.headline)
-                .foregroundColor(.Brand.primary)
+                .foregroundColor(.Accent.gold)
         }
     }
 }
@@ -219,7 +239,7 @@ struct SignalBadge: View {
                 .padding(.horizontal, 12)
                 .padding(.vertical, 4)
                 .background(color)
-                .cornerRadius(4)
+                .cornerRadius(8)
             
             Text(score)
                 .font(.caption2)
@@ -252,7 +272,11 @@ struct PortfolioSizePage: View {
                     PortfolioSizeOption(
                         size: size,
                         isSelected: selectedSize == size,
-                        action: { selectedSize = size }
+                        action: {
+                            withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
+                                selectedSize = size
+                            }
+                        }
                     )
                 }
             }
@@ -285,7 +309,7 @@ struct PortfolioSizeOption: View {
                 Spacer()
                 
                 Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
-                    .foregroundColor(isSelected ? .Brand.primary : .Text.tertiary)
+                    .foregroundColor(isSelected ? .Accent.gold : .Text.tertiary)
                     .font(.title2)
             }
             .padding()
@@ -293,7 +317,7 @@ struct PortfolioSizeOption: View {
             .cornerRadius(12)
             .overlay(
                 RoundedRectangle(cornerRadius: 12)
-                    .stroke(isSelected ? Color.Brand.primary : Color.clear, lineWidth: 2)
+                    .stroke(isSelected ? Color.Accent.gold : Color.clear, lineWidth: 2)
             )
         }
     }
@@ -310,7 +334,7 @@ struct PaperTradingPage: View {
             
             Image(systemName: "doc.text.fill")
                 .font(.system(size: 60))
-                .foregroundColor(.Brand.primary)
+                .foregroundColor(.Accent.gold)
             
             Text("Paper Trading")
                 .font(.title)
@@ -334,7 +358,7 @@ struct PaperTradingPage: View {
                         .foregroundColor(isPaperTrading ? .Signal.buy : .Text.secondary)
                 }
             }
-            .toggleStyle(SwitchToggleStyle(tint: .Brand.primary))
+            .toggleStyle(SwitchToggleStyle(tint: .Accent.gold))
             .padding()
             .background(Color.Background.secondary)
             .cornerRadius(12)

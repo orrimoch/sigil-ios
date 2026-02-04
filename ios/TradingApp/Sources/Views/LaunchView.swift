@@ -8,7 +8,7 @@ struct LaunchView: View {
     
     var body: some View {
         ZStack {
-            Color(red: 13/255, green: 13/255, blue: 15/255)
+            Color.Background.primary
                 .ignoresSafeArea()
             
             VStack(spacing: 0) {
@@ -16,21 +16,23 @@ struct LaunchView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(maxWidth: 280)
+                    .accessibilityLabel("Sigil - AI Market Intelligence")
             }
             .opacity(opacity)
             .scaleEffect(scale)
         }
         .onAppear {
-            withAnimation(.easeOut(duration: 0.8)) {
+            withAnimation(.easeOut(duration: 0.6)) {
                 opacity = 1.0
                 scale = 1.0
             }
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                withAnimation(.easeIn(duration: 0.3)) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                withAnimation(.easeInOut(duration: 0.5)) {
                     opacity = 0
+                    scale = 1.02
                 }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.55) {
                     showLaunch = false
                 }
             }

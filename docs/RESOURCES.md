@@ -1,3 +1,5 @@
+<img src="sigil_logo.jpg" alt="Sigil" width="240" />
+
 # Quick Reference — External Resources
 
 > 📌 **Note:** Detailed specifications are in the main docs. This is a quick-reference for external links only.

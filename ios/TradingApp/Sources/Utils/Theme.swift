@@ -8,8 +8,8 @@ extension Color {
     // MARK: - Brand Colors
     
     struct Brand {
-        /// Primary brand color - deep blue
-        static let primary = Color(hex: "0066CC")
+        /// Primary brand color - gold
+        static let primary = Color(hex: "FFB800")
         
         /// Secondary brand color - muted teal
         static let secondary = Color(hex: "2D8B8B")
@@ -21,8 +21,8 @@ extension Color {
     // MARK: - Background Colors
     
     struct Background {
-        /// Primary background - deep charcoal
-        static let primary = Color(hex: "121418")
+        /// Primary background - true carbon black
+        static let primary = Color(hex: "0D0D0F")
         
         /// Secondary background - slightly lighter
         static let secondary = Color(hex: "1A1D23")
@@ -46,8 +46,8 @@ extension Color {
         /// Secondary text - medium contrast
         static let secondary = Color(hex: "8E8E93")
         
-        /// Tertiary text - low contrast
-        static let tertiary = Color(hex: "5E5E63")
+        /// Tertiary text - meets WCAG 4.5:1
+        static let tertiary = Color(hex: "7C7C82")
         
         /// Inverse text - for light backgrounds
         static let inverse = Color(hex: "121418")
@@ -162,12 +162,14 @@ struct PrimaryButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .font(.headline)
-            .foregroundColor(.white)
+            .foregroundColor(Color.Background.primary)
             .frame(maxWidth: .infinity)
             .padding(.vertical, 16)
             .background(Color.Brand.primary)
             .cornerRadius(12)
-            .opacity(configuration.isPressed ? 0.8 : 1.0)
+            .opacity(configuration.isPressed ? 0.85 : 1.0)
+            .scaleEffect(configuration.isPressed ? 0.98 : 1.0)
+            .animation(.easeInOut(duration: 0.15), value: configuration.isPressed)
     }
 }
 
@@ -184,7 +186,76 @@ struct SecondaryButtonStyle: ButtonStyle {
                 RoundedRectangle(cornerRadius: 12)
                     .stroke(Color.Brand.primary, lineWidth: 1)
             )
-            .opacity(configuration.isPressed ? 0.8 : 1.0)
+            .opacity(configuration.isPressed ? 0.85 : 1.0)
+            .scaleEffect(configuration.isPressed ? 0.98 : 1.0)
+            .animation(.easeInOut(duration: 0.15), value: configuration.isPressed)
+    }
+}
+
+// MARK: - Additional Button Styles
+
+struct DestructiveButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .font(.headline)
+            .foregroundColor(.white)
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 16)
+            .background(Color.Signal.sell)
+            .cornerRadius(12)
+            .opacity(configuration.isPressed ? 0.85 : 1.0)
+            .scaleEffect(configuration.isPressed ? 0.98 : 1.0)
+            .animation(.easeInOut(duration: 0.15), value: configuration.isPressed)
+    }
+}
+
+struct BuyButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .font(.headline)
+            .foregroundColor(.white)
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 16)
+            .background(Color.Signal.buy)
+            .cornerRadius(12)
+            .opacity(configuration.isPressed ? 0.85 : 1.0)
+            .scaleEffect(configuration.isPressed ? 0.98 : 1.0)
+            .animation(.easeInOut(duration: 0.15), value: configuration.isPressed)
+    }
+}
+
+struct SellButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .font(.headline)
+            .foregroundColor(.Signal.sell)
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 16)
+            .background(Color.clear)
+            .cornerRadius(12)
+            .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.Signal.sell, lineWidth: 2))
+            .opacity(configuration.isPressed ? 0.85 : 1.0)
+            .scaleEffect(configuration.isPressed ? 0.98 : 1.0)
+            .animation(.easeInOut(duration: 0.15), value: configuration.isPressed)
+    }
+}
+
+// MARK: - Card Style
+
+struct CardStyle: ViewModifier {
+    var padding: CGFloat = 16
+    var cornerRadius: CGFloat = 12
+    func body(content: Content) -> some View {
+        content
+            .padding(padding)
+            .background(Color.Background.secondary)
+            .cornerRadius(cornerRadius)
+    }
+}
+
+extension View {
+    func card(padding: CGFloat = 16, radius: CGFloat = 12) -> some View {
+        modifier(CardStyle(padding: padding, cornerRadius: radius))
     }
 }
 
@@ -202,6 +273,15 @@ extension Font {
     
     /// Large monospace for portfolio value
     static let monoLarge = Font.system(size: 32, weight: .bold, design: .monospaced)
+    
+    /// Price display
+    static let price = Font.system(size: 28, weight: .bold, design: .monospaced)
+    
+    /// Table header
+    static let tableHeader = Font.system(size: 12, weight: .semibold, design: .default)
+    
+    /// Table data
+    static let tableData = Font.system(size: 14, weight: .regular, design: .default)
 }
 
 // MARK: - Currency Formatting

@@ -23,18 +23,19 @@ struct PortfolioView: View {
                 } else {
             ScrollView {
                 VStack(spacing: 20) {
-                    // Paper mode indicator
+                    // M3: Paper mode indicator — subtle inline style
                     if viewModel.isPaper {
-                        HStack(spacing: 8) {
+                        HStack(spacing: 6) {
                             Image(systemName: "doc.text.fill")
-                            Text("PAPER PORTFOLIO")
-                                .font(.caption.bold())
+                                .font(.caption2)
+                            Text("PAPER")
+                                .font(.caption2.bold())
                         }
                         .foregroundColor(.Signal.hold)
-                        .padding(.horizontal, 16)
-                        .padding(.vertical, 8)
-                        .background(Color.Signal.hold.opacity(0.15))
-                        .cornerRadius(20)
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 4)
+                        .background(Color.Signal.hold.opacity(0.10))
+                        .cornerRadius(12)
                     }
                     
                     // F4.1: Portfolio Summary Card
@@ -76,22 +77,19 @@ struct PortfolioView: View {
                         EmptyView()
                     }
                     
-                    // Reset button (paper trading only)
+                    // M17: Reset button (paper trading only) — text-only, less prominent
                     if viewModel.isPaper {
                         Button {
                             showResetConfirm = true
                         } label: {
-                            HStack {
+                            HStack(spacing: 6) {
                                 Image(systemName: "arrow.counterclockwise")
                                 Text("Reset Paper Portfolio")
                             }
-                            .font(.subheadline)
-                            .foregroundColor(.Signal.sell)
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background(Color.Signal.sell.opacity(0.1))
-                            .cornerRadius(12)
+                            .font(.caption)
+                            .foregroundColor(.Text.tertiary)
                         }
+                        .padding(.top, 8)
                     }
                 }
                 .padding()
@@ -139,8 +137,9 @@ struct PortfolioDetailSummaryCard: View {
                 if viewModel.isLoading {
                     ProgressView()
                 } else {
+                    // H1: 32pt to match HomeView's .monoLarge
                     Text(viewModel.totalValue.asCurrency)
-                        .font(.system(size: 36, weight: .bold, design: .monospaced))
+                        .font(.system(size: 32, weight: .bold, design: .monospaced))
                         .foregroundColor(.Text.primary)
                 }
             }
@@ -219,6 +218,18 @@ struct StatCard: View {
 struct HoldingsSection: View {
     let holdings: [Holding]
     
+    /// M8: Holdings sorted by market value (largest first)
+    private var sortedHoldings: [Holding] {
+        holdings.sorted { $0.marketValue > $1.marketValue }
+    }
+    
+    /// Portfolio weight for a holding
+    private func weight(for holding: Holding) -> Double {
+        let total = holdings.reduce(0) { $0 + $1.marketValue }
+        guard total > 0 else { return 0 }
+        return holding.marketValue / total * 100
+    }
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Holdings")
@@ -241,12 +252,19 @@ struct HoldingsSection: View {
                 .padding(.vertical, 32)
             } else {
                 VStack(spacing: 0) {
-                    ForEach(holdings) { holding in
-                        HoldingRow(holding: holding)
+                    ForEach(sortedHoldings) { holding in
+                        // H6: Navigate to stock detail on tap
+                        NavigationLink {
+                            StockDetailView(ticker: holding.ticker)
+                        } label: {
+                            HoldingRow(holding: holding, portfolioWeight: weight(for: holding))
+                        }
+                        .accessibilityElement(children: .combine)
                         
-                        if holding.id != holdings.last?.id {
+                        if holding.id != sortedHoldings.last?.id {
+                            // M9/L9: Use .Utility.divider for consistency
                             Divider()
-                                .background(Color.Border.primary)
+                                .background(Color.Utility.divider)
                         }
                     }
                 }
@@ -261,6 +279,8 @@ struct HoldingsSection: View {
 
 struct HoldingRow: View {
     let holding: Holding
+    /// M7: Portfolio weight percentage
+    var portfolioWeight: Double = 0
     
     var body: some View {
         HStack {
@@ -270,7 +290,8 @@ struct HoldingRow: View {
                     .font(.body.bold())
                     .foregroundColor(.Text.primary)
                 
-                Text("\(String(format: "%.2f", holding.shares)) shares")
+                // M7: Show shares count and cost basis
+                Text("\(String(format: "%.2f", holding.shares)) shares · avg \(holding.avgCost.asCurrency)")
                     .font(.caption)
                     .foregroundColor(.Text.tertiary)
             }
@@ -279,9 +300,18 @@ struct HoldingRow: View {
             
             // Value and P&L
             VStack(alignment: .trailing, spacing: 2) {
-                Text(holding.marketValue.asCurrency)
-                    .font(.body.monospacedDigit())
-                    .foregroundColor(.Text.primary)
+                HStack(spacing: 4) {
+                    Text(holding.marketValue.asCurrency)
+                        .font(.body.monospacedDigit())
+                        .foregroundColor(.Text.primary)
+                    
+                    // M7: Portfolio weight
+                    if portfolioWeight > 0 {
+                        Text("\(String(format: "%.0f", portfolioWeight))%")
+                            .font(.caption2)
+                            .foregroundColor(.Text.tertiary)
+                    }
+                }
                 
                 HStack(spacing: 4) {
                     Text(holding.unrealizedPnl.asSignedCurrency)
@@ -327,14 +357,15 @@ struct PerformanceChartSection: View {
                 ProgressView()
                     .frame(maxWidth: .infinity, minHeight: 200)
             } else if viewModel.history.isEmpty {
+                // L13: More encouraging empty state CTA
                 VStack(spacing: 8) {
                     Image(systemName: "chart.line.uptrend.xyaxis")
                         .font(.title)
                         .foregroundColor(.Text.tertiary)
-                    Text("No history yet")
+                    Text("No performance data yet")
                         .font(.subheadline)
-                        .foregroundColor(.Text.tertiary)
-                    Text("History builds as you trade")
+                        .foregroundColor(.Text.secondary)
+                    Text("Start trading to see your performance")
                         .font(.caption)
                         .foregroundColor(.Text.tertiary)
                 }
@@ -358,7 +389,10 @@ struct PerformanceChartSection: View {
                     }
                 }
                 
-                // Chart
+                // H10: Portfolio performance chart intentionally uses .Accent.gold (your money)
+                // while market price charts use .Brand.primary (blue) for market data.
+                // This color differentiation is by design to distinguish personal portfolio
+                // from external market data.
                 Chart(viewModel.history) { snapshot in
                     LineMark(
                         x: .value("Date", parseDate(snapshot.timestamp)),
@@ -389,6 +423,9 @@ struct PerformanceChartSection: View {
                     AxisMarks(position: .leading)
                 }
                 .frame(height: 200)
+                // M11: Accessibility for performance chart
+                .accessibilityLabel("Portfolio performance chart")
+                .accessibilityElement(children: .combine)
             }
         }
         .padding()
@@ -419,20 +456,21 @@ struct PerformanceChartSection: View {
 struct SectorAllocationSection: View {
     @ObservedObject var viewModel: PortfolioViewModel
     
-    // Sector colors
+    // M14: Themed sector colors optimized for dark backgrounds
     let sectorColors: [String: Color] = [
-        "Technology": .blue,
-        "Healthcare": .green,
-        "Financials": .purple,
-        "Consumer Cyclical": .orange,
-        "Consumer Defensive": .yellow,
-        "Communication Services": .pink,
-        "Industrials": .gray,
-        "Energy": .red,
-        "Utilities": .teal,
-        "Real Estate": .brown,
-        "Basic Materials": .cyan,
-        "Unknown": .gray,
+        "Technology": Color(hex: "0A84FF"),
+        "Healthcare": Color(hex: "30D158"),
+        "Financials": Color(hex: "BF5AF2"),
+        "Consumer Cyclical": Color(hex: "FF9F0A"),
+        "Energy": Color(hex: "FF453A"),
+        "Communication Services": Color(hex: "64D2FF"),
+        "Industrials": Color(hex: "8E8E93"),
+        "Consumer Defensive": Color(hex: "FFD60A"),
+        "Basic Materials": Color(hex: "AC8E68"),
+        "Real Estate": Color(hex: "5E5CE6"),
+        "Utilities": Color(hex: "30B0C7"),
+        "Financial Services": Color(hex: "BF5AF2"),
+        "Unknown": Color(hex: "8E8E93"),
     ]
     
     var body: some View {
@@ -465,7 +503,8 @@ struct SectorAllocationSection: View {
                     )
                     .foregroundStyle(colorForSector(sector.sector))
                     .annotation(position: .overlay) {
-                        if sector.percentage > 10 {
+                        // M15: Only show percentage text for slices > 15%
+                        if sector.percentage > 15 {
                             Text("\(Int(sector.percentage))%")
                                 .font(.caption2.bold())
                                 .foregroundColor(.white)
@@ -473,6 +512,9 @@ struct SectorAllocationSection: View {
                     }
                 }
                 .frame(height: 200)
+                // Accessibility for pie chart
+                .accessibilityLabel("Sector allocation chart. " + viewModel.sectorAllocation.map { "\($0.sector) \(String(format: "%.0f", $0.percentage)) percent" }.joined(separator: ", "))
+                .accessibilityElement(children: .combine)
                 
                 // Legend
                 VStack(spacing: 8) {

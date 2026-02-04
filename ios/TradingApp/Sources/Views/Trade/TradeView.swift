@@ -88,12 +88,12 @@ struct TradingModeIndicator: View {
                 .font(.caption.bold())
         }
         .foregroundColor(displayColor)
-        .padding(.horizontal, 16)
-        .padding(.vertical, 8)
+        .padding(.horizontal, 10)
+        .padding(.vertical, 5)
         .background(
             displayColor.opacity(0.15)
         )
-        .cornerRadius(20)
+        .cornerRadius(12)
     }
 }
 
@@ -117,6 +117,7 @@ struct StockSearchSection: View {
                     .autocorrectionDisabled()
                     .foregroundColor(.Text.primary)
                     .onChange(of: viewModel.searchText) { _, _ in
+                        // L12: Fires on every character; debounce is handled in ViewModel via searchTask cancellation
                         viewModel.search()
                     }
                 
@@ -291,6 +292,7 @@ struct OrderEntrySection: View {
             HStack(spacing: 0) {
                 ForEach(OrderSide.allCases, id: \.self) { side in
                     Button {
+                        UIImpactFeedbackGenerator(style: .light).impactOccurred()
                         viewModel.orderSide = side
                     } label: {
                         HStack {
@@ -300,9 +302,10 @@ struct OrderEntrySection: View {
                         }
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 12)
-                        .background(viewModel.orderSide == side ? side.color.opacity(0.2) : Color.clear)
-                        .foregroundColor(viewModel.orderSide == side ? side.color : .Text.tertiary)
+                        .background(viewModel.orderSide == side ? side.color : Color.clear)
+                        .foregroundColor(viewModel.orderSide == side ? .white : .Text.tertiary)
                     }
+                    .accessibilityLabel(side == .buy ? "Buy order" : "Sell order")
                 }
             }
             .background(Color.Background.secondary)
@@ -320,6 +323,7 @@ struct OrderEntrySection: View {
                     }
                 }
                 .pickerStyle(.segmented)
+                .tint(Color.Accent.gold)
                 
                 Text(viewModel.orderType.description)
                     .font(.caption)
@@ -339,8 +343,9 @@ struct OrderEntrySection: View {
                     } label: {
                         Image(systemName: "minus.circle.fill")
                             .font(.title2)
-                            .foregroundColor(.Text.secondary)
+                            .foregroundColor(.Text.primary)
                     }
+                    .accessibilityLabel("Decrease quantity")
                     
                     TextField("0", text: $viewModel.quantity)
                         .keyboardType(.numberPad)
@@ -355,8 +360,9 @@ struct OrderEntrySection: View {
                     } label: {
                         Image(systemName: "plus.circle.fill")
                             .font(.title2)
-                            .foregroundColor(.Accent.gold)
+                            .foregroundColor(.Text.primary)
                     }
+                    .accessibilityLabel("Increase quantity")
                 }
                 .padding()
                 .background(Color.Background.secondary)
@@ -366,9 +372,17 @@ struct OrderEntrySection: View {
             // Limit price (if limit order)
             if viewModel.orderType == .limit {
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("Limit Price")
-                        .font(.subheadline)
-                        .foregroundColor(.Text.secondary)
+                    HStack {
+                        Text("Limit Price")
+                            .font(.subheadline)
+                            .foregroundColor(.Text.secondary)
+                        Spacer()
+                        if let price = viewModel.currentPrice {
+                            Text("Market: \(price.asCurrency)")
+                                .font(.caption)
+                                .foregroundColor(.Text.tertiary)
+                        }
+                    }
                     
                     HStack {
                         Text("$")
@@ -386,13 +400,20 @@ struct OrderEntrySection: View {
             
             // Estimated total
             if viewModel.quantityValue > 0 {
-                HStack {
-                    Text("Estimated Total")
-                        .foregroundColor(.Text.secondary)
-                    Spacer()
-                    Text(viewModel.estimatedTotal.asCurrency)
-                        .font(.title3.bold().monospacedDigit())
-                        .foregroundColor(.Text.primary)
+                VStack(spacing: 8) {
+                    if let price = viewModel.currentPrice {
+                        Text("\(Int(viewModel.quantityValue)) shares × \(price.asCurrency)")
+                            .font(.caption)
+                            .foregroundColor(.Text.tertiary)
+                    }
+                    HStack {
+                        Text("Estimated Total")
+                            .foregroundColor(.Text.secondary)
+                        Spacer()
+                        Text(viewModel.estimatedTotal.asCurrency)
+                            .font(.title3.bold().monospacedDigit())
+                            .foregroundColor(.Text.primary)
+                    }
                 }
                 .padding()
                 .background(Color.Background.secondary)
@@ -403,7 +424,7 @@ struct OrderEntrySection: View {
             Button {
                 viewModel.previewOrder()
             } label: {
-                Text(viewModel.canSubmitOrder ? "Preview Order" : (viewModel.quantityValue > 0 ? "Preview Order" : "Enter shares to trade"))
+                Text(viewModel.canSubmitOrder ? "Preview Order" : (viewModel.selectedStock == nil ? "Select a stock" : (viewModel.quantityValue <= 0 ? "Enter quantity" : "Preview Order")))
                     .fontWeight(.semibold)
                     .frame(maxWidth: .infinity)
                     .padding()
@@ -415,7 +436,7 @@ struct OrderEntrySection: View {
         }
         .padding()
         .background(Color.Background.card)
-        .cornerRadius(16)
+        .cornerRadius(12)
     }
 }
 
@@ -481,6 +502,13 @@ struct OrderPreviewSheet: View {
                         .cornerRadius(8)
                 }
                 
+                // Disclaimer
+                Text("This does not constitute financial advice. Past performance is not indicative of future results.")
+                    .font(.caption)
+                    .foregroundColor(.Text.tertiary)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal)
+                
                 Spacer()
                 
                 // Submit button
@@ -516,13 +544,14 @@ struct OrderPreviewSheet: View {
                         dismiss()
                     }
                     .foregroundColor(.Accent.gold)
+                    .frame(minHeight: 44)
                 }
             }
         }
-        .presentationDetents([.medium, .large])
+        .presentationDetents([.large, .medium])
         .alert("⚠️ LIVE TRADE", isPresented: $viewModel.showLiveTradeConfirmation) {
             Button("Cancel", role: .cancel) {}
-            Button("Confirm Trade", role: .destructive) {
+            Button("Confirm \(viewModel.orderSide.rawValue) Trade") {
                 Task {
                     await viewModel.confirmLiveTrade()
                 }

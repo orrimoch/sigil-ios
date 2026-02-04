@@ -1,3 +1,5 @@
+<img src="docs/sigil_logo.jpg" alt="Sigil" width="240" />
+
 # TradingApp iOS
 
 **AI-Powered Stock Recommendations for S&P 500**

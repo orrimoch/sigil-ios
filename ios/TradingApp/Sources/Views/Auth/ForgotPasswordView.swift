@@ -28,7 +28,7 @@ struct ForgotPasswordView: View {
                     // Icon
                     Image(systemName: step == .success ? "checkmark.shield.fill" : "key.fill")
                         .font(.system(size: 48))
-                        .foregroundColor(step == .success ? .Signal.buy : .Brand.primary)
+                        .foregroundColor(step == .success ? .Signal.buy : .Accent.gold)
                         .padding(.bottom, 8)
 
                     // Title
@@ -44,11 +44,14 @@ struct ForgotPasswordView: View {
 
                     // Error
                     if let error = localError ?? authVM.errorMessage {
-                        Text(error)
-                            .font(.caption)
-                            .foregroundColor(.Signal.sell)
-                            .padding(.horizontal, 24)
-                            .transition(.opacity)
+                        HStack(spacing: 6) {
+                            Image(systemName: "exclamationmark.triangle.fill")
+                            Text(error)
+                        }
+                        .font(.subheadline)
+                        .foregroundColor(.Signal.sell)
+                        .padding(.horizontal, 24)
+                        .transition(.opacity)
                     }
 
                     // Step content
@@ -71,12 +74,12 @@ struct ForgotPasswordView: View {
         .toolbarColorScheme(.dark, for: .navigationBar)
         .onChange(of: authVM.resetCode) { _, newCode in
             if newCode != nil {
-                withAnimation { step = .code }
+                withAnimation(.spring(response: 0.4, dampingFraction: 0.85)) { step = .code }
             }
         }
         .onChange(of: authVM.resetSuccess) { _, success in
             if success {
-                withAnimation { step = .success }
+                withAnimation(.spring(response: 0.4, dampingFraction: 0.85)) { step = .success }
             }
         }
         .onDisappear {
@@ -111,7 +114,7 @@ struct ForgotPasswordView: View {
         VStack(spacing: 20) {
             SigilTextField(placeholder: "Email", text: $email, keyboardType: .emailAddress)
                 .textContentType(.emailAddress)
-                .autocapitalization(.none)
+                .textInputAutocapitalization(.never)
                 .padding(.horizontal, 24)
 
             Button {
@@ -140,7 +143,7 @@ struct ForgotPasswordView: View {
             } label: {
                 Text("Back to Sign In")
                     .font(.subheadline)
-                    .foregroundColor(.Text.tertiary)
+                    .foregroundColor(.Text.secondary)
             }
         }
     }
@@ -150,6 +153,7 @@ struct ForgotPasswordView: View {
     private var codeStep: some View {
         VStack(spacing: 20) {
             // DEV: Show the code for testing
+            #if DEBUG
             if let devCode = authVM.resetCode {
                 HStack(spacing: 8) {
                     Image(systemName: "info.circle.fill")
@@ -162,6 +166,7 @@ struct ForgotPasswordView: View {
                 .cornerRadius(8)
                 .padding(.horizontal, 24)
             }
+            #endif
 
             // Code input
             VStack(alignment: .leading, spacing: 8) {
@@ -263,10 +268,11 @@ struct CodeInputField: View {
                     .overlay(
                         RoundedRectangle(cornerRadius: 8)
                             .stroke(
-                                index == code.count ? Color.Brand.primary : Color.Background.tertiary,
+                                index == code.count ? Color.Accent.gold : Color.Background.tertiary,
                                 lineWidth: index == code.count ? 2 : 1
                             )
                     )
+                    .accessibilityLabel("Digit \(index + 1) of \(codeLength)\(char.isEmpty ? ", empty" : ", \(char)")")
             }
         }
         .overlay(

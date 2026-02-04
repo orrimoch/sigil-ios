@@ -44,7 +44,6 @@
 		CB28966A8702B36395F8E2BA /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B954D091708BAE1C1300E026 /* SettingsView.swift */; };
 		D35773DDE5D6CBC3EE297C4E /* StockDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DBF657B2C95337664CFD786 /* StockDetailViewModel.swift */; };
 		D7259FB9E93F8779E0B1804A /* PinSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A93D2F1A56BA122694B64C62 /* PinSetupView.swift */; };
-		E138FA817D6192FF6D239D1D /* NotificationService.swift.bak in Resources */ = {isa = PBXBuildFile; fileRef = 4CF4D904F766FB25A14E1180 /* NotificationService.swift.bak */; };
 		E4725757DED6CC5852DE4BA1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 67102CC49BF0A93534CBEF97 /* Assets.xcassets */; };
 		F16A948B1D986EC8D5FD9A14 /* TradeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BE478C84262BD609CAE217 /* TradeView.swift */; };
 /* End PBXBuildFile section */
@@ -74,7 +73,6 @@
 		29E0970BBC9EEF8A622664BE /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		34192B20D8BEE8DB24F4E7C4 /* ScoresView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresView.swift; sourceTree = "<group>"; };
 		47B4CB9320BF2F19AA792EF5 /* TradeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeViewModel.swift; sourceTree = "<group>"; };
-		4CF4D904F766FB25A14E1180 /* NotificationService.swift.bak */ = {isa = PBXFileReference; path = NotificationService.swift.bak; sourceTree = "<group>"; };
 		5B0910B23683CDE01F53EE92 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		5FF085E6CC961498A611E900 /* IBKRService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IBKRService.swift; sourceTree = "<group>"; };
 		6134AA754BE7F6A850EC86FD /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
@@ -178,7 +176,6 @@
 				5FF085E6CC961498A611E900 /* IBKRService.swift */,
 				9171BBA83EA1E22DDAB01A07 /* KeychainHelper.swift */,
 				5B0910B23683CDE01F53EE92 /* NotificationService.swift */,
-				4CF4D904F766FB25A14E1180 /* NotificationService.swift.bak */,
 				72D41D3D2C2FE1FB528E76A6 /* WatchlistService.swift */,
 			);
 			path = Services;
@@ -381,7 +378,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4725757DED6CC5852DE4BA1 /* Assets.xcassets in Resources */,
-				E138FA817D6192FF6D239D1D /* NotificationService.swift.bak in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

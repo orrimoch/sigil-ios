@@ -8,7 +8,7 @@ class HomeViewModel: ObservableObject {
     // MARK: - Published State
     
     // F4.1: Portfolio Summary
-    @Published var portfolioValue: Double = 100_000
+    @Published var portfolioValue: Double? = nil
     @Published var dailyChange: Double = 0
     @Published var dailyChangePercent: Double = 0
     
@@ -289,14 +289,9 @@ struct MarketIndex: Identifiable {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
         formatter.groupingSeparator = ","
-        if value > 1000 {
-            formatter.maximumFractionDigits = 0
-            formatter.minimumFractionDigits = 0
-        } else {
-            formatter.maximumFractionDigits = 2
-            formatter.minimumFractionDigits = 2
-        }
-        return formatter.string(from: NSNumber(value: value)) ?? String(format: "%.0f", value)
+        formatter.maximumFractionDigits = 2
+        formatter.minimumFractionDigits = 2
+        return formatter.string(from: NSNumber(value: value)) ?? String(format: "%.2f", value)
     }
     
     var formattedChange: String {
@@ -316,7 +311,7 @@ struct TopPick: Identifiable {
     var changePercent: Double
     
     var formattedPrice: String {
-        price.asCurrency
+        price == 0 ? "—" : price.asCurrency
     }
     
     var formattedChange: String {
@@ -352,7 +347,7 @@ struct AlertItem: Identifiable {
     
     var iconColor: Color {
         switch type {
-        case .scoreChange: return .Brand.primary
+        case .scoreChange: return .Accent.gold
         case .signalChange: return .Signal.hold
         case .earnings: return .Signal.buy
         case .news: return .Text.secondary

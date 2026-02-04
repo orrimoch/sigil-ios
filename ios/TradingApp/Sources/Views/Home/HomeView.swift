@@ -9,18 +9,19 @@ struct HomeView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(spacing: 20) {
-                    // F3.2: Daily Quote
-                    DailyQuoteCard(quote: quote)
-                        .padding(.horizontal)
-                    
-                    // F4.1: Portfolio Summary Card
+                VStack(spacing: 24) {
+                    // F4.1: Portfolio Summary Card (H1: portfolio first)
                     PortfolioSummaryCard(
                         value: viewModel.portfolioValue,
                         change: viewModel.dailyChange,
                         changePercent: viewModel.dailyChangePercent
                     )
+                    .accessibilityElement(children: .combine)
                     .padding(.horizontal)
+                    
+                    // F3.2: Daily Quote
+                    DailyQuoteCard(quote: quote)
+                        .padding(.horizontal)
                     
                     // F4.2: Market Overview
                     MarketOverviewCard(indices: viewModel.marketIndices, errorMessage: viewModel.marketError)
@@ -50,6 +51,7 @@ struct HomeView: View {
             .toolbarBackground(Color.Background.primary, for: .navigationBar)
             .toolbarColorScheme(.dark, for: .navigationBar)
             .refreshable {
+                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                 await viewModel.refresh()
             }
             .task {
@@ -57,8 +59,39 @@ struct HomeView: View {
             }
             .overlay {
                 if viewModel.isLoading && viewModel.topPicks.isEmpty && viewModel.errorMessage == nil {
-                    ProgressView()
-                        .tint(.Brand.primary)
+                    // H9/H13: Skeleton loading state
+                    ScrollView {
+                        VStack(spacing: 24) {
+                            // Portfolio skeleton
+                            VStack(alignment: .leading, spacing: 12) {
+                                RoundedRectangle(cornerRadius: 4).fill(Color.Background.tertiary).frame(width: 100, height: 14)
+                                RoundedRectangle(cornerRadius: 4).fill(Color.Background.tertiary).frame(width: 200, height: 32)
+                                RoundedRectangle(cornerRadius: 4).fill(Color.Background.tertiary).frame(width: 160, height: 14)
+                            }.padding().background(Color.Background.secondary).cornerRadius(12).padding(.horizontal)
+                            // Market skeleton
+                            HStack(spacing: 12) {
+                                ForEach(0..<2, id: \.self) { _ in
+                                    VStack(alignment: .leading, spacing: 4) {
+                                        RoundedRectangle(cornerRadius: 4).fill(Color.Background.tertiary).frame(width: 60, height: 12)
+                                        RoundedRectangle(cornerRadius: 4).fill(Color.Background.tertiary).frame(width: 80, height: 18)
+                                    }.frame(maxWidth: .infinity).padding().background(Color.Background.secondary).cornerRadius(12)
+                                }
+                            }.padding(.horizontal)
+                            // Picks skeleton
+                            VStack(spacing: 8) {
+                                ForEach(0..<3, id: \.self) { _ in
+                                    HStack {
+                                        RoundedRectangle(cornerRadius: 4).fill(Color.Background.tertiary).frame(width: 50, height: 16)
+                                        Spacer()
+                                        RoundedRectangle(cornerRadius: 4).fill(Color.Background.tertiary).frame(width: 44, height: 28)
+                                        RoundedRectangle(cornerRadius: 4).fill(Color.Background.tertiary).frame(width: 70, height: 16)
+                                    }.padding(.horizontal)
+                                }
+                            }.padding().background(Color.Background.secondary).cornerRadius(12).padding(.horizontal)
+                        }
+                        .padding(.vertical)
+                    }
+                    .background(Color.Background.primary)
                 } else if let error = viewModel.errorMessage, viewModel.topPicks.isEmpty {
                     ErrorStateView(
                         title: "Something went wrong",
@@ -82,7 +115,7 @@ struct DailyQuoteCard: View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
                 Image(systemName: "quote.opening")
-                    .foregroundColor(.Brand.primary)
+                    .foregroundColor(.Text.tertiary)
                 Spacer()
             }
             
@@ -104,19 +137,25 @@ struct DailyQuoteCard: View {
 // MARK: - F4.1: Portfolio Summary Card
 
 struct PortfolioSummaryCard: View {
-    let value: Double
+    let value: Double?
     let change: Double
     let changePercent: Double
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Portfolio Value")
-                .font(.subheadline)
-                .foregroundColor(.Text.secondary)
-            
-            Text(value.asCurrency)
-                .font(.monoLarge)
+                .font(.headline)
                 .foregroundColor(.Text.primary)
+            
+            if let value = value {
+                Text(value.asCurrency)
+                    .font(.monoLarge)
+                    .foregroundColor(.Text.primary)
+            } else {
+                Text("$—")
+                    .font(.monoLarge)
+                    .foregroundColor(.Text.tertiary)
+            }
             
             HStack {
                 let changeColor: Color = change == 0 ? .Signal.neutral : (change > 0 ? .Signal.positive : .Signal.negative)
@@ -179,6 +218,7 @@ struct MarketOverviewCard: View {
                 LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
                     ForEach(indices) { index in
                         IndexTile(index: index)
+                            .accessibilityElement(children: .combine)
                     }
                 }
             }
@@ -228,7 +268,7 @@ struct TopAIPicksCard: View {
                     ScoresView()
                 }
                 .font(.caption)
-                .foregroundColor(.Brand.primary)
+                .foregroundColor(.Accent.gold)
             }
             
             if picks.isEmpty {
@@ -289,31 +329,20 @@ struct AIPickRow: View {
             }
             .frame(width: 100, alignment: .leading)
             
-            // AI Score badge
+            // M6: Merged score + signal into single badge (signal color)
             Text("\(pick.score)")
                 .font(.caption.bold())
                 .foregroundColor(.white)
                 .padding(.horizontal, 8)
                 .padding(.vertical, 4)
-                .background(pick.score >= 70 ? Color.Signal.buy : (pick.score >= 40 ? Color.Signal.hold : Color.Signal.sell))
+                .background(signalColor)
                 .cornerRadius(4)
             
             Spacer()
             
-            VStack(alignment: .trailing, spacing: 2) {
-                Text(pick.formattedPrice)
-                    .font(.mono)
-                    .foregroundColor(.Text.primary)
-                
-                // Signal recommendation badge
-                Text(pick.signal)
-                    .font(.caption.bold())
-                    .foregroundColor(.white)
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 2)
-                    .background(signalColor)
-                    .cornerRadius(4)
-            }
+            Text(pick.formattedPrice)
+                .font(.mono)
+                .foregroundColor(.Text.primary)
         }
         .padding(.vertical, 4)
     }
@@ -409,7 +438,7 @@ struct AlertRow: View {
             
             // Timestamp
             Text(alert.formattedTime)
-                .font(.caption2)
+                .font(.caption)
                 .foregroundColor(.Text.tertiary)
         }
         .padding(.vertical, 8)

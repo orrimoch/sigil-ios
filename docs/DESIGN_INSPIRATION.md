@@ -1,3 +1,5 @@
+<img src="sigil_logo.jpg" alt="Sigil" width="240" />
+
 # Design Inspiration — TradingApp iOS
 
 **Style:** Institutional Dark — Bloomberg/IBKR aesthetic  
