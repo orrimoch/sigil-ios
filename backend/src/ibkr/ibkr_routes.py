@@ -43,6 +43,26 @@ class IBKROrderRequest(BaseModel):
     auto_stop_loss_percent: Optional[float] = None  # e.g., 5.0 for 5% below entry
 
 
+class IBKRBracketOrderRequest(BaseModel):
+    """Bracket order request (REC-161)."""
+    ticker: str
+    side: str  # BUY or SELL
+    quantity: float
+    entry_price: float
+    take_profit_price: float
+    stop_loss_price: float
+    outside_rth: bool = False
+
+
+class IBKRWhatIfRequest(BaseModel):
+    """What-if order simulation request (REC-162)."""
+    ticker: str
+    side: str  # BUY or SELL
+    quantity: float
+    order_type: str = "MARKET"
+    limit_price: Optional[float] = None
+
+
 # ── Endpoints ───────────────────────────────────────────────────────────
 
 def _get_user_id(user) -> str:
@@ -315,6 +335,174 @@ async def cancel_ibkr_order(order_id: str, user=Depends(get_optional_user)):
         return {
             "success": True,
             "message": "Order cancellation requested",
+            "data": result,
+        }
+
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# Historical Bars (REC-160)
+# ═══════════════════════════════════════════════════════════════════════
+
+@ibkr_router.get("/bars/{ticker}")
+async def get_historical_bars(
+    ticker: str,
+    duration: str = Query("1 D", description="Time span: '1 D', '1 W', '1 M', '1 Y'"),
+    bar_size: str = Query("5 mins", description="Bar size: '1 min', '5 mins', '15 mins', '1 hour', '1 day'"),
+    what_to_show: str = Query("TRADES", description="Data type: TRADES, MIDPOINT, BID, ASK"),
+    use_rth: bool = Query(True, description="Only regular trading hours"),
+    user=Depends(get_optional_user),
+):
+    """
+    Get historical OHLCV bars from IB Gateway (REC-160).
+    
+    Better data quality than Yahoo Finance with real-time updates.
+    """
+    try:
+        service = get_ibkr_service()
+        bars = service.get_historical_bars(
+            user_id=_get_user_id(user),
+            ticker=ticker,
+            duration=duration,
+            bar_size=bar_size,
+            what_to_show=what_to_show,
+            use_rth=use_rth,
+        )
+
+        return {
+            "success": True,
+            "ticker": ticker.upper(),
+            "duration": duration,
+            "bar_size": bar_size,
+            "count": len(bars),
+            "data": bars,
+        }
+
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# Bracket Orders (REC-161)
+# ═══════════════════════════════════════════════════════════════════════
+
+@ibkr_router.post("/bracket")
+async def submit_bracket_order(
+    request: IBKRBracketOrderRequest,
+    user=Depends(get_optional_user),
+):
+    """
+    Submit a bracket order (entry + take-profit + stop-loss) to IB Gateway (REC-161).
+    
+    All three orders are linked - professional risk management in one call.
+    """
+    try:
+        service = get_ibkr_service()
+        result = service.submit_bracket_order(
+            user_id=_get_user_id(user),
+            ticker=request.ticker,
+            side=request.side,
+            quantity=request.quantity,
+            entry_price=request.entry_price,
+            take_profit_price=request.take_profit_price,
+            stop_loss_price=request.stop_loss_price,
+            outside_rth=request.outside_rth,
+        )
+
+        return {
+            "success": True,
+            "message": "Bracket order submitted",
+            "data": result,
+        }
+
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# Market Scanner (REC-157)
+# ═══════════════════════════════════════════════════════════════════════
+
+@ibkr_router.get("/scanner")
+async def get_scanner_results(
+    scan_code: str = Query("TOP_PERC_GAIN", description="Scan type: TOP_PERC_GAIN, TOP_PERC_LOSE, MOST_ACTIVE, HOT_BY_VOLUME"),
+    instrument: str = Query("STK", description="Instrument: STK, FUT, OPT"),
+    location: str = Query("STK.US.MAJOR", description="Location: STK.US.MAJOR, STK.NASDAQ, STK.NYSE"),
+    num_rows: int = Query(20, ge=1, le=50, description="Number of results (max 50)"),
+    above_price: float = Query(5.0, description="Minimum price"),
+    below_price: float = Query(10000.0, description="Maximum price"),
+    above_volume: int = Query(100000, description="Minimum volume"),
+    market_cap_above: float = Query(1e9, description="Minimum market cap"),
+    user=Depends(get_optional_user),
+):
+    """
+    Get market scanner results from IB Gateway (REC-157).
+    
+    Discover top gainers, losers, most active stocks in real-time.
+    """
+    try:
+        service = get_ibkr_service()
+        results = service.get_scanner_results(
+            user_id=_get_user_id(user),
+            scan_code=scan_code,
+            instrument=instrument,
+            location=location,
+            num_rows=num_rows,
+            above_price=above_price,
+            below_price=below_price,
+            above_volume=above_volume,
+            market_cap_above=market_cap_above,
+        )
+
+        return {
+            "success": True,
+            "scan_code": scan_code,
+            "count": len(results),
+            "data": results,
+        }
+
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# What-If Order Simulation (REC-162)
+# ═══════════════════════════════════════════════════════════════════════
+
+@ibkr_router.post("/whatif")
+async def what_if_order(
+    request: IBKRWhatIfRequest,
+    user=Depends(get_optional_user),
+):
+    """
+    Simulate an order to preview margin impact (REC-162).
+    
+    Shows initial/maintenance margin change and commission estimate
+    without actually placing the order.
+    """
+    try:
+        service = get_ibkr_service()
+        result = service.what_if_order(
+            user_id=_get_user_id(user),
+            ticker=request.ticker,
+            side=request.side,
+            quantity=request.quantity,
+            order_type=request.order_type,
+            limit_price=request.limit_price,
+        )
+
+        return {
+            "success": True,
             "data": result,
         }
 

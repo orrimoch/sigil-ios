@@ -265,6 +265,207 @@ final class IBKRService: ObservableObject {
         let result = try decoder.decode(IBKRQuoteResponse.self, from: data)
         return result.data
     }
+    
+    // MARK: - Historical Bars (REC-160)
+    
+    /// Get historical OHLCV bars from IB Gateway
+    /// Better data quality than Yahoo Finance with real-time updates
+    func getHistoricalBars(
+        ticker: String,
+        duration: String = "1 D",
+        barSize: String = "5 mins",
+        whatToShow: String = "TRADES",
+        useRth: Bool = true
+    ) async throws -> [IBKRBar] {
+        var components = URLComponents(string: "\(baseURL)/bars/\(ticker.uppercased())")!
+        components.queryItems = [
+            URLQueryItem(name: "duration", value: duration),
+            URLQueryItem(name: "bar_size", value: barSize),
+            URLQueryItem(name: "what_to_show", value: whatToShow),
+            URLQueryItem(name: "use_rth", value: useRth ? "true" : "false"),
+        ]
+        
+        var request = URLRequest(url: components.url!)
+        request.httpMethod = "GET"
+        
+        if let token = AuthService.shared.accessToken {
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse,
+              200...299 ~= httpResponse.statusCode else {
+            throw IBKRError.fetchFailed
+        }
+        
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        let result = try decoder.decode(IBKRBarsResponse.self, from: data)
+        return result.data
+    }
+    
+    // MARK: - Bracket Orders (REC-161)
+    
+    /// Submit a bracket order (entry + take-profit + stop-loss)
+    /// All three orders are linked — professional risk management in one call
+    func submitBracketOrder(
+        ticker: String,
+        side: String,
+        quantity: Double,
+        entryPrice: Double,
+        takeProfitPrice: Double,
+        stopLossPrice: Double,
+        outsideRth: Bool = false
+    ) async throws -> IBKRBracketResult {
+        let url = URL(string: "\(baseURL)/bracket")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        if let token = AuthService.shared.accessToken {
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+        
+        let body: [String: Any] = [
+            "ticker": ticker,
+            "side": side,
+            "quantity": quantity,
+            "entry_price": entryPrice,
+            "take_profit_price": takeProfitPrice,
+            "stop_loss_price": stopLossPrice,
+            "outside_rth": outsideRth,
+        ]
+        request.httpBody = try JSONSerialization.data(withJSONObject: body)
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse,
+              200...299 ~= httpResponse.statusCode else {
+            let statusCode = (response as? HTTPURLResponse)?.statusCode ?? 0
+            throw IBKRError.orderFailed("Bracket order failed: HTTP \(statusCode)")
+        }
+        
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        let result = try decoder.decode(IBKRBracketResponse.self, from: data)
+        return result.data
+    }
+    
+    // MARK: - Market Scanner (REC-157)
+    
+    /// Get market scanner results from IB Gateway
+    /// Discover top gainers, losers, most active stocks in real-time
+    func getScannerResults(
+        scanCode: String = "TOP_PERC_GAIN",
+        instrument: String = "STK",
+        location: String = "STK.US.MAJOR",
+        numRows: Int = 20,
+        abovePrice: Double = 5.0,
+        belowPrice: Double = 10000.0,
+        aboveVolume: Int = 100000,
+        marketCapAbove: Double = 1_000_000_000
+    ) async throws -> [IBKRScannerResult] {
+        var components = URLComponents(string: "\(baseURL)/scanner")!
+        components.queryItems = [
+            URLQueryItem(name: "scan_code", value: scanCode),
+            URLQueryItem(name: "instrument", value: instrument),
+            URLQueryItem(name: "location", value: location),
+            URLQueryItem(name: "num_rows", value: String(numRows)),
+            URLQueryItem(name: "above_price", value: String(abovePrice)),
+            URLQueryItem(name: "below_price", value: String(belowPrice)),
+            URLQueryItem(name: "above_volume", value: String(aboveVolume)),
+            URLQueryItem(name: "market_cap_above", value: String(marketCapAbove)),
+        ]
+        
+        var request = URLRequest(url: components.url!)
+        request.httpMethod = "GET"
+        
+        if let token = AuthService.shared.accessToken {
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse,
+              200...299 ~= httpResponse.statusCode else {
+            throw IBKRError.fetchFailed
+        }
+        
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        let result = try decoder.decode(IBKRScannerResponse.self, from: data)
+        return result.data
+    }
+    
+    // MARK: - What-If Order Simulation (REC-162)
+    
+    /// Simulate an order to preview margin impact without placing it
+    /// Shows initial/maintenance margin change and commission estimate
+    func whatIfOrder(
+        ticker: String,
+        side: String,
+        quantity: Double,
+        orderType: String = "MARKET",
+        limitPrice: Double? = nil
+    ) async throws -> IBKRWhatIfResult {
+        let url = URL(string: "\(baseURL)/whatif")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        if let token = AuthService.shared.accessToken {
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+        
+        var body: [String: Any] = [
+            "ticker": ticker,
+            "side": side,
+            "quantity": quantity,
+            "order_type": orderType,
+        ]
+        if let limitPrice = limitPrice {
+            body["limit_price"] = limitPrice
+        }
+        request.httpBody = try JSONSerialization.data(withJSONObject: body)
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse,
+              200...299 ~= httpResponse.statusCode else {
+            throw IBKRError.fetchFailed
+        }
+        
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        let result = try decoder.decode(IBKRWhatIfResponse.self, from: data)
+        return result.data
+    }
+    
+    // MARK: - Margin Monitor (REC-153)
+    
+    /// Get margin status and alerts
+    func getMarginStatus() async throws -> IBKRMarginStatus {
+        let url = URL(string: "\(baseURL)/margin")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        
+        if let token = AuthService.shared.accessToken {
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse,
+              200...299 ~= httpResponse.statusCode else {
+            throw IBKRError.fetchFailed
+        }
+        
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        let result = try decoder.decode(IBKRMarginResponse.self, from: data)
+        return result.data
+    }
 }
 
 // MARK: - Errors
@@ -353,4 +554,126 @@ struct IBKRQuote: Codable {
     let price: Double?
     let mid: Double?
     let timestamp: String
+}
+
+// MARK: - Historical Bars (REC-160)
+
+struct IBKRBarsResponse: Codable {
+    let success: Bool
+    let ticker: String
+    let duration: String
+    let barSize: String
+    let count: Int
+    let data: [IBKRBar]
+}
+
+struct IBKRBar: Codable, Identifiable {
+    let date: String
+    let open: Double
+    let high: Double
+    let low: Double
+    let close: Double
+    let volume: Int
+    
+    var id: String { date }
+}
+
+// MARK: - Bracket Orders (REC-161)
+
+struct IBKRBracketResponse: Codable {
+    let success: Bool
+    let message: String
+    let data: IBKRBracketResult
+}
+
+struct IBKRBracketResult: Codable {
+    let ticker: String
+    let side: String
+    let quantity: Double
+    let entry: IBKRBracketLeg
+    let takeProfit: IBKRBracketLeg
+    let stopLoss: IBKRBracketLeg
+    let isPaper: Bool
+}
+
+struct IBKRBracketLeg: Codable {
+    let orderId: String
+    let orderType: String
+    let status: String
+    let limitPrice: Double?
+    let stopPrice: Double?
+}
+
+// MARK: - Market Scanner (REC-157)
+
+struct IBKRScannerResponse: Codable {
+    let success: Bool
+    let scanCode: String
+    let count: Int
+    let data: [IBKRScannerResult]
+}
+
+struct IBKRScannerResult: Codable, Identifiable {
+    let rank: Int
+    let ticker: String
+    let exchange: String
+    let contractId: Int?
+    let distance: String?
+    let benchmark: String?
+    let projection: String?
+    let legsStr: String?
+    
+    var id: Int { rank }
+}
+
+// MARK: - What-If Order (REC-162)
+
+struct IBKRWhatIfResponse: Codable {
+    let success: Bool
+    let data: IBKRWhatIfResult
+}
+
+struct IBKRWhatIfResult: Codable {
+    let ticker: String
+    let side: String
+    let quantity: Double
+    let orderType: String
+    let limitPrice: Double?
+    
+    // Margin info
+    let initMarginBefore: Double
+    let initMarginAfter: Double
+    let initMarginChange: Double
+    let maintMarginBefore: Double
+    let maintMarginAfter: Double
+    let maintMarginChange: Double
+    let equityWithLoanBefore: Double
+    let equityWithLoanAfter: Double
+    let equityWithLoanChange: Double
+    
+    // Commission
+    let commission: Double
+    let minCommission: Double
+    let maxCommission: Double
+    let commissionCurrency: String
+    
+    // Warning
+    let warningText: String?
+}
+
+// MARK: - Margin Monitor (REC-153)
+
+struct IBKRMarginResponse: Codable {
+    let success: Bool
+    let data: IBKRMarginStatus
+}
+
+struct IBKRMarginStatus: Codable {
+    let netLiquidation: Double
+    let buyingPower: Double
+    let grossPositionValue: Double
+    let marginUsedPercent: Double
+    let marginAvailablePercent: Double
+    let alertLevel: String?
+    let isPaper: Bool
 }

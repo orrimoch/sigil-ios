@@ -732,6 +732,387 @@ class IBKRService:
             logger.error("Failed to get quote for %s: %s", _ticker, exc)
             raise ValueError(f"Failed to get quote for {_ticker}: {exc}") from exc
 
+    # -- historical bars (REC-160) ---------------------------------------
+
+    def get_historical_bars(
+        self,
+        user_id: str,
+        ticker: str,
+        duration: str = "1 D",
+        bar_size: str = "5 mins",
+        what_to_show: str = "TRADES",
+        use_rth: bool = True,
+    ) -> List[dict]:
+        """
+        Get historical OHLCV bars from IB Gateway (REC-160).
+
+        Better data quality than Yahoo Finance, real-time during market hours.
+
+        Args:
+            ticker: Stock symbol
+            duration: Time span (e.g., '1 D', '1 W', '1 M', '1 Y')
+            bar_size: Bar period ('1 min', '5 mins', '15 mins', '1 hour', '1 day')
+            what_to_show: Data type ('TRADES', 'MIDPOINT', 'BID', 'ASK')
+            use_rth: If True, only regular trading hours data
+
+        Returns:
+            List of bar dicts with date, open, high, low, close, volume
+        """
+        conn = self.get_connection(user_id)
+        if conn.state != IBKRConnectionState.CONNECTED:
+            raise ValueError("IBKR not connected. Please connect first.")
+
+        ibc = self._get_ib(user_id)
+        ibi = _IBConnection._import_ib_insync()
+        _ticker = ticker.upper()
+
+        def _fetch_bars(ib):
+            contract = ibi.Stock(_ticker, "SMART", "USD")
+            ib.qualifyContracts(contract)
+
+            bars = ib.reqHistoricalData(
+                contract,
+                endDateTime="",  # Current time
+                durationStr=duration,
+                barSizeSetting=bar_size,
+                whatToShow=what_to_show,
+                useRTH=use_rth,
+                formatDate=2,  # UTC datetime
+            )
+
+            return bars
+
+        try:
+            bars = ibc.run_ib(_fetch_bars)
+        except Exception as exc:
+            logger.error("Failed to fetch historical bars for %s: %s", _ticker, exc)
+            raise ValueError(f"Failed to fetch historical bars: {exc}") from exc
+
+        # Convert to list of dicts
+        result = []
+        for bar in bars:
+            result.append({
+                "date": bar.date.isoformat() if hasattr(bar.date, 'isoformat') else str(bar.date),
+                "open": float(bar.open),
+                "high": float(bar.high),
+                "low": float(bar.low),
+                "close": float(bar.close),
+                "volume": int(bar.volume),
+            })
+
+        logger.info("Fetched %d bars for %s (%s, %s)", len(result), _ticker, duration, bar_size)
+        return result
+
+    # -- bracket orders (REC-161) -----------------------------------------
+
+    def submit_bracket_order(
+        self,
+        user_id: str,
+        ticker: str,
+        side: str,
+        quantity: float,
+        entry_price: float,
+        take_profit_price: float,
+        stop_loss_price: float,
+        outside_rth: bool = False,
+    ) -> dict:
+        """
+        Submit a bracket order (entry + take-profit + stop-loss) to IB Gateway (REC-161).
+
+        All three orders are linked - if one fills/cancels, the others adjust.
+
+        Args:
+            ticker: Stock symbol
+            side: BUY or SELL
+            quantity: Number of shares
+            entry_price: Limit price for entry order
+            take_profit_price: Limit price for profit target
+            stop_loss_price: Stop price for loss protection
+
+        Returns:
+            Dict with entry, take_profit, and stop_loss order details
+        """
+        conn = self.get_connection(user_id)
+        if conn.state != IBKRConnectionState.CONNECTED:
+            raise ValueError("IBKR not connected. Please connect first.")
+
+        if quantity <= 0:
+            raise ValueError("Quantity must be positive")
+
+        side_upper = side.upper()
+        if side_upper not in ("BUY", "SELL"):
+            raise ValueError(f"Invalid side: {side}. Must be BUY or SELL.")
+
+        # Validate prices make sense
+        if side_upper == "BUY":
+            if take_profit_price <= entry_price:
+                raise ValueError("Take profit must be above entry price for BUY")
+            if stop_loss_price >= entry_price:
+                raise ValueError("Stop loss must be below entry price for BUY")
+        else:
+            if take_profit_price >= entry_price:
+                raise ValueError("Take profit must be below entry price for SELL")
+            if stop_loss_price <= entry_price:
+                raise ValueError("Stop loss must be above entry price for SELL")
+
+        ibc = self._get_ib(user_id)
+        ibi = _IBConnection._import_ib_insync()
+        _ticker = ticker.upper()
+
+        def _place_bracket(ib):
+            contract = ibi.Stock(_ticker, "SMART", "USD")
+            ib.qualifyContracts(contract)
+
+            # Create bracket order using IB's helper
+            bracket = ib.bracketOrder(
+                action=side_upper,
+                quantity=quantity,
+                limitPrice=entry_price,
+                takeProfitPrice=take_profit_price,
+                stopLossPrice=stop_loss_price,
+            )
+
+            # Apply extended hours if requested
+            if outside_rth:
+                for order in bracket:
+                    order.outsideRth = True
+
+            # Place all three orders
+            trades = []
+            for order in bracket:
+                trade = ib.placeOrder(contract, order)
+                trades.append(trade)
+                ib.sleep(0.2)
+
+            # Wait briefly for status updates
+            ib.sleep(1.0)
+
+            return trades
+
+        try:
+            trades = ibc.run_ib(_place_bracket)
+        except Exception as exc:
+            logger.error("Bracket order failed: %s", exc)
+            raise ValueError(f"Bracket order failed: {exc}") from exc
+
+        # Build result with all three orders
+        def trade_to_dict(trade, order_type):
+            return {
+                "order_id": str(trade.order.orderId),
+                "order_type": order_type,
+                "status": trade.orderStatus.status,
+                "limit_price": getattr(trade.order, 'lmtPrice', None),
+                "stop_price": getattr(trade.order, 'auxPrice', None),
+            }
+
+        result = {
+            "ticker": _ticker,
+            "side": side_upper,
+            "quantity": quantity,
+            "entry": trade_to_dict(trades[0], "ENTRY"),
+            "take_profit": trade_to_dict(trades[1], "TAKE_PROFIT"),
+            "stop_loss": trade_to_dict(trades[2], "STOP_LOSS"),
+            "is_paper": conn.is_paper,
+        }
+
+        logger.info(
+            "Bracket order placed: %s %s x%.0f entry=%.2f tp=%.2f sl=%.2f",
+            side_upper, _ticker, quantity, entry_price, take_profit_price, stop_loss_price
+        )
+
+        return result
+
+    # -- market scanner (REC-157) -----------------------------------------
+
+    def get_scanner_results(
+        self,
+        user_id: str,
+        scan_code: str = "TOP_PERC_GAIN",
+        instrument: str = "STK",
+        location: str = "STK.US.MAJOR",
+        num_rows: int = 20,
+        above_price: float = 5.0,
+        below_price: float = 10000.0,
+        above_volume: int = 100000,
+        market_cap_above: float = 1e9,
+    ) -> List[dict]:
+        """
+        Get market scanner results from IB Gateway (REC-157).
+
+        Scan codes: TOP_PERC_GAIN, TOP_PERC_LOSE, MOST_ACTIVE, HOT_BY_VOLUME,
+                    HIGH_VS_13W_HL, LOW_VS_13W_HL, HIGH_VS_52W_HL, LOW_VS_52W_HL
+
+        Args:
+            scan_code: Type of scan (default: TOP_PERC_GAIN)
+            instrument: Instrument type (STK, FUT, etc.)
+            location: Market location (STK.US.MAJOR, STK.NASDAQ, etc.)
+            num_rows: Number of results (max 50)
+            above_price: Minimum price filter
+            below_price: Maximum price filter
+            above_volume: Minimum volume filter
+            market_cap_above: Minimum market cap filter
+
+        Returns:
+            List of scanner results with ticker, price, change, volume
+        """
+        conn = self.get_connection(user_id)
+        if conn.state != IBKRConnectionState.CONNECTED:
+            raise ValueError("IBKR not connected. Please connect first.")
+
+        ibc = self._get_ib(user_id)
+        ibi = _IBConnection._import_ib_insync()
+
+        def _run_scanner(ib):
+            subscription = ibi.ScannerSubscription(
+                numberOfRows=min(num_rows, 50),
+                instrument=instrument,
+                locationCode=location,
+                scanCode=scan_code,
+                abovePrice=above_price,
+                belowPrice=below_price,
+                aboveVolume=above_volume,
+                marketCapAbove=market_cap_above,
+            )
+
+            results = ib.reqScannerSubscription(subscription)
+            ib.sleep(2.0)  # Wait for data
+
+            # Cancel subscription after getting results
+            ib.cancelScannerSubscription(results)
+
+            return results
+
+        try:
+            scan_data = ibc.run_ib(_run_scanner)
+        except Exception as exc:
+            logger.error("Scanner failed: %s", exc)
+            raise ValueError(f"Scanner failed: {exc}") from exc
+
+        # Convert to list of dicts
+        result = []
+        for item in scan_data:
+            contract = item.contractDetails.contract if item.contractDetails else None
+            result.append({
+                "rank": item.rank,
+                "ticker": contract.symbol if contract else "N/A",
+                "exchange": contract.exchange if contract else "N/A",
+                "contract_id": contract.conId if contract else None,
+                "distance": getattr(item, 'distance', None),
+                "benchmark": getattr(item, 'benchmark', None),
+                "projection": getattr(item, 'projection', None),
+                "legs_str": getattr(item, 'legsStr', None),
+            })
+
+        logger.info("Scanner %s returned %d results", scan_code, len(result))
+        return result
+
+    # -- what-if order simulation (REC-162) -------------------------------
+
+    def what_if_order(
+        self,
+        user_id: str,
+        ticker: str,
+        side: str,
+        quantity: float,
+        order_type: str = "MARKET",
+        limit_price: Optional[float] = None,
+    ) -> dict:
+        """
+        Simulate an order to preview margin impact without placing it (REC-162).
+
+        Shows initial margin, maintenance margin, commission estimate.
+
+        Args:
+            ticker: Stock symbol
+            side: BUY or SELL
+            quantity: Number of shares
+            order_type: MARKET or LIMIT
+            limit_price: Required for LIMIT orders
+
+        Returns:
+            Dict with margin impact and commission estimate
+        """
+        conn = self.get_connection(user_id)
+        if conn.state != IBKRConnectionState.CONNECTED:
+            raise ValueError("IBKR not connected. Please connect first.")
+
+        if quantity <= 0:
+            raise ValueError("Quantity must be positive")
+
+        side_upper = side.upper()
+        if side_upper not in ("BUY", "SELL"):
+            raise ValueError(f"Invalid side: {side}. Must be BUY or SELL.")
+
+        order_type_upper = order_type.upper()
+        if order_type_upper not in ("MARKET", "LIMIT"):
+            raise ValueError("What-if only supports MARKET and LIMIT orders")
+
+        if order_type_upper == "LIMIT" and limit_price is None:
+            raise ValueError("Limit price required for LIMIT orders")
+
+        ibc = self._get_ib(user_id)
+        ibi = _IBConnection._import_ib_insync()
+        _ticker = ticker.upper()
+
+        def _simulate(ib):
+            contract = ibi.Stock(_ticker, "SMART", "USD")
+            ib.qualifyContracts(contract)
+
+            if order_type_upper == "MARKET":
+                order = ibi.MarketOrder(side_upper, quantity)
+            else:
+                order = ibi.LimitOrder(side_upper, quantity, limit_price)
+
+            # Run what-if simulation
+            order_state = ib.whatIfOrder(contract, order)
+            return order_state
+
+        try:
+            state = ibc.run_ib(_simulate)
+        except Exception as exc:
+            logger.error("What-if simulation failed: %s", exc)
+            raise ValueError(f"What-if simulation failed: {exc}") from exc
+
+        # Parse the order state
+        def safe_float(val):
+            try:
+                return float(val) if val else 0.0
+            except (ValueError, TypeError):
+                return 0.0
+
+        result = {
+            "ticker": _ticker,
+            "side": side_upper,
+            "quantity": quantity,
+            "order_type": order_type_upper,
+            "limit_price": limit_price,
+            # Margin info
+            "init_margin_before": safe_float(state.initMarginBefore),
+            "init_margin_after": safe_float(state.initMarginAfter),
+            "init_margin_change": safe_float(state.initMarginChange),
+            "maint_margin_before": safe_float(state.maintMarginBefore),
+            "maint_margin_after": safe_float(state.maintMarginAfter),
+            "maint_margin_change": safe_float(state.maintMarginChange),
+            "equity_with_loan_before": safe_float(state.equityWithLoanBefore),
+            "equity_with_loan_after": safe_float(state.equityWithLoanAfter),
+            "equity_with_loan_change": safe_float(state.equityWithLoanChange),
+            # Commission
+            "commission": safe_float(state.commission),
+            "min_commission": safe_float(state.minCommission),
+            "max_commission": safe_float(state.maxCommission),
+            "commission_currency": state.commissionCurrency or "USD",
+            # Warning messages
+            "warning_text": state.warningText or None,
+        }
+
+        logger.info(
+            "What-if: %s %s x%.0f - margin change: %.2f, commission: %.2f",
+            side_upper, _ticker, quantity,
+            result["init_margin_change"], result["commission"]
+        )
+
+        return result
+
     # -- account summary --------------------------------------------------
 
     def get_account_summary(self, user_id: str) -> dict:
