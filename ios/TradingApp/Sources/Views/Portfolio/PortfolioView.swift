@@ -55,11 +55,14 @@ struct PortfolioView: View {
                         )
                     }
                     
-                    // Tab selector for Holdings / Chart / Sectors
+                    // Tab selector for Holdings / Chart / Sectors / History
                     Picker("View", selection: $selectedTab) {
                         Text("Holdings").tag(0)
                         Text("Chart").tag(1)
                         Text("Sectors").tag(2)
+                        if IBKRService.shared.isConnected {
+                            Text("History").tag(3)
+                        }
                     }
                     .pickerStyle(.segmented)
                     
@@ -73,6 +76,9 @@ struct PortfolioView: View {
                     case 2:
                         // F7.3: Sector Allocation
                         SectorAllocationSection(viewModel: viewModel)
+                    case 3:
+                        // REC-167: Trade History from IB
+                        TradeHistoryContent()
                     default:
                         EmptyView()
                     }
@@ -644,6 +650,93 @@ struct SectorAllocationSection: View {
     
     func colorForSector(_ sector: String) -> Color {
         sectorColors[sector] ?? .gray
+    }
+}
+
+// MARK: - Trade History Content (REC-167)
+
+/// Embedded trade history for Portfolio tab (no NavigationStack)
+private struct TradeHistoryContent: View {
+    @State private var executions: [IBKRTradeExecution] = []
+    @State private var isLoading = true
+    @State private var error: String?
+    
+    var body: some View {
+        VStack(spacing: 12) {
+            if isLoading {
+                VStack {
+                    ProgressView()
+                        .tint(.Brand.primary)
+                    Text("Loading executions...")
+                        .font(.caption)
+                        .foregroundColor(.Text.tertiary)
+                }
+                .frame(minHeight: 200)
+            } else if let error = error {
+                VStack(spacing: 12) {
+                    Image(systemName: "exclamationmark.triangle")
+                        .font(.largeTitle)
+                        .foregroundColor(.Signal.hold)
+                    Text(error)
+                        .font(.caption)
+                        .foregroundColor(.Text.secondary)
+                }
+                .frame(minHeight: 200)
+            } else if executions.isEmpty {
+                VStack(spacing: 12) {
+                    Image(systemName: "clock.arrow.circlepath")
+                        .font(.largeTitle)
+                        .foregroundColor(.Text.tertiary)
+                    Text("No executions yet")
+                        .font(.headline)
+                    Text("Your IB Gateway trades will appear here")
+                        .font(.caption)
+                        .foregroundColor(.Text.secondary)
+                }
+                .frame(minHeight: 200)
+            } else {
+                ForEach(executions) { exec in
+                    HStack {
+                        Circle()
+                            .fill(exec.side.contains("BOT") ? Color.Signal.buy : Color.Signal.sell)
+                            .frame(width: 8, height: 8)
+                        Text(exec.ticker)
+                            .font(.headline)
+                        Spacer()
+                        VStack(alignment: .trailing) {
+                            Text("\(Int(exec.quantity)) @ $\(exec.price, specifier: "%.2f")")
+                                .font(.subheadline)
+                            if let commission = exec.commission {
+                                Text("Fee: $\(commission, specifier: "%.2f")")
+                                    .font(.caption)
+                                    .foregroundColor(.Text.tertiary)
+                            }
+                        }
+                    }
+                    .padding()
+                    .background(Color.Background.secondary)
+                    .cornerRadius(12)
+                }
+            }
+        }
+        .task {
+            await loadHistory()
+        }
+    }
+    
+    private func loadHistory() async {
+        guard IBKRService.shared.isConnected else {
+            error = "Not connected to IB Gateway"
+            isLoading = false
+            return
+        }
+        
+        do {
+            executions = try await IBKRService.shared.getTradeHistory()
+        } catch {
+            self.error = error.localizedDescription
+        }
+        isLoading = false
     }
 }
 

@@ -119,6 +119,11 @@ struct SettingsView: View {
                 }
                 .listRowBackground(Color.Background.secondary)
                 
+                // REC-168: Daily Loss Limit (Risk Management)
+                if IBKRService.shared.isConnected {
+                    DailyLossLimitSettingsSection()
+                }
+                
                 // F8.4: Notifications Section (M2: differentiated icon colors, H5: gold tints)
                 Section {
                     Toggle(isOn: $viewModel.weeklyScoreAlerts) {
