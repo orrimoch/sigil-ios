@@ -58,6 +58,7 @@ from trading import (
 )
 # BUG-025 fix: removed OrderManager/get_order_manager/reset_order_manager imports
 # DB (UserTradingService) is the single source of truth — no JSON dual persistence
+from trading.portfolio import get_portfolio_history
 
 # F4.4 Alerts imports
 from alerts import Alert, AlertType, AlertManager, get_alert_manager
@@ -1094,11 +1095,10 @@ async def get_score_explanation(ticker: str):
                     "signal": result.signal.value,
                     "explanation": {
                         "summary": explanation.summary,
-                        "factors": [
-                            {"name": f.name, "score": f.score, "weight": f.weight, "contribution": f.contribution, "detail": f.detail}
-                            for f in explanation.factors
-                        ],
-                        "recommendation": explanation.recommendation,
+                        "signal_reason": explanation.signal_reason,
+                        "components": explanation.component_breakdown,
+                        "strengths": explanation.strengths,
+                        "weaknesses": explanation.weaknesses,
                     }
                 }
             }

@@ -89,9 +89,13 @@ class UserTradingService:
                     holding["unrealized_pnl_percent"] = round(unrealized_pnl_pct, 2)  # BUG-010
                     total_market_value += market_value
             except Exception:
-                holding["current_price"] = None
-                holding["market_value"] = None
-                holding["unrealized_pnl"] = None
+                # Use avg_cost as fallback so iOS decode doesn't break
+                holding["current_price"] = pos.avg_cost
+                holding["market_value"] = round(pos.quantity * pos.avg_cost, 2)
+                holding["cost_basis"] = round(pos.quantity * pos.avg_cost, 2)
+                holding["unrealized_pnl"] = 0.0
+                holding["unrealized_pnl_percent"] = 0.0
+                total_market_value += pos.quantity * pos.avg_cost
             holdings.append(holding)
 
         total_value = portfolio.cash_balance + total_market_value
