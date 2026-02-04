@@ -465,7 +465,7 @@ enum RiskTolerance: String, CaseIterable {
 // MARK: - IBKR Connection View
 
 struct IBKRConnectionView: View {
-    @StateObject private var ibkrService = IBKRService.shared
+    @ObservedObject private var ibkrService = IBKRService.shared
     @State private var showRiskDisclosure = false
     @State private var showDisconnectAlert = false
     @State private var connectionError: String?

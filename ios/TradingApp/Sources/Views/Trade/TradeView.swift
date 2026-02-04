@@ -520,6 +520,16 @@ struct OrderPreviewSheet: View {
             }
         }
         .presentationDetents([.medium, .large])
+        .alert("⚠️ LIVE TRADE", isPresented: $viewModel.showLiveTradeConfirmation) {
+            Button("Cancel", role: .cancel) {}
+            Button("Confirm Trade", role: .destructive) {
+                Task {
+                    await viewModel.confirmLiveTrade()
+                }
+            }
+        } message: {
+            Text("This will execute a real trade with real money via your IBKR account. Are you sure you want to proceed?")
+        }
     }
 }
 

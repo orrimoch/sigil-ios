@@ -21,7 +21,7 @@ class UserPortfolio(Base):
     __tablename__ = "portfolios"
 
     id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
-    user_id = Column(String(36), nullable=False, index=True)
+    user_id = Column(String(36), nullable=False, unique=True, index=True)
     cash_balance = Column(Float, default=100000.0, nullable=False)
     starting_cash = Column(Float, default=100000.0, nullable=False)
     realized_pnl = Column(Float, default=0.0, nullable=False)

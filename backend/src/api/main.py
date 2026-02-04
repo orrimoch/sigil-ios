@@ -7,10 +7,11 @@ Features:
 - F6.x: Trading (Orders, Portfolio, Paper/Live modes)
 """
 
-from fastapi import FastAPI, HTTPException, Query, BackgroundTasks
+from fastapi import FastAPI, HTTPException, Query, BackgroundTasks, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional, Dict
+from sqlalchemy.ext.asyncio import AsyncSession
 from datetime import datetime
 import sys
 import logging
@@ -64,9 +65,15 @@ from alerts import Alert, AlertType, AlertManager, get_alert_manager
 
 # Auth imports
 from auth import auth_router, init_db
+from auth.middleware import get_optional_user
+from auth.database import get_db_session
 
 # IBKR imports
 from ibkr import ibkr_router
+
+# Per-user trading service
+from trading.user_trading_service import UserTradingService
+from db.models import ANONYMOUS_USER_ID
 
 # Auth config — set to False so existing tests/endpoints keep working without tokens
 AUTH_REQUIRED = False
@@ -1006,23 +1013,20 @@ async def calculate_all_scores(background_tasks: BackgroundTasks):
 # ========== Portfolio Endpoints (F6.2) ==========
 
 @app.get("/api/v1/portfolio")
-async def get_portfolio_endpoint():
+async def get_portfolio_endpoint(
+    user=Depends(get_optional_user),
+    db: AsyncSession = Depends(get_db_session),
+):
     """
-    Get portfolio summary and holdings.
+    Get portfolio summary and holdings (per-user).
     """
     try:
-        portfolio = get_portfolio()
-        summary = portfolio.get_summary()
-        holdings = portfolio.get_holdings()
+        user_id = user.id if user else ANONYMOUS_USER_ID
+        data = await UserTradingService.get_portfolio_data(db, user_id)
         
         return {
             "success": True,
-            "data": {
-                "summary": summary.to_dict(),
-                "holdings": holdings,
-                "is_paper": portfolio.is_paper,
-                "realized_pnl": round(portfolio.realized_pnl, 2),
-            }
+            "data": data,
         }
         
     except Exception as e:
@@ -1071,26 +1075,33 @@ async def get_portfolio_holdings():
 
 @app.post("/api/v1/portfolio/reset")
 async def reset_portfolio_endpoint(
-    starting_cash: float = Query(100000.0, description="Starting cash amount")
+    starting_cash: float = Query(100000.0, description="Starting cash amount"),
+    user=Depends(get_optional_user),
+    db: AsyncSession = Depends(get_db_session),
 ):
     """
-    Reset paper trading portfolio.
+    Reset paper trading portfolio (per-user).
     
     Clears all positions and resets cash to starting amount.
     """
     try:
-        portfolio = reset_portfolio(starting_cash)
-        reset_order_manager()  # Also clear orders
+        user_id = user.id if user else ANONYMOUS_USER_ID
+        portfolio = await UserTradingService.reset_portfolio(db, user_id, starting_cash)
         
-        # Clear history too
-        history = get_portfolio_history()
-        history.clear()
+        # Also reset in-memory fallback
+        try:
+            reset_portfolio(starting_cash)
+            reset_order_manager()
+            history = get_portfolio_history()
+            history.clear()
+        except Exception:
+            pass  # In-memory fallback may not exist
         
         return {
             "success": True,
             "message": "Portfolio reset successfully",
             "data": {
-                "cash": portfolio.cash,
+                "cash": portfolio.cash_balance,
                 "starting_cash": portfolio.starting_cash,
             }
         }
@@ -1197,33 +1208,43 @@ class OrderRequest(BaseModel):
 
 
 @app.post("/api/v1/orders")
-async def create_order(request: OrderRequest):
+async def create_order(
+    request: OrderRequest,
+    user=Depends(get_optional_user),
+    db: AsyncSession = Depends(get_db_session),
+):
     """
-    Create a new order.
+    Create a new order (per-user).
     
     For paper trading, market orders execute immediately.
     """
     try:
-        manager = get_order_manager()
+        user_id = user.id if user else ANONYMOUS_USER_ID
         
-        # Parse enums
-        try:
-            side = OrderSide(request.side.upper())
-        except ValueError:
-            raise HTTPException(status_code=400, detail=f"Invalid side: {request.side}")
-        
-        try:
-            order_type = OrderType(request.order_type.upper())
-        except ValueError:
-            raise HTTPException(status_code=400, detail=f"Invalid order type: {request.order_type}")
-        
-        order = manager.create_order(
+        order = await UserTradingService.create_order(
+            db=db,
+            user_id=user_id,
             ticker=request.ticker,
-            side=side,
+            side=request.side,
             quantity=request.quantity,
-            order_type=order_type,
+            order_type=request.order_type,
             limit_price=request.limit_price,
         )
+        
+        # Also execute on in-memory fallback for backward compat
+        try:
+            manager = get_order_manager()
+            side_enum = OrderSide(request.side.upper())
+            type_enum = OrderType(request.order_type.upper())
+            manager.create_order(
+                ticker=request.ticker,
+                side=side_enum,
+                quantity=request.quantity,
+                order_type=type_enum,
+                limit_price=request.limit_price,
+            )
+        except Exception:
+            pass  # In-memory fallback is best-effort
         
         return {
             "success": True,
@@ -1241,21 +1262,22 @@ async def get_orders(
     status: Optional[str] = Query(None, description="Filter by status: PENDING, FILLED, CANCELLED"),
     ticker: Optional[str] = Query(None, description="Filter by ticker"),
     limit: int = Query(50, ge=1, le=1000),
+    user=Depends(get_optional_user),
+    db: AsyncSession = Depends(get_db_session),
 ):
     """
-    Get orders with optional filters.
+    Get orders with optional filters (per-user).
     """
     try:
-        manager = get_order_manager()
+        user_id = user.id if user else ANONYMOUS_USER_ID
         
-        order_status = None
-        if status:
-            try:
-                order_status = OrderStatus(status.upper())
-            except ValueError:
-                raise HTTPException(status_code=400, detail=f"Invalid status: {status}")
-        
-        orders = manager.get_orders(status=order_status, ticker=ticker, limit=limit)
+        orders = await UserTradingService.get_orders(
+            db=db,
+            user_id=user_id,
+            status=status,
+            ticker=ticker,
+            limit=limit,
+        )
         
         return {
             "success": True,
@@ -1270,13 +1292,16 @@ async def get_orders(
 
 
 @app.get("/api/v1/orders/today")
-async def get_todays_orders():
+async def get_todays_orders(
+    user=Depends(get_optional_user),
+    db: AsyncSession = Depends(get_db_session),
+):
     """
-    Get today's orders.
+    Get today's orders (per-user).
     """
     try:
-        manager = get_order_manager()
-        orders = manager.get_todays_orders()
+        user_id = user.id if user else ANONYMOUS_USER_ID
+        orders = await UserTradingService.get_todays_orders(db, user_id)
         
         return {
             "success": True,
@@ -1331,13 +1356,17 @@ async def get_order_by_id(order_id: str):
 
 
 @app.delete("/api/v1/orders/{order_id}")
-async def cancel_order(order_id: str):
+async def cancel_order(
+    order_id: str,
+    user=Depends(get_optional_user),
+    db: AsyncSession = Depends(get_db_session),
+):
     """
-    Cancel a pending order.
+    Cancel a pending order (per-user).
     """
     try:
-        manager = get_order_manager()
-        order = manager.cancel_order(order_id)
+        user_id = user.id if user else ANONYMOUS_USER_ID
+        order = await UserTradingService.cancel_order(db, user_id, order_id)
         
         return {
             "success": True,

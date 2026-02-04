@@ -126,6 +126,35 @@ final class NotificationService: ObservableObject {
         }
     }
     
+    /// Send a batched notification when multiple watched stocks change signal
+    func sendBatchScoreAlert(count: Int, summary: String) {
+        guard UserDefaults.standard.bool(forKey: "scoreAlerts") else { return }
+        guard isAuthorized else { return }
+        
+        let content = UNMutableNotificationContent()
+        content.title = "📊 \(count) watched stocks changed signals"
+        content.body = summary
+        content.sound = .default
+        content.categoryIdentifier = "SCORE_ALERT"
+        content.userInfo = [
+            "type": "score_alert_batch",
+            "count": count
+        ]
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+        let request = UNNotificationRequest(
+            identifier: "score-batch-\(Date().timeIntervalSince1970)",
+            content: content,
+            trigger: trigger
+        )
+        
+        center.add(request) { error in
+            if let error {
+                print("[NotificationService] Failed to schedule batch score notification: \(error)")
+            }
+        }
+    }
+    
     // MARK: - Weekly Score Update (F9.1)
     
     /// Schedule a weekly notification for score updates (Sundays 7pm EST)
@@ -191,10 +220,9 @@ final class NotificationService: ObservableObject {
             content.title = "📊 Weekly Score Update"
             
             var bodyParts: [String] = []
-            bodyParts.append("New scores available.")
-            bodyParts.append("\(data.buyCount) BUY signals")
+            bodyParts.append("\(data.buyCount) BUY, \(data.holdCount) HOLD, \(data.sellCount) SELL signals this week.")
             if data.signalChanges > 0 {
-                bodyParts.append("\(data.signalChanges) signal changes this week.")
+                bodyParts.append("\(data.signalChanges) signal changes.")
             }
             content.body = bodyParts.joined(separator: " ")
             content.sound = .default

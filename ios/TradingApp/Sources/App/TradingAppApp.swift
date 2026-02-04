@@ -51,11 +51,21 @@ struct SigilApp: App {
                                     await notificationService.updateWeeklyContentFromAPI()
                                 }
                             }
+                            // F9.3: Check for signal changes on app launch
+                            Task {
+                                await WatchlistService.shared.checkForSignalChanges()
+                            }
                             // Prompt PIN setup if not set up yet (after first use)
                             if !lockManager.isSetUp && !UserDefaults.standard.bool(forKey: "pinSetupDismissed") {
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                                     showPinSetup = true
                                 }
+                            }
+                        }
+                        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+                            // F9.3: Check for signal changes when app returns to foreground
+                            Task {
+                                await WatchlistService.shared.checkForSignalChanges()
                             }
                         }
                         .sheet(isPresented: $showPinSetup) {

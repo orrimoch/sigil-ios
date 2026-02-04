@@ -4,16 +4,15 @@ F6.3 IBKR API Routes
 Endpoints for IBKR connection management and live order submission.
 """
 
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, HTTPException, Query, Depends
 from pydantic import BaseModel
 from typing import Optional
 
 from .ibkr_service import get_ibkr_service
+from auth.middleware import get_optional_user
+from db.models import ANONYMOUS_USER_ID
 
 ibkr_router = APIRouter(prefix="/api/v1/ibkr", tags=["ibkr"])
-
-# Default user ID when auth is not required
-ANONYMOUS_USER_ID = "anonymous"
 
 
 # ── Request / Response Schemas ──────────────────────────────────────────
@@ -32,8 +31,16 @@ class IBKROrderRequest(BaseModel):
 
 # ── Endpoints ───────────────────────────────────────────────────────────
 
+def _get_user_id(user) -> str:
+    """Extract user_id from optional user, fallback to ANONYMOUS_USER_ID."""
+    return user.id if user else ANONYMOUS_USER_ID
+
+
 @ibkr_router.post("/connect")
-async def connect_ibkr(request: IBKRConnectRequest):
+async def connect_ibkr(
+    request: IBKRConnectRequest,
+    user=Depends(get_optional_user),
+):
     """
     Connect to IBKR via mock OAuth flow.
 
@@ -43,7 +50,7 @@ async def connect_ibkr(request: IBKRConnectRequest):
     try:
         service = get_ibkr_service()
         conn = service.connect(
-            user_id=ANONYMOUS_USER_ID,
+            user_id=_get_user_id(user),
             account_id=request.account_id,
         )
 
@@ -58,11 +65,11 @@ async def connect_ibkr(request: IBKRConnectRequest):
 
 
 @ibkr_router.get("/status")
-async def get_ibkr_status():
+async def get_ibkr_status(user=Depends(get_optional_user)):
     """Get current IBKR connection status."""
     try:
         service = get_ibkr_service()
-        conn = service.get_status(user_id=ANONYMOUS_USER_ID)
+        conn = service.get_status(user_id=_get_user_id(user))
 
         return {
             "success": True,
@@ -74,11 +81,11 @@ async def get_ibkr_status():
 
 
 @ibkr_router.post("/disconnect")
-async def disconnect_ibkr():
+async def disconnect_ibkr(user=Depends(get_optional_user)):
     """Disconnect from IBKR."""
     try:
         service = get_ibkr_service()
-        conn = service.disconnect(user_id=ANONYMOUS_USER_ID)
+        conn = service.disconnect(user_id=_get_user_id(user))
 
         return {
             "success": True,
@@ -91,7 +98,10 @@ async def disconnect_ibkr():
 
 
 @ibkr_router.post("/orders")
-async def submit_ibkr_order(request: IBKROrderRequest):
+async def submit_ibkr_order(
+    request: IBKROrderRequest,
+    user=Depends(get_optional_user),
+):
     """
     Submit an order to IBKR.
 
@@ -100,7 +110,7 @@ async def submit_ibkr_order(request: IBKROrderRequest):
     try:
         service = get_ibkr_service()
         order = service.submit_order(
-            user_id=ANONYMOUS_USER_ID,
+            user_id=_get_user_id(user),
             ticker=request.ticker,
             side=request.side,
             quantity=request.quantity,
@@ -120,11 +130,11 @@ async def submit_ibkr_order(request: IBKROrderRequest):
 
 
 @ibkr_router.get("/positions")
-async def get_ibkr_positions():
+async def get_ibkr_positions(user=Depends(get_optional_user)):
     """Get IBKR account positions."""
     try:
         service = get_ibkr_service()
-        positions = service.get_positions(user_id=ANONYMOUS_USER_ID)
+        positions = service.get_positions(user_id=_get_user_id(user))
 
         return {
             "success": True,

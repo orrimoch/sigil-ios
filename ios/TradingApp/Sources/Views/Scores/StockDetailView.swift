@@ -6,7 +6,7 @@ import Charts
 struct StockDetailView: View {
     let ticker: String
     @StateObject private var viewModel: StockDetailViewModel
-    @StateObject private var watchlistService = WatchlistService.shared
+    @ObservedObject private var watchlistService = WatchlistService.shared
     @State private var showTradeSheet = false
     @State private var showScoreBreakdown = false
     

@@ -46,7 +46,8 @@ final class WatchlistService: ObservableObject {
     
     // MARK: - Score Change Detection
     
-    /// Check for signal changes on watched stocks and send notifications
+    /// Check for signal changes on watched stocks and send notifications.
+    /// If more than 3 changes, sends a single summary notification instead of individual ones.
     func checkForSignalChanges() async {
         guard UserDefaults.standard.bool(forKey: "scoreAlerts") else { return }
         guard !watchedTickers.isEmpty else { return }
@@ -54,16 +55,30 @@ final class WatchlistService: ObservableObject {
         do {
             let response = try await APIService.shared.getScoreChanges()
             
-            for change in response.data {
-                // Only notify for watched stocks
-                guard isWatched(change.ticker) else { continue }
+            // Filter to watched stocks only
+            let watchedChanges = response.data.filter { isWatched($0.ticker) }
+            guard !watchedChanges.isEmpty else { return }
+            
+            if watchedChanges.count > 3 {
+                // Batch notification: summarize all changes
+                let firstThree = watchedChanges.prefix(3).map { "\($0.ticker) → \($0.newSignal)" }
+                let remaining = watchedChanges.count - 3
+                let summary = firstThree.joined(separator: ", ") + ", and \(remaining) more."
                 
-                NotificationService.shared.sendScoreAlert(
-                    ticker: change.ticker,
-                    oldSignal: change.oldSignal,
-                    newSignal: change.newSignal,
-                    score: change.newScore
+                NotificationService.shared.sendBatchScoreAlert(
+                    count: watchedChanges.count,
+                    summary: summary
                 )
+            } else {
+                // Individual notifications for 3 or fewer changes
+                for change in watchedChanges {
+                    NotificationService.shared.sendScoreAlert(
+                        ticker: change.ticker,
+                        oldSignal: change.oldSignal,
+                        newSignal: change.newSignal,
+                        score: change.newScore
+                    )
+                }
             }
         } catch {
             print("[WatchlistService] Failed to check signal changes: \(error)")

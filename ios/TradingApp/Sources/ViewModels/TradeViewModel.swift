@@ -26,6 +26,7 @@ class TradeViewModel: ObservableObject {
     // Order flow
     @Published var showPreview = false
     @Published var showConfirmation = false
+    @Published var showLiveTradeConfirmation = false
     @Published var isSubmitting = false
     @Published var lastOrder: OrderData?
     @Published var orderError: String?
@@ -191,8 +192,22 @@ class TradeViewModel: ObservableObject {
         return !AppState.shared.isPaperTrading && IBKRService.shared.isConnected
     }
     
+    /// Confirm and execute a live IBKR trade after user acknowledged the warning
+    func confirmLiveTrade() async {
+        // showLiveTradeConfirmation is already true, so submitOrder will proceed
+        await submitOrder()
+    }
+    
     func submitOrder() async {
         guard let stock = selectedStock, canSubmitOrder else { return }
+        
+        // F6.3: Extra confirmation for live IBKR trades
+        if shouldUseIBKR && !showLiveTradeConfirmation {
+            showLiveTradeConfirmation = true
+            return
+        }
+        // Reset the confirmation flag after use
+        showLiveTradeConfirmation = false
         
         isSubmitting = true
         orderError = nil
