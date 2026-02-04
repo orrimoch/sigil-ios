@@ -1391,6 +1391,251 @@ class TestIBKRWhatIf:
 
 
 # ═══════════════════════════════════════════════════════════════════════
+# Trade History Tests (REC-154)
+# ═══════════════════════════════════════════════════════════════════════
+
+class TestIBKRTradeHistory:
+    """Tests for get_trade_history() (REC-154)."""
+
+    def test_get_trade_history_success(self):
+        """Fetch trade executions from IB."""
+        svc = IBKRService()
+        mock_ib = _make_mock_ib()
+
+        # Mock fill data
+        mock_execution = MagicMock()
+        mock_execution.execId = "0001"
+        mock_execution.orderId = 100
+        mock_execution.side = "BOT"
+        mock_execution.shares = 100
+        mock_execution.price = 185.50
+        mock_execution.avgPrice = 185.50
+        mock_execution.time = datetime(2026, 1, 15, 10, 30, 0)
+        mock_execution.exchange = "SMART"
+        mock_execution.acctNumber = "DUP526287"
+
+        mock_contract = MagicMock()
+        mock_contract.symbol = "AAPL"
+
+        mock_commission = MagicMock()
+        mock_commission.commission = 1.50
+        mock_commission.realizedPNL = 0.0
+        mock_commission.currency = "USD"
+
+        mock_fill = MagicMock()
+        mock_fill.execution = mock_execution
+        mock_fill.contract = mock_contract
+        mock_fill.commissionReport = mock_commission
+
+        mock_ib.fills.return_value = [mock_fill]
+
+        _patch_ibc_connect(svc, "user1", mock_ib)
+
+        history = svc.get_trade_history("user1")
+
+        assert len(history) == 1
+        assert history[0]["ticker"] == "AAPL"
+        assert history[0]["quantity"] == 100
+        assert history[0]["price"] == 185.50
+        assert history[0]["commission"] == 1.50
+
+    def test_get_trade_history_not_connected(self):
+        """Should raise if not connected."""
+        svc = IBKRService()
+        with pytest.raises(ValueError, match="not connected"):
+            svc.get_trade_history("user1")
+
+    def test_get_trade_history_empty(self):
+        """Empty fills list returns empty result."""
+        svc = IBKRService()
+        mock_ib = _make_mock_ib()
+        mock_ib.fills.return_value = []
+
+        _patch_ibc_connect(svc, "user1", mock_ib)
+
+        history = svc.get_trade_history("user1")
+        assert history == []
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# Daily Loss Limit Tests (REC-152)
+# ═══════════════════════════════════════════════════════════════════════
+
+class TestIBKRDailyLossLimit:
+    """Tests for daily loss limit functionality (REC-152)."""
+
+    def test_get_daily_pnl(self):
+        """Fetch daily PnL from IB."""
+        svc = IBKRService()
+        mock_ib = _make_mock_ib()
+
+        # Mock account summary with PnL data
+        mock_values = [
+            MagicMock(tag="RealizedPnL", value="100.00"),
+            MagicMock(tag="UnrealizedPnL", value="-50.00"),
+            MagicMock(tag="NetLiquidation", value="100000.00"),
+        ]
+        mock_ib.accountSummary.return_value = mock_values
+
+        _patch_ibc_connect(svc, "user1", mock_ib)
+
+        pnl = svc.get_daily_pnl("user1")
+
+        assert pnl["realized_pnl"] == 100.0
+        assert pnl["unrealized_pnl"] == -50.0
+        assert pnl["daily_pnl"] == 50.0
+        assert pnl["trading_halted"] is False
+
+    def test_trading_halted_on_loss(self):
+        """Trading halted when loss exceeds limit."""
+        svc = IBKRService()
+        mock_ib = _make_mock_ib()
+
+        # Mock large loss (more than 5% of net liquidation)
+        mock_values = [
+            MagicMock(tag="RealizedPnL", value="-3000.00"),
+            MagicMock(tag="UnrealizedPnL", value="-3000.00"),
+            MagicMock(tag="NetLiquidation", value="100000.00"),
+        ]
+        mock_ib.accountSummary.return_value = mock_values
+
+        _patch_ibc_connect(svc, "user1", mock_ib)
+
+        pnl = svc.get_daily_pnl("user1")
+
+        assert pnl["daily_pnl"] == -6000.0
+        assert pnl["trading_halted"] is True
+
+    def test_get_daily_pnl_not_connected(self):
+        """Should raise if not connected."""
+        svc = IBKRService()
+        with pytest.raises(ValueError, match="not connected"):
+            svc.get_daily_pnl("user1")
+
+    def test_set_daily_loss_limit(self):
+        """Set user's daily loss limit."""
+        svc = IBKRService()
+        mock_ib = _make_mock_ib()
+        _patch_ibc_connect(svc, "user1", mock_ib)
+
+        result = svc.set_daily_loss_limit("user1", 3.0)
+
+        assert result["loss_limit_percent"] == 3.0
+
+    def test_set_daily_loss_limit_invalid(self):
+        """Invalid loss limit values rejected."""
+        svc = IBKRService()
+        mock_ib = _make_mock_ib()
+        _patch_ibc_connect(svc, "user1", mock_ib)
+
+        with pytest.raises(ValueError, match="between 0 and 100"):
+            svc.set_daily_loss_limit("user1", 0)
+
+        with pytest.raises(ValueError, match="between 0 and 100"):
+            svc.set_daily_loss_limit("user1", 150)
+
+    def test_is_trading_halted(self):
+        """Check trading halt status."""
+        svc = IBKRService()
+        # Clear any state from other tests
+        svc._daily_loss_state.clear()
+
+        # Initially not halted (no state)
+        assert svc.is_trading_halted("new_user_123") is False
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# Volume Spike Tests (REC-159)
+# ═══════════════════════════════════════════════════════════════════════
+
+class TestIBKRVolumeSpike:
+    """Tests for volume spike detection (REC-159)."""
+
+    def test_get_volume_analysis(self):
+        """Analyze volume for spike detection."""
+        svc = IBKRService()
+        mock_ib = _make_mock_ib()
+
+        # Mock historical bars
+        mock_bar = MagicMock()
+        mock_bar.volume = 1000000
+        mock_ib.reqHistoricalData.return_value = [mock_bar] * 20
+        mock_ib.qualifyContracts.return_value = None
+
+        # Mock current volume (3x average = spike)
+        mock_ticker = MagicMock()
+        mock_ticker.volume = 3000000
+        mock_ib.reqMktData.return_value = mock_ticker
+        mock_ib.cancelMktData.return_value = None
+
+        _patch_ibc_connect(svc, "user1", mock_ib)
+
+        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+            analysis = svc.get_volume_analysis("user1", "AAPL")
+
+        assert analysis["ticker"] == "AAPL"
+        assert analysis["current_volume"] == 3000000
+        assert analysis["avg_volume"] == 1000000
+        assert analysis["volume_ratio"] == 3.0
+        assert analysis["is_spike"] is True
+        assert analysis["alert_level"] == "HIGH"
+
+    def test_no_spike_below_threshold(self):
+        """Volume below threshold is not a spike."""
+        svc = IBKRService()
+        mock_ib = _make_mock_ib()
+
+        mock_bar = MagicMock()
+        mock_bar.volume = 1000000
+        mock_ib.reqHistoricalData.return_value = [mock_bar] * 20
+        mock_ib.qualifyContracts.return_value = None
+
+        # Current volume only 1.5x average (below 2.0 threshold)
+        mock_ticker = MagicMock()
+        mock_ticker.volume = 1500000
+        mock_ib.reqMktData.return_value = mock_ticker
+        mock_ib.cancelMktData.return_value = None
+
+        _patch_ibc_connect(svc, "user1", mock_ib)
+
+        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+            analysis = svc.get_volume_analysis("user1", "AAPL")
+
+        assert analysis["is_spike"] is False
+        assert analysis["alert_level"] is None
+
+    def test_volume_analysis_not_connected(self):
+        """Should raise if not connected."""
+        svc = IBKRService()
+        with pytest.raises(ValueError, match="not connected"):
+            svc.get_volume_analysis("user1", "AAPL")
+
+    def test_check_watchlist_volume_spikes(self):
+        """Check multiple tickers for spikes."""
+        svc = IBKRService()
+        mock_ib = _make_mock_ib()
+
+        # Mock spike detection (will be called per ticker)
+        mock_bar = MagicMock()
+        mock_bar.volume = 1000000
+        mock_ib.reqHistoricalData.return_value = [mock_bar] * 20
+        mock_ib.qualifyContracts.return_value = None
+
+        mock_ticker = MagicMock()
+        mock_ticker.volume = 3000000  # Spike!
+        mock_ib.reqMktData.return_value = mock_ticker
+        mock_ib.cancelMktData.return_value = None
+
+        _patch_ibc_connect(svc, "user1", mock_ib)
+
+        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+            spikes = svc.check_watchlist_volume_spikes("user1", ["AAPL", "NVDA"])
+
+        # Both should be spikes with our mock
+        assert len(spikes) == 2
+
+
+# ═══════════════════════════════════════════════════════════════════════
 
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])

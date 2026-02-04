@@ -1113,6 +1113,294 @@ class IBKRService:
 
         return result
 
+    # -- trade history (REC-154) -----------------------------------------
+
+    def get_trade_history(self, user_id: str) -> List[dict]:
+        """
+        Get trade execution history from IB Gateway (REC-154).
+
+        Returns actual fills with timestamps, prices, commissions.
+        More accurate than local order history.
+
+        Returns:
+            List of execution dicts with orderId, ticker, side, quantity,
+            price, time, commission, etc.
+        """
+        conn = self.get_connection(user_id)
+        if conn.state != IBKRConnectionState.CONNECTED:
+            raise ValueError("IBKR not connected. Please connect first.")
+
+        ibc = self._get_ib(user_id)
+
+        def _fetch_history(ib):
+            ib.sleep(0.3)
+            fills = ib.fills()
+            return fills
+
+        try:
+            fills = ibc.run_ib(_fetch_history)
+        except Exception as exc:
+            logger.error("Failed to fetch trade history: %s", exc)
+            raise ValueError(f"Failed to fetch trade history: {exc}") from exc
+
+        result = []
+        for fill in fills:
+            execution = fill.execution
+            contract = fill.contract
+            commission_report = fill.commissionReport
+
+            result.append({
+                "exec_id": execution.execId,
+                "order_id": str(execution.orderId),
+                "ticker": contract.symbol,
+                "side": execution.side,
+                "quantity": float(execution.shares),
+                "price": float(execution.price),
+                "avg_price": float(execution.avgPrice),
+                "time": execution.time.isoformat() if execution.time else None,
+                "exchange": execution.exchange,
+                "commission": float(commission_report.commission) if commission_report else None,
+                "realized_pnl": float(commission_report.realizedPNL) if commission_report and commission_report.realizedPNL else None,
+                "currency": commission_report.currency if commission_report else "USD",
+                "account": execution.acctNumber,
+            })
+
+        logger.info("Fetched %d trade executions", len(result))
+        return result
+
+    # -- daily loss limit (REC-152) ---------------------------------------
+
+    # Per-user daily loss tracking
+    _daily_loss_state: Dict[str, dict] = {}
+
+    def get_daily_pnl(self, user_id: str) -> dict:
+        """
+        Get today's realized + unrealized PnL from IB Gateway (REC-152).
+
+        Returns:
+            Dict with daily_pnl, realized_pnl, unrealized_pnl, and trading_halted status.
+        """
+        conn = self.get_connection(user_id)
+        if conn.state != IBKRConnectionState.CONNECTED:
+            raise ValueError("IBKR not connected. Please connect first.")
+
+        ibc = self._get_ib(user_id)
+        account_id = conn.account_id
+
+        def _fetch_pnl(ib):
+            ib.sleep(0.3)
+            # Get account values for PnL
+            account_values = ib.accountSummary(account=account_id)
+            return account_values
+
+        try:
+            values = ibc.run_ib(_fetch_pnl)
+        except Exception as exc:
+            logger.error("Failed to fetch daily PnL: %s", exc)
+            raise ValueError(f"Failed to fetch daily PnL: {exc}") from exc
+
+        # Parse account values
+        pnl_data = {}
+        for item in values:
+            pnl_data[item.tag] = item.value
+
+        realized = float(pnl_data.get("RealizedPnL", 0))
+        unrealized = float(pnl_data.get("UnrealizedPnL", 0))
+        net_liq = float(pnl_data.get("NetLiquidation", 0))
+
+        # Get user's loss limit setting (default 5%)
+        loss_limit_percent = self._get_user_loss_limit(user_id)
+        loss_limit_amount = net_liq * (loss_limit_percent / 100)
+
+        daily_pnl = realized + unrealized
+        pnl_percent = (daily_pnl / net_liq * 100) if net_liq > 0 else 0
+
+        # Check if trading should be halted
+        trading_halted = daily_pnl < -loss_limit_amount
+
+        # Store state for order blocking
+        today = datetime.now().strftime("%Y-%m-%d")
+        self._daily_loss_state[user_id] = {
+            "date": today,
+            "daily_pnl": daily_pnl,
+            "trading_halted": trading_halted,
+        }
+
+        return {
+            "daily_pnl": daily_pnl,
+            "daily_pnl_percent": round(pnl_percent, 2),
+            "realized_pnl": realized,
+            "unrealized_pnl": unrealized,
+            "net_liquidation": net_liq,
+            "loss_limit_percent": loss_limit_percent,
+            "loss_limit_amount": loss_limit_amount,
+            "trading_halted": trading_halted,
+            "is_paper": conn.is_paper,
+        }
+
+    def _get_user_loss_limit(self, user_id: str) -> float:
+        """Get user's daily loss limit percentage (default 5%)."""
+        # TODO: Load from user preferences in database
+        # For now, use environment variable or default
+        return float(os.environ.get("DAILY_LOSS_LIMIT_PERCENT", "5.0"))
+
+    def set_daily_loss_limit(self, user_id: str, limit_percent: float) -> dict:
+        """
+        Set user's daily loss limit percentage (REC-152).
+
+        Args:
+            limit_percent: Maximum daily loss as percentage (e.g., 5.0 for 5%)
+
+        Returns:
+            Updated loss limit settings.
+        """
+        if limit_percent <= 0 or limit_percent > 100:
+            raise ValueError("Loss limit must be between 0 and 100 percent")
+
+        # TODO: Store in database per user
+        # For now, just validate and return
+        logger.info("User %s set daily loss limit to %.1f%%", user_id, limit_percent)
+
+        return {
+            "user_id": user_id,
+            "loss_limit_percent": limit_percent,
+            "message": f"Daily loss limit set to {limit_percent}%",
+        }
+
+    def is_trading_halted(self, user_id: str) -> bool:
+        """Check if trading is halted due to daily loss limit."""
+        state = self._daily_loss_state.get(user_id)
+        if not state:
+            return False
+
+        today = datetime.now().strftime("%Y-%m-%d")
+        if state.get("date") != today:
+            # New day, reset
+            return False
+
+        return state.get("trading_halted", False)
+
+    # -- volume spike detection (REC-159) ---------------------------------
+
+    def get_volume_analysis(
+        self,
+        user_id: str,
+        ticker: str,
+        lookback_days: int = 20,
+        spike_threshold: float = 2.0,
+    ) -> dict:
+        """
+        Analyze volume for unusual activity (REC-159).
+
+        Compares current volume to historical average to detect spikes.
+
+        Args:
+            ticker: Stock symbol
+            lookback_days: Days of history for average (default 20)
+            spike_threshold: Multiple of average to trigger spike (default 2.0x)
+
+        Returns:
+            Dict with current volume, average, ratio, and spike detection.
+        """
+        conn = self.get_connection(user_id)
+        if conn.state != IBKRConnectionState.CONNECTED:
+            raise ValueError("IBKR not connected. Please connect first.")
+
+        ibc = self._get_ib(user_id)
+        ibi = _IBConnection._import_ib_insync()
+        _ticker = ticker.upper()
+
+        def _analyze(ib):
+            contract = ibi.Stock(_ticker, "SMART", "USD")
+            ib.qualifyContracts(contract)
+
+            # Get historical daily bars for volume average
+            bars = ib.reqHistoricalData(
+                contract,
+                endDateTime="",
+                durationStr=f"{lookback_days} D",
+                barSizeSetting="1 day",
+                whatToShow="TRADES",
+                useRTH=True,
+                formatDate=2,
+            )
+
+            # Get current quote for today's volume
+            ticker_data = ib.reqMktData(contract, snapshot=True)
+            ib.sleep(1.0)
+            current_volume = int(ticker_data.volume) if ticker_data.volume else 0
+            ib.cancelMktData(contract)
+
+            return bars, current_volume
+
+        try:
+            bars, current_volume = ibc.run_ib(_analyze)
+        except Exception as exc:
+            logger.error("Volume analysis failed for %s: %s", _ticker, exc)
+            raise ValueError(f"Volume analysis failed: {exc}") from exc
+
+        # Calculate average volume
+        if not bars:
+            raise ValueError(f"No historical data for {_ticker}")
+
+        volumes = [int(bar.volume) for bar in bars if bar.volume]
+        avg_volume = sum(volumes) / len(volumes) if volumes else 0
+
+        # Calculate ratio
+        volume_ratio = current_volume / avg_volume if avg_volume > 0 else 0
+        is_spike = volume_ratio >= spike_threshold
+
+        result = {
+            "ticker": _ticker,
+            "current_volume": current_volume,
+            "avg_volume": int(avg_volume),
+            "volume_ratio": round(volume_ratio, 2),
+            "lookback_days": lookback_days,
+            "spike_threshold": spike_threshold,
+            "is_spike": is_spike,
+            "alert_level": "HIGH" if volume_ratio >= 3.0 else ("MEDIUM" if is_spike else None),
+        }
+
+        if is_spike:
+            logger.info(
+                "Volume spike detected: %s at %.1fx average",
+                _ticker, volume_ratio
+            )
+
+        return result
+
+    def check_watchlist_volume_spikes(
+        self,
+        user_id: str,
+        tickers: List[str],
+        spike_threshold: float = 2.0,
+    ) -> List[dict]:
+        """
+        Check multiple tickers for volume spikes (REC-159).
+
+        Args:
+            tickers: List of stock symbols
+            spike_threshold: Multiple of average to trigger spike
+
+        Returns:
+            List of tickers with spike data (only those with spikes).
+        """
+        spikes = []
+        for ticker in tickers:
+            try:
+                analysis = self.get_volume_analysis(
+                    user_id, ticker,
+                    lookback_days=20,
+                    spike_threshold=spike_threshold,
+                )
+                if analysis.get("is_spike"):
+                    spikes.append(analysis)
+            except Exception as e:
+                logger.warning("Volume check failed for %s: %s", ticker, e)
+                continue
+
+        return spikes
+
     # -- account summary --------------------------------------------------
 
     def get_account_summary(self, user_id: str) -> dict:

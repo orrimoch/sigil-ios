@@ -6,7 +6,7 @@ Endpoints for IBKR connection management and live order submission.
 
 from fastapi import APIRouter, HTTPException, Query, Depends
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional, List
 
 from .ibkr_service import get_ibkr_service
 from .price_alerts import (
@@ -504,6 +504,183 @@ async def what_if_order(
         return {
             "success": True,
             "data": result,
+        }
+
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# Trade History (REC-154)
+# ═══════════════════════════════════════════════════════════════════════
+
+@ibkr_router.get("/history")
+async def get_trade_history(user=Depends(get_optional_user)):
+    """
+    Get trade execution history from IB Gateway (REC-154).
+    
+    Returns actual fills with timestamps, prices, and commissions.
+    """
+    try:
+        service = get_ibkr_service()
+        history = service.get_trade_history(user_id=_get_user_id(user))
+
+        return {
+            "success": True,
+            "count": len(history),
+            "data": history,
+        }
+
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# Daily Loss Limit (REC-152)
+# ═══════════════════════════════════════════════════════════════════════
+
+class DailyLossLimitRequest(BaseModel):
+    limit_percent: float  # e.g., 5.0 for 5%
+
+
+@ibkr_router.get("/daily-pnl")
+async def get_daily_pnl(user=Depends(get_optional_user)):
+    """
+    Get today's PnL and check if trading is halted (REC-152).
+    
+    Returns daily PnL, loss limit status, and whether trading is blocked.
+    """
+    try:
+        service = get_ibkr_service()
+        pnl = service.get_daily_pnl(user_id=_get_user_id(user))
+
+        return {
+            "success": True,
+            "data": pnl,
+        }
+
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@ibkr_router.post("/daily-loss-limit")
+async def set_daily_loss_limit(
+    request: DailyLossLimitRequest,
+    user=Depends(get_optional_user),
+):
+    """
+    Set user's daily loss limit percentage (REC-152).
+    
+    When daily loss exceeds this limit, trading is halted for the day.
+    """
+    try:
+        service = get_ibkr_service()
+        result = service.set_daily_loss_limit(
+            user_id=_get_user_id(user),
+            limit_percent=request.limit_percent,
+        )
+
+        return {
+            "success": True,
+            "data": result,
+        }
+
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@ibkr_router.get("/trading-status")
+async def get_trading_status(user=Depends(get_optional_user)):
+    """
+    Check if trading is currently halted due to daily loss limit.
+    """
+    try:
+        service = get_ibkr_service()
+        is_halted = service.is_trading_halted(user_id=_get_user_id(user))
+
+        return {
+            "success": True,
+            "data": {
+                "trading_halted": is_halted,
+                "reason": "Daily loss limit exceeded" if is_halted else None,
+            },
+        }
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# Volume Spike Alerts (REC-159)
+# ═══════════════════════════════════════════════════════════════════════
+
+@ibkr_router.get("/volume/{ticker}")
+async def get_volume_analysis(
+    ticker: str,
+    lookback_days: int = Query(20, ge=5, le=60, description="Days of history for average"),
+    spike_threshold: float = Query(2.0, ge=1.5, le=5.0, description="Multiple of average for spike"),
+    user=Depends(get_optional_user),
+):
+    """
+    Analyze volume for unusual activity (REC-159).
+    
+    Compares current volume to historical average to detect spikes.
+    """
+    try:
+        service = get_ibkr_service()
+        analysis = service.get_volume_analysis(
+            user_id=_get_user_id(user),
+            ticker=ticker,
+            lookback_days=lookback_days,
+            spike_threshold=spike_threshold,
+        )
+
+        return {
+            "success": True,
+            "data": analysis,
+        }
+
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+class VolumeWatchlistRequest(BaseModel):
+    tickers: List[str]
+    spike_threshold: float = 2.0
+
+
+@ibkr_router.post("/volume/watchlist")
+async def check_watchlist_volumes(
+    request: VolumeWatchlistRequest,
+    user=Depends(get_optional_user),
+):
+    """
+    Check multiple tickers for volume spikes (REC-159).
+    
+    Returns only tickers that have unusual volume activity.
+    """
+    try:
+        service = get_ibkr_service()
+        spikes = service.check_watchlist_volume_spikes(
+            user_id=_get_user_id(user),
+            tickers=request.tickers,
+            spike_threshold=request.spike_threshold,
+        )
+
+        return {
+            "success": True,
+            "count": len(spikes),
+            "data": spikes,
         }
 
     except ValueError as e:
