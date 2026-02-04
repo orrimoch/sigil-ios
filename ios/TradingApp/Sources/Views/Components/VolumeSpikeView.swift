@@ -14,7 +14,7 @@ struct VolumeSpikeBadge: View {
     private var badgeColor: Color {
         switch alertLevel?.uppercased() {
         case "HIGH": return .Signal.sell
-        case "MEDIUM": return .orange
+        case "MEDIUM": return .Signal.warning
         default: return .Signal.hold
         }
     }
@@ -90,7 +90,7 @@ struct VolumeAnalysisCard: View {
                     if analysis.isSpike {
                         HStack(spacing: 6) {
                             Image(systemName: "exclamationmark.triangle.fill")
-                                .foregroundColor(analysis.alertLevel == "HIGH" ? .Signal.sell : .orange)
+                                .foregroundColor(analysis.alertLevel == "HIGH" ? .Signal.sell : .Signal.warning)
                             Text("Volume \(analysis.volumeRatio, specifier: "%.1f")x above average")
                                 .font(.caption)
                                 .foregroundColor(.Text.secondary)
@@ -175,7 +175,7 @@ private struct VolumeComparisonBar: View {
                 
                 // Current volume
                 RoundedRectangle(cornerRadius: 4)
-                    .fill(ratio >= 2 ? Color.Signal.sell : (ratio >= 1.5 ? Color.orange : Color.Brand.primary))
+                    .fill(ratio >= 2 ? Color.Signal.sell : (ratio >= 1.5 ? Color.Signal.warning : Color.Brand.primary))
                     .frame(width: geometry.size.width * (ratio / 3))
             }
         }
@@ -279,7 +279,7 @@ private struct VolumeSpikeRow: View {
     private var alertColor: Color {
         switch spike.alertLevel?.uppercased() {
         case "HIGH": return .Signal.sell
-        case "MEDIUM": return .orange
+        case "MEDIUM": return .Signal.warning
         default: return .Signal.hold
         }
     }

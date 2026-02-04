@@ -106,67 +106,96 @@ struct DailyLossLimitSettingsSection: View {
     @State private var showSavedToast = false
     @State private var isLoading = true
     @State private var saveError: String?
+    @State private var loadError: String?
+    @State private var hasLoadedFromBackend = false
     
     var body: some View {
         Section {
-            // Enable/Disable Toggle
-            Toggle(isOn: $isEnabled) {
+            if isLoading {
+                // Loading skeleton
                 HStack {
                     Image(systemName: "shield.fill")
                         .foregroundColor(.Brand.primary)
                     Text("Daily Loss Limit")
                         .foregroundColor(.Text.primary)
-                }
-            }
-            .tint(.Accent.gold)
-            
-            // Loss Limit Slider (only show when enabled)
-            if isEnabled {
-                VStack(alignment: .leading, spacing: 12) {
-                    HStack {
-                        Text("Limit")
-                            .foregroundColor(.Text.secondary)
-                        Spacer()
-                        Text("\(lossLimitPercent, specifier: "%.1f")%")
-                            .font(.headline.bold())
-                            .foregroundColor(.Brand.primary)
-                    }
-                    
-                    Slider(value: $lossLimitPercent, in: 1...20, step: 0.5)
+                    Spacer()
+                    ProgressView()
                         .tint(.Brand.primary)
-                    
-                    Text("Trading halts when daily loss exceeds \(lossLimitPercent, specifier: "%.1f")% of account value")
-                        .font(.caption)
-                        .foregroundColor(.Text.tertiary)
                 }
-                .padding(.vertical, 4)
-                
-                // Save Button
-                Button {
-                    Task { await saveLossLimit() }
-                } label: {
-                    HStack {
-                        if isSaving {
-                            ProgressView()
-                                .tint(.white)
-                        } else {
-                            Image(systemName: "checkmark.circle.fill")
-                            Text("Save Limit")
-                        }
+            } else if let error = loadError {
+                // Error state
+                HStack {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .foregroundColor(.Signal.hold)
+                    Text("Failed to load settings")
+                        .foregroundColor(.Text.secondary)
+                    Spacer()
+                    Button("Retry") {
+                        Task { await loadCurrentLimit() }
                     }
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 12)
-                    .background(Color.Brand.primary)
-                    .foregroundColor(.Background.primary)
-                    .cornerRadius(10)
+                    .font(.caption.bold())
+                    .foregroundColor(.Brand.primary)
                 }
-                .disabled(isSaving)
+            } else {
+                // Enable/Disable Toggle
+                Toggle(isOn: $isEnabled) {
+                    HStack {
+                        Image(systemName: "shield.fill")
+                            .foregroundColor(.Brand.primary)
+                        Text("Daily Loss Limit")
+                            .foregroundColor(.Text.primary)
+                    }
+                }
+                .tint(.Brand.primary)
+                
+                // Loss Limit Slider (only show when enabled)
+                if isEnabled {
+                    VStack(alignment: .leading, spacing: 12) {
+                        HStack {
+                            Text("Limit")
+                                .foregroundColor(.Text.secondary)
+                            Spacer()
+                            Text("\(lossLimitPercent, specifier: "%.1f")%")
+                                .font(.headline.bold())
+                                .foregroundColor(.Brand.primary)
+                        }
+                        
+                        Slider(value: $lossLimitPercent, in: 1...20, step: 0.5)
+                            .tint(.Brand.primary)
+                        
+                        Text("Trading halts when daily loss exceeds \(lossLimitPercent, specifier: "%.1f")% of account value")
+                            .font(.caption)
+                            .foregroundColor(.Text.tertiary)
+                    }
+                    .padding(.vertical, 4)
+                    
+                    // Save Button
+                    Button {
+                        Task { await saveLossLimit() }
+                    } label: {
+                        HStack {
+                            if isSaving {
+                                ProgressView()
+                                    .tint(.white)
+                            } else {
+                                Image(systemName: "checkmark.circle.fill")
+                                Text("Save Limit")
+                            }
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 12)
+                        .background(Color.Brand.primary)
+                        .foregroundColor(.Background.primary)
+                        .cornerRadius(12)
+                    }
+                    .disabled(isSaving)
+                }
             }
         } header: {
             Text("Risk Management")
                 .accessibilityAddTraits(.isHeader)
         } footer: {
-            if isEnabled {
+            if isEnabled && !isLoading && loadError == nil {
                 Text("⚠️ When triggered, all new orders are blocked until the next trading day.")
                     .foregroundColor(.Signal.hold)
             }
@@ -183,16 +212,23 @@ struct DailyLossLimitSettingsSection: View {
     }
     
     private func loadCurrentLimit() async {
+        isLoading = true
+        loadError = nil
+        
         guard IBKRService.shared.isConnected else {
+            // Not connected - use defaults but mark as loaded
             isLoading = false
+            hasLoadedFromBackend = false
             return
         }
         
         do {
             let pnl = try await IBKRService.shared.getDailyPnL()
             lossLimitPercent = pnl.lossLimitPercent
+            hasLoadedFromBackend = true
             isLoading = false
         } catch {
+            loadError = error.localizedDescription
             isLoading = false
         }
     }

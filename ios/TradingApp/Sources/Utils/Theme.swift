@@ -65,6 +65,9 @@ extension Color {
         /// Hold signal - amber
         static let hold = Color(hex: "FFB300")
         
+        /// Warning signal - orange (between hold and sell)
+        static let warning = Color(hex: "FF9800")
+        
         /// Positive change
         static let positive = Color(hex: "00C853")
         

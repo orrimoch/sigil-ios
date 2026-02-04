@@ -131,6 +131,7 @@ struct BracketOrderForm: View {
                     
                     // Submit Button
                     Button {
+                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                         showConfirmation = true
                     } label: {
                         HStack {
@@ -150,17 +151,14 @@ struct BracketOrderForm: View {
                         .cornerRadius(12)
                     }
                     .disabled(!isValid || isSubmitting)
-                    .confirmationDialog(
-                        "Confirm Bracket Order",
-                        isPresented: $showConfirmation,
-                        titleVisibility: .visible
-                    ) {
-                        Button("Submit \(side) Order", role: isBuy ? nil : .destructive) {
+                    .alert("Confirm Bracket Order", isPresented: $showConfirmation) {
+                        Button("Cancel", role: .cancel) {}
+                        Button("Submit \(side)", role: isBuy ? nil : .destructive) {
+                            UINotificationFeedbackGenerator().notificationOccurred(.warning)
                             Task { await submitBracket() }
                         }
-                        Button("Cancel", role: .cancel) {}
                     } message: {
-                        Text("\(side) \(Int(Double(quantity) ?? 0)) \(ticker)\nEntry: $\(entryPrice)\nTP: $\(takeProfitPrice)\nSL: $\(stopLossPrice)")
+                        Text("You are about to submit a bracket order:\n\n\(side) \(Int(Double(quantity) ?? 0)) shares of \(ticker)\n\nEntry: $\(entryPrice)\nTake Profit: $\(takeProfitPrice)\nStop Loss: $\(stopLossPrice)\n\nThis action cannot be undone.")
                     }
                 }
                 .padding()

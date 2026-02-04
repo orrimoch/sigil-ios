@@ -229,11 +229,37 @@ private struct ExecutionRow: View {
 private struct LoadingPlaceholder: View {
     var body: some View {
         VStack(spacing: 12) {
-            ForEach(0..<5, id: \.self) { _ in
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(Color.Background.secondary)
-                    .frame(height: 80)
-                    .shimmering()
+            ForEach(0..<5, id: \.self) { index in
+                HStack(spacing: 12) {
+                    // Side indicator placeholder
+                    Circle()
+                        .fill(Color.Background.tertiary)
+                        .frame(width: 10, height: 10)
+                    
+                    VStack(alignment: .leading, spacing: 6) {
+                        RoundedRectangle(cornerRadius: 4)
+                            .fill(Color.Background.tertiary)
+                            .frame(width: 80, height: 16)
+                        RoundedRectangle(cornerRadius: 4)
+                            .fill(Color.Background.tertiary)
+                            .frame(width: 120, height: 12)
+                    }
+                    
+                    Spacer()
+                    
+                    VStack(alignment: .trailing, spacing: 6) {
+                        RoundedRectangle(cornerRadius: 4)
+                            .fill(Color.Background.tertiary)
+                            .frame(width: 100, height: 16)
+                        RoundedRectangle(cornerRadius: 4)
+                            .fill(Color.Background.tertiary)
+                            .frame(width: 60, height: 12)
+                    }
+                }
+                .padding()
+                .background(Color.Background.secondary)
+                .cornerRadius(12)
+                .shimmering()
             }
         }
     }
@@ -287,30 +313,38 @@ private struct EmptyStateView: View {
 // MARK: - Shimmer Modifier
 
 struct ShimmerModifier: ViewModifier {
-    @State private var phase: CGFloat = 0
+    @State private var isAnimating = false
     
     func body(content: Content) -> some View {
         content
-            .redacted(reason: .placeholder)
             .overlay {
                 GeometryReader { geometry in
+                    let width = geometry.size.width
+                    let gradientWidth = width * 0.5
+                    
                     LinearGradient(
                         colors: [
-                            Color.clear,
-                            Color.white.opacity(0.3),
-                            Color.clear
+                            Color.white.opacity(0),
+                            Color.white.opacity(0.4),
+                            Color.white.opacity(0)
                         ],
                         startPoint: .leading,
                         endPoint: .trailing
                     )
-                    .frame(width: geometry.size.width * 0.6)
-                    .offset(x: -geometry.size.width * 0.3 + phase * geometry.size.width * 1.6)
+                    .frame(width: gradientWidth)
+                    .offset(x: isAnimating ? width : -gradientWidth)
+                    .animation(
+                        .linear(duration: 1.2)
+                        .repeatForever(autoreverses: false),
+                        value: isAnimating
+                    )
                 }
                 .mask(content)
             }
             .onAppear {
-                withAnimation(.linear(duration: 1.5).repeatForever(autoreverses: false)) {
-                    phase = 1
+                // Delay to ensure view is laid out
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    isAnimating = true
                 }
             }
     }
