@@ -63,7 +63,9 @@ class UserPosition(Base):
             "portfolio_id": self.portfolio_id,
             "ticker": self.ticker,
             "quantity": self.quantity,
+            "shares": self.quantity,  # BUG-010: iOS expects "shares"
             "avg_cost": self.avg_cost,
+            "cost_basis": round(self.quantity * self.avg_cost, 2),  # BUG-010: iOS expects this
             "opened_at": self.opened_at.isoformat() if self.opened_at else None,
         }
 

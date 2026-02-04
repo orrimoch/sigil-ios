@@ -79,10 +79,14 @@ class UserTradingService:
                 if price_data and price_data.get("price"):
                     current_price = price_data["price"]
                     market_value = pos.quantity * current_price
+                    cost_basis = pos.quantity * pos.avg_cost
                     unrealized_pnl = (current_price - pos.avg_cost) * pos.quantity
+                    unrealized_pnl_pct = ((current_price - pos.avg_cost) / pos.avg_cost * 100) if pos.avg_cost else 0
                     holding["current_price"] = current_price
                     holding["market_value"] = round(market_value, 2)
+                    holding["cost_basis"] = round(cost_basis, 2)  # BUG-010
                     holding["unrealized_pnl"] = round(unrealized_pnl, 2)
+                    holding["unrealized_pnl_percent"] = round(unrealized_pnl_pct, 2)  # BUG-010
                     total_market_value += market_value
             except Exception:
                 holding["current_price"] = None
@@ -97,12 +101,16 @@ class UserTradingService:
             "total_value": round(total_value, 2),
             "cash": round(portfolio.cash_balance, 2),
             "invested": round(total_market_value, 2),
+            "positions_value": round(total_market_value, 2),  # BUG-009: iOS expects this field
             "total_pnl": round(total_pnl, 2),
             "total_pnl_percent": round(
                 (total_pnl / portfolio.starting_cash * 100) if portfolio.starting_cash else 0, 2
             ),
+            "daily_pnl": 0.0,  # BUG-009: iOS expects this (no intraday tracking yet)
+            "daily_pnl_percent": 0.0,  # BUG-009: iOS expects this
             "starting_cash": portfolio.starting_cash,
             "position_count": len(positions),
+            "positions_count": len(positions),  # BUG-009: iOS expects this field name
         }
 
         return {

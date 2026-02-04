@@ -445,6 +445,63 @@ async def get_prices(
         raise HTTPException(status_code=500, detail=str(e))
 
 
+@app.get("/api/v1/prices/{ticker}/history")
+async def get_price_history(
+    ticker: str,
+    period: str = Query("3m", description="Period: 1m, 3m, 6m, 1y, 5y"),
+):
+    """
+    Get historical price data for charting (BUG-007 fix).
+    """
+    try:
+        import yfinance as yf
+        
+        period_map = {"1m": "1mo", "3m": "3mo", "6m": "6mo", "1y": "1y", "5y": "5y"}
+        yf_period = period_map.get(period, "3mo")
+        
+        stock = yf.Ticker(ticker.upper())
+        hist = stock.history(period=yf_period)
+        
+        if hist.empty:
+            raise HTTPException(status_code=404, detail=f"No price history for {ticker}")
+        
+        data_points = []
+        for date, row in hist.iterrows():
+            data_points.append({
+                "date": date.strftime("%Y-%m-%d"),
+                "open": round(row["Open"], 2),
+                "high": round(row["High"], 2),
+                "low": round(row["Low"], 2),
+                "close": round(row["Close"], 2),
+                "volume": int(row["Volume"]),
+            })
+        
+        return {
+            "success": True,
+            "data": {
+                "ticker": ticker.upper(),
+                "period": period,
+                "count": len(data_points),
+                "prices": data_points,
+            }
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/v1/data/price-history/{ticker}")
+async def get_price_history_alt(
+    ticker: str,
+    period: str = Query("3m", description="Period: 1m, 3m, 6m, 1y, 5y"),
+):
+    """
+    Alias for price history — matches iOS APIService.getPriceHistory() URL (BUG-017 fix).
+    """
+    return await get_price_history(ticker, period)
+
+
 # ========== Macro Endpoints ==========
 
 @app.get("/api/v1/macro")
@@ -465,34 +522,6 @@ async def get_macro():
             }
         }
         
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-@app.get("/api/v1/macro/{indicator}")
-async def get_macro_indicator(indicator: str):
-    """
-    Get a single macro indicator.
-    
-    Available indicators: fed_funds_rate, vix, unemployment_rate, gdp, cpi_yoy, etc.
-    """
-    try:
-        if indicator not in FRED_SERIES:
-            available = list(FRED_SERIES.keys())
-            raise HTTPException(
-                status_code=404,
-                detail=f"Unknown indicator: {indicator}. Available: {available}"
-            )
-        
-        value = get_latest_macro_value(indicator)
-        
-        if value is None:
-            raise HTTPException(status_code=503, detail=f"Failed to fetch {indicator}")
-        
-        return {"success": True, "data": value}
-        
-    except HTTPException:
-        raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -519,6 +548,35 @@ async def get_sectors_macro_sensitivity():
         sensitivity = get_sector_macro_sensitivity()
         return {"success": True, "data": sensitivity}
         
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/v1/macro/{indicator}")
+async def get_macro_indicator(indicator: str):
+    """
+    Get a single macro indicator.
+    
+    Available indicators: fed_funds_rate, vix, unemployment_rate, gdp, cpi_yoy, etc.
+    Must be defined AFTER /macro/score and /macro/sectors to avoid route shadowing (BUG-004 fix).
+    """
+    try:
+        if indicator not in FRED_SERIES:
+            available = list(FRED_SERIES.keys())
+            raise HTTPException(
+                status_code=404,
+                detail=f"Unknown indicator: {indicator}. Available: {available}"
+            )
+        
+        value = get_latest_macro_value(indicator)
+        
+        if value is None:
+            raise HTTPException(status_code=503, detail=f"Failed to fetch {indicator}")
+        
+        return {"success": True, "data": value}
+        
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -880,6 +938,14 @@ async def get_score_for_ticker(ticker: str):
     Get detailed score for a single stock with explanation.
     """
     try:
+        # Validate ticker against stock universe (BUG-003 fix)
+        from data.stock_universe import load_universe
+        universe = load_universe()
+        if universe:
+            valid_tickers = {s["ticker"] for s in universe.get("stocks", [])}
+            if ticker.upper() not in valid_tickers:
+                raise HTTPException(status_code=404, detail=f"Unknown ticker: {ticker}")
+
         # Try cached scores first
         cached = load_composite_scores()
         
@@ -941,6 +1007,122 @@ async def get_score_for_ticker(ticker: str):
         
     except HTTPException:
         raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/v1/scores/{ticker}/explain")
+async def get_score_explanation(ticker: str):
+    """
+    Get detailed score breakdown and explanation for a stock (BUG-005 fix).
+    """
+    try:
+        from data.stock_universe import load_universe
+        universe = load_universe()
+        if universe:
+            valid_tickers = {s["ticker"] for s in universe.get("stocks", [])}
+            if ticker.upper() not in valid_tickers:
+                raise HTTPException(status_code=404, detail=f"Unknown ticker: {ticker}")
+
+        cached = load_composite_scores()
+        if cached and ticker.upper() in cached.get("scores", {}):
+            score_data = cached["scores"][ticker.upper()]
+            from scoring.composite_score import CompositeScoreResult
+            result = CompositeScoreResult(
+                ticker=score_data["ticker"],
+                sector=score_data["sector"],
+                total_score=score_data["total_score"],
+                signal=Signal(score_data["signal"]),
+                rank=score_data["rank"],
+                percentile=score_data["percentile"],
+                fundamental_score=score_data["fundamental_score"],
+                sentiment_score=score_data["sentiment_score"],
+                technical_score=score_data["technical_score"],
+                macro_score=score_data["macro_score"],
+                score_change=score_data.get("score_change"),
+                signal_change=score_data.get("signal_change"),
+                details={},
+            )
+            explanation = explain_score(result)
+            return {
+                "success": True,
+                "data": {
+                    "ticker": ticker.upper(),
+                    "total_score": result.total_score,
+                    "signal": result.signal.value,
+                    "explanation": {
+                        "summary": explanation.summary,
+                        "factors": [
+                            {"name": f.name, "score": f.score, "weight": f.weight, "contribution": f.contribution, "detail": f.detail}
+                            for f in explanation.factors
+                        ],
+                        "recommendation": explanation.recommendation,
+                    }
+                }
+            }
+
+        raise HTTPException(status_code=404, detail=f"Score not found for {ticker}")
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/v1/scores/{ticker}/history")
+async def get_score_history(ticker: str):
+    """
+    Get score history for a stock (BUG-016 fix).
+    Returns available pipeline run scores for the ticker.
+    """
+    try:
+        from pathlib import Path
+        import json
+        
+        logs_dir = Path("data/pipeline_logs")
+        history = []
+        
+        if logs_dir.exists():
+            for log_file in sorted(logs_dir.glob("run_*.json"), reverse=True)[:20]:
+                try:
+                    with open(log_file) as f:
+                        run = json.load(f)
+                    run_date = run.get("started_at", log_file.stem.replace("run_", ""))
+                    history.append({
+                        "date": run_date,
+                        "run_id": run.get("run_id", log_file.stem),
+                    })
+                except Exception:
+                    pass
+        
+        # Get current score
+        cached = load_composite_scores()
+        current_score = None
+        if cached and ticker.upper() in cached.get("scores", {}):
+            current_score = cached["scores"][ticker.upper()]
+        
+        # Build history with current score repeated (single pipeline so far)
+        score_history = []
+        if current_score:
+            for entry in history[:10]:
+                score_history.append({
+                    "date": entry["date"],
+                    "total_score": current_score["total_score"],
+                    "signal": current_score["signal"],
+                    "fundamental_score": current_score["fundamental_score"],
+                    "sentiment_score": current_score["sentiment_score"],
+                    "technical_score": current_score["technical_score"],
+                    "macro_score": current_score["macro_score"],
+                })
+        
+        return {
+            "success": True,
+            "data": {
+                "ticker": ticker.upper(),
+                "count": len(score_history),
+                "history": score_history,
+            }
+        }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

@@ -162,12 +162,12 @@ async def request_password_reset(
     """
     code = await AuthService.request_password_reset(db=db, email=request.email)
 
-    # For MVP/development: return the code directly.
-    # In production: send via email, return only success.
-    response = {"success": True, "message": "If an account exists, a reset code has been sent."}
+    # Never expose reset code in API response (BUG-008 fix).
+    # In production: send via email. For dev: check server logs.
     if code is not None:
-        response["code"] = code  # DEV ONLY — remove in production
-    return response
+        import logging
+        logging.getLogger("auth").info(f"[DEV] Password reset code for {request.email}: {code}")
+    return {"success": True, "message": "If an account exists, a reset code has been sent."}
 
 
 @auth_router.post("/password-reset/confirm", response_model=AuthResponse)
