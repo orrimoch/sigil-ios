@@ -1,0 +1,144 @@
+================================================================================
+  SIGIL — IB Gateway Setup Guide
+  Paper Trading on Mac mini (case-sensitive APFS workaround)
+================================================================================
+
+ACCOUNT INFO
+  Username:    blazeneon
+  Account ID:  DUP526287 (paper)
+  API Port:    4002
+  Email:       blazeneon@proton.me
+
+================================================================================
+STEP 1: Mount the HFS+ Volume
+================================================================================
+
+  The Mac mini uses case-sensitive APFS, which breaks IB Gateway's Java code.
+  IB Gateway lives on a case-insensitive HFS+ sparse image instead.
+
+  hdiutil attach /tmp/ibgateway_volume.sparseimage
+
+  This mounts to: /Volumes/IBGateway
+  IB Gateway is at: /Volumes/IBGateway/IB Gateway 10.37/
+
+  If the sparse image is missing (e.g. after reboot of /tmp):
+    hdiutil create -size 2g -fs HFS+ -volname IBGateway /tmp/ibgateway_volume.sparseimage
+    hdiutil attach /tmp/ibgateway_volume.sparseimage
+    # Then copy IB Gateway back:
+    cp -R ~/Applications/IB\ Gateway\ 10.37/ /Volumes/IBGateway/IB\ Gateway\ 10.37/
+
+================================================================================
+STEP 2: Start IB Gateway via IBC (automated login)
+================================================================================
+
+  cd ~/ibc && bash gatewaystartmacos.sh -inline
+
+  IBC handles:
+    - Launching IB Gateway from /Volumes/IBGateway
+    - Auto-entering username + password
+    - Selecting paper trading mode
+    - Accepting API connections
+    - Dismissing popups/dialogs
+
+  Config file: ~/ibc/config.ini
+  Logs: ~/ibc/logs/
+
+  Wait ~30 seconds for Gateway to fully initialize and show "DUP526287".
+
+================================================================================
+STEP 3: Verify Gateway is Running
+================================================================================
+
+  Check the port is open:
+    lsof -i :4002
+
+  Should show a Java process listening on port 4002 (pxc-spvr-ft).
+
+  Quick Python test:
+    python3 -c "
+    from ib_insync import IB
+    ib = IB()
+    ib.connect('127.0.0.1', 4002, clientId=99)
+    print('Connected:', ib.isConnected())
+    print('Account:', ib.managedAccounts())
+    ib.disconnect()
+    "
+
+================================================================================
+STEP 4: Start the Sigil Backend
+================================================================================
+
+  cd ~/Desktop/Cool_Apps/TradingApp_iOS/backend
+  nohup python3 -m uvicorn src.api.main:app --host 0.0.0.0 --port 8000 > /tmp/sigil_backend.log 2>&1 &
+
+  Verify:
+    curl http://127.0.0.1:8000/
+    curl http://127.0.0.1:8000/api/v1/ibkr/status
+
+================================================================================
+STEP 5: Connect Sigil to IB Gateway
+================================================================================
+
+  curl -X POST http://127.0.0.1:8000/api/v1/ibkr/connect
+
+  Check status:
+    curl http://127.0.0.1:8000/api/v1/ibkr/status
+
+  Should return: "state": "connected", "account_id": "DUP526287"
+
+================================================================================
+TROUBLESHOOTING
+================================================================================
+
+  PROBLEM: "Volume not mounted"
+    FIX: hdiutil attach /tmp/ibgateway_volume.sparseimage
+
+  PROBLEM: "Address already in use" on port 4002
+    FIX: An old Gateway is still running. Kill it:
+         pkill -f "ibgateway" or kill the Java PID from: lsof -i :4002
+
+  PROBLEM: IBC fails to log in / hangs
+    FIX: Check ~/ibc/config.ini has correct credentials.
+         Check ~/ibc/logs/ for error details.
+         Try restarting: pkill -f java && cd ~/ibc && bash gatewaystartmacos.sh -inline
+
+  PROBLEM: "Gateway auto-exits" after API client disconnects
+    FIX: This is normal IB Gateway behavior. Restart with:
+         cd ~/ibc && bash gatewaystartmacos.sh -inline
+
+  PROBLEM: Sparse image missing after reboot
+    FIX: /tmp is cleared on reboot. Recreate per Step 1 instructions.
+         Consider moving the sparse image to ~/ibgateway_volume.sparseimage
+         to survive reboots.
+
+  PROBLEM: Backend can't connect to Gateway
+    FIX: 1) Verify Gateway is running: lsof -i :4002
+         2) Verify backend is running: curl http://127.0.0.1:8000/
+         3) Try reconnect: curl -X POST http://127.0.0.1:8000/api/v1/ibkr/connect
+
+================================================================================
+QUICK START (copy-paste all 4 commands)
+================================================================================
+
+  hdiutil attach /tmp/ibgateway_volume.sparseimage
+  cd ~/ibc && bash gatewaystartmacos.sh -inline &
+  sleep 30
+  cd ~/Desktop/Cool_Apps/TradingApp_iOS/backend && nohup python3 -m uvicorn src.api.main:app --host 0.0.0.0 --port 8000 > /tmp/sigil_backend.log 2>&1 &
+  sleep 5
+  curl -X POST http://127.0.0.1:8000/api/v1/ibkr/connect
+
+================================================================================
+KEY PATHS
+================================================================================
+
+  Sparse image:     /tmp/ibgateway_volume.sparseimage
+  IB Gateway:       /Volumes/IBGateway/IB Gateway 10.37/
+  IBC:              ~/ibc/
+  IBC config:       ~/ibc/config.ini
+  IBC start script: ~/ibc/gatewaystartmacos.sh
+  IBC logs:         ~/ibc/logs/
+  Backend:          ~/Desktop/Cool_Apps/TradingApp_iOS/backend/
+  Backend logs:     /tmp/sigil_backend.log
+  Credentials:      ~/Desktop/Cool_Apps/TradingApp_iOS/IB_paper_account.txt
+
+================================================================================

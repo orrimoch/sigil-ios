@@ -279,7 +279,7 @@ class TestIBKROrders:
     def test_submit_order_invalid_type(self, service):
         """Invalid order type should fail."""
         with pytest.raises(ValueError, match="Invalid order type"):
-            service.submit_order("user1", "AAPL", "BUY", 10, order_type="STOP")
+            service.submit_order("user1", "AAPL", "BUY", 10, order_type="FOOBAR")
 
     def test_limit_order_requires_price(self, service):
         """Limit order without price should fail."""

@@ -367,11 +367,19 @@ class IBKRService:
             raise ValueError(f"Invalid side: {side}. Must be BUY or SELL.")
 
         order_type_upper = order_type.upper()
-        if order_type_upper not in ("MARKET", "LIMIT"):
+        if order_type_upper not in ("MARKET", "LIMIT", "STP", "STOP", "STP_LMT", "STOP_LIMIT"):
             raise ValueError(f"Invalid order type: {order_type}")
+
+        # Normalize stop order types
+        if order_type_upper in ("STOP", "STP"):
+            order_type_upper = "STP"
+        elif order_type_upper in ("STOP_LIMIT", "STP_LMT"):
+            order_type_upper = "STP_LMT"
 
         if order_type_upper == "LIMIT" and limit_price is None:
             raise ValueError("Limit price required for LIMIT orders")
+        if order_type_upper in ("STP", "STP_LMT") and limit_price is None:
+            raise ValueError("Stop price required for STOP orders")
 
         ibc = self._get_ib(user_id)
         ibi = _IBConnection._import_ib_insync()
@@ -382,8 +390,15 @@ class IBKRService:
 
             if order_type_upper == "MARKET":
                 ib_order = ibi.MarketOrder(side_upper, quantity)
-            else:
+            elif order_type_upper == "LIMIT":
                 ib_order = ibi.LimitOrder(side_upper, quantity, limit_price)
+            elif order_type_upper == "STP":
+                ib_order = ibi.StopOrder(side_upper, quantity, limit_price)
+            elif order_type_upper == "STP_LMT":
+                # Stop-limit: limit_price is the stop trigger, we use same as limit for simplicity
+                ib_order = ibi.StopLimitOrder(side_upper, quantity, limit_price, limit_price)
+            else:
+                ib_order = ibi.MarketOrder(side_upper, quantity)
 
             trade = ib.placeOrder(contract, ib_order)
             logger.info(
@@ -442,6 +457,106 @@ class IBKRService:
             order.side, order.ticker, order.status, order.filled_price or 0.0,
         )
         return order
+
+    def cancel_order(self, user_id: str, order_id: str) -> dict:
+        """
+        Cancel an open order via IB Gateway.
+
+        Returns dict with cancellation status.
+        """
+        conn = self.get_connection(user_id)
+        if conn.state != IBKRConnectionState.CONNECTED:
+            raise ValueError("IBKR not connected. Please connect first.")
+
+        ibc = self._get_ib(user_id)
+
+        def _cancel(ib):
+            # Find the order by orderId
+            open_orders = ib.openOrders()
+            target_order = None
+            for order in open_orders:
+                if str(order.orderId) == str(order_id):
+                    target_order = order
+                    break
+
+            if target_order is None:
+                raise ValueError(f"Order {order_id} not found or already filled/cancelled")
+
+            # Cancel it
+            ib.cancelOrder(target_order)
+            ib.sleep(0.5)
+
+            return {"order_id": str(order_id), "status": "CANCEL_REQUESTED"}
+
+        try:
+            result = ibc.run_ib(_cancel)
+            logger.info("Order %s cancellation requested", order_id)
+            return result
+        except Exception as exc:
+            logger.error("Order cancellation failed: %s", exc)
+            raise ValueError(f"Order cancellation failed: {exc}") from exc
+
+    def get_open_orders(self, user_id: str) -> List[IBKROrder]:
+        """
+        Get all open (pending) orders from IB Gateway.
+
+        Returns list of IBKROrder for orders not yet filled.
+        """
+        conn = self.get_connection(user_id)
+        if conn.state != IBKRConnectionState.CONNECTED:
+            raise ValueError("IBKR not connected. Please connect first.")
+
+        ibc = self._get_ib(user_id)
+
+        def _fetch_orders(ib):
+            ib.sleep(0.3)
+            trades = ib.openTrades()
+            return trades
+
+        try:
+            trades = ibc.run_ib(_fetch_orders)
+        except Exception as exc:
+            logger.error("Failed to fetch open orders: %s", exc)
+            raise ValueError(f"Failed to fetch open orders: {exc}") from exc
+
+        orders: List[IBKROrder] = []
+        for trade in trades:
+            order = trade.order
+            contract = trade.contract
+            status = trade.orderStatus
+
+            # Map order type
+            order_type_map = {
+                "MKT": "MARKET",
+                "LMT": "LIMIT",
+                "STP": "STP",
+                "STP LMT": "STP_LMT",
+            }
+            order_type = order_type_map.get(order.orderType, order.orderType)
+
+            # Map status
+            status_map = {
+                "Filled": "FILLED",
+                "Submitted": "SUBMITTED",
+                "PreSubmitted": "SUBMITTED",
+                "Cancelled": "CANCELLED",
+                "Inactive": "REJECTED",
+            }
+            mapped_status = status_map.get(status.status, "PENDING")
+
+            orders.append(IBKROrder(
+                order_id=str(order.orderId),
+                ticker=contract.symbol,
+                side=order.action,
+                quantity=float(order.totalQuantity),
+                order_type=order_type,
+                status=mapped_status,
+                filled_price=float(status.avgFillPrice) if status.avgFillPrice else None,
+                filled_at=None,
+                is_paper=conn.is_paper,
+            ))
+
+        return orders
 
     # -- positions --------------------------------------------------------
 

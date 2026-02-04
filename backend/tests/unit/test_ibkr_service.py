@@ -322,7 +322,7 @@ class TestIBKROrders:
     def test_submit_order_invalid_type(self, service):
         """Invalid order type should fail."""
         with pytest.raises(ValueError, match="Invalid order type"):
-            service.submit_order("user1", "AAPL", "BUY", 10, order_type="STOP")
+            service.submit_order("user1", "AAPL", "BUY", 10, order_type="FOOBAR")
 
     def test_limit_order_requires_price(self, service):
         """Limit order without price should fail."""
@@ -385,6 +385,162 @@ class TestIBKROrders:
         with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
             with pytest.raises(ValueError, match="Order placement failed"):
                 svc.submit_order("user1", "AAPL", "BUY", 10)
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# Stop Order Tests (REC-138)
+# ═══════════════════════════════════════════════════════════════════════
+
+class TestIBKRStopOrders:
+    """Tests for IBKR stop order functionality."""
+
+    @pytest.fixture
+    def service(self):
+        svc = IBKRService()
+        mock_ib = _make_mock_ib()
+
+        mock_order_status = MagicMock()
+        mock_order_status.status = "Submitted"
+        mock_order_status.avgFillPrice = 0.0
+
+        mock_order_obj = MagicMock()
+        mock_order_obj.orderId = 999
+
+        mock_trade = MagicMock()
+        mock_trade.orderStatus = mock_order_status
+        mock_trade.order = mock_order_obj
+        mock_trade.fills = []
+
+        mock_ib.placeOrder.return_value = mock_trade
+        _patch_ibc_connect(svc, "user1", mock_ib)
+        svc._mock_ib = mock_ib
+        return svc
+
+    def test_submit_stop_order(self, service):
+        """Stop order should be accepted with stop price."""
+        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+            order = service.submit_order(
+                "user1", "AAPL", "SELL", 10,
+                order_type="STP", limit_price=140.0
+            )
+        assert order.order_type == "STP"
+        assert order.side == "SELL"
+
+    def test_submit_stop_order_alternate_name(self, service):
+        """'STOP' should normalize to 'STP'."""
+        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+            order = service.submit_order(
+                "user1", "AAPL", "SELL", 10,
+                order_type="STOP", limit_price=140.0
+            )
+        assert order.order_type == "STP"
+
+    def test_stop_order_requires_price(self, service):
+        """Stop order without price should fail."""
+        with pytest.raises(ValueError, match="Stop price required"):
+            service.submit_order("user1", "AAPL", "SELL", 10, order_type="STP")
+
+    def test_submit_stop_limit_order(self, service):
+        """Stop-limit order should be accepted."""
+        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+            order = service.submit_order(
+                "user1", "AAPL", "SELL", 10,
+                order_type="STP_LMT", limit_price=140.0
+            )
+        assert order.order_type == "STP_LMT"
+
+    def test_stop_limit_alternate_name(self, service):
+        """'STOP_LIMIT' should normalize to 'STP_LMT'."""
+        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+            order = service.submit_order(
+                "user1", "AAPL", "SELL", 10,
+                order_type="STOP_LIMIT", limit_price=140.0
+            )
+        assert order.order_type == "STP_LMT"
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# Order Cancellation Tests (REC-139)
+# ═══════════════════════════════════════════════════════════════════════
+
+class TestIBKROrderCancellation:
+    """Tests for IBKR order cancellation functionality."""
+
+    @pytest.fixture
+    def service(self):
+        svc = IBKRService()
+        mock_ib = _make_mock_ib()
+        _patch_ibc_connect(svc, "user1", mock_ib)
+        svc._mock_ib = mock_ib
+        return svc
+
+    def test_cancel_order_success(self, service):
+        """Cancelling an open order should work."""
+        mock_order = MagicMock()
+        mock_order.orderId = 123
+        service._mock_ib.openOrders.return_value = [mock_order]
+
+        result = service.cancel_order("user1", "123")
+
+        assert result["order_id"] == "123"
+        assert result["status"] == "CANCEL_REQUESTED"
+        service._mock_ib.cancelOrder.assert_called_once_with(mock_order)
+
+    def test_cancel_order_not_found(self, service):
+        """Cancelling non-existent order should fail."""
+        service._mock_ib.openOrders.return_value = []
+
+        with pytest.raises(ValueError, match="not found"):
+            service.cancel_order("user1", "999")
+
+    def test_cancel_order_not_connected(self):
+        """Cancelling when not connected should fail."""
+        svc = IBKRService()
+        with pytest.raises(ValueError, match="IBKR not connected"):
+            svc.cancel_order("user1", "123")
+
+    def test_get_open_orders_empty(self, service):
+        """No open orders returns empty list."""
+        service._mock_ib.openTrades.return_value = []
+        orders = service.get_open_orders("user1")
+        assert orders == []
+
+    def test_get_open_orders_with_data(self, service):
+        """Open orders are returned as IBKROrder objects."""
+        mock_contract = MagicMock()
+        mock_contract.symbol = "AAPL"
+
+        mock_order = MagicMock()
+        mock_order.orderId = 456
+        mock_order.action = "BUY"
+        mock_order.totalQuantity = 10
+        mock_order.orderType = "LMT"
+
+        mock_status = MagicMock()
+        mock_status.status = "Submitted"
+        mock_status.avgFillPrice = 0.0
+
+        mock_trade = MagicMock()
+        mock_trade.contract = mock_contract
+        mock_trade.order = mock_order
+        mock_trade.orderStatus = mock_status
+
+        service._mock_ib.openTrades.return_value = [mock_trade]
+
+        orders = service.get_open_orders("user1")
+        assert len(orders) == 1
+        assert orders[0].order_id == "456"
+        assert orders[0].ticker == "AAPL"
+        assert orders[0].side == "BUY"
+        assert orders[0].quantity == 10
+        assert orders[0].order_type == "LIMIT"
+        assert orders[0].status == "SUBMITTED"
+
+    def test_get_open_orders_not_connected(self):
+        """Getting orders when not connected should fail."""
+        svc = IBKRService()
+        with pytest.raises(ValueError, match="IBKR not connected"):
+            svc.get_open_orders("user1")
 
 
 # ═══════════════════════════════════════════════════════════════════════

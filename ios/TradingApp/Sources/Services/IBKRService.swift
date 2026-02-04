@@ -175,6 +175,52 @@ final class IBKRService: ObservableObject {
         let result = try decoder.decode(IBKROrderResponse.self, from: data)
         return result.data
     }
+    
+    /// Cancel an open order via IBKR
+    func cancelOrder(orderId: String) async throws {
+        let url = URL(string: "\(baseURL)/orders/\(orderId)")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        
+        if let token = AuthService.shared.accessToken {
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse,
+              200...299 ~= httpResponse.statusCode else {
+            let statusCode = (response as? HTTPURLResponse)?.statusCode ?? 0
+            if let errorData = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+               let detail = errorData["detail"] as? String {
+                throw IBKRError.cancelFailed(detail)
+            }
+            throw IBKRError.cancelFailed("HTTP \(statusCode)")
+        }
+    }
+    
+    /// Get open (pending) orders from IBKR
+    func getOpenOrders() async throws -> [IBKROrderResult] {
+        let url = URL(string: "\(baseURL)/orders/open")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        
+        if let token = AuthService.shared.accessToken {
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse,
+              200...299 ~= httpResponse.statusCode else {
+            throw IBKRError.fetchFailed
+        }
+        
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        let result = try decoder.decode(IBKROpenOrdersResponse.self, from: data)
+        return result.data
+    }
 }
 
 // MARK: - Errors
@@ -183,6 +229,8 @@ enum IBKRError: Error, LocalizedError {
     case connectionFailed(String)
     case disconnectFailed
     case orderFailed(String)
+    case cancelFailed(String)
+    case fetchFailed
     case notConnected
     
     var errorDescription: String? {
@@ -190,6 +238,8 @@ enum IBKRError: Error, LocalizedError {
         case .connectionFailed(let msg): return "IBKR connection failed: \(msg)"
         case .disconnectFailed: return "Failed to disconnect from IBKR"
         case .orderFailed(let msg): return "IBKR order failed: \(msg)"
+        case .cancelFailed(let msg): return "Order cancellation failed: \(msg)"
+        case .fetchFailed: return "Failed to fetch IBKR data"
         case .notConnected: return "Not connected to IBKR"
         }
     }
@@ -232,4 +282,10 @@ struct IBKROrderResult: Codable {
     let filledPrice: Double?
     let filledAt: String?
     let isPaper: Bool
+}
+
+struct IBKROpenOrdersResponse: Codable {
+    let success: Bool
+    let count: Int
+    let data: [IBKROrderResult]
 }
