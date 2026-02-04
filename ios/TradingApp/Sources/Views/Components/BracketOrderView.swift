@@ -20,6 +20,7 @@ struct BracketOrderForm: View {
     @State private var error: String?
     @State private var result: IBKRBracketResult?
     @State private var showSuccess = false
+    @State private var showConfirmation = false
     
     private var isBuy: Bool { side.uppercased() == "BUY" }
     
@@ -130,7 +131,7 @@ struct BracketOrderForm: View {
                     
                     // Submit Button
                     Button {
-                        Task { await submitBracket() }
+                        showConfirmation = true
                     } label: {
                         HStack {
                             if isSubmitting {
@@ -149,6 +150,18 @@ struct BracketOrderForm: View {
                         .cornerRadius(12)
                     }
                     .disabled(!isValid || isSubmitting)
+                    .confirmationDialog(
+                        "Confirm Bracket Order",
+                        isPresented: $showConfirmation,
+                        titleVisibility: .visible
+                    ) {
+                        Button("Submit \(side) Order", role: isBuy ? nil : .destructive) {
+                            Task { await submitBracket() }
+                        }
+                        Button("Cancel", role: .cancel) {}
+                    } message: {
+                        Text("\(side) \(Int(Double(quantity) ?? 0)) \(ticker)\nEntry: $\(entryPrice)\nTP: $\(takeProfitPrice)\nSL: $\(stopLossPrice)")
+                    }
                 }
                 .padding()
             }

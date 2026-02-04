@@ -59,7 +59,7 @@ struct MarketScannerView: View {
                             Task { await loadScanner() }
                         }
                     } else if results.isEmpty {
-                        EmptyView()
+                        ScannerEmptyView()
                     } else {
                         LazyVStack(spacing: 12) {
                             ForEach(results) { result in
@@ -251,7 +251,7 @@ private struct ErrorView: View {
     }
 }
 
-private struct EmptyView: View {
+private struct ScannerEmptyView: View {
     var body: some View {
         VStack(spacing: 16) {
             Image(systemName: "magnifyingglass")

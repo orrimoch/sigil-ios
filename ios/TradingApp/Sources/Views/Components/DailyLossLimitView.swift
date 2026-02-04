@@ -104,6 +104,8 @@ struct DailyLossLimitSettingsSection: View {
     @State private var lossLimitPercent: Double = 5.0
     @State private var isSaving = false
     @State private var showSavedToast = false
+    @State private var isLoading = true
+    @State private var saveError: String?
     
     var body: some View {
         Section {
@@ -170,39 +172,45 @@ struct DailyLossLimitSettingsSection: View {
             }
         }
         .listRowBackground(Color.Background.secondary)
-        .overlay {
-            if showSavedToast {
-                VStack {
-                    Spacer()
-                    Text("✓ Loss limit saved")
-                        .font(.caption.bold())
-                        .foregroundColor(.white)
-                        .padding(.horizontal, 16)
-                        .padding(.vertical, 8)
-                        .background(Color.Signal.buy)
-                        .cornerRadius(20)
-                        .transition(.move(edge: .bottom).combined(with: .opacity))
-                }
-                .animation(.spring(), value: showSavedToast)
-            }
+        .task {
+            await loadCurrentLimit()
+        }
+        .alert("Save Failed", isPresented: .constant(saveError != nil)) {
+            Button("OK") { saveError = nil }
+        } message: {
+            Text(saveError ?? "Unknown error")
+        }
+    }
+    
+    private func loadCurrentLimit() async {
+        guard IBKRService.shared.isConnected else {
+            isLoading = false
+            return
+        }
+        
+        do {
+            let pnl = try await IBKRService.shared.getDailyPnL()
+            lossLimitPercent = pnl.lossLimitPercent
+            isLoading = false
+        } catch {
+            isLoading = false
         }
     }
     
     private func saveLossLimit() async {
-        guard IBKRService.shared.isConnected else { return }
+        guard IBKRService.shared.isConnected else {
+            saveError = "Not connected to IB Gateway"
+            return
+        }
         isSaving = true
         defer { isSaving = false }
         
         do {
             try await IBKRService.shared.setDailyLossLimit(percent: lossLimitPercent)
-            showSavedToast = true
-            
-            // Hide toast after 2 seconds
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                showSavedToast = false
-            }
+            // Show haptic feedback
+            UINotificationFeedbackGenerator().notificationOccurred(.success)
         } catch {
-            print("Failed to save loss limit: \(error)")
+            saveError = error.localizedDescription
         }
     }
 }
