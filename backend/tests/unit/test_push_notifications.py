@@ -294,3 +294,91 @@ class TestLoadSaveTokens:
 
         loaded = push_service._load_tokens()
         assert loaded == test_data
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# Order Fill Notification Tests (REC-141)
+# ═══════════════════════════════════════════════════════════════════════
+
+class TestOrderFillNotification:
+    """Tests for send_order_fill_notification function."""
+
+    def test_fill_notification_buy_paper(self):
+        """Buy order fill notification has correct format."""
+        push_service.register_device_token("user1", "token_aaaaaaaaaaaaaaaaaa")
+
+        result = push_service.send_order_fill_notification(
+            user_id="user1",
+            ticker="AAPL",
+            side="BUY",
+            quantity=10,
+            fill_price=150.50,
+            order_type="MARKET",
+            is_paper=True
+        )
+
+        assert result["total_tokens"] == 1
+        assert result["sent"] == 1
+        # Check notification content
+        notification = result["results"][0]
+        assert "Paper" in notification["payload"]["aps"]["alert"]["title"]
+        assert "BUY" in notification["payload"]["aps"]["alert"]["body"]
+        assert "AAPL" in notification["payload"]["aps"]["alert"]["body"]
+        assert "150.50" in notification["payload"]["aps"]["alert"]["body"]
+        # Check data payload
+        assert notification["payload"]["type"] == "order_fill"
+        assert notification["payload"]["ticker"] == "AAPL"
+        assert notification["payload"]["side"] == "BUY"
+        assert notification["payload"]["quantity"] == 10
+        assert notification["payload"]["fill_price"] == 150.50
+        assert notification["payload"]["is_paper"] is True
+
+    def test_fill_notification_sell_live(self):
+        """Sell order live notification doesn't have Paper prefix."""
+        push_service.register_device_token("user1", "token_aaaaaaaaaaaaaaaaaa")
+
+        result = push_service.send_order_fill_notification(
+            user_id="user1",
+            ticker="TSLA",
+            side="SELL",
+            quantity=5,
+            fill_price=200.00,
+            order_type="LIMIT",
+            is_paper=False
+        )
+
+        notification = result["results"][0]
+        assert "Paper" not in notification["payload"]["aps"]["alert"]["title"]
+        assert "SELL" in notification["payload"]["aps"]["alert"]["body"]
+        assert "TSLA" in notification["payload"]["aps"]["alert"]["body"]
+        assert notification["payload"]["is_paper"] is False
+
+    def test_fill_notification_no_tokens(self):
+        """Fill notification with no registered tokens sends nothing."""
+        result = push_service.send_order_fill_notification(
+            user_id="unknown_user",
+            ticker="AAPL",
+            side="BUY",
+            quantity=1,
+            fill_price=100.00
+        )
+
+        assert result["total_tokens"] == 0
+        assert result["sent"] == 0
+
+    def test_fill_notification_calculates_total(self):
+        """Fill notification includes calculated total."""
+        push_service.register_device_token("user1", "token_aaaaaaaaaaaaaaaaaa")
+
+        result = push_service.send_order_fill_notification(
+            user_id="user1",
+            ticker="AAPL",
+            side="BUY",
+            quantity=10,
+            fill_price=150.00
+        )
+
+        notification = result["results"][0]
+        # Total should be 10 * 150 = 1,500
+        assert notification["payload"]["total"] == 1500.0
+        assert "1,500" in notification["payload"]["aps"]["alert"]["body"]

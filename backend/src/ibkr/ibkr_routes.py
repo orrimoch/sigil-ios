@@ -185,6 +185,29 @@ async def get_ibkr_open_orders(user=Depends(get_optional_user)):
         raise HTTPException(status_code=500, detail=str(e))
 
 
+@ibkr_router.get("/quote/{ticker}")
+async def get_ibkr_quote(ticker: str, user=Depends(get_optional_user)):
+    """
+    Get real-time quote from IB Gateway (REC-140).
+    
+    Returns bid, ask, last, volume, etc. directly from IB.
+    Much faster than Yahoo Finance polling.
+    """
+    try:
+        service = get_ibkr_service()
+        quote = service.get_quote(user_id=_get_user_id(user), ticker=ticker)
+
+        return {
+            "success": True,
+            "data": quote,
+        }
+
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 @ibkr_router.delete("/orders/{order_id}")
 async def cancel_ibkr_order(order_id: str, user=Depends(get_optional_user)):
     """Cancel an open IBKR order."""

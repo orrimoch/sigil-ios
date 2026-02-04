@@ -139,3 +139,58 @@ def broadcast_push(
         "sent": len(results),
         "results": results
     }
+
+
+def send_order_fill_notification(
+    user_id: str,
+    ticker: str,
+    side: str,
+    quantity: float,
+    fill_price: float,
+    order_type: str = "MARKET",
+    is_paper: bool = True
+) -> dict:
+    """
+    Send push notification when an order fills (REC-141).
+    
+    Args:
+        user_id: User who placed the order
+        ticker: Stock ticker symbol
+        side: BUY or SELL
+        quantity: Number of shares
+        fill_price: Price at which the order filled
+        order_type: MARKET, LIMIT, STP, etc.
+        is_paper: Whether this is a paper trade
+    
+    Returns:
+        Notification result dict
+    """
+    # Calculate total
+    total = quantity * fill_price
+    
+    # Format the notification
+    mode_prefix = "📝 Paper " if is_paper else "💰 "
+    side_emoji = "🟢" if side == "BUY" else "🔴"
+    
+    title = f"{mode_prefix}Order Filled"
+    body = f"{side_emoji} {side} {int(quantity)} {ticker} @ ${fill_price:.2f} (${total:,.2f})"
+    
+    # Notification data payload for deep linking
+    data = {
+        "type": "order_fill",
+        "ticker": ticker,
+        "side": side,
+        "quantity": quantity,
+        "fill_price": fill_price,
+        "total": total,
+        "is_paper": is_paper,
+        "order_type": order_type
+    }
+    
+    # Send to user's devices
+    return broadcast_push(
+        title=title,
+        body=body,
+        data=data,
+        user_id=user_id
+    )

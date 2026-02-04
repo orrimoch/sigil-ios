@@ -16,6 +16,14 @@ from typing import Optional, Dict, List
 
 logger = logging.getLogger(__name__)
 
+# Import push notification service for fill notifications (REC-141)
+try:
+    from notifications.push_service import send_order_fill_notification
+    PUSH_AVAILABLE = True
+except ImportError:
+    PUSH_AVAILABLE = False
+    logger.warning("Push notifications not available for order fills")
+
 # ── Patch asyncio early (before any event loop starts) ──────────────────
 try:
     import nest_asyncio
@@ -456,6 +464,23 @@ class IBKRService:
             "Order result: %s %s status=%s fill=%.2f",
             order.side, order.ticker, order.status, order.filled_price or 0.0,
         )
+
+        # REC-141: Send push notification on order fill
+        if mapped_status == "FILLED" and filled_price and PUSH_AVAILABLE:
+            try:
+                send_order_fill_notification(
+                    user_id=user_id,
+                    ticker=ticker.upper(),
+                    side=side_upper,
+                    quantity=quantity,
+                    fill_price=filled_price,
+                    order_type=order_type_upper,
+                    is_paper=conn.is_paper,
+                )
+                logger.info("Fill notification sent for order %s", order.order_id)
+            except Exception as e:
+                logger.warning("Failed to send fill notification: %s", e)
+
         return order
 
     def cancel_order(self, user_id: str, order_id: str) -> dict:
@@ -611,6 +636,64 @@ class IBKRService:
             ))
 
         return positions
+
+    # -- real-time quotes (REC-140) --------------------------------------
+
+    def get_quote(self, user_id: str, ticker: str) -> dict:
+        """
+        Get real-time quote from IB Gateway.
+
+        Returns current bid, ask, last price, volume, etc.
+        Much faster and more reliable than Yahoo Finance polling.
+        """
+        conn = self.get_connection(user_id)
+        if conn.state != IBKRConnectionState.CONNECTED:
+            raise ValueError("IBKR not connected. Please connect first.")
+
+        ibc = self._get_ib(user_id)
+        ibi = _IBConnection._import_ib_insync()
+        _ticker = ticker.upper()
+
+        def _get_quote(ib):
+            contract = ibi.Stock(_ticker, "SMART", "USD")
+            ib.qualifyContracts(contract)
+
+            # Request market data snapshot
+            ticker_data = ib.reqMktData(contract, snapshot=True)
+            ib.sleep(1.5)  # Wait for data to arrive
+
+            # Extract the data
+            result = {
+                "ticker": _ticker,
+                "bid": ticker_data.bid if ticker_data.bid and ticker_data.bid > 0 else None,
+                "ask": ticker_data.ask if ticker_data.ask and ticker_data.ask > 0 else None,
+                "last": ticker_data.last if ticker_data.last and ticker_data.last > 0 else None,
+                "close": ticker_data.close if ticker_data.close and ticker_data.close > 0 else None,
+                "high": ticker_data.high if ticker_data.high and ticker_data.high > 0 else None,
+                "low": ticker_data.low if ticker_data.low and ticker_data.low > 0 else None,
+                "volume": int(ticker_data.volume) if ticker_data.volume and ticker_data.volume > 0 else None,
+                "timestamp": datetime.now().isoformat(),
+            }
+
+            # Calculate mid price
+            if result["bid"] and result["ask"]:
+                result["mid"] = (result["bid"] + result["ask"]) / 2
+
+            # Use last price or close as the "price" field
+            result["price"] = result["last"] or result["close"]
+
+            # Cancel the market data subscription
+            ib.cancelMktData(contract)
+
+            return result
+
+        try:
+            quote = ibc.run_ib(_get_quote)
+            logger.info("Quote for %s: price=%.2f", _ticker, quote.get("price") or 0)
+            return quote
+        except Exception as exc:
+            logger.error("Failed to get quote for %s: %s", _ticker, exc)
+            raise ValueError(f"Failed to get quote for {_ticker}: {exc}") from exc
 
     # -- account summary --------------------------------------------------
 
