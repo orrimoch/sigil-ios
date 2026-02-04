@@ -189,6 +189,14 @@ class UserTradingService:
         if order_type == "LIMIT" and limit_price is None:
             raise ValueError("Limit price required for LIMIT orders")
 
+        # Validate ticker against stock universe
+        from src.data.stock_universe import load_universe
+        universe = load_universe()
+        if universe:
+            valid_tickers = {s["ticker"] for s in universe.get("stocks", [])}
+            if ticker.upper() not in valid_tickers:
+                raise ValueError(f"Unknown ticker: {ticker}. Not in stock universe.")
+
         # Get portfolio
         portfolio = await UserTradingService.get_or_create_portfolio(db, user_id)
 
@@ -199,16 +207,17 @@ class UserTradingService:
         filled_at = None
 
         if order_type == "MARKET":
-            # Try to get current price
+            # Get current price — reject if unavailable
             try:
                 price_data = get_price_summary(ticker)
                 if price_data and price_data.get("price"):
                     fill_price = price_data["price"]
                 else:
-                    # Fallback: use a reasonable mock price
-                    fill_price = 100.0
-            except Exception:
-                fill_price = 100.0
+                    raise ValueError(f"Cannot get price for {ticker}. Market may be closed or ticker is invalid.")
+            except ValueError:
+                raise
+            except Exception as e:
+                raise ValueError(f"Price lookup failed for {ticker}: {e}")
 
             # Execute immediately
             total_cost = fill_price * quantity

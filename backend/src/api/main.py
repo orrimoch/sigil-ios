@@ -227,6 +227,7 @@ class HealthResponse(BaseModel):
 # ========== Endpoints ==========
 
 @app.get("/", response_model=HealthResponse)
+@app.get("/api/v1/health", response_model=HealthResponse)
 async def health_check():
     """Health check endpoint."""
     return {
@@ -1091,14 +1092,7 @@ async def reset_portfolio_endpoint(
         user_id = user.id if user else ANONYMOUS_USER_ID
         portfolio = await UserTradingService.reset_portfolio(db, user_id, starting_cash)
         
-        # Also reset in-memory fallback
-        try:
-            reset_portfolio(starting_cash)
-            reset_order_manager()
-            history = get_portfolio_history()
-            history.clear()
-        except Exception:
-            pass  # In-memory fallback may not exist
+        # DB is single source of truth — no in-memory reset needed (BUG-002 fix)
         
         return {
             "success": True,
@@ -1256,20 +1250,7 @@ async def create_order(
             limit_price=request.limit_price,
         )
         
-        # Also execute on in-memory fallback for backward compat
-        try:
-            manager = get_order_manager()
-            side_enum = OrderSide(request.side.upper())
-            type_enum = OrderType(request.order_type.upper())
-            manager.create_order(
-                ticker=request.ticker,
-                side=side_enum,
-                quantity=request.quantity,
-                order_type=type_enum,
-                limit_price=request.limit_price,
-            )
-        except Exception:
-            pass  # In-memory fallback is best-effort
+        # DB is single source of truth — no in-memory dual-write (BUG-002 fix)
         
         return {
             "success": True,

@@ -77,7 +77,9 @@ struct SigilApp: App {
     
     init() {
         notificationDelegate.appState = AppState.shared
-        UNUserNotificationCenter.current().delegate = notificationDelegate
+        // Defer delegate setup until notification authorization is granted
+        // to prevent iOS from showing the permission dialog at launch.
+        // The delegate will be set when the user enables notifications in Settings.
     }
     
     var body: some Scene {
@@ -109,14 +111,15 @@ struct SigilApp: App {
                         }
                         .onAppear {
                             startDemoIfNeeded()
-                            // Request notification permission on first launch
-                            Task {
-                                let granted = await notificationService.requestAuthorization()
-                                if granted {
-                                    // Schedule recurring notifications based on user preferences
-                                    notificationService.scheduleWeeklyScoreUpdate()
-                                    // F9.1: Update weekly notification with dynamic content
-                                    await notificationService.updateWeeklyContentFromAPI()
+                            // Set up notifications only if user previously granted permission
+                            if UserDefaults.standard.bool(forKey: "notificationsEnabled") {
+                                Task {
+                                    await notificationService.refreshAuthorizationStatus()
+                                    if notificationService.isAuthorized {
+                                        UNUserNotificationCenter.current().delegate = notificationDelegate
+                                        notificationService.scheduleWeeklyScoreUpdate()
+                                        await notificationService.updateWeeklyContentFromAPI()
+                                    }
                                 }
                             }
                             // F9.3: Check for signal changes on app launch
@@ -255,7 +258,14 @@ class AppState: ObservableObject {
     
     @Published var portfolioSize: PortfolioSize = .medium
     @Published var isPaperTrading: Bool = true
-    @Published var selectedTab: Tab = .home
+    @Published var selectedTab: Tab = {
+        if let raw = UserDefaults.standard.string(forKey: "initialTab"),
+           let tab = Tab(rawValue: raw) {
+            UserDefaults.standard.removeObject(forKey: "initialTab")
+            return tab
+        }
+        return .home
+    }()
     
     init() {
         self.hasCompletedOnboarding = UserDefaults.standard.bool(forKey: "hasCompletedOnboarding")

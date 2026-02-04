@@ -10,14 +10,10 @@ final class NotificationService: ObservableObject {
     @Published var isAuthorized = false
     @Published var authorizationStatus: UNAuthorizationStatus = .notDetermined
     
-    // Lazy center — only accessed when actually sending notifications
-    private lazy var center: UNUserNotificationCenter = {
-        UNUserNotificationCenter.current()
-    }()
+    private let center = UNUserNotificationCenter.current()
     
     private init() {
-        // Don't access UNUserNotificationCenter during init
-        // Authorization will be checked when user enables notifications in Settings
+        Task { await refreshAuthorizationStatus() }
     }
     
     // MARK: - Authorization
@@ -165,10 +161,8 @@ final class NotificationService: ObservableObject {
     /// Uses dynamic content from the API when available
     func scheduleWeeklyScoreUpdate() {
         guard UserDefaults.standard.bool(forKey: "weeklyScoreAlerts") else {
-            // Remove any existing weekly notification if center has been accessed
-            if isAuthorized {
-                center.removePendingNotificationRequests(withIdentifiers: ["weekly-score-update"])
-            }
+            // Remove any existing weekly notification
+            center.removePendingNotificationRequests(withIdentifiers: ["weekly-score-update"])
             return
         }
         guard isAuthorized else { return }

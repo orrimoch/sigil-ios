@@ -1,0 +1,25 @@
+{
+  "run_id": "20260204_083412",
+  "started_at": "2026-02-04T08:34:12.555235",
+  "completed_at": "2026-02-04T08:34:22.541210",
+  "status": "success",
+  "total_duration_seconds": 9.985975,
+  "steps": [
+    {
+      "name": "news_data",
+      "status": "success",
+      "duration_seconds": 0.370956,
+      "records_processed": 145,
+      "error": null,
+      "retries": 0
+    },
+    {
+      "name": "macro_data",
+      "status": "success",
+      "duration_seconds": 9.614758,
+      "records_processed": 17,
+      "error": null,
+      "retries": 0
+    }
+  ]
+}
