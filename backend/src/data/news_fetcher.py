@@ -352,20 +352,26 @@ def filter_by_ticker(articles: List[Dict], ticker: str) -> List[Dict]:
     """
     ticker_upper = ticker.upper()
     
-    # Common company name mappings
+    # Company name mappings — only use distinctive names (BUG-015 fix)
+    # Avoid ambiguous words like "apple", "meta" that match non-financial context
     COMPANY_NAMES = {
-        "AAPL": ["apple", "iphone", "ipad", "mac"],
-        "MSFT": ["microsoft", "windows", "azure", "xbox"],
-        "GOOGL": ["google", "alphabet", "youtube", "android"],
-        "GOOG": ["google", "alphabet", "youtube", "android"],
-        "AMZN": ["amazon", "aws", "prime"],
-        "META": ["meta", "facebook", "instagram", "whatsapp"],
-        "TSLA": ["tesla", "elon musk", "cybertruck"],
+        "AAPL": ["apple inc", "iphone", "ipad", "macbook", "app store"],
+        "MSFT": ["microsoft", "azure", "xbox", "windows 11"],
+        "GOOGL": ["alphabet inc", "google cloud", "youtube"],
+        "GOOG": ["alphabet inc", "google cloud", "youtube"],
+        "AMZN": ["amazon.com", "amazon web services", "aws"],
+        "META": ["meta platforms", "facebook", "instagram", "whatsapp"],
+        "TSLA": ["tesla inc", "tesla motors", "cybertruck"],
         "NVDA": ["nvidia", "geforce", "cuda"],
         "JPM": ["jpmorgan", "jp morgan", "jamie dimon"],
-        "V": ["visa"],
+        "V": ["visa inc", "visa network"],
         "MA": ["mastercard"],
     }
+    
+    # Financial context words — article must mention at least one to qualify via keyword match
+    FINANCIAL_CONTEXT = {"stock", "share", "revenue", "earnings", "profit", "market", "investor",
+                         "analyst", "quarterly", "dividend", "ipo", "valuation", "ceo", "cfo",
+                         "trading", "nasdaq", "nyse", "s&p", "wall street", "sec filing"}
     
     keywords = [ticker_upper]
     if ticker_upper in COMPANY_NAMES:
@@ -375,16 +381,18 @@ def filter_by_ticker(articles: List[Dict], ticker: str) -> List[Dict]:
     for article in articles:
         text = (article["title"] + " " + article["summary"]).lower()
         
-        # Check for ticker (with word boundaries)
+        # Check for ticker (with word boundaries) — always trust exact ticker matches
         if re.search(rf'\b{ticker_upper}\b', article["title"] + " " + article["summary"], re.IGNORECASE):
             filtered.append(article)
             continue
         
-        # Check for company keywords
-        for keyword in keywords[1:]:  # Skip ticker itself
-            if keyword.lower() in text:
-                filtered.append(article)
-                break
+        # Check for company keywords — require financial context to reduce false positives
+        has_financial_context = any(ctx in text for ctx in FINANCIAL_CONTEXT)
+        if has_financial_context:
+            for keyword in keywords[1:]:  # Skip ticker itself
+                if keyword.lower() in text:
+                    filtered.append(article)
+                    break
     
     return filtered
 

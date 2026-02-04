@@ -86,6 +86,7 @@ import requests as _requests
 
 _price_cache: Dict[str, dict] = {}
 _price_cache_ts: Dict[str, float] = {}
+_price_cache_lock = threading.Lock()  # BUG-019: thread-safe cache access
 _PRICE_CACHE_TTL = 300  # 5 minutes
 
 
@@ -118,11 +119,12 @@ def _get_cached_prices(tickers: List[str]) -> Dict[str, dict]:
     result = {}
     to_fetch = []
     
-    for t in tickers:
-        if t in _price_cache and (now - _price_cache_ts.get(t, 0)) < _PRICE_CACHE_TTL:
-            result[t] = _price_cache[t]
-        else:
-            to_fetch.append(t)
+    with _price_cache_lock:  # BUG-019: thread-safe read
+        for t in tickers:
+            if t in _price_cache and (now - _price_cache_ts.get(t, 0)) < _PRICE_CACHE_TTL:
+                result[t] = _price_cache[t]
+            else:
+                to_fetch.append(t)
     
     if to_fetch:
         from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -133,8 +135,9 @@ def _get_cached_prices(tickers: List[str]) -> Dict[str, dict]:
                 try:
                     p = future.result()
                     if p:
-                        _price_cache[t] = p
-                        _price_cache_ts[t] = now
+                        with _price_cache_lock:  # BUG-019: thread-safe write
+                            _price_cache[t] = p
+                            _price_cache_ts[t] = now
                         result[t] = p
                 except Exception:
                     pass
@@ -159,13 +162,33 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-# CORS for iOS app
+# BUG-021 fix: Consistent error response format
+from fastapi.responses import JSONResponse
+from fastapi.exceptions import RequestValidationError
+
+@app.exception_handler(HTTPException)
+async def http_exception_handler(request, exc):
+    return JSONResponse(
+        status_code=exc.status_code,
+        content={"success": False, "error": exc.detail},
+    )
+
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(request, exc):
+    return JSONResponse(
+        status_code=422,
+        content={"success": False, "error": "Validation error", "details": str(exc)},
+    )
+
+# CORS — restrict origins (BUG-011 fix)
+import os
+_cors_origins = os.environ.get("CORS_ORIGINS", "http://localhost:3000,http://127.0.0.1:8000").split(",")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Restrict in production
+    allow_origins=_cors_origins,
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "PATCH"],
+    allow_headers=["Authorization", "Content-Type"],
 )
 
 # Include auth router
@@ -693,6 +716,26 @@ async def trigger_pipeline(
         raise HTTPException(status_code=500, detail=str(e))
 
 
+@app.get("/api/v1/pipeline/status")
+async def get_pipeline_status_general():
+    """
+    Get overall pipeline status — latest run + any active runs (BUG-006 fix).
+    """
+    try:
+        active_runs = {k: v for k, v in _pipeline_runs.items() if v.get("status") == "running"}
+        latest = get_latest_run()
+        return {
+            "success": True,
+            "data": {
+                "active_runs": len(active_runs),
+                "active": active_runs,
+                "latest": latest,
+            }
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 @app.get("/api/v1/pipeline/status/{run_id}")
 async def get_pipeline_status(run_id: str):
     """
@@ -1176,7 +1219,15 @@ async def calculate_all_scores(background_tasks: BackgroundTasks):
         
         def run_scoring():
             try:
-                scores = calculate_composite_scores()
+                # BUG-022 fix: load previous scores for change tracking
+                from scoring.signal_tracker import load_previous_scores, save_previous_scores
+                prev = load_previous_scores()
+                # Save current as previous before recalculating
+                current = load_composite_scores()
+                if current:
+                    save_previous_scores(current)
+                prev_scores = prev.get("scores", {}) if prev else {}
+                scores = calculate_composite_scores(previous_scores=prev_scores)
                 save_composite_scores(scores)
             except Exception as e:
                 print(f"Scoring failed: {e}")

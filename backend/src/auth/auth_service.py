@@ -22,12 +22,21 @@ from .models import User
 SECRET_FILE = Path(__file__).parent.parent.parent / "data" / ".jwt_secret"
 
 def _load_or_create_secret() -> str:
-    """Load JWT secret from disk, or generate + persist a new one."""
+    """Load JWT secret from env var first, then disk, or generate + persist (BUG-018 fix)."""
+    import os
+    # Prefer environment variable
+    env_secret = os.environ.get("JWT_SECRET")
+    if env_secret:
+        return env_secret
+    # Fall back to file-based secret
     if SECRET_FILE.exists():
+        # Set restrictive file permissions
+        SECRET_FILE.chmod(0o600)
         return SECRET_FILE.read_text().strip()
     secret = secrets.token_hex(64)
     SECRET_FILE.parent.mkdir(parents=True, exist_ok=True)
     SECRET_FILE.write_text(secret)
+    SECRET_FILE.chmod(0o600)  # Owner read/write only
     return secret
 
 JWT_SECRET = _load_or_create_secret()
