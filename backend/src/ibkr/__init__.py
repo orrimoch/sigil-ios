@@ -1,8 +1,8 @@
 """
 F6.3 IBKR Live Trading Integration
 
-Mock IBKR Client Portal API wrapper for OAuth connection and order submission.
-Will be replaced with real IBKR API calls when ready.
+Real IB Gateway integration via ib_insync for live/paper order submission,
+position retrieval, and account management.
 """
 
 from .ibkr_service import IBKRService, IBKRConnectionState, get_ibkr_service

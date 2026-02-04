@@ -1,0 +1,21 @@
+IB Paper Trading Account (Free Trial - Standalone)
+===================================================
+
+Username:   blazeneon
+Password:   BlaBla1986!!!
+Account ID: DUP526287
+Email:      blazeneon@proton.me
+
+Proton Mail Account
+===================================================
+
+Email:      blazeneon@proton.me
+Password:   2i3GNe&bD_$#ixe
+
+IB Gateway: ~/Applications/IB Gateway 10.37/
+Volume:     /Volumes/IBGateway (case-insensitive HFS+)
+API Port:   4002 (paper trading)
+IBC Config: ~/ibc/config.ini
+
+Start command:
+  cd ~/ibc && bash gatewaystartmacos.sh -inline

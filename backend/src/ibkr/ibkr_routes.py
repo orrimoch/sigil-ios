@@ -146,3 +146,21 @@ async def get_ibkr_positions(user=Depends(get_optional_user)):
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+@ibkr_router.get("/account")
+async def get_ibkr_account_summary(user=Depends(get_optional_user)):
+    """Get IBKR account summary (balances, buying power, PnL)."""
+    try:
+        service = get_ibkr_service()
+        summary = service.get_account_summary(user_id=_get_user_id(user))
+
+        return {
+            "success": True,
+            "data": summary,
+        }
+
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
