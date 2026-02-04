@@ -466,6 +466,168 @@ final class IBKRService: ObservableObject {
         let result = try decoder.decode(IBKRMarginResponse.self, from: data)
         return result.data
     }
+    
+    // MARK: - Trade History (REC-154)
+    
+    /// Get trade execution history from IB Gateway
+    func getTradeHistory() async throws -> [IBKRTradeExecution] {
+        let url = URL(string: "\(baseURL)/history")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        
+        if let token = AuthService.shared.accessToken {
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse,
+              200...299 ~= httpResponse.statusCode else {
+            throw IBKRError.fetchFailed
+        }
+        
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        let result = try decoder.decode(IBKRTradeHistoryResponse.self, from: data)
+        return result.data
+    }
+    
+    // MARK: - Daily Loss Limit (REC-152)
+    
+    /// Get today's PnL and trading status
+    func getDailyPnL() async throws -> IBKRDailyPnL {
+        let url = URL(string: "\(baseURL)/daily-pnl")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        
+        if let token = AuthService.shared.accessToken {
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse,
+              200...299 ~= httpResponse.statusCode else {
+            throw IBKRError.fetchFailed
+        }
+        
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        let result = try decoder.decode(IBKRDailyPnLResponse.self, from: data)
+        return result.data
+    }
+    
+    /// Set daily loss limit percentage
+    func setDailyLossLimit(percent: Double) async throws {
+        let url = URL(string: "\(baseURL)/daily-loss-limit")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        if let token = AuthService.shared.accessToken {
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+        
+        let body = ["limit_percent": percent]
+        request.httpBody = try JSONSerialization.data(withJSONObject: body)
+        
+        let (_, response) = try await URLSession.shared.data(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse,
+              200...299 ~= httpResponse.statusCode else {
+            throw IBKRError.fetchFailed
+        }
+    }
+    
+    /// Check if trading is halted due to daily loss limit
+    func isTradingHalted() async throws -> Bool {
+        let url = URL(string: "\(baseURL)/trading-status")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        
+        if let token = AuthService.shared.accessToken {
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse,
+              200...299 ~= httpResponse.statusCode else {
+            throw IBKRError.fetchFailed
+        }
+        
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        let result = try decoder.decode(IBKRTradingStatusResponse.self, from: data)
+        return result.data.tradingHalted
+    }
+    
+    // MARK: - Volume Spike Detection (REC-159)
+    
+    /// Analyze volume for unusual activity
+    func getVolumeAnalysis(
+        ticker: String,
+        lookbackDays: Int = 20,
+        spikeThreshold: Double = 2.0
+    ) async throws -> IBKRVolumeAnalysis {
+        var components = URLComponents(string: "\(baseURL)/volume/\(ticker.uppercased())")!
+        components.queryItems = [
+            URLQueryItem(name: "lookback_days", value: String(lookbackDays)),
+            URLQueryItem(name: "spike_threshold", value: String(spikeThreshold)),
+        ]
+        
+        var request = URLRequest(url: components.url!)
+        request.httpMethod = "GET"
+        
+        if let token = AuthService.shared.accessToken {
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse,
+              200...299 ~= httpResponse.statusCode else {
+            throw IBKRError.fetchFailed
+        }
+        
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        let result = try decoder.decode(IBKRVolumeAnalysisResponse.self, from: data)
+        return result.data
+    }
+    
+    /// Check watchlist for volume spikes
+    func checkWatchlistVolumeSpikes(
+        tickers: [String],
+        spikeThreshold: Double = 2.0
+    ) async throws -> [IBKRVolumeAnalysis] {
+        let url = URL(string: "\(baseURL)/volume/watchlist")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        if let token = AuthService.shared.accessToken {
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+        
+        let body: [String: Any] = [
+            "tickers": tickers,
+            "spike_threshold": spikeThreshold,
+        ]
+        request.httpBody = try JSONSerialization.data(withJSONObject: body)
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse,
+              200...299 ~= httpResponse.statusCode else {
+            throw IBKRError.fetchFailed
+        }
+        
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        let result = try decoder.decode(IBKRVolumeWatchlistResponse.self, from: data)
+        return result.data
+    }
 }
 
 // MARK: - Errors
@@ -676,4 +838,85 @@ struct IBKRMarginStatus: Codable {
     let marginAvailablePercent: Double
     let alertLevel: String?
     let isPaper: Bool
+}
+
+// MARK: - Trade History (REC-154)
+
+struct IBKRTradeHistoryResponse: Codable {
+    let success: Bool
+    let count: Int
+    let data: [IBKRTradeExecution]
+}
+
+struct IBKRTradeExecution: Codable, Identifiable {
+    let execId: String
+    let orderId: String
+    let ticker: String
+    let side: String
+    let quantity: Double
+    let price: Double
+    let avgPrice: Double
+    let time: String?
+    let exchange: String
+    let commission: Double?
+    let realizedPnl: Double?
+    let currency: String
+    let account: String
+    
+    var id: String { execId }
+}
+
+// MARK: - Daily Loss Limit (REC-152)
+
+struct IBKRDailyPnLResponse: Codable {
+    let success: Bool
+    let data: IBKRDailyPnL
+}
+
+struct IBKRDailyPnL: Codable {
+    let dailyPnl: Double
+    let dailyPnlPercent: Double
+    let realizedPnl: Double
+    let unrealizedPnl: Double
+    let netLiquidation: Double
+    let lossLimitPercent: Double
+    let lossLimitAmount: Double
+    let tradingHalted: Bool
+    let isPaper: Bool
+}
+
+struct IBKRTradingStatusResponse: Codable {
+    let success: Bool
+    let data: IBKRTradingStatus
+}
+
+struct IBKRTradingStatus: Codable {
+    let tradingHalted: Bool
+    let reason: String?
+}
+
+// MARK: - Volume Spike (REC-159)
+
+struct IBKRVolumeAnalysisResponse: Codable {
+    let success: Bool
+    let data: IBKRVolumeAnalysis
+}
+
+struct IBKRVolumeWatchlistResponse: Codable {
+    let success: Bool
+    let count: Int
+    let data: [IBKRVolumeAnalysis]
+}
+
+struct IBKRVolumeAnalysis: Codable, Identifiable {
+    let ticker: String
+    let currentVolume: Int
+    let avgVolume: Int
+    let volumeRatio: Double
+    let lookbackDays: Int
+    let spikeThreshold: Double
+    let isSpike: Bool
+    let alertLevel: String?
+    
+    var id: String { ticker }
 }

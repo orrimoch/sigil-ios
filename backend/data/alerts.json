@@ -1,50 +1,50 @@
 {
   "alerts": [
     {
-      "id": "2644c0fe",
+      "id": "d940a1f0",
       "type": "score_change",
       "ticker": "TICK9",
       "title": "Title",
       "subtitle": "",
-      "timestamp": "2026-02-05T00:48:36.445927",
+      "timestamp": "2026-02-05T00:50:18.714755",
       "read": false
     },
     {
-      "id": "242085ac",
+      "id": "4b811dca",
       "type": "score_change",
       "ticker": "TICK8",
       "title": "Title",
       "subtitle": "",
-      "timestamp": "2026-02-05T00:48:36.445822",
+      "timestamp": "2026-02-05T00:50:18.714649",
       "read": false
     },
     {
-      "id": "e53cb097",
+      "id": "c182fc1a",
       "type": "score_change",
       "ticker": "TICK7",
       "title": "Title",
       "subtitle": "",
-      "timestamp": "2026-02-05T00:48:36.445714",
+      "timestamp": "2026-02-05T00:50:18.714544",
       "read": false
     },
     {
-      "id": "db0d77b9",
+      "id": "3c0da7c4",
       "type": "score_change",
       "ticker": "TICK6",
       "title": "Title",
       "subtitle": "",
-      "timestamp": "2026-02-05T00:48:36.445607",
+      "timestamp": "2026-02-05T00:50:18.714439",
       "read": false
     },
     {
-      "id": "665bdfb7",
+      "id": "81d51f70",
       "type": "score_change",
       "ticker": "TICK5",
       "title": "Title",
       "subtitle": "",
-      "timestamp": "2026-02-05T00:48:36.445504",
+      "timestamp": "2026-02-05T00:50:18.714334",
       "read": false
     }
   ],
-  "updated_at": "2026-02-05T00:48:36.445971"
+  "updated_at": "2026-02-05T00:50:18.714799"
 }
