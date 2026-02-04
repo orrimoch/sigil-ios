@@ -140,7 +140,13 @@ final class IBKRService: ObservableObject {
         side: String,
         quantity: Double,
         orderType: String = "MARKET",
-        limitPrice: Double? = nil
+        limitPrice: Double? = nil,
+        trailingPercent: Double? = nil,
+        trailingAmount: Double? = nil,
+        outsideRth: Bool = false,
+        tif: String = "DAY",
+        goodTillDate: String? = nil,
+        autoStopLossPercent: Double? = nil
     ) async throws -> IBKROrderResult {
         let url = URL(string: "\(baseURL)/orders")!
         var request = URLRequest(url: url)
@@ -156,9 +162,23 @@ final class IBKRService: ObservableObject {
             "side": side,
             "quantity": quantity,
             "order_type": orderType,
+            "outside_rth": outsideRth,
+            "tif": tif,
         ]
         if let limitPrice = limitPrice {
             body["limit_price"] = limitPrice
+        }
+        if let trailingPercent = trailingPercent {
+            body["trailing_percent"] = trailingPercent
+        }
+        if let trailingAmount = trailingAmount {
+            body["trailing_amount"] = trailingAmount
+        }
+        if let goodTillDate = goodTillDate {
+            body["good_till_date"] = goodTillDate
+        }
+        if let autoStopLossPercent = autoStopLossPercent {
+            body["auto_stop_loss_percent"] = autoStopLossPercent
         }
         request.httpBody = try JSONSerialization.data(withJSONObject: body)
         

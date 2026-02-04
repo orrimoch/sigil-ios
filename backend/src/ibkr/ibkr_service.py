@@ -355,6 +355,11 @@ class IBKRService:
         quantity: float,
         order_type: str = "MARKET",
         limit_price: Optional[float] = None,
+        trailing_percent: Optional[float] = None,
+        trailing_amount: Optional[float] = None,
+        outside_rth: bool = False,
+        tif: str = "DAY",
+        good_till_date: Optional[str] = None,
     ) -> IBKROrder:
         """
         Submit a real order to IB Gateway.
@@ -375,19 +380,33 @@ class IBKRService:
             raise ValueError(f"Invalid side: {side}. Must be BUY or SELL.")
 
         order_type_upper = order_type.upper()
-        if order_type_upper not in ("MARKET", "LIMIT", "STP", "STOP", "STP_LMT", "STOP_LIMIT"):
+        valid_types = ("MARKET", "LIMIT", "STP", "STOP", "STP_LMT", "STOP_LIMIT", "TRAIL", "TRAILING")
+        if order_type_upper not in valid_types:
             raise ValueError(f"Invalid order type: {order_type}")
 
-        # Normalize stop order types
+        # Normalize order types
         if order_type_upper in ("STOP", "STP"):
             order_type_upper = "STP"
         elif order_type_upper in ("STOP_LIMIT", "STP_LMT"):
             order_type_upper = "STP_LMT"
+        elif order_type_upper in ("TRAIL", "TRAILING"):
+            order_type_upper = "TRAIL"
+
+        # Validate TIF
+        tif_upper = tif.upper()
+        valid_tif = ("DAY", "GTC", "GTD", "IOC", "FOK")
+        if tif_upper not in valid_tif:
+            raise ValueError(f"Invalid time-in-force: {tif}. Valid: {valid_tif}")
+
+        if tif_upper == "GTD" and not good_till_date:
+            raise ValueError("good_till_date required for GTD orders (format: YYYYMMDD HH:MM:SS)")
 
         if order_type_upper == "LIMIT" and limit_price is None:
             raise ValueError("Limit price required for LIMIT orders")
         if order_type_upper in ("STP", "STP_LMT") and limit_price is None:
             raise ValueError("Stop price required for STOP orders")
+        if order_type_upper == "TRAIL" and trailing_percent is None and trailing_amount is None:
+            raise ValueError("trailing_percent or trailing_amount required for TRAIL orders")
 
         ibc = self._get_ib(user_id)
         ibi = _IBConnection._import_ib_insync()
@@ -403,10 +422,28 @@ class IBKRService:
             elif order_type_upper == "STP":
                 ib_order = ibi.StopOrder(side_upper, quantity, limit_price)
             elif order_type_upper == "STP_LMT":
-                # Stop-limit: limit_price is the stop trigger, we use same as limit for simplicity
                 ib_order = ibi.StopLimitOrder(side_upper, quantity, limit_price, limit_price)
+            elif order_type_upper == "TRAIL":
+                # Trailing stop order
+                ib_order = ibi.Order()
+                ib_order.action = side_upper
+                ib_order.totalQuantity = quantity
+                ib_order.orderType = "TRAIL"
+                if trailing_percent:
+                    ib_order.trailingPercent = trailing_percent
+                elif trailing_amount:
+                    ib_order.auxPrice = trailing_amount
             else:
                 ib_order = ibi.MarketOrder(side_upper, quantity)
+
+            # Apply time-in-force (REC-146)
+            ib_order.tif = tif_upper
+            if tif_upper == "GTD" and good_till_date:
+                ib_order.goodTillDate = good_till_date
+
+            # Apply extended hours (REC-145)
+            if outside_rth:
+                ib_order.outsideRth = True
 
             trade = ib.placeOrder(contract, ib_order)
             logger.info(

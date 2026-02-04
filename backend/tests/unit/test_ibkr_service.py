@@ -460,6 +460,133 @@ class TestIBKRStopOrders:
 
 
 # ═══════════════════════════════════════════════════════════════════════
+# Trailing Stop Tests (REC-143)
+# ═══════════════════════════════════════════════════════════════════════
+
+class TestIBKRTrailingStop:
+    """Tests for IBKR trailing stop order functionality."""
+
+    @pytest.fixture
+    def service(self):
+        svc = IBKRService()
+        mock_ib = _make_mock_ib()
+
+        mock_order_status = MagicMock()
+        mock_order_status.status = "Submitted"
+        mock_order_status.avgFillPrice = 0.0
+
+        mock_order_obj = MagicMock()
+        mock_order_obj.orderId = 999
+
+        mock_trade = MagicMock()
+        mock_trade.orderStatus = mock_order_status
+        mock_trade.order = mock_order_obj
+        mock_trade.fills = []
+
+        mock_ib.placeOrder.return_value = mock_trade
+        _patch_ibc_connect(svc, "user1", mock_ib)
+        svc._mock_ib = mock_ib
+        return svc
+
+    def test_trailing_stop_with_percent(self, service):
+        """Trailing stop with percent should be accepted."""
+        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+            order = service.submit_order(
+                "user1", "AAPL", "SELL", 10,
+                order_type="TRAIL", trailing_percent=5.0
+            )
+        assert order.order_type == "TRAIL"
+
+    def test_trailing_stop_with_amount(self, service):
+        """Trailing stop with amount should be accepted."""
+        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+            order = service.submit_order(
+                "user1", "AAPL", "SELL", 10,
+                order_type="TRAIL", trailing_amount=5.0
+            )
+        assert order.order_type == "TRAIL"
+
+    def test_trailing_stop_requires_trail_value(self, service):
+        """Trailing stop without percent or amount should fail."""
+        with pytest.raises(ValueError, match="trailing_percent or trailing_amount required"):
+            service.submit_order("user1", "AAPL", "SELL", 10, order_type="TRAIL")
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# Extended Hours + TIF Tests (REC-145, REC-146)
+# ═══════════════════════════════════════════════════════════════════════
+
+class TestIBKROrderOptions:
+    """Tests for extended hours and time-in-force options."""
+
+    @pytest.fixture
+    def service(self):
+        svc = IBKRService()
+        mock_ib = _make_mock_ib()
+
+        mock_order_status = MagicMock()
+        mock_order_status.status = "Submitted"
+        mock_order_status.avgFillPrice = 0.0
+
+        mock_order_obj = MagicMock()
+        mock_order_obj.orderId = 999
+
+        mock_trade = MagicMock()
+        mock_trade.orderStatus = mock_order_status
+        mock_trade.order = mock_order_obj
+        mock_trade.fills = []
+
+        mock_ib.placeOrder.return_value = mock_trade
+        _patch_ibc_connect(svc, "user1", mock_ib)
+        svc._mock_ib = mock_ib
+        return svc
+
+    def test_gtc_order(self, service):
+        """GTC (Good Till Canceled) order should be accepted."""
+        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+            order = service.submit_order(
+                "user1", "AAPL", "BUY", 10,
+                order_type="LIMIT", limit_price=150.0, tif="GTC"
+            )
+        assert order is not None
+
+    def test_gtd_requires_date(self, service):
+        """GTD order without date should fail."""
+        with pytest.raises(ValueError, match="good_till_date required"):
+            service.submit_order(
+                "user1", "AAPL", "BUY", 10,
+                order_type="LIMIT", limit_price=150.0, tif="GTD"
+            )
+
+    def test_gtd_with_date(self, service):
+        """GTD order with date should be accepted."""
+        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+            order = service.submit_order(
+                "user1", "AAPL", "BUY", 10,
+                order_type="LIMIT", limit_price=150.0,
+                tif="GTD", good_till_date="20260210 16:00:00"
+            )
+        assert order is not None
+
+    def test_invalid_tif(self, service):
+        """Invalid TIF should fail."""
+        with pytest.raises(ValueError, match="Invalid time-in-force"):
+            service.submit_order(
+                "user1", "AAPL", "BUY", 10,
+                order_type="LIMIT", limit_price=150.0, tif="INVALID"
+            )
+
+    def test_outside_rth_accepted(self, service):
+        """Extended hours order should be accepted."""
+        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+            order = service.submit_order(
+                "user1", "AAPL", "BUY", 10,
+                order_type="LIMIT", limit_price=150.0, outside_rth=True
+            )
+        assert order is not None
+
+
+# ═══════════════════════════════════════════════════════════════════════
 # Order Cancellation Tests (REC-139)
 # ═══════════════════════════════════════════════════════════════════════
 
