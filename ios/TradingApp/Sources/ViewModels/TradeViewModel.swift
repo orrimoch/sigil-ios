@@ -59,7 +59,8 @@ class TradeViewModel: ObservableObject {
               quantityValue > 0,
               currentPrice != nil else { return false }
         
-        if orderType == .limit {
+        // Limit and Stop orders require a price
+        if orderType.needsPrice {
             guard let limitPrice = limitPriceValue, limitPrice > 0 else { return false }
         }
         
@@ -307,7 +308,13 @@ class TradeViewModel: ObservableObject {
     
     func cancelOrder(_ order: OrderData) async {
         do {
-            _ = try await api.cancelOrder(orderId: order.orderId)
+            if shouldUseIBKR {
+                // F6.6: Route cancellation through IBKR for live trading
+                try await IBKRService.shared.cancelOrder(orderId: order.orderId)
+            } else {
+                // Paper trading: use existing endpoint
+                _ = try await api.cancelOrder(orderId: order.orderId)
+            }
             await fetchTodaysOrders()
         } catch {
             print("Cancel error: \(error)")
@@ -339,12 +346,26 @@ enum OrderSide: String, CaseIterable {
 enum OrderType: String, CaseIterable {
     case market = "MARKET"
     case limit = "LIMIT"
+    case stop = "STP"
     
     var description: String {
         switch self {
         case .market: return "Executes immediately at current price"
         case .limit: return "Executes when price reaches your limit"
+        case .stop: return "Triggers when price falls to your stop price"
         }
+    }
+    
+    var priceLabel: String {
+        switch self {
+        case .market: return ""
+        case .limit: return "Limit Price"
+        case .stop: return "Stop Price"
+        }
+    }
+    
+    var needsPrice: Bool {
+        self != .market
     }
 }
 

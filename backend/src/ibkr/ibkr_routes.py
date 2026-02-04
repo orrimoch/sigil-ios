@@ -164,3 +164,44 @@ async def get_ibkr_account_summary(user=Depends(get_optional_user)):
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+@ibkr_router.get("/orders/open")
+async def get_ibkr_open_orders(user=Depends(get_optional_user)):
+    """Get all open (pending) IBKR orders."""
+    try:
+        service = get_ibkr_service()
+        orders = service.get_open_orders(user_id=_get_user_id(user))
+
+        return {
+            "success": True,
+            "count": len(orders),
+            "data": [o.to_dict() for o in orders],
+        }
+
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@ibkr_router.delete("/orders/{order_id}")
+async def cancel_ibkr_order(order_id: str, user=Depends(get_optional_user)):
+    """Cancel an open IBKR order."""
+    try:
+        service = get_ibkr_service()
+        result = service.cancel_order(
+            user_id=_get_user_id(user),
+            order_id=order_id,
+        )
+
+        return {
+            "success": True,
+            "message": "Order cancellation requested",
+            "data": result,
+        }
+
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

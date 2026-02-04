@@ -1,14 +1,118 @@
 {
-  "updated_at": "2026-02-04T21:28:59.890441",
-  "count": 152,
+  "updated_at": "2026-02-04T23:56:32.823492",
+  "count": 157,
   "articles": [
+    {
+      "source": "marketwatch",
+      "title": "Soybean prices surge to highest level this year, as Trump surprises market with plan for more sales to China",
+      "summary": "The sort of buying President Trump outlined from China seems \u201cunlikely on many fronts, but neither can the possibility be ignored,\u201d analyst says.",
+      "link": "https://www.marketwatch.com/story/soybean-prices-surge-to-highest-level-this-year-as-trump-surprises-market-with-plan-for-more-sales-to-china-21af16b0?mod=mw_rss_topstories",
+      "published": "2026-02-04T21:54:00",
+      "fetched_at": "2026-02-04T23:56:32.414699"
+    },
+    {
+      "source": "marketwatch",
+      "title": "E.l.f. Beauty\u2019s more upbeat outlook shows demand for cosmetics is still growing",
+      "summary": "E.l.f. Beauty\u2019s stock surged after a raised outlook for both sales and profit, as demand for cosmetics keeps growing.",
+      "link": "https://www.marketwatch.com/story/e-l-f-beautys-more-upbeat-outlook-shows-demand-for-cosmetics-is-still-growing-0459cd41?mod=mw_rss_topstories",
+      "published": "2026-02-04T21:53:00",
+      "fetched_at": "2026-02-04T23:56:32.414736"
+    },
+    {
+      "source": "marketwatch",
+      "title": "SpaceX rivals AST SpaceMobile and Rocket Lab join space-stock selloff",
+      "summary": "Losses could be tied in part to this week\u2019s software rout, according to one analyst.",
+      "link": "https://www.marketwatch.com/story/spacex-rivals-ast-spacemobile-and-rocket-lab-join-space-stock-selloff-ace22a17?mod=mw_rss_topstories",
+      "published": "2026-02-04T21:42:00",
+      "fetched_at": "2026-02-04T23:56:32.414762"
+    },
+    {
+      "source": "marketwatch",
+      "title": "Lilly says Mounjaro and Zepbound sales more than doubled, as stock rallies",
+      "summary": "Eli Lilly became the first pharmaceutical stock to reach a $1 trillion valuation late last year.",
+      "link": "https://www.marketwatch.com/story/lilly-says-mounjaro-and-zepbound-sales-grew-by-at-least-110-as-stock-rallies-d281f77d?mod=mw_rss_topstories",
+      "published": "2026-02-04T21:24:00",
+      "fetched_at": "2026-02-04T23:56:32.414786"
+    },
+    {
+      "source": "marketwatch",
+      "title": "Powell probe will get resolved, clearing the way for Warsh\u2019s confirmation, key Republican senator says",
+      "summary": "Senate Banking Committee Chair Tim Scott indicated Wednesday that he expects the Department of Justice will resolve its criminal probe of current Federal Reserve chief Jerome Powell, clearing a path for the panel to advance President Donald Trump\u2019s nominee for the top Fed job, Kevin Warsh.",
+      "link": "https://www.marketwatch.com/story/powell-probe-will-get-resolved-clearing-the-way-for-warshs-confirmation-key-republican-senator-says-a4dd0169?mod=mw_rss_topstories",
+      "published": "2026-02-04T21:17:00",
+      "fetched_at": "2026-02-04T23:56:32.414809"
+    },
+    {
+      "source": "marketwatch",
+      "title": "Gold makes a run for $5,000, but falls short as precious metals tally back-to-back gains",
+      "summary": "Gold futures briefly climbed past $5,000 an ounce on Wednesday and silver rose by as much as 10% before both metals pared gains to finish below session highs.",
+      "link": "https://www.marketwatch.com/story/golds-back-over-5-000-and-silvers-surging-as-well-273ab886?mod=mw_rss_topstories",
+      "published": "2026-02-04T21:07:00",
+      "fetched_at": "2026-02-04T23:56:32.414833"
+    },
+    {
+      "source": "marketwatch",
+      "title": "Builders pitch \u2018Trump home\u2019 policies, stoking gains for their stocks",
+      "summary": "Home builders are reportedly pitching affordable-home policies to the Trump administration, and their shares were rising Wednesday.",
+      "link": "https://www.marketwatch.com/story/builders-pitch-trump-home-policies-stoking-gains-for-their-stocks-d3d3600b?mod=mw_rss_topstories",
+      "published": "2026-02-04T20:31:00",
+      "fetched_at": "2026-02-04T23:56:32.414857"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Analyst Report: ServiceNow Inc",
+      "summary": "",
+      "link": "https://finance.yahoo.com/research/reports/ARGUS_3664_AnalystReport_1770233677000?yptr=yahoo&ncid=yahooproperties_plusresear_nm5q6ze1cei",
+      "published": "2026-02-04T19:34:37+00:00",
+      "fetched_at": "2026-02-04T23:56:32.726820"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Market Update: AMD, EMR, J, RTX, APTV, NOW",
+      "summary": "",
+      "link": "https://finance.yahoo.com/research/reports/ARGUS_46060_MarketUpdate_1770233677000?yptr=yahoo&ncid=yahooproperties_plusresear_nm5q6ze1cei",
+      "published": "2026-02-04T19:34:37+00:00",
+      "fetched_at": "2026-02-04T23:56:32.726993"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Analyst Report: RTX Corp.",
+      "summary": "",
+      "link": "https://finance.yahoo.com/research/reports/ARGUS_3487_AnalystReport_1770233677000?yptr=yahoo&ncid=yahooproperties_plusresear_nm5q6ze1cei",
+      "published": "2026-02-04T19:34:37+00:00",
+      "fetched_at": "2026-02-04T23:56:32.727154"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Analyst Report: Emerson Electric Co.",
+      "summary": "",
+      "link": "https://finance.yahoo.com/research/reports/ARGUS_2935_AnalystReport_1770233677000?yptr=yahoo&ncid=yahooproperties_plusresear_nm5q6ze1cei",
+      "published": "2026-02-04T19:34:37+00:00",
+      "fetched_at": "2026-02-04T23:56:32.727311"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Analyst Report: Aptiv PLC",
+      "summary": "",
+      "link": "https://finance.yahoo.com/research/reports/ARGUS_4567_AnalystReport_1770233677000?yptr=yahoo&ncid=yahooproperties_plusresear_nm5q6ze1cei",
+      "published": "2026-02-04T19:34:37+00:00",
+      "fetched_at": "2026-02-04T23:56:32.727469"
+    },
+    {
+      "source": "marketwatch",
+      "title": "Nvidia\u2019s stock gets swept up in software selloff, but this analyst says that makes no sense",
+      "summary": "The \u201cindiscriminate\u201d chip selloff is reminiscent of DeepSeek fears that were \u201cproved unfounded,\u201d a Bank of America analyst said.",
+      "link": "https://www.marketwatch.com/story/nvidias-stock-gets-swept-up-in-software-selloff-but-this-analyst-says-that-makes-no-sense-24a25ca3?mod=mw_rss_topstories",
+      "published": "2026-02-04T19:27:00",
+      "fetched_at": "2026-02-04T23:56:32.414880"
+    },
     {
       "source": "marketwatch",
       "title": "These hot S&P 500 stocks show where investors are heading as they run away from tech",
       "summary": "The industrials sector has been a big beneficiary of the rotation out of tech, with a number of defense and transportation stocks hitting new highs on Wednesday.",
       "link": "https://www.marketwatch.com/story/these-hot-s-p-500-stocks-show-where-investors-are-heading-as-they-run-away-from-tech-0fcd53f6?mod=mw_rss_topstories",
       "published": "2026-02-04T18:37:00",
-      "fetched_at": "2026-02-04T21:28:59.592440"
+      "fetched_at": "2026-02-04T23:56:32.414903"
     },
     {
       "source": "marketwatch",
@@ -16,1207 +120,1143 @@
       "summary": "\u201cI do have a decent 401(k) and also should be able to benefit from my husband\u2019s Social Security.\u201d",
       "link": "https://www.marketwatch.com/story/im-59-earning-six-figures-but-my-daughter-wants-me-to-retire-to-watch-my-future-grandkid-for-a-year-can-i-afford-it-a9dc31e8?mod=mw_rss_topstories",
       "published": "2026-02-04T17:57:00",
-      "fetched_at": "2026-02-04T21:28:59.592455"
-    },
-    {
-      "source": "marketwatch",
-      "title": "Here are the new release dates for January\u2019s jobs and CPI inflation reports",
-      "summary": "The U.S. employment report for January originally due on Friday has been rescheduled for the middle of next week \u2014 and the consumer price index was also pushed back a couple of days.",
-      "link": "https://www.marketwatch.com/story/heres-the-new-dates-for-january-jobs-and-cpi-inflation-reports-0350659d?mod=mw_rss_topstories",
-      "published": "2026-02-04T17:57:00",
-      "fetched_at": "2026-02-04T21:28:59.592467"
-    },
-    {
-      "source": "marketwatch",
-      "title": "The Social Security data breach is a national-security disaster that could hurt Americans for the rest of their lives: whistleblower",
-      "summary": "Every American\u2019s personal data is at risk of fraud after DOGE\u2019s alleged mismanagement, Social Security\u2019s former chief data officer tells MarketWatch.",
-      "link": "https://www.marketwatch.com/story/the-social-security-data-breach-is-a-national-security-disaster-that-could-hurt-americans-for-the-rest-of-their-lives-whistleblower-fdb1254d?mod=mw_rss_topstories",
-      "published": "2026-02-04T17:42:00",
-      "fetched_at": "2026-02-04T21:28:59.592478"
-    },
-    {
-      "source": "marketwatch",
-      "title": "Lilly says Mounjaro and Zepbound sales more than doubled as stock rallies",
-      "summary": "Late last year, Lilly was the first pharmaceutical stock to reach a $1 trillion valuation.",
-      "link": "https://www.marketwatch.com/story/lilly-says-mounjaro-and-zepbound-sales-grew-by-at-least-110-as-stock-rallies-d281f77d?mod=mw_rss_topstories",
-      "published": "2026-02-04T16:45:00",
-      "fetched_at": "2026-02-04T21:28:59.592489"
-    },
-    {
-      "source": "marketwatch",
-      "title": "This company is providing relief from higher utility rates, and the stock is surging",
-      "summary": "Enphase\u2019s stock was soaring Wednesday after the company\u2019s upbeat earnings report and a view that residential solar demand has bottomed as consumers look for relief from higher electricity costs.",
-      "link": "https://www.marketwatch.com/story/this-company-is-providing-relief-from-higher-utility-rates-and-the-stock-is-surging-d04b842e?mod=mw_rss_topstories",
-      "published": "2026-02-04T16:42:00",
-      "fetched_at": "2026-02-04T21:28:59.592500"
-    },
-    {
-      "source": "marketwatch",
-      "title": "Uber\u2019s stock falls as record demand for rides fails to deliver the profit investors expected",
-      "summary": "Uber\u2019s stock dropped toward a 10-month low Wednesday as a quarterly profit miss offset record user results.",
-      "link": "https://www.marketwatch.com/story/ubers-stock-as-record-demand-for-rides-fails-to-deliver-the-profit-investors-expected-20b0c4b2?mod=mw_rss_topstories",
-      "published": "2026-02-04T16:00:00",
-      "fetched_at": "2026-02-04T21:28:59.592511"
-    },
-    {
-      "source": "marketwatch",
-      "title": "The economy got off to a decent start in the new year. Businesses hope things get even better.",
-      "summary": "The largest part of the  economy expanded again in January and pointed to decent growth early in the new year, as businesses grapple with the lingering effects of highs tariffs and how to adopt artificial intelligence.",
-      "link": "https://www.marketwatch.com/story/the-economy-got-off-to-a-decent-start-in-the-new-year-businesses-hope-things-get-even-better-bf7d4e01?mod=mw_rss_topstories",
-      "published": "2026-02-04T15:56:00",
-      "fetched_at": "2026-02-04T21:28:59.592522"
-    },
-    {
-      "source": "marketwatch",
-      "title": "Why AMD\u2019s stock is diving toward its worst day in years after earnings",
-      "summary": "AMD\u2019s beat wasn\u2019t as strong as it seemed, and high operating expenditures also clouded a strong report.",
-      "link": "https://www.marketwatch.com/story/why-amds-stock-is-diving-toward-its-worst-day-in-years-after-earnings-1cf8cab9?mod=mw_rss_topstories",
-      "published": "2026-02-04T15:40:00",
-      "fetched_at": "2026-02-04T21:28:59.592532"
-    },
-    {
-      "source": "marketwatch",
-      "title": "Gold\u2019s back over $5,000 and silver\u2019s surging as well",
-      "summary": "Gold futures reclaimed the $5,000 level on Wednesday, and silver led the charge higher in precious metals with a more than 7% rise \u2014 with both metals extending their recovery from a recent, historic decline into a second session.",
-      "link": "https://www.marketwatch.com/story/golds-back-over-5-000-and-silvers-surging-as-well-273ab886?mod=mw_rss_topstories",
-      "published": "2026-02-04T15:25:00",
-      "fetched_at": "2026-02-04T21:28:59.592543"
+      "fetched_at": "2026-02-04T23:56:32.414926"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - Maison Solutions Inc. (0001892292) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001213900-26-012072 <b>Size:</b> 314 KB\n<br />Item 1.01: Entry into a Material Definitive Agreement\n<br />Item 2.01: Completion of Acquisition or Disposition of Assets\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1892292/000121390026012072/0001213900-26-012072-index.htm",
-      "published": "2026-02-04T14:18:22-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826039"
+      "title": "8-K - Uniti Group Inc. (0002020795) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0000950103-26-001636 <b>Size:</b> 1 MB\n<br />Item 1.01: Entry into a Material Definitive Agreement\n<br />Item 2.03: Creation of a Direct Financial Obligation or an Obligation under an Off-Balance Sheet Arrangement of a Registrant\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/2020795/000095010326001636/0000950103-26-001636-index.htm",
+      "published": "2026-02-04T16:54:24-05:00",
+      "fetched_at": "2026-02-04T23:56:32.820343"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - WAFD INC (0000936528) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0000936528-26-000023 <b>Size:</b> 209 KB\n<br />Item 5.02: Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers: Compensatory Arrangements of Certain Officers\n<br />Item 5.07: Submission of Matters to a Vote of Security Holders\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/936528/000093652826000023/0000936528-26-000023-index.htm",
-      "published": "2026-02-04T14:15:32-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826056"
+      "title": "8-K - COMPASS MINERALS INTERNATIONAL INC (0001227654) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001227654-26-000008 <b>Size:</b> 962 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1227654/000122765426000008/0001227654-26-000008-index.htm",
+      "published": "2026-02-04T16:53:32-05:00",
+      "fetched_at": "2026-02-04T23:56:32.820375"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - Stellus Private Credit BDC (0001901037) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001104659-26-010211 <b>Size:</b> 184 KB\n<br />Item 3.02: Unregistered Sales of Equity Securities",
-      "link": "https://www.sec.gov/Archives/edgar/data/1901037/000110465926010211/0001104659-26-010211-index.htm",
-      "published": "2026-02-04T14:11:03-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826071"
+      "title": "8-K - Kimball Electronics, Inc. (0001606757) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001606757-26-000006 <b>Size:</b> 4 MB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1606757/000160675726000006/0001606757-26-000006-index.htm",
+      "published": "2026-02-04T16:50:27-05:00",
+      "fetched_at": "2026-02-04T23:56:32.820400"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - LANDMARK BANCORP INC (0001141688) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001493152-26-005079 <b>Size:</b> 7 MB\n<br />Item 7.01: Regulation FD Disclosure\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1141688/000149315226005079/0001493152-26-005079-index.htm",
-      "published": "2026-02-04T14:09:26-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826083"
+      "title": "8-K - MATRIX SERVICE CO (0000866273) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0000866273-26-000012 <b>Size:</b> 550 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/866273/000086627326000012/0000866273-26-000012-index.htm",
+      "published": "2026-02-04T16:50:17-05:00",
+      "fetched_at": "2026-02-04T23:56:32.820423"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - i-80 Gold Corp. (0001853962) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001193125-26-037261 <b>Size:</b> 262 KB\n<br />Item 5.02: Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers: Compensatory Arrangements of Certain Officers\n<br />Item 7.01: Regulation FD Disclosure\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1853962/000119312526037261/0001193125-26-037261-index.htm",
-      "published": "2026-02-04T13:47:32-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826096"
+      "title": "8-K - WOLFSPEED, INC. (0000895419) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0000895419-26-000012 <b>Size:</b> 824 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/895419/000089541926000012/0000895419-26-000012-index.htm",
+      "published": "2026-02-04T16:47:20-05:00",
+      "fetched_at": "2026-02-04T23:56:32.820446"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - Nordicus Partners Corp (0001011060) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001493152-26-005074 <b>Size:</b> 8 MB\n<br />Item 8.01: Other Events\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1011060/000149315226005074/0001493152-26-005074-index.htm",
-      "published": "2026-02-04T13:28:47-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826109"
+      "title": "8-K - Flowco Holdings Inc. (0002035149) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001193125-26-037750 <b>Size:</b> 17 MB\n<br />Item 8.01: Other Events\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/2035149/000119312526037750/0001193125-26-037750-index.htm",
+      "published": "2026-02-04T16:47:00-05:00",
+      "fetched_at": "2026-02-04T23:56:32.820468"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - John Hancock Comvest Private Income Fund (0001987221) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001193125-26-037206 <b>Size:</b> 150 KB\n<br />Item 8.01: Other Events",
-      "link": "https://www.sec.gov/Archives/edgar/data/1987221/000119312526037206/0001193125-26-037206-index.htm",
-      "published": "2026-02-04T13:18:37-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826121"
+      "title": "8-K - GLOBE LIFE INC. (0000320335) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0000320335-26-000029 <b>Size:</b> 647 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/320335/000032033526000029/0000320335-26-000029-index.htm",
+      "published": "2026-02-04T16:45:50-05:00",
+      "fetched_at": "2026-02-04T23:56:32.820490"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - Fidelity Private Credit Fund (0001920453) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001193125-26-037195 <b>Size:</b> 6 MB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 7.01: Regulation FD Disclosure\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1920453/000119312526037195/0001193125-26-037195-index.htm",
-      "published": "2026-02-04T13:14:28-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826133"
+      "title": "8-K - Maze Therapeutics, Inc. (0001842295) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001193125-26-037747 <b>Size:</b> 152 KB\n<br />Item 1.01: Entry into a Material Definitive Agreement\n<br />Item 1.02: Termination of a Material Definitive Agreement\n<br />Item 2.03: Creation of a Direct Financial Obligation or an Obligation under an Off-Balance Sheet Arrangement of a Registrant",
+      "link": "https://www.sec.gov/Archives/edgar/data/1842295/000119312526037747/0001193125-26-037747-index.htm",
+      "published": "2026-02-04T16:45:43-05:00",
+      "fetched_at": "2026-02-04T23:56:32.820512"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - MGM Resorts International (0000789570) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001193125-26-037093 <b>Size:</b> 299 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/789570/000119312526037093/0001193125-26-037093-index.htm",
-      "published": "2026-02-04T12:20:13-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826145"
+      "title": "8-K - STANDEX INTERNATIONAL CORP/DE/ (0000310354) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001437749-26-003002 <b>Size:</b> 954 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/310354/000143774926003002/0001437749-26-003002-index.htm",
+      "published": "2026-02-04T16:43:37-05:00",
+      "fetched_at": "2026-02-04T23:56:32.820533"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - BRANDYWINE OPERATING PARTNERSHIP, L.P. (0001060386) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0000790816-26-000005 <b>Size:</b> 615 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1060386/000079081626000005/0000790816-26-000005-index.htm",
-      "published": "2026-02-04T12:14:59-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826158"
+      "title": "8-K - ESSEX PORTFOLIO LP (0001053059) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001140361-26-003709 <b>Size:</b> 4 MB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1053059/000114036126003709/0001140361-26-003709-index.htm",
+      "published": "2026-02-04T16:43:35-05:00",
+      "fetched_at": "2026-02-04T23:56:32.820554"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - BRANDYWINE REALTY TRUST (0000790816) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0000790816-26-000005 <b>Size:</b> 615 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/790816/000079081626000005/0000790816-26-000005-index.htm",
-      "published": "2026-02-04T12:14:59-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826170"
+      "title": "8-K - ESSEX PROPERTY TRUST, INC. (0000920522) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001140361-26-003709 <b>Size:</b> 4 MB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/920522/000114036126003709/0001140361-26-003709-index.htm",
+      "published": "2026-02-04T16:43:35-05:00",
+      "fetched_at": "2026-02-04T23:56:32.820576"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - TYLER TECHNOLOGIES INC (0000860731) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0000860731-26-000009 <b>Size:</b> 389 KB\n<br />Item 8.01: Other Events\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/860731/000086073126000009/0000860731-26-000009-index.htm",
-      "published": "2026-02-04T12:05:18-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826181"
+      "title": "8-K - Grayscale CoinDesk Crypto 5 ETF (0001729997) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001193125-26-037738 <b>Size:</b> 162 KB\n<br />Item 8.01: Other Events",
+      "link": "https://www.sec.gov/Archives/edgar/data/1729997/000119312526037738/0001193125-26-037738-index.htm",
+      "published": "2026-02-04T16:42:46-05:00",
+      "fetched_at": "2026-02-04T23:56:32.820597"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - ONCOLYTICS BIOTECH INC (0001129928) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001129928-26-000004 <b>Size:</b> 170 KB\n<br />Item 8.01: Other Events",
-      "link": "https://www.sec.gov/Archives/edgar/data/1129928/000112992826000004/0001129928-26-000004-index.htm",
-      "published": "2026-02-04T12:05:06-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826193"
+      "title": "8-K - Regional Management Corp. (0001519401) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001193125-26-037735 <b>Size:</b> 13 MB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 8.01: Other Events\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1519401/000119312526037735/0001193125-26-037735-index.htm",
+      "published": "2026-02-04T16:42:24-05:00",
+      "fetched_at": "2026-02-04T23:56:32.820618"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - MAGELLAN COPPER & GOLD Corp (0001515317) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001683168-26-000744 <b>Size:</b> 195 KB\n<br />Item 8.01: Other Events\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1515317/000168316826000744/0001683168-26-000744-index.htm",
-      "published": "2026-02-04T12:03:44-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826207"
+      "title": "8-K - FIRST INDUSTRIAL LP (0001033128) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0000921825-26-000008 <b>Size:</b> 515 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1033128/000092182526000008/0000921825-26-000008-index.htm",
+      "published": "2026-02-04T16:41:43-05:00",
+      "fetched_at": "2026-02-04T23:56:32.820639"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - NB Bancorp, Inc. (0001979330) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001104659-26-010122 <b>Size:</b> 7 MB\n<br />Item 8.01: Other Events\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1979330/000110465926010122/0001104659-26-010122-index.htm",
-      "published": "2026-02-04T11:00:38-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826220"
+      "title": "8-K - FIRST INDUSTRIAL REALTY TRUST INC (0000921825) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0000921825-26-000008 <b>Size:</b> 515 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/921825/000092182526000008/0000921825-26-000008-index.htm",
+      "published": "2026-02-04T16:41:43-05:00",
+      "fetched_at": "2026-02-04T23:56:32.820660"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - GBank Financial Holdings Inc. (0001791145) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001193125-26-036939 <b>Size:</b> 18 MB\n<br />Item 7.01: Regulation FD Disclosure\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1791145/000119312526036939/0001193125-26-036939-index.htm",
-      "published": "2026-02-04T10:57:22-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826232"
+      "title": "8-K - iQSTEL Inc (0001527702) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001663577-26-000039 <b>Size:</b> 246 KB\n<br />Item 5.07: Submission of Matters to a Vote of Security Holders\n<br />Item 8.01: Other Events\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1527702/000166357726000039/0001663577-26-000039-index.htm",
+      "published": "2026-02-04T16:41:41-05:00",
+      "fetched_at": "2026-02-04T23:56:32.820682"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - Starwood Credit Real Estate Income Trust (0001986395) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001193125-26-036935 <b>Size:</b> 162 KB\n<br />Item 3.02: Unregistered Sales of Equity Securities",
-      "link": "https://www.sec.gov/Archives/edgar/data/1986395/000119312526036935/0001193125-26-036935-index.htm",
-      "published": "2026-02-04T10:52:36-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826245"
+      "title": "8-K - PHIBRO ANIMAL HEALTH CORP (0001069899) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001104659-26-010345 <b>Size:</b> 872 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1069899/000110465926010345/0001104659-26-010345-index.htm",
+      "published": "2026-02-04T16:41:36-05:00",
+      "fetched_at": "2026-02-04T23:56:32.820702"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - First Northwest Bancorp (0001556727) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001437749-26-002894 <b>Size:</b> 4 MB\n<br />Item 7.01: Regulation FD Disclosure\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1556727/000143774926002894/0001437749-26-002894-index.htm",
-      "published": "2026-02-04T10:31:18-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826258"
+      "title": "8-K - MARKEL GROUP INC. (0001096343) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001096343-26-000008 <b>Size:</b> 1 MB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1096343/000109634326000008/0001096343-26-000008-index.htm",
+      "published": "2026-02-04T16:40:24-05:00",
+      "fetched_at": "2026-02-04T23:56:32.820723"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - Eagle Bancorp Montana, Inc. (0001478454) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001171843-26-000620 <b>Size:</b> 6 MB\n<br />Item 7.01: Regulation FD Disclosure\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1478454/000117184326000620/0001171843-26-000620-index.htm",
-      "published": "2026-02-04T10:00:29-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826270"
+      "title": "8-K - Cerence Inc. (0001768267) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001628280-26-005491 <b>Size:</b> 6 MB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1768267/000162828026005491/0001628280-26-005491-index.htm",
+      "published": "2026-02-04T16:40:16-05:00",
+      "fetched_at": "2026-02-04T23:56:32.820744"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - VSE CORP (0000102752) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001193125-26-036858 <b>Size:</b> 399 KB\n<br />Item 1.01: Entry into a Material Definitive Agreement\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/102752/000119312526036858/0001193125-26-036858-index.htm",
-      "published": "2026-02-04T09:47:09-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826282"
+      "title": "8-K - U-Haul Holding Co /NV/ (0000004457) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001193125-26-037727 <b>Size:</b> 1 MB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/4457/000119312526037727/0001193125-26-037727-index.htm",
+      "published": "2026-02-04T16:39:45-05:00",
+      "fetched_at": "2026-02-04T23:56:32.820765"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - Phillips 66 (0001534701) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001534701-26-000003 <b>Size:</b> 3 MB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1534701/000153470126000003/0001534701-26-000003-index.htm",
-      "published": "2026-02-04T09:42:15-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826293"
+      "title": "8-K - GigCapital7 Corp. (0002023730) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001193125-26-037716 <b>Size:</b> 221 KB\n<br />Item 2.03: Creation of a Direct Financial Obligation or an Obligation under an Off-Balance Sheet Arrangement of a Registrant\n<br />Item 3.02: Unregistered Sales of Equity Securities\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/2023730/000119312526037716/0001193125-26-037716-index.htm",
+      "published": "2026-02-04T16:37:07-05:00",
+      "fetched_at": "2026-02-04T23:56:32.820786"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - MSC INCOME FUND, INC. (0001535778) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001535778-26-000016 <b>Size:</b> 294 KB\n<br />Item 5.02: Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers: Compensatory Arrangements of Certain Officers\n<br />Item 7.01: Regulation FD Disclosure\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1535778/000153577826000016/0001535778-26-000016-index.htm",
-      "published": "2026-02-04T09:36:40-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826305"
+      "title": "8-K - MODINE MANUFACTURING CO (0000067347) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001104659-26-010338 <b>Size:</b> 5 MB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/67347/000110465926010338/0001104659-26-010338-index.htm",
+      "published": "2026-02-04T16:36:54-05:00",
+      "fetched_at": "2026-02-04T23:56:32.820806"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - PIPER SANDLER COMPANIES (0001230245) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001230245-26-000005 <b>Size:</b> 194 KB\n<br />Item 5.02: Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers: Compensatory Arrangements of Certain Officers\n<br />Item 7.01: Regulation FD Disclosure\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1230245/000123024526000005/0001230245-26-000005-index.htm",
-      "published": "2026-02-04T09:27:24-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826317"
+      "title": "8-K - GLADSTONE CAPITAL CORP (0001143513) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001193125-26-037714 <b>Size:</b> 198 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1143513/000119312526037714/0001193125-26-037714-index.htm",
+      "published": "2026-02-04T16:36:00-05:00",
+      "fetched_at": "2026-02-04T23:56:32.820828"
     },
     {
       "source": "sec_filings",
-      "title": "8-K/A - MILESTONE SCIENTIFIC INC. (0000855683) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001493152-26-005041 <b>Size:</b> 265 KB\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/855683/000149315226005041/0001493152-26-005041-index.htm",
-      "published": "2026-02-04T09:26:22-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826328"
+      "title": "8-K - GenFlat Holdings, Inc. (0001796949) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001683168-26-000753 <b>Size:</b> 622 KB\n<br />Item 1.01: Entry into a Material Definitive Agreement\n<br />Item 7.01: Regulation FD Disclosure\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1796949/000168316826000753/0001683168-26-000753-index.htm",
+      "published": "2026-02-04T16:35:50-05:00",
+      "fetched_at": "2026-02-04T23:56:32.820849"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - Dayforce, Inc. (0001725057) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001140361-26-003628 <b>Size:</b> 1 MB\n<br />Item 1.01: Entry into a Material Definitive Agreement\n<br />Item 1.02: Termination of a Material Definitive Agreement\n<br />Item 2.01: Completion of Acquisition or Disposition of Assets\n<br />Item 3.01: Notice of Delisting or Failure to Satisfy a Continued Listing Rule or Standard; Transfer of Listing\n<br />Item 3.02: Unregistered Sales of Equity Securities\n<br />Item 3.03: Material Modifications to Rights of Sec",
-      "link": "https://www.sec.gov/Archives/edgar/data/1725057/000114036126003628/0001140361-26-003628-index.htm",
-      "published": "2026-02-04T09:23:34-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826340"
+      "title": "8-K - NOODLES & Co (0001275158) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001275158-26-000008 <b>Size:</b> 4 MB\n<br />Item 5.07: Submission of Matters to a Vote of Security Holders\n<br />Item 8.01: Other Events\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1275158/000127515826000008/0001275158-26-000008-index.htm",
+      "published": "2026-02-04T16:35:17-05:00",
+      "fetched_at": "2026-02-04T23:56:32.820870"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - CERO THERAPEUTICS HOLDINGS, INC. (0001870404) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001213900-26-011844 <b>Size:</b> 7 MB\n<br />Item 8.01: Other Events\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1870404/000121390026011844/0001213900-26-011844-index.htm",
-      "published": "2026-02-04T09:12:45-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826352"
+      "title": "8-K - USCB FINANCIAL HOLDINGS, INC. (0001901637) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0000927089-26-000019 <b>Size:</b> 227 KB\n<br />Item 5.02: Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers: Compensatory Arrangements of Certain Officers\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1901637/000092708926000019/0000927089-26-000019-index.htm",
+      "published": "2026-02-04T16:35:14-05:00",
+      "fetched_at": "2026-02-04T23:56:32.820890"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - CHOICEONE FINANCIAL SERVICES INC (0000803164) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0000905729-26-000032 <b>Size:</b> 5 MB\n<br />Item 7.01: Regulation FD Disclosure\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/803164/000090572926000032/0000905729-26-000032-index.htm",
-      "published": "2026-02-04T09:12:09-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826366"
+      "title": "8-K - ALLIANCE RESOURCE PARTNERS LP (0001086600) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001104659-26-010337 <b>Size:</b> 331 KB\n<br />Item 1.01: Entry into a Material Definitive Agreement\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1086600/000110465926010337/0001104659-26-010337-index.htm",
+      "published": "2026-02-04T16:34:51-05:00",
+      "fetched_at": "2026-02-04T23:56:32.820911"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - NRG ENERGY, INC. (0001013871) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001104659-26-010079 <b>Size:</b> 266 KB\n<br />Item 5.02: Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers: Compensatory Arrangements of Certain Officers\n<br />Item 7.01: Regulation FD Disclosure\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1013871/000110465926010079/0001104659-26-010079-index.htm",
-      "published": "2026-02-04T09:10:42-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826378"
+      "title": "8-K - Victory Capital Holdings, Inc. (0001570827) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001193125-26-037708 <b>Size:</b> 3 MB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1570827/000119312526037708/0001193125-26-037708-index.htm",
+      "published": "2026-02-04T16:34:50-05:00",
+      "fetched_at": "2026-02-04T23:56:32.820932"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - NATURAL HEALTH TRENDS CORP (0000912061) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001437749-26-002881 <b>Size:</b> 362 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/912061/000143774926002881/0001437749-26-002881-index.htm",
-      "published": "2026-02-04T09:10:11-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826390"
+      "title": "8-K - WEX Inc. (0001309108) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001309108-26-000005 <b>Size:</b> 5 MB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1309108/000130910826000005/0001309108-26-000005-index.htm",
+      "published": "2026-02-04T16:34:31-05:00",
+      "fetched_at": "2026-02-04T23:56:32.820953"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - CECO ENVIRONMENTAL CORP (0000003197) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001193125-26-036815 <b>Size:</b> 2 MB\n<br />Item 1.01: Entry into a Material Definitive Agreement\n<br />Item 2.03: Creation of a Direct Financial Obligation or an Obligation under an Off-Balance Sheet Arrangement of a Registrant\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/3197/000119312526036815/0001193125-26-036815-index.htm",
-      "published": "2026-02-04T09:04:26-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826401"
+      "title": "8-K - Krispy Kreme, Inc. (0001857154) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001857154-26-000003 <b>Size:</b> 227 KB\n<br />Item 5.02: Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers: Compensatory Arrangements of Certain Officers",
+      "link": "https://www.sec.gov/Archives/edgar/data/1857154/000185715426000003/0001857154-26-000003-index.htm",
+      "published": "2026-02-04T16:34:26-05:00",
+      "fetched_at": "2026-02-04T23:56:32.820978"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - Brookfield Asset Management Ltd. (0001937926) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001104659-26-010078 <b>Size:</b> 441 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 5.02: Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers: Compensatory Arrangements of Certain Officers\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1937926/000110465926010078/0001104659-26-010078-index.htm",
-      "published": "2026-02-04T09:02:05-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826413"
+      "title": "8-K - O REILLY AUTOMOTIVE INC (0000898173) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0000898173-26-000006 <b>Size:</b> 770 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/898173/000089817326000006/0000898173-26-000006-index.htm",
+      "published": "2026-02-04T16:34:03-05:00",
+      "fetched_at": "2026-02-04T23:56:32.821009"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - Lamb Weston Holdings, Inc. (0001679273) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001104659-26-010076 <b>Size:</b> 417 KB\n<br />Item 5.02: Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers: Compensatory Arrangements of Certain Officers\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1679273/000110465926010076/0001104659-26-010076-index.htm",
-      "published": "2026-02-04T09:00:37-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826425"
+      "title": "8-K - KINGSTONE COMPANIES, INC. (0000033992) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001021771-26-000016 <b>Size:</b> 206 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 7.01: Regulation FD Disclosure\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/33992/000102177126000016/0001021771-26-000016-index.htm",
+      "published": "2026-02-04T16:33:33-05:00",
+      "fetched_at": "2026-02-04T23:56:32.821030"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - International Land Alliance Inc. (0001657214) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001493152-26-005035 <b>Size:</b> 1 MB\n<br />Item 3.03: Material Modifications to Rights of Security Holders\n<br />Item 5.03: Amendments to Articles of Incorporation or Bylaws; Change in Fiscal Year\n<br />Item 5.07: Submission of Matters to a Vote of Security Holders\n<br />Item 8.01: Other Events\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1657214/000149315226005035/0001493152-26-005035-index.htm",
-      "published": "2026-02-04T09:00:26-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826437"
+      "title": "8-K - Murphy USA Inc. (0001573516) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001573516-26-000026 <b>Size:</b> 1 MB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1573516/000157351626000026/0001573516-26-000026-index.htm",
+      "published": "2026-02-04T16:33:02-05:00",
+      "fetched_at": "2026-02-04T23:56:32.821050"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - NightFood Holdings, Inc. (0001593001) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001493152-26-005034 <b>Size:</b> 229 KB\n<br />Item 7.01: Regulation FD Disclosure\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1593001/000149315226005034/0001493152-26-005034-index.htm",
-      "published": "2026-02-04T09:00:25-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826448"
+      "title": "8-K - American Healthcare REIT, Inc. (0001632970) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001193125-26-037696 <b>Size:</b> 214 KB\n<br />Item 5.02: Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers: Compensatory Arrangements of Certain Officers\n<br />Item 7.01: Regulation FD Disclosure\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1632970/000119312526037696/0001193125-26-037696-index.htm",
+      "published": "2026-02-04T16:32:57-05:00",
+      "fetched_at": "2026-02-04T23:56:32.821071"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - GRI Bio, Inc. (0001824293) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001824293-26-000040 <b>Size:</b> 250 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1824293/000182429326000040/0001824293-26-000040-index.htm",
-      "published": "2026-02-04T08:48:49-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826460"
+      "title": "8-K - Aramark (0001584509) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001584509-26-000020 <b>Size:</b> 174 KB\n<br />Item 5.07: Submission of Matters to a Vote of Security Holders",
+      "link": "https://www.sec.gov/Archives/edgar/data/1584509/000158450926000020/0001584509-26-000020-index.htm",
+      "published": "2026-02-04T16:32:46-05:00",
+      "fetched_at": "2026-02-04T23:56:32.821091"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - Coherus Oncology, Inc. (0001512762) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001104659-26-010065 <b>Size:</b> 156 KB\n<br />Item 8.01: Other Events",
-      "link": "https://www.sec.gov/Archives/edgar/data/1512762/000110465926010065/0001104659-26-010065-index.htm",
-      "published": "2026-02-04T08:40:28-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826471"
+      "title": "8-K - COLUMBUS MCKINNON CORP (0001005229) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001193125-26-037694 <b>Size:</b> 3 MB\n<br />Item 1.01: Entry into a Material Definitive Agreement\n<br />Item 1.02: Termination of a Material Definitive Agreement\n<br />Item 2.01: Completion of Acquisition or Disposition of Assets\n<br />Item 2.03: Creation of a Direct Financial Obligation or an Obligation under an Off-Balance Sheet Arrangement of a Registrant\n<br />Item 3.02: Unregistered Sales of Equity Securities\n<br />Item 3.03: Material Modifications to",
+      "link": "https://www.sec.gov/Archives/edgar/data/1005229/000119312526037694/0001193125-26-037694-index.htm",
+      "published": "2026-02-04T16:32:33-05:00",
+      "fetched_at": "2026-02-04T23:56:32.821114"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - SANGAMO THERAPEUTICS, INC (0001001233) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001193125-26-036792 <b>Size:</b> 658 KB\n<br />Item 1.01: Entry into a Material Definitive Agreement\n<br />Item 3.02: Unregistered Sales of Equity Securities\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1001233/000119312526036792/0001193125-26-036792-index.htm",
-      "published": "2026-02-04T08:35:30-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826483"
+      "title": "8-K - ASBURY AUTOMOTIVE GROUP INC (0001144980) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001144980-26-000003 <b>Size:</b> 326 KB\n<br />Item 5.02: Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers: Compensatory Arrangements of Certain Officers\n<br />Item 5.03: Amendments to Articles of Incorporation or Bylaws; Change in Fiscal Year\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1144980/000114498026000003/0001144980-26-000003-index.htm",
+      "published": "2026-02-04T16:32:10-05:00",
+      "fetched_at": "2026-02-04T23:56:32.821135"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - OLD DOMINION FREIGHT LINE, INC. (0000878927) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001193125-26-036791 <b>Size:</b> 902 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/878927/000119312526036791/0001193125-26-036791-index.htm",
-      "published": "2026-02-04T08:35:12-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826495"
+      "title": "8-K - STERIS plc (0001757898) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001628280-26-005473 <b>Size:</b> 851 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1757898/000162828026005473/0001628280-26-005473-index.htm",
+      "published": "2026-02-04T16:32:07-05:00",
+      "fetched_at": "2026-02-04T23:56:32.821156"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - MATTHEWS INTERNATIONAL CORP (0000063296) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0000063296-26-000011 <b>Size:</b> 3 MB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 7.01: Regulation FD Disclosure\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/63296/000006329626000011/0000063296-26-000011-index.htm",
-      "published": "2026-02-04T08:31:30-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826511"
+      "title": "8-K - STIFEL FINANCIAL CORP (0000720672) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001193125-26-037686 <b>Size:</b> 1 MB\n<br />Item 1.01: Entry into a Material Definitive Agreement\n<br />Item 2.03: Creation of a Direct Financial Obligation or an Obligation under an Off-Balance Sheet Arrangement of a Registrant\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/720672/000119312526037686/0001193125-26-037686-index.htm",
+      "published": "2026-02-04T16:31:57-05:00",
+      "fetched_at": "2026-02-04T23:56:32.821176"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - enVVeno Medical Corp (0001661053) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001493152-26-005030 <b>Size:</b> 219 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 8.01: Other Events\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1661053/000149315226005030/0001493152-26-005030-index.htm",
-      "published": "2026-02-04T08:30:50-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826523"
+      "title": "8-K - EPLUS INC (0001022408) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001022408-26-000017 <b>Size:</b> 565 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 8.01: Other Events\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1022408/000102240826000017/0001022408-26-000017-index.htm",
+      "published": "2026-02-04T16:31:19-05:00",
+      "fetched_at": "2026-02-04T23:56:32.821196"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - TWIN DISC INC (0000100378) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001437749-26-002878 <b>Size:</b> 1 MB\n<br />Item 7.01: Regulation FD Disclosure\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/100378/000143774926002878/0001437749-26-002878-index.htm",
-      "published": "2026-02-04T08:30:26-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826535"
+      "title": "8-K - Post Holdings, Inc. (0001530950) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001530950-26-000009 <b>Size:</b> 1 MB\n<br />Item 3.03: Material Modifications to Rights of Security Holders\n<br />Item 5.03: Amendments to Articles of Incorporation or Bylaws; Change in Fiscal Year\n<br />Item 5.07: Submission of Matters to a Vote of Security Holders\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1530950/000153095026000009/0001530950-26-000009-index.htm",
+      "published": "2026-02-04T16:31:07-05:00",
+      "fetched_at": "2026-02-04T23:56:32.821217"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - TWIN DISC INC (0000100378) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001437749-26-002877 <b>Size:</b> 502 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 7.01: Regulation FD Disclosure\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/100378/000143774926002877/0001437749-26-002877-index.htm",
-      "published": "2026-02-04T08:30:10-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826547"
+      "title": "8-K - IF Bancorp, Inc. (0001514743) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0000943374-26-000053 <b>Size:</b> 611 KB\n<br />Item 5.07: Submission of Matters to a Vote of Security Holders\n<br />Item 8.01: Other Events\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1514743/000094337426000053/0000943374-26-000053-index.htm",
+      "published": "2026-02-04T16:30:39-05:00",
+      "fetched_at": "2026-02-04T23:56:32.821237"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - Cuentas Inc. (0001424657) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001213900-26-011830 <b>Size:</b> 565 KB\n<br />Item 1.01: Entry into a Material Definitive Agreement\n<br />Item 3.03: Material Modifications to Rights of Security Holders\n<br />Item 7.01: Regulation FD Disclosure\n<br />Item 8.01: Other Events\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1424657/000121390026011830/0001213900-26-011830-index.htm",
-      "published": "2026-02-04T08:27:29-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826558"
+      "title": "8-K - ADIAL PHARMACEUTICALS, INC. (0001513525) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001213900-26-012274 <b>Size:</b> 236 KB\n<br />Item 3.03: Material Modifications to Rights of Security Holders\n<br />Item 5.03: Amendments to Articles of Incorporation or Bylaws; Change in Fiscal Year\n<br />Item 8.01: Other Events\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1513525/000121390026012274/0001213900-26-012274-index.htm",
+      "published": "2026-02-04T16:30:34-05:00",
+      "fetched_at": "2026-02-04T23:56:32.821258"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - Dauch Corp (0001062231) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001104659-26-010059 <b>Size:</b> 207 KB\n<br />Item 8.01: Other Events\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1062231/000110465926010059/0001104659-26-010059-index.htm",
-      "published": "2026-02-04T08:25:23-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826570"
+      "title": "8-K - WRAP TECHNOLOGIES, INC. (0001702924) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001493152-26-005110 <b>Size:</b> 1 MB\n<br />Item 1.01: Entry into a Material Definitive Agreement\n<br />Item 3.02: Unregistered Sales of Equity Securities\n<br />Item 8.01: Other Events\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1702924/000149315226005110/0001493152-26-005110-index.htm",
+      "published": "2026-02-04T16:30:31-05:00",
+      "fetched_at": "2026-02-04T23:56:32.821279"
+    },
+    {
+      "source": "sec_filings",
+      "title": "8-K - bioAffinity Technologies, Inc. (0001712762) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001493152-26-005109 <b>Size:</b> 253 KB\n<br />Item 8.01: Other Events",
+      "link": "https://www.sec.gov/Archives/edgar/data/1712762/000149315226005109/0001493152-26-005109-index.htm",
+      "published": "2026-02-04T16:30:30-05:00",
+      "fetched_at": "2026-02-04T23:56:32.821299"
+    },
+    {
+      "source": "sec_filings",
+      "title": "8-K - XTI Aerospace, Inc. (0001529113) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001213900-26-012273 <b>Size:</b> 867 KB\n<br />Item 1.01: Entry into a Material Definitive Agreement\n<br />Item 2.01: Completion of Acquisition or Disposition of Assets\n<br />Item 5.02: Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers: Compensatory Arrangements of Certain Officers\n<br />Item 7.01: Regulation FD Disclosure\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1529113/000121390026012273/0001213900-26-012273-index.htm",
+      "published": "2026-02-04T16:30:29-05:00",
+      "fetched_at": "2026-02-04T23:56:32.821320"
+    },
+    {
+      "source": "sec_filings",
+      "title": "8-K - STAR GROUP, L.P. (0001002590) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001171843-26-000628 <b>Size:</b> 351 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 7.01: Regulation FD Disclosure\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1002590/000117184326000628/0001171843-26-000628-index.htm",
+      "published": "2026-02-04T16:30:27-05:00",
+      "fetched_at": "2026-02-04T23:56:32.821340"
+    },
+    {
+      "source": "sec_filings",
+      "title": "8-K - Coeptis Therapeutics Holdings, Inc. (0001759186) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001683168-26-000751 <b>Size:</b> 262 KB\n<br />Item 5.07: Submission of Matters to a Vote of Security Holders",
+      "link": "https://www.sec.gov/Archives/edgar/data/1759186/000168316826000751/0001683168-26-000751-index.htm",
+      "published": "2026-02-04T16:30:26-05:00",
+      "fetched_at": "2026-02-04T23:56:32.821360"
+    },
+    {
+      "source": "sec_filings",
+      "title": "8-K - SILGAN HOLDINGS INC (0000849869) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001628280-26-005470 <b>Size:</b> 560 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/849869/000162828026005470/0001628280-26-005470-index.htm",
+      "published": "2026-02-04T16:30:25-05:00",
+      "fetched_at": "2026-02-04T23:56:32.821381"
+    },
+    {
+      "source": "sec_filings",
+      "title": "8-K - MIDDLEBY Corp (0000769520) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001193125-26-037682 <b>Size:</b> 151 KB\n<br />Item 5.02: Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers: Compensatory Arrangements of Certain Officers\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/769520/000119312526037682/0001193125-26-037682-index.htm",
+      "published": "2026-02-04T16:30:21-05:00",
+      "fetched_at": "2026-02-04T23:56:32.821401"
+    },
+    {
+      "source": "sec_filings",
+      "title": "8-K - Blue Bird Corp (0001589526) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001589526-26-000005 <b>Size:</b> 404 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 7.01: Regulation FD Disclosure\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1589526/000158952626000005/0001589526-26-000005-index.htm",
+      "published": "2026-02-04T16:28:57-05:00",
+      "fetched_at": "2026-02-04T23:56:32.821422"
+    },
+    {
+      "source": "sec_filings",
+      "title": "8-K - BLACK HILLS CORP /SD/ (0001130464) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001193125-26-037663 <b>Size:</b> 22 MB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1130464/000119312526037663/0001193125-26-037663-index.htm",
+      "published": "2026-02-04T16:28:43-05:00",
+      "fetched_at": "2026-02-04T23:56:32.821442"
+    },
+    {
+      "source": "sec_filings",
+      "title": "8-K - CSG SYSTEMS INTERNATIONAL INC (0001005757) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001193125-26-037658 <b>Size:</b> 1 MB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1005757/000119312526037658/0001193125-26-037658-index.htm",
+      "published": "2026-02-04T16:27:30-05:00",
+      "fetched_at": "2026-02-04T23:56:32.821462"
+    },
+    {
+      "source": "sec_filings",
+      "title": "8-K - GREENBRIER COMPANIES INC (0000923120) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001193125-26-037650 <b>Size:</b> 173 KB\n<br />Item 1.01: Entry into a Material Definitive Agreement\n<br />Item 2.03: Creation of a Direct Financial Obligation or an Obligation under an Off-Balance Sheet Arrangement of a Registrant\n<br />Item 7.01: Regulation FD Disclosure\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/923120/000119312526037650/0001193125-26-037650-index.htm",
+      "published": "2026-02-04T16:26:31-05:00",
+      "fetched_at": "2026-02-04T23:56:32.821483"
+    },
+    {
+      "source": "sec_filings",
+      "title": "8-K - NETGEAR, INC. (0001122904) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001193125-26-037642 <b>Size:</b> 2 MB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1122904/000119312526037642/0001193125-26-037642-index.htm",
+      "published": "2026-02-04T16:24:58-05:00",
+      "fetched_at": "2026-02-04T23:56:32.821503"
+    },
+    {
+      "source": "sec_filings",
+      "title": "8-K - Rexford Industrial Realty, Inc. (0001571283) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001571283-26-000003 <b>Size:</b> 16 MB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 7.01: Regulation FD Disclosure\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1571283/000157128326000003/0001571283-26-000003-index.htm",
+      "published": "2026-02-04T16:24:52-05:00",
+      "fetched_at": "2026-02-04T23:56:32.821524"
+    },
+    {
+      "source": "sec_filings",
+      "title": "8-K - StoneX Group Inc. (0000913760) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0000913760-26-000015 <b>Size:</b> 882 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 8.01: Other Events\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/913760/000091376026000015/0000913760-26-000015-index.htm",
+      "published": "2026-02-04T16:22:34-05:00",
+      "fetched_at": "2026-02-04T23:56:32.821544"
+    },
+    {
+      "source": "sec_filings",
+      "title": "8-K - PVH CORP. /DE/ (0000078239) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0000078239-26-000005 <b>Size:</b> 190 KB\n<br />Item 8.01: Other Events\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/78239/000007823926000005/0000078239-26-000005-index.htm",
+      "published": "2026-02-04T16:22:34-05:00",
+      "fetched_at": "2026-02-04T23:56:32.821564"
+    },
+    {
+      "source": "sec_filings",
+      "title": "8-K - Launchpad Cadenza Acquisition Corp I (0002083728) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001213900-26-012255 <b>Size:</b> 268 KB\n<br />Item 8.01: Other Events\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/2083728/000121390026012255/0001213900-26-012255-index.htm",
+      "published": "2026-02-04T16:22:29-05:00",
+      "fetched_at": "2026-02-04T23:56:32.821584"
+    },
+    {
+      "source": "sec_filings",
+      "title": "8-K - Tenable Holdings, Inc. (0001660280) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001660280-26-000004 <b>Size:</b> 626 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 8.01: Other Events\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1660280/000166028026000004/0001660280-26-000004-index.htm",
+      "published": "2026-02-04T16:22:03-05:00",
+      "fetched_at": "2026-02-04T23:56:32.821604"
+    },
+    {
+      "source": "sec_filings",
+      "title": "8-K - DHI GROUP, INC. (0001393883) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001393883-26-000030 <b>Size:</b> 1 MB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 8.01: Other Events\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1393883/000139388326000030/0001393883-26-000030-index.htm",
+      "published": "2026-02-04T16:21:50-05:00",
+      "fetched_at": "2026-02-04T23:56:32.821624"
+    },
+    {
+      "source": "sec_filings",
+      "title": "8-K - COPT DEFENSE PROPERTIES (0000860546) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0000860546-26-000003 <b>Size:</b> 532 KB\n<br />Item 5.02: Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers: Compensatory Arrangements of Certain Officers\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/860546/000086054626000003/0000860546-26-000003-index.htm",
+      "published": "2026-02-04T16:21:45-05:00",
+      "fetched_at": "2026-02-04T23:56:32.821645"
+    },
+    {
+      "source": "sec_filings",
+      "title": "8-K - Mueller Water Products, Inc. (0001350593) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001350593-26-000007 <b>Size:</b> 638 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1350593/000135059326000007/0001350593-26-000007-index.htm",
+      "published": "2026-02-04T16:21:20-05:00",
+      "fetched_at": "2026-02-04T23:56:32.821667"
+    },
+    {
+      "source": "sec_filings",
+      "title": "8-K - NLIGHT, INC. (0001124796) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001628280-26-005461 <b>Size:</b> 456 KB\n<br />Item 8.01: Other Events\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1124796/000162828026005461/0001628280-26-005461-index.htm",
+      "published": "2026-02-04T16:21:10-05:00",
+      "fetched_at": "2026-02-04T23:56:32.821688"
+    },
+    {
+      "source": "sec_filings",
+      "title": "8-K - STEWART INFORMATION SERVICES CORP (0000094344) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001104659-26-010325 <b>Size:</b> 566 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/94344/000110465926010325/0001104659-26-010325-index.htm",
+      "published": "2026-02-04T16:21:06-05:00",
+      "fetched_at": "2026-02-04T23:56:32.821709"
+    },
+    {
+      "source": "sec_filings",
+      "title": "8-K - AFLAC INC (0000004977) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001628280-26-005458 <b>Size:</b> 6 MB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 7.01: Regulation FD Disclosure\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/4977/000162828026005458/0001628280-26-005458-index.htm",
+      "published": "2026-02-04T16:20:42-05:00",
+      "fetched_at": "2026-02-04T23:56:32.821729"
+    },
+    {
+      "source": "sec_filings",
+      "title": "8-K - MONARCH CASINO & RESORT INC (0000907242) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001171843-26-000627 <b>Size:</b> 375 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 8.01: Other Events\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/907242/000117184326000627/0001171843-26-000627-index.htm",
+      "published": "2026-02-04T16:20:28-05:00",
+      "fetched_at": "2026-02-04T23:56:32.821749"
+    },
+    {
+      "source": "sec_filings",
+      "title": "8-K - Pacific Oak Strategic Opportunity REIT, Inc. (0001452936) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001452936-26-000010 <b>Size:</b> 133 KB\n<br />Item 2.04: Triggering Events That Accelerate or Increase a Direct Financial Obligation or an Obligation under an Off-Balance Sheet Arrangement",
+      "link": "https://www.sec.gov/Archives/edgar/data/1452936/000145293626000010/0001452936-26-000010-index.htm",
+      "published": "2026-02-04T16:20:07-05:00",
+      "fetched_at": "2026-02-04T23:56:32.821770"
+    },
+    {
+      "source": "sec_filings",
+      "title": "8-K - LIPELLA PHARMACEUTICALS INC. (0001347242) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001753926-26-000265 <b>Size:</b> 196 KB\n<br />Item 5.02: Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers: Compensatory Arrangements of Certain Officers",
+      "link": "https://www.sec.gov/Archives/edgar/data/1347242/000175392626000265/0001753926-26-000265-index.htm",
+      "published": "2026-02-04T16:19:37-05:00",
+      "fetched_at": "2026-02-04T23:56:32.821789"
+    },
+    {
+      "source": "sec_filings",
+      "title": "8-K - EVEREST GROUP, LTD. (0001095073) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001095073-26-000003 <b>Size:</b> 877 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1095073/000109507326000003/0001095073-26-000003-index.htm",
+      "published": "2026-02-04T16:19:17-05:00",
+      "fetched_at": "2026-02-04T23:56:32.821810"
+    },
+    {
+      "source": "sec_filings",
+      "title": "8-K/A - AQUABOUNTY TECHNOLOGIES INC (0001603978) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001603978-26-000011 <b>Size:</b> 183 KB\n<br />Item 5.01: Changes in Control of Registrant\n<br />Item 5.02: Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers: Compensatory Arrangements of Certain Officers",
+      "link": "https://www.sec.gov/Archives/edgar/data/1603978/000160397826000011/0001603978-26-000011-index.htm",
+      "published": "2026-02-04T16:19:14-05:00",
+      "fetched_at": "2026-02-04T23:56:32.821829"
     },
     {
       "source": "sec_filings",
       "title": "8-K - Howard Hughes Holdings Inc. (0001981792) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001104659-26-010052 <b>Size:</b> 287 KB\n<br />Item 7.01: Regulation FD Disclosure\n<br />Item 8.01: Other Events\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1981792/000110465926010052/0001104659-26-010052-index.htm",
-      "published": "2026-02-04T08:18:44-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826585"
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001104659-26-010321 <b>Size:</b> 227 KB\n<br />Item 8.01: Other Events\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1981792/000110465926010321/0001104659-26-010321-index.htm",
+      "published": "2026-02-04T16:18:25-05:00",
+      "fetched_at": "2026-02-04T23:56:32.821849"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - PAVmed Inc. (0001624326) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001493152-26-005023 <b>Size:</b> 1 MB\n<br />Item 1.01: Entry into a Material Definitive Agreement\n<br />Item 1.02: Termination of a Material Definitive Agreement\n<br />Item 2.03: Creation of a Direct Financial Obligation or an Obligation under an Off-Balance Sheet Arrangement of a Registrant\n<br />Item 3.02: Unregistered Sales of Equity Securities\n<br />Item 3.03: Material Modifications to Rights of Security Holders\n<br />Item 5.03: Amendments to Articles",
-      "link": "https://www.sec.gov/Archives/edgar/data/1624326/000149315226005023/0001493152-26-005023-index.htm",
-      "published": "2026-02-04T08:12:48-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826598"
+      "title": "8-K - OMEGA HEALTHCARE INVESTORS INC (0000888491) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0000888491-26-000003 <b>Size:</b> 741 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/888491/000088849126000003/0000888491-26-000003-index.htm",
+      "published": "2026-02-04T16:18:17-05:00",
+      "fetched_at": "2026-02-04T23:56:32.821869"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - Freshpet, Inc. (0001611647) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0000929638-26-000488 <b>Size:</b> 769 KB\n<br />Item 5.02: Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers: Compensatory Arrangements of Certain Officers\n<br />Item 7.01: Regulation FD Disclosure\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1611647/000092963826000488/0000929638-26-000488-index.htm",
-      "published": "2026-02-04T08:07:22-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826609"
+      "title": "8-K - Great Elm Group, Inc. (0001831096) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001193125-26-037631 <b>Size:</b> 861 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1831096/000119312526037631/0001193125-26-037631-index.htm",
+      "published": "2026-02-04T16:18:12-05:00",
+      "fetched_at": "2026-02-04T23:56:32.821889"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - LCI INDUSTRIES (0000763744) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0000763744-26-000002 <b>Size:</b> 700 KB\n<br />Item 7.01: Regulation FD Disclosure\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/763744/000076374426000002/0000763744-26-000002-index.htm",
-      "published": "2026-02-04T08:07:14-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826621"
+      "title": "8-K - A10 Networks, Inc. (0001580808) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001580808-26-000005 <b>Size:</b> 3 MB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 7.01: Regulation FD Disclosure\n<br />Item 8.01: Other Events\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1580808/000158080826000005/0001580808-26-000005-index.htm",
+      "published": "2026-02-04T16:18:09-05:00",
+      "fetched_at": "2026-02-04T23:56:32.821909"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - DT Cloud Star Acquisition Corp (0002017950) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001493152-26-005020 <b>Size:</b> 329 KB\n<br />Item 7.01: Regulation FD Disclosure\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/2017950/000149315226005020/0001493152-26-005020-index.htm",
-      "published": "2026-02-04T08:05:48-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826632"
+      "title": "8-K - CROWN CASTLE INC. (0001051470) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001051470-26-000008 <b>Size:</b> 4 MB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 2.05: Cost Associated with Exit or Disposal Activities\n<br />Item 7.01: Regulation FD Disclosure\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1051470/000105147026000008/0001051470-26-000008-index.htm",
+      "published": "2026-02-04T16:17:47-05:00",
+      "fetched_at": "2026-02-04T23:56:32.821929"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - Fox Corp (0001754301) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001628280-26-005277 <b>Size:</b> 678 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1754301/000162828026005277/0001628280-26-005277-index.htm",
-      "published": "2026-02-04T08:03:26-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826644"
+      "title": "8-K - Lucky Strike Entertainment Corp (0001840572) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001628280-26-005451 <b>Size:</b> 356 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 7.01: Regulation FD Disclosure\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1840572/000162828026005451/0001628280-26-005451-index.htm",
+      "published": "2026-02-04T16:17:44-05:00",
+      "fetched_at": "2026-02-04T23:56:32.821949"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - UNITED RENTALS, INC. (0001067701) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001193125-26-036751 <b>Size:</b> 399 KB\n<br />Item 5.02: Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers: Compensatory Arrangements of Certain Officers\n<br />Item 7.01: Regulation FD Disclosure\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1067701/000119312526036751/0001193125-26-036751-index.htm",
-      "published": "2026-02-04T08:02:59-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826656"
+      "title": "8-K - ALLSTATE CORP (0000899051) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0000899051-26-000013 <b>Size:</b> 5 MB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/899051/000089905126000013/0000899051-26-000013-index.htm",
+      "published": "2026-02-04T16:17:28-05:00",
+      "fetched_at": "2026-02-04T23:56:32.821969"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - UNITED RENTALS NORTH AMERICA INC (0001047166) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001193125-26-036751 <b>Size:</b> 399 KB\n<br />Item 5.02: Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers: Compensatory Arrangements of Certain Officers\n<br />Item 7.01: Regulation FD Disclosure\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1047166/000119312526036751/0001193125-26-036751-index.htm",
-      "published": "2026-02-04T08:02:59-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826667"
+      "title": "8-K - CORPAY, INC. (0001175454) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001175454-26-000008 <b>Size:</b> 814 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 7.01: Regulation FD Disclosure\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1175454/000117545426000008/0001175454-26-000008-index.htm",
+      "published": "2026-02-04T16:17:04-05:00",
+      "fetched_at": "2026-02-04T23:56:32.821989"
     },
     {
       "source": "sec_filings",
-      "title": "8-K/A - Lumen Technologies, Inc. (0000018926) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0000018926-26-000008 <b>Size:</b> 435 KB\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/18926/000001892626000008/0000018926-26-000008-index.htm",
-      "published": "2026-02-04T08:01:11-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826679"
+      "title": "8-K - EnerSys (0001289308) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001628280-26-005449 <b>Size:</b> 1 MB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 8.01: Other Events",
+      "link": "https://www.sec.gov/Archives/edgar/data/1289308/000162828026005449/0001628280-26-005449-index.htm",
+      "published": "2026-02-04T16:16:36-05:00",
+      "fetched_at": "2026-02-04T23:56:32.822009"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - AMERICAN FINANCIAL GROUP INC (0001042046) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001193125-26-036749 <b>Size:</b> 1 MB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 8.01: Other Events\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1042046/000119312526036749/0001193125-26-036749-index.htm",
-      "published": "2026-02-04T08:00:42-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826690"
+      "title": "8-K - RMR GROUP INC. (0001644378) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001644378-26-000006 <b>Size:</b> 6 MB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1644378/000164437826000006/0001644378-26-000006-index.htm",
+      "published": "2026-02-04T16:16:35-05:00",
+      "fetched_at": "2026-02-04T23:56:32.822030"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - Fusemachines Inc. (0002033383) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001493152-26-005019 <b>Size:</b> 750 KB\n<br />Item 1.01: Entry into a Material Definitive Agreement\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/2033383/000149315226005019/0001493152-26-005019-index.htm",
-      "published": "2026-02-04T08:00:38-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826702"
+      "title": "8-K - FIREFLY NEUROSCIENCE, INC. (0000803578) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001213900-26-012246 <b>Size:</b> 546 KB\n<br />Item 1.01: Entry into a Material Definitive Agreement\n<br />Item 5.02: Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers: Compensatory Arrangements of Certain Officers\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/803578/000121390026012246/0001213900-26-012246-index.htm",
+      "published": "2026-02-04T16:16:04-05:00",
+      "fetched_at": "2026-02-04T23:56:32.822050"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - Functional Brands Inc. (0001837254) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001213900-26-011827 <b>Size:</b> 212 KB\n<br />Item 3.03: Material Modifications to Rights of Security Holders\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1837254/000121390026011827/0001213900-26-011827-index.htm",
-      "published": "2026-02-04T08:00:37-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826715"
+      "title": "8-K - CENTRAL GARDEN & PET CO (0000887733) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0000887733-26-000004 <b>Size:</b> 694 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/887733/000088773326000004/0000887733-26-000004-index.htm",
+      "published": "2026-02-04T16:15:56-05:00",
+      "fetched_at": "2026-02-04T23:56:32.822070"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - Reservoir Media, Inc. (0001824403) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001104659-26-010047 <b>Size:</b> 486 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1824403/000110465926010047/0001104659-26-010047-index.htm",
-      "published": "2026-02-04T08:00:37-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826727"
+      "title": "8-K - Revolve Group, Inc. (0001746618) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001193125-26-037611 <b>Size:</b> 2 MB\n<br />Item 1.01: Entry into a Material Definitive Agreement\n<br />Item 2.03: Creation of a Direct Financial Obligation or an Obligation under an Off-Balance Sheet Arrangement of a Registrant\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1746618/000119312526037611/0001193125-26-037611-index.htm",
+      "published": "2026-02-04T16:15:32-05:00",
+      "fetched_at": "2026-02-04T23:56:32.822091"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - Entera Bio Ltd. (0001638097) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001178913-26-000300 <b>Size:</b> 961 KB\n<br />Item 1.01: Entry into a Material Definitive Agreement\n<br />Item 5.02: Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers: Compensatory Arrangements of Certain Officers\n<br />Item 7.01: Regulation FD Disclosure\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1638097/000117891326000300/0001178913-26-000300-index.htm",
-      "published": "2026-02-04T08:00:37-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826738"
+      "title": "8-K - Moelis & Co (0001596967) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001193125-26-037612 <b>Size:</b> 1 MB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 7.01: Regulation FD Disclosure\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1596967/000119312526037612/0001193125-26-037612-index.htm",
+      "published": "2026-02-04T16:15:32-05:00",
+      "fetched_at": "2026-02-04T23:56:32.822111"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - Allarity Therapeutics, Inc. (0001860657) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001213900-26-011826 <b>Size:</b> 229 KB\n<br />Item 8.01: Other Events\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1860657/000121390026011826/0001213900-26-011826-index.htm",
-      "published": "2026-02-04T08:00:35-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826750"
+      "title": "8-K - UGI CORP /PA/ (0000884614) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001104659-26-010315 <b>Size:</b> 186 KB\n<br />Item 5.07: Submission of Matters to a Vote of Security Holders",
+      "link": "https://www.sec.gov/Archives/edgar/data/884614/000110465926010315/0001104659-26-010315-index.htm",
+      "published": "2026-02-04T16:15:32-05:00",
+      "fetched_at": "2026-02-04T23:56:32.822132"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - AbbVie Inc. (0001551152) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001551152-26-000004 <b>Size:</b> 771 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1551152/000155115226000004/0001551152-26-000004-index.htm",
-      "published": "2026-02-04T07:54:33-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826761"
+      "title": "8-K - Mid-America Apartments, L.P. (0001581776) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001193125-26-037610 <b>Size:</b> 5 MB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1581776/000119312526037610/0001193125-26-037610-index.htm",
+      "published": "2026-02-04T16:15:30-05:00",
+      "fetched_at": "2026-02-04T23:56:32.822152"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - Pyrophyte Acquisition Corp. (0001848756) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001213900-26-011821 <b>Size:</b> 184 KB\n<br />Item 8.01: Other Events",
-      "link": "https://www.sec.gov/Archives/edgar/data/1848756/000121390026011821/0001213900-26-011821-index.htm",
-      "published": "2026-02-04T07:44:53-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826773"
+      "title": "8-K - MID AMERICA APARTMENT COMMUNITIES INC. (0000912595) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001193125-26-037610 <b>Size:</b> 5 MB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/912595/000119312526037610/0001193125-26-037610-index.htm",
+      "published": "2026-02-04T16:15:30-05:00",
+      "fetched_at": "2026-02-04T23:56:32.822172"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - Fortive Corp (0001659166) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001659166-26-000003 <b>Size:</b> 785 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1659166/000165916626000003/0001659166-26-000003-index.htm",
-      "published": "2026-02-04T07:34:23-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826785"
+      "title": "8-K - BANK OF THE JAMES FINANCIAL GROUP INC (0001275101) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001275101-26-000008 <b>Size:</b> 609 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1275101/000127510126000008/0001275101-26-000008-index.htm",
+      "published": "2026-02-04T16:15:29-05:00",
+      "fetched_at": "2026-02-04T23:56:32.822193"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - VISHAY INTERTECHNOLOGY INC (0000103730) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0000103730-26-000008 <b>Size:</b> 803 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/103730/000010373026000008/0000103730-26-000008-index.htm",
-      "published": "2026-02-04T07:31:34-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826796"
+      "title": "8-K - TransMedics Group, Inc. (0001756262) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001193125-26-037615 <b>Size:</b> 135 KB\n<br />Item 5.02: Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers: Compensatory Arrangements of Certain Officers",
+      "link": "https://www.sec.gov/Archives/edgar/data/1756262/000119312526037615/0001193125-26-037615-index.htm",
+      "published": "2026-02-04T16:15:16-05:00",
+      "fetched_at": "2026-02-04T23:56:32.822213"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - TEXAS INSTRUMENTS INC (0000097476) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001193125-26-036727 <b>Size:</b> 2 MB\n<br />Item 7.01: Regulation FD Disclosure\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/97476/000119312526036727/0001193125-26-036727-index.htm",
-      "published": "2026-02-04T07:30:56-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826808"
+      "title": "8-K - e.l.f. Beauty, Inc. (0001600033) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001600033-26-000005 <b>Size:</b> 457 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1600033/000160003326000005/0001600033-26-000005-index.htm",
+      "published": "2026-02-04T16:15:04-05:00",
+      "fetched_at": "2026-02-04T23:56:32.822233"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - Verastem, Inc. (0001526119) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001104659-26-010036 <b>Size:</b> 246 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 7.01: Regulation FD Disclosure\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1526119/000110465926010036/0001104659-26-010036-index.htm",
-      "published": "2026-02-04T07:30:33-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826820"
+      "title": "8-K - Equitable Holdings, Inc. (0001333986) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001333986-26-000004 <b>Size:</b> 4 MB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 7.01: Regulation FD Disclosure\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1333986/000133398626000004/0001333986-26-000004-index.htm",
+      "published": "2026-02-04T16:14:27-05:00",
+      "fetched_at": "2026-02-04T23:56:32.822254"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - Medalist Diversified REIT, Inc. (0001654595) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001104659-26-010034 <b>Size:</b> 1 MB\n<br />Item 1.01: Entry into a Material Definitive Agreement\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1654595/000110465926010034/0001104659-26-010034-index.htm",
-      "published": "2026-02-04T07:30:28-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826831"
+      "title": "8-K - BASSETT FURNITURE INDUSTRIES INC (0000010329) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001437749-26-002982 <b>Size:</b> 570 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/10329/000143774926002982/0001437749-26-002982-index.htm",
+      "published": "2026-02-04T16:14:09-05:00",
+      "fetched_at": "2026-02-04T23:56:32.822274"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - FUELCELL ENERGY INC (0000886128) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001104659-26-010035 <b>Size:</b> 220 KB\n<br />Item 5.02: Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers: Compensatory Arrangements of Certain Officers\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/886128/000110465926010035/0001104659-26-010035-index.htm",
-      "published": "2026-02-04T07:30:13-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826843"
+      "title": "8-K - CROWN HOLDINGS, INC. (0001219601) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001628280-26-005444 <b>Size:</b> 510 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1219601/000162828026005444/0001628280-26-005444-index.htm",
+      "published": "2026-02-04T16:13:19-05:00",
+      "fetched_at": "2026-02-04T23:56:32.822295"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - Haymaker Acquisition Corp. 4 (0001970509) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001104659-26-010028 <b>Size:</b> 274 KB\n<br />Item 3.02: Unregistered Sales of Equity Securities\n<br />Item 5.02: Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers: Compensatory Arrangements of Certain Officers\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1970509/000110465926010028/0001104659-26-010028-index.htm",
-      "published": "2026-02-04T07:26:57-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826854"
+      "title": "8-K - UNIVERSAL INSURANCE HOLDINGS, INC. (0000891166) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0000891166-26-000004 <b>Size:</b> 187 KB\n<br />Item 7.01: Regulation FD Disclosure\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/891166/000089116626000004/0000891166-26-000004-index.htm",
+      "published": "2026-02-04T16:13:19-05:00",
+      "fetched_at": "2026-02-04T23:56:32.822315"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - Azenta, Inc. (0000933974) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001437749-26-002876 <b>Size:</b> 889 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/933974/000143774926002876/0001437749-26-002876-index.htm",
-      "published": "2026-02-04T07:24:14-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826866"
+      "title": "8-K - PTC INC. (0000857005) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001193125-26-037588 <b>Size:</b> 940 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/857005/000119312526037588/0001193125-26-037588-index.htm",
+      "published": "2026-02-04T16:12:49-05:00",
+      "fetched_at": "2026-02-04T23:56:32.822336"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - FLEX LTD. (0000866374) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0000866374-26-000002 <b>Size:</b> 472 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/866374/000086637426000002/0000866374-26-000002-index.htm",
-      "published": "2026-02-04T07:10:42-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826878"
+      "title": "8-K - Kinsale Capital Group, Inc. (0001669162) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001669162-26-000007 <b>Size:</b> 139 KB\n<br />Item 5.02: Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers: Compensatory Arrangements of Certain Officers\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1669162/000166916226000007/0001669162-26-000007-index.htm",
+      "published": "2026-02-04T16:12:37-05:00",
+      "fetched_at": "2026-02-04T23:56:32.822356"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - SILICON LABORATORIES INC. (0001038074) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001038074-26-000002 <b>Size:</b> 366 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1038074/000103807426000002/0001038074-26-000002-index.htm",
-      "published": "2026-02-04T07:09:26-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826889"
+      "title": "8-K - Helmerich & Payne, Inc. (0000046765) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0000046765-26-000010 <b>Size:</b> 998 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/46765/000004676526000010/0000046765-26-000010-index.htm",
+      "published": "2026-02-04T16:12:06-05:00",
+      "fetched_at": "2026-02-04T23:56:32.822376"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - LEAR CORP (0000842162) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0000842162-26-000005 <b>Size:</b> 538 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/842162/000084216226000005/0000842162-26-000005-index.htm",
-      "published": "2026-02-04T07:06:43-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826900"
+      "title": "8-K - Snap Inc (0001564408) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001564408-26-000011 <b>Size:</b> 5 MB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 8.01: Other Events\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1564408/000156440826000011/0001564408-26-000011-index.htm",
+      "published": "2026-02-04T16:11:19-05:00",
+      "fetched_at": "2026-02-04T23:56:32.822397"
     },
     {
       "source": "sec_filings",
-      "title": "8-K - CME GROUP INC. (0001156375) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001156375-26-000006 <b>Size:</b> 504 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1156375/000115637526000006/0001156375-26-000006-index.htm",
-      "published": "2026-02-04T07:06:41-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826912"
-    },
-    {
-      "source": "sec_filings",
-      "title": "8-K - CDW Corp (0001402057) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001402057-26-000001 <b>Size:</b> 3 MB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 8.01: Other Events\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1402057/000140205726000001/0001402057-26-000001-index.htm",
-      "published": "2026-02-04T07:06:40-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826923"
-    },
-    {
-      "source": "sec_filings",
-      "title": "8-K - PRICE T ROWE GROUP INC (0001113169) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001628280-26-005273 <b>Size:</b> 1 MB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1113169/000162828026005273/0001628280-26-005273-index.htm",
-      "published": "2026-02-04T07:06:16-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826935"
-    },
-    {
-      "source": "sec_filings",
-      "title": "8-K - SILICON LABORATORIES INC. (0001038074) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001193125-26-036712 <b>Size:</b> 815 KB\n<br />Item 1.01: Entry into a Material Definitive Agreement\n<br />Item 7.01: Regulation FD Disclosure\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1038074/000119312526036712/0001193125-26-036712-index.htm",
-      "published": "2026-02-04T07:05:45-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826949"
-    },
-    {
-      "source": "sec_filings",
-      "title": "8-K - ELI LILLY & Co (0000059478) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0000059478-26-000008 <b>Size:</b> 494 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/59478/000005947826000008/0000059478-26-000008-index.htm",
-      "published": "2026-02-04T07:05:22-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826960"
-    },
-    {
-      "source": "sec_filings",
-      "title": "8-K - Orion Group Holdings Inc (0001402829) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001402829-26-000003 <b>Size:</b> 3 MB\n<br />Item 1.01: Entry into a Material Definitive Agreement\n<br />Item 2.01: Completion of Acquisition or Disposition of Assets\n<br />Item 2.03: Creation of a Direct Financial Obligation or an Obligation under an Off-Balance Sheet Arrangement of a Registrant\n<br />Item 3.02: Unregistered Sales of Equity Securities\n<br />Item 7.01: Regulation FD Disclosure\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1402829/000140282926000003/0001402829-26-000003-index.htm",
-      "published": "2026-02-04T07:03:58-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826972"
-    },
-    {
-      "source": "sec_filings",
-      "title": "8-K - Johnson Controls International plc (0000833444) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0000833444-26-000014 <b>Size:</b> 953 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/833444/000083344426000014/0000833444-26-000014-index.htm",
-      "published": "2026-02-04T07:02:54-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826983"
-    },
-    {
-      "source": "sec_filings",
-      "title": "8-K - YUM BRANDS INC (0001041061) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001041061-26-000003 <b>Size:</b> 1 MB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1041061/000104106126000003/0001041061-26-000003-index.htm",
-      "published": "2026-02-04T07:01:45-05:00",
-      "fetched_at": "2026-02-04T21:28:59.826995"
-    },
-    {
-      "source": "sec_filings",
-      "title": "8-K - NEW YORK TIMES CO (0000071691) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0000071691-26-000008 <b>Size:</b> 1 MB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/71691/000007169126000008/0000071691-26-000008-index.htm",
-      "published": "2026-02-04T07:01:38-05:00",
-      "fetched_at": "2026-02-04T21:28:59.827006"
-    },
-    {
-      "source": "sec_filings",
-      "title": "8-K - VALVOLINE INC (0001674910) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001674910-26-000010 <b>Size:</b> 576 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 7.01: Regulation FD Disclosure\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1674910/000167491026000010/0001674910-26-000010-index.htm",
-      "published": "2026-02-04T07:01:21-05:00",
-      "fetched_at": "2026-02-04T21:28:59.827018"
-    },
-    {
-      "source": "sec_filings",
-      "title": "8-K - IDEX CORP /DE/ (0000832101) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001628280-26-005268 <b>Size:</b> 704 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/832101/000162828026005268/0001628280-26-005268-index.htm",
-      "published": "2026-02-04T07:00:40-05:00",
-      "fetched_at": "2026-02-04T21:28:59.827030"
-    },
-    {
-      "source": "sec_filings",
-      "title": "8-K - Performance Food Group Co (0001618673) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001193125-26-036704 <b>Size:</b> 1 MB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1618673/000119312526036704/0001193125-26-036704-index.htm",
-      "published": "2026-02-04T07:00:24-05:00",
-      "fetched_at": "2026-02-04T21:28:59.827041"
-    },
-    {
-      "source": "sec_filings",
-      "title": "8-K - Reynolds Consumer Products Inc. (0001786431) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001628280-26-005267 <b>Size:</b> 518 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1786431/000162828026005267/0001628280-26-005267-index.htm",
-      "published": "2026-02-04T07:00:18-05:00",
-      "fetched_at": "2026-02-04T21:28:59.827053"
-    },
-    {
-      "source": "sec_filings",
-      "title": "8-K - Bit Digital, Inc (0001710350) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001213900-26-011802 <b>Size:</b> 14 MB\n<br />Item 7.01: Regulation FD Disclosure\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1710350/000121390026011802/0001213900-26-011802-index.htm",
-      "published": "2026-02-04T06:56:37-05:00",
-      "fetched_at": "2026-02-04T21:28:59.827064"
-    },
-    {
-      "source": "sec_filings",
-      "title": "8-K - Uber Technologies, Inc (0001543151) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001543151-26-000011 <b>Size:</b> 696 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 5.02: Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers: Compensatory Arrangements of Certain Officers\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1543151/000154315126000011/0001543151-26-000011-index.htm",
-      "published": "2026-02-04T06:56:12-05:00",
-      "fetched_at": "2026-02-04T21:28:59.827076"
-    },
-    {
-      "source": "sec_filings",
-      "title": "8-K - WABASH NATIONAL Corp (0000879526) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0000879526-26-000007 <b>Size:</b> 698 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/879526/000087952626000007/0000879526-26-000007-index.htm",
-      "published": "2026-02-04T06:54:56-05:00",
-      "fetched_at": "2026-02-04T21:28:59.827088"
-    },
-    {
-      "source": "sec_filings",
-      "title": "8-K - TIMKEN CO (0000098362) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0000098362-26-000005 <b>Size:</b> 1 MB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/98362/000009836226000005/0000098362-26-000005-index.htm",
-      "published": "2026-02-04T06:53:00-05:00",
-      "fetched_at": "2026-02-04T21:28:59.827101"
-    },
-    {
-      "source": "sec_filings",
-      "title": "8-K - Adient plc (0001670541) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001670541-26-000022 <b>Size:</b> 1 MB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1670541/000167054126000022/0001670541-26-000022-index.htm",
-      "published": "2026-02-04T06:50:52-05:00",
-      "fetched_at": "2026-02-04T21:28:59.827113"
-    },
-    {
-      "source": "sec_filings",
-      "title": "8-K - KENNAMETAL INC (0000055242) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001628280-26-005264 <b>Size:</b> 521 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/55242/000162828026005264/0001628280-26-005264-index.htm",
-      "published": "2026-02-04T06:47:46-05:00",
-      "fetched_at": "2026-02-04T21:28:59.827124"
-    },
-    {
-      "source": "sec_filings",
-      "title": "8-K - Avery Dennison Corp (0000008818) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0000008818-26-000004 <b>Size:</b> 4 MB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/8818/000000881826000004/0000008818-26-000004-index.htm",
-      "published": "2026-02-04T06:45:56-05:00",
-      "fetched_at": "2026-02-04T21:28:59.827136"
-    },
-    {
-      "source": "sec_filings",
-      "title": "8-K - Evercore Inc. (0001360901) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001628280-26-005263 <b>Size:</b> 996 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1360901/000162828026005263/0001628280-26-005263-index.htm",
-      "published": "2026-02-04T06:45:20-05:00",
-      "fetched_at": "2026-02-04T21:28:59.827148"
-    },
-    {
-      "source": "sec_filings",
-      "title": "8-K - BOSTON SCIENTIFIC CORP (0000885725) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0000885725-26-000006 <b>Size:</b> 690 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/885725/000088572526000006/0000885725-26-000006-index.htm",
-      "published": "2026-02-04T06:33:43-05:00",
-      "fetched_at": "2026-02-04T21:28:59.827160"
-    },
-    {
-      "source": "sec_filings",
-      "title": "8-K - EQUIFAX INC (0000033185) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0000033185-26-000004 <b>Size:</b> 902 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/33185/000003318526000004/0000033185-26-000004-index.htm",
-      "published": "2026-02-04T06:32:57-05:00",
-      "fetched_at": "2026-02-04T21:28:59.827171"
-    },
-    {
-      "source": "sec_filings",
-      "title": "8-K - COGNIZANT TECHNOLOGY SOLUTIONS CORP (0001058290) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001058290-26-000003 <b>Size:</b> 4 MB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 7.01: Regulation FD Disclosure\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1058290/000105829026000003/0001058290-26-000003-index.htm",
-      "published": "2026-02-04T06:32:06-05:00",
-      "fetched_at": "2026-02-04T21:28:59.827183"
-    },
-    {
-      "source": "sec_filings",
-      "title": "8-K - Cencora, Inc. (0001140859) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001140859-26-000004 <b>Size:</b> 656 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 7.01: Regulation FD Disclosure\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1140859/000114085926000004/0001140859-26-000004-index.htm",
-      "published": "2026-02-04T06:31:44-05:00",
-      "fetched_at": "2026-02-04T21:28:59.827195"
-    },
-    {
-      "source": "sec_filings",
-      "title": "8-K - BIO-TECHNE Corp (0000842023) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001104659-26-009994 <b>Size:</b> 825 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 8.01: Other Events\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/842023/000110465926009994/0001104659-26-009994-index.htm",
-      "published": "2026-02-04T06:30:11-05:00",
-      "fetched_at": "2026-02-04T21:28:59.827206"
-    },
-    {
-      "source": "sec_filings",
-      "title": "8-K - GE HealthCare Technologies Inc. (0001932393) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001932393-26-000006 <b>Size:</b> 1 MB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1932393/000193239326000006/0001932393-26-000006-index.htm",
-      "published": "2026-02-04T06:25:33-05:00",
-      "fetched_at": "2026-02-04T21:28:59.827218"
-    },
-    {
-      "source": "sec_filings",
-      "title": "8-K - Bunge Global SA (0001996862) (Filer)",
-      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001628280-26-005261 <b>Size:</b> 962 KB\n<br />Item 2.02: Results of Operations and Financial Condition\n<br />Item 9.01: Financial Statements and Exhibits",
-      "link": "https://www.sec.gov/Archives/edgar/data/1996862/000162828026005261/0001628280-26-005261-index.htm",
-      "published": "2026-02-04T06:21:04-05:00",
-      "fetched_at": "2026-02-04T21:28:59.827229"
+      "title": "8-K - CuriosityStream Inc. (0001776909) (Filer)",
+      "summary": "<b>Filed:</b> 2026-02-04 <b>AccNo:</b> 0001628280-26-005439 <b>Size:</b> 389 KB\n<br />Item 8.01: Other Events\n<br />Item 9.01: Financial Statements and Exhibits",
+      "link": "https://www.sec.gov/Archives/edgar/data/1776909/000162828026005439/0001628280-26-005439-index.htm",
+      "published": "2026-02-04T16:11:11-05:00",
+      "fetched_at": "2026-02-04T23:56:32.822417"
     },
     {
       "source": "yahoo_finance",
-      "title": "Franklin Resources (BEN) Reports First-Quarter 2026 Earnings Surpassing Wall Street Expectations",
+      "title": "Erste Group Sees Limited Upside for Ecolab (ECL) at Current Valuation",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/franklin-resources-ben-reports-first-104928485.html",
-      "published": "2026-02-03T10:49:28+00:00",
-      "fetched_at": "2026-02-04T21:28:59.888987"
+      "link": "https://finance.yahoo.com/news/erste-group-sees-limited-upside-135457288.html",
+      "published": "2026-02-03T13:54:57+00:00",
+      "fetched_at": "2026-02-04T23:56:32.727644"
     },
     {
       "source": "yahoo_finance",
-      "title": "T. Rowe Price (TROW) Introduces Actively Managed Innovation Leaders ETF",
+      "title": "Disney parks chief Josh D\u2019Amaro will take over for Bob Iger as CEO",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/t-rowe-price-trow-introduces-104926529.html",
-      "published": "2026-02-03T10:49:26+00:00",
-      "fetched_at": "2026-02-04T21:28:59.888962"
+      "link": "https://finance.yahoo.com/news/disney-parks-chief-amaro-named-135353667.html",
+      "published": "2026-02-03T13:53:53+00:00",
+      "fetched_at": "2026-02-04T23:56:32.727527"
     },
     {
       "source": "yahoo_finance",
-      "title": "TD Cowen Maintains Buy Rating on Northern Trust (NTRS) After Strong Q4 Results",
+      "title": "Casella Waste Systems (CWST) Positioned for Long-Term Compounding Growth",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/td-cowen-maintains-buy-rating-104925515.html",
-      "published": "2026-02-03T10:49:25+00:00",
-      "fetched_at": "2026-02-04T21:28:59.889012"
+      "link": "https://finance.yahoo.com/news/casella-waste-systems-cwst-positioned-135243851.html",
+      "published": "2026-02-03T13:52:43+00:00",
+      "fetched_at": "2026-02-04T23:56:32.727417"
     },
     {
       "source": "yahoo_finance",
-      "title": "RBC Boosts Morgan Stanley (MS) Price Target on Strong Fourth-Quarter Results",
+      "title": "Stifel Reviews A. O. Smith (AOS) After Q4 Beat and Mixed 2026 Outlook",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/rbc-boosts-morgan-stanley-ms-104923801.html",
-      "published": "2026-02-03T10:49:23+00:00",
-      "fetched_at": "2026-02-04T21:28:59.889062"
+      "link": "https://finance.yahoo.com/news/stifel-reviews-o-smith-aos-135220754.html",
+      "published": "2026-02-03T13:52:20+00:00",
+      "fetched_at": "2026-02-04T23:56:32.727180"
     },
     {
       "source": "yahoo_finance",
-      "title": "SEI Investments (SEIC) Surpasses Revenue and Core EPS Estimates in Q4 2025",
+      "title": "ADM Works Through Market Volatility and Closes a Chapter on Past Issues",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/sei-investments-seic-surpasses-revenue-104921270.html",
-      "published": "2026-02-03T10:49:21+00:00",
-      "fetched_at": "2026-02-04T21:28:59.889263"
+      "link": "https://finance.yahoo.com/news/adm-works-market-volatility-closes-134920736.html",
+      "published": "2026-02-03T13:49:20+00:00",
+      "fetched_at": "2026-02-04T23:56:32.726850"
     },
     {
       "source": "yahoo_finance",
-      "title": "RBC Capital Projects 37%-38% Margins for Invesco (IVZ) in 2026/2027",
+      "title": "Are Wall Street Analysts Predicting Home Depot Stock Will Climb or Sink?",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/rbc-capital-projects-37-38-104918951.html",
-      "published": "2026-02-03T10:49:18+00:00",
-      "fetched_at": "2026-02-04T21:28:59.889113"
+      "link": "https://finance.yahoo.com/news/wall-street-analysts-predicting-home-134829926.html",
+      "published": "2026-02-03T13:48:29+00:00",
+      "fetched_at": "2026-02-04T23:56:32.726880"
     },
     {
       "source": "yahoo_finance",
-      "title": "Analysts Cut Bank of America (BAC) Price Targets Amid Adjusted Provisions and Buyback Pause",
+      "title": "Erie Indemnity\u2019s (ERIE) Long Dividend Record Reflects Operating Consistency",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/analysts-cut-bank-america-bac-104917588.html",
-      "published": "2026-02-03T10:49:17+00:00",
-      "fetched_at": "2026-02-04T21:28:59.889237"
+      "link": "https://finance.yahoo.com/news/erie-indemnity-erie-long-dividend-134726486.html",
+      "published": "2026-02-03T13:47:26+00:00",
+      "fetched_at": "2026-02-04T23:56:32.726523"
     },
     {
       "source": "yahoo_finance",
-      "title": "BNY Mellon (BK) EPS Growth Expected to Improve Amid Strategic Execution, Says RBC Capital",
+      "title": "Do You Believe in the Growth Potential of Establishment Labs Holdings (ESTA)?",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/bny-mellon-bk-eps-growth-104915175.html",
-      "published": "2026-02-03T10:49:15+00:00",
-      "fetched_at": "2026-02-04T21:28:59.889188"
+      "link": "https://finance.yahoo.com/news/believe-growth-potential-establishment-labs-134649139.html",
+      "published": "2026-02-03T13:46:49+00:00",
+      "fetched_at": "2026-02-04T23:56:32.726702"
     },
     {
       "source": "yahoo_finance",
-      "title": "RBC Highlights Wells Fargo (WFC) Growth Strategy and Capital Management Plans",
+      "title": "Illinois Tool Works (ITW) Maintains Dividend Growth Through Business Cycles",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/rbc-highlights-wells-fargo-wfc-104913548.html",
-      "published": "2026-02-03T10:49:13+00:00",
-      "fetched_at": "2026-02-04T21:28:59.889212"
+      "link": "https://finance.yahoo.com/news/illinois-tool-works-itw-maintains-134321334.html",
+      "published": "2026-02-03T13:43:21+00:00",
+      "fetched_at": "2026-02-04T23:56:32.726493"
     },
     {
       "source": "yahoo_finance",
-      "title": "BlackRock (BLK) Delivers Strong Organic Fee Growth, Says UBS",
+      "title": "Sportradar Raised Earnings Outlook but Lost a Holder in an $8.7 Million Fourth-Quarter Exit",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/blackrock-blk-delivers-strong-organic-104905800.html",
-      "published": "2026-02-03T10:49:05+00:00",
-      "fetched_at": "2026-02-04T21:28:59.889137"
+      "link": "https://finance.yahoo.com/news/sportradar-raised-earnings-outlook-lost-134149488.html",
+      "published": "2026-02-03T13:41:49+00:00",
+      "fetched_at": "2026-02-04T23:56:32.727233"
     },
     {
       "source": "yahoo_finance",
-      "title": "Western Alliance (WAL) Earnings Top Estimates as DA Davidson Reaffirms Buy",
+      "title": "What Are Wall Street Analysts' Target Price for Duke Energy Stock?",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/western-alliance-wal-earnings-top-104903777.html",
-      "published": "2026-02-03T10:49:03+00:00",
-      "fetched_at": "2026-02-04T21:28:59.889088"
+      "link": "https://finance.yahoo.com/news/wall-street-analysts-target-price-134137802.html",
+      "published": "2026-02-03T13:41:37+00:00",
+      "fetched_at": "2026-02-04T23:56:32.726387"
     },
     {
       "source": "yahoo_finance",
-      "title": "Are Wall Street Analysts Predicting Intercontinental Exchange Stock Will Climb or Sink?",
+      "title": "If You Had Put $10K Into an S&P 500 Fund in 2016, Here\u2019s What You Would\u2019ve Had Today",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/wall-street-analysts-predicting-intercontinental-103409210.html",
-      "published": "2026-02-03T10:34:09+00:00",
-      "fetched_at": "2026-02-04T21:28:59.888936"
+      "link": "https://finance.yahoo.com/news/had-put-10k-p-500-134104869.html",
+      "published": "2026-02-03T13:41:04+00:00",
+      "fetched_at": "2026-02-04T23:56:32.726732"
     },
     {
       "source": "yahoo_finance",
-      "title": "RBI and CPE finalise Burger King China JV",
+      "title": "Nine Out of Ten Costco Members Renew: Inside the Metric That Powers a $14B Profit Engine",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/rbi-cpe-finalise-burger-king-102316483.html",
-      "published": "2026-02-03T10:23:16+00:00",
-      "fetched_at": "2026-02-04T21:28:59.888400"
+      "link": "https://finance.yahoo.com/news/nine-ten-costco-members-renew-134101228.html",
+      "published": "2026-02-03T13:41:01+00:00",
+      "fetched_at": "2026-02-04T23:56:32.726910"
     },
     {
       "source": "yahoo_finance",
-      "title": "Conagra Brands Stock: Is Wall Street Bullish or Bearish?",
+      "title": "Why Bloom Energy Rallied Almost 75% in January",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/conagra-brands-stock-wall-street-101940840.html",
-      "published": "2026-02-03T10:19:40+00:00",
-      "fetched_at": "2026-02-04T21:28:59.888554"
+      "link": "https://finance.yahoo.com/news/why-bloom-energy-rallied-almost-134100756.html",
+      "published": "2026-02-03T13:41:00+00:00",
+      "fetched_at": "2026-02-04T23:56:32.726582"
     },
     {
       "source": "yahoo_finance",
-      "title": "German retail sales rise 2.7% in 2025 as online channels lead growth",
+      "title": "Spot Bitcoin ETFs Ingest $562M in Daily Inflows\u2014Is This a Bullish Rebound or Just a Blip?",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/german-retail-sales-rise-2-101823388.html",
-      "published": "2026-02-03T10:18:23+00:00",
-      "fetched_at": "2026-02-04T21:28:59.888784"
+      "link": "https://finance.yahoo.com/news/spot-bitcoin-etfs-ingest-562m-134057619.html",
+      "published": "2026-02-03T13:40:57+00:00",
+      "fetched_at": "2026-02-04T23:56:32.726420"
     },
     {
       "source": "yahoo_finance",
-      "title": "Why Brazil and XDC Network Are Winning the RWA Race",
+      "title": "Clearwater Analytics Holdings (CWAN) Rallied Following an Acquisition Announcement",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/why-brazil-xdc-network-winning-101718166.html",
-      "published": "2026-02-03T10:17:18+00:00",
-      "fetched_at": "2026-02-04T21:28:59.888268"
+      "link": "https://finance.yahoo.com/news/clearwater-analytics-holdings-cwan-rallied-134050913.html",
+      "published": "2026-02-03T13:40:50+00:00",
+      "fetched_at": "2026-02-04T23:56:32.726451"
     },
     {
       "source": "yahoo_finance",
-      "title": "Coinbase and Big Banks Collide Over Crypto Market Regulations",
+      "title": "UBS Points to Pricing Strength Behind Nucor\u2019s (NUE) Share Gains",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/coinbase-big-banks-collide-over-101648607.html",
-      "published": "2026-02-03T10:16:48+00:00",
-      "fetched_at": "2026-02-04T21:28:59.888529"
+      "link": "https://finance.yahoo.com/news/ubs-points-pricing-strength-behind-134034646.html",
+      "published": "2026-02-03T13:40:34+00:00",
+      "fetched_at": "2026-02-04T23:56:32.726340"
     },
     {
       "source": "yahoo_finance",
-      "title": "ING Germany Opens the Door to Bitcoin, ETH, and Solana ETPs",
+      "title": "Moscow Exchange Plans Solana, Ripple and Tron Futures as Crypto Index Suite Expands",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/ing-germany-opens-door-bitcoin-101617500.html",
-      "published": "2026-02-03T10:16:17+00:00",
-      "fetched_at": "2026-02-04T21:28:59.889037"
+      "link": "https://finance.yahoo.com/news/moscow-exchange-plans-solana-ripple-133821039.html",
+      "published": "2026-02-03T13:38:21+00:00",
+      "fetched_at": "2026-02-04T23:56:32.727074"
     },
     {
       "source": "yahoo_finance",
-      "title": "Champagne firm Lanson-BCC sees revenue fall again",
+      "title": "Disney names parks leader Josh D'Amaro as next CEO, succeeding Bob Iger",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/champagne-firm-lanson-bcc-sees-101504199.html",
-      "published": "2026-02-03T10:15:04+00:00",
-      "fetched_at": "2026-02-04T21:28:59.888658"
+      "link": "https://finance.yahoo.com/news/disney-names-parks-leader-josh-damaro-as-next-ceo-succeeding-bob-iger-133752601.html",
+      "published": "2026-02-03T13:37:52+00:00",
+      "fetched_at": "2026-02-04T23:56:32.726553"
     },
     {
       "source": "yahoo_finance",
-      "title": "During the worst day for gold in 46 years, options traders made bets the metal could hit $20,000",
+      "title": "Western Digital adds $4 billion to buyback plan as AI boosts memory chip sales",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/during-worst-day-gold-46-101300621.html",
-      "published": "2026-02-03T10:13:00+00:00",
-      "fetched_at": "2026-02-04T21:28:59.888911"
+      "link": "https://finance.yahoo.com/news/western-digital-adds-4-billion-133740945.html",
+      "published": "2026-02-03T13:37:40+00:00",
+      "fetched_at": "2026-02-04T23:56:32.726612"
     },
     {
       "source": "yahoo_finance",
-      "title": "Morgan Stanley Raises Edison (EIX) Price Target Amid Deleveraging and Wildfire Cost Securitization",
+      "title": "Varonis Systems (VRNS) Dipped Despite Reporting Strong Earnings",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/morgan-stanley-raises-edison-eix-101220840.html",
-      "published": "2026-02-03T10:12:20+00:00",
-      "fetched_at": "2026-02-04T21:28:59.888683"
+      "link": "https://finance.yahoo.com/news/varonis-systems-vrns-dipped-despite-133725195.html",
+      "published": "2026-02-03T13:37:25+00:00",
+      "fetched_at": "2026-02-04T23:56:32.726791"
     },
     {
       "source": "yahoo_finance",
-      "title": "Bernstein Lowers General Mills (GIS) Price Target After Q2 Earnings Discussion",
+      "title": "UBS Sees Improving Demand Across General Dynamics\u2019 (GD) Core Businesses",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/bernstein-lowers-general-mills-gis-101218494.html",
-      "published": "2026-02-03T10:12:18+00:00",
-      "fetched_at": "2026-02-04T21:28:59.888861"
+      "link": "https://finance.yahoo.com/news/ubs-sees-improving-demand-across-133635255.html",
+      "published": "2026-02-03T13:36:35+00:00",
+      "fetched_at": "2026-02-04T23:56:32.726642"
     },
     {
       "source": "yahoo_finance",
-      "title": "Target (TGT) Upgraded as Risk-Reward Improves Despite Lower Earnings Outlook",
+      "title": "Are Wall Street Analysts Bullish on T-Mobile Stock?",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/target-tgt-upgraded-risk-reward-101217817.html",
-      "published": "2026-02-03T10:12:17+00:00",
-      "fetched_at": "2026-02-04T21:28:59.888759"
+      "link": "https://finance.yahoo.com/news/wall-street-analysts-bullish-t-133627454.html",
+      "published": "2026-02-03T13:36:27+00:00",
+      "fetched_at": "2026-02-04T23:56:32.726672"
     },
     {
       "source": "yahoo_finance",
-      "title": "UBS Reaffirms Buy on Devon Energy (DVN) as Cost Cuts Accelerate",
+      "title": "Why Half the World\u2019s Market Value Sits Outside Your Portfolio Right Now",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/ubs-reaffirms-buy-devon-energy-101215436.html",
-      "published": "2026-02-03T10:12:15+00:00",
-      "fetched_at": "2026-02-04T21:28:59.888734"
+      "link": "https://finance.yahoo.com/news/why-half-world-market-value-133548021.html",
+      "published": "2026-02-03T13:35:48+00:00",
+      "fetched_at": "2026-02-04T23:56:32.727390"
     },
     {
       "source": "yahoo_finance",
-      "title": "Verizon (VZ) Posts Massive Wireless Subscriber Additions in Q4",
+      "title": "What Makes Casella Waste Systems (CWST) a Scarce Asset?",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/verizon-vz-posts-massive-wireless-101214446.html",
-      "published": "2026-02-03T10:12:14+00:00",
-      "fetched_at": "2026-02-04T21:28:59.888452"
+      "link": "https://finance.yahoo.com/news/makes-casella-waste-systems-cwst-133508535.html",
+      "published": "2026-02-03T13:35:08+00:00",
+      "fetched_at": "2026-02-04T23:56:32.726761"
     },
     {
       "source": "yahoo_finance",
-      "title": "Allstate (ALL) Price Target Lifted on Improving Earnings Visibility",
+      "title": "Netflix's Ad Revenue Surges to $1.5 Billion: Is This the Best Stock to Buy Today With $2,000?",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/allstate-price-target-lifted-improving-101212551.html",
-      "published": "2026-02-03T10:12:12+00:00",
-      "fetched_at": "2026-02-04T21:28:59.888709"
+      "link": "https://finance.yahoo.com/news/netflixs-ad-revenue-surges-1-133500929.html",
+      "published": "2026-02-03T13:35:00+00:00",
+      "fetched_at": "2026-02-04T23:56:32.727553"
     },
     {
       "source": "yahoo_finance",
-      "title": "EOG Resources (EOG) Outlook Adjusted as RBC Trims 2026 Oil Assumptions",
+      "title": "Piper Sandler Highlights Upcoming Segment Transition at Becton Dickinson (BDX)",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/eog-resources-eog-outlook-adjusted-101210028.html",
-      "published": "2026-02-03T10:12:10+00:00",
-      "fetched_at": "2026-02-04T21:28:59.888810"
+      "link": "https://finance.yahoo.com/news/piper-sandler-highlights-upcoming-segment-133404709.html",
+      "published": "2026-02-03T13:34:04+00:00",
+      "fetched_at": "2026-02-04T23:56:32.726940"
     },
     {
       "source": "yahoo_finance",
-      "title": "BofA Sees Conservative 2026 Guidance for Delta (DAL)",
+      "title": "Do Wall Street Analysts Like Weyerhaeuser Stock?",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/bofa-sees-conservative-2026-guidance-101209330.html",
-      "published": "2026-02-03T10:12:09+00:00",
-      "fetched_at": "2026-02-04T21:28:59.888426"
+      "link": "https://finance.yahoo.com/news/wall-street-analysts-weyerhaeuser-stock-133322665.html",
+      "published": "2026-02-03T13:33:22+00:00",
+      "fetched_at": "2026-02-04T23:56:32.726966"
     },
     {
       "source": "yahoo_finance",
-      "title": "Bristol-Myers Squibb (BMY) Poised for Upside With Registrational Data Ahead",
+      "title": "What Makes JFrog Ltd. (FROG) an Investment Choice?",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/bristol-myers-squibb-bmy-poised-101207522.html",
-      "published": "2026-02-03T10:12:07+00:00",
-      "fetched_at": "2026-02-04T21:28:59.888375"
+      "link": "https://finance.yahoo.com/news/makes-jfrog-ltd-frog-investment-133307715.html",
+      "published": "2026-02-03T13:33:07+00:00",
+      "fetched_at": "2026-02-04T23:56:32.727018"
     },
     {
       "source": "yahoo_finance",
-      "title": "Cheniere Energy (LNG) Upgraded as Market Turns Overly Bearish on LNG",
+      "title": "Eversource Energy (ES) Positions for Long-Term Growth With Utility Investments",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/cheniere-energy-lng-upgraded-market-101205410.html",
-      "published": "2026-02-03T10:12:05+00:00",
-      "fetched_at": "2026-02-04T21:28:59.888605"
+      "link": "https://finance.yahoo.com/news/eversource-energy-es-positions-long-133146586.html",
+      "published": "2026-02-03T13:31:46+00:00",
+      "fetched_at": "2026-02-04T23:56:32.727046"
     },
     {
       "source": "yahoo_finance",
-      "title": "AT&T (T) Delivers Q4 Earnings Beat on Strong Fiber and Wireless Growth",
+      "title": "Multiple Tailwinds Lifted Exact Sciences Corporation (EXAS) in 2025",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/t-t-delivers-q4-earnings-101204346.html",
-      "published": "2026-02-03T10:12:04+00:00",
-      "fetched_at": "2026-02-04T21:28:59.888478"
+      "link": "https://finance.yahoo.com/news/multiple-tailwinds-lifted-exact-sciences-133009324.html",
+      "published": "2026-02-03T13:30:09+00:00",
+      "fetched_at": "2026-02-04T23:56:32.727100"
     },
     {
       "source": "yahoo_finance",
-      "title": "BofA Boosts Comcast (CMCSA) Price Target Amid Media Asset Reorganization",
+      "title": "Werner settlement ready to go in drivers\u2019 lawsuit that dates to 2014",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/bofa-boosts-comcast-cmcsa-price-101202386.html",
-      "published": "2026-02-03T10:12:02+00:00",
-      "fetched_at": "2026-02-04T21:28:59.888349"
+      "link": "https://finance.yahoo.com/news/werner-settlement-ready-drivers-lawsuit-132858963.html",
+      "published": "2026-02-03T13:28:58+00:00",
+      "fetched_at": "2026-02-04T23:56:32.727127"
     },
     {
       "source": "yahoo_finance",
-      "title": "Goldman Sachs Maintains Neutral on Pfizer (PFE) Amid Rising Margin Pressure",
+      "title": "Capital One Financial Corp (COF) Surged Following Strong Results",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/goldman-sachs-maintains-neutral-pfizer-101201749.html",
-      "published": "2026-02-03T10:12:01+00:00",
-      "fetched_at": "2026-02-04T21:28:59.888295"
+      "link": "https://finance.yahoo.com/news/capital-one-financial-corp-cof-132237015.html",
+      "published": "2026-02-03T13:22:37+00:00",
+      "fetched_at": "2026-02-04T23:56:32.727206"
     },
     {
       "source": "yahoo_finance",
-      "title": "BTIG Maintains Neutral on PayPal (PYPL) Ahead of Q4 2025 Earnings",
+      "title": "Wheat Showing Slight Gains on Tuesday Morning",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/btig-maintains-neutral-paypal-pypl-101159959.html",
-      "published": "2026-02-03T10:11:59+00:00",
-      "fetched_at": "2026-02-04T21:28:59.888322"
+      "link": "https://finance.yahoo.com/news/wheat-showing-slight-gains-tuesday-132228307.html",
+      "published": "2026-02-03T13:22:28+00:00",
+      "fetched_at": "2026-02-04T23:56:32.727258"
     },
     {
       "source": "yahoo_finance",
-      "title": "Bernstein Reiterates Outperform on UnitedHealth (UNH) Amid Medicare Advantage Volatility",
+      "title": "Soybeans Popping Higher on Tuesday Morning with Bean Oil leading the Charge",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/bernstein-reiterates-outperform-unitedhealth-unh-101157357.html",
-      "published": "2026-02-03T10:11:57+00:00",
-      "fetched_at": "2026-02-04T21:28:59.888204"
+      "link": "https://finance.yahoo.com/news/soybeans-popping-higher-tuesday-morning-132228124.html",
+      "published": "2026-02-03T13:22:28+00:00",
+      "fetched_at": "2026-02-04T23:56:32.727285"
     },
     {
       "source": "yahoo_finance",
-      "title": "Principal Financial (PFG) Stock Outlook Adjusted by JPMorgan Amid Life Insurance Peer Comparison",
+      "title": "Corn Slightly Higher on Tuesday Morning",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/principal-financial-pfg-stock-outlook-101156038.html",
-      "published": "2026-02-03T10:11:56+00:00",
-      "fetched_at": "2026-02-04T21:28:59.888239"
+      "link": "https://finance.yahoo.com/news/corn-slightly-higher-tuesday-morning-132228890.html",
+      "published": "2026-02-03T13:22:28+00:00",
+      "fetched_at": "2026-02-04T23:56:32.727337"
     },
     {
       "source": "yahoo_finance",
-      "title": "Morgan Stanley Maintains Equalweight on HSBC Holdings (HSBC), Projects Strong 2025 NII",
+      "title": "Cotton Bouncing on Tuesday Morning",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/morgan-stanley-maintains-equalweight-hsbc-101154244.html",
-      "published": "2026-02-03T10:11:54+00:00",
-      "fetched_at": "2026-02-04T21:28:59.888503"
+      "link": "https://finance.yahoo.com/news/cotton-bouncing-tuesday-morning-132228472.html",
+      "published": "2026-02-03T13:22:28+00:00",
+      "fetched_at": "2026-02-04T23:56:32.727364"
     },
     {
       "source": "yahoo_finance",
-      "title": "Blackstone (BX) Reports Strong Q4 Earnings, Citizens Maintains Market Outperform Rating",
+      "title": "1 Trade to Make Now Before Kevin Warsh Takes Over at the Fed",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/blackstone-bx-reports-strong-q4-101152578.html",
-      "published": "2026-02-03T10:11:52+00:00",
-      "fetched_at": "2026-02-04T21:28:59.888835"
+      "link": "https://finance.yahoo.com/news/1-trade-now-kevin-warsh-132112171.html",
+      "published": "2026-02-03T13:21:12+00:00",
+      "fetched_at": "2026-02-04T23:56:32.727443"
     },
     {
       "source": "yahoo_finance",
-      "title": "Ameriprise Financial (AMP) Q4 Earnings Beat Expectations With $10.83 Adjusted EPS",
+      "title": "PayPal replaces CEO Chriss with HP's Lores",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/ameriprise-financial-amp-q4-earnings-101151230.html",
-      "published": "2026-02-03T10:11:51+00:00",
-      "fetched_at": "2026-02-04T21:28:59.888580"
+      "link": "https://finance.yahoo.com/news/paypal-replaces-ceo-chriss-hps-131948726.html",
+      "published": "2026-02-03T13:19:48+00:00",
+      "fetched_at": "2026-02-04T23:56:32.727496"
     },
     {
       "source": "yahoo_finance",
-      "title": "Raymond James (RJF) Reports Mixed Q1 Fiscal 2026 Results With Solid Revenue Growth",
+      "title": "Dow Jones Futures: Palantir Jumps On Earnings; SpaceX, xAI To Merge",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/raymond-james-rjf-reports-mixed-101149457.html",
-      "published": "2026-02-03T10:11:49+00:00",
-      "fetched_at": "2026-02-04T21:28:59.888632"
+      "link": "https://www.investors.com/market-trend/stock-market-today/dow-jones-futures-palantir-earnings-space-xai-merger/?src=A00220&yptr=yahoo",
+      "published": "2026-02-03T13:17:20+00:00",
+      "fetched_at": "2026-02-04T23:56:32.727617"
     },
     {
       "source": "yahoo_finance",
-      "title": "Do Wall Street Analysts Like Berkshire Hathaway Stock?",
+      "title": "Here\u2019s What Lifted American International Group (AIG) in 2025",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/wall-street-analysts-berkshire-hathaway-101050228.html",
-      "published": "2026-02-03T10:10:50+00:00",
-      "fetched_at": "2026-02-04T21:28:59.888886"
+      "link": "https://finance.yahoo.com/news/lifted-american-international-group-aig-131708858.html",
+      "published": "2026-02-03T13:17:08+00:00",
+      "fetched_at": "2026-02-04T23:56:32.727589"
     },
     {
       "source": "yahoo_finance",
-      "title": "USDC Dominated $10 Trillion Stablecoin Surge in January, Yet Circle\u2019s Stock Keeps Sliding",
+      "title": "Zoetis (ZTS) Traded Lower Due to Reduced 2026 Outlook",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/usdc-dominated-10-trillion-stablecoin-101030372.html",
-      "published": "2026-02-03T10:10:30+00:00",
-      "fetched_at": "2026-02-04T21:28:59.889163"
+      "link": "https://finance.yahoo.com/news/zoetis-zts-traded-lower-due-131447819.html",
+      "published": "2026-02-03T13:14:47+00:00",
+      "fetched_at": "2026-02-04T23:56:32.727670"
     }
   ]
 }

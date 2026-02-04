@@ -369,11 +369,11 @@ struct OrderEntrySection: View {
                 .cornerRadius(12)
             }
             
-            // Limit price (if limit order)
-            if viewModel.orderType == .limit {
+            // Limit/Stop price (if not market order)
+            if viewModel.orderType.needsPrice {
                 VStack(alignment: .leading, spacing: 8) {
                     HStack {
-                        Text("Limit Price")
+                        Text(viewModel.orderType.priceLabel)
                             .font(.subheadline)
                             .foregroundColor(.Text.secondary)
                         Spacer()
@@ -395,6 +395,13 @@ struct OrderEntrySection: View {
                     .padding()
                     .background(Color.Background.secondary)
                     .cornerRadius(12)
+                    
+                    // Help text for stop orders
+                    if viewModel.orderType == .stop {
+                        Text("Order will trigger when price ≤ stop price")
+                            .font(.caption)
+                            .foregroundColor(.Text.tertiary)
+                    }
                 }
             }
             
@@ -472,6 +479,11 @@ struct OrderPreviewSheet: View {
                     
                     if viewModel.orderType == .limit, let limitPrice = viewModel.limitPriceValue {
                         OrderSummaryRow(label: "Limit Price", value: limitPrice.asCurrency)
+                    } else if viewModel.orderType == .stop, let stopPrice = viewModel.limitPriceValue {
+                        OrderSummaryRow(label: "Stop Price", value: stopPrice.asCurrency)
+                        if let marketPrice = viewModel.currentPrice {
+                            OrderSummaryRow(label: "Market Price", value: marketPrice.asCurrency, color: .Text.tertiary)
+                        }
                     } else if let price = viewModel.currentPrice {
                         OrderSummaryRow(label: "Market Price", value: price.asCurrency)
                     }
