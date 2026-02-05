@@ -170,16 +170,20 @@ class StockDetailViewModel: ObservableObject {
         do {
             let response = try await APIService.shared.getScoreHistory(symbol: ticker, days: 90)
             
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd"
+            let isoFormatter = ISO8601DateFormatter()
+            isoFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
             
-            let history: [ScoreHistoryPoint] = response.data.compactMap { item in
-                guard let date = dateFormatter.date(from: item.date) else { return nil }
-                let sig: String
-                if item.score >= 70 { sig = "BUY" }
-                else if item.score >= 40 { sig = "HOLD" }
-                else { sig = "SELL" }
-                return ScoreHistoryPoint(date: date, score: item.score, signal: sig)
+            let history: [ScoreHistoryPoint] = response.data.history.compactMap { item in
+                // Try ISO8601 first, then fallback to simple date
+                var date: Date?
+                date = isoFormatter.date(from: item.date)
+                if date == nil {
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "yyyy-MM-dd"
+                    date = dateFormatter.date(from: String(item.date.prefix(10)))
+                }
+                guard let validDate = date else { return nil }
+                return ScoreHistoryPoint(date: validDate, score: item.score, signal: item.signal)
             }
             
             if !history.isEmpty {

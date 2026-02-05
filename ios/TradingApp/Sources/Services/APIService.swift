@@ -704,12 +704,25 @@ struct SignalChange: Codable {
 
 struct ScoreHistoryResponse: Codable {
     let success: Bool
-    let data: [ScoreHistoryData]
+    let data: ScoreHistoryWrapper
+}
+
+struct ScoreHistoryWrapper: Codable {
+    let ticker: String
+    let count: Int
+    let history: [ScoreHistoryData]
 }
 
 struct ScoreHistoryData: Codable {
     let date: String
-    let score: Double
+    let totalScore: Double
+    let signal: String
+    let fundamentalScore: Double?
+    let sentimentScore: Double?
+    let technicalScore: Double?
+    let macroScore: Double?
+    
+    var score: Double { totalScore }
 }
 
 // MARK: - Price History Response Models
