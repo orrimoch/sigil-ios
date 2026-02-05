@@ -117,7 +117,8 @@ struct WelcomePage: View {
             Spacer()
             
             Image(systemName: "chart.line.uptrend.xyaxis")
-                .font(.system(size: 64))
+                .font(.iconSize(64))
+                .limitedScaling()
                 .foregroundColor(.Accent.gold)
             
             Text("Welcome to Sigil")
@@ -333,7 +334,7 @@ struct PaperTradingPage: View {
             Spacer()
             
             Image(systemName: "doc.text.fill")
-                .font(.system(size: 60))
+                .font(.iconSize(60)).limitedScaling()
                 .foregroundColor(.Accent.gold)
             
             Text("Paper Trading")

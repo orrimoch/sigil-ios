@@ -27,7 +27,7 @@ struct ForgotPasswordView: View {
 
                     // Icon
                     Image(systemName: step == .success ? "checkmark.shield.fill" : "key.fill")
-                        .font(.system(size: 48))
+                        .font(.iconSize(48)).limitedScaling()
                         .foregroundColor(step == .success ? .Signal.buy : .Accent.gold)
                         .padding(.bottom, 8)
 

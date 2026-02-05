@@ -13,7 +13,8 @@ struct ErrorStateView: View {
     var body: some View {
         VStack(spacing: 20) {
             Image(systemName: icon)
-                .font(.system(size: 48))
+                .font(.iconSize(48))
+                .limitedScaling()
                 .foregroundColor(retryAction != nil ? .Utility.error : .Signal.hold)
 
             Text(title)

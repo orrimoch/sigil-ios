@@ -181,7 +181,8 @@ struct PositionSizeCalculatorView: View {
                     .font(.subheadline)
                     .foregroundColor(.Text.secondary)
                 Text("\(result.shares)")
-                    .font(.system(size: 48, weight: .bold, design: .monospaced))
+                    .font(.price)
+                    .limitedScaling()
                     .foregroundColor(.Brand.primary)
             }
             

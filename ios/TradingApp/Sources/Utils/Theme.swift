@@ -262,29 +262,43 @@ extension View {
     }
 }
 
-// MARK: - Typography
+// MARK: - Typography (Dynamic Type Compatible)
 
 extension Font {
-    /// Large title for main headings
-    static let displayLarge = Font.system(size: 32, weight: .bold, design: .default)
+    /// Large title for main headings — scales with Dynamic Type
+    static let displayLarge = Font.largeTitle.weight(.bold)
     
-    /// Medium title
-    static let displayMedium = Font.system(size: 24, weight: .semibold, design: .default)
+    /// Medium title — scales with Dynamic Type
+    static let displayMedium = Font.title2.weight(.semibold)
     
-    /// Monospace for numbers/prices
-    static let mono = Font.system(size: 16, weight: .medium, design: .monospaced)
+    /// Monospace for numbers/prices — scales with Dynamic Type
+    static let mono = Font.body.monospaced().weight(.medium)
     
-    /// Large monospace for portfolio value
-    static let monoLarge = Font.system(size: 32, weight: .bold, design: .monospaced)
+    /// Large monospace for portfolio value — scales with Dynamic Type
+    static let monoLarge = Font.largeTitle.monospaced().weight(.bold)
     
-    /// Price display
-    static let price = Font.system(size: 28, weight: .bold, design: .monospaced)
+    /// Price display — scales with Dynamic Type
+    static let price = Font.title.monospaced().weight(.bold)
     
-    /// Table header
-    static let tableHeader = Font.system(size: 12, weight: .semibold, design: .default)
+    /// Table header — scales with Dynamic Type
+    static let tableHeader = Font.caption.weight(.semibold)
     
-    /// Table data
-    static let tableData = Font.system(size: 14, weight: .regular, design: .default)
+    /// Table data — scales with Dynamic Type
+    static let tableData = Font.subheadline
+}
+
+// MARK: - Dynamic Type Utilities
+
+extension View {
+    /// Limit dynamic type scaling to a maximum size (for UI elements that can't grow too large)
+    func limitDynamicTypeSize(_ maxSize: DynamicTypeSize = .accessibility1) -> some View {
+        self.dynamicTypeSize(...maxSize)
+    }
+    
+    /// Apply accessibility-friendly scaling with a reasonable max
+    func accessibleFont() -> some View {
+        self.dynamicTypeSize(.xSmall ... .accessibility3)
+    }
 }
 
 // MARK: - Currency Formatting
@@ -341,5 +355,47 @@ struct ShimmerEffect: ViewModifier {
 extension View {
     func shimmer() -> some View {
         modifier(ShimmerEffect())
+    }
+}
+
+// MARK: - Scalable Display Fonts (Dynamic Type with Limits)
+
+extension Font {
+    /// Extra large display number (portfolio value, PIN) - scales but limited for layout
+    static func displayNumber(_ baseSize: CGFloat = 48) -> Font {
+        // Use a scaled font based on title style
+        .system(size: baseSize, weight: .bold, design: .monospaced)
+    }
+    
+    /// Icon font size - typically doesn't need to scale as much
+    static func iconSize(_ size: CGFloat = 48) -> Font {
+        .system(size: size)
+    }
+    
+    /// Tiny label (badges, indicators) - limited scaling
+    static func tinyLabel(_ size: CGFloat = 9) -> Font {
+        .system(size: size, weight: .bold)
+    }
+}
+
+// MARK: - Dynamic Type Size Limiting ViewModifier
+
+struct DynamicTypeLimited: ViewModifier {
+    let maxSize: DynamicTypeSize
+    
+    func body(content: Content) -> some View {
+        content.dynamicTypeSize(...maxSize)
+    }
+}
+
+extension View {
+    /// Limit scaling for large display numbers that could break layout
+    func limitedScaling() -> some View {
+        self.dynamicTypeSize(.xSmall ... .xxxLarge)
+    }
+    
+    /// Strict limit for compact UI elements
+    func compactScaling() -> some View {
+        self.dynamicTypeSize(.xSmall ... .large)
     }
 }

@@ -453,7 +453,7 @@ struct ScoreCard: View {
                 
                 HStack(alignment: .firstTextBaseline, spacing: 4) {
                     Text("\(score)")
-                        .font(.system(size: 36, weight: .bold, design: .monospaced))
+                        .font(.price).limitedScaling()
                         .foregroundColor(.Text.primary)
                     
                     Text("/ 100")
@@ -646,7 +646,7 @@ struct ScoreHistoryCard: View {
                         .lineStyle(StrokeStyle(dash: [5, 5]))
                         .annotation(position: .trailing, alignment: .trailing) {
                             Text("BUY")
-                                .font(.system(size: 9, weight: .bold))
+                                .font(.tinyLabel()).compactScaling()
                                 .foregroundColor(.Signal.buy)
                         }
                     
@@ -655,7 +655,7 @@ struct ScoreHistoryCard: View {
                         .lineStyle(StrokeStyle(dash: [5, 5]))
                         .annotation(position: .trailing, alignment: .trailing) {
                             Text("SELL")
-                                .font(.system(size: 9, weight: .bold))
+                                .font(.tinyLabel()).compactScaling()
                                 .foregroundColor(.Signal.sell)
                         }
                 }
@@ -882,7 +882,7 @@ struct TradeEntrySheet: View {
                         .foregroundColor(.Text.secondary)
                     
                     TextField("0", text: $quantity)
-                        .font(.system(size: 48, weight: .bold, design: .monospaced))
+                        .font(.price).limitedScaling()
                         .foregroundColor(.Text.primary)
                         .multilineTextAlignment(.center)
                         .keyboardType(.numberPad)

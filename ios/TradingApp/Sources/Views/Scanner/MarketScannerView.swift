@@ -229,7 +229,7 @@ private struct ErrorView: View {
     var body: some View {
         VStack(spacing: 16) {
             Image(systemName: "antenna.radiowaves.left.and.right.slash")
-                .font(.system(size: 50))
+                .font(.iconSize(50)).limitedScaling()
                 .foregroundColor(.Signal.hold)
             
             Text("Scanner Unavailable")
@@ -255,7 +255,7 @@ private struct ScannerEmptyView: View {
     var body: some View {
         VStack(spacing: 16) {
             Image(systemName: "magnifyingglass")
-                .font(.system(size: 50))
+                .font(.iconSize(50)).limitedScaling()
                 .foregroundColor(.Text.tertiary)
             
             Text("No Results")

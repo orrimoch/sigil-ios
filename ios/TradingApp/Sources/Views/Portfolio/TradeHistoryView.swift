@@ -294,7 +294,7 @@ private struct EmptyStateView: View {
     var body: some View {
         VStack(spacing: 16) {
             Image(systemName: "clock.arrow.circlepath")
-                .font(.system(size: 50))
+                .font(.iconSize(50)).limitedScaling()
                 .foregroundColor(.Text.tertiary)
             
             Text("No Executions Yet")

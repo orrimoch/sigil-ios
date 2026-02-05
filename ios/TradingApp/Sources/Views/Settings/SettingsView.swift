@@ -520,7 +520,7 @@ struct IBKRConnectionView: View {
             if ibkrService.isConnected {
                 // Connected state
                 Image(systemName: "checkmark.circle.fill")
-                    .font(.system(size: 80))
+                    .font(.iconSize(80)).limitedScaling()
                     .foregroundColor(.Signal.buy)
                 
                 Text("Connected to IBKR")
@@ -583,7 +583,7 @@ struct IBKRConnectionView: View {
             } else {
                 // Disconnected state
                 Image(systemName: "link.circle")
-                    .font(.system(size: 80))
+                    .font(.iconSize(80)).limitedScaling()
                     .foregroundColor(.Brand.primary)
                 
                 Text("Connect to Interactive Brokers")

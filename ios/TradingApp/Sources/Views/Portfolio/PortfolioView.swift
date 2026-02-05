@@ -211,7 +211,8 @@ struct PortfolioDetailSummaryCard: View {
                 } else {
                     // H1: 32pt to match HomeView's .monoLarge
                     Text(viewModel.totalValue.asCurrency)
-                        .font(.system(size: 32, weight: .bold, design: .monospaced))
+                        .font(.monoLarge)
+                        .limitedScaling()
                         .foregroundColor(.Text.primary)
                 }
             }

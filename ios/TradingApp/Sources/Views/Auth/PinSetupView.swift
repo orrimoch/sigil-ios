@@ -64,7 +64,7 @@ struct PinSetupView: View {
         VStack(spacing: 32) {
             // Icon
             Image(systemName: "lock.shield.fill")
-                .font(.system(size: 48))
+                .font(.iconSize(48)).limitedScaling()
                 .foregroundColor(.Accent.gold)
             
             VStack(spacing: 8) {
@@ -144,7 +144,7 @@ struct PinSetupView: View {
     private var biometricSetupView: some View {
         VStack(spacing: 32) {
             Image(systemName: lockManager.biometricType.icon)
-                .font(.system(size: 64))
+                .font(.iconSize(64)).limitedScaling()
                 .foregroundColor(.Accent.gold)
             
             VStack(spacing: 8) {

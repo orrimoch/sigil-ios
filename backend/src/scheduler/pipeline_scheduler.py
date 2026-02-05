@@ -2,7 +2,7 @@
 REC-132: Pipeline Scheduler
 
 Automated scoring pipeline that runs weekly with:
-- Configurable schedule (default: Sunday 6pm EST)
+- Configurable schedule (default: Sunday 8am Israel time)
 - Health tracking and metrics
 - Retry logic for failures
 - Notification triggers after completion
@@ -27,11 +27,11 @@ class PipelineScheduler:
     """
     Manages automated pipeline runs on a schedule.
     
-    Default schedule: Sunday 6pm EST (23:00 UTC)
+    Default schedule: Sunday 8am Israel time (Asia/Jerusalem)
     """
     
     def __init__(self):
-        self.scheduler = BackgroundScheduler(timezone="US/Eastern")
+        self.scheduler = BackgroundScheduler(timezone="Asia/Jerusalem")
         self._is_running = False
         self._last_run: Optional[Dict] = None
         self._run_history: List[Dict] = []
@@ -68,14 +68,14 @@ class PipelineScheduler:
             logger.info("Scheduler already running")
             return
         
-        # Add weekly pipeline job: Sunday 6pm EST
+        # Add weekly pipeline job: Sunday 8am Israel time
         self.scheduler.add_job(
             self._run_pipeline_job,
             trigger=CronTrigger(
                 day_of_week="sun",
-                hour=18,
+                hour=8,
                 minute=0,
-                timezone="US/Eastern"
+                timezone="Asia/Jerusalem"
             ),
             id="weekly_pipeline",
             name="Weekly Scoring Pipeline",
@@ -84,7 +84,7 @@ class PipelineScheduler:
         
         self.scheduler.start()
         self._is_running = True
-        logger.info("Pipeline scheduler started (Sunday 6pm EST)")
+        logger.info("Pipeline scheduler started (Sunday 8am Israel time)")
     
     def stop(self):
         """Stop the scheduler."""
@@ -184,7 +184,7 @@ class PipelineScheduler:
         
         return {
             "is_running": self._is_running,
-            "schedule": "Sunday 6pm EST",
+            "schedule": "Sunday 8am Israel time",
             "next_run": next_run,
             "last_run": self._last_run,
             "total_runs": len(self._run_history),

@@ -260,7 +260,7 @@ struct TradingHaltedSheet: View {
         VStack(spacing: 24) {
             // Warning Icon
             Image(systemName: "exclamationmark.octagon.fill")
-                .font(.system(size: 60))
+                .font(.iconSize(60)).limitedScaling()
                 .foregroundColor(.Signal.sell)
             
             Text("Trading Halted")

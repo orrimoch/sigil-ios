@@ -94,7 +94,7 @@ struct LockScreenView: View {
             Spacer()
             
             Image(systemName: "exclamationmark.shield.fill")
-                .font(.system(size: 64))
+                .font(.iconSize(64)).limitedScaling()
                 .foregroundColor(.Signal.sell)
             
             Text("App Locked")
@@ -142,7 +142,7 @@ struct LockScreenView: View {
                 } label: {
                     VStack(spacing: 12) {
                         Image(systemName: lockManager.biometricType.icon)
-                            .font(.system(size: 48))
+                            .font(.iconSize(48)).limitedScaling()
                             .foregroundColor(.Accent.gold)
                         
                         Text("Tap to unlock with \(lockManager.biometricType.label)")
@@ -257,7 +257,7 @@ struct LockScreenView: View {
                                 .font(.title2)
                                 .foregroundColor(.Accent.gold)
                             Text("Use \(lockManager.biometricType.label)")
-                                .font(.system(size: 9))
+                                .font(.tinyLabel()).compactScaling()
                                 .foregroundColor(.Accent.gold)
                         }
                         .frame(width: 64, height: 64)
