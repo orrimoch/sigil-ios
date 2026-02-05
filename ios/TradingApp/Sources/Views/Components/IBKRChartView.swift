@@ -136,6 +136,9 @@ struct IBKRChartView: View {
         error = nil
         selectedBar = nil
         
+        // Refresh IBKR connection status from backend
+        await IBKRService.shared.refreshStatus()
+        
         // Try IBKR first if connected
         if IBKRService.shared.isConnected {
             do {
