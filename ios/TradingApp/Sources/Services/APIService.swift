@@ -733,8 +733,9 @@ struct PriceHistoryResponse: Codable {
 }
 
 struct PriceHistoryData: Codable {
-    let symbol: String
+    let ticker: String
     let period: String
+    let count: Int?
     let prices: [PricePoint]
 }
 
