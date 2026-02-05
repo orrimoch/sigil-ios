@@ -314,16 +314,44 @@ def load_prices(ticker: str, output_dir: Path = PRICES_DIR) -> Optional[pd.DataF
     return pd.read_parquet(path)
 
 
-def get_price_summary(ticker: str) -> Optional[Dict]:
+def get_price_summary(ticker: str, force_live: bool = False) -> Optional[Dict]:
     """
     Get price summary for a stock (from cache or live).
+    
+    Args:
+        ticker: Stock symbol
+        force_live: If True, skip cache and fetch live price
+    
+    REC-177 fix: Always fetch live for portfolio display to ensure accurate P&L.
     """
+    from datetime import datetime, timedelta
+    import pandas as pd
+    
+    # Option to force live price (for portfolio calculations)
+    if force_live:
+        return fetch_latest_price(ticker)
+    
     # Try cache first
     df = load_prices(ticker)
     
     if df is not None and len(df) > 0:
         latest = df.iloc[-1]
         prev = df.iloc[-2] if len(df) > 1 else latest
+        
+        # REC-177: Check if cache is stale (older than 1 day)
+        try:
+            cache_date = pd.to_datetime(latest["date"]).date()
+            today = datetime.now().date()
+            cache_age_days = (today - cache_date).days
+            
+            # If cache is stale (> 0 days old), fetch live
+            if cache_age_days > 0:
+                logger.debug(f"Cache for {ticker} is {cache_age_days} days old, fetching live")
+                live = fetch_latest_price(ticker)
+                if live:
+                    return live
+        except Exception as e:
+            logger.debug(f"Cache freshness check failed for {ticker}: {e}")
         
         return {
             "ticker": ticker,
