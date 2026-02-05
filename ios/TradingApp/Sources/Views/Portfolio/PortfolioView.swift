@@ -8,6 +8,10 @@ struct PortfolioView: View {
     @StateObject private var viewModel = PortfolioViewModel()
     @State private var showResetConfirm = false
     @State private var selectedTab = 0
+    @State private var autoRefreshEnabled = true  // REC-149: Live P&L updates
+    
+    // REC-149: Auto-refresh timer (every 30 seconds when enabled)
+    private let refreshTimer = Timer.publish(every: 30, on: .main, in: .common).autoconnect()
     
     var body: some View {
         NavigationStack {
@@ -107,6 +111,17 @@ struct PortfolioView: View {
             .navigationBarTitleDisplayMode(.large)
             .toolbarBackground(Color.Background.primary, for: .navigationBar)
             .toolbarColorScheme(.dark, for: .navigationBar)
+            .toolbar {
+                // REC-155: Performance stats button
+                ToolbarItem(placement: .topBarTrailing) {
+                    NavigationLink {
+                        PerformanceStatsView()
+                    } label: {
+                        Image(systemName: "chart.bar.doc.horizontal")
+                            .foregroundColor(.Brand.primary)
+                    }
+                }
+            }
             .overlay {
                 if viewModel.isLoading && viewModel.holdings.isEmpty && viewModel.error == nil {
                     ScrollView {
@@ -156,6 +171,13 @@ struct PortfolioView: View {
             }
             .task {
                 await viewModel.fetchAll()
+            }
+            // REC-149: Auto-refresh P&L every 30 seconds
+            .onReceive(refreshTimer) { _ in
+                guard autoRefreshEnabled else { return }
+                Task {
+                    await viewModel.fetchAll()
+                }
             }
             .alert("Reset Portfolio?", isPresented: $showResetConfirm) {
                 Button("Cancel", role: .cancel) {}

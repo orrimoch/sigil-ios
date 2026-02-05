@@ -4,7 +4,7 @@ import SwiftUI
 /// Bottom tab bar with 5 tabs: Home, Scores, Trade, Portfolio, Settings
 struct ContentView: View {
     @EnvironmentObject var appState: AppState
-    @State private var scoresHasNewData = false
+    @StateObject private var scoresBadge = ScoresBadgeService.shared
     
     var body: some View {
         TabView(selection: $appState.selectedTab) {
@@ -21,8 +21,8 @@ struct ContentView: View {
                     Label(Tab.scores.rawValue, systemImage: Tab.scores.icon)
                 }
                 .tag(Tab.scores)
-                // TODO: "NEW" badge not yet connected to backend signal data
-                .badge(scoresHasNewData ? "NEW" : nil)
+                // REC-128: Show NEW badge when scores updated since last view
+                .badge(scoresBadge.hasNewScores ? "NEW" : nil)
             
             // Trade Tab
             TradeView()
@@ -50,6 +50,11 @@ struct ContentView: View {
         .onChange(of: appState.selectedTab) { _, newValue in
             UIImpactFeedbackGenerator(style: .light).impactOccurred()
             Analytics.shared.track(.tabSwitched, properties: ["tab": newValue.rawValue])
+            
+            // REC-128: Clear NEW badge when user opens Scores tab
+            if newValue == .scores {
+                scoresBadge.markAsViewed()
+            }
         }
         .task {
             // F9.3: Check for signal changes on watched stocks

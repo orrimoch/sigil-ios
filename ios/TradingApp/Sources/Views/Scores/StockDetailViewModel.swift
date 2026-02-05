@@ -99,7 +99,8 @@ class StockDetailViewModel: ObservableObject {
         isLoading = false
     }
     
-    private func loadPrice() async {
+    // REC-148: Made internal for auto-refresh
+    func loadPrice() async {
         do {
             let response = try await APIService.shared.getPrice(ticker: ticker)
             price = response.price ?? 0

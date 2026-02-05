@@ -9,7 +9,7 @@ Features:
 
 from fastapi import FastAPI, HTTPException, Query, BackgroundTasks, Depends
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import List, Optional, Dict
 from sqlalchemy.ext.asyncio import AsyncSession
 from datetime import datetime
@@ -1780,6 +1780,215 @@ async def cancel_order(
         
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# ========== REC-147: Position Size Calculator ==========
+
+class PositionSizeRequest(BaseModel):
+    account_size: float = Field(..., gt=0, description="Total account value in dollars")
+    risk_percent: float = Field(..., gt=0, le=100, description="Max risk per trade (%)")
+    entry_price: float = Field(..., gt=0, description="Planned entry price")
+    stop_price: float = Field(..., gt=0, description="Stop-loss price")
+    max_position_percent: float = Field(25.0, gt=0, le=100, description="Max position size (%)")
+
+
+@app.post("/api/v1/trading/position-size")
+async def calculate_position_size_endpoint(request: PositionSizeRequest):
+    """
+    REC-147: Calculate optimal position size based on risk parameters.
+    
+    Formula: Shares = (Account × Risk%) / |Entry - Stop|
+    
+    Example: $100K account, 1% risk, entry $150, stop $145
+    → Risk $1000 / $5 stop distance = 200 shares
+    """
+    from trading.position_calculator import calculate_position_size
+    
+    try:
+        result = calculate_position_size(
+            account_size=request.account_size,
+            risk_percent=request.risk_percent,
+            entry_price=request.entry_price,
+            stop_price=request.stop_price,
+            max_position_percent=request.max_position_percent,
+        )
+        
+        return {
+            "success": True,
+            "data": result.to_dict(),
+        }
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/v1/trading/position-size")
+async def position_size_with_ticker(
+    ticker: str = Query(..., description="Stock ticker"),
+    account_size: float = Query(..., gt=0, description="Account value"),
+    risk_percent: float = Query(1.0, gt=0, le=100, description="Risk per trade (%)"),
+    stop_percent: float = Query(5.0, gt=0, le=50, description="Stop distance (%)"),
+):
+    """
+    REC-147: Calculate position size using current price and stop percentage.
+    
+    Fetches current price for the ticker and calculates stop price from percentage.
+    """
+    from trading.position_calculator import calculate_position_size
+    from data.price_fetcher import get_price_summary
+    
+    try:
+        # Get current price
+        price_data = get_price_summary(ticker.upper())
+        if not price_data or not price_data.get("price"):
+            raise HTTPException(status_code=404, detail=f"Price not found for {ticker}")
+        
+        entry_price = price_data["price"]
+        stop_price = entry_price * (1 - stop_percent / 100)
+        
+        result = calculate_position_size(
+            account_size=account_size,
+            risk_percent=risk_percent,
+            entry_price=entry_price,
+            stop_price=stop_price,
+        )
+        
+        return {
+            "success": True,
+            "data": {
+                **result.to_dict(),
+                "ticker": ticker.upper(),
+                "entry_price": round(entry_price, 2),
+                "stop_price": round(stop_price, 2),
+            },
+        }
+    except HTTPException:
+        raise
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# ========== REC-150: Level 2 Market Depth ==========
+
+@app.get("/api/v1/market-depth/{ticker}")
+async def get_market_depth(
+    ticker: str,
+    levels: int = Query(10, ge=5, le=20, description="Number of price levels"),
+):
+    """
+    REC-150: Get Level 2 market depth (bid/ask ladder).
+    
+    Shows order book with price levels and sizes.
+    Useful for finding better entry points and seeing order flow.
+    """
+    from ibkr.market_depth import get_market_depth_mock, get_market_depth_ibkr
+    
+    try:
+        # Try IBKR first, fall back to mock
+        depth = await get_market_depth_ibkr(ticker, levels)
+        if not depth:
+            depth = get_market_depth_mock(ticker, levels)
+        
+        return {
+            "success": True,
+            "data": depth.to_dict(),
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# ========== REC-155: Performance Stats ==========
+
+@app.get("/api/v1/trading/performance")
+async def get_trading_performance(
+    days: int = Query(30, ge=1, le=365, description="Period in days"),
+    user=Depends(get_required_user),
+    db: AsyncSession = Depends(get_db_session),
+):
+    """
+    REC-155: Get trading performance statistics.
+    
+    Calculates win rate, profit factor, expectancy, and other metrics
+    from the user's filled orders.
+    """
+    from trading.performance_stats import calculate_performance_metrics
+    
+    try:
+        user_id = user.id if user else ANONYMOUS_USER_ID
+        
+        # Get filled orders for the period
+        orders = await UserTradingService.get_orders(
+            db=db,
+            user_id=user_id,
+            status="FILLED",
+            limit=1000,
+        )
+        
+        # Convert to dicts
+        order_dicts = [o.to_dict() for o in orders]
+        
+        # Calculate metrics
+        metrics = calculate_performance_metrics(order_dicts)
+        
+        return {
+            "success": True,
+            "data": metrics.to_dict(),
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# ========== REC-156: Execution Quality ==========
+
+@app.get("/api/v1/trading/slippage")
+async def get_slippage_analysis(
+    days: int = Query(30, ge=1, le=365, description="Period in days"),
+    user=Depends(get_required_user),
+    db: AsyncSession = Depends(get_db_session),
+):
+    """
+    REC-156: Analyze execution quality (slippage) for limit orders.
+    
+    Compares expected fill price (limit) vs actual fill price.
+    """
+    from trading.performance_stats import analyze_slippage, calculate_performance_metrics
+    
+    try:
+        user_id = user.id if user else ANONYMOUS_USER_ID
+        
+        # Get filled orders
+        orders = await UserTradingService.get_orders(
+            db=db,
+            user_id=user_id,
+            status="FILLED",
+            limit=1000,
+        )
+        
+        order_dicts = [o.to_dict() for o in orders]
+        
+        # Analyze slippage
+        slippage_records = analyze_slippage(order_dicts)
+        
+        # Get summary metrics
+        metrics = calculate_performance_metrics(order_dicts)
+        
+        return {
+            "success": True,
+            "data": {
+                "summary": {
+                    "avg_slippage": metrics.avg_slippage,
+                    "avg_slippage_percent": metrics.avg_slippage_percent,
+                    "total_slippage_cost": metrics.total_slippage_cost,
+                    "orders_analyzed": len(slippage_records),
+                },
+                "records": slippage_records,
+            },
+        }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

@@ -10,6 +10,9 @@ struct StockDetailView: View {
     @State private var showTradeSheet = false
     @State private var showScoreBreakdown = false
     
+    // REC-148: Auto-refresh price every 15 seconds
+    private let priceRefreshTimer = Timer.publish(every: 15, on: .main, in: .common).autoconnect()
+    
     init(ticker: String) {
         self.ticker = ticker
         self._viewModel = StateObject(wrappedValue: StockDetailViewModel(ticker: ticker))
@@ -72,6 +75,26 @@ struct StockDetailView: View {
                 )
                 .padding(.horizontal)
                 
+                // REC-150: Market Depth link
+                NavigationLink {
+                    MarketDepthView(ticker: ticker)
+                } label: {
+                    HStack {
+                        Image(systemName: "chart.bar.doc.horizontal")
+                        Text("View Market Depth (Level 2)")
+                        Spacer()
+                        Image(systemName: "chevron.right")
+                            .font(.caption)
+                            .foregroundColor(.Text.tertiary)
+                    }
+                    .font(.subheadline)
+                    .foregroundColor(.Brand.primary)
+                    .padding()
+                    .background(Color.Background.secondary)
+                    .cornerRadius(12)
+                }
+                .padding(.horizontal)
+                
                 // Buy/Sell buttons
                 HStack(spacing: 16) {
                     Button {
@@ -118,6 +141,12 @@ struct StockDetailView: View {
         }
         .refreshable {
             await viewModel.loadData()
+        }
+        // REC-148: Auto-refresh price every 15 seconds
+        .onReceive(priceRefreshTimer) { _ in
+            Task {
+                await viewModel.loadPrice()
+            }
         }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
@@ -817,6 +846,7 @@ struct TradeEntrySheet: View {
     @State private var isSubmitting = false
     @State private var showSuccess = false
     @State private var errorMessage: String?
+    @State private var showCalculator = false  // REC-147
     
     var totalValue: Double {
         (Double(quantity) ?? 0) * currentPrice
@@ -856,6 +886,15 @@ struct TradeEntrySheet: View {
                         .foregroundColor(.Text.primary)
                         .multilineTextAlignment(.center)
                         .keyboardType(.numberPad)
+                    
+                    // REC-147: Position size calculator link
+                    Button {
+                        showCalculator = true
+                    } label: {
+                        Label("Calculate Position Size", systemImage: "function")
+                            .font(.caption)
+                            .foregroundColor(.Brand.primary)
+                    }
                 }
                 
                 // Total value
@@ -923,6 +962,10 @@ struct TradeEntrySheet: View {
                 Button("OK") { dismiss() }
             } message: {
                 Text("\(isBuy ? "Bought" : "Sold") \(quantity) shares of \(ticker)")
+            }
+            // REC-147: Position size calculator sheet
+            .sheet(isPresented: $showCalculator) {
+                PositionSizeCalculatorView(ticker: ticker, currentPrice: currentPrice)
             }
         }
     }
