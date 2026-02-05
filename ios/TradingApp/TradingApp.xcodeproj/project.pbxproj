@@ -33,6 +33,7 @@
 		6C25BA8F9650AB64A999A8CA /* APIDecodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BE2723B832CCC37A1F30AE /* APIDecodeTests.swift */; };
 		79D7563BCDF1DE0987A2BB13 /* StockDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B48A193806898F710A08BF /* StockDetailView.swift */; };
 		7D318BB9D701E75E238DE195 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E0970BBC9EEF8A622664BE /* HomeViewModel.swift */; };
+		81865911A88B947245C52185 /* DemoShowcaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04917A336F6CFAAF65847FD1 /* DemoShowcaseView.swift */; };
 		87DCF0D2B7F5CDC00001BC39 /* NotificationServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22ABA1BD0CCCEE1495A5483E /* NotificationServiceTests.swift */; };
 		8850D027F0AEBA64CD154961 /* TradingAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9FDE5CC4CF06B747DCFC13 /* TradingAppApp.swift */; };
 		8BDE5667403DFE9BD014406A /* ErrorStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84017D4C6F3B4B6500456C6 /* ErrorStateView.swift */; };
@@ -71,6 +72,7 @@
 
 /* Begin PBXFileReference section */
 		00BE2723B832CCC37A1F30AE /* APIDecodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIDecodeTests.swift; sourceTree = "<group>"; };
+		04917A336F6CFAAF65847FD1 /* DemoShowcaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoShowcaseView.swift; sourceTree = "<group>"; };
 		0AFEEE2C58CB8466ADDDC5E4 /* LockScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockScreenView.swift; sourceTree = "<group>"; };
 		0E6FCBAFE203360F593CE742 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		0E9FDE5CC4CF06B747DCFC13 /* TradingAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradingAppApp.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 		460D823105CDAAD4C3EAC73C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				04917A336F6CFAAF65847FD1 /* DemoShowcaseView.swift */,
 				BAA5242AC53BACFA5451983D /* LaunchView.swift */,
 				8F12DB527DDF65D13D04CC63 /* Auth */,
 				9B10888E28E00C29901BBB9C /* Common */,
@@ -455,6 +458,7 @@
 				5A6A2B484FA095B2451B9A0B /* ContentView.swift in Sources */,
 				4CE995F7845C0008E8A7C18A /* DailyLossLimitView.swift in Sources */,
 				18EC2C02385C89D96F9C4D73 /* DailyQuotes.swift in Sources */,
+				81865911A88B947245C52185 /* DemoShowcaseView.swift in Sources */,
 				8BDE5667403DFE9BD014406A /* ErrorStateView.swift in Sources */,
 				31574C2163567C37E4A6DFE8 /* ForgotPasswordView.swift in Sources */,
 				0D5D041793999B909FEB63E0 /* HomeView.swift in Sources */,

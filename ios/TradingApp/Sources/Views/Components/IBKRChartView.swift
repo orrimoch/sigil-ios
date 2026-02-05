@@ -40,6 +40,16 @@ struct IBKRChartView: View {
             case .oneYear: return "1 day"
             }
         }
+        
+        var yahooPeriod: String {
+            switch self {
+            case .oneDay: return "1d"
+            case .oneWeek: return "5d"
+            case .oneMonth: return "1mo"
+            case .threeMonths: return "3mo"
+            case .oneYear: return "1y"
+            }
+        }
     }
     
     enum ChartType: String, CaseIterable {
@@ -122,22 +132,40 @@ struct IBKRChartView: View {
     }
     
     private func loadBars() async {
-        guard IBKRService.shared.isConnected else {
-            error = "Not connected to IB Gateway"
-            isLoading = false
-            return
-        }
-        
         isLoading = true
         error = nil
         selectedBar = nil
         
+        // Try IBKR first if connected
+        if IBKRService.shared.isConnected {
+            do {
+                bars = try await IBKRService.shared.getHistoricalBars(
+                    ticker: ticker,
+                    duration: selectedTimeframe.rawValue,
+                    barSize: selectedTimeframe.barSize
+                )
+                isLoading = false
+                return
+            } catch {
+                // Fall through to Yahoo Finance fallback
+                print("IBKR bars failed, falling back to Yahoo: \(error)")
+            }
+        }
+        
+        // Fallback: Use Yahoo Finance price history
         do {
-            bars = try await IBKRService.shared.getHistoricalBars(
-                ticker: ticker,
-                duration: selectedTimeframe.rawValue,
-                barSize: selectedTimeframe.barSize
-            )
+            let period = selectedTimeframe.yahooPeriod
+            let response = try await APIService.shared.getPriceHistory(symbol: ticker, period: period)
+            bars = response.data.prices.map { price in
+                IBKRBar(
+                    date: price.date,
+                    open: price.open,
+                    high: price.high,
+                    low: price.low,
+                    close: price.close,
+                    volume: price.volume
+                )
+            }
         } catch {
             self.error = error.localizedDescription
         }
