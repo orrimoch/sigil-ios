@@ -1,0 +1,43 @@
+{
+  "ticker": "TSLA",
+  "overall_score": 42.0,
+  "overall_sentiment": "slightly_bearish",
+  "confidence": 0.7,
+  "rationale": "Mixed signals with price cuts in China suggesting demand weakness or competitive pressure outweighing positive FSD technical progress. Price cuts typically indicate margin pressure and market share defense rather than growth from strength.",
+  "article_analyses": [
+    {
+      "headline": "Tesla Cuts Prices in China Again",
+      "sentiment": "bearish",
+      "score": 25.0,
+      "key_factors": [
+        "Repeated price cuts indicate demand weakness",
+        "China is Tesla's second largest market",
+        "Margin compression likely"
+      ],
+      "relevance": 0.9
+    },
+    {
+      "headline": "Tesla FSD V13 Impresses Reviewers",
+      "sentiment": "bullish",
+      "score": 75.0,
+      "key_factors": [
+        "Technical progress on key differentiator",
+        "Positive reviewer feedback",
+        "Autonomous driving competitive advantage"
+      ],
+      "relevance": 0.7
+    }
+  ],
+  "bullish_factors": [
+    "FSD technology advancement",
+    "Positive reviewer feedback on V13",
+    "Autonomous driving market potential"
+  ],
+  "bearish_factors": [
+    "Repeated price cuts in China",
+    "Potential demand weakness",
+    "Margin pressure"
+  ],
+  "analyzed_at": "2026-02-05T20:14:57.497764",
+  "model_used": "claude-sonnet-4-20250514"
+}
