@@ -18,9 +18,13 @@ from loguru import logger
 # Boilerplate patterns to remove
 BOILERPLATE_PATTERNS = [
     r"Click here to read .*",
+    r"Click here for .*",
     r"Subscribe to .*",
+    r"Subscribe now.*",
     r"Sign up for .*",
+    r"Sign up now.*",
     r"Read more at .*",
+    r"Read more here.*",
     r"For more information.*",
     r"©\s*\d{4}.*",
     r"All rights reserved.*",
@@ -28,6 +32,8 @@ BOILERPLATE_PATTERNS = [
     r"Disclaimer:.*",
     r"ADVERTISEMENT",
     r"Continue reading.*",
+    r"Learn more at .*",
+    r"Visit .* for more.*",
     r"\[.*?\]",  # Square bracket references like [1], [Reuters]
 ]
 

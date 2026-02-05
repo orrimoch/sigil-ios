@@ -30,8 +30,26 @@ from data.stock_universe import get_universe
 # Import config (REC-171) and agentic analyzer (REC-172)
 from .sentiment_config import get_sentiment_config, SentimentModel
 
+# Import article processor (REC-173)
+from .article_processor import ArticleProcessor, ProcessedArticle
+
 # Lazy import to avoid circular dependency
 _agentic_analyzer = None
+
+# Singleton article processor
+_article_processor = None
+
+def _get_article_processor() -> ArticleProcessor:
+    """Lazy-load the article processor."""
+    global _article_processor
+    if _article_processor is None:
+        config = get_sentiment_config()
+        _article_processor = ArticleProcessor(
+            max_articles_per_ticker=config.max_articles,
+            max_content_length=300,
+            min_content_length=20,
+        )
+    return _article_processor
 
 def _get_agentic_analyzer():
     """Lazy-load the agentic sentiment analyzer."""
@@ -186,6 +204,11 @@ def _analyze_with_llm(ticker: str, articles: List[Dict]) -> Optional[SentimentSc
     """
     Analyze sentiment using Claude LLM (REC-172/174).
     
+    Pipeline (REC-173):
+    1. Process articles: clean boilerplate, score quality/relevance
+    2. Batch top N articles by quality
+    3. Send to LLM for analysis
+    
     Returns:
         SentimentScoreResult or None if analysis fails
     """
@@ -196,8 +219,31 @@ def _analyze_with_llm(ticker: str, articles: List[Dict]) -> Optional[SentimentSc
             logger.debug(f"LLM not available for {ticker}")
             return None
         
-        # Run LLM analysis
-        agent_result = analyzer.analyze(ticker, articles[:10])  # Max 10 articles
+        # REC-173: Process and clean articles before LLM analysis
+        processor = _get_article_processor()
+        processed = processor.process_articles(ticker, articles)
+        
+        if not processed:
+            logger.debug(f"No articles after processing for {ticker}")
+            return None
+        
+        # Convert ProcessedArticle back to dict format for analyzer
+        cleaned_articles = [
+            {
+                "title": p.headline,
+                "summary": p.content,
+                "source": p.source,
+                "published": p.published,
+                "_quality_score": p.quality_score,
+                "_relevance_score": p.relevance_score,
+            }
+            for p in processed
+        ]
+        
+        logger.debug(f"Processed {len(articles)} → {len(cleaned_articles)} articles for {ticker}")
+        
+        # Run LLM analysis with cleaned articles
+        agent_result = analyzer.analyze(ticker, cleaned_articles)
         
         # Convert AgentSentimentResult to SentimentScoreResult
         # Count positive/negative/neutral from article analyses

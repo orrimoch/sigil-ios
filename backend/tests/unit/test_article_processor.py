@@ -3,306 +3,379 @@ Tests for Article Processor (REC-173)
 """
 
 import pytest
-from pathlib import Path
 from datetime import datetime, timedelta
 
-import sys
-sys.path.insert(0, str(Path(__file__).parent.parent.parent / "src"))
-
-from scoring.article_processor import (
+from src.scoring.article_processor import (
     ArticleProcessor,
     ProcessedArticle,
     process_articles_for_ticker,
     format_articles_for_llm,
     BOILERPLATE_RE,
+    SOURCE_QUALITY,
 )
 
 
 class TestBoilerplateRemoval:
-    """Test boilerplate pattern removal."""
+    """Test boilerplate text removal."""
     
-    def test_removes_subscribe(self):
-        text = "Great earnings report. Subscribe to our newsletter for more."
-        cleaned = BOILERPLATE_RE.sub('', text)
+    def test_removes_subscribe_text(self):
+        """Should remove subscription prompts."""
+        processor = ArticleProcessor()
+        text = "Great earnings reported. Subscribe to our newsletter for more."
+        cleaned = processor._clean_text(text)
         assert "Subscribe" not in cleaned
-        assert "Great earnings report" in cleaned
+        assert "Great earnings reported" in cleaned
     
     def test_removes_click_here(self):
-        text = "Stock up 10%. Click here to read the full report."
-        cleaned = BOILERPLATE_RE.sub('', text)
+        """Should remove click here prompts."""
+        processor = ArticleProcessor()
+        text = "Apple stock rises. Click here to read more about it."
+        cleaned = processor._clean_text(text)
         assert "Click here" not in cleaned
+        assert "Apple stock rises" in cleaned
     
     def test_removes_copyright(self):
-        text = "Revenue grew 15%. © 2026 Reuters. All rights reserved."
-        cleaned = BOILERPLATE_RE.sub('', text)
+        """Should remove copyright notices."""
+        processor = ArticleProcessor()
+        text = "Quarterly results strong. © 2026 Reuters. All rights reserved."
+        cleaned = processor._clean_text(text)
         assert "©" not in cleaned
-        assert "Revenue grew 15%" in cleaned
-    
-    def test_removes_brackets(self):
-        text = "Apple [AAPL] reported earnings [1] above expectations."
-        cleaned = BOILERPLATE_RE.sub('', text)
-        assert "[AAPL]" not in cleaned
-        assert "[1]" not in cleaned
+        assert "All rights reserved" not in cleaned
+        assert "Quarterly results strong" in cleaned
     
     def test_removes_advertisement(self):
-        text = "Market update. ADVERTISEMENT. Stocks rally."
-        cleaned = BOILERPLATE_RE.sub('', text)
+        """Should remove advertisement markers."""
+        processor = ArticleProcessor()
+        text = "Stock up 5%. ADVERTISEMENT More news below."
+        cleaned = processor._clean_text(text)
         assert "ADVERTISEMENT" not in cleaned
+    
+    def test_removes_brackets(self):
+        """Should remove bracketed references."""
+        processor = ArticleProcessor()
+        text = "Revenue grew [1] according to reports [Reuters]."
+        cleaned = processor._clean_text(text)
+        assert "[1]" not in cleaned
+        assert "[Reuters]" not in cleaned
+    
+    def test_preserves_content(self):
+        """Should preserve meaningful content."""
+        processor = ArticleProcessor()
+        text = "Apple reported $89.5 billion in revenue, up 8% YoY"
+        cleaned = processor._clean_text(text)
+        assert cleaned == text
 
 
-class TestProcessedArticle:
-    """Test ProcessedArticle dataclass."""
+class TestSourceQuality:
+    """Test source quality scoring."""
     
-    def test_creation(self):
-        article = ProcessedArticle(
-            ticker="AAPL",
-            headline="Apple Reports Record Revenue",
-            content="Revenue hit $89.5B, up 8% YoY.",
-            source="Reuters",
-            published="Feb 05, 2026",
-            quality_score=2,
-            relevance_score=0.9,
-            word_count=10,
-        )
-        
-        assert article.ticker == "AAPL"
-        assert article.quality_score == 2
-        assert article.relevance_score == 0.9
+    def test_tier1_sources(self):
+        """Tier 1 sources should score 3."""
+        processor = ArticleProcessor()
+        assert processor._get_source_quality("bloomberg") == 3
+        assert processor._get_source_quality("Wall Street Journal") == 3
+        assert processor._get_source_quality("financial times") == 3
+        assert processor._get_source_quality("wsj_markets") == 3
     
-    def test_to_prompt_format(self):
-        article = ProcessedArticle(
-            ticker="AAPL",
-            headline="Apple Beats Expectations",
-            content="Strong iPhone sales drove growth.",
-            source="Bloomberg",
-            published="Today 10:00",
-            quality_score=3,
-            relevance_score=1.0,
-            word_count=5,
-        )
-        
-        formatted = article.to_prompt_format()
-        
-        assert "Apple Beats Expectations" in formatted
-        assert "Bloomberg" in formatted
-        assert "Tier 3" in formatted
-        assert "Strong iPhone sales" in formatted
+    def test_tier2_sources(self):
+        """Tier 2 sources should score 2."""
+        processor = ArticleProcessor()
+        assert processor._get_source_quality("reuters") == 2
+        assert processor._get_source_quality("cnbc") == 2
+        assert processor._get_source_quality("marketwatch") == 2
+    
+    def test_unknown_sources(self):
+        """Unknown sources should score 1."""
+        processor = ArticleProcessor()
+        assert processor._get_source_quality("random_blog") == 1
+        assert processor._get_source_quality("unknown") == 1
 
 
-class TestArticleProcessor:
-    """Test ArticleProcessor class."""
+class TestRelevanceScoring:
+    """Test article relevance scoring."""
     
-    @pytest.fixture
-    def processor(self):
-        return ArticleProcessor(
-            max_articles_per_ticker=3,
-            max_content_length=200,
-        )
-    
-    @pytest.fixture
-    def sample_articles(self):
-        return [
-            {
-                "title": "Apple Reports Record Q4 Revenue",
-                "summary": "Apple Inc. reported quarterly revenue of $89.5 billion, beating expectations.",
-                "source": "reuters",
-                "published": "2026-02-05T10:00:00",
-            },
-            {
-                "title": "Tech Stocks Rally on Earnings",
-                "summary": "Technology sector sees broad gains.",
-                "source": "marketwatch",
-                "published": "2026-02-04T15:00:00",
-            },
-            {
-                "title": "Apple Vision Pro Sales Disappoint",
-                "summary": "Vision Pro headset sees slower adoption than expected.",
-                "source": "bloomberg",
-                "published": "2026-02-05T08:00:00",
-            },
-        ]
-    
-    def test_process_articles_returns_list(self, processor, sample_articles):
-        result = processor.process_articles("AAPL", sample_articles)
-        assert isinstance(result, list)
-        assert len(result) <= 3
-    
-    def test_process_articles_sorted_by_quality(self, processor, sample_articles):
-        result = processor.process_articles("AAPL", sample_articles)
-        
-        # Bloomberg (tier 3) should be before MarketWatch (tier 1)
-        qualities = [a.quality_score for a in result]
-        assert qualities == sorted(qualities, reverse=True)
-    
-    def test_process_articles_filters_irrelevant(self, processor):
-        articles = [
-            {
-                "title": "Oil Prices Surge on OPEC Decision",
-                "summary": "Crude oil up 5% as production cuts announced.",
-                "source": "reuters",
-                "published": "2026-02-05T10:00:00",
-            },
-        ]
-        
-        # This article is not relevant to AAPL
-        result = processor.process_articles("AAPL", articles)
-        
-        # Should still process but with low relevance
-        if result:
-            assert result[0].relevance_score < 0.5
-    
-    def test_cleans_boilerplate(self, processor):
-        articles = [
-            {
-                "title": "AAPL Earnings Beat",
-                "summary": "Great results. Subscribe to our newsletter! © 2026 News Corp.",
-                "source": "reuters",
-                "published": "2026-02-05T10:00:00",
-            },
-        ]
-        
-        result = processor.process_articles("AAPL", articles)
-        
-        assert len(result) == 1
-        assert "Subscribe" not in result[0].content
-        assert "©" not in result[0].content
-    
-    def test_truncates_long_content(self, processor):
-        long_summary = "A" * 500
-        articles = [
-            {
-                "title": "AAPL News",
-                "summary": long_summary,
-                "source": "reuters",
-                "published": "2026-02-05T10:00:00",
-            },
-        ]
-        
-        result = processor.process_articles("AAPL", articles)
-        
-        assert len(result[0].content) <= processor.max_content_length + 3  # +3 for "..."
-    
-    def test_source_quality_bloomberg(self, processor):
-        quality = processor._get_source_quality("bloomberg")
-        assert quality == 3
-    
-    def test_source_quality_reuters(self, processor):
-        quality = processor._get_source_quality("finnhub_reuters")
-        assert quality == 2
-    
-    def test_source_quality_unknown(self, processor):
-        quality = processor._get_source_quality("some_blog")
-        assert quality == 1
-    
-    def test_relevance_ticker_in_headline(self, processor):
+    def test_ticker_in_headline_high_relevance(self):
+        """Ticker in headline should have high relevance."""
+        processor = ArticleProcessor()
         relevance = processor._calculate_relevance(
             "AAPL",
-            "AAPL Reports Strong Earnings",
-            "Revenue grew significantly."
+            "AAPL Stock Rises 5% on Earnings",
+            "Apple reported strong results."
         )
         assert relevance == 1.0
     
-    def test_relevance_ticker_in_summary(self, processor):
+    def test_ticker_in_summary(self):
+        """Ticker in summary should have medium-high relevance."""
+        processor = ArticleProcessor()
         relevance = processor._calculate_relevance(
             "AAPL",
-            "Tech Earnings Strong",
-            "AAPL and MSFT both beat expectations."
+            "Tech Stocks Rally Today",
+            "AAPL led gains with a 5% increase."
         )
         assert 0.5 <= relevance < 1.0
     
-    def test_relevance_company_name(self, processor):
+    def test_company_name_relevance(self):
+        """Company name mention should have medium relevance."""
+        processor = ArticleProcessor()
         relevance = processor._calculate_relevance(
             "AAPL",
-            "iPhone Sales Surge",
-            "Apple reported strong iPhone demand."
+            "Apple Launches New iPhone",
+            "The tech giant unveiled its latest smartphone."
         )
-        assert relevance >= 0.7
+        assert relevance == 0.7
     
-    def test_relevance_no_mention(self, processor):
+    def test_no_mention_low_relevance(self):
+        """No mention should have low relevance."""
+        processor = ArticleProcessor()
         relevance = processor._calculate_relevance(
             "AAPL",
-            "Oil Prices Rise",
-            "OPEC cuts production."
+            "Tech Sector Overview",
+            "General market analysis and trends."
         )
-        assert relevance <= 0.3
-    
-    def test_format_date_today(self, processor):
-        today = datetime.now().isoformat()
-        formatted = processor._format_date(today)
-        assert "Today" in formatted
-    
-    def test_format_date_yesterday(self, processor):
-        yesterday = (datetime.now() - timedelta(days=1)).isoformat()
-        formatted = processor._format_date(yesterday)
-        assert "Yesterday" in formatted
-    
-    def test_format_date_older(self, processor):
-        old_date = "2026-01-15T10:00:00"
-        formatted = processor._format_date(old_date)
-        assert "Jan 15" in formatted
-    
-    def test_format_for_prompt_empty(self, processor):
-        formatted = processor.format_for_prompt([])
-        assert "No recent news" in formatted
-    
-    def test_format_for_prompt_with_articles(self, processor, sample_articles):
-        processed = processor.process_articles("AAPL", sample_articles)
-        formatted = processor.format_for_prompt(processed)
-        
-        assert "Article 1:" in formatted
-        assert "Headline:" in formatted
-        assert "Source:" in formatted
+        assert relevance == 0.3
 
 
-class TestBatchByTicker:
-    """Test batch_by_ticker functionality."""
+class TestArticleProcessing:
+    """Test full article processing."""
     
     @pytest.fixture
-    def processor(self):
-        return ArticleProcessor(max_articles_per_ticker=2)
+    def sample_articles(self):
+        """Sample articles for testing."""
+        return [
+            {
+                "title": "Apple Reports Record Revenue",
+                "summary": "Apple Inc. reported $89.5B revenue. Subscribe now!",
+                "source": "bloomberg",
+                "published": datetime.now().isoformat(),
+            },
+            {
+                "title": "AAPL Stock Analysis",
+                "summary": "Technical analysis of AAPL shows bullish patterns.",
+                "source": "marketwatch",
+                "published": (datetime.now() - timedelta(days=1)).isoformat(),
+            },
+            {
+                "title": "Tech Sector Update",
+                "summary": "General tech news. Click here for more. © 2026",
+                "source": "unknown_blog",
+                "published": (datetime.now() - timedelta(days=2)).isoformat(),
+            },
+        ]
     
-    def test_batch_separates_tickers(self, processor):
+    def test_processes_articles(self, sample_articles):
+        """Should process and return articles."""
+        processor = ArticleProcessor(max_articles_per_ticker=5)
+        processed = processor.process_articles("AAPL", sample_articles)
+        
+        assert len(processed) == 3
+        assert all(isinstance(p, ProcessedArticle) for p in processed)
+    
+    def test_sorts_by_quality(self, sample_articles):
+        """Should sort by quality score (descending)."""
+        processor = ArticleProcessor()
+        processed = processor.process_articles("AAPL", sample_articles)
+        
+        # Bloomberg (tier 1) should be first
+        assert processed[0].source == "Bloomberg"
+        assert processed[0].quality_score == 3
+    
+    def test_limits_articles(self, sample_articles):
+        """Should limit to max_articles."""
+        processor = ArticleProcessor(max_articles_per_ticker=2)
+        processed = processor.process_articles("AAPL", sample_articles)
+        
+        assert len(processed) == 2
+    
+    def test_cleans_content(self, sample_articles):
+        """Should clean boilerplate from content."""
+        processor = ArticleProcessor()
+        processed = processor.process_articles("AAPL", sample_articles)
+        
+        # Check that subscribe/click/copyright removed
+        for p in processed:
+            assert "Subscribe" not in p.content
+            assert "Click here" not in p.content
+            assert "©" not in p.content
+    
+    def test_truncates_long_content(self):
+        """Should truncate long content."""
+        processor = ArticleProcessor(max_content_length=50)
+        articles = [{
+            "title": "Test",
+            "summary": "A" * 200,
+            "source": "test",
+            "published": datetime.now().isoformat(),
+        }]
+        
+        processed = processor.process_articles("AAPL", articles)
+        assert len(processed[0].content) <= 53  # 50 + "..."
+    
+    def test_handles_empty_articles(self):
+        """Should handle empty article list."""
+        processor = ArticleProcessor()
+        processed = processor.process_articles("AAPL", [])
+        assert processed == []
+    
+    def test_skips_invalid_articles(self):
+        """Should skip articles without headlines."""
+        processor = ArticleProcessor()
         articles = [
-            {"title": "AAPL beats earnings", "summary": "Apple strong", "source": "reuters", "published": "2026-02-05"},
-            {"title": "MSFT cloud grows", "summary": "Microsoft Azure up", "source": "bloomberg", "published": "2026-02-05"},
-            {"title": "NVDA AI demand", "summary": "Nvidia chips selling", "source": "wsj", "published": "2026-02-05"},
+            {"summary": "No title here", "source": "test"},
+            {"title": "", "source": "test"},
+            {"title": "Valid Title", "summary": "Content", "source": "test"},
         ]
         
-        result = processor.batch_by_ticker(articles, ["AAPL", "MSFT", "NVDA"])
-        
-        assert "AAPL" in result
-        assert "MSFT" in result
-        assert "NVDA" in result
+        processed = processor.process_articles("AAPL", articles)
+        assert len(processed) == 1
+        assert processed[0].headline == "Valid Title"
+
+
+class TestDateFormatting:
+    """Test date formatting."""
     
-    def test_batch_empty_for_no_matches(self, processor):
-        articles = [
-            {"title": "AAPL strong", "summary": "Apple good", "source": "reuters", "published": "2026-02-05"},
+    def test_today_format(self):
+        """Today's date should show 'Today HH:MM'."""
+        processor = ArticleProcessor()
+        now = datetime.now().isoformat()
+        formatted = processor._format_date(now)
+        assert formatted.startswith("Today")
+    
+    def test_yesterday_format(self):
+        """Yesterday's date should show 'Yesterday HH:MM'."""
+        processor = ArticleProcessor()
+        yesterday = (datetime.now() - timedelta(days=1)).isoformat()
+        formatted = processor._format_date(yesterday)
+        assert formatted.startswith("Yesterday")
+    
+    def test_older_date_format(self):
+        """Older dates should show 'Mon DD, YYYY'."""
+        processor = ArticleProcessor()
+        old_date = "2026-01-15T10:00:00"
+        formatted = processor._format_date(old_date)
+        assert "Jan 15, 2026" in formatted
+    
+    def test_handles_empty_date(self):
+        """Should handle empty date."""
+        processor = ArticleProcessor()
+        assert processor._format_date("") == "Unknown"
+        assert processor._format_date(None) == "Unknown"
+
+
+class TestPromptFormatting:
+    """Test LLM prompt formatting."""
+    
+    def test_formats_articles_for_prompt(self):
+        """Should format articles for LLM prompt."""
+        processor = ArticleProcessor()
+        processed = [
+            ProcessedArticle(
+                ticker="AAPL",
+                headline="Apple Revenue Up",
+                content="Strong quarterly results.",
+                source="Bloomberg",
+                published="Today 10:00",
+                quality_score=3,
+                relevance_score=1.0,
+                word_count=3,
+            )
         ]
         
-        result = processor.batch_by_ticker(articles, ["AAPL", "XYZ"])
+        formatted = processor.format_for_prompt(processed)
         
-        assert len(result["AAPL"]) >= 0
-        assert len(result["XYZ"]) == 0
+        assert "Article 1" in formatted
+        assert "Apple Revenue Up" in formatted
+        assert "Bloomberg" in formatted
+        assert "Strong quarterly results" in formatted
+    
+    def test_formats_multiple_articles(self):
+        """Should number multiple articles."""
+        processor = ArticleProcessor()
+        processed = [
+            ProcessedArticle("AAPL", f"Headline {i}", "Content", "Source", "Today", 2, 0.5, 1)
+            for i in range(3)
+        ]
+        
+        formatted = processor.format_for_prompt(processed)
+        
+        assert "Article 1" in formatted
+        assert "Article 2" in formatted
+        assert "Article 3" in formatted
+    
+    def test_handles_empty_list(self):
+        """Should handle empty article list."""
+        processor = ArticleProcessor()
+        formatted = processor.format_for_prompt([])
+        assert "No recent news" in formatted
 
 
 class TestConvenienceFunctions:
     """Test convenience functions."""
     
     def test_process_articles_for_ticker(self):
+        """Should process articles via convenience function."""
         articles = [
-            {"title": "AAPL News", "summary": "Good stuff", "source": "reuters", "published": "2026-02-05"},
+            {"title": "AAPL News", "summary": "Content", "source": "test", "published": "2026-02-05"}
         ]
         
-        result = process_articles_for_ticker("AAPL", articles, max_articles=5)
+        processed = process_articles_for_ticker("AAPL", articles, max_articles=5)
         
-        assert isinstance(result, list)
+        assert len(processed) == 1
+        assert processed[0].ticker == "AAPL"
     
     def test_format_articles_for_llm(self):
+        """Should format articles via convenience function."""
         articles = [
-            {"title": "AAPL News", "summary": "Good stuff", "source": "reuters", "published": "2026-02-05"},
+            {"title": "AAPL News", "summary": "Content", "source": "test", "published": "2026-02-05"}
         ]
         
-        result = format_articles_for_llm("AAPL", articles)
+        formatted = format_articles_for_llm("AAPL", articles)
         
-        assert isinstance(result, str)
-        assert "AAPL" in result or "Article" in result
+        assert "AAPL News" in formatted
+        assert "Article 1" in formatted
+
+
+class TestSourceNormalization:
+    """Test source name normalization."""
+    
+    def test_removes_prefixes(self):
+        """Should remove provider prefixes."""
+        processor = ArticleProcessor()
+        assert processor._normalize_source("finnhub_reuters") == "Reuters"
+        assert processor._normalize_source("alphavantage_wsj") == "Wsj"
+        assert processor._normalize_source("yahoo_finance") == "Finance"
+    
+    def test_preserves_simple_names(self):
+        """Should preserve simple source names."""
+        processor = ArticleProcessor()
+        assert processor._normalize_source("bloomberg") == "Bloomberg"
+        assert processor._normalize_source("Reuters") == "Reuters"
+
+
+class TestBatchByTicker:
+    """Test batching articles by ticker."""
+    
+    def test_batch_by_ticker(self):
+        """Should batch articles by ticker."""
+        processor = ArticleProcessor(max_articles_per_ticker=2)
+        articles = [
+            {"title": "AAPL up 5%", "summary": "Apple gains", "source": "test", "published": "2026-02-05"},
+            {"title": "MSFT launches", "summary": "Microsoft news", "source": "test", "published": "2026-02-05"},
+            {"title": "More Apple news", "summary": "AAPL continues", "source": "test", "published": "2026-02-05"},
+        ]
+        
+        batched = processor.batch_by_ticker(articles, ["AAPL", "MSFT", "GOOGL"])
+        
+        assert len(batched["AAPL"]) == 2
+        assert len(batched["MSFT"]) == 1
+        assert len(batched["GOOGL"]) == 0
+    
+    def test_batch_handles_company_names(self):
+        """Should match articles by company name."""
+        processor = ArticleProcessor()
+        articles = [
+            {"title": "Apple launches new product", "summary": "iPhone 17", "source": "test", "published": "2026-02-05"},
+        ]
+        
+        batched = processor.batch_by_ticker(articles, ["AAPL"])
+        
+        assert len(batched["AAPL"]) == 1
