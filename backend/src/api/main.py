@@ -155,9 +155,27 @@ def _get_cached_prices(tickers: List[str]) -> Dict[str, dict]:
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """Startup: initialise auth database tables."""
+    """Startup: initialise auth database tables and optional scheduler."""
     await init_db()
+    
+    # REC-132: Auto-start scheduler if enabled
+    # Set SCHEDULER_ENABLED=true to start pipeline scheduler on boot
+    if os.environ.get("SCHEDULER_ENABLED", "false").lower() in ("true", "1", "yes"):
+        try:
+            from scheduler import scheduler_instance
+            scheduler_instance.start()
+            logger.info("Pipeline scheduler auto-started")
+        except Exception as e:
+            logger.error(f"Failed to start scheduler: {e}")
+    
     yield
+    
+    # Shutdown: stop scheduler if running
+    try:
+        from scheduler import scheduler_instance
+        scheduler_instance.stop()
+    except Exception:
+        pass
 
 
 # Initialize FastAPI
@@ -832,6 +850,73 @@ async def get_pipeline_history(
         
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+# ========== Scheduler Endpoints (REC-132) ==========
+
+@app.get("/api/v1/scheduler/status")
+async def get_scheduler_status():
+    """
+    Get pipeline scheduler status and health (REC-132).
+    
+    Returns:
+    - is_running: Whether scheduler is active
+    - schedule: Human-readable schedule (Sunday 6pm EST)
+    - next_run: Next scheduled run time
+    - last_run: Most recent run details
+    - success_rate: Historical success percentage
+    """
+    from scheduler import scheduler_instance
+    return {"success": True, "data": scheduler_instance.get_status()}
+
+
+@app.post("/api/v1/scheduler/start")
+async def start_scheduler():
+    """
+    Start the pipeline scheduler (REC-132).
+    
+    Schedules weekly pipeline runs on Sunday 6pm EST.
+    """
+    from scheduler import scheduler_instance
+    scheduler_instance.start()
+    return {"success": True, "message": "Scheduler started", "data": scheduler_instance.get_status()}
+
+
+@app.post("/api/v1/scheduler/stop")
+async def stop_scheduler():
+    """
+    Stop the pipeline scheduler (REC-132).
+    """
+    from scheduler import scheduler_instance
+    scheduler_instance.stop()
+    return {"success": True, "message": "Scheduler stopped", "data": scheduler_instance.get_status()}
+
+
+@app.post("/api/v1/scheduler/run-now")
+async def scheduler_run_now(background_tasks: BackgroundTasks):
+    """
+    Trigger an immediate pipeline run via scheduler (REC-132).
+    
+    Useful for manual runs while keeping health tracking.
+    """
+    from scheduler import scheduler_instance
+    
+    def run_in_background():
+        scheduler_instance.run_now()
+    
+    background_tasks.add_task(run_in_background)
+    return {"success": True, "message": "Pipeline run triggered", "data": scheduler_instance.get_status()}
+
+
+@app.get("/api/v1/scheduler/history")
+async def get_scheduler_history(
+    limit: int = Query(10, ge=1, le=50, description="Number of runs to return")
+):
+    """
+    Get scheduler run history (REC-132).
+    """
+    from scheduler import scheduler_instance
+    return {"success": True, "data": scheduler_instance.get_history(limit)}
 
 
 # ========== Scores Endpoints (F2.x) ==========
