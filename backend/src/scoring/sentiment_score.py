@@ -33,6 +33,9 @@ from .sentiment_config import get_sentiment_config, SentimentModel
 # Import article processor (REC-173)
 from .article_processor import ArticleProcessor, ProcessedArticle
 
+# Import fallback manager (REC-175)
+from .sentiment_fallback import get_fallback_manager
+
 # Lazy import to avoid circular dependency
 _agentic_analyzer = None
 
@@ -159,15 +162,21 @@ def calculate_sentiment_score_for_ticker(
             details={"message": "No news found", "model": "none"}
         )
     
+    # REC-175: Get fallback manager for tracking
+    fallback_mgr = get_fallback_manager()
+    
     # Try LLM analysis if configured (REC-174)
     if config.model in (SentimentModel.LLM, SentimentModel.HYBRID):
         try:
             result = _analyze_with_llm(ticker, articles)
             if result is not None:
+                # REC-175: Track LLM success (includes cache hits via analyzer)
+                fallback_mgr.record_llm_call()
                 return result
             # Fall through to keyword if LLM returns None
             if config.model == SentimentModel.LLM:
                 logger.warning(f"LLM analysis failed for {ticker}, returning neutral")
+                fallback_mgr.record_neutral_fallback()  # REC-175
                 return SentimentScoreResult(
                     ticker=ticker,
                     total_score=50.0,
@@ -183,6 +192,7 @@ def calculate_sentiment_score_for_ticker(
             logger.warning(f"LLM analysis error for {ticker}: {e}")
             if config.model == SentimentModel.LLM:
                 # Pure LLM mode - don't fall back
+                fallback_mgr.record_neutral_fallback()  # REC-175
                 return SentimentScoreResult(
                     ticker=ticker,
                     total_score=50.0,
@@ -197,6 +207,10 @@ def calculate_sentiment_score_for_ticker(
             # Hybrid mode - fall through to keyword
     
     # Keyword-based analysis (original method)
+    # REC-175: Track keyword fallback
+    if config.model in (SentimentModel.LLM, SentimentModel.HYBRID):
+        fallback_mgr.record_keyword_fallback()
+    
     return _analyze_with_keywords(ticker, articles, hours)
 
 

@@ -18,7 +18,7 @@ import json
 from loguru import logger
 
 from .sentiment_config import get_sentiment_config, SentimentModel
-from .sentiment_score import SentimentScoreResult
+# Note: SentimentScoreResult removed to avoid circular import (REC-175)
 
 
 @dataclass
