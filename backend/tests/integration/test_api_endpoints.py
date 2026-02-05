@@ -19,19 +19,58 @@ from typing import Any, Optional
 
 BASE_URL = "http://127.0.0.1:8000/api/v1"
 
+# REC-130: Auth token for protected endpoints
+_auth_token: Optional[str] = None
 
-def _get(path: str, params: dict = None) -> dict:
+
+def _get_auth_token() -> str:
+    """Get or create an auth token for testing protected endpoints."""
+    global _auth_token
+    if _auth_token:
+        return _auth_token
+    
+    # Try to register, then login
+    test_email = "integration_test@sigil.app"
+    test_pass = "TestPass123!"
+    
+    # Try register first (may already exist)
+    requests.post(
+        f"{BASE_URL}/auth/register",
+        json={"email": test_email, "password": test_pass, "full_name": "Integration Test"},
+        timeout=10
+    )
+    
+    # Login
+    resp = requests.post(
+        f"{BASE_URL}/auth/login",
+        json={"email": test_email, "password": test_pass},
+        timeout=10
+    )
+    if resp.status_code == 200:
+        data = resp.json()
+        _auth_token = data.get("tokens", {}).get("access_token")
+    
+    return _auth_token or ""
+
+
+def _get(path: str, params: dict = None, auth: bool = False) -> dict:
     """GET request, return parsed JSON."""
     url = f"{BASE_URL}{path}"
-    resp = requests.get(url, params=params, timeout=15)
+    headers = {}
+    if auth:
+        headers["Authorization"] = f"Bearer {_get_auth_token()}"
+    resp = requests.get(url, params=params, headers=headers, timeout=15)
     assert resp.status_code == 200, f"{path} returned {resp.status_code}: {resp.text[:200]}"
     return resp.json()
 
 
-def _post(path: str, json_body: dict = None, params: dict = None) -> tuple:
+def _post(path: str, json_body: dict = None, params: dict = None, auth: bool = False) -> tuple:
     """POST request, return (status_code, parsed JSON)."""
     url = f"{BASE_URL}{path}"
-    resp = requests.post(url, json=json_body, params=params, timeout=15)
+    headers = {}
+    if auth:
+        headers["Authorization"] = f"Bearer {_get_auth_token()}"
+    resp = requests.post(url, json=json_body, params=params, headers=headers, timeout=15)
     return resp.status_code, resp.json()
 
 
@@ -203,12 +242,12 @@ class TestPortfolio:
     """
 
     def test_portfolio_response_structure(self):
-        data = _get("/portfolio")
+        data = _get("/portfolio", auth=True)
         _assert_fields(data, {"success": bool, "data": dict}, "portfolio")
 
     def test_portfolio_data_fields(self):
         """PortfolioData: summary, holdings, is_paper, realized_pnl"""
-        data = _get("/portfolio")["data"]
+        data = _get("/portfolio", auth=True)["data"]
         _assert_fields(data, {
             "summary": dict,
             "holdings": list,
@@ -218,7 +257,7 @@ class TestPortfolio:
 
     def test_portfolio_summary_fields(self):
         """PortfolioSummary: all fields iOS expects (non-optional)."""
-        summary = _get("/portfolio")["data"]["summary"]
+        summary = _get("/portfolio", auth=True)["data"]["summary"]
         _assert_fields(summary, {
             "total_value": float,
             "cash": float,
@@ -235,7 +274,7 @@ class TestPortfolio:
         Holding: ALL fields must be non-null.
         This catches the exact bug we had — INVALID ticker with null current_price.
         """
-        holdings = _get("/portfolio")["data"]["holdings"]
+        holdings = _get("/portfolio", auth=True)["data"]["holdings"]
         for h in holdings:
             _assert_fields(h, {
                 "ticker": str,
@@ -256,7 +295,7 @@ class TestPortfolio:
 
     def test_portfolio_history(self):
         """PortfolioHistoryResponse: success, count, days, data: [PortfolioSnapshot]"""
-        data = _get("/portfolio/history", {"days": 30})
+        data = _get("/portfolio/history", {"days": 30}, auth=True)
         _assert_fields(data, {
             "success": bool,
             "count": int,
@@ -266,12 +305,12 @@ class TestPortfolio:
 
     def test_portfolio_performance(self):
         """PortfolioPerformanceResponse: success, data: PortfolioPerformance"""
-        data = _get("/portfolio/performance", {"days": 30})
+        data = _get("/portfolio/performance", {"days": 30}, auth=True)
         _assert_fields(data, {"success": bool, "data": dict}, "PortfolioPerformance")
 
     def test_portfolio_sectors(self):
         """SectorAllocationResponse: success, count, data: [SectorAllocation]"""
-        data = _get("/portfolio/sectors")
+        data = _get("/portfolio/sectors", auth=True)
         _assert_fields(data, {"success": bool, "count": int, "data": list}, "SectorAllocation")
 
 
@@ -281,12 +320,12 @@ class TestOrders:
     """iOS: OrdersResponse { success, count, data: [OrderData] }"""
 
     def test_orders_list(self):
-        data = _get("/orders")
+        data = _get("/orders", auth=True)
         _assert_fields(data, {"success": bool, "count": int, "data": list}, "orders")
 
     def test_order_fields(self):
         """OrderData: all non-optional fields must be present."""
-        data = _get("/orders")
+        data = _get("/orders", auth=True)
         if data["count"] > 0:
             order = data["data"][0]
             # iOS OrderData uses orderId (mapped from order_id)
@@ -309,7 +348,7 @@ class TestOrders:
             "side": "BUY",
             "quantity": 1,
             "order_type": "MARKET",
-        })
+        }, auth=True)
         assert status == 400, f"Expected 400 for invalid ticker, got {status}: {data}"
 
 
@@ -423,6 +462,90 @@ class TestErrorFormat:
             "side": "BUY",
             "quantity": 1,
             "order_type": "MARKET",
-        })
+        }, auth=True)
         _assert_fields(data, {"success": bool, "error": str}, "400 error")
         assert data["success"] is False
+
+
+# ========== REC-126/127: User Preferences ==========
+
+class TestUserPreferences:
+    """REC-126, REC-127: Preferences endpoints for risk tolerance and portfolio size."""
+
+    def test_get_preferences(self):
+        """GET /auth/preferences returns user preferences."""
+        data = _get("/auth/preferences", auth=True)
+        _assert_fields(data, {"success": bool, "preferences": dict}, "preferences")
+        prefs = data["preferences"]
+        _assert_fields(prefs, {
+            "risk_tolerance": str,
+            "portfolio_size": str,
+        }, "UserPreferences")
+
+    def test_update_preferences(self):
+        """PUT /auth/preferences updates preferences."""
+        status, data = _post("/auth/preferences", {
+            "risk_tolerance": "conservative",
+            "portfolio_size": "small"
+        }, auth=True)
+        # PUT via _post
+        import requests
+        resp = requests.put(
+            f"{BASE_URL}/auth/preferences",
+            json={"risk_tolerance": "moderate", "portfolio_size": "medium"},
+            headers={"Authorization": f"Bearer {_get_auth_token()}"},
+            timeout=10
+        )
+        assert resp.status_code == 200
+        data = resp.json()
+        _assert_fields(data, {"success": bool, "preferences": dict}, "updated preferences")
+
+
+class TestRiskAdjustedScores:
+    """REC-126: Scores can be adjusted by risk tolerance."""
+
+    def test_scores_with_risk_tolerance(self):
+        """GET /scores?risk_tolerance=conservative adjusts thresholds."""
+        data = _get("/scores", {"risk_tolerance": "conservative", "limit": 5})
+        _assert_fields(data, {"success": bool, "scores": list, "thresholds": dict}, "risk-adjusted scores")
+        assert data["thresholds"]["BUY"] == 80  # Conservative threshold
+
+    def test_scores_aggressive(self):
+        """GET /scores?risk_tolerance=aggressive lowers BUY threshold."""
+        data = _get("/scores", {"risk_tolerance": "aggressive", "limit": 5})
+        assert data["thresholds"]["BUY"] == 60  # Aggressive threshold
+
+
+# ========== REC-132: Pipeline Scheduler ==========
+
+class TestPipelineScheduler:
+    """REC-132: Automated pipeline scheduler endpoints."""
+
+    def test_scheduler_status(self):
+        """GET /scheduler/status returns scheduler health."""
+        data = _get("/scheduler/status")
+        _assert_fields(data, {"success": bool, "data": dict}, "scheduler status")
+        status_data = data["data"]
+        _assert_fields(status_data, {
+            "is_running": bool,
+            "schedule": str,
+            "total_runs": int,
+            "success_rate": float,
+        }, "SchedulerStatus")
+
+    def test_scheduler_start_stop(self):
+        """POST /scheduler/start and /scheduler/stop work."""
+        # Start
+        status, data = _post("/scheduler/start")
+        assert status == 200
+        assert data["data"]["is_running"] is True
+        
+        # Stop
+        status, data = _post("/scheduler/stop")
+        assert status == 200
+        assert data["data"]["is_running"] is False
+
+    def test_scheduler_history(self):
+        """GET /scheduler/history returns run history."""
+        data = _get("/scheduler/history", {"limit": 5})
+        _assert_fields(data, {"success": bool, "data": list}, "scheduler history")
