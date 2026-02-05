@@ -6,15 +6,30 @@ for use by API endpoints. Handles order execution (fills market orders, updates
 portfolio cash/positions) scoped to a specific user.
 """
 
+import json
 import uuid
 from datetime import datetime, timezone
 from typing import Optional, List
 
-from sqlalchemy import select, and_
+from sqlalchemy import select, and_, func
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from db.models import UserPortfolio, UserPosition, UserOrder, ANONYMOUS_USER_ID
 from data.price_fetcher import get_price_summary
+
+
+# REC-127: Portfolio size limits (max distinct positions)
+PORTFOLIO_SIZE_LIMITS = {
+    "small": {"min": 3, "max": 5},      # Conservative, fewer positions
+    "medium": {"min": 5, "max": 10},    # Balanced diversification
+    "large": {"min": 10, "max": 15},    # Maximum diversification
+}
+
+
+def get_position_limit(portfolio_size: str = "medium") -> int:
+    """Get max position count for portfolio size (REC-127)."""
+    limits = PORTFOLIO_SIZE_LIMITS.get(portfolio_size.lower(), PORTFOLIO_SIZE_LIMITS["medium"])
+    return limits["max"]
 
 
 class UserTradingService:
@@ -182,11 +197,14 @@ class UserTradingService:
         order_type: str = "MARKET",
         limit_price: Optional[float] = None,
         is_paper: bool = True,
+        portfolio_size: str = "medium",  # REC-127
     ) -> UserOrder:
         """Create and execute an order for a user.
         
         Market orders are filled immediately at current price.
         Limit orders are stored as PENDING.
+        
+        REC-127: portfolio_size limits max positions (small=5, medium=10, large=15).
         """
         ticker = ticker.upper()
         side = side.upper()
@@ -211,6 +229,36 @@ class UserTradingService:
 
         # Get portfolio
         portfolio = await UserTradingService.get_or_create_portfolio(db, user_id)
+        
+        # REC-127: Check position limit for BUY orders (new positions only)
+        if side == "BUY":
+            # Check if user already has a position in this ticker
+            existing_pos = await db.execute(
+                select(UserPosition).where(
+                    and_(
+                        UserPosition.portfolio_id == portfolio.id,
+                        UserPosition.ticker == ticker,
+                    )
+                )
+            )
+            has_existing = existing_pos.scalar_one_or_none() is not None
+            
+            if not has_existing:
+                # New position — check against limit
+                pos_count_result = await db.execute(
+                    select(func.count(UserPosition.id)).where(
+                        UserPosition.portfolio_id == portfolio.id
+                    )
+                )
+                current_count = pos_count_result.scalar() or 0
+                max_positions = get_position_limit(portfolio_size)
+                
+                if current_count >= max_positions:
+                    raise ValueError(
+                        f"Position limit reached ({current_count}/{max_positions}). "
+                        f"Portfolio size '{portfolio_size}' allows max {max_positions} positions. "
+                        f"Sell an existing position first or upgrade your portfolio size."
+                    )
 
         # Determine fill price for market orders
         fill_price = None

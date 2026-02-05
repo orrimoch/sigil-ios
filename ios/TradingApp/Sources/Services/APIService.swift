@@ -763,3 +763,72 @@ struct MarketIndexData: Codable {
     let change: Double
     let changePercent: Double
 }
+
+// MARK: - User Preferences (REC-126, REC-127)
+
+struct UserPreferences: Codable {
+    var riskTolerance: String?
+    var portfolioSize: String?
+}
+
+struct PreferencesResponse: Codable {
+    let success: Bool
+    let preferences: UserPreferences
+}
+
+extension APIService {
+    
+    /// Get user's trading preferences (REC-126, REC-127)
+    func getPreferences() async throws -> UserPreferences {
+        guard let token = AuthService.shared.accessToken else {
+            throw APIError.httpError(statusCode: 401)
+        }
+        
+        let url = URL(string: "\(baseURL)/auth/preferences")!
+        var request = URLRequest(url: url)
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        
+        guard let http = response as? HTTPURLResponse else {
+            throw APIError.invalidResponse
+        }
+        guard 200...299 ~= http.statusCode else {
+            throw APIError.httpError(statusCode: http.statusCode)
+        }
+        
+        let result = try decoder.decode(PreferencesResponse.self, from: data)
+        return result.preferences
+    }
+    
+    /// Update user's trading preferences (REC-126, REC-127)
+    func updatePreferences(riskTolerance: String?, portfolioSize: String?) async throws -> UserPreferences {
+        guard let token = AuthService.shared.accessToken else {
+            throw APIError.httpError(statusCode: 401)
+        }
+        
+        let url = URL(string: "\(baseURL)/auth/preferences")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "PUT"
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        var body: [String: Any] = [:]
+        if let risk = riskTolerance { body["risk_tolerance"] = risk }
+        if let size = portfolioSize { body["portfolio_size"] = size }
+        
+        request.httpBody = try JSONSerialization.data(withJSONObject: body)
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        
+        guard let http = response as? HTTPURLResponse else {
+            throw APIError.invalidResponse
+        }
+        guard 200...299 ~= http.statusCode else {
+            throw APIError.httpError(statusCode: http.statusCode)
+        }
+        
+        let result = try decoder.decode(PreferencesResponse.self, from: data)
+        return result.preferences
+    }
+}

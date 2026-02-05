@@ -372,6 +372,8 @@ class SettingsViewModel: ObservableObject {
     @Published var riskTolerance: RiskTolerance {
         didSet {
             UserDefaults.standard.set(riskTolerance.rawValue, forKey: "riskTolerance")
+            // REC-126: Sync to backend
+            syncPreferencesToBackend()
         }
     }
     
@@ -444,6 +446,42 @@ class SettingsViewModel: ObservableObject {
         if let cachesURL = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first {
             let apiCache = cachesURL.appendingPathComponent("SigilAPICache")
             try? FileManager.default.removeItem(at: apiCache)
+        }
+    }
+    
+    // MARK: - REC-126: Sync Preferences to Backend
+    
+    func syncPreferencesToBackend() {
+        // Only sync if authenticated
+        guard AuthService.shared.isLoggedIn else { return }
+        
+        Task {
+            do {
+                _ = try await APIService.shared.updatePreferences(
+                    riskTolerance: riskTolerance.rawValue.lowercased(),
+                    portfolioSize: nil  // Portfolio size handled by AppState
+                )
+            } catch {
+                print("Failed to sync preferences: \(error)")
+            }
+        }
+    }
+    
+    func loadPreferencesFromBackend() async {
+        // Only load if authenticated
+        guard AuthService.shared.isLoggedIn else { return }
+        
+        do {
+            let prefs = try await APIService.shared.getPreferences()
+            
+            // Update local state from backend
+            if let riskStr = prefs.riskTolerance,
+               let risk = RiskTolerance(rawValue: riskStr.capitalized) {
+                self.riskTolerance = risk
+                UserDefaults.standard.set(risk.rawValue, forKey: "riskTolerance")
+            }
+        } catch {
+            print("Failed to load preferences: \(error)")
         }
     }
 }

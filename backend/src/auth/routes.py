@@ -2,6 +2,7 @@
 Sigil Auth — API endpoints for authentication.
 """
 
+import json
 from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel, EmailStr, Field
 from typing import Optional
@@ -35,6 +36,24 @@ class RefreshRequest(BaseModel):
 class UpdateProfileRequest(BaseModel):
     full_name: Optional[str] = None
     settings_json: Optional[str] = None
+
+
+# REC-126, REC-127: User Preferences
+class UserPreferences(BaseModel):
+    """User trading preferences for risk-adjusted scoring and position sizing."""
+    risk_tolerance: Optional[str] = Field(
+        None,
+        description="Risk tolerance level: conservative, moderate, aggressive"
+    )
+    portfolio_size: Optional[str] = Field(
+        None,
+        description="Portfolio size tier: small, medium, large"
+    )
+
+
+class PreferencesResponse(BaseModel):
+    success: bool = True
+    preferences: UserPreferences
 
 
 class PasswordResetRequest(BaseModel):
@@ -242,4 +261,91 @@ async def update_me(
     return {
         "success": True,
         "user": current_user.to_dict(),
+    }
+
+
+# ── REC-126, REC-127: User Preferences ──────────────────────────────────
+
+
+def _parse_preferences(settings_json: Optional[str]) -> UserPreferences:
+    """Parse settings_json into UserPreferences with defaults."""
+    if not settings_json:
+        return UserPreferences(risk_tolerance="moderate", portfolio_size="medium")
+    try:
+        data = json.loads(settings_json)
+        return UserPreferences(
+            risk_tolerance=data.get("risk_tolerance", "moderate"),
+            portfolio_size=data.get("portfolio_size", "medium"),
+        )
+    except (json.JSONDecodeError, TypeError):
+        return UserPreferences(risk_tolerance="moderate", portfolio_size="medium")
+
+
+@auth_router.get("/preferences", response_model=PreferencesResponse)
+async def get_preferences(
+    current_user: User = Depends(get_current_user),
+):
+    """
+    Get user trading preferences (REC-126, REC-127).
+    
+    Returns risk tolerance and portfolio size settings.
+    These affect scoring thresholds and position limits.
+    """
+    prefs = _parse_preferences(current_user.settings_json)
+    return {"success": True, "preferences": prefs}
+
+
+@auth_router.put("/preferences", response_model=PreferencesResponse)
+async def update_preferences(
+    request: UserPreferences,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db_session),
+):
+    """
+    Update user trading preferences (REC-126, REC-127).
+    
+    - risk_tolerance: conservative | moderate | aggressive
+      Affects BUY/SELL signal thresholds in scoring.
+    - portfolio_size: small | medium | large
+      Affects max position count and sizing limits.
+    """
+    # Validate risk_tolerance
+    valid_risk = {"conservative", "moderate", "aggressive"}
+    if request.risk_tolerance and request.risk_tolerance.lower() not in valid_risk:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Invalid risk_tolerance. Must be one of: {', '.join(valid_risk)}"
+        )
+    
+    # Validate portfolio_size
+    valid_size = {"small", "medium", "large"}
+    if request.portfolio_size and request.portfolio_size.lower() not in valid_size:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Invalid portfolio_size. Must be one of: {', '.join(valid_size)}"
+        )
+    
+    # Merge with existing settings
+    existing = _parse_preferences(current_user.settings_json)
+    updated = {
+        "risk_tolerance": (request.risk_tolerance or existing.risk_tolerance).lower(),
+        "portfolio_size": (request.portfolio_size or existing.portfolio_size).lower(),
+    }
+    
+    # Preserve any other settings
+    try:
+        all_settings = json.loads(current_user.settings_json) if current_user.settings_json else {}
+    except (json.JSONDecodeError, TypeError):
+        all_settings = {}
+    
+    all_settings.update(updated)
+    current_user.settings_json = json.dumps(all_settings)
+    
+    db.add(current_user)
+    await db.commit()
+    await db.refresh(current_user)
+    
+    return {
+        "success": True,
+        "preferences": UserPreferences(**updated),
     }

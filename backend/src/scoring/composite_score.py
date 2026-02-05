@@ -49,13 +49,30 @@ WEIGHTS = {
     "technical": 0.20,
 }
 
-# Signal thresholds
+# Signal thresholds (default: moderate risk)
 SIGNAL_THRESHOLDS = {
     "BUY": 70,
     "HOLD_UPPER": 70,
     "HOLD_LOWER": 40,
     "SELL": 40,
 }
+
+# REC-126: Risk-adjusted thresholds
+# Conservative: Higher bar for BUY, lower bar for SELL (fewer trades, safer)
+# Aggressive: Lower bar for BUY, higher bar for SELL (more trades, riskier)
+RISK_ADJUSTED_THRESHOLDS = {
+    "conservative": {"BUY": 80, "HOLD_UPPER": 80, "HOLD_LOWER": 30, "SELL": 30},
+    "moderate": {"BUY": 70, "HOLD_UPPER": 70, "HOLD_LOWER": 40, "SELL": 40},
+    "aggressive": {"BUY": 60, "HOLD_UPPER": 60, "HOLD_LOWER": 50, "SELL": 50},
+}
+
+
+def get_thresholds_for_risk(risk_tolerance: str = "moderate") -> Dict[str, int]:
+    """Get signal thresholds based on user's risk tolerance (REC-126)."""
+    return RISK_ADJUSTED_THRESHOLDS.get(
+        risk_tolerance.lower(),
+        SIGNAL_THRESHOLDS  # fallback to default
+    )
 
 
 class Signal(str, Enum):
@@ -88,11 +105,19 @@ class CompositeScoreResult:
     details: Dict
 
 
-def get_signal(score: float) -> Signal:
-    """Convert score to trading signal."""
-    if score >= SIGNAL_THRESHOLDS["BUY"]:
+def get_signal(score: float, risk_tolerance: str = "moderate") -> Signal:
+    """
+    Convert score to trading signal (REC-126).
+    
+    Thresholds adjust based on risk tolerance:
+    - Conservative: BUY ≥80, SELL <30
+    - Moderate: BUY ≥70, SELL <40 (default)
+    - Aggressive: BUY ≥60, SELL <50
+    """
+    thresholds = get_thresholds_for_risk(risk_tolerance)
+    if score >= thresholds["BUY"]:
         return Signal.BUY
-    elif score >= SIGNAL_THRESHOLDS["SELL"]:
+    elif score >= thresholds["SELL"]:
         return Signal.HOLD
     else:
         return Signal.SELL

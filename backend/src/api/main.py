@@ -843,12 +843,23 @@ async def get_scores(
     limit: int = Query(50, ge=1, le=1000, description="Number of results"),
     order: Optional[str] = Query("desc", description="Sort order: asc or desc"),
     include_prices: bool = Query(True, description="Include current price data"),
+    risk_tolerance: Optional[str] = Query(
+        None,
+        description="REC-126: Adjust signals by risk tolerance (conservative/moderate/aggressive)"
+    ),
 ):
     """
     Get composite scores for all stocks.
     
     Returns ranked list with scores and signals.
+    
+    REC-126: Pass risk_tolerance to get signals adjusted for your risk profile:
+    - conservative: BUY ≥80, SELL <30 (fewer trades)
+    - moderate: BUY ≥70, SELL <40 (default)
+    - aggressive: BUY ≥60, SELL <50 (more trades)
     """
+    from scoring.composite_score import get_signal, get_thresholds_for_risk
+    
     try:
         # Try to load cached scores first
         cached = load_composite_scores()
@@ -863,6 +874,15 @@ async def get_scores(
         
         # Filter and sort
         results = list(scores_data.values())
+        
+        # REC-126: Re-evaluate signals based on risk tolerance
+        if risk_tolerance and risk_tolerance.lower() in ("conservative", "moderate", "aggressive"):
+            risk = risk_tolerance.lower()
+            for r in results:
+                score = r.get("total_score", 50)
+                r["signal"] = get_signal(score, risk).value
+                r["risk_adjusted"] = True
+                r["risk_tolerance"] = risk
         
         if signal:
             signal_upper = signal.upper()
@@ -892,7 +912,7 @@ async def get_scores(
                     r["price_change"] = None
                     r["price_change_percent"] = None
         
-        return {
+        response = {
             "success": True,
             "count": len(results),
             "weights": WEIGHTS,
@@ -900,6 +920,12 @@ async def get_scores(
             "summary": cached.get("summary", {}),
             "scores": results,
         }
+        
+        # Include thresholds used if risk-adjusted
+        if risk_tolerance:
+            response["thresholds"] = get_thresholds_for_risk(risk_tolerance)
+        
+        return response
         
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -1502,9 +1528,22 @@ async def create_order(
     Create a new order (per-user).
     
     For paper trading, market orders execute immediately.
+    
+    REC-127: Position limits enforced based on user's portfolio_size setting.
     """
+    import json as json_module
+    
     try:
         user_id = user.id if user else ANONYMOUS_USER_ID
+        
+        # REC-127: Get user's portfolio_size from settings
+        portfolio_size = "medium"  # default
+        if user and user.settings_json:
+            try:
+                settings = json_module.loads(user.settings_json)
+                portfolio_size = settings.get("portfolio_size", "medium")
+            except (json_module.JSONDecodeError, TypeError):
+                pass
         
         order = await UserTradingService.create_order(
             db=db,
@@ -1514,6 +1553,7 @@ async def create_order(
             quantity=request.quantity,
             order_type=request.order_type,
             limit_price=request.limit_price,
+            portfolio_size=portfolio_size,  # REC-127
         )
         
         # DB is single source of truth — no in-memory dual-write (BUG-002 fix)

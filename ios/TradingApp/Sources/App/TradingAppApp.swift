@@ -288,7 +288,13 @@ class AppState: ObservableObject {
         }
     }
     
-    @Published var portfolioSize: PortfolioSize = .medium
+    @Published var portfolioSize: PortfolioSize = .medium {
+        didSet {
+            UserDefaults.standard.set(portfolioSize.rawValue, forKey: "portfolioSize")
+            // REC-127: Sync to backend
+            syncPortfolioSizeToBackend()
+        }
+    }
     @Published var isPaperTrading: Bool = true
     @Published var selectedTab: Tab = {
         if let raw = UserDefaults.standard.string(forKey: "initialTab"),
@@ -301,6 +307,11 @@ class AppState: ObservableObject {
     
     init() {
         self.hasCompletedOnboarding = UserDefaults.standard.bool(forKey: "hasCompletedOnboarding")
+        // Load saved portfolio size
+        if let sizeRaw = UserDefaults.standard.string(forKey: "portfolioSize"),
+           let size = PortfolioSize.allCases.first(where: { $0.rawValue == sizeRaw }) {
+            self._portfolioSize = Published(initialValue: size)
+        }
     }
     
     func completeOnboarding() {
@@ -309,6 +320,32 @@ class AppState: ObservableObject {
     
     func resetOnboarding() {
         hasCompletedOnboarding = false
+    }
+    
+    // MARK: - REC-127: Sync Portfolio Size to Backend
+    
+    private func syncPortfolioSizeToBackend() {
+        // Only sync if authenticated
+        guard AuthService.shared.isLoggedIn else { return }
+        
+        // Map enum to backend value (small/medium/large)
+        let sizeValue: String
+        switch portfolioSize {
+        case .small: sizeValue = "small"
+        case .medium: sizeValue = "medium"
+        case .large: sizeValue = "large"
+        }
+        
+        Task {
+            do {
+                _ = try await APIService.shared.updatePreferences(
+                    riskTolerance: nil,
+                    portfolioSize: sizeValue
+                )
+            } catch {
+                print("Failed to sync portfolio size: \(error)")
+            }
+        }
     }
 }
 
