@@ -214,12 +214,29 @@ class StockDetailViewModel: ObservableObject {
         do {
             let response = try await APIService.shared.getPriceHistory(symbol: ticker, period: selectedChartPeriod.apiPeriod)
             
+            // ISO8601 formatter for intraday data (1d, 5d, 1mo)
+            let isoFormatter = ISO8601DateFormatter()
+            isoFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+            
+            // Simple date formatter for daily data (3mo, 1y, max)
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd"
             
             let items: [PriceHistoryItem] = response.data.prices.compactMap { point in
-                guard let date = dateFormatter.date(from: point.date) else { return nil }
-                return PriceHistoryItem(date: date, close: point.close, volume: point.volume)
+                // Try ISO8601 first (intraday), then simple date (daily)
+                var date: Date?
+                date = isoFormatter.date(from: point.date)
+                if date == nil {
+                    // Try without fractional seconds
+                    let isoNoFrac = ISO8601DateFormatter()
+                    isoNoFrac.formatOptions = [.withInternetDateTime]
+                    date = isoNoFrac.date(from: point.date)
+                }
+                if date == nil {
+                    date = dateFormatter.date(from: point.date)
+                }
+                guard let validDate = date else { return nil }
+                return PriceHistoryItem(date: validDate, close: point.close, volume: point.volume)
             }
             
             if !items.isEmpty {

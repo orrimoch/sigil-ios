@@ -479,9 +479,11 @@ async def get_prices(
 async def get_price_history(
     ticker: str,
     period: str = Query("3mo", description="Period: 1d, 5d, 1mo, 3mo, 6mo, 1y, 5y, max"),
+    interval: str = Query(None, description="Interval: 1m, 5m, 15m, 30m, 1h, 1d (auto-selected if not provided)"),
 ):
     """
     Get historical price data for charting (BUG-007 fix).
+    Supports intraday data via interval parameter.
     """
     try:
         import yfinance as yf
@@ -497,16 +499,31 @@ async def get_price_history(
         }
         yf_period = period_map.get(period.lower(), "3mo")
         
+        # Auto-select interval based on period if not provided
+        # For intraday (1d), use 5m bars; for 5d use 15m; otherwise daily
+        if interval is None:
+            interval_map = {
+                "1d": "5m",   # 5-minute bars for 1-day chart (~78 bars)
+                "5d": "15m",  # 15-minute bars for 5-day chart (~130 bars)
+                "1mo": "1h",  # Hourly bars for 1-month chart (~140 bars)
+            }
+            yf_interval = interval_map.get(yf_period, "1d")
+        else:
+            yf_interval = interval
+        
         stock = yf.Ticker(ticker.upper())
-        hist = stock.history(period=yf_period)
+        hist = stock.history(period=yf_period, interval=yf_interval)
         
         if hist.empty:
             raise HTTPException(status_code=404, detail=f"No price history for {ticker}")
         
         data_points = []
+        # Use appropriate date format based on interval
+        is_intraday = yf_interval in ["1m", "5m", "15m", "30m", "1h", "60m", "90m"]
         for date, row in hist.iterrows():
+            date_str = date.isoformat() if is_intraday else date.strftime("%Y-%m-%d")
             data_points.append({
-                "date": date.strftime("%Y-%m-%d"),
+                "date": date_str,
                 "open": round(row["Open"], 2),
                 "high": round(row["High"], 2),
                 "low": round(row["Low"], 2),
@@ -533,11 +550,12 @@ async def get_price_history(
 async def get_price_history_alt(
     ticker: str,
     period: str = Query("3m", description="Period: 1m, 3m, 6m, 1y, 5y"),
+    interval: str = Query(None, description="Interval: 1m, 5m, 15m, 30m, 1h, 1d (auto-selected if not provided)"),
 ):
     """
     Alias for price history — matches iOS APIService.getPriceHistory() URL (BUG-017 fix).
     """
-    return await get_price_history(ticker, period)
+    return await get_price_history(ticker, period, interval)
 
 
 # ========== Macro Endpoints ==========
