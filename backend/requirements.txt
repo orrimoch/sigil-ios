@@ -35,3 +35,7 @@ httpx>=0.26.0
 # Utils
 loguru>=0.7.0
 schedule>=1.2.0
+
+# Agentic Sentiment (REC-171)
+anthropic>=0.18.0
+tenacity>=8.2.0

@@ -2,7 +2,7 @@
 F2.2 Sentiment Score
 
 Score stocks 0-100 based on news sentiment.
-Method: Keyword-based (MVP), FinBERT (Phase 6)
+Method: Keyword-based (MVP), LLM/Agentic (REC-170+)
 Weighted by recency and source tier.
 """
 
@@ -27,13 +27,21 @@ from data.news_fetcher import (
 )
 from data.stock_universe import get_universe
 
+# Import config (REC-171)
+from .sentiment_config import get_sentiment_config, SentimentModel
+
 
 # Cache directory
 CACHE_DIR = Path(__file__).parent.parent.parent / "data"
 SENTIMENT_CACHE = CACHE_DIR / "sentiment_scores.json"
 
-# Config flag for sentiment model (change to "finbert" in Phase 6)
-SENTIMENT_MODEL = "keyword"
+# Legacy constant for backward compatibility (now reads from config)
+def _get_sentiment_model() -> str:
+    """Get current sentiment model from config."""
+    config = get_sentiment_config()
+    return config.model.value
+
+SENTIMENT_MODEL = property(lambda self: _get_sentiment_model())
 
 
 @dataclass
