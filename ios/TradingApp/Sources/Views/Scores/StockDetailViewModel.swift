@@ -61,6 +61,17 @@ class StockDetailViewModel: ObservableObject {
         case threeMonths = "3M"
         case oneYear = "1Y"
         case all = "ALL"
+        
+        var apiPeriod: String {
+            switch self {
+            case .oneDay: return "1d"
+            case .oneWeek: return "5d"
+            case .oneMonth: return "1mo"
+            case .threeMonths: return "3mo"
+            case .oneYear: return "1y"
+            case .all: return "max"
+            }
+        }
     }
     
     // MARK: - Initialization
@@ -199,9 +210,9 @@ class StockDetailViewModel: ObservableObject {
         }
     }
     
-    private func loadPriceHistory() async {
+    func loadPriceHistory() async {
         do {
-            let response = try await APIService.shared.getPriceHistory(symbol: ticker, period: "3m")
+            let response = try await APIService.shared.getPriceHistory(symbol: ticker, period: selectedChartPeriod.apiPeriod)
             
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd"

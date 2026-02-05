@@ -377,6 +377,9 @@ struct PriceChartCard: View {
                 ForEach(StockDetailViewModel.ChartPeriod.allCases, id: \.self) { period in
                     Button(period.rawValue) {
                         viewModel.selectedChartPeriod = period
+                        Task {
+                            await viewModel.loadPriceHistory()
+                        }
                     }
                     .font(.caption.bold())
                     .foregroundColor(viewModel.selectedChartPeriod == period ? .Accent.gold : .Text.secondary)
