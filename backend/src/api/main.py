@@ -478,7 +478,7 @@ async def get_prices(
 @app.get("/api/v1/prices/{ticker}/history")
 async def get_price_history(
     ticker: str,
-    period: str = Query("3m", description="Period: 1m, 3m, 6m, 1y, 5y"),
+    period: str = Query("3mo", description="Period: 1d, 5d, 1mo, 3mo, 6mo, 1y, 5y, max"),
 ):
     """
     Get historical price data for charting (BUG-007 fix).
@@ -486,8 +486,16 @@ async def get_price_history(
     try:
         import yfinance as yf
         
-        period_map = {"1m": "1mo", "3m": "3mo", "6m": "6mo", "1y": "1y", "5y": "5y"}
-        yf_period = period_map.get(period, "3mo")
+        # Map various period formats to yfinance periods
+        period_map = {
+            # Short formats
+            "1d": "1d", "5d": "5d", "1m": "1mo", "3m": "3mo", "6m": "6mo",
+            # yfinance native formats  
+            "1mo": "1mo", "3mo": "3mo", "6mo": "6mo",
+            "1y": "1y", "2y": "2y", "5y": "5y", "10y": "10y",
+            "ytd": "ytd", "max": "max",
+        }
+        yf_period = period_map.get(period.lower(), "3mo")
         
         stock = yf.Ticker(ticker.upper())
         hist = stock.history(period=yf_period)
