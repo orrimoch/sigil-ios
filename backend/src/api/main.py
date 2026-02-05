@@ -80,8 +80,9 @@ from trading.user_trading_service import UserTradingService
 from db.models import ANONYMOUS_USER_ID
 
 # Auth config — defaults to False so existing tests/endpoints keep working without tokens
-# Set AUTH_REQUIRED=true env var to enforce authentication on data endpoints (REC-130)
-AUTH_REQUIRED = os.environ.get("AUTH_REQUIRED", "false").lower() in ("true", "1", "yes")
+# REC-130: Auth is now REQUIRED by default for production.
+# Set AUTH_REQUIRED=false env var to disable for local development.
+AUTH_REQUIRED = os.environ.get("AUTH_REQUIRED", "true").lower() in ("true", "1", "yes")
 
 # ========== Price Cache (Bug 2 fix) ==========
 # Fast in-memory price cache to avoid slow yfinance calls on every scores request

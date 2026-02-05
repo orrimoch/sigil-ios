@@ -2,7 +2,7 @@
 Unit tests for REC-130: Auth Gate (Wire auth gate)
 
 Tests cover:
-- AUTH_REQUIRED defaults to False (env-configurable)
+- AUTH_REQUIRED defaults to True for production (env-configurable)
 - get_required_user dependency: both AUTH_REQUIRED modes
 - /api/v1/auth/status endpoint returns correct value
 - Data endpoints return 401 when AUTH_REQUIRED=True and no token
@@ -25,25 +25,25 @@ sys.path.insert(0, str(Path(__file__).parent.parent.parent / "src"))
 class TestAuthRequiredConfig:
     """AUTH_REQUIRED should be configurable via environment variable."""
 
-    def test_default_is_false(self):
-        """Without env var, AUTH_REQUIRED should default to False."""
+    def test_default_is_true(self):
+        """Without env var, AUTH_REQUIRED should default to True (production)."""
         with patch.dict(os.environ, {}, clear=True):
-            # Re-evaluate the expression
-            result = os.environ.get("AUTH_REQUIRED", "false").lower() in ("true", "1", "yes")
-            assert result is False
+            # Re-evaluate the expression (matches main.py default of "true")
+            result = os.environ.get("AUTH_REQUIRED", "true").lower() in ("true", "1", "yes")
+            assert result is True
 
     def test_env_true(self):
         """AUTH_REQUIRED=true should evaluate to True."""
         for val in ("true", "True", "TRUE", "1", "yes", "YES"):
             with patch.dict(os.environ, {"AUTH_REQUIRED": val}):
-                result = os.environ.get("AUTH_REQUIRED", "false").lower() in ("true", "1", "yes")
+                result = os.environ.get("AUTH_REQUIRED", "true").lower() in ("true", "1", "yes")
                 assert result is True, f"Failed for AUTH_REQUIRED={val}"
 
     def test_env_false(self):
-        """AUTH_REQUIRED=false (or anything else) should evaluate to False."""
-        for val in ("false", "False", "0", "no", "random"):
+        """AUTH_REQUIRED=false disables auth for development."""
+        for val in ("false", "False", "0", "no"):
             with patch.dict(os.environ, {"AUTH_REQUIRED": val}):
-                result = os.environ.get("AUTH_REQUIRED", "false").lower() in ("true", "1", "yes")
+                result = os.environ.get("AUTH_REQUIRED", "true").lower() in ("true", "1", "yes")
                 assert result is False, f"Failed for AUTH_REQUIRED={val}"
 
 
@@ -125,21 +125,8 @@ class TestGetRequiredUser:
 class TestAuthStatusEndpoint:
     """Tests for the /api/v1/auth/status endpoint."""
 
-    def test_status_returns_false_by_default(self):
-        """Default: auth_required should be False."""
-        from fastapi.testclient import TestClient
-
-        with patch("api.main.AUTH_REQUIRED", False):
-            from api.main import app
-            client = TestClient(app)
-            resp = client.get("/api/v1/auth/status")
-            assert resp.status_code == 200
-            data = resp.json()
-            assert data["auth_required"] is False
-            assert "server_version" in data
-
-    def test_status_returns_true_when_enabled(self):
-        """When AUTH_REQUIRED=True, status should reflect that."""
+    def test_status_returns_true_by_default(self):
+        """Default (production): auth_required should be True."""
         from fastapi.testclient import TestClient
 
         with patch("api.main.AUTH_REQUIRED", True):
@@ -149,6 +136,19 @@ class TestAuthStatusEndpoint:
             assert resp.status_code == 200
             data = resp.json()
             assert data["auth_required"] is True
+            assert "server_version" in data
+
+    def test_status_returns_false_when_disabled(self):
+        """When AUTH_REQUIRED=false (dev mode), status should reflect that."""
+        from fastapi.testclient import TestClient
+
+        with patch("api.main.AUTH_REQUIRED", False):
+            from api.main import app
+            client = TestClient(app)
+            resp = client.get("/api/v1/auth/status")
+            assert resp.status_code == 200
+            data = resp.json()
+            assert data["auth_required"] is False
 
     def test_status_has_server_version(self):
         """Status should include server_version."""
