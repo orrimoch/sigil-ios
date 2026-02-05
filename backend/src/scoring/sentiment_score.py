@@ -27,21 +27,27 @@ from data.news_fetcher import (
 )
 from data.stock_universe import get_universe
 
-# Import config (REC-171)
+# Import config (REC-171) and agentic analyzer (REC-172)
 from .sentiment_config import get_sentiment_config, SentimentModel
+
+# Lazy import to avoid circular dependency
+_agentic_analyzer = None
+
+def _get_agentic_analyzer():
+    """Lazy-load the agentic sentiment analyzer."""
+    global _agentic_analyzer
+    if _agentic_analyzer is None:
+        from .agentic_sentiment import AgenticSentimentAnalyzer
+        _agentic_analyzer = AgenticSentimentAnalyzer()
+    return _agentic_analyzer
 
 
 # Cache directory
 CACHE_DIR = Path(__file__).parent.parent.parent / "data"
 SENTIMENT_CACHE = CACHE_DIR / "sentiment_scores.json"
 
-# Legacy constant for backward compatibility (now reads from config)
-def _get_sentiment_model() -> str:
-    """Get current sentiment model from config."""
-    config = get_sentiment_config()
-    return config.model.value
-
-SENTIMENT_MODEL = property(lambda self: _get_sentiment_model())
+# Legacy constant for backward compatibility
+SENTIMENT_MODEL = "keyword"  # Actual model read from config at runtime
 
 
 @dataclass
@@ -107,6 +113,8 @@ def calculate_sentiment_score_for_ticker(
     """
     Calculate sentiment score for a single stock.
     
+    Uses LLM analysis if SENTIMENT_MODEL=llm or hybrid, otherwise keyword-based.
+    
     Args:
         ticker: Stock ticker
         articles: Pre-fetched articles (if None, fetches fresh)
@@ -115,6 +123,8 @@ def calculate_sentiment_score_for_ticker(
     Returns:
         SentimentScoreResult
     """
+    config = get_sentiment_config()
+    
     if articles is None:
         articles = fetch_news_for_ticker(ticker, hours=hours)
     
@@ -128,9 +138,111 @@ def calculate_sentiment_score_for_ticker(
             negative_count=0,
             neutral_count=0,
             weighted_sentiment=0.0,
-            details={"message": "No news found"}
+            details={"message": "No news found", "model": "none"}
         )
     
+    # Try LLM analysis if configured (REC-174)
+    if config.model in (SentimentModel.LLM, SentimentModel.HYBRID):
+        try:
+            result = _analyze_with_llm(ticker, articles)
+            if result is not None:
+                return result
+            # Fall through to keyword if LLM returns None
+            if config.model == SentimentModel.LLM:
+                logger.warning(f"LLM analysis failed for {ticker}, returning neutral")
+                return SentimentScoreResult(
+                    ticker=ticker,
+                    total_score=50.0,
+                    raw_sentiment=0.0,
+                    article_count=len(articles),
+                    positive_count=0,
+                    negative_count=0,
+                    neutral_count=len(articles),
+                    weighted_sentiment=0.0,
+                    details={"message": "LLM analysis failed", "model": "llm_failed"}
+                )
+        except Exception as e:
+            logger.warning(f"LLM analysis error for {ticker}: {e}")
+            if config.model == SentimentModel.LLM:
+                # Pure LLM mode - don't fall back
+                return SentimentScoreResult(
+                    ticker=ticker,
+                    total_score=50.0,
+                    raw_sentiment=0.0,
+                    article_count=len(articles),
+                    positive_count=0,
+                    negative_count=0,
+                    neutral_count=len(articles),
+                    weighted_sentiment=0.0,
+                    details={"message": f"LLM error: {str(e)}", "model": "llm_error"}
+                )
+            # Hybrid mode - fall through to keyword
+    
+    # Keyword-based analysis (original method)
+    return _analyze_with_keywords(ticker, articles, hours)
+
+
+def _analyze_with_llm(ticker: str, articles: List[Dict]) -> Optional[SentimentScoreResult]:
+    """
+    Analyze sentiment using Claude LLM (REC-172/174).
+    
+    Returns:
+        SentimentScoreResult or None if analysis fails
+    """
+    try:
+        analyzer = _get_agentic_analyzer()
+        
+        if not analyzer.is_available:
+            logger.debug(f"LLM not available for {ticker}")
+            return None
+        
+        # Run LLM analysis
+        agent_result = analyzer.analyze(ticker, articles[:10])  # Max 10 articles
+        
+        # Convert AgentSentimentResult to SentimentScoreResult
+        # Count positive/negative/neutral from article analyses
+        positive_count = sum(
+            1 for a in agent_result.article_analyses 
+            if a.score >= 55
+        )
+        negative_count = sum(
+            1 for a in agent_result.article_analyses 
+            if a.score <= 45
+        )
+        neutral_count = len(agent_result.article_analyses) - positive_count - negative_count
+        
+        # Convert 0-100 score to -1 to +1 for raw_sentiment
+        raw_sentiment = (agent_result.overall_score / 50.0) - 1.0
+        
+        return SentimentScoreResult(
+            ticker=ticker,
+            total_score=round(agent_result.overall_score, 2),
+            raw_sentiment=round(raw_sentiment, 3),
+            article_count=len(articles),
+            positive_count=positive_count,
+            negative_count=negative_count,
+            neutral_count=neutral_count,
+            weighted_sentiment=round(raw_sentiment, 3),
+            details={
+                "model": "llm",
+                "llm_model": agent_result.model_used,
+                "confidence": agent_result.confidence,
+                "rationale": agent_result.rationale,
+                "bullish_factors": agent_result.bullish_factors,
+                "bearish_factors": agent_result.bearish_factors,
+                "sentiment_label": agent_result.overall_sentiment.value,
+            }
+        )
+        
+    except Exception as e:
+        logger.error(f"LLM analysis failed for {ticker}: {e}")
+        return None
+
+
+def _analyze_with_keywords(ticker: str, articles: List[Dict], hours: int) -> SentimentScoreResult:
+    """
+    Analyze sentiment using keyword matching (original method).
+    """
     # Analyze each article
     weighted_scores = []
     total_weight = 0
@@ -198,7 +310,7 @@ def calculate_sentiment_score_for_ticker(
         neutral_count=neutral_count,
         weighted_sentiment=round(weighted_sentiment, 3),
         details={
-            "model": SENTIMENT_MODEL,
+            "model": "keyword",
             "hours_lookback": hours,
             "top_articles": article_details[:5],
         }

@@ -16,3 +16,4 @@ backend/data/.jwt_secret
 
 # OS
 .DS_Store
+backend/.env
