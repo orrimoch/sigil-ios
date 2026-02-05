@@ -45,7 +45,7 @@ def _get_article_processor() -> ArticleProcessor:
     if _article_processor is None:
         config = get_sentiment_config()
         _article_processor = ArticleProcessor(
-            max_articles_per_ticker=config.max_articles,
+            max_articles_per_ticker=config.max_articles_per_stock,
             max_content_length=300,
             min_content_length=20,
         )
