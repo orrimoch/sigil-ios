@@ -2127,6 +2127,7 @@ from backtest.metrics import MetricsCalculator
 from backtest.historical_scores import HistoricalScoreGenerator
 from backtest.ic_decay import ICDecayAnalyzer
 from backtest.walk_forward import WalkForwardValidator
+from backtest.optimizer import HPOEngine, SearchSpace, load_latest_optimization
 
 
 class BacktestRequest(BaseModel):
@@ -2433,6 +2434,73 @@ async def run_walk_forward_validation(
             "data": result.to_dict(),
         }
         
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+class HPORequest(BaseModel):
+    """Request body for hyperparameter optimization."""
+    start_date: str = Field(..., description="Start date YYYY-MM-DD")
+    end_date: str = Field(..., description="End date YYYY-MM-DD")
+    n_trials: int = Field(50, ge=10, le=500, description="Number of optimization trials")
+    timeout_seconds: int = Field(3600, ge=60, le=86400, description="Max optimization time")
+    train_months: int = Field(9, ge=3, le=24, description="Walk-forward train period")
+    test_months: int = Field(3, ge=1, le=6, description="Walk-forward test period")
+
+
+@app.post("/api/v1/analytics/optimize")
+async def run_hpo(
+    request: HPORequest,
+    background_tasks: BackgroundTasks,
+):
+    """
+    F12.7: Run hyperparameter optimization with Optuna.
+    
+    Uses Bayesian optimization (TPE) with walk-forward validation.
+    Optimizes: entry_threshold, exit_threshold, max_positions, rebalance_freq.
+    Objective: Maximize OOS Sharpe with overfitting penalty.
+    
+    This is a long-running operation - consider using background task.
+    """
+    try:
+        engine = HPOEngine()
+        
+        result = engine.optimize(
+            start_date=request.start_date,
+            end_date=request.end_date,
+            n_trials=request.n_trials,
+            timeout_seconds=request.timeout_seconds,
+            train_months=request.train_months,
+            test_months=request.test_months,
+        )
+        
+        return {
+            "success": True,
+            "data": result.to_dict(),
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/v1/analytics/optimize/latest")
+async def get_latest_optimization():
+    """
+    Get the most recent optimization result.
+    """
+    try:
+        result = load_latest_optimization()
+        
+        if result is None:
+            raise HTTPException(status_code=404, detail="No optimization results found")
+        
+        return {
+            "success": True,
+            "data": result.to_dict(),
+        }
+        
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

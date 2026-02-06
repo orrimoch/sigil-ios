@@ -16,6 +16,7 @@ from .engine import BacktestEngine
 from .metrics import MetricsCalculator
 from .ic_decay import ICDecayAnalyzer, ICDecayResult
 from .walk_forward import WalkForwardValidator, WalkForwardResult
+from .optimizer import HPOEngine, OptimizationResult, SearchSpace
 
 __all__ = [
     "BacktestDataStore",
@@ -25,4 +26,7 @@ __all__ = [
     "ICDecayResult",
     "WalkForwardValidator",
     "WalkForwardResult",
+    "HPOEngine",
+    "OptimizationResult",
+    "SearchSpace",
 ]
