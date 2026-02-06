@@ -40,7 +40,7 @@ class TestPipelineScheduler:
         status = scheduler.get_status()
         
         assert status["is_running"] is False
-        assert status["schedule"] == "Sunday 6pm EST"
+        assert status["schedule"] == "Sunday 8am Israel time"
         assert status["next_run"] is None
 
     def test_scheduler_status_when_running(self):

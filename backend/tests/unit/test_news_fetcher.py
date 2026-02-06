@@ -68,9 +68,9 @@ class TestFilterByTicker:
         assert "AAPL" in filtered[0]["title"]
     
     def test_filters_by_company_name(self):
-        """Should find articles with company name."""
+        """Should find articles with company name + financial context."""
         articles = [
-            {"title": "Apple announces new iPhone", "summary": "Big news"},
+            {"title": "Apple stock rises on new iPhone", "summary": "Big news"},
             {"title": "Tech news", "summary": "General update"},
         ]
         filtered = filter_by_ticker(articles, "AAPL")
