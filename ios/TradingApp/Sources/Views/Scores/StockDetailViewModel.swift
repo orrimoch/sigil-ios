@@ -35,6 +35,7 @@ class StockDetailViewModel: ObservableObject {
     
     // Score history (F5.5)
     @Published var scoreHistory: [ScoreHistoryPoint] = []
+    @Published var signalChanges: [SignalChangePoint] = []
     
     // Price history
     @Published var priceHistory: [PriceHistoryItem] = []
@@ -185,21 +186,34 @@ class StockDetailViewModel: ObservableObject {
             let isoFormatter = ISO8601DateFormatter()
             isoFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
             
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            
             let history: [ScoreHistoryPoint] = response.data.history.compactMap { item in
                 // Try ISO8601 first, then fallback to simple date
                 var date: Date?
                 date = isoFormatter.date(from: item.date)
                 if date == nil {
-                    let dateFormatter = DateFormatter()
-                    dateFormatter.dateFormat = "yyyy-MM-dd"
                     date = dateFormatter.date(from: String(item.date.prefix(10)))
                 }
                 guard let validDate = date else { return nil }
                 return ScoreHistoryPoint(date: validDate, score: item.score, signal: item.signal)
             }
             
+            // Parse signal changes for chart markers
+            let changes: [SignalChangePoint] = response.data.signalChanges?.compactMap { change in
+                guard let date = dateFormatter.date(from: String(change.date.prefix(10))) else { return nil }
+                return SignalChangePoint(
+                    date: date,
+                    fromSignal: change.fromSignal,
+                    toSignal: change.toSignal,
+                    score: change.score
+                )
+            } ?? []
+            
             if !history.isEmpty {
                 scoreHistory = history
+                signalChanges = changes
             } else {
                 // API returned empty — show current score as single data point
                 fallbackToCurrentScore()
@@ -296,11 +310,14 @@ struct ScoreHistoryPoint: Identifiable {
     let date: Date
     let score: Double
     let signal: String
-    
-    var signalChanged: Bool {
-        // Would compare with previous point
-        false
-    }
+}
+
+struct SignalChangePoint: Identifiable {
+    var id: Date { date }
+    let date: Date
+    let fromSignal: String
+    let toSignal: String
+    let score: Double
 }
 
 struct KeyMetric: Identifiable {

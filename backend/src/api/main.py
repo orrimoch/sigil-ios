@@ -1257,57 +1257,43 @@ async def get_score_explanation(ticker: str):
 
 
 @app.get("/api/v1/scores/{ticker}/history")
-async def get_score_history(ticker: str):
+async def get_score_history(
+    ticker: str,
+    days: int = Query(90, ge=1, le=365, description="Days of history"),
+):
     """
-    Get score history for a stock (BUG-016 fix).
-    Returns available pipeline run scores for the ticker.
+    F5.5: Get score history for a stock.
+    
+    Returns actual historical scores from pipeline runs.
+    Includes signal change markers for chart annotations.
     """
     try:
-        from pathlib import Path
-        import json
+        from scoring.score_history import ScoreHistoryService
         
-        logs_dir = Path("data/pipeline_logs")
-        history = []
+        ticker = ticker.upper()
+        history = ScoreHistoryService.get_ticker_history(ticker, days)
         
-        if logs_dir.exists():
-            for log_file in sorted(logs_dir.glob("run_*.json"), reverse=True)[:20]:
-                try:
-                    with open(log_file) as f:
-                        run = json.load(f)
-                    run_date = run.get("started_at", log_file.stem.replace("run_", ""))
-                    history.append({
-                        "date": run_date,
-                        "run_id": run.get("run_id", log_file.stem),
-                    })
-                except Exception:
-                    pass
+        # If no history exists, backfill from current scores
+        if not history:
+            cached = load_composite_scores()
+            if cached and ticker in cached.get("scores", {}):
+                # Backfill 14 days of history
+                ScoreHistoryService.backfill_from_current(
+                    {ticker: cached["scores"][ticker]},
+                    days=14
+                )
+                history = ScoreHistoryService.get_ticker_history(ticker, days)
         
-        # Get current score
-        cached = load_composite_scores()
-        current_score = None
-        if cached and ticker.upper() in cached.get("scores", {}):
-            current_score = cached["scores"][ticker.upper()]
-        
-        # Build history with current score repeated (single pipeline so far)
-        score_history = []
-        if current_score:
-            for entry in history[:10]:
-                score_history.append({
-                    "date": entry["date"],
-                    "total_score": current_score["total_score"],
-                    "signal": current_score["signal"],
-                    "fundamental_score": current_score["fundamental_score"],
-                    "sentiment_score": current_score["sentiment_score"],
-                    "technical_score": current_score["technical_score"],
-                    "macro_score": current_score["macro_score"],
-                })
+        # Get signal changes for chart markers
+        signal_changes = ScoreHistoryService.get_signal_changes(ticker, days)
         
         return {
             "success": True,
             "data": {
-                "ticker": ticker.upper(),
-                "count": len(score_history),
-                "history": score_history,
+                "ticker": ticker,
+                "count": len(history),
+                "history": history,
+                "signal_changes": signal_changes,
             }
         }
     except Exception as e:

@@ -53,7 +53,7 @@ struct StockDetailView: View {
                 .padding(.horizontal)
                 
                 // Score history chart (F5.5)
-                ScoreHistoryCard(history: viewModel.scoreHistory)
+                ScoreHistoryCard(history: viewModel.scoreHistory, signalChanges: viewModel.signalChanges)
                     .padding(.horizontal)
                 
                 // Key metrics
@@ -598,6 +598,7 @@ struct ScoreComponentBar: View {
 
 struct ScoreHistoryCard: View {
     let history: [ScoreHistoryPoint]
+    var signalChanges: [SignalChangePoint] = []
     @State private var selectedScorePoint: (date: Date, value: Double)?
     @State private var scoreTouchLocation: CGFloat?
     @State private var scoreHapticTriggered = false
@@ -658,6 +659,21 @@ struct ScoreHistoryCard: View {
                                 .font(.tinyLabel()).compactScaling()
                                 .foregroundColor(.Signal.sell)
                         }
+                    
+                    // F5.5: Signal change markers
+                    ForEach(signalChanges) { change in
+                        PointMark(
+                            x: .value("Date", change.date),
+                            y: .value("Score", change.score)
+                        )
+                        .foregroundStyle(change.toSignal == "BUY" ? Color.Signal.buy : (change.toSignal == "SELL" ? Color.Signal.sell : Color.Signal.neutral))
+                        .symbolSize(100)
+                        .annotation(position: .top) {
+                            Image(systemName: change.toSignal == "BUY" ? "arrow.up.circle.fill" : (change.toSignal == "SELL" ? "arrow.down.circle.fill" : "circle.fill"))
+                                .font(.caption2)
+                                .foregroundColor(change.toSignal == "BUY" ? .Signal.buy : (change.toSignal == "SELL" ? .Signal.sell : .Signal.neutral))
+                        }
+                    }
                 }
                 .chartYScale(domain: 0...100)
                 .chartXAxis {

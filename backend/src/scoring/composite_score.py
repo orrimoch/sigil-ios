@@ -340,6 +340,14 @@ def save_composite_scores(scores: Dict[str, CompositeScoreResult], path: Path = 
         json.dump(data, f, indent=2)
     
     logger.info(f"Saved composite scores to {path}")
+    
+    # F5.5: Record to score history for charting
+    try:
+        from scoring.score_history import ScoreHistoryService
+        recorded = ScoreHistoryService.record_pipeline_run(data.get("scores", {}))
+        logger.info(f"Recorded {recorded} scores to history")
+    except Exception as e:
+        logger.warning(f"Failed to record score history: {e}")
 
 
 def load_composite_scores(path: Path = COMPOSITE_CACHE) -> Optional[Dict]:

@@ -711,6 +711,14 @@ struct ScoreHistoryWrapper: Codable {
     let ticker: String
     let count: Int
     let history: [ScoreHistoryData]
+    let signalChanges: [ScoreSignalChange]?
+}
+
+struct ScoreSignalChange: Codable {
+    let date: String
+    let fromSignal: String
+    let toSignal: String
+    let score: Double
 }
 
 struct ScoreHistoryData: Codable {
