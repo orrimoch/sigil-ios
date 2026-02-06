@@ -6,9 +6,11 @@ Usage:
     python -m backtest results <backtest_id>
     python -m backtest list
     python -m backtest trades <backtest_id>
+    python -m backtest report <backtest_id> --format html --output ./report.html
     python -m backtest optimize --trials 50
     python -m backtest ic-decay --start 2024-01-01 --end 2025-12-31
     python -m backtest walk-forward --start 2024-01-01 --end 2025-12-31
+    python -m backtest monte-carlo <backtest_id> --sims 1000
     python -m backtest import-scores
     python -m backtest stats
 """
@@ -35,6 +37,8 @@ from backtest.ic_decay import ICDecayAnalyzer
 from backtest.walk_forward import WalkForwardValidator
 from backtest.optimizer import HPOEngine, load_latest_optimization
 from backtest.metrics import MetricsCalculator
+from backtest.monte_carlo import MonteCarloSimulator, run_monte_carlo, save_monte_carlo_result
+from backtest.report_generator import ReportGenerator, ReportConfig, generate_report
 
 
 def cmd_run(args):
@@ -169,6 +173,54 @@ def cmd_trades(args):
     
     print(f"\nTotal: {len(trades)} trades\n")
     return 0
+
+
+def cmd_report(args):
+    """Generate backtest report."""
+    print(f"\n{'='*60}")
+    print("GENERATING REPORT")
+    print(f"{'='*60}")
+    print(f"Backtest ID: {args.backtest_id}")
+    print(f"Format: {args.format.upper()}")
+    print(f"Output: {args.output or '(stdout)'}")
+    print(f"{'='*60}\n")
+    
+    try:
+        config = ReportConfig(
+            title=args.title,
+            include_trades=args.include_trades,
+            include_charts=args.include_charts,
+            output_format=args.format,
+        )
+        
+        generator = ReportGenerator()
+        content = generator.generate_report(args.backtest_id, config, args.output)
+        
+        if args.output:
+            print(f"✅ Report saved to: {args.output}")
+            if args.format == "html":
+                print(f"   Size: {len(content):,} bytes")
+        else:
+            # Print HTML to stdout
+            if args.format == "html":
+                print(content)
+            else:
+                print("PDF output requires --output flag")
+                return 1
+        
+        print(f"{'='*60}\n")
+        return 0
+        
+    except ValueError as e:
+        print(f"Error: {e}")
+        return 1
+    except ImportError as e:
+        print(f"Error: {e}")
+        print("Install weasyprint for PDF support: pip install weasyprint")
+        return 1
+    except Exception as e:
+        print(f"Error: {e}")
+        return 1
 
 
 def cmd_optimize(args):
@@ -312,6 +364,49 @@ def cmd_walk_forward(args):
     return 0
 
 
+def cmd_monte_carlo(args):
+    """Run Monte Carlo simulation on backtest results."""
+    print(f"\n{'='*60}")
+    print("MONTE CARLO SIMULATION")
+    print(f"{'='*60}")
+    print(f"Backtest ID: {args.backtest_id}")
+    print(f"Simulations: {args.sims}")
+    if args.seed:
+        print(f"Random Seed: {args.seed}")
+    print(f"{'='*60}\n")
+    
+    try:
+        simulator = MonteCarloSimulator(seed=args.seed)
+        
+        def progress(current, total):
+            pct = current / total * 100
+            print(f"  Progress: {current}/{total} ({pct:.0f}%)")
+        
+        result = simulator.run_from_backtest(
+            backtest_id=args.backtest_id,
+            n_simulations=args.sims,
+            progress_callback=progress,
+        )
+        
+        # Save result
+        if not args.no_save:
+            save_monte_carlo_result(args.backtest_id, result)
+        
+        # Print summary
+        print(f"\n{result.summary()}")
+        
+        print(f"\n{'='*60}\n")
+        
+    except ValueError as e:
+        print(f"Error: {e}")
+        return 1
+    except Exception as e:
+        print(f"Error: {e}")
+        return 1
+    
+    return 0
+
+
 def cmd_import_scores(args):
     """Import existing scores into backtest storage."""
     print("Importing existing pipeline scores...\n")
@@ -387,6 +482,15 @@ Examples:
     trades_parser.add_argument("backtest_id", help="Backtest ID")
     trades_parser.add_argument("--limit", type=int, default=50, help="Max trades to show")
     
+    # report (F12.10)
+    report_parser = subparsers.add_parser("report", help="Generate backtest report")
+    report_parser.add_argument("backtest_id", help="Backtest ID")
+    report_parser.add_argument("--format", default="html", choices=["html", "pdf"], help="Output format")
+    report_parser.add_argument("--output", "-o", help="Output file path")
+    report_parser.add_argument("--title", default="Sigil Backtest Report", help="Report title")
+    report_parser.add_argument("--no-trades", dest="include_trades", action="store_false", help="Exclude trade log")
+    report_parser.add_argument("--no-charts", dest="include_charts", action="store_false", help="Exclude charts")
+    
     # optimize
     opt_parser = subparsers.add_parser("optimize", help="Run HPO")
     opt_parser.add_argument("--start", default=default_start, help="Start date")
@@ -408,6 +512,13 @@ Examples:
     wf_parser.add_argument("--train-months", type=int, default=9, help="Train period months")
     wf_parser.add_argument("--test-months", type=int, default=3, help="Test period months")
     
+    # monte-carlo
+    mc_parser = subparsers.add_parser("monte-carlo", help="Run Monte Carlo simulation")
+    mc_parser.add_argument("backtest_id", help="Backtest ID to analyze")
+    mc_parser.add_argument("--sims", type=int, default=1000, help="Number of simulations (100-10000)")
+    mc_parser.add_argument("--seed", type=int, default=None, help="Random seed for reproducibility")
+    mc_parser.add_argument("--no-save", action="store_true", help="Don't save results to file")
+    
     # import-scores
     subparsers.add_parser("import-scores", help="Import existing pipeline scores")
     
@@ -425,9 +536,11 @@ Examples:
         "results": cmd_results,
         "list": cmd_list,
         "trades": cmd_trades,
+        "report": cmd_report,
         "optimize": cmd_optimize,
         "ic-decay": cmd_ic_decay,
         "walk-forward": cmd_walk_forward,
+        "monte-carlo": cmd_monte_carlo,
         "import-scores": cmd_import_scores,
         "stats": cmd_stats,
     }

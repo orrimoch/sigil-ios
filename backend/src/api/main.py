@@ -2128,6 +2128,7 @@ from backtest.historical_scores import HistoricalScoreGenerator
 from backtest.ic_decay import ICDecayAnalyzer
 from backtest.walk_forward import WalkForwardValidator
 from backtest.optimizer import HPOEngine, SearchSpace, load_latest_optimization
+from backtest.report_generator import ReportGenerator, ReportConfig, generate_report
 
 
 class BacktestRequest(BaseModel):
@@ -2296,6 +2297,62 @@ async def get_backtest_trades(backtest_id: str):
             "data": [t.to_dict() for t in trades],
         }
         
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/v1/backtest/{backtest_id}/report")
+async def generate_backtest_report(
+    backtest_id: str,
+    format: str = Query("html", pattern="^(html|pdf)$", description="Output format: html or pdf"),
+    include_trades: bool = Query(True, description="Include trade log summary"),
+    include_charts: bool = Query(True, description="Include charts"),
+):
+    """
+    F12.10: Generate professional backtest report.
+    
+    Returns a standalone HTML or PDF report with:
+    - Executive Summary (CAGR, Sharpe, Max DD, vs SPY)
+    - Performance Metrics Table
+    - Equity Curve Chart
+    - Drawdown Analysis
+    - Monthly Returns Heatmap
+    - Score Validation Metrics
+    - Trade Log Summary
+    - Methodology Notes
+    - Disclaimers
+    
+    HTML reports are self-contained with embedded CSS and images.
+    PDF requires weasyprint to be installed.
+    """
+    from fastapi.responses import HTMLResponse, Response
+    
+    try:
+        config = ReportConfig(
+            title="Sigil Backtest Report",
+            include_trades=include_trades,
+            include_charts=include_charts,
+            output_format=format,
+        )
+        
+        generator = ReportGenerator()
+        content = generator.generate_report(backtest_id, config)
+        
+        if format == "pdf":
+            return Response(
+                content=content,
+                media_type="application/pdf",
+                headers={
+                    "Content-Disposition": f"attachment; filename=backtest_{backtest_id}.pdf"
+                }
+            )
+        else:
+            return HTMLResponse(content=content)
+        
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    except ImportError as e:
+        raise HTTPException(status_code=501, detail=str(e))
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -2496,6 +2553,85 @@ async def get_latest_optimization():
         
         if result is None:
             raise HTTPException(status_code=404, detail="No optimization results found")
+        
+        return {
+            "success": True,
+            "data": result.to_dict(),
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# ========== F12.12 Monte Carlo Simulation ==========
+
+from backtest.monte_carlo import MonteCarloSimulator, run_monte_carlo, save_monte_carlo_result, load_monte_carlo_result
+
+
+@app.post("/api/v1/analytics/monte-carlo")
+async def run_monte_carlo_simulation(
+    backtest_id: str = Query(..., description="Backtest ID to analyze"),
+    n_simulations: int = Query(1000, ge=100, le=10000, description="Number of simulations"),
+    seed: Optional[int] = Query(None, description="Random seed for reproducibility"),
+):
+    """
+    F12.12: Run Monte Carlo simulation on backtest results.
+    
+    Uses bootstrap resampling to assess statistical significance:
+    - Confidence intervals for Sharpe, CAGR, Max Drawdown, Win Rate
+    - P-value: probability that observed performance happened by chance
+    - Strategy significance test at 95% confidence
+    - Optional benchmark comparison for alpha significance
+    
+    This helps answer: "Is this strategy actually good, or just lucky?"
+    """
+    try:
+        # Check if result is already cached
+        cached = load_monte_carlo_result(backtest_id)
+        if cached and cached.n_simulations >= n_simulations:
+            return {
+                "success": True,
+                "cached": True,
+                "data": cached.to_dict(),
+            }
+        
+        # Run simulation
+        simulator = MonteCarloSimulator(seed=seed)
+        result = simulator.run_from_backtest(
+            backtest_id=backtest_id,
+            n_simulations=n_simulations,
+        )
+        
+        # Cache result
+        save_monte_carlo_result(backtest_id, result)
+        
+        return {
+            "success": True,
+            "cached": False,
+            "data": result.to_dict(),
+        }
+        
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/v1/analytics/monte-carlo/{backtest_id}")
+async def get_monte_carlo_result(backtest_id: str):
+    """
+    Get cached Monte Carlo simulation result for a backtest.
+    """
+    try:
+        result = load_monte_carlo_result(backtest_id)
+        
+        if result is None:
+            raise HTTPException(
+                status_code=404,
+                detail=f"No Monte Carlo result found for {backtest_id}. Run POST /api/v1/analytics/monte-carlo first."
+            )
         
         return {
             "success": True,
