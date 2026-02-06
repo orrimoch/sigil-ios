@@ -2129,13 +2129,14 @@ from backtest.historical_scores import HistoricalScoreGenerator
 
 class BacktestRequest(BaseModel):
     """Request body for running a backtest."""
-    start_date: str = Field(..., description="Start date YYYY-MM-DD")
+    start_date: str = Field(..., description="Start date YYYY-MM-DD (default lookback: 1.5 years)")
     end_date: str = Field(..., description="End date YYYY-MM-DD")
     initial_capital: float = Field(100000, ge=1000, description="Starting capital")
     entry_threshold: float = Field(70, ge=50, le=95, description="Score threshold for BUY")
     exit_threshold: float = Field(50, ge=20, le=70, description="Score threshold for SELL")
     max_positions: int = Field(10, ge=1, le=50, description="Maximum concurrent positions")
     rebalance_freq: str = Field("weekly", description="Rebalance frequency")
+    use_extended_history: bool = Field(False, description="Use 5-year history (requires paid data source)")
 
 
 @app.post("/api/v1/backtest/run")

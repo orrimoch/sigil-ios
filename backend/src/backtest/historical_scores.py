@@ -51,7 +51,10 @@ WEIGHTS = {
 FUNDAMENTAL_LAG_DAYS = 60
 
 # How many weeks of history to generate
-DEFAULT_HISTORY_WEEKS = 260  # 5 years
+# Default: 1.5 years (78 weeks) - sufficient for validation with free yfinance data
+# Optional: 5 years (260 weeks) - requires paid data source for accurate fundamentals
+DEFAULT_HISTORY_WEEKS = 78  # 1.5 years
+EXTENDED_HISTORY_WEEKS = 260  # 5 years (optional)
 
 
 @dataclass

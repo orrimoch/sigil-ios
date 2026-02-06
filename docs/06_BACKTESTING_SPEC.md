@@ -40,6 +40,9 @@ Generate historical scores using point-in-time data:
 
 **Limitation:** Historical sentiment unavailable — use neutral baseline. Real sentiment tracked from Feb 2026 onward.
 
+**Default: 1.5 years** (78 weeks) — sufficient for initial validation with free yfinance data.
+**Optional: 5 years** — available if paid data source (FMP) is configured.
+
 ### C) Rolling Live Validation
 
 Track real performance starting now:
@@ -139,7 +142,8 @@ Generate point-in-time historical scores (no lookahead bias).
 - [ ] Calculate technical scores from historical OHLCV
 - [ ] Calculate macro scores from FRED historical data
 - [ ] Use neutral (50) for historical sentiment
-- [ ] Generate 5 years of weekly scores for all 677 stocks
+- [ ] Generate 1.5 years of weekly scores for all 677 stocks (default)
+- [ ] Optional: Support 5 years with paid data source
 - [ ] Validate no lookahead bias (audit trail)
 - [ ] Store generated scores in persistence layer
 
@@ -239,7 +243,7 @@ Measure how predictive power decays over time to optimize refresh frequency.
 
 **Expected Output:**
 ```
-Day of Week Analysis (5-year average):
+Day of Week Analysis (1.5-year average):
 ├── Monday (Day 1):    IC = 0.072 ± 0.015
 ├── Tuesday (Day 2):   IC = 0.065 ± 0.014
 ├── Wednesday (Day 3): IC = 0.058 ± 0.016
@@ -422,7 +426,7 @@ Linear Programming optimization (deferred — start with equal weight).
 
 ### Minimum Viable Backtest (Phase 1-2)
 
-- [ ] Generate 5-year historical scores
+- [ ] Generate 1.5-year historical scores (5-year optional)
 - [ ] Run basic strategy simulation
 - [ ] Calculate Sharpe, CAGR, Max DD, IC, Hit Rate
 - [ ] Compare against SPY
