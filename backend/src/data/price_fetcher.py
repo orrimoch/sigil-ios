@@ -108,17 +108,33 @@ def fetch_latest_price(ticker: str) -> Optional[Dict]:
         # Fallback to full info
         info = stock.info
         
+        # Use extended hours prices when available
+        market_state = info.get("marketState", "REGULAR")
+        if market_state == "PRE" and info.get("preMarketPrice"):
+            current_price = info.get("preMarketPrice")
+            change = info.get("preMarketChange")
+            change_percent = info.get("preMarketChangePercent")
+        elif market_state == "POST" and info.get("postMarketPrice"):
+            current_price = info.get("postMarketPrice")
+            change = info.get("postMarketChange")
+            change_percent = info.get("postMarketChangePercent")
+        else:
+            current_price = info.get("currentPrice") or info.get("regularMarketPrice")
+            change = info.get("regularMarketChange")
+            change_percent = info.get("regularMarketChangePercent")
+        
         return {
             "ticker": ticker,
-            "price": info.get("currentPrice") or info.get("regularMarketPrice"),
+            "price": current_price,
             "previous_close": info.get("previousClose"),
             "open": info.get("open") or info.get("regularMarketOpen"),
             "high": info.get("dayHigh") or info.get("regularMarketDayHigh"),
             "low": info.get("dayLow") or info.get("regularMarketDayLow"),
             "volume": info.get("volume") or info.get("regularMarketVolume"),
             "market_cap": info.get("marketCap"),
-            "change": info.get("regularMarketChange"),
-            "change_percent": info.get("regularMarketChangePercent"),
+            "change": change,
+            "change_percent": change_percent,
+            "market_state": market_state,  # PRE, REGULAR, POST, CLOSED
             "timestamp": datetime.now().isoformat(),
         }
         
