@@ -1495,53 +1495,14 @@ async def get_portfolio_history_endpoint(
     """
     F7.2: Get portfolio value history for charting.
     
-    REC-179: If no history exists, generate synthetic history based on
-    current portfolio value to provide a meaningful chart experience.
+    Computes REAL portfolio history from trade records and historical prices.
+    No mock/synthetic data — reconstructs actual values from trades.
     """
     try:
-        history = get_portfolio_history()
-        data = history.get_history(days)
+        from db.portfolio_history_service import PortfolioHistoryService
         
-        # REC-179: Generate synthetic history if no real data exists
-        if not data:
-            import random
-            user_id = user.id if user else ANONYMOUS_USER_ID
-            try:
-                portfolio_data = await UserTradingService.get_portfolio_data(db, user_id)
-                current_value = portfolio_data["summary"]["total_value"]
-                current_cash = portfolio_data["summary"]["cash"]
-                current_invested = portfolio_data["summary"]["invested"]
-            except:
-                current_value = 100000.0
-                current_cash = 100000.0
-                current_invested = 0.0
-            
-            # Generate realistic synthetic history with small daily variations
-            data = []
-            for i in range(min(days, 30), 0, -1):
-                date = datetime.now() - timedelta(days=i)
-                # Simulate small daily changes (±0.5%)
-                daily_var = random.uniform(-0.005, 0.005)
-                historical_value = current_value * (1 - (i * daily_var * 0.3))
-                
-                data.append({
-                    "timestamp": date.isoformat(),
-                    "total_value": round(historical_value, 2),
-                    "cash": round(current_cash, 2),
-                    "positions_value": round(historical_value - current_cash, 2),
-                    "total_pnl": round(historical_value - 100000, 2),
-                    "total_pnl_percent": round((historical_value - 100000) / 100000 * 100, 2),
-                })
-            
-            # Add current snapshot
-            data.append({
-                "timestamp": datetime.now().isoformat(),
-                "total_value": round(current_value, 2),
-                "cash": round(current_cash, 2),
-                "positions_value": round(current_invested, 2),
-                "total_pnl": round(current_value - 100000, 2),
-                "total_pnl_percent": round((current_value - 100000) / 100000 * 100, 2),
-            })
+        user_id = user.id if user else ANONYMOUS_USER_ID
+        data = await PortfolioHistoryService.get_real_history(db, user_id, days)
         
         return {
             "success": True,
@@ -1556,14 +1517,20 @@ async def get_portfolio_history_endpoint(
 
 @app.get("/api/v1/portfolio/performance")
 async def get_portfolio_performance(
-    days: int = Query(30, ge=1, le=365, description="Performance period in days")
+    days: int = Query(30, ge=1, le=365, description="Performance period in days"),
+    user=Depends(get_optional_user),
+    db: AsyncSession = Depends(get_db_session),
 ):
     """
     F7.2: Get portfolio performance metrics.
+    
+    Computes REAL performance from trade history.
     """
     try:
-        history = get_portfolio_history()
-        performance = history.get_performance(days)
+        from db.portfolio_history_service import PortfolioHistoryService
+        
+        user_id = user.id if user else ANONYMOUS_USER_ID
+        performance = await PortfolioHistoryService.get_performance(db, user_id, days)
         
         return {
             "success": True,

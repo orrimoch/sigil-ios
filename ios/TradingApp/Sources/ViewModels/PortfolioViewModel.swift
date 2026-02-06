@@ -77,7 +77,7 @@ class PortfolioViewModel: ObservableObject {
         isLoadingHistory = true
         
         do {
-            // REC-179: Backend now generates synthetic history if no real data exists
+            // Fetch real history computed from trade records
             let response = try await api.getPortfolioHistory(days: selectedPeriod.days)
             history = response.data
             
@@ -85,47 +85,23 @@ class PortfolioViewModel: ObservableObject {
             performance = perfResponse.data
         } catch {
             print("History error: \(error)")
-            // Fallback to local synthetic history only if API fails completely
-            if history.isEmpty {
-                history = generateLocalFallbackHistory()
-            }
+            // No fallback — show empty state if API fails
+            history = []
         }
         
         isLoadingHistory = false
     }
     
-    /// Generate local fallback history if API is unreachable.
-    /// Backend normally handles synthetic history generation (REC-179).
+    /// REMOVED: No more fake data generation
+    /// History now comes from real trade records on the backend.
+    
+    // Keep for backward compat if referenced elsewhere
+    @available(*, deprecated, message: "Use real history from API")
     private func generateLocalFallbackHistory() -> [PortfolioSnapshot] {
-        let currentValue = totalValue
-        let currentCash = cash
-        _ = positionsValue // Suppress unused warning
-        let formatter = ISO8601DateFormatter()
-        formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-        
-        let days = selectedPeriod.days
-        let dataPoints = min(days, 30)
-        
-        var snapshots: [PortfolioSnapshot] = []
-        for i in (0..<dataPoints).reversed() {
-            let date = Calendar.current.date(byAdding: .day, value: -i, to: Date())!
-            let timestamp = formatter.string(from: date)
-            // Add small variation for visual interest
-            let variance = Double.random(in: -0.005...0.005)
-            let historicalValue = currentValue * (1 + variance * Double(i) * 0.1)
-            
-            snapshots.append(PortfolioSnapshot(
-                timestamp: timestamp,
-                totalValue: historicalValue,
-                cash: currentCash,
-                positionsValue: historicalValue - currentCash,
-                totalPnl: historicalValue - 100000,
-                totalPnlPercent: (historicalValue - 100000) / 100000 * 100
-            ))
-        }
-        
-        return snapshots
+        return [] // No fake data
     }
+    
+    // MARK: - Sector Allocation
     
     func fetchSectorAllocation() async {
         isLoadingSectors = true
