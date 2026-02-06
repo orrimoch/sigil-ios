@@ -15,7 +15,7 @@ from sqlalchemy import select, and_, func
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from db.models import UserPortfolio, UserPosition, UserOrder, ANONYMOUS_USER_ID
-from data.price_fetcher import get_price_summary
+from data.price_fetcher import get_price_summary, fetch_latest_price
 
 
 # REC-127: Portfolio size limits (max distinct positions)
@@ -28,6 +28,57 @@ PORTFOLIO_SIZE_LIMITS = {
 
 def get_position_limit(portfolio_size: str = "medium") -> int:
     """Get max position count for portfolio size (REC-127)."""
+
+
+def calculate_daily_pnl(holdings: list, current_total: float, cash: float) -> tuple:
+    """
+    Calculate daily P&L by comparing current prices to previous close.
+    
+    Returns:
+        (daily_pnl, daily_pnl_percent)
+    """
+    try:
+        import yfinance as yf
+        from datetime import timedelta
+        
+        if not holdings:
+            return 0.0, 0.0
+        
+        # Get yesterday's closing value for each position
+        yesterday_value = cash  # Cash doesn't change intraday
+        
+        for holding in holdings:
+            ticker = holding.get("ticker")
+            shares = holding.get("shares", 0)
+            current_price = holding.get("current_price", 0)
+            
+            if not ticker or shares <= 0:
+                continue
+            
+            try:
+                # Get previous close from yfinance
+                stock = yf.Ticker(ticker)
+                info = stock.info
+                prev_close = info.get("previousClose") or info.get("regularMarketPreviousClose")
+                
+                if prev_close:
+                    yesterday_value += shares * prev_close
+                else:
+                    # Fallback: use current price (no change)
+                    yesterday_value += shares * current_price
+            except Exception:
+                # Fallback: use current price
+                yesterday_value += shares * current_price
+        
+        # Calculate daily P&L
+        if yesterday_value > 0:
+            daily_pnl = current_total - yesterday_value
+            daily_pnl_percent = (daily_pnl / yesterday_value) * 100
+            return round(daily_pnl, 2), round(daily_pnl_percent, 2)
+        
+        return 0.0, 0.0
+    except Exception:
+        return 0.0, 0.0
     limits = PORTFOLIO_SIZE_LIMITS.get(portfolio_size.lower(), PORTFOLIO_SIZE_LIMITS["medium"])
     return limits["max"]
 
@@ -116,6 +167,11 @@ class UserTradingService:
         total_value = portfolio.cash_balance + total_market_value
         total_pnl = total_value - portfolio.starting_cash
 
+        # Calculate real daily P&L from previous close prices
+        daily_pnl, daily_pnl_percent = calculate_daily_pnl(
+            holdings, total_value, portfolio.cash_balance
+        )
+
         summary = {
             "total_value": round(total_value, 2),
             "cash": round(portfolio.cash_balance, 2),
@@ -125,8 +181,8 @@ class UserTradingService:
             "total_pnl_percent": round(
                 (total_pnl / portfolio.starting_cash * 100) if portfolio.starting_cash else 0, 2
             ),
-            "daily_pnl": 0.0,  # BUG-009: iOS expects this (no intraday tracking yet)
-            "daily_pnl_percent": 0.0,  # BUG-009: iOS expects this
+            "daily_pnl": daily_pnl,  # Real daily P&L from previous close
+            "daily_pnl_percent": daily_pnl_percent,
             "starting_cash": portfolio.starting_cash,
             "position_count": len(positions),
             "positions_count": len(positions),  # BUG-009: iOS expects this field name
