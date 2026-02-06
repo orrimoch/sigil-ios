@@ -46,7 +46,10 @@ struct ContentView: View {
                 .tag(Tab.settings)
         }
         .tint(Color.Accent.gold)
-        .animation(.spring(response: 0.3, dampingFraction: 0.8), value: appState.selectedTab)
+        // Removed spring animation - was causing glitches on tab switch
+        .transaction { transaction in
+            transaction.animation = nil  // Disable implicit animations on tab switch
+        }
         .onChange(of: appState.selectedTab) { _, newValue in
             UIImpactFeedbackGenerator(style: .light).impactOccurred()
             Analytics.shared.track(.tabSwitched, properties: ["tab": newValue.rawValue])

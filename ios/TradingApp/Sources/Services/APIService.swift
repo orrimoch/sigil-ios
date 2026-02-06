@@ -111,7 +111,7 @@ class APIService: ObservableObject {
     // IOS-001: HTTPS enforcement with environment-based configuration
     #if DEBUG
     // Development: Use HTTPS localhost (requires mkcert or similar local CA)
-    private let baseURL = "https://127.0.0.1:8000/api/v1"
+    private let baseURL = "http://127.0.0.1:8000/api/v1"
     #else
     // Production: Use secure production endpoint
     private let baseURL = "https://api.sigil.app/api/v1"

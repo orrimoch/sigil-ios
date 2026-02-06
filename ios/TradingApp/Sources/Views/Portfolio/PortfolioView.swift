@@ -11,8 +11,8 @@ struct PortfolioView: View {
     @State private var selectedTab = 0
     @State private var autoRefreshEnabled = true  // REC-149: Live P&L updates
     
-    // REC-149: Auto-refresh timer (every 30 seconds when enabled)
-    private let refreshTimer = Timer.publish(every: 15, on: .main, in: .common).autoconnect()
+    // REC-149: Auto-refresh timer (every 10 seconds when enabled)
+    private let refreshTimer = Timer.publish(every: 10, on: .main, in: .common).autoconnect()
     
     var body: some View {
         NavigationStack {
@@ -175,7 +175,7 @@ struct PortfolioView: View {
             .task {
                 await viewModel.fetchAll()
             }
-            // REC-149: Auto-refresh P&L every 30 seconds
+            // REC-149: Auto-refresh P&L every 10 seconds
             .onReceive(refreshTimer) { _ in
                 guard autoRefreshEnabled else { return }
                 Task {
