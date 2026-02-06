@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0D5D041793999B909FEB63E0 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74268F376D0C749CE8F58D7E /* HomeView.swift */; };
 		142F4AC4CA6FB57A7A880AB4 /* AuthGateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646254719DCBFF22BF2793B8 /* AuthGateTests.swift */; };
+		1516009541BDD2C6FA7343DF /* TradeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5AD2075CCB4639F3E8C3380 /* TradeViewModelTests.swift */; };
 		15FC11A23C39C5B7DE26A3E1 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6134AA754BE7F6A850EC86FD /* Theme.swift */; };
 		18EC2C02385C89D96F9C4D73 /* DailyQuotes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84907440C9629455E52205C /* DailyQuotes.swift */; };
 		1A446AF6468F7105AAE48E58 /* BiometricAuthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B156ABF6C4838B809B12C48D /* BiometricAuthTests.swift */; };
@@ -115,6 +116,7 @@
 		AC08546474CCA6A6ED1D6ED5 /* WatchlistServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistServiceTests.swift; sourceTree = "<group>"; };
 		B156ABF6C4838B809B12C48D /* BiometricAuthTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricAuthTests.swift; sourceTree = "<group>"; };
 		B4BA11F7F4B50B97513B92DB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		B5AD2075CCB4639F3E8C3380 /* TradeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeViewModelTests.swift; sourceTree = "<group>"; };
 		B90B5975CC99D7B349BEE0A4 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		B954D091708BAE1C1300E026 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		B9D29602030C1E1E5F70B1E4 /* AnalyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
@@ -284,6 +286,7 @@
 				1BFF8A3E4DF3C8334D97F83C /* ErrorStateViewTests.swift */,
 				A9A93A10D107BD4ABBEB74CD /* IBKRServiceTests.swift */,
 				22ABA1BD0CCCEE1495A5483E /* NotificationServiceTests.swift */,
+				B5AD2075CCB4639F3E8C3380 /* TradeViewModelTests.swift */,
 				AC08546474CCA6A6ED1D6ED5 /* WatchlistServiceTests.swift */,
 			);
 			path = Tests;
@@ -452,6 +455,7 @@
 				67DBA6FA3C3D70196F6B6207 /* ErrorStateViewTests.swift in Sources */,
 				9090BFD93412DCEA8AA18EEA /* IBKRServiceTests.swift in Sources */,
 				87DCF0D2B7F5CDC00001BC39 /* NotificationServiceTests.swift in Sources */,
+				1516009541BDD2C6FA7343DF /* TradeViewModelTests.swift in Sources */,
 				BF6B7D4725041304678F3C1D /* WatchlistServiceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

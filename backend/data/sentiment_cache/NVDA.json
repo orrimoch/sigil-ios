@@ -1,0 +1,32 @@
+{
+  "ticker": "NVDA",
+  "overall_score": 88.0,
+  "overall_sentiment": "very_bullish",
+  "confidence": 0.6,
+  "rationale": "200% data center revenue growth represents exceptional performance driven by AI chip demand, indicating strong fundamental business momentum. However, confidence is tempered by limited source information and lack of date specificity.",
+  "article_analyses": [
+    {
+      "headline": "Nvidia AI chips demand soars",
+      "sentiment": "very_bullish",
+      "score": 88.0,
+      "key_factors": [
+        "200% data center revenue growth",
+        "soaring AI chip demand",
+        "strong fundamental performance"
+      ],
+      "relevance": 1.0
+    }
+  ],
+  "bullish_factors": [
+    "200% data center revenue increase",
+    "Strong AI chip demand",
+    "Data center business momentum"
+  ],
+  "bearish_factors": [
+    "Unknown source credibility",
+    "Lack of date context reduces recency impact",
+    "No guidance or forward-looking statements provided"
+  ],
+  "analyzed_at": "2026-02-06T12:33:08.991674",
+  "model_used": "claude-sonnet-4-20250514"
+}

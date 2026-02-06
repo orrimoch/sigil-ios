@@ -17,6 +17,10 @@ class TradeViewModel: ObservableObject {
     @Published var currentPrice: Double?
     @Published var priceLoading = false
     
+    // REC-177: Position tracking for sell validation
+    @Published var currentPosition: Holding?
+    @Published var allHoldings: [Holding] = []
+    
     // Order entry
     @Published var orderSide: OrderSide = .buy
     @Published var orderType: OrderType = .market
@@ -64,7 +68,39 @@ class TradeViewModel: ObservableObject {
             guard let limitPrice = limitPriceValue, limitPrice > 0 else { return false }
         }
         
+        // REC-177: Validate sell quantity against position size
+        if orderSide == .sell {
+            guard let position = currentPosition, quantityValue <= position.shares else {
+                return false
+            }
+        }
+        
         return true
+    }
+    
+    // REC-177: Position size for current stock (0 if not held)
+    var positionSize: Double {
+        currentPosition?.shares ?? 0
+    }
+    
+    // REC-177: Check if user has a position in selected stock
+    var hasPosition: Bool {
+        positionSize > 0
+    }
+    
+    // REC-177: Validation error message for sell orders
+    var sellValidationError: String? {
+        guard orderSide == .sell else { return nil }
+        
+        if currentPosition == nil {
+            return "You don't own this stock"
+        }
+        
+        if quantityValue > positionSize {
+            return "Exceeds position (\(Int(positionSize)) shares)"
+        }
+        
+        return nil
     }
     
     // MARK: - Private
@@ -124,13 +160,80 @@ class TradeViewModel: ObservableObject {
         searchText = stock.ticker
         searchResults = []
         
-        // Fetch current price and score in parallel
+        // Fetch current price, score, and position in parallel
         Task {
             await withTaskGroup(of: Void.self) { group in
                 group.addTask { await self.fetchPrice(for: stock.ticker) }
                 group.addTask { await self.fetchScore(for: stock.ticker) }
+                group.addTask { await self.fetchPosition(for: stock.ticker) }
             }
         }
+    }
+    
+    // REC-177: Fetch user's position in a stock
+    private func fetchPosition(for ticker: String) async {
+        do {
+            let response = try await api.getPortfolio()
+            await MainActor.run {
+                self.allHoldings = response.data.holdings
+                self.currentPosition = response.data.holdings.first { $0.ticker == ticker }
+            }
+        } catch {
+            print("Position fetch error: \(error)")
+            await MainActor.run {
+                self.currentPosition = nil
+            }
+        }
+    }
+    
+    // REC-177: Set quantity to position size (for "Sell All" single position)
+    func setQuantityToPosition() {
+        guard let position = currentPosition else { return }
+        quantity = String(Int(position.shares))
+    }
+    
+    // REC-177: Set quantity to quick amount
+    func setQuickQuantity(_ amount: Int) {
+        quantity = String(amount)
+    }
+    
+    // REC-177: Sell all holdings (entire portfolio)
+    func sellAllPortfolio() async {
+        // Fetch latest holdings
+        do {
+            let response = try await api.getPortfolio()
+            allHoldings = response.data.holdings
+        } catch {
+            print("Failed to fetch portfolio: \(error)")
+            return
+        }
+        
+        // Submit sell orders for each holding
+        for holding in allHoldings where holding.shares > 0 {
+            do {
+                _ = try await api.createOrder(
+                    ticker: holding.ticker,
+                    side: "SELL",
+                    quantity: holding.shares,
+                    orderType: "MARKET",
+                    limitPrice: nil
+                )
+                
+                // Track analytics
+                Analytics.shared.track(.orderSubmitted, properties: [
+                    "ticker": holding.ticker,
+                    "side": "SELL",
+                    "quantity": holding.shares,
+                    "type": "MARKET",
+                    "context": "sell_all_portfolio"
+                ])
+            } catch {
+                print("Failed to sell \(holding.ticker): \(error)")
+            }
+        }
+        
+        // Refresh orders
+        await fetchTodaysOrders()
     }
     
     private func fetchScore(for ticker: String) async {
@@ -161,6 +264,7 @@ class TradeViewModel: ObservableObject {
     func clearSelection() {
         selectedStock = nil
         currentPrice = nil
+        currentPosition = nil
         searchText = ""
         quantity = ""
         limitPrice = ""

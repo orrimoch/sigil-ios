@@ -7,6 +7,7 @@ struct PortfolioView: View {
     @EnvironmentObject var appState: AppState
     @StateObject private var viewModel = PortfolioViewModel()
     @State private var showResetConfirm = false
+    @State private var showSellAllConfirm = false  // REC-177: Sell all portfolio
     @State private var selectedTab = 0
     @State private var autoRefreshEnabled = true  // REC-149: Live P&L updates
     
@@ -73,7 +74,9 @@ struct PortfolioView: View {
                     switch selectedTab {
                     case 0:
                         // F7.1: Holdings List
-                        HoldingsSection(holdings: viewModel.holdings)
+                        HoldingsSection(holdings: viewModel.holdings, onSellAll: {
+                            showSellAllConfirm = true
+                        })
                     case 1:
                         // F7.2: Performance Chart
                         PerformanceChartSection(viewModel: viewModel)
@@ -189,7 +192,40 @@ struct PortfolioView: View {
             } message: {
                 Text("This will clear all positions and reset your cash to $100,000. This cannot be undone.")
             }
+            // REC-177: Sell All Portfolio confirmation
+            .alert("Sell All Positions?", isPresented: $showSellAllConfirm) {
+                Button("Cancel", role: .cancel) {}
+                Button("Sell All", role: .destructive) {
+                    Task {
+                        await sellAllPositions()
+                    }
+                }
+            } message: {
+                Text("This will create MARKET SELL orders for all \(viewModel.holdings.count) position(s). Orders will execute immediately at current market prices.")
+            }
         }
+    }
+    
+    // REC-177: Sell all positions
+    private func sellAllPositions() async {
+        let api = APIService.shared
+        
+        for holding in viewModel.holdings where holding.shares > 0 {
+            do {
+                _ = try await api.createOrder(
+                    ticker: holding.ticker,
+                    side: "SELL",
+                    quantity: holding.shares,
+                    orderType: "MARKET",
+                    limitPrice: nil
+                )
+            } catch {
+                print("Failed to sell \(holding.ticker): \(error)")
+            }
+        }
+        
+        // Refresh portfolio after selling
+        await viewModel.fetchAll()
     }
 }
 
@@ -290,6 +326,7 @@ struct StatCard: View {
 
 struct HoldingsSection: View {
     let holdings: [Holding]
+    var onSellAll: (() -> Void)? = nil  // REC-177: Sell all callback
     
     /// M8: Holdings sorted by market value (largest first)
     private var sortedHoldings: [Holding] {
@@ -305,9 +342,33 @@ struct HoldingsSection: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("Holdings")
-                .font(.headline)
-                .foregroundColor(.Text.primary)
+            HStack {
+                Text("Holdings")
+                    .font(.headline)
+                    .foregroundColor(.Text.primary)
+                
+                Spacer()
+                
+                // REC-177: Sell All button (only show if holdings exist)
+                if !holdings.isEmpty, let sellAll = onSellAll {
+                    Button {
+                        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                        sellAll()
+                    } label: {
+                        HStack(spacing: 4) {
+                            Image(systemName: "arrow.down.circle.fill")
+                                .font(.caption)
+                            Text("Sell All")
+                                .font(.caption.bold())
+                        }
+                        .foregroundColor(.Signal.sell)
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 6)
+                        .background(Color.Signal.sell.opacity(0.15))
+                        .cornerRadius(8)
+                    }
+                }
+            }
             
             if holdings.isEmpty {
                 VStack(spacing: 8) {

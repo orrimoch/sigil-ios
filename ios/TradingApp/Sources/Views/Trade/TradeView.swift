@@ -332,9 +332,20 @@ struct OrderEntrySection: View {
             
             // Quantity
             VStack(alignment: .leading, spacing: 8) {
-                Text("Shares")
-                    .font(.subheadline)
-                    .foregroundColor(.Text.secondary)
+                HStack {
+                    Text("Shares")
+                        .font(.subheadline)
+                        .foregroundColor(.Text.secondary)
+                    
+                    Spacer()
+                    
+                    // REC-177: Show position size when selling
+                    if viewModel.orderSide == .sell && viewModel.hasPosition {
+                        Text("Position: \(Int(viewModel.positionSize))")
+                            .font(.caption)
+                            .foregroundColor(.Text.tertiary)
+                    }
+                }
                 
                 HStack(spacing: 12) {
                     Button {
@@ -356,7 +367,13 @@ struct OrderEntrySection: View {
                     
                     Button {
                         let current = Int(viewModel.quantity) ?? 0
-                        viewModel.quantity = String(current + 1)
+                        // REC-177: Cap at position size for sells
+                        if viewModel.orderSide == .sell && viewModel.hasPosition {
+                            let maxQty = Int(viewModel.positionSize)
+                            viewModel.quantity = String(min(current + 1, maxQty))
+                        } else {
+                            viewModel.quantity = String(current + 1)
+                        }
                     } label: {
                         Image(systemName: "plus.circle.fill")
                             .font(.title2)
@@ -367,6 +384,58 @@ struct OrderEntrySection: View {
                 .padding()
                 .background(Color.Background.secondary)
                 .cornerRadius(12)
+                
+                // REC-177: Quick quantity buttons
+                HStack(spacing: 8) {
+                    ForEach([10, 50, 100], id: \.self) { amount in
+                        Button {
+                            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                            // Cap at position size for sells
+                            if viewModel.orderSide == .sell && viewModel.hasPosition {
+                                let maxQty = Int(viewModel.positionSize)
+                                viewModel.setQuickQuantity(min(amount, maxQty))
+                            } else {
+                                viewModel.setQuickQuantity(amount)
+                            }
+                        } label: {
+                            Text("\(amount)")
+                                .font(.caption.bold())
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 8)
+                                .background(Color.Background.tertiary)
+                                .foregroundColor(.Text.secondary)
+                                .cornerRadius(8)
+                        }
+                    }
+                    
+                    // REC-177: "All" button for sells
+                    if viewModel.orderSide == .sell && viewModel.hasPosition {
+                        Button {
+                            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                            viewModel.setQuantityToPosition()
+                        } label: {
+                            Text("All")
+                                .font(.caption.bold())
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 8)
+                                .background(Color.Signal.sell.opacity(0.2))
+                                .foregroundColor(.Signal.sell)
+                                .cornerRadius(8)
+                        }
+                    }
+                }
+                
+                // REC-177: Validation error message
+                if let error = viewModel.sellValidationError {
+                    HStack(spacing: 4) {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .font(.caption)
+                        Text(error)
+                            .font(.caption)
+                    }
+                    .foregroundColor(.Signal.sell)
+                    .padding(.top, 4)
+                }
             }
             
             // Limit/Stop price (if not market order)
