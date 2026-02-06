@@ -12,7 +12,9 @@
 
 ## Executive Summary
 
-The Backtesting Module validates Sigil's scoring model by measuring historical predictive power and enabling users to evaluate strategy performance before deploying real capital.
+The Backtesting Module is an **internal analytics tool** that validates Sigil's scoring model by measuring historical predictive power. This is NOT a user-facing feature — it's for developers/founders to verify the model works before shipping.
+
+**Approach:** Internal tooling first. User-facing backtesting can be added later if scores prove valuable.
 
 ### Key Questions We Answer
 
@@ -349,51 +351,34 @@ REST API for backtest operations.
 
 ---
 
-### F12.9 iOS Analytics Dashboard
-**Priority:** P1  
-**Effort:** 2 weeks  
+### F12.9 Internal Analytics Dashboard (CLI/Web)
+**Priority:** P2 (Deferred)  
+**Effort:** 1 week  
 **Dependencies:** F12.8
 
-Comprehensive dashboard showing all metrics and charts.
+**NOTE:** This is an INTERNAL tool, not user-facing iOS UI. Implemented as CLI commands and optional web dashboard for founders/devs.
 
-**Screens:**
+**CLI Commands:**
+```bash
+python -m backtest run --start 2021-01-01 --end 2025-12-31
+python -m backtest results <backtest_id>
+python -m backtest metrics --ic-decay
+python -m backtest report <backtest_id> --format html
+```
 
-**1. Performance Overview (Tab)**
-- Summary card: CAGR, Sharpe, Max DD vs benchmarks
-- "Historical (5yr)" vs "Live (since launch)" toggle
-- Confidence indicator for live metrics
+**Optional Web Dashboard (Future):**
+- Simple Flask/FastAPI HTML pages
+- View backtest results in browser
+- Charts via Chart.js or Plotly
+- NOT part of iOS app
 
-**2. Equity Curve View**
-- Interactive chart: Strategy vs SPY vs QQQ
-- Drawdown chart below
-- Period selector: 1Y, 3Y, 5Y, All
+**Metrics Displayed:**
+- CAGR, Sharpe, Max DD vs SPY
+- Score IC and Hit Rate
+- Equity curve chart
+- Trade log table
 
-**3. Score Validation View**
-- IC over time chart
-- IC decay by day-of-week chart
-- Hit rate by score bucket (60-70, 70-80, 80-90, 90+)
-- Quintile spread chart
-
-**4. Monthly Returns Heatmap**
-- Calendar grid: green (positive) / red (negative)
-- Row per year, column per month
-
-**5. Trade History**
-- List of all simulated trades
-- Filter: ticker, date, profit/loss
-- Entry/exit prices, holding period, P&L
-
-**6. Strategy Parameters**
-- Current parameters display
-- "Optimized" badge if HPO was run
-- Last optimization date
-
-**Design Requirements:**
-- Follow Institutional Dark theme
-- Gold (#FFB800) for positive, Red for negative
-- 44pt touch targets
-- Shimmer loading states
-- Pull-to-refresh
+**Design:** Simple, functional, not polished UI. Internal tool only.
 
 ---
 
@@ -466,7 +451,9 @@ Linear Programming optimization (deferred — start with equal weight).
 | **Phase 4** | F12.8, F12.9 | 3 weeks | Phase 1 |
 | **Phase 5** | F12.10, F12.11 | 2 weeks | Phase 4 |
 
-**Total:** 11 weeks (Phases 1-4), +2 weeks optional (Phase 5)
+**Total:** 9 weeks (Phases 1-4), +2 weeks optional (Phase 5)
+
+**Note:** iOS Dashboard removed from scope. Backtesting is internal tooling only.
 
 **Parallelization:** Phase 4 (Dashboard) can start after Phase 1 completes.
 
@@ -515,12 +502,12 @@ Week:  1   2   3   4   5   6   7   8   9  10  11  12  13
 |--------|-------|----------|--------|--------------|
 | REC-196 | F12.7 HPO Engine (Optuna) | P1 | 2w | REC-195 |
 
-### Phase 4: Dashboard
+### Phase 4: API & Internal Tools
 
 | Ticket | Title | Priority | Effort | Dependencies |
 |--------|-------|----------|--------|--------------|
 | REC-197 | F12.8 Backend API Endpoints | P1 | 1w | REC-193, REC-194 |
-| REC-198 | F12.9 iOS Analytics Dashboard | P1 | 2w | REC-197 |
+| REC-198 | F12.9 Internal CLI/Dashboard | P2 | 1w | REC-197 |
 
 ### Phase 5: Enhancement (Optional)
 

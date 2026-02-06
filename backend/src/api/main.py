@@ -2112,6 +2112,260 @@ async def mark_all_alerts_read():
         raise HTTPException(status_code=500, detail=str(e))
 
 
+# ========== F12.x Backtesting Endpoints (Internal Tool) ==========
+
+# Backtest imports
+from backtest.data_store import (
+    BacktestDataStore,
+    BacktestParameters,
+    BacktestResult,
+    BacktestStatus,
+    get_data_store,
+)
+from backtest.engine import BacktestEngine
+from backtest.metrics import MetricsCalculator
+from backtest.historical_scores import HistoricalScoreGenerator
+
+
+class BacktestRequest(BaseModel):
+    """Request body for running a backtest."""
+    start_date: str = Field(..., description="Start date YYYY-MM-DD")
+    end_date: str = Field(..., description="End date YYYY-MM-DD")
+    initial_capital: float = Field(100000, ge=1000, description="Starting capital")
+    entry_threshold: float = Field(70, ge=50, le=95, description="Score threshold for BUY")
+    exit_threshold: float = Field(50, ge=20, le=70, description="Score threshold for SELL")
+    max_positions: int = Field(10, ge=1, le=50, description="Maximum concurrent positions")
+    rebalance_freq: str = Field("weekly", description="Rebalance frequency")
+
+
+@app.post("/api/v1/backtest/run")
+async def run_backtest(
+    request: BacktestRequest,
+    background_tasks: BackgroundTasks,
+):
+    """
+    F12.3: Run a new backtest (async, returns backtest_id).
+    
+    Internal tool for validating scoring model.
+    """
+    try:
+        params = BacktestParameters(
+            start_date=request.start_date,
+            end_date=request.end_date,
+            initial_capital=request.initial_capital,
+            entry_threshold=request.entry_threshold,
+            exit_threshold=request.exit_threshold,
+            max_positions=request.max_positions,
+            rebalance_freq=request.rebalance_freq,
+        )
+        
+        store = get_data_store()
+        result = store.create_backtest(params)
+        
+        # Run backtest in background
+        def run_async():
+            try:
+                engine = BacktestEngine()
+                engine.run_backtest(params)
+            except Exception as e:
+                result.status = BacktestStatus.FAILED
+                result.error_message = str(e)
+                store.save_backtest_result(result)
+        
+        background_tasks.add_task(run_async)
+        
+        return {
+            "success": True,
+            "backtest_id": result.backtest_id,
+            "status": result.status.value,
+            "message": "Backtest started. Poll /api/v1/backtest/{id} for results.",
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/v1/backtest/{backtest_id}")
+async def get_backtest_result(backtest_id: str):
+    """
+    F12.3: Get backtest results by ID.
+    """
+    try:
+        store = get_data_store()
+        result = store.get_backtest_result(backtest_id)
+        
+        if not result:
+            raise HTTPException(status_code=404, detail=f"Backtest not found: {backtest_id}")
+        
+        return {
+            "success": True,
+            "data": result.to_dict(),
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/v1/backtest/{backtest_id}/trades")
+async def get_backtest_trades(backtest_id: str):
+    """
+    F12.3: Get trade log for a backtest.
+    """
+    try:
+        store = get_data_store()
+        trades = store.get_trades(backtest_id)
+        
+        return {
+            "success": True,
+            "count": len(trades),
+            "data": [t.to_dict() for t in trades],
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/v1/backtest/history")
+async def list_backtests(
+    limit: int = Query(20, ge=1, le=100),
+    status: Optional[str] = Query(None, description="Filter by status"),
+):
+    """
+    F12.3: List previous backtests.
+    """
+    try:
+        store = get_data_store()
+        
+        status_filter = None
+        if status:
+            status_filter = BacktestStatus(status)
+        
+        results = store.list_backtests(limit=limit, status=status_filter)
+        
+        return {
+            "success": True,
+            "count": len(results),
+            "data": [r.to_dict() for r in results],
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.delete("/api/v1/backtest/{backtest_id}")
+async def delete_backtest(backtest_id: str):
+    """
+    Delete a backtest and its data.
+    """
+    try:
+        store = get_data_store()
+        deleted = store.delete_backtest(backtest_id)
+        
+        if not deleted:
+            raise HTTPException(status_code=404, detail=f"Backtest not found: {backtest_id}")
+        
+        return {"success": True, "message": "Backtest deleted"}
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/api/v1/backtest/import-scores")
+async def import_existing_scores():
+    """
+    F12.2: Import existing score history into backtest storage.
+    
+    One-time operation to seed historical scores from current pipeline.
+    """
+    try:
+        generator = HistoricalScoreGenerator()
+        imported = generator.generate_from_existing_pipeline()
+        
+        return {
+            "success": True,
+            "imported_count": imported,
+            "message": f"Imported {imported} scores from existing pipeline history",
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/v1/backtest/storage-stats")
+async def get_backtest_storage_stats():
+    """
+    Get storage statistics for backtest data.
+    """
+    try:
+        store = get_data_store()
+        stats = store.get_storage_stats()
+        
+        return {
+            "success": True,
+            "data": stats,
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/v1/analytics/score-validation")
+async def get_score_validation_metrics(
+    start_date: str = Query(..., description="Start date YYYY-MM-DD"),
+    end_date: str = Query(..., description="End date YYYY-MM-DD"),
+):
+    """
+    F12.4: Calculate score validation metrics (IC, Hit Rate, etc.).
+    """
+    try:
+        calc = MetricsCalculator()
+        metrics = calc.calculate_score_validation_metrics(start_date, end_date)
+        
+        return {
+            "success": True,
+            "data": metrics.to_dict(),
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/v1/analytics/ic-decay")
+async def get_ic_decay_analysis(
+    start_date: str = Query(..., description="Start date YYYY-MM-DD"),
+    end_date: str = Query(..., description="End date YYYY-MM-DD"),
+):
+    """
+    F12.5: Get IC decay by day of week.
+    
+    Measures how score predictive power decays over the week.
+    """
+    try:
+        calc = MetricsCalculator()
+        ic_by_day = calc.calculate_ic_by_day_of_week(start_date, end_date)
+        
+        return {
+            "success": True,
+            "data": {
+                "ic_by_day_offset": ic_by_day,
+                "interpretation": {
+                    "day_1": "Monday (fresh scores)",
+                    "day_2": "Tuesday",
+                    "day_3": "Wednesday",
+                    "day_4": "Thursday",
+                    "day_5": "Friday (stale scores)",
+                },
+            },
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 # ========== Run ==========
 
 if __name__ == "__main__":
