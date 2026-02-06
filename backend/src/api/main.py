@@ -2125,6 +2125,8 @@ from backtest.data_store import (
 from backtest.engine import BacktestEngine
 from backtest.metrics import MetricsCalculator
 from backtest.historical_scores import HistoricalScoreGenerator
+from backtest.ic_decay import ICDecayAnalyzer
+from backtest.walk_forward import WalkForwardValidator
 
 
 class BacktestRequest(BaseModel):
@@ -2341,26 +2343,94 @@ async def get_ic_decay_analysis(
     end_date: str = Query(..., description="End date YYYY-MM-DD"),
 ):
     """
-    F12.5: Get IC decay by day of week.
+    F12.5: Get comprehensive IC decay analysis.
     
     Measures how score predictive power decays over the week.
+    Includes recommendation for optimal refresh frequency.
     """
     try:
-        calc = MetricsCalculator()
-        ic_by_day = calc.calculate_ic_by_day_of_week(start_date, end_date)
+        analyzer = ICDecayAnalyzer()
+        result = analyzer.analyze_ic_decay(start_date, end_date)
         
         return {
             "success": True,
-            "data": {
-                "ic_by_day_offset": ic_by_day,
-                "interpretation": {
-                    "day_1": "Monday (fresh scores)",
-                    "day_2": "Tuesday",
-                    "day_3": "Wednesday",
-                    "day_4": "Thursday",
-                    "day_5": "Friday (stale scores)",
-                },
-            },
+            "data": result.to_dict(),
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/v1/analytics/rolling-ic")
+async def get_rolling_ic(
+    start_date: str = Query(..., description="Start date YYYY-MM-DD"),
+    end_date: str = Query(..., description="End date YYYY-MM-DD"),
+    forward_days: int = Query(5, ge=1, le=20, description="Days to measure forward returns"),
+):
+    """
+    F12.5: Get rolling IC over time.
+    
+    Shows how predictive power changes over months.
+    """
+    try:
+        analyzer = ICDecayAnalyzer()
+        result = analyzer.analyze_rolling_ic(start_date, end_date, forward_days)
+        
+        return {
+            "success": True,
+            "data": result.to_dict(),
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+class WalkForwardRequest(BaseModel):
+    """Request body for walk-forward validation."""
+    start_date: str = Field(..., description="Start date YYYY-MM-DD")
+    end_date: str = Field(..., description="End date YYYY-MM-DD")
+    train_months: int = Field(12, ge=3, le=36, description="Training period (months)")
+    test_months: int = Field(3, ge=1, le=12, description="Test period (months)")
+    step_months: int = Field(3, ge=1, le=12, description="Step size between folds (months)")
+    entry_threshold: float = Field(70, ge=50, le=95)
+    exit_threshold: float = Field(50, ge=20, le=70)
+    max_positions: int = Field(10, ge=1, le=50)
+
+
+@app.post("/api/v1/analytics/walk-forward")
+async def run_walk_forward_validation(
+    request: WalkForwardRequest,
+    background_tasks: BackgroundTasks,
+):
+    """
+    F12.6: Run walk-forward validation.
+    
+    Tests for overfitting using rolling train/test splits.
+    Returns true out-of-sample performance.
+    """
+    try:
+        params = BacktestParameters(
+            start_date=request.start_date,
+            end_date=request.end_date,
+            initial_capital=100000,
+            entry_threshold=request.entry_threshold,
+            exit_threshold=request.exit_threshold,
+            max_positions=request.max_positions,
+        )
+        
+        validator = WalkForwardValidator()
+        result = validator.run_walk_forward(
+            start_date=request.start_date,
+            end_date=request.end_date,
+            train_months=request.train_months,
+            test_months=request.test_months,
+            step_months=request.step_months,
+            params=params,
+        )
+        
+        return {
+            "success": True,
+            "data": result.to_dict(),
         }
         
     except Exception as e:

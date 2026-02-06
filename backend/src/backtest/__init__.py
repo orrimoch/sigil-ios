@@ -14,9 +14,15 @@ Components:
 from .data_store import BacktestDataStore
 from .engine import BacktestEngine
 from .metrics import MetricsCalculator
+from .ic_decay import ICDecayAnalyzer, ICDecayResult
+from .walk_forward import WalkForwardValidator, WalkForwardResult
 
 __all__ = [
     "BacktestDataStore",
     "BacktestEngine", 
     "MetricsCalculator",
+    "ICDecayAnalyzer",
+    "ICDecayResult",
+    "WalkForwardValidator",
+    "WalkForwardResult",
 ]
