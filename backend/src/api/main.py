@@ -2189,6 +2189,75 @@ async def run_backtest(
         raise HTTPException(status_code=500, detail=str(e))
 
 
+# NOTE: Static routes MUST come before dynamic {backtest_id} routes
+# to avoid FastAPI matching "history" or "storage-stats" as backtest_id
+
+@app.get("/api/v1/backtest/history")
+async def list_backtests(
+    limit: int = Query(20, ge=1, le=100),
+    status: Optional[str] = Query(None, description="Filter by status"),
+):
+    """
+    F12.3: List previous backtests.
+    """
+    try:
+        store = get_data_store()
+        
+        status_filter = None
+        if status:
+            status_filter = BacktestStatus(status)
+        
+        results = store.list_backtests(limit=limit, status=status_filter)
+        
+        return {
+            "success": True,
+            "count": len(results),
+            "data": [r.to_dict() for r in results],
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/v1/backtest/storage-stats")
+async def get_backtest_storage_stats():
+    """
+    Get storage statistics for backtest data.
+    """
+    try:
+        store = get_data_store()
+        stats = store.get_storage_stats()
+        
+        return {
+            "success": True,
+            "data": stats,
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/api/v1/backtest/import-scores")
+async def import_existing_scores():
+    """
+    F12.2: Import existing score history into backtest storage.
+    
+    One-time operation to seed historical scores from current pipeline.
+    """
+    try:
+        generator = HistoricalScoreGenerator()
+        imported = generator.generate_from_existing_pipeline()
+        
+        return {
+            "success": True,
+            "imported_count": imported,
+            "message": f"Imported {imported} scores from existing pipeline history",
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 @app.get("/api/v1/backtest/{backtest_id}")
 async def get_backtest_result(backtest_id: str):
     """
@@ -2231,33 +2300,6 @@ async def get_backtest_trades(backtest_id: str):
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@app.get("/api/v1/backtest/history")
-async def list_backtests(
-    limit: int = Query(20, ge=1, le=100),
-    status: Optional[str] = Query(None, description="Filter by status"),
-):
-    """
-    F12.3: List previous backtests.
-    """
-    try:
-        store = get_data_store()
-        
-        status_filter = None
-        if status:
-            status_filter = BacktestStatus(status)
-        
-        results = store.list_backtests(limit=limit, status=status_filter)
-        
-        return {
-            "success": True,
-            "count": len(results),
-            "data": [r.to_dict() for r in results],
-        }
-        
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-
 @app.delete("/api/v1/backtest/{backtest_id}")
 async def delete_backtest(backtest_id: str):
     """
@@ -2274,45 +2316,6 @@ async def delete_backtest(backtest_id: str):
         
     except HTTPException:
         raise
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-@app.post("/api/v1/backtest/import-scores")
-async def import_existing_scores():
-    """
-    F12.2: Import existing score history into backtest storage.
-    
-    One-time operation to seed historical scores from current pipeline.
-    """
-    try:
-        generator = HistoricalScoreGenerator()
-        imported = generator.generate_from_existing_pipeline()
-        
-        return {
-            "success": True,
-            "imported_count": imported,
-            "message": f"Imported {imported} scores from existing pipeline history",
-        }
-        
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-@app.get("/api/v1/backtest/storage-stats")
-async def get_backtest_storage_stats():
-    """
-    Get storage statistics for backtest data.
-    """
-    try:
-        store = get_data_store()
-        stats = store.get_storage_stats()
-        
-        return {
-            "success": True,
-            "data": stats,
-        }
-        
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
