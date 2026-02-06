@@ -220,7 +220,7 @@ class UserTradingService:
             raise ValueError("Limit price required for LIMIT orders")
 
         # Validate ticker against stock universe
-        from src.data.stock_universe import load_universe
+        from data.stock_universe import load_universe
         universe = load_universe()
         if universe:
             valid_tickers = {s["ticker"] for s in universe.get("stocks", [])}
