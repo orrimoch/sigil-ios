@@ -1,0 +1,15 @@
+{
+  "2025-01-06": {
+    "AAPL": {
+      "date": "2025-01-06",
+      "ticker": "AAPL",
+      "composite_score": 75.0,
+      "signal": "BUY",
+      "fundamental_score": 80,
+      "sentiment_score": 70,
+      "technical_score": 75,
+      "macro_score": 72,
+      "sector": "Technology"
+    }
+  }
+}
