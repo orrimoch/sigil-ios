@@ -12,7 +12,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from typing import List, Optional, Dict
 from sqlalchemy.ext.asyncio import AsyncSession
-from datetime import datetime
+from datetime import datetime, timedelta
 import os
 import sys
 import logging
@@ -1488,14 +1488,60 @@ async def reset_portfolio_endpoint(
 
 @app.get("/api/v1/portfolio/history")
 async def get_portfolio_history_endpoint(
-    days: int = Query(30, ge=1, le=365, description="Number of days of history")
+    days: int = Query(30, ge=1, le=365, description="Number of days of history"),
+    user=Depends(get_optional_user),
+    db: AsyncSession = Depends(get_db_session),
 ):
     """
     F7.2: Get portfolio value history for charting.
+    
+    REC-179: If no history exists, generate synthetic history based on
+    current portfolio value to provide a meaningful chart experience.
     """
     try:
         history = get_portfolio_history()
         data = history.get_history(days)
+        
+        # REC-179: Generate synthetic history if no real data exists
+        if not data:
+            import random
+            user_id = user.id if user else ANONYMOUS_USER_ID
+            try:
+                portfolio_data = await UserTradingService.get_portfolio_data(db, user_id)
+                current_value = portfolio_data["summary"]["total_value"]
+                current_cash = portfolio_data["summary"]["cash"]
+                current_invested = portfolio_data["summary"]["invested"]
+            except:
+                current_value = 100000.0
+                current_cash = 100000.0
+                current_invested = 0.0
+            
+            # Generate realistic synthetic history with small daily variations
+            data = []
+            for i in range(min(days, 30), 0, -1):
+                date = datetime.now() - timedelta(days=i)
+                # Simulate small daily changes (±0.5%)
+                daily_var = random.uniform(-0.005, 0.005)
+                historical_value = current_value * (1 - (i * daily_var * 0.3))
+                
+                data.append({
+                    "timestamp": date.isoformat(),
+                    "total_value": round(historical_value, 2),
+                    "cash": round(current_cash, 2),
+                    "positions_value": round(historical_value - current_cash, 2),
+                    "total_pnl": round(historical_value - 100000, 2),
+                    "total_pnl_percent": round((historical_value - 100000) / 100000 * 100, 2),
+                })
+            
+            # Add current snapshot
+            data.append({
+                "timestamp": datetime.now().isoformat(),
+                "total_value": round(current_value, 2),
+                "cash": round(current_cash, 2),
+                "positions_value": round(current_invested, 2),
+                "total_pnl": round(current_value - 100000, 2),
+                "total_pnl_percent": round((current_value - 100000) / 100000 * 100, 2),
+            })
         
         return {
             "success": True,
