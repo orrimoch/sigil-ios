@@ -3,9 +3,11 @@ Sigil Auth — API endpoints for authentication.
 """
 
 import json
+import time
+from collections import defaultdict
 from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel, EmailStr, Field
-from typing import Optional
+from typing import Optional, Dict, Tuple
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from .database import get_db_session
@@ -14,6 +16,50 @@ from .middleware import get_current_user
 from .models import User
 
 auth_router = APIRouter(prefix="/api/v1/auth", tags=["auth"])
+
+# AUTH-003: Brute force protection
+# Track failed login attempts: email -> (attempts, first_attempt_time)
+_failed_logins: Dict[str, Tuple[int, float]] = defaultdict(lambda: (0, 0.0))
+_LOCKOUT_THRESHOLD = 5  # Lock after 5 failed attempts
+_LOCKOUT_DURATION = 15 * 60  # 15 minutes in seconds
+
+
+def _check_brute_force(email: str) -> None:
+    """Check if account is locked due to too many failed attempts."""
+    email = email.lower().strip()
+    attempts, first_time = _failed_logins[email]
+    
+    if attempts >= _LOCKOUT_THRESHOLD:
+        elapsed = time.time() - first_time
+        if elapsed < _LOCKOUT_DURATION:
+            remaining = int(_LOCKOUT_DURATION - elapsed)
+            raise HTTPException(
+                status_code=status.HTTP_429_TOO_MANY_REQUESTS,
+                detail=f"Account temporarily locked due to too many failed attempts. Try again in {remaining // 60} minutes."
+            )
+        else:
+            # Lockout expired, reset
+            _failed_logins[email] = (0, 0.0)
+
+
+def _record_failed_login(email: str) -> None:
+    """Record a failed login attempt."""
+    email = email.lower().strip()
+    attempts, first_time = _failed_logins[email]
+    
+    if attempts == 0:
+        # First failed attempt
+        _failed_logins[email] = (1, time.time())
+    else:
+        # Subsequent failed attempt
+        _failed_logins[email] = (attempts + 1, first_time)
+
+
+def _clear_failed_logins(email: str) -> None:
+    """Clear failed login attempts on successful login."""
+    email = email.lower().strip()
+    if email in _failed_logins:
+        del _failed_logins[email]
 
 
 # ── Request / Response schemas ──────────────────────────────────────────
@@ -127,13 +173,20 @@ async def login(
     db: AsyncSession = Depends(get_db_session),
 ):
     """Log in with email and password."""
+    # AUTH-003: Check brute force lockout before attempting login
+    _check_brute_force(request.email)
+    
     try:
         user, access_token, refresh_token = await AuthService.login(
             db=db,
             email=request.email,
             password=request.password,
         )
+        # Clear failed attempts on successful login
+        _clear_failed_logins(request.email)
     except ValueError as e:
+        # Record failed attempt
+        _record_failed_login(request.email)
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=str(e))
 
     return {
@@ -183,9 +236,10 @@ async def request_password_reset(
 
     # Never expose reset code in API response (BUG-008 fix).
     # In production: send via email. For dev: check server logs.
+    # AUTH-004: Use DEBUG level to avoid exposing codes in production logs
     if code is not None:
         import logging
-        logging.getLogger("auth").info(f"[DEV] Password reset code for {request.email}: {code}")
+        logging.getLogger("auth").debug(f"[DEV] Password reset code for {request.email}: {code}")
     return {"success": True, "message": "If an account exists, a reset code has been sent."}
 
 

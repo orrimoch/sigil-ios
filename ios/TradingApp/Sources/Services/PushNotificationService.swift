@@ -11,7 +11,13 @@ final class PushNotificationService {
     static let shared = PushNotificationService()
 
     private(set) var deviceToken: String?
-    private let baseURL = "http://127.0.0.1:8000/api/v1"
+    
+    // IOS-001: Use HTTPS consistently
+    #if DEBUG
+    private let baseURL = "https://127.0.0.1:8000/api/v1"
+    #else
+    private let baseURL = "https://api.sigil.app/api/v1"
+    #endif
 
     private init() {}
 

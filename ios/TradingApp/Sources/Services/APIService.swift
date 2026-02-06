@@ -1,12 +1,127 @@
 import Foundation
 
+// MARK: - IOS-002: Certificate Pinning Delegate
+
+/// URLSession delegate for certificate pinning
+/// Validates server certificates against pinned public key hashes
+final class CertificatePinningDelegate: NSObject, URLSessionDelegate {
+    
+    // IOS-002: Pinned certificate hashes (SHA-256 of SPKI)
+    // TODO: Replace with actual production certificate hash before deployment
+    // Generate with: openssl s_client -connect api.sigil.app:443 | openssl x509 -pubkey -noout | openssl pkey -pubin -outform der | openssl dgst -sha256 -binary | base64
+    #if DEBUG
+    // Development: Allow any certificate in debug (mkcert generates local certs)
+    private static let pinnedHashes: Set<String> = []
+    #else
+    // Production: Pin to Sigil API certificate
+    // IMPORTANT: Add backup pins for certificate rotation
+    private static let pinnedHashes: Set<String> = [
+        "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",  // Primary cert hash (replace before production)
+        "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB=",  // Backup cert hash (replace before production)
+    ]
+    #endif
+    
+    func urlSession(
+        _ session: URLSession,
+        didReceive challenge: URLAuthenticationChallenge,
+        completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void
+    ) {
+        guard challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust,
+              let serverTrust = challenge.protectionSpace.serverTrust else {
+            completionHandler(.cancelAuthenticationChallenge, nil)
+            return
+        }
+        
+        #if DEBUG
+        // In debug mode, accept all certificates (for local dev with mkcert)
+        if Self.pinnedHashes.isEmpty {
+            let credential = URLCredential(trust: serverTrust)
+            completionHandler(.useCredential, credential)
+            return
+        }
+        #endif
+        
+        // Validate certificate chain
+        var error: CFError?
+        let isValid = SecTrustEvaluateWithError(serverTrust, &error)
+        
+        guard isValid else {
+            #if DEBUG
+            print("[Security] Certificate validation failed: \(error?.localizedDescription ?? "unknown")")
+            #endif
+            completionHandler(.cancelAuthenticationChallenge, nil)
+            return
+        }
+        
+        // Check pinned hashes
+        if !Self.pinnedHashes.isEmpty {
+            let certificateCount = SecTrustGetCertificateCount(serverTrust)
+            var matchFound = false
+            
+            for i in 0..<certificateCount {
+                if let certificate = SecTrustGetCertificateAtIndex(serverTrust, i) {
+                    let publicKeyHash = Self.sha256Hash(of: certificate)
+                    if Self.pinnedHashes.contains(publicKeyHash) {
+                        matchFound = true
+                        break
+                    }
+                }
+            }
+            
+            guard matchFound else {
+                #if DEBUG
+                print("[Security] Certificate pinning failed - no matching hash")
+                #endif
+                completionHandler(.cancelAuthenticationChallenge, nil)
+                return
+            }
+        }
+        
+        let credential = URLCredential(trust: serverTrust)
+        completionHandler(.useCredential, credential)
+    }
+    
+    /// Compute SHA-256 hash of certificate's public key (SPKI)
+    private static func sha256Hash(of certificate: SecCertificate) -> String {
+        guard let publicKey = SecCertificateCopyKey(certificate) else {
+            return ""
+        }
+        
+        guard let publicKeyData = SecKeyCopyExternalRepresentation(publicKey, nil) as Data? else {
+            return ""
+        }
+        
+        var hash = [UInt8](repeating: 0, count: Int(CC_SHA256_DIGEST_LENGTH))
+        publicKeyData.withUnsafeBytes { buffer in
+            _ = CC_SHA256(buffer.baseAddress, CC_LONG(buffer.count), &hash)
+        }
+        
+        return Data(hash).base64EncodedString()
+    }
+}
+
+// Import for CC_SHA256
+import CommonCrypto
+
 /// API Service for communicating with Sigil backend
 /// Includes disk caching for persistence across app launches
 class APIService: ObservableObject {
     static let shared = APIService()
     
-    // Backend URL - localhost works in iOS Simulator (shared network stack)
-    private let baseURL = "http://127.0.0.1:8000/api/v1"
+    // IOS-001: HTTPS enforcement with environment-based configuration
+    #if DEBUG
+    // Development: Use HTTPS localhost (requires mkcert or similar local CA)
+    private let baseURL = "https://127.0.0.1:8000/api/v1"
+    #else
+    // Production: Use secure production endpoint
+    private let baseURL = "https://api.sigil.app/api/v1"
+    #endif
+    
+    // IOS-002: URLSession with certificate pinning
+    private let pinningDelegate = CertificatePinningDelegate()
+    private lazy var pinnedSession: URLSession = {
+        URLSession(configuration: .default, delegate: pinningDelegate, delegateQueue: nil)
+    }()
     
     private let decoder: JSONDecoder = {
         let decoder = JSONDecoder()
@@ -275,8 +390,9 @@ class APIService: ObservableObject {
     }
 
     /// Perform a data task, and if we get a 401 try refreshing the token once.
+    /// IOS-002: Uses pinned URLSession for certificate validation
     private func dataWithAutoRefresh(for request: URLRequest) async throws -> (Data, URLResponse) {
-        let (data, response) = try await URLSession.shared.data(for: request)
+        let (data, response) = try await pinnedSession.data(for: request)
 
         guard let http = response as? HTTPURLResponse else {
             return (data, response)
@@ -288,7 +404,7 @@ class APIService: ObservableObject {
                 let newToken = try await AuthService.shared.refreshToken()
                 var retry = request
                 retry.setValue("Bearer \(newToken)", forHTTPHeaderField: "Authorization")
-                return try await URLSession.shared.data(for: retry)
+                return try await pinnedSession.data(for: retry)
             } catch {
                 // Refresh failed — force logout
                 await MainActor.run { AuthService.shared.logout() }

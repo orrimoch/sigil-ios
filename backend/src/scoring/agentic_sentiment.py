@@ -20,6 +20,63 @@ from .sentiment_config import get_sentiment_config, SentimentModel
 from .claude_client import get_claude_client, ClaudeClient
 
 
+# LLM-001: Sanitize headlines to prevent prompt injection
+def sanitize_headline(text: str) -> str:
+    """
+    Sanitize headline text before sending to LLM.
+    
+    Removes:
+    - Control characters
+    - Excessive whitespace
+    - Potential prompt injection patterns
+    - HTML/script tags
+    
+    Args:
+        text: Raw headline text
+    
+    Returns:
+        Sanitized text safe for LLM processing
+    """
+    if not text:
+        return ""
+    
+    # Remove control characters except newlines and tabs
+    import unicodedata
+    text = ''.join(
+        char for char in text
+        if unicodedata.category(char) != 'Cc' or char in '\n\t'
+    )
+    
+    # Remove HTML tags
+    text = re.sub(r'<[^>]+>', '', text)
+    
+    # Remove potential prompt injection patterns
+    # Block system prompt overrides
+    injection_patterns = [
+        r'(?i)ignore\s+(previous|above|all)\s+(instructions?|prompts?)',
+        r'(?i)disregard\s+(previous|above|all)',
+        r'(?i)system\s*:\s*',
+        r'(?i)assistant\s*:\s*',
+        r'(?i)human\s*:\s*',
+        r'(?i)user\s*:\s*',
+        r'```',  # Code blocks
+        r'\[\[.*?\]\]',  # Double brackets
+    ]
+    
+    for pattern in injection_patterns:
+        text = re.sub(pattern, '', text)
+    
+    # Normalize whitespace
+    text = ' '.join(text.split())
+    
+    # Limit length to prevent token stuffing
+    max_len = 500
+    if len(text) > max_len:
+        text = text[:max_len] + "..."
+    
+    return text.strip()
+
+
 class SentimentLabel(str, Enum):
     """7-level sentiment classification for nuanced analysis."""
     VERY_BULLISH = "very_bullish"      # 85-100
@@ -472,8 +529,9 @@ Respond with JSON only, matching this structure:
         for i, article in enumerate(articles, 1):
             published = article.get("published", "Unknown date")
             source = article.get("source", "Unknown")
-            title = article.get("title", "No title")
-            summary = article.get("summary", "")
+            # LLM-001: Sanitize all text content before LLM processing
+            title = sanitize_headline(article.get("title", "No title"))
+            summary = sanitize_headline(article.get("summary", ""))
             
             # Truncate summary to save tokens
             if len(summary) > 300:

@@ -13,7 +13,8 @@ from .price_alerts import (
     create_price_alert, get_user_alerts, delete_alert,
     check_alerts_against_price, send_alert_notification
 )
-from auth.middleware import get_optional_user
+# AUTH-002: Use get_required_user for sensitive routes
+from auth.middleware import get_optional_user, get_required_user
 from db.models import ANONYMOUS_USER_ID
 
 ibkr_router = APIRouter(prefix="/api/v1/ibkr", tags=["ibkr"])
@@ -131,10 +132,11 @@ async def disconnect_ibkr(user=Depends(get_optional_user)):
         raise HTTPException(status_code=500, detail=str(e))
 
 
+# AUTH-002: Require authentication for order submission
 @ibkr_router.post("/orders")
 async def submit_ibkr_order(
     request: IBKROrderRequest,
-    user=Depends(get_optional_user),
+    user=Depends(get_required_user),
 ):
     """
     Submit an order to IBKR.
@@ -195,8 +197,9 @@ async def submit_ibkr_order(
         raise HTTPException(status_code=500, detail=str(e))
 
 
+# AUTH-002: Require authentication for positions
 @ibkr_router.get("/positions")
-async def get_ibkr_positions(user=Depends(get_optional_user)):
+async def get_ibkr_positions(user=Depends(get_required_user)):
     """Get IBKR account positions."""
     try:
         service = get_ibkr_service()
@@ -214,8 +217,9 @@ async def get_ibkr_positions(user=Depends(get_optional_user)):
         raise HTTPException(status_code=500, detail=str(e))
 
 
+# AUTH-002: Require authentication for account summary
 @ibkr_router.get("/account")
-async def get_ibkr_account_summary(user=Depends(get_optional_user)):
+async def get_ibkr_account_summary(user=Depends(get_required_user)):
     """Get IBKR account summary (balances, buying power, PnL)."""
     try:
         service = get_ibkr_service()
@@ -322,8 +326,9 @@ async def get_ibkr_quote(ticker: str, user=Depends(get_optional_user)):
         raise HTTPException(status_code=500, detail=str(e))
 
 
+# AUTH-002: Require authentication for order cancellation
 @ibkr_router.delete("/orders/{order_id}")
-async def cancel_ibkr_order(order_id: str, user=Depends(get_optional_user)):
+async def cancel_ibkr_order(order_id: str, user=Depends(get_required_user)):
     """Cancel an open IBKR order."""
     try:
         service = get_ibkr_service()

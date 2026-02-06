@@ -23,6 +23,10 @@ CACHE_DIR = Path(__file__).parent.parent.parent / "data"
 PRICES_DIR = CACHE_DIR / "prices"
 
 
+# API-003: Default request timeout for all external calls
+REQUEST_TIMEOUT = 30
+
+
 def fetch_price_history(
     ticker: str,
     period: str = "5y",
@@ -41,7 +45,8 @@ def fetch_price_history(
     """
     try:
         stock = yf.Ticker(ticker)
-        df = stock.history(period=period, interval=interval)
+        # API-003: yfinance uses requests internally, timeout applied via session
+        df = stock.history(period=period, interval=interval, timeout=REQUEST_TIMEOUT)
         
         if df.empty:
             logger.warning(f"No price data for {ticker}")
@@ -125,7 +130,8 @@ def fetch_latest_price(ticker: str) -> Optional[Dict]:
         import requests
         headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)'}
         url = f'https://query1.finance.yahoo.com/v8/finance/chart/{ticker}?range=1d&interval=1m'
-        resp = requests.get(url, headers=headers, timeout=10)
+        # API-003: Use consistent timeout
+        resp = requests.get(url, headers=headers, timeout=REQUEST_TIMEOUT)
         if resp.status_code == 200:
             meta = resp.json()['chart']['result'][0]['meta']
             price = meta.get('regularMarketPrice', 0)

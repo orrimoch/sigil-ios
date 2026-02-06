@@ -203,7 +203,7 @@ class AuthService:
         Returns the code, or None if user not found (don't reveal this to caller).
         Code expires in 15 minutes.
         """
-        import random
+        # AUTH-001: Use cryptographically secure random number generator
         email = email.lower().strip()
         result = await db.execute(select(User).where(User.email == email))
         user = result.scalars().first()
@@ -211,7 +211,7 @@ class AuthService:
         if user is None or not user.is_active:
             return None
 
-        code = f"{random.randint(0, 999999):06d}"
+        code = f"{secrets.randbelow(1000000):06d}"
         user.reset_code = code
         user.reset_code_expires = datetime.now(timezone.utc) + timedelta(minutes=15)
         db.add(user)

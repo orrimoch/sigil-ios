@@ -7,7 +7,7 @@ Features:
 - F6.x: Trading (Orders, Portfolio, Paper/Live modes)
 """
 
-from fastapi import FastAPI, HTTPException, Query, BackgroundTasks, Depends
+from fastapi import FastAPI, HTTPException, Query, BackgroundTasks, Depends, Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from typing import List, Optional, Dict
@@ -16,8 +16,14 @@ from datetime import datetime, timedelta
 import os
 import sys
 import logging
+import re
 from pathlib import Path
 from contextlib import asynccontextmanager
+
+# API-001: Rate limiting imports
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.util import get_remote_address
+from slowapi.errors import RateLimitExceeded
 
 logger = logging.getLogger(__name__)
 
@@ -178,6 +184,9 @@ async def lifespan(app: FastAPI):
         pass
 
 
+# API-001: Initialize rate limiter
+limiter = Limiter(key_func=get_remote_address)
+
 # Initialize FastAPI
 app = FastAPI(
     title="Sigil API",
@@ -185,6 +194,10 @@ app = FastAPI(
     version="1.0.0",
     lifespan=lifespan,
 )
+
+# API-001: Register rate limit exception handler
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 # BUG-021 fix: Consistent error response format
 from fastapi.responses import JSONResponse
@@ -204,8 +217,15 @@ async def validation_exception_handler(request, exc):
         content={"success": False, "error": "Validation error", "details": str(exc)},
     )
 
-# CORS — restrict origins (BUG-011 fix)
-_cors_origins = os.environ.get("CORS_ORIGINS", "http://localhost:3000,http://127.0.0.1:8000").split(",")
+# API-002: CORS lock down — strict by default, configurable via env
+# Only allow specific origins, no wildcards in production
+_cors_origins_env = os.environ.get("CORS_ORIGINS", "")
+if _cors_origins_env:
+    _cors_origins = [o.strip() for o in _cors_origins_env.split(",") if o.strip()]
+else:
+    # Strict default for development - only localhost
+    _cors_origins = ["http://localhost:3000", "http://127.0.0.1:8000", "https://127.0.0.1:8000"]
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=_cors_origins,
@@ -919,10 +939,29 @@ async def get_scheduler_history(
     return {"success": True, "data": scheduler_instance.get_history(limit)}
 
 
+# ========== Helper Functions ==========
+
+# API-004: Ticker symbol validation
+TICKER_PATTERN = re.compile(r'^[A-Z]{1,5}$')
+
+def validate_ticker(ticker: str) -> str:
+    """Validate and normalize ticker symbol. Raises HTTPException if invalid."""
+    normalized = ticker.upper().strip()
+    if not TICKER_PATTERN.match(normalized):
+        raise HTTPException(
+            status_code=400,
+            detail=f"Invalid ticker symbol: {ticker}. Must be 1-5 uppercase letters."
+        )
+    return normalized
+
+
 # ========== Scores Endpoints (F2.x) ==========
 
+# API-001: Rate limit scores endpoint (60/minute)
 @app.get("/api/v1/scores")
+@limiter.limit("60/minute")
 async def get_scores(
+    request: Request,
     signal: Optional[str] = Query(None, description="Filter by signal: BUY, HOLD, SELL"),
     sector: Optional[str] = Query(None, description="Filter by sector"),
     limit: int = Query(50, ge=1, le=1000, description="Number of results"),

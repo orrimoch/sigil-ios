@@ -4,6 +4,9 @@ uvicorn>=0.27.0
 pydantic>=2.5.0
 python-dotenv>=1.0.0
 
+# API-001: Rate limiting
+slowapi>=0.1.9
+
 # Data
 pandas>=2.1.0
 yfinance>=0.2.36
