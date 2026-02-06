@@ -27,6 +27,9 @@ struct TradeView: View {
                     
                     // F6.4: Order history
                     OrderHistorySection(viewModel: viewModel)
+                    
+                    // REC-178: Extra bottom padding to ensure Preview Order button is visible
+                    Spacer().frame(height: 20)
                 }
                 .padding()
             }
@@ -218,30 +221,64 @@ struct SelectedStockCard: View {
                 
                 Spacer()
                 
-                // Current price
-                if viewModel.priceLoading {
-                    ProgressView()
-                } else if let price = viewModel.currentPrice {
-                    Text(price.asCurrency)
-                        .font(.title2.bold().monospacedDigit())
-                        .foregroundColor(.Text.primary)
+                // REC-178: Price with daily change
+                VStack(alignment: .trailing, spacing: 2) {
+                    if viewModel.priceLoading {
+                        ProgressView()
+                    } else if let price = viewModel.currentPrice {
+                        Text(price.asCurrency)
+                            .font(.title2.bold().monospacedDigit())
+                            .foregroundColor(.Text.primary)
+                        
+                        // Daily change (mock for now, would come from API)
+                        if let change = viewModel.dailyChange, let changePercent = viewModel.dailyChangePercent {
+                            HStack(spacing: 2) {
+                                Image(systemName: change >= 0 ? "arrow.up" : "arrow.down")
+                                    .font(.caption2)
+                                Text(String(format: "%.2f (%.2f%%)", abs(change), abs(changePercent)))
+                                    .font(.caption.monospacedDigit())
+                            }
+                            .foregroundColor(change >= 0 ? .Signal.positive : .Signal.negative)
+                        }
+                    }
                 }
                 
+                // REC-178: Larger X button (44pt touch target)
                 Button {
                     viewModel.clearSelection()
                 } label: {
                     Image(systemName: "xmark.circle.fill")
                         .foregroundColor(.Text.tertiary)
                         .font(.title2)
+                        .frame(width: 44, height: 44)
                 }
+                .contentShape(Rectangle())
             }
             
-            // Score badge
+            // Score badges with signal-appropriate colors
             if let stock = viewModel.selectedStock {
                 HStack(spacing: 16) {
                     ScoreBadge(label: "Score", value: "\(Int(stock.totalScore))", color: signalColor(for: stock.signal))
                     ScoreBadge(label: "Signal", value: stock.signal, color: signalColor(for: stock.signal))
                     ScoreBadge(label: "Rank", value: "#\(stock.rank)", color: .Text.secondary)
+                }
+            }
+            
+            // REC-178: View Chart link
+            if let ticker = viewModel.selectedStock?.ticker {
+                NavigationLink {
+                    StockDetailView(ticker: ticker)
+                } label: {
+                    HStack {
+                        Image(systemName: "chart.line.uptrend.xyaxis")
+                        Text("View Chart & Details")
+                            .font(.subheadline.bold())
+                    }
+                    .foregroundColor(.Accent.gold)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 10)
+                    .background(Color.Accent.gold.opacity(0.1))
+                    .cornerRadius(8)
                 }
             }
         }
@@ -348,14 +385,18 @@ struct OrderEntrySection: View {
                 }
                 
                 HStack(spacing: 12) {
+                    // REC-178: 44pt touch target for minus button
                     Button {
+                        UIImpactFeedbackGenerator(style: .light).impactOccurred()
                         let current = Int(viewModel.quantity) ?? 0
                         if current > 1 { viewModel.quantity = String(current - 1) }
                     } label: {
                         Image(systemName: "minus.circle.fill")
-                            .font(.title2)
+                            .font(.title)
                             .foregroundColor(.Text.primary)
+                            .frame(width: 44, height: 44)
                     }
+                    .contentShape(Rectangle())
                     .accessibilityLabel("Decrease quantity")
                     
                     TextField("0", text: $viewModel.quantity)
@@ -365,7 +406,9 @@ struct OrderEntrySection: View {
                         .multilineTextAlignment(.center)
                         .frame(minWidth: 60)
                     
+                    // REC-178: 44pt touch target for plus button
                     Button {
+                        UIImpactFeedbackGenerator(style: .light).impactOccurred()
                         let current = Int(viewModel.quantity) ?? 0
                         // REC-177: Cap at position size for sells
                         if viewModel.orderSide == .sell && viewModel.hasPosition {
@@ -376,16 +419,18 @@ struct OrderEntrySection: View {
                         }
                     } label: {
                         Image(systemName: "plus.circle.fill")
-                            .font(.title2)
+                            .font(.title)
                             .foregroundColor(.Text.primary)
+                            .frame(width: 44, height: 44)
                     }
+                    .contentShape(Rectangle())
                     .accessibilityLabel("Increase quantity")
                 }
                 .padding()
                 .background(Color.Background.secondary)
                 .cornerRadius(12)
                 
-                // REC-177: Quick quantity buttons
+                // REC-177: Quick quantity buttons (REC-178: 44pt min height)
                 HStack(spacing: 8) {
                     ForEach([10, 50, 100], id: \.self) { amount in
                         Button {
@@ -399,25 +444,25 @@ struct OrderEntrySection: View {
                             }
                         } label: {
                             Text("\(amount)")
-                                .font(.caption.bold())
+                                .font(.subheadline.bold())
                                 .frame(maxWidth: .infinity)
-                                .padding(.vertical, 8)
+                                .frame(minHeight: 44)
                                 .background(Color.Background.tertiary)
                                 .foregroundColor(.Text.secondary)
                                 .cornerRadius(8)
                         }
                     }
                     
-                    // REC-177: "All" button for sells
+                    // REC-177: "All" button for sells (REC-178: 44pt min height)
                     if viewModel.orderSide == .sell && viewModel.hasPosition {
                         Button {
                             UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                             viewModel.setQuantityToPosition()
                         } label: {
                             Text("All")
-                                .font(.caption.bold())
+                                .font(.subheadline.bold())
                                 .frame(maxWidth: .infinity)
-                                .padding(.vertical, 8)
+                                .frame(minHeight: 44)
                                 .background(Color.Signal.sell.opacity(0.2))
                                 .foregroundColor(.Signal.sell)
                                 .cornerRadius(8)

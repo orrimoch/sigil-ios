@@ -62,12 +62,32 @@ struct ContentView: View {
         }
         .onAppear {
             // Configure tab bar appearance (Institutional Dark theme)
+            // REC-178: Fix tab bar visual bug - ensure no green border/glow
             let appearance = UITabBarAppearance()
             appearance.configureWithOpaqueBackground()
             appearance.backgroundColor = UIColor(Color.Background.primary)
             
+            // Unselected item colors - use tertiary text color
+            let normalAttrs: [NSAttributedString.Key: Any] = [
+                .foregroundColor: UIColor(Color.Text.tertiary)
+            ]
+            appearance.stackedLayoutAppearance.normal.iconColor = UIColor(Color.Text.tertiary)
+            appearance.stackedLayoutAppearance.normal.titleTextAttributes = normalAttrs
+            
+            // Selected item colors - use gold accent
+            let selectedAttrs: [NSAttributedString.Key: Any] = [
+                .foregroundColor: UIColor(Color.Accent.gold)
+            ]
+            appearance.stackedLayoutAppearance.selected.iconColor = UIColor(Color.Accent.gold)
+            appearance.stackedLayoutAppearance.selected.titleTextAttributes = selectedAttrs
+            
+            // Remove any border/shadow
+            appearance.shadowColor = .clear
+            appearance.shadowImage = UIImage()
+            
             UITabBar.appearance().standardAppearance = appearance
             UITabBar.appearance().scrollEdgeAppearance = appearance
+            UITabBar.appearance().unselectedItemTintColor = UIColor(Color.Text.tertiary)
         }
     }
 }

@@ -17,6 +17,10 @@ class TradeViewModel: ObservableObject {
     @Published var currentPrice: Double?
     @Published var priceLoading = false
     
+    // REC-178: Daily price change
+    @Published var dailyChange: Double?
+    @Published var dailyChangePercent: Double?
+    
     // REC-177: Position tracking for sell validation
     @Published var currentPosition: Holding?
     @Published var allHoldings: [Holding] = []
@@ -160,6 +164,14 @@ class TradeViewModel: ObservableObject {
         searchText = stock.ticker
         searchResults = []
         
+        // REC-178: Auto-select order side based on signal
+        if stock.signal == "SELL" {
+            orderSide = .sell
+        } else if stock.signal == "BUY" {
+            orderSide = .buy
+        }
+        // For HOLD, keep current selection (user decides)
+        
         // Fetch current price, score, and position in parallel
         Task {
             await withTaskGroup(of: Void.self) { group in
@@ -264,6 +276,8 @@ class TradeViewModel: ObservableObject {
     func clearSelection() {
         selectedStock = nil
         currentPrice = nil
+        dailyChange = nil
+        dailyChangePercent = nil
         currentPosition = nil
         searchText = ""
         quantity = ""
@@ -279,9 +293,14 @@ class TradeViewModel: ObservableObject {
         do {
             let response = try await api.getPrice(ticker: ticker)
             currentPrice = response.price
+            // REC-178: Daily change data
+            dailyChange = response.change
+            dailyChangePercent = response.changePercent
         } catch {
             print("Price error: \(error)")
             currentPrice = nil
+            dailyChange = nil
+            dailyChangePercent = nil
         }
     }
     
