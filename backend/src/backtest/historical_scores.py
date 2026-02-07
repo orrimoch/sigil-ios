@@ -92,9 +92,13 @@ class HistoricalScoreGenerator:
         tickers: Optional[List[str]] = None,
         frequency: str = "weekly",  # "daily" or "weekly"
         progress_callback: Optional[callable] = None,
+        force_regenerate: bool = False,
     ) -> int:
         """
         Generate historical scores for a date range.
+        
+        Caching: Scores are cached by date. If scores exist for a date, we skip it
+        unless force_regenerate=True. This makes subsequent runs fast.
         
         Args:
             start_date: Start date YYYY-MM-DD
@@ -102,6 +106,7 @@ class HistoricalScoreGenerator:
             tickers: Optional list of tickers (defaults to full universe)
             frequency: "daily" or "weekly"
             progress_callback: Optional callback(current, total, message)
+            force_regenerate: If True, regenerate even if scores exist
             
         Returns:
             Number of scores generated
@@ -114,7 +119,40 @@ class HistoricalScoreGenerator:
             tickers = [s["ticker"] for s in universe]
         
         # Generate date list
-        dates = self._generate_date_list(start_date, end_date, frequency)
+        all_dates = self._generate_date_list(start_date, end_date, frequency)
+        
+        # Check which dates already have scores (caching)
+        if not force_regenerate:
+            existing_scores = self.data_store.get_historical_scores(start_date, end_date)
+            existing_dates = set(existing_scores.keys())
+            
+            # Filter out dates that already have sufficient scores
+            # Consider a date "complete" if it has >= 80% of requested tickers
+            min_tickers_threshold = int(len(tickers) * 0.8)
+            
+            dates_to_generate = []
+            skipped_count = 0
+            
+            for d in all_dates:
+                if d in existing_dates:
+                    existing_ticker_count = len(existing_scores[d])
+                    if existing_ticker_count >= min_tickers_threshold:
+                        skipped_count += 1
+                        continue
+                dates_to_generate.append(d)
+            
+            if skipped_count > 0:
+                logger.info(f"Skipping {skipped_count} dates with existing scores (cached)")
+            
+            dates = dates_to_generate
+        else:
+            dates = all_dates
+            logger.info("Force regenerate: ignoring cached scores")
+        
+        if not dates:
+            logger.info("All dates already have scores. Nothing to generate.")
+            return 0
+        
         logger.info(f"Generating scores for {len(tickers)} tickers across {len(dates)} dates")
         
         # Pre-fetch all price data

@@ -407,6 +407,61 @@ def cmd_monte_carlo(args):
     return 0
 
 
+def cmd_generate(args):
+    """Generate historical scores for backtesting."""
+    print(f"\n{'='*60}")
+    print("GENERATING HISTORICAL SCORES")
+    print(f"{'='*60}")
+    print(f"Period: {args.start} to {args.end}")
+    print(f"Frequency: {args.frequency}")
+    if args.tickers:
+        print(f"Tickers: {args.tickers}")
+    else:
+        print(f"Tickers: All universe (~677 stocks)")
+    if args.force:
+        print(f"Mode: Force regenerate (ignoring cache)")
+    else:
+        print(f"Mode: Incremental (skip cached dates)")
+    print(f"{'='*60}\n")
+    
+    generator = HistoricalScoreGenerator()
+    
+    def progress(current, total, ticker=""):
+        pct = current / total * 100 if total > 0 else 0
+        if ticker:
+            print(f"  [{current}/{total}] ({pct:.0f}%) {ticker}")
+        else:
+            print(f"  Progress: {current}/{total} ({pct:.0f}%)")
+    
+    try:
+        tickers = args.tickers.split(",") if args.tickers else None
+        
+        count = generator.generate_historical_scores(
+            start_date=args.start,
+            end_date=args.end,
+            tickers=tickers,
+            frequency=args.frequency,
+            progress_callback=progress,
+            force_regenerate=args.force,
+        )
+        
+        print(f"\n{'='*60}")
+        if count > 0:
+            print(f"✅ Generated {count:,} historical scores")
+        else:
+            print(f"✅ All dates already cached. Nothing to generate.")
+            print(f"   Use --force to regenerate.")
+        print(f"{'='*60}\n")
+        
+    except Exception as e:
+        print(f"Error: {e}")
+        import traceback
+        traceback.print_exc()
+        return 1
+    
+    return 0
+
+
 def cmd_import_scores(args):
     """Import existing scores into backtest storage."""
     print("Importing existing pipeline scores...\n")
@@ -519,6 +574,14 @@ Examples:
     mc_parser.add_argument("--seed", type=int, default=None, help="Random seed for reproducibility")
     mc_parser.add_argument("--no-save", action="store_true", help="Don't save results to file")
     
+    # generate (historical scores)
+    gen_parser = subparsers.add_parser("generate", help="Generate historical scores")
+    gen_parser.add_argument("--start", default=default_start, help="Start date (YYYY-MM-DD)")
+    gen_parser.add_argument("--end", default=default_end, help="End date (YYYY-MM-DD)")
+    gen_parser.add_argument("--frequency", default="weekly", choices=["daily", "weekly"], help="Score frequency")
+    gen_parser.add_argument("--tickers", default=None, help="Comma-separated tickers (default: all)")
+    gen_parser.add_argument("--force", action="store_true", help="Force regenerate, ignore cached scores")
+    
     # import-scores
     subparsers.add_parser("import-scores", help="Import existing pipeline scores")
     
@@ -541,6 +604,7 @@ Examples:
         "ic-decay": cmd_ic_decay,
         "walk-forward": cmd_walk_forward,
         "monte-carlo": cmd_monte_carlo,
+        "generate": cmd_generate,
         "import-scores": cmd_import_scores,
         "stats": cmd_stats,
     }
