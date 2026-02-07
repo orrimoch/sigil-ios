@@ -449,6 +449,7 @@ class TestCLIForceFlag:
             frequency="daily",
             tickers="AAPL",
             force=True,
+            no_sentiment=False,
         )
         
         # Mock the generator to verify force_regenerate is passed

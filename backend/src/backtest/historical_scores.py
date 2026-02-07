@@ -2,11 +2,11 @@
 F12.2 Historical Score Generator
 
 Generate point-in-time historical scores using only data available at that moment.
-No lookahead bias - fundamentals use 60-day lag, sentiment uses neutral (50) for historical.
+No lookahead bias - fundamentals use 60-day lag, sentiment from historical scoring.
 
 Approach (A + C from spec):
 A) Retroactive: Generate historical scores for fundamentals + technical + macro
-B) Use neutral (50) for historical sentiment (no news archive available)
+B) Use historical sentiment from HSI module (REC-210) if available, else neutral (50)
 C) Track live scores going forward for real validation
 """
 
@@ -38,6 +38,7 @@ from scoring.macro_score import calculate_macro_scores
 # Cache directory
 CACHE_DIR = Path(__file__).parent.parent.parent / "data"
 PRICES_DIR = CACHE_DIR / "prices"
+HISTORICAL_SENTIMENT_PATH = CACHE_DIR / "historical_sentiment.json"
 
 # Score weights (same as composite_score.py)
 WEIGHTS = {
@@ -95,6 +96,10 @@ class HistoricalScoreGenerator:
         self._universe_cache: Optional[List[Dict]] = None
         self.no_sentiment = no_sentiment
         self.weights = WEIGHTS_NO_SENTIMENT if no_sentiment else WEIGHTS
+        
+        # Historical sentiment cache (REC-210)
+        self._historical_sentiment: Optional[Dict[str, Dict[str, float]]] = None
+        self._load_historical_sentiment()
     
     def generate_historical_scores(
         self,
@@ -302,7 +307,10 @@ class HistoricalScoreGenerator:
             fundamental = self._calculate_fundamental_score_historical(ticker_upper, score_date)
             technical = self._calculate_technical_score_historical(available_prices)
             macro = self._calculate_macro_score_historical(ticker_upper, score_date, ticker_sectors.get(ticker_upper, "Unknown"))
-            sentiment = 50.0  # Neutral for historical (no news archive)
+            
+            # Get historical sentiment from HSI module (REC-210)
+            # Falls back to 50.0 if no data available or no_sentiment mode
+            sentiment = self._get_historical_sentiment(ticker_upper, score_date)
             
             # Calculate composite using instance weights
             # When no_sentiment=True, sentiment weight is 0 and others are redistributed
@@ -516,6 +524,81 @@ class HistoricalScoreGenerator:
         if self._universe_cache is None:
             self._universe_cache = get_universe()
         return self._universe_cache
+    
+    def _load_historical_sentiment(self) -> None:
+        """
+        Load historical sentiment from HSI module (REC-210).
+        
+        Format: {ticker: {week_start: score}}
+        """
+        if not HISTORICAL_SENTIMENT_PATH.exists():
+            logger.debug("No historical sentiment file found, using neutral (50)")
+            self._historical_sentiment = None
+            return
+        
+        try:
+            with open(HISTORICAL_SENTIMENT_PATH) as f:
+                data = json.load(f)
+            
+            # Build lookup: {ticker: {week_start: score}}
+            self._historical_sentiment = {}
+            
+            weekly_scores = data.get("weekly_scores", {})
+            for ticker, weeks in weekly_scores.items():
+                self._historical_sentiment[ticker.upper()] = {
+                    w["week_start"]: w["score"]
+                    for w in weeks
+                }
+            
+            ticker_count = len(self._historical_sentiment)
+            total_weeks = sum(len(weeks) for weeks in self._historical_sentiment.values())
+            logger.info(f"Loaded historical sentiment: {ticker_count} tickers, {total_weeks} weeks")
+            
+        except Exception as e:
+            logger.warning(f"Failed to load historical sentiment: {e}")
+            self._historical_sentiment = None
+    
+    def _get_historical_sentiment(self, ticker: str, score_date: str) -> float:
+        """
+        Get historical sentiment score for a ticker on a date.
+        
+        Uses weekly sentiment data - finds the week containing score_date.
+        
+        Args:
+            ticker: Stock symbol
+            score_date: Date string YYYY-MM-DD
+        
+        Returns:
+            Sentiment score 0-100, or 50.0 if not found
+        """
+        # If no_sentiment mode or no data, return neutral
+        if self.no_sentiment or self._historical_sentiment is None:
+            return 50.0
+        
+        ticker_upper = ticker.upper()
+        if ticker_upper not in self._historical_sentiment:
+            return 50.0
+        
+        ticker_weeks = self._historical_sentiment[ticker_upper]
+        
+        # Parse score_date and find the containing week
+        try:
+            score_dt = datetime.strptime(score_date, "%Y-%m-%d")
+            # Get Monday of that week
+            week_start = (score_dt - timedelta(days=score_dt.weekday())).strftime("%Y-%m-%d")
+            
+            if week_start in ticker_weeks:
+                return ticker_weeks[week_start]
+            
+            # Try previous week as fallback
+            prev_week = (score_dt - timedelta(days=score_dt.weekday() + 7)).strftime("%Y-%m-%d")
+            if prev_week in ticker_weeks:
+                return ticker_weeks[prev_week]
+            
+        except Exception:
+            pass
+        
+        return 50.0  # Default neutral
     
     def generate_from_existing_pipeline(self) -> int:
         """
