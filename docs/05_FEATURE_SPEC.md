@@ -84,7 +84,7 @@ This document defines all features with acceptance criteria, organized by module
 |---|---|
 | **Priority** | P0 |
 | **Description** | Score stocks 0-100 based on news sentiment |
-| **Method** | Keyword-based (MVP), FinBERT (Phase 6) |
+| **Method** | Claude Haiku Agentic Scoring (live pipeline) |
 | **Acceptance Criteria** | • Positive/negative/neutral classification<br>• Weighted by recency<br>• Config flag: `SENTIMENT_MODEL = "keyword"` |
 
 ### F2.3 Technical Score

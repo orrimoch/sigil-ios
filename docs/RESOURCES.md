@@ -31,8 +31,8 @@
 
 | Model | URL | Use Case |
 |-------|-----|----------|
-| FinBERT (ProsusAI) | https://huggingface.co/ProsusAI/finbert | Sentiment (Phase 6) |
-| DistilRoBERTa Financial | https://huggingface.co/mrm8488/distilroberta-finetuned-financial-news-sentiment-analysis | Faster sentiment |
+| Claude 3.5 Haiku | https://docs.anthropic.com/claude/docs/models-overview | Sentiment scoring (live + historical) |
+| ~~FinBERT (ProsusAI)~~ | ~~https://huggingface.co/ProsusAI/finbert~~ | Deprecated - using Claude agentic instead |
 
 ---
 

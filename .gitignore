@@ -22,3 +22,4 @@ backend/.env
 kaggle_credentials.txt
 IB_GATEWAY_SETUP.txt
 IB_paper_account.txt
+kaggle_sentiment/
