@@ -346,16 +346,19 @@ class HistoricalScoreGenerator:
             with open(fundamentals_path) as f:
                 all_fundamentals = json.load(f)
             
-            if ticker not in all_fundamentals:
+            # Handle nested structure: {"stocks": {"AAPL": {...}, ...}}
+            stocks = all_fundamentals.get("stocks", all_fundamentals)
+            
+            if ticker not in stocks:
                 return 50.0
             
-            fund_data = all_fundamentals[ticker]
+            fund_data = stocks[ticker]
             
             # Calculate a simple fundamental score
             pe_ratio = fund_data.get("pe_ratio", 0) or 0
             profit_margin = fund_data.get("profit_margin", 0) or 0
-            revenue_growth = fund_data.get("revenue_growth", 0) or 0
-            roe = fund_data.get("return_on_equity", 0) or 0
+            revenue_growth = fund_data.get("revenue_growth", fund_data.get("earnings_growth", 0)) or 0
+            roe = fund_data.get("roe", fund_data.get("return_on_equity", 0)) or 0
             
             # Normalize to 0-100 scale
             # PE: Lower is better (inverted)
