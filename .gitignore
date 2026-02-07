@@ -17,3 +17,8 @@ backend/data/.jwt_secret
 # OS
 .DS_Store
 backend/.env
+
+# Credentials / setup notes
+kaggle_credentials.txt
+IB_GATEWAY_SETUP.txt
+IB_paper_account.txt
