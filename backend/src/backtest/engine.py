@@ -211,9 +211,9 @@ class BacktestEngine:
             self.data_store.save_backtest_result(result)
             
             logger.info(f"Backtest {result.backtest_id} completed")
-            logger.info(f"Total Return: {result.total_return:.2%}")
-            logger.info(f"Sharpe Ratio: {result.sharpe_ratio:.2f}")
-            logger.info(f"Max Drawdown: {result.max_drawdown:.2%}")
+            logger.info(f"Total Return: {result.total_return:.2%}" if result.total_return is not None else "Total Return: N/A")
+            logger.info(f"Sharpe Ratio: {result.sharpe_ratio:.2f}" if result.sharpe_ratio is not None else "Sharpe Ratio: N/A")
+            logger.info(f"Max Drawdown: {result.max_drawdown:.2%}" if result.max_drawdown is not None else "Max Drawdown: N/A")
             
             return result
             
