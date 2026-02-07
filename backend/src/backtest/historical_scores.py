@@ -47,6 +47,15 @@ WEIGHTS = {
     "technical": 0.20,
 }
 
+# Weights for backtesting without sentiment data
+# Redistributes sentiment weight (25%) proportionally to other components
+WEIGHTS_NO_SENTIMENT = {
+    "fundamental": 0.47,  # 35% + (35/75 * 25%) = 47%
+    "sentiment": 0.00,    # Excluded
+    "macro": 0.26,        # 20% + (20/75 * 25%) = 26%
+    "technical": 0.27,    # 20% + (20/75 * 25%) = 27%
+}
+
 # Fundamental data lag (days) - earnings typically released 45-60 days after quarter end
 FUNDAMENTAL_LAG_DAYS = 60
 
@@ -80,10 +89,12 @@ class HistoricalScoreGenerator:
     5. Sentiment: Use neutral (50) for historical (no archive)
     """
     
-    def __init__(self, data_store: Optional[BacktestDataStore] = None):
+    def __init__(self, data_store: Optional[BacktestDataStore] = None, no_sentiment: bool = False):
         self.data_store = data_store or get_data_store()
         self._price_cache: Dict[str, pd.DataFrame] = {}
         self._universe_cache: Optional[List[Dict]] = None
+        self.no_sentiment = no_sentiment
+        self.weights = WEIGHTS_NO_SENTIMENT if no_sentiment else WEIGHTS
     
     def generate_historical_scores(
         self,
@@ -293,12 +304,13 @@ class HistoricalScoreGenerator:
             macro = self._calculate_macro_score_historical(ticker_upper, score_date, ticker_sectors.get(ticker_upper, "Unknown"))
             sentiment = 50.0  # Neutral for historical (no news archive)
             
-            # Calculate composite
+            # Calculate composite using instance weights
+            # When no_sentiment=True, sentiment weight is 0 and others are redistributed
             composite = (
-                fundamental * WEIGHTS["fundamental"] +
-                sentiment * WEIGHTS["sentiment"] +
-                technical * WEIGHTS["technical"] +
-                macro * WEIGHTS["macro"]
+                fundamental * self.weights["fundamental"] +
+                sentiment * self.weights["sentiment"] +
+                technical * self.weights["technical"] +
+                macro * self.weights["macro"]
             )
             
             # Determine signal
