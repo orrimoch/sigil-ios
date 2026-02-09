@@ -25,6 +25,16 @@ from typing import Optional, Dict, Any, List
 from dataclasses import dataclass
 import logging
 from enum import Enum
+from pathlib import Path
+
+# Load .env file (override=True to prefer .env over system env)
+try:
+    from dotenv import load_dotenv
+    env_path = Path(__file__).parent.parent.parent / ".env"
+    if env_path.exists():
+        load_dotenv(env_path, override=True)
+except ImportError:
+    pass
 
 logger = logging.getLogger(__name__)
 
