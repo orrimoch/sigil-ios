@@ -36,6 +36,12 @@ class PortfolioVaRResponse(BaseModel):
     data: Dict[str, Any]
 
 
+class PatternMemoryResponse(BaseModel):
+    """Pattern memory response."""
+    success: bool = True
+    data: Dict[str, Any]
+
+
 # ========== Regime Detection Endpoints (REC-243, REC-244) ==========
 
 @router.get("/market/regime", response_model=RegimeResponse)
@@ -215,3 +221,167 @@ async def get_correlated_portfolio_var(
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Portfolio VaR calculation failed: {e}")
+
+
+# ========== Pattern Memory Endpoints (REC-246) ==========
+
+@router.get("/risk/patterns/stats", response_model=PatternMemoryResponse)
+async def get_pattern_stats():
+    """
+    Get pattern memory statistics.
+    
+    Returns counts of stored events and trades.
+    """
+    try:
+        from .pattern_memory import get_pattern_memory
+        
+        memory = get_pattern_memory()
+        stats = memory.get_stats()
+        
+        return {
+            "success": True,
+            "data": stats,
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to get pattern stats: {e}")
+
+
+@router.get("/risk/patterns/events")
+async def get_risk_events(
+    event_type: Optional[str] = Query(None, description="Filter by event type"),
+    ticker: Optional[str] = Query(None, description="Filter by ticker"),
+    limit: int = Query(50, ge=1, le=500),
+):
+    """
+    Get recent risk events from pattern memory.
+    """
+    try:
+        from .pattern_memory import get_pattern_memory, EventType
+        
+        memory = get_pattern_memory()
+        
+        et = EventType(event_type) if event_type else None
+        events = memory.get_events(
+            event_type=et,
+            ticker=ticker.upper() if ticker else None,
+            limit=limit,
+        )
+        
+        return {
+            "success": True,
+            "count": len(events),
+            "data": [e.to_dict() for e in events],
+        }
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=f"Invalid event type: {e}")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to get events: {e}")
+
+
+@router.get("/risk/patterns/trades")
+async def get_trade_outcomes(
+    ticker: Optional[str] = Query(None),
+    outcome: Optional[str] = Query(None, description="profit/loss/stopped_out"),
+    exit_reason: Optional[str] = Query(None),
+    limit: int = Query(50, ge=1, le=500),
+):
+    """
+    Get trade outcomes from pattern memory.
+    """
+    try:
+        from .pattern_memory import get_pattern_memory, OutcomeType
+        
+        memory = get_pattern_memory()
+        
+        ot = OutcomeType(outcome) if outcome else None
+        trades = memory.get_trade_outcomes(
+            ticker=ticker.upper() if ticker else None,
+            outcome=ot,
+            exit_reason=exit_reason,
+            limit=limit,
+        )
+        
+        return {
+            "success": True,
+            "count": len(trades),
+            "data": [t.to_dict() for t in trades],
+        }
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=f"Invalid outcome type: {e}")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to get trades: {e}")
+
+
+@router.get("/risk/patterns/analysis/stops")
+async def analyze_stop_effectiveness():
+    """
+    Analyze how effective stop-losses have been.
+    
+    Compares outcomes of stopped trades vs manual exits.
+    """
+    try:
+        from .pattern_memory import get_pattern_memory
+        
+        memory = get_pattern_memory()
+        analysis = memory.analyze_stop_effectiveness()
+        
+        return {
+            "success": True,
+            "data": analysis,
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Analysis failed: {e}")
+
+
+@router.get("/risk/patterns/analysis/regimes")
+async def analyze_regime_performance():
+    """
+    Analyze trade performance by market regime at entry.
+    
+    Shows win rate and average P&L for each regime.
+    """
+    try:
+        from .pattern_memory import get_pattern_memory
+        
+        memory = get_pattern_memory()
+        analysis = memory.analyze_regime_performance()
+        
+        return {
+            "success": True,
+            "data": analysis,
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Analysis failed: {e}")
+
+
+@router.get("/risk/patterns/similar/{ticker}")
+async def find_similar_situations(
+    ticker: str,
+    regime: str = Query("normal", description="Market regime"),
+    vix_min: float = Query(15, description="Min VIX"),
+    vix_max: float = Query(25, description="Max VIX"),
+    limit: int = Query(10, ge=1, le=50),
+):
+    """
+    Find similar past situations for pattern matching.
+    
+    Returns historical trades in similar market conditions.
+    """
+    try:
+        from .pattern_memory import get_pattern_memory
+        
+        memory = get_pattern_memory()
+        similar = memory.get_similar_situations(
+            ticker=ticker.upper(),
+            regime=regime,
+            vix_range=(vix_min, vix_max),
+            limit=limit,
+        )
+        
+        return {
+            "success": True,
+            "count": len(similar),
+            "data": similar,
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Search failed: {e}")
