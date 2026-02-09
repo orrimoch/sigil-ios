@@ -104,20 +104,22 @@ class TestHMMRegimeDetection:
 class TestSectorLimits:
     """Tests for sector concentration limits."""
     
-    @pytest.mark.asyncio
-    async def test_empty_portfolio(self):
+    def test_empty_portfolio(self):
         """Empty portfolio should return zero exposure."""
+        import asyncio
         from risk.sector_limits import analyze_sector_exposure
         
-        result = await analyze_sector_exposure(positions=[])
+        result = asyncio.get_event_loop().run_until_complete(
+            analyze_sector_exposure(positions=[])
+        )
         
         assert result["total_value"] == 0
         assert result["diversification_score"] == 100
         assert len(result["warnings"]) == 0
     
-    @pytest.mark.asyncio
-    async def test_sector_warning_triggered(self):
+    def test_sector_warning_triggered(self):
         """Should warn when sector exceeds threshold."""
+        import asyncio
         from risk.sector_limits import analyze_sector_exposure
         
         positions = [
@@ -126,8 +128,9 @@ class TestSectorLimits:
             {"ticker": "JPM", "market_value": 30000, "sector": "Financials"},
         ]
         
-        # Mock get_sector_for_ticker to return known sectors
-        result = await analyze_sector_exposure(positions, warn_threshold=0.30)
+        result = asyncio.get_event_loop().run_until_complete(
+            analyze_sector_exposure(positions, warn_threshold=0.30)
+        )
         
         # Technology is 70%, should trigger warning
         assert result["total_value"] == 100000
@@ -330,12 +333,14 @@ class TestPortfolioVaR:
         expected = 0.01 + 0.005 + 0.005
         assert abs(var - expected) < 0.0001
     
-    @pytest.mark.asyncio
-    async def test_empty_portfolio_var(self):
+    def test_empty_portfolio_var(self):
         """Empty portfolio should return zero VaR."""
+        import asyncio
         from risk.portfolio_var import calculate_correlated_var
         
-        result = await calculate_correlated_var(positions=[])
+        result = asyncio.get_event_loop().run_until_complete(
+            calculate_correlated_var(positions=[])
+        )
         
         assert result["portfolio_value"] == 0
         assert result["var_95_daily"] == 0
