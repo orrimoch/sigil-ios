@@ -40,7 +40,7 @@ class VIXResponse(BaseModel):
 class TradeValidationRequest(BaseModel):
     """Trade validation request."""
     ticker: str
-    action: str = Field(description="BUY or SELL")
+    action: str = Field(description="BUY or SELL", pattern="^(BUY|SELL)$")
     quantity: float = Field(gt=0)
     price: float = Field(gt=0)
 
@@ -332,6 +332,73 @@ async def analyze_ticker_risk(
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+@risk_router.get("/var/{ticker}", response_model=RiskAnalysisResponse)
+async def get_position_var(
+    ticker: str,
+    position_value: float = Query(..., gt=0, description="Position value in dollars"),
+    lookback_days: int = Query(252, ge=30, le=504, description="Lookback period for volatility calculation"),
+):
+    """
+    Calculate Value-at-Risk for a single position (REC-228).
+    
+    Returns:
+    - ticker: Stock symbol
+    - position_value: Input position value
+    - var_95_daily: 95% daily VaR in dollars
+    - var_95_pct: 95% daily VaR as percentage
+    - volatility: Annualized volatility
+    - confidence: Confidence level (0.95)
+    """
+    try:
+        import yfinance as yf
+        import numpy as np
+        from scipy import stats
+        
+        # Fetch historical data
+        stock = yf.Ticker(ticker.upper())
+        hist = stock.history(period="2y")
+        
+        if len(hist) < 30:
+            raise HTTPException(status_code=400, detail=f"Insufficient price history for {ticker}")
+        
+        # Use requested lookback or max available
+        prices = hist['Close'].tail(lookback_days)
+        returns = prices.pct_change().dropna()
+        
+        if len(returns) < 20:
+            raise HTTPException(status_code=400, detail=f"Insufficient return data for {ticker}")
+        
+        # Calculate daily volatility
+        daily_vol = float(returns.std())
+        
+        # Annualized volatility
+        annualized_vol = daily_vol * np.sqrt(252)
+        
+        # 95% VaR (1.645 z-score for one-tailed 95%)
+        z_score = stats.norm.ppf(0.95)
+        var_95_pct = daily_vol * z_score * 100
+        var_95_daily = position_value * daily_vol * z_score
+        
+        return {
+            "success": True,
+            "data": {
+                "ticker": ticker.upper(),
+                "position_value": position_value,
+                "var_95_daily": round(var_95_daily, 2),
+                "var_95_pct": round(var_95_pct, 4),
+                "volatility_daily": round(daily_vol * 100, 4),
+                "volatility_annual": round(annualized_vol * 100, 2),
+                "lookback_days": len(returns),
+                "confidence": 0.95,
+            }
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"VaR calculation failed: {e}")
 
 
 @risk_router.get("/portfolio", response_model=PortfolioRiskResponse)

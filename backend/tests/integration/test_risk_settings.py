@@ -36,7 +36,17 @@ async def client(app):
 
 @pytest.fixture
 async def auth_headers(client):
-    """Get auth headers for authenticated requests."""
+    """Get auth headers for authenticated requests.
+    
+    When AUTH_REQUIRED=false (testing mode), returns empty headers
+    since endpoints accept anonymous requests.
+    """
+    import os
+    
+    # If AUTH_REQUIRED is false, we can proceed without token
+    if os.environ.get("AUTH_REQUIRED", "true").lower() in ("false", "0", "no"):
+        return {}
+    
     # First, register a test user
     register_response = await client.post(
         "/api/v1/auth/register",
@@ -97,7 +107,13 @@ class TestRiskSettingsGet:
     
     @pytest.mark.anyio
     async def test_get_settings_unauthorized(self, client):
-        """Should reject unauthenticated requests."""
+        """Should reject unauthenticated requests when AUTH_REQUIRED=true."""
+        import os
+        
+        # Skip this test when AUTH_REQUIRED is false (test mode)
+        if os.environ.get("AUTH_REQUIRED", "true").lower() in ("false", "0", "no"):
+            pytest.skip("AUTH_REQUIRED=false, skipping auth enforcement test")
+        
         response = await client.get("/api/v1/user/risk-settings")
         
         # Should be 401 or 403 depending on auth config
