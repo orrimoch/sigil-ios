@@ -377,6 +377,35 @@ class APIService: ObservableObject {
         return try decoder.decode(OrderResponse.self, from: data)
     }
     
+    // MARK: - Trade Validation (Phase 2 Risk)
+    
+    /// Validate a trade against risk settings before submission
+    /// Returns warnings if trade exceeds position limits or other risk rules
+    func validateTrade(ticker: String, action: String, quantity: Double, price: Double) async throws -> TradeValidationResponse {
+        let url = URL(string: "\(baseURL)/trade/validate")!
+        let body: [String: Any] = [
+            "ticker": ticker,
+            "action": action,
+            "quantity": quantity,
+            "price": price
+        ]
+        
+        var request = authorizedRequest(url: url, method: "POST")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = try JSONSerialization.data(withJSONObject: body)
+        
+        let (data, response) = try await dataWithAutoRefresh(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse, 200...299 ~= httpResponse.statusCode else {
+            if let httpResponse = response as? HTTPURLResponse {
+                throw APIError.httpError(statusCode: httpResponse.statusCode)
+            }
+            throw APIError.invalidResponse
+        }
+        
+        return try decoder.decode(TradeValidationResponse.self, from: data)
+    }
+    
     // MARK: - Risk Settings (REC-215)
     
     func getRiskSettings() async throws -> RiskSettingsAPIResponse {
@@ -819,6 +848,29 @@ struct OrderData: Codable, Identifiable {
     let filledAt: String?
     let rejectReason: String?
     let isPaper: Bool
+}
+
+// MARK: - Trade Validation Response (Phase 2 Risk)
+
+struct TradeValidationResponse: Codable {
+    let valid: Bool
+    let warnings: [TradeWarning]
+    let riskMetrics: TradeRiskMetrics
+}
+
+struct TradeWarning: Codable {
+    let type: String
+    let message: String
+    let severity: String?
+}
+
+struct TradeRiskMetrics: Codable {
+    let validationSkipped: Bool?
+    let reason: String?
+    let quantity: Double?
+    let price: Double?
+    let positionPct: Double?
+    let limitPct: Double?
 }
 
 // MARK: - Score Summary Response (F9.1)

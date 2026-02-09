@@ -31,6 +31,12 @@ final class NotificationService: ObservableObject {
         do {
             let granted = try await center.requestAuthorization(options: [.alert, .badge, .sound])
             await refreshAuthorizationStatus()
+            
+            // Register categories immediately when authorization is granted
+            if granted {
+                registerCategories()
+            }
+            
             return granted
         } catch {
             print("[NotificationService] Authorization error: \(error)")

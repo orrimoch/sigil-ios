@@ -39,6 +39,10 @@ class TradeViewModel: ObservableObject {
     @Published var lastOrder: OrderData?
     @Published var orderError: String?
     
+    // Risk validation (Phase 2)
+    @Published var riskWarnings: [String] = []
+    @Published var showRiskWarning = false
+    
     // Order history
     @Published var todaysOrders: [OrderData] = []
     @Published var ordersLoading = false
@@ -336,6 +340,29 @@ class TradeViewModel: ObservableObject {
         
         isSubmitting = true
         orderError = nil
+        riskWarnings = []
+        
+        // Phase 2: Validate trade against risk settings
+        do {
+            let validation = try await api.validateTrade(
+                ticker: stock.ticker,
+                action: orderSide.rawValue,
+                quantity: quantityValue,
+                price: executionPrice
+            )
+            
+            // Collect warnings
+            let warnings = validation.warnings.map { $0.message }
+            if !warnings.isEmpty {
+                riskWarnings = warnings
+                // Show warning but don't block - user can still proceed
+                print("[Trade] Risk warnings: \(warnings)")
+            }
+        } catch {
+            // Validation failed - log but don't block trade
+            // This could be auth issue or endpoint not available
+            print("[Trade] Validation skipped: \(error.localizedDescription)")
+        }
         
         do {
             if shouldUseIBKR {
