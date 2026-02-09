@@ -3,78 +3,16 @@ Integration tests for Risk Settings API
 
 REC-222: Phase 1 Integration Tests
 Tests for risk settings CRUD and IBKR integration.
+
+Fixtures (app, client, auth_headers) are provided by conftest.py
 """
 
 import pytest
 import sys
 from pathlib import Path
-from httpx import AsyncClient, ASGITransport
 
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent / "src"))
-
-
-@pytest.fixture
-def anyio_backend():
-    return "asyncio"
-
-
-@pytest.fixture
-async def app():
-    """Create test app instance."""
-    from api.main import app
-    return app
-
-
-@pytest.fixture
-async def client(app):
-    """Create async test client."""
-    transport = ASGITransport(app=app)
-    async with AsyncClient(transport=transport, base_url="http://test") as client:
-        yield client
-
-
-@pytest.fixture
-async def auth_headers(client):
-    """Get auth headers for authenticated requests.
-    
-    When AUTH_REQUIRED=false (testing mode), returns empty headers
-    since endpoints accept anonymous requests.
-    """
-    import os
-    
-    # If AUTH_REQUIRED is false, we can proceed without token
-    if os.environ.get("AUTH_REQUIRED", "true").lower() in ("false", "0", "no"):
-        return {}
-    
-    # First, register a test user
-    register_response = await client.post(
-        "/api/v1/auth/register",
-        json={
-            "email": "risktest@example.com",
-            "password": "TestPassword123!",
-            "full_name": "Risk Test User",
-        }
-    )
-    
-    # If user already exists, login instead
-    if register_response.status_code != 200:
-        login_response = await client.post(
-            "/api/v1/auth/login",
-            json={
-                "email": "risktest@example.com",
-                "password": "TestPassword123!",
-            }
-        )
-        data = login_response.json()
-    else:
-        data = register_response.json()
-    
-    token = data.get("data", {}).get("access_token") or data.get("access_token")
-    if not token:
-        pytest.skip("Could not get auth token")
-    
-    return {"Authorization": f"Bearer {token}"}
 
 
 class TestRiskSettingsGet:

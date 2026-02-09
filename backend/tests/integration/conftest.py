@@ -16,7 +16,7 @@ from httpx import AsyncClient, ASGITransport
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent / "src"))
 
-# Set AUTH_REQUIRED=false for testing (before importing app)
+# Set AUTH_REQUIRED=false for testing BEFORE any imports
 os.environ["AUTH_REQUIRED"] = "false"
 
 
@@ -28,16 +28,15 @@ def anyio_backend():
 @pytest.fixture
 async def app():
     """Create test app instance with auth disabled."""
-    # Force reimport with AUTH_REQUIRED=false
+    # Ensure AUTH_REQUIRED is false
     os.environ["AUTH_REQUIRED"] = "false"
     
-    # Clear cached modules to pick up new env var
-    for mod in list(sys.modules.keys()):
-        if mod.startswith("api.") or mod.startswith("auth."):
-            if mod in sys.modules:
-                del sys.modules[mod]
-    
     from api.main import app
+    import api.main
+    
+    # Patch AUTH_REQUIRED directly in the module
+    api.main.AUTH_REQUIRED = False
+    
     return app
 
 
