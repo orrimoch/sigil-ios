@@ -23,6 +23,7 @@
 		31B8C9399A531ED2130CC12E /* PositionSizeCalculatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807A448A452F62FFB4A99CA0 /* PositionSizeCalculatorView.swift */; };
 		34E2839B04A7BAB4876C0792 /* PortfolioViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0ABB835E6047A7E2BB1614B /* PortfolioViewModel.swift */; };
 		38034E8BF33BF5524EA0CF11 /* ScoresView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34192B20D8BEE8DB24F4E7C4 /* ScoresView.swift */; };
+		3BCC52CC7882F5888E472ECD /* RiskBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9893484F5A61E83D62A7B245 /* RiskBadge.swift */; };
 		4054CA088D67C54E0551E951 /* IBKRService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF085E6CC961498A611E900 /* IBKRService.swift */; };
 		4B1DEE45FEB7433AFCDB26A4 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6FCBAFE203360F593CE742 /* OnboardingView.swift */; };
 		4CE995F7845C0008E8A7C18A /* DailyLossLimitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E830BBC082F0BAD4F5C37E /* DailyLossLimitView.swift */; };
@@ -112,6 +113,7 @@
 		8A01C93F22EB770A2F5BD339 /* MarketScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketScannerView.swift; sourceTree = "<group>"; };
 		9171BBA83EA1E22DDAB01A07 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		9291D4262615E65F92A438CF /* PortfolioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioView.swift; sourceTree = "<group>"; };
+		9893484F5A61E83D62A7B245 /* RiskBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskBadge.swift; sourceTree = "<group>"; };
 		A5A23A6C7F5387898AC32FC7 /* MarketHoursService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketHoursService.swift; sourceTree = "<group>"; };
 		A93D2F1A56BA122694B64C62 /* PinSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinSetupView.swift; sourceTree = "<group>"; };
 		A9A93A10D107BD4ABBEB74CD /* IBKRServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IBKRServiceTests.swift; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 				F63E321BB29F49C1FE4E4493 /* IBKRChartView.swift */,
 				C1603D8590A5145A36697586 /* MarginPreviewView.swift */,
 				152A8E905E3C0C3B9E41407E /* MarketDepthView.swift */,
+				9893484F5A61E83D62A7B245 /* RiskBadge.swift */,
 				393AA609B7D5BC6944A39533 /* VolumeSpikeView.swift */,
 			);
 			path = Components;
@@ -504,6 +507,7 @@
 				31B8C9399A531ED2130CC12E /* PositionSizeCalculatorView.swift in Sources */,
 				C547B4CB000AC8D73C7E0FC4 /* PushNotificationService.swift in Sources */,
 				B2656E746925AA7022B94B45 /* RegisterView.swift in Sources */,
+				3BCC52CC7882F5888E472ECD /* RiskBadge.swift in Sources */,
 				5E7108F8CEC1E2F948F8CE76 /* RiskSettingsService.swift in Sources */,
 				887DB6027F86C4CE28CD5C0B /* RiskSettingsView.swift in Sources */,
 				7D51261053A2EB61C1833CAE /* ScoresBadgeService.swift in Sources */,

@@ -194,3 +194,204 @@ def send_order_fill_notification(
         data=data,
         user_id=user_id
     )
+
+
+# ==================== REC-229: Risk Push Notifications ====================
+
+def send_stop_loss_triggered_notification(
+    user_id: str,
+    ticker: str,
+    trigger_price: float,
+    loss_pct: float,
+    stop_type: str = "hard",
+    quantity: Optional[float] = None,
+) -> dict:
+    """
+    Send push notification when a stop-loss is triggered (REC-229).
+    
+    Args:
+        user_id: User ID
+        ticker: Stock symbol
+        trigger_price: Price at which stop triggered
+        loss_pct: Percentage loss (negative number)
+        stop_type: "hard" or "trailing"
+        quantity: Number of shares (optional)
+        
+    Returns:
+        Notification result dict
+    """
+    stop_emoji = "🛑" if stop_type == "hard" else "📉"
+    stop_label = "Stop-loss" if stop_type == "hard" else "Trailing stop"
+    
+    title = f"⚠️ {stop_label} Triggered"
+    body = f"{stop_emoji} {ticker} hit {stop_label.lower()} at ${trigger_price:.2f} ({loss_pct:.1f}%)"
+    
+    if quantity:
+        body += f" — {int(quantity)} shares sold"
+    
+    data = {
+        "type": "stop_loss_triggered",
+        "ticker": ticker,
+        "trigger_price": trigger_price,
+        "loss_pct": loss_pct,
+        "stop_type": stop_type,
+        "quantity": quantity,
+    }
+    
+    return broadcast_push(
+        title=title,
+        body=body,
+        data=data,
+        user_id=user_id
+    )
+
+
+def send_approaching_stop_notification(
+    user_id: str,
+    ticker: str,
+    current_price: float,
+    stop_price: float,
+    distance_pct: float,
+    stop_type: str = "hard",
+) -> dict:
+    """
+    Send push notification when price approaches stop-loss (within 2%).
+    
+    Args:
+        user_id: User ID
+        ticker: Stock symbol
+        current_price: Current market price
+        stop_price: Stop-loss price
+        distance_pct: Distance from stop as percentage (e.g., 1.5 = 1.5% away)
+        stop_type: "hard" or "trailing"
+        
+    Returns:
+        Notification result dict
+    """
+    # Choose emoji based on urgency
+    if distance_pct <= 1.0:
+        urgency_emoji = "🔴"
+        urgency_text = "very close to"
+    elif distance_pct <= 2.0:
+        urgency_emoji = "🟡"
+        urgency_text = "approaching"
+    else:
+        urgency_emoji = "🟢"
+        urgency_text = "near"
+    
+    stop_label = "stop-loss" if stop_type == "hard" else "trailing stop"
+    
+    title = f"📉 {ticker} {urgency_text.title()} Stop"
+    body = f"{urgency_emoji} {ticker} at ${current_price:.2f} — {distance_pct:.1f}% from {stop_label} (${stop_price:.2f})"
+    
+    data = {
+        "type": "approaching_stop",
+        "ticker": ticker,
+        "current_price": current_price,
+        "stop_price": stop_price,
+        "distance_pct": distance_pct,
+        "stop_type": stop_type,
+    }
+    
+    return broadcast_push(
+        title=title,
+        body=body,
+        data=data,
+        user_id=user_id
+    )
+
+
+def send_risk_alert_notification(
+    user_id: str,
+    ticker: str,
+    risk_score: int,
+    risk_level: str,
+    reason: str,
+) -> dict:
+    """
+    Send push notification for elevated risk detected by Claude analyzer.
+    
+    Args:
+        user_id: User ID
+        ticker: Stock symbol
+        risk_score: Risk score 0-100
+        risk_level: "low", "medium", "high", "critical"
+        reason: Brief explanation
+        
+    Returns:
+        Notification result dict
+    """
+    # Choose emoji based on risk level
+    level_emojis = {
+        "low": "🟢",
+        "medium": "🟡",
+        "high": "🟠",
+        "critical": "🔴",
+    }
+    emoji = level_emojis.get(risk_level, "⚠️")
+    
+    title = f"{emoji} Risk Alert: {ticker}"
+    body = f"Risk score: {risk_score}/100 ({risk_level}). {reason}"
+    
+    data = {
+        "type": "risk_alert",
+        "ticker": ticker,
+        "risk_score": risk_score,
+        "risk_level": risk_level,
+        "reason": reason,
+    }
+    
+    return broadcast_push(
+        title=title,
+        body=body,
+        data=data,
+        user_id=user_id
+    )
+
+
+def send_vix_alert_notification(
+    user_id: str,
+    vix_value: float,
+    vix_regime: str,
+    change_pct: float,
+) -> dict:
+    """
+    Send push notification for significant VIX changes.
+    
+    Args:
+        user_id: User ID
+        vix_value: Current VIX value
+        vix_regime: "low", "normal", "elevated", "high", "extreme"
+        change_pct: Percentage change from previous
+        
+    Returns:
+        Notification result dict
+    """
+    # Choose emoji based on regime
+    regime_emojis = {
+        "low": "🟢",
+        "normal": "🔵",
+        "elevated": "🟡",
+        "high": "🟠",
+        "extreme": "🔴",
+    }
+    emoji = regime_emojis.get(vix_regime, "📊")
+    
+    direction = "↑" if change_pct > 0 else "↓"
+    
+    title = f"{emoji} VIX Alert: {vix_regime.title()} Volatility"
+    body = f"VIX at {vix_value:.1f} ({direction}{abs(change_pct):.1f}%). Thresholds may be adjusted."
+    
+    data = {
+        "type": "vix_alert",
+        "vix_value": vix_value,
+        "vix_regime": vix_regime,
+        "change_pct": change_pct,
+    }
+    
+    return broadcast_push(
+        title=title,
+        body=body,
+        data=data,
+        user_id=user_id
+    )

@@ -83,6 +83,9 @@ from notifications.push_routes import router as push_router
 
 # Risk management imports
 from risk.routes import router as risk_router
+from risk.routes_p2 import market_router as risk_market_router
+from risk.routes_p2 import trade_router as risk_trade_router
+from risk.routes_p2 import risk_router as risk_analysis_router
 
 # Per-user trading service
 from trading.user_trading_service import UserTradingService
@@ -248,6 +251,11 @@ app.include_router(push_router, prefix="/api/v1")
 
 # Include risk management router
 app.include_router(risk_router)
+
+# Phase 2 risk routes (REC-225, REC-227, REC-232)
+app.include_router(risk_market_router)   # GET /api/v1/market/vix
+app.include_router(risk_trade_router)    # POST /api/v1/trade/validate
+app.include_router(risk_analysis_router) # GET /api/v1/risk/analyze/{ticker}
 
 
 # ========== Pydantic Models ==========
