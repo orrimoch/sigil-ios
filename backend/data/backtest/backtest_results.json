@@ -10823,5 +10823,3085 @@
       }
     ],
     "error_message": null
+  },
+  "bt_20260207_214123_692a4e": {
+    "backtest_id": "bt_20260207_214123_692a4e",
+    "status": "failed",
+    "parameters": {
+      "start_date": "2019-06-01",
+      "end_date": "2019-11-30",
+      "initial_capital": 100000,
+      "entry_threshold": 70,
+      "exit_threshold": 50,
+      "max_positions": 10,
+      "position_sizing": "equal_weight",
+      "rebalance_freq": "weekly",
+      "transaction_cost": 0.001,
+      "slippage": 0.001
+    },
+    "created_at": "2026-02-07T21:41:23.679414",
+    "completed_at": "2026-02-07T21:41:23.779248",
+    "total_return": null,
+    "cagr": null,
+    "volatility": null,
+    "sharpe_ratio": null,
+    "max_drawdown": null,
+    "win_rate": null,
+    "total_trades": null,
+    "benchmark_return": null,
+    "alpha": null,
+    "beta": null,
+    "score_ic": null,
+    "hit_rate": null,
+    "equity_curve": [],
+    "error_message": "No historical scores available for the date range"
+  },
+  "bt_20260207_214139_f1c617": {
+    "backtest_id": "bt_20260207_214139_f1c617",
+    "status": "failed",
+    "parameters": {
+      "start_date": "2019-06-01",
+      "end_date": "2019-11-30",
+      "initial_capital": 100000,
+      "entry_threshold": 70,
+      "exit_threshold": 50,
+      "max_positions": 10,
+      "position_sizing": "equal_weight",
+      "rebalance_freq": "weekly",
+      "transaction_cost": 0.001,
+      "slippage": 0.001
+    },
+    "created_at": "2026-02-07T21:41:39.000116",
+    "completed_at": "2026-02-07T21:41:39.087039",
+    "total_return": null,
+    "cagr": null,
+    "volatility": null,
+    "sharpe_ratio": null,
+    "max_drawdown": null,
+    "win_rate": null,
+    "total_trades": null,
+    "benchmark_return": null,
+    "alpha": null,
+    "beta": null,
+    "score_ic": null,
+    "hit_rate": null,
+    "equity_curve": [],
+    "error_message": "No historical scores available for the date range"
+  },
+  "bt_20260207_214629_24b197": {
+    "backtest_id": "bt_20260207_214629_24b197",
+    "status": "completed",
+    "parameters": {
+      "start_date": "2019-06-01",
+      "end_date": "2019-11-30",
+      "initial_capital": 100000,
+      "entry_threshold": 70,
+      "exit_threshold": 50,
+      "max_positions": 10,
+      "position_sizing": "equal_weight",
+      "rebalance_freq": "weekly",
+      "transaction_cost": 0.001,
+      "slippage": 0.001
+    },
+    "created_at": "2026-02-07T21:46:29.483579",
+    "completed_at": "2026-02-07T21:46:33.605769",
+    "total_return": 0.0,
+    "cagr": 0.0,
+    "volatility": null,
+    "sharpe_ratio": null,
+    "max_drawdown": 0.0,
+    "win_rate": null,
+    "total_trades": 0,
+    "benchmark_return": 0.1556153750367293,
+    "alpha": -0.1556153750367293,
+    "beta": null,
+    "score_ic": null,
+    "hit_rate": null,
+    "equity_curve": [
+      {
+        "date": "2019-06-03",
+        "nav": 100000,
+        "cash": 100000,
+        "positions_value": 0,
+        "daily_return": 0.0,
+        "cumulative_return": 0.0,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-06-07",
+        "nav": 100000,
+        "cash": 100000,
+        "positions_value": 0,
+        "daily_return": 0.0,
+        "cumulative_return": 0.0,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-06-14",
+        "nav": 100000,
+        "cash": 100000,
+        "positions_value": 0,
+        "daily_return": 0.0,
+        "cumulative_return": 0.0,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-06-21",
+        "nav": 100000,
+        "cash": 100000,
+        "positions_value": 0,
+        "daily_return": 0.0,
+        "cumulative_return": 0.0,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-06-28",
+        "nav": 100000,
+        "cash": 100000,
+        "positions_value": 0,
+        "daily_return": 0.0,
+        "cumulative_return": 0.0,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-07-05",
+        "nav": 100000,
+        "cash": 100000,
+        "positions_value": 0,
+        "daily_return": 0.0,
+        "cumulative_return": 0.0,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-07-12",
+        "nav": 100000,
+        "cash": 100000,
+        "positions_value": 0,
+        "daily_return": 0.0,
+        "cumulative_return": 0.0,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-07-19",
+        "nav": 100000,
+        "cash": 100000,
+        "positions_value": 0,
+        "daily_return": 0.0,
+        "cumulative_return": 0.0,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-07-26",
+        "nav": 100000,
+        "cash": 100000,
+        "positions_value": 0,
+        "daily_return": 0.0,
+        "cumulative_return": 0.0,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-08-02",
+        "nav": 100000,
+        "cash": 100000,
+        "positions_value": 0,
+        "daily_return": 0.0,
+        "cumulative_return": 0.0,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-08-09",
+        "nav": 100000,
+        "cash": 100000,
+        "positions_value": 0,
+        "daily_return": 0.0,
+        "cumulative_return": 0.0,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-08-16",
+        "nav": 100000,
+        "cash": 100000,
+        "positions_value": 0,
+        "daily_return": 0.0,
+        "cumulative_return": 0.0,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-08-23",
+        "nav": 100000,
+        "cash": 100000,
+        "positions_value": 0,
+        "daily_return": 0.0,
+        "cumulative_return": 0.0,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-08-30",
+        "nav": 100000,
+        "cash": 100000,
+        "positions_value": 0,
+        "daily_return": 0.0,
+        "cumulative_return": 0.0,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-09-06",
+        "nav": 100000,
+        "cash": 100000,
+        "positions_value": 0,
+        "daily_return": 0.0,
+        "cumulative_return": 0.0,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-09-13",
+        "nav": 100000,
+        "cash": 100000,
+        "positions_value": 0,
+        "daily_return": 0.0,
+        "cumulative_return": 0.0,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-09-20",
+        "nav": 100000,
+        "cash": 100000,
+        "positions_value": 0,
+        "daily_return": 0.0,
+        "cumulative_return": 0.0,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-09-27",
+        "nav": 100000,
+        "cash": 100000,
+        "positions_value": 0,
+        "daily_return": 0.0,
+        "cumulative_return": 0.0,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-10-04",
+        "nav": 100000,
+        "cash": 100000,
+        "positions_value": 0,
+        "daily_return": 0.0,
+        "cumulative_return": 0.0,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-10-11",
+        "nav": 100000,
+        "cash": 100000,
+        "positions_value": 0,
+        "daily_return": 0.0,
+        "cumulative_return": 0.0,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-10-18",
+        "nav": 100000,
+        "cash": 100000,
+        "positions_value": 0,
+        "daily_return": 0.0,
+        "cumulative_return": 0.0,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-10-25",
+        "nav": 100000,
+        "cash": 100000,
+        "positions_value": 0,
+        "daily_return": 0.0,
+        "cumulative_return": 0.0,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-11-01",
+        "nav": 100000,
+        "cash": 100000,
+        "positions_value": 0,
+        "daily_return": 0.0,
+        "cumulative_return": 0.0,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-11-08",
+        "nav": 100000,
+        "cash": 100000,
+        "positions_value": 0,
+        "daily_return": 0.0,
+        "cumulative_return": 0.0,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-11-15",
+        "nav": 100000,
+        "cash": 100000,
+        "positions_value": 0,
+        "daily_return": 0.0,
+        "cumulative_return": 0.0,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-11-22",
+        "nav": 100000,
+        "cash": 100000,
+        "positions_value": 0,
+        "daily_return": 0.0,
+        "cumulative_return": 0.0,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-11-29",
+        "nav": 100000,
+        "cash": 100000,
+        "positions_value": 0,
+        "daily_return": 0.0,
+        "cumulative_return": 0.0,
+        "drawdown": 0.0
+      }
+    ],
+    "error_message": null
+  },
+  "bt_20260207_214730_1c71da": {
+    "backtest_id": "bt_20260207_214730_1c71da",
+    "status": "completed",
+    "parameters": {
+      "start_date": "2019-06-01",
+      "end_date": "2019-11-30",
+      "initial_capital": 100000,
+      "entry_threshold": 70,
+      "exit_threshold": 50,
+      "max_positions": 10,
+      "position_sizing": "equal_weight",
+      "rebalance_freq": "weekly",
+      "transaction_cost": 0.001,
+      "slippage": 0.001
+    },
+    "created_at": "2026-02-07T21:47:30.804941",
+    "completed_at": "2026-02-07T21:50:01.866938",
+    "total_return": 0.2085446063080807,
+    "cagr": 0.4624814286465364,
+    "volatility": 0.41150047955020086,
+    "sharpe_ratio": 4.420014045479271,
+    "max_drawdown": -0.06256196183471951,
+    "win_rate": 0.5,
+    "total_trades": 10,
+    "benchmark_return": 0.15561475431268246,
+    "alpha": 0.052929851995398236,
+    "beta": null,
+    "score_ic": null,
+    "hit_rate": null,
+    "equity_curve": [
+      {
+        "date": "2019-06-03",
+        "nav": 99960.01727013214,
+        "cash": 59977.287402286616,
+        "positions_value": 39982.729867845526,
+        "daily_return": -0.0003998272986785742,
+        "cumulative_return": -0.0003998272986786011,
+        "drawdown": -0.0003998272986785742
+      },
+      {
+        "date": "2019-06-07",
+        "nav": 100572.95927839297,
+        "cash": 94.79490223904213,
+        "positions_value": 100478.16437615393,
+        "daily_return": 0.006131871772334843,
+        "cumulative_return": 0.0057295927839295935,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-06-14",
+        "nav": 101485.86494246502,
+        "cash": 94.79490223904213,
+        "positions_value": 101391.07004022598,
+        "daily_return": 0.00907704884714653,
+        "cumulative_return": 0.014858649424650316,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-06-21",
+        "nav": 105790.8287939169,
+        "cash": 94.79490223904213,
+        "positions_value": 105696.03389167786,
+        "daily_return": 0.042419344348027875,
+        "cumulative_return": 0.05790828793916902,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-06-28",
+        "nav": 107704.11804858227,
+        "cash": 94.79490223904213,
+        "positions_value": 107609.32314634323,
+        "daily_return": 0.01808558715796157,
+        "cumulative_return": 0.07704118048582265,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-07-05",
+        "nav": 108751.48724261303,
+        "cash": 94.79490223904213,
+        "positions_value": 108656.692340374,
+        "daily_return": 0.009724504624403713,
+        "cumulative_return": 0.08751487242613032,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-07-12",
+        "nav": 110066.41196957607,
+        "cash": 94.79490223904213,
+        "positions_value": 109971.61706733704,
+        "daily_return": 0.012091096501784712,
+        "cumulative_return": 0.10066411969576072,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-07-19",
+        "nav": 113042.17063084622,
+        "cash": 94.79490223904213,
+        "positions_value": 112947.37572860718,
+        "daily_return": 0.027036028594197143,
+        "cumulative_return": 0.13042170630846206,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-07-26",
+        "nav": 114074.80226222058,
+        "cash": 94.79490223904213,
+        "positions_value": 113980.00735998154,
+        "daily_return": 0.009134923945741903,
+        "cumulative_return": 0.14074802262220576,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-08-02",
+        "nav": 112013.41205302258,
+        "cash": 94.79490223904213,
+        "positions_value": 111918.61715078354,
+        "daily_return": -0.018070513104721738,
+        "cumulative_return": 0.12013412053022576,
+        "drawdown": -0.018070513104721738
+      },
+      {
+        "date": "2019-08-09",
+        "nav": 116814.86455670376,
+        "cash": 94.79490223904213,
+        "positions_value": 116720.06965446472,
+        "daily_return": 0.04286497853853761,
+        "cumulative_return": 0.16814864556703757,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-08-16",
+        "nav": 113596.99992457409,
+        "cash": 94.79490223904213,
+        "positions_value": 113502.20502233505,
+        "daily_return": -0.027546705158979723,
+        "cumulative_return": 0.13596999924574082,
+        "drawdown": -0.027546705158979723
+      },
+      {
+        "date": "2019-08-23",
+        "nav": 119552.40887156506,
+        "cash": 94.79490223904213,
+        "positions_value": 119457.61396932602,
+        "daily_return": 0.05242575905125336,
+        "cumulative_return": 0.19552408871565063,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-08-30",
+        "nav": 121987.37453881283,
+        "cash": 94.79490223904213,
+        "positions_value": 121892.57963657379,
+        "daily_return": 0.020367349267413352,
+        "cumulative_return": 0.21987374538812832,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-09-06",
+        "nav": 119992.2085394003,
+        "cash": 94.79490223904213,
+        "positions_value": 119897.41363716125,
+        "daily_return": -0.01635551225653875,
+        "cumulative_return": 0.1999220853940029,
+        "drawdown": -0.01635551225653875
+      },
+      {
+        "date": "2019-09-13",
+        "nav": 118290.98304668446,
+        "cash": 94.79490223904213,
+        "positions_value": 118196.18814444542,
+        "daily_return": -0.01417779965402692,
+        "cumulative_return": 0.18290983046684461,
+        "drawdown": -0.030301426734553483
+      },
+      {
+        "date": "2019-09-20",
+        "nav": 121499.23575583477,
+        "cash": 94.79490223904213,
+        "positions_value": 121404.44085359573,
+        "daily_return": 0.027121701304013614,
+        "cumulative_return": 0.21499235755834767,
+        "drawdown": -0.004001551675519882
+      },
+      {
+        "date": "2019-09-27",
+        "nav": 115797.95921746273,
+        "cash": 94.79490223904213,
+        "positions_value": 115703.1643152237,
+        "daily_return": -0.04692438189347415,
+        "cumulative_return": 0.15797959217462743,
+        "drawdown": -0.05073816323000546
+      },
+      {
+        "date": "2019-10-04",
+        "nav": 115497.30984059353,
+        "cash": 94.79490223904213,
+        "positions_value": 115402.51493835449,
+        "daily_return": -0.0025963270760635537,
+        "cumulative_return": 0.1549730984059352,
+        "drawdown": -0.05320275743908522
+      },
+      {
+        "date": "2019-10-11",
+        "nav": 114355.60506859799,
+        "cash": 94.79490223904213,
+        "positions_value": 114260.81016635895,
+        "daily_return": -0.009885120039343743,
+        "cumulative_return": 0.14355605068597987,
+        "drawdown": -0.06256196183471951
+      },
+      {
+        "date": "2019-10-18",
+        "nav": 117040.10607186337,
+        "cash": 94.79490223904213,
+        "positions_value": 116945.31116962433,
+        "daily_return": 0.023475027757975143,
+        "cumulative_return": 0.1704010607186337,
+        "drawdown": -0.040555577867407794
+      },
+      {
+        "date": "2019-10-25",
+        "nav": 122516.3308266737,
+        "cash": 94.79490223904213,
+        "positions_value": 122421.53592443466,
+        "daily_return": 0.046789301023427786,
+        "cumulative_return": 0.22516330826673703,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-11-01",
+        "nav": 125076.28190938015,
+        "cash": 94.79490223904213,
+        "positions_value": 124981.48700714111,
+        "daily_return": 0.02089477431647921,
+        "cumulative_return": 0.2507628190938016,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-11-08",
+        "nav": 118570.5309089758,
+        "cash": 94.79490223904213,
+        "positions_value": 118475.73600673676,
+        "daily_return": -0.05201426602301692,
+        "cumulative_return": 0.18570530908975802,
+        "drawdown": -0.05201426602301692
+      },
+      {
+        "date": "2019-11-15",
+        "nav": 120690.08267918606,
+        "cash": 94.79490223904213,
+        "positions_value": 120595.28777694702,
+        "daily_return": 0.017875873152979328,
+        "cumulative_return": 0.20690082679186061,
+        "drawdown": -0.035068193291610365
+      },
+      {
+        "date": "2019-11-22",
+        "nav": 118859.77733603497,
+        "cash": 94.79490223904213,
+        "positions_value": 118764.98243379593,
+        "daily_return": -0.015165333410337807,
+        "cumulative_return": 0.18859777336034966,
+        "drawdown": -0.049701705858582725
+      },
+      {
+        "date": "2019-11-29",
+        "nav": 120854.46063080807,
+        "cash": 94.79490223904213,
+        "positions_value": 120759.66572856903,
+        "daily_return": 0.0167818192115052,
+        "cumulative_return": 0.2085446063080807,
+        "drawdown": -0.033753971689299674
+      }
+    ],
+    "error_message": null
+  },
+  "bt_20260207_215339_cff98d": {
+    "backtest_id": "bt_20260207_215339_cff98d",
+    "status": "completed",
+    "parameters": {
+      "start_date": "2019-06-01",
+      "end_date": "2019-11-30",
+      "initial_capital": 100000,
+      "entry_threshold": 70,
+      "exit_threshold": 50,
+      "max_positions": 10,
+      "position_sizing": "equal_weight",
+      "rebalance_freq": "weekly",
+      "transaction_cost": 0.001,
+      "slippage": 0.001
+    },
+    "created_at": "2026-02-07T21:53:39.626418",
+    "completed_at": "2026-02-07T21:55:18.736082",
+    "total_return": 0.20854456454827108,
+    "cagr": 0.46248132723087787,
+    "volatility": 0.41150051802068677,
+    "sharpe_ratio": 4.42001288747586,
+    "max_drawdown": -0.06256196222920198,
+    "win_rate": 0.5,
+    "total_trades": 10,
+    "benchmark_return": 0.15561523284293366,
+    "alpha": 0.052929331705337423,
+    "beta": null,
+    "score_ic": null,
+    "hit_rate": null,
+    "equity_curve": [
+      {
+        "date": "2019-06-03",
+        "nav": 99960.0172687823,
+        "cash": 59977.2860510928,
+        "positions_value": 39982.73121768951,
+        "daily_return": -0.00039982731217693074,
+        "cumulative_return": -0.0003998273121769147,
+        "drawdown": -0.00039982731217693074
+      },
+      {
+        "date": "2019-06-07",
+        "nav": 100572.9561133068,
+        "cash": 94.78972871474798,
+        "positions_value": 100478.16638459206,
+        "daily_return": 0.006131840122399823,
+        "cumulative_return": 0.005729561133068106,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-06-14",
+        "nav": 101485.85925824814,
+        "cash": 94.78972871474798,
+        "positions_value": 101391.06952953339,
+        "daily_return": 0.009077024085011898,
+        "cumulative_return": 0.014858592582481345,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-06-21",
+        "nav": 105790.82820518188,
+        "cash": 94.78972871474798,
+        "positions_value": 105696.03847646713,
+        "daily_return": 0.04241939693271962,
+        "cumulative_return": 0.05790828205181886,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-06-28",
+        "nav": 107704.11065347366,
+        "cash": 94.78972871474798,
+        "positions_value": 107609.32092475891,
+        "daily_return": 0.018085522920578304,
+        "cumulative_return": 0.0770411065347365,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-07-05",
+        "nav": 108751.47594030075,
+        "cash": 94.78972871474798,
+        "positions_value": 108656.686211586,
+        "daily_return": 0.009724469014900202,
+        "cumulative_return": 0.08751475940300746,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-07-12",
+        "nav": 110066.40346582107,
+        "cash": 94.78972871474798,
+        "positions_value": 109971.61373710632,
+        "daily_return": 0.012091123491897763,
+        "cumulative_return": 0.10066403465821083,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-07-19",
+        "nav": 113042.15750796966,
+        "cash": 94.78972871474798,
+        "positions_value": 112947.36777925491,
+        "daily_return": 0.027035988716326606,
+        "cumulative_return": 0.13042157507969665,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-07-26",
+        "nav": 114074.79299886398,
+        "cash": 94.78972871474798,
+        "positions_value": 113980.00327014923,
+        "daily_return": 0.0091349591485063,
+        "cumulative_return": 0.14074792998863983,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-08-02",
+        "nav": 112013.40959270172,
+        "cash": 94.78972871474798,
+        "positions_value": 111918.61986398697,
+        "daily_return": -0.01807045493549824,
+        "cumulative_return": 0.12013409592701718,
+        "drawdown": -0.01807045493549824
+      },
+      {
+        "date": "2019-08-09",
+        "nav": 116814.85480125122,
+        "cash": 94.78972871474798,
+        "positions_value": 116720.06507253647,
+        "daily_return": 0.0428649143527396,
+        "cumulative_return": 0.16814854801251222,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-08-16",
+        "nav": 113596.99054343872,
+        "cash": 94.78972871474798,
+        "positions_value": 113502.20081472397,
+        "daily_return": -0.027546704255099867,
+        "cumulative_return": 0.13596990543438725,
+        "drawdown": -0.027546704255099867
+      },
+      {
+        "date": "2019-08-23",
+        "nav": 119552.39875943832,
+        "cash": 94.78972871474798,
+        "positions_value": 119457.60903072357,
+        "daily_return": 0.05242575694575549,
+        "cumulative_return": 0.19552398759438328,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-08-30",
+        "nav": 121987.36682613067,
+        "cash": 94.78972871474798,
+        "positions_value": 121892.57709741592,
+        "daily_return": 0.020367371060383,
+        "cumulative_return": 0.21987366826130672,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-09-06",
+        "nav": 119992.20579106979,
+        "cash": 94.78972871474798,
+        "positions_value": 119897.41606235504,
+        "daily_return": -0.0163554725949991,
+        "cumulative_return": 0.19992205791069795,
+        "drawdown": -0.0163554725949991
+      },
+      {
+        "date": "2019-09-13",
+        "nav": 118290.97635610275,
+        "cash": 94.78972871474798,
+        "positions_value": 118196.186627388,
+        "daily_return": -0.01417783283298599,
+        "cumulative_return": 0.1829097635610275,
+        "drawdown": -0.030301420271628708
+      },
+      {
+        "date": "2019-09-20",
+        "nav": 121499.23050029449,
+        "cash": 94.78972871474798,
+        "positions_value": 121404.44077157974,
+        "daily_return": 0.027121714969480213,
+        "cumulative_return": 0.21499230500294497,
+        "drawdown": -0.00400153178592604
+      },
+      {
+        "date": "2019-09-27",
+        "nav": 115797.94683082275,
+        "cash": 94.78972871474798,
+        "positions_value": 115703.157102108,
+        "daily_return": -0.04692444261577378,
+        "cumulative_return": 0.15797946830822762,
+        "drawdown": -0.05073820475303594
+      },
+      {
+        "date": "2019-10-04",
+        "nav": 115497.30708177261,
+        "cash": 94.78972871474798,
+        "positions_value": 115402.51735305786,
+        "daily_return": -0.002596244210524439,
+        "cumulative_return": 0.15497307081772616,
+        "drawdown": -0.05320272019321791
+      },
+      {
+        "date": "2019-10-11",
+        "nav": 114355.59779031448,
+        "cash": 94.78972871474798,
+        "positions_value": 114260.80806159973,
+        "daily_return": -0.009885159405922725,
+        "cumulative_return": 0.14355597790314478,
+        "drawdown": -0.06256196222920198
+      },
+      {
+        "date": "2019-10-18",
+        "nav": 117040.10494001083,
+        "cash": 94.78972871474798,
+        "positions_value": 116945.31521129608,
+        "daily_return": 0.023475083000473095,
+        "cumulative_return": 0.17040104940010825,
+        "drawdown": -0.04055552648473185
+      },
+      {
+        "date": "2019-10-25",
+        "nav": 122516.32803828888,
+        "cash": 94.78972871474798,
+        "positions_value": 122421.53830957413,
+        "daily_return": 0.04678928732236609,
+        "cumulative_return": 0.2251632803828887,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-11-01",
+        "nav": 125076.27407796554,
+        "cash": 94.78972871474798,
+        "positions_value": 124981.4843492508,
+        "daily_return": 0.020894733629925884,
+        "cumulative_return": 0.2507627407796553,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-11-08",
+        "nav": 118570.51967532806,
+        "cash": 94.78972871474798,
+        "positions_value": 118475.72994661331,
+        "daily_return": -0.0520142964810589,
+        "cumulative_return": 0.18570519675328057,
+        "drawdown": -0.0520142964810589
+      },
+      {
+        "date": "2019-11-15",
+        "nav": 120690.07723577194,
+        "cash": 94.78972871474798,
+        "positions_value": 120595.28750705719,
+        "daily_return": 0.017875923680251118,
+        "cumulative_return": 0.20690077235771942,
+        "drawdown": -0.03506817639498514
+      },
+      {
+        "date": "2019-11-22",
+        "nav": 118859.77425773315,
+        "cash": 94.78972871474798,
+        "positions_value": 118764.9845290184,
+        "daily_return": -0.01516531449775471,
+        "cumulative_return": 0.18859774257733153,
+        "drawdown": -0.049701670968847166
+      },
+      {
+        "date": "2019-11-29",
+        "nav": 120854.45645482712,
+        "cash": 94.78972871474798,
+        "positions_value": 120759.66672611237,
+        "daily_return": 0.016781810411054077,
+        "cumulative_return": 0.20854456454827108,
+        "drawdown": -0.03375394457710487
+      }
+    ],
+    "error_message": null
+  },
+  "bt_20260207_215537_fa2b2e": {
+    "backtest_id": "bt_20260207_215537_fa2b2e",
+    "status": "completed",
+    "parameters": {
+      "start_date": "2019-06-01",
+      "end_date": "2019-11-30",
+      "initial_capital": 100000,
+      "entry_threshold": 70,
+      "exit_threshold": 50,
+      "max_positions": 10,
+      "position_sizing": "equal_weight",
+      "rebalance_freq": "weekly",
+      "transaction_cost": 0.001,
+      "slippage": 0.001
+    },
+    "created_at": "2026-02-07T21:55:37.580792",
+    "completed_at": "2026-02-07T21:57:23.986117",
+    "total_return": 0.2085445709024638,
+    "cagr": 0.4624813426623331,
+    "volatility": 0.4115006812418688,
+    "sharpe_ratio": 4.42001141217749,
+    "max_drawdown": -0.06256208743850804,
+    "win_rate": 0.5,
+    "total_trades": 10,
+    "benchmark_return": 0.15561484455729668,
+    "alpha": 0.05292972634516713,
+    "beta": null,
+    "score_ic": null,
+    "hit_rate": null,
+    "equity_curve": [
+      {
+        "date": "2019-06-03",
+        "nav": 99960.01727115456,
+        "cash": 59977.2884257156,
+        "positions_value": 39982.72884543896,
+        "daily_return": -0.0003998272884543985,
+        "cumulative_return": -0.00039982728845444626,
+        "drawdown": -0.0003998272884543985
+      },
+      {
+        "date": "2019-06-07",
+        "nav": 100572.95807823578,
+        "cash": 94.7891486760891,
+        "positions_value": 100478.16892955969,
+        "daily_return": 0.006131859755671498,
+        "cumulative_return": 0.005729580782357857,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-06-14",
+        "nav": 101485.86508547037,
+        "cash": 94.7891486760891,
+        "positions_value": 101391.07593679428,
+        "daily_return": 0.009077062310571019,
+        "cumulative_return": 0.014858650854703725,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-06-21",
+        "nav": 105790.823898184,
+        "cash": 94.7891486760891,
+        "positions_value": 105696.0347495079,
+        "daily_return": 0.04241929463859849,
+        "cumulative_return": 0.05790823898183994,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-06-28",
+        "nav": 107704.1066983816,
+        "cash": 94.7891486760891,
+        "positions_value": 107609.3175497055,
+        "daily_return": 0.018085526983313765,
+        "cumulative_return": 0.07704106698381596,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-07-05",
+        "nav": 108751.47257600992,
+        "cash": 94.7891486760891,
+        "positions_value": 108656.68342733383,
+        "daily_return": 0.009724474857411026,
+        "cumulative_return": 0.08751472576009922,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-07-12",
+        "nav": 110066.40469061106,
+        "cash": 94.7891486760891,
+        "positions_value": 109971.61554193497,
+        "daily_return": 0.012091166063816623,
+        "cumulative_return": 0.10066404690611064,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-07-19",
+        "nav": 113042.15787969797,
+        "cash": 94.7891486760891,
+        "positions_value": 112947.36873102188,
+        "daily_return": 0.027035980665049864,
+        "cumulative_return": 0.1304215787969798,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-07-26",
+        "nav": 114074.79457031458,
+        "cash": 94.7891486760891,
+        "positions_value": 113980.00542163849,
+        "daily_return": 0.009134969731518776,
+        "cumulative_return": 0.14074794570314575,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-08-02",
+        "nav": 112013.40410743922,
+        "cash": 94.7891486760891,
+        "positions_value": 111918.61495876312,
+        "daily_return": -0.01807051654697257,
+        "cumulative_return": 0.12013404107439207,
+        "drawdown": -0.01807051654697257
+      },
+      {
+        "date": "2019-08-09",
+        "nav": 116814.8580330488,
+        "cash": 94.7891486760891,
+        "positions_value": 116720.06888437271,
+        "daily_return": 0.042864994273401485,
+        "cumulative_return": 0.16814858033048807,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-08-16",
+        "nav": 113596.98483453959,
+        "cash": 94.7891486760891,
+        "positions_value": 113502.1956858635,
+        "daily_return": -0.02754678003031796,
+        "cumulative_return": 0.13596984834539594,
+        "drawdown": -0.02754678003031796
+      },
+      {
+        "date": "2019-08-23",
+        "nav": 119552.40327964991,
+        "cash": 94.7891486760891,
+        "positions_value": 119457.61413097382,
+        "daily_return": 0.0524258496278288,
+        "cumulative_return": 0.1955240327964991,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-08-30",
+        "nav": 121987.37095104426,
+        "cash": 94.7891486760891,
+        "positions_value": 121892.58180236816,
+        "daily_return": 0.02036736698382061,
+        "cumulative_return": 0.2198737095104426,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-09-06",
+        "nav": 119992.20796285837,
+        "cash": 94.7891486760891,
+        "positions_value": 119897.41881418228,
+        "daily_return": -0.01635548805282948,
+        "cumulative_return": 0.19992207962858366,
+        "drawdown": -0.01635548805282948
+      },
+      {
+        "date": "2019-09-13",
+        "nav": 118290.9736214754,
+        "cash": 94.7891486760891,
+        "positions_value": 118196.1844727993,
+        "daily_return": -0.014177873465830129,
+        "cumulative_return": 0.18290973621475404,
+        "drawdown": -0.0303014754785747
+      },
+      {
+        "date": "2019-09-20",
+        "nav": 121499.2351182577,
+        "cash": 94.7891486760891,
+        "positions_value": 121404.4459695816,
+        "daily_return": 0.02712177775329302,
+        "cumulative_return": 0.21499235118257687,
+        "drawdown": -0.004001527608808438
+      },
+      {
+        "date": "2019-09-27",
+        "nav": 115797.95428501337,
+        "cash": 94.7891486760891,
+        "positions_value": 115703.16513633728,
+        "daily_return": -0.04692441748867925,
+        "cumulative_return": 0.15797954285013383,
+        "drawdown": -0.050738175745379484
+      },
+      {
+        "date": "2019-10-04",
+        "nav": 115497.31057487696,
+        "cash": 94.7891486760891,
+        "positions_value": 115402.52142620087,
+        "daily_return": -0.00259627825027409,
+        "cumulative_return": 0.15497310574876955,
+        "drawdown": -0.05320272357350726
+      },
+      {
+        "date": "2019-10-11",
+        "nav": 114355.58638321131,
+        "cash": 94.7891486760891,
+        "positions_value": 114260.79723453522,
+        "daily_return": -0.009885288116085345,
+        "cumulative_return": 0.14355586383211305,
+        "drawdown": -0.06256208743850804
+      },
+      {
+        "date": "2019-10-18",
+        "nav": 117040.11160312861,
+        "cash": 94.7891486760891,
+        "positions_value": 116945.32245445251,
+        "daily_return": 0.023475243359964232,
+        "cumulative_return": 0.17040111603128616,
+        "drawdown": -0.04055550430627015
+      },
+      {
+        "date": "2019-10-25",
+        "nav": 122516.32761608332,
+        "cash": 94.7891486760891,
+        "positions_value": 122421.53846740723,
+        "daily_return": 0.046789224121077534,
+        "cumulative_return": 0.2251632761608331,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-11-01",
+        "nav": 125076.27727447718,
+        "cash": 94.7891486760891,
+        "positions_value": 124981.48812580109,
+        "daily_return": 0.02089476323854326,
+        "cumulative_return": 0.2507627727447719,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-11-08",
+        "nav": 118570.52892528742,
+        "cash": 94.7891486760891,
+        "positions_value": 118475.73977661133,
+        "daily_return": -0.052014246753707215,
+        "cumulative_return": 0.1857052892528741,
+        "drawdown": -0.052014246753707215
+      },
+      {
+        "date": "2019-11-15",
+        "nav": 120690.07376848429,
+        "cash": 94.7891486760891,
+        "positions_value": 120595.2846198082,
+        "daily_return": 0.017875815031005025,
+        "cumulative_return": 0.20690073768484285,
+        "drawdown": -0.035068228776648516
+      },
+      {
+        "date": "2019-11-22",
+        "nav": 118859.77440296381,
+        "cash": 94.7891486760891,
+        "positions_value": 118764.98525428772,
+        "daily_return": -0.015165285001246077,
+        "cumulative_return": 0.18859774402963803,
+        "drawdown": -0.04970169409400782
+      },
+      {
+        "date": "2019-11-29",
+        "nav": 120854.45709024637,
+        "cash": 94.7891486760891,
+        "positions_value": 120759.66794157028,
+        "daily_return": 0.016781814514640572,
+        "cumulative_return": 0.2085445709024638,
+        "drawdown": -0.03375396419071629
+      }
+    ],
+    "error_message": null
+  },
+  "bt_20260207_223054_f26d96": {
+    "backtest_id": "bt_20260207_223054_f26d96",
+    "status": "completed",
+    "parameters": {
+      "start_date": "2019-06-01",
+      "end_date": "2019-11-30",
+      "initial_capital": 100000,
+      "entry_threshold": 70,
+      "exit_threshold": 50,
+      "max_positions": 10,
+      "position_sizing": "equal_weight",
+      "rebalance_freq": "weekly",
+      "transaction_cost": 0.001,
+      "slippage": 0.001
+    },
+    "created_at": "2026-02-07T22:30:54.521726",
+    "completed_at": "2026-02-07T22:33:14.666847",
+    "total_return": 0.25483456956394623,
+    "cagr": 0.5770666727366376,
+    "volatility": 0.4788376285113701,
+    "sharpe_ratio": 4.5996523659576685,
+    "max_drawdown": -0.07221819615470519,
+    "win_rate": 0.5,
+    "total_trades": 10,
+    "benchmark_return": 0.15561535588888709,
+    "alpha": 0.09921921367505915,
+    "beta": null,
+    "score_ic": null,
+    "hit_rate": null,
+    "equity_curve": [
+      {
+        "date": "2019-06-03",
+        "nav": 99900.2715893549,
+        "cash": 171.86094427913667,
+        "positions_value": 99728.41064507577,
+        "daily_return": -0.0009972841064509702,
+        "cumulative_return": -0.0009972841064509463,
+        "drawdown": -0.0009972841064509702
+      },
+      {
+        "date": "2019-06-07",
+        "nav": 101917.65634966701,
+        "cash": 171.86094427913667,
+        "positions_value": 101745.79540538788,
+        "daily_return": 0.02019398674514792,
+        "cumulative_return": 0.019176563496670074,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-06-14",
+        "nav": 104691.67578459591,
+        "cash": 171.86094427913667,
+        "positions_value": 104519.81484031677,
+        "daily_return": 0.02721824200324596,
+        "cumulative_return": 0.046916757845959056,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-06-21",
+        "nav": 108999.59170962185,
+        "cash": 171.86094427913667,
+        "positions_value": 108827.73076534271,
+        "daily_return": 0.041148600332747726,
+        "cumulative_return": 0.08999591709621857,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-06-28",
+        "nav": 110329.17328263134,
+        "cash": 171.86094427913667,
+        "positions_value": 110157.3123383522,
+        "daily_return": 0.012198041773876877,
+        "cumulative_return": 0.10329173282631343,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-07-05",
+        "nav": 110947.6484241566,
+        "cash": 171.86094427913667,
+        "positions_value": 110775.78747987747,
+        "daily_return": 0.005605726238344183,
+        "cumulative_return": 0.10947648424156609,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-07-12",
+        "nav": 112992.9184904179,
+        "cash": 171.86094427913667,
+        "positions_value": 112821.05754613876,
+        "daily_return": 0.018434550847280285,
+        "cumulative_return": 0.12992918490417904,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-07-19",
+        "nav": 116928.90410233349,
+        "cash": 171.86094427913667,
+        "positions_value": 116757.04315805435,
+        "daily_return": 0.034833914058511294,
+        "cumulative_return": 0.16928904102333497,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-07-26",
+        "nav": 117515.77598000377,
+        "cash": 171.86094427913667,
+        "positions_value": 117343.91503572464,
+        "daily_return": 0.005019048815822915,
+        "cumulative_return": 0.17515775980003778,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-08-02",
+        "nav": 118271.79737521023,
+        "cash": 171.86094427913667,
+        "positions_value": 118099.93643093109,
+        "daily_return": 0.006433360873480462,
+        "cumulative_return": 0.1827179737521023,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-08-09",
+        "nav": 125486.02997923702,
+        "cash": 171.86094427913667,
+        "positions_value": 125314.16903495789,
+        "daily_return": 0.06099706577672166,
+        "cumulative_return": 0.2548602997923701,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-08-16",
+        "nav": 122965.91748905987,
+        "cash": 171.86094427913667,
+        "positions_value": 122794.05654478073,
+        "daily_return": -0.020082813127438436,
+        "cumulative_return": 0.22965917489059873,
+        "drawdown": -0.020082813127438436
+      },
+      {
+        "date": "2019-08-23",
+        "nav": 129610.60210705608,
+        "cash": 171.86094427913667,
+        "positions_value": 129438.74116277695,
+        "daily_return": 0.054036799413035616,
+        "cumulative_return": 0.29610602107056083,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-08-30",
+        "nav": 129659.68542910427,
+        "cash": 171.86094427913667,
+        "positions_value": 129487.82448482513,
+        "daily_return": 0.00037869835684927453,
+        "cumulative_return": 0.29659685429104266,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-09-06",
+        "nav": 125562.19458056301,
+        "cash": 171.86094427913667,
+        "positions_value": 125390.33363628387,
+        "daily_return": -0.03160188793440887,
+        "cumulative_return": 0.25562194580563014,
+        "drawdown": -0.03160188793440887
+      },
+      {
+        "date": "2019-09-13",
+        "nav": 120516.34507299274,
+        "cash": 171.86094427913667,
+        "positions_value": 120344.48412871361,
+        "daily_return": -0.04018605699291722,
+        "cumulative_return": 0.20516345072992737,
+        "drawdown": -0.07051798965771015
+      },
+      {
+        "date": "2019-09-20",
+        "nav": 126244.4121999821,
+        "cash": 171.86094427913667,
+        "positions_value": 126072.55125570297,
+        "daily_return": 0.04752937971625396,
+        "cumulative_return": 0.26244412199982103,
+        "drawdown": -0.02634028624872436
+      },
+      {
+        "date": "2019-09-27",
+        "nav": 121647.06840992779,
+        "cash": 171.86094427913667,
+        "positions_value": 121475.20746564865,
+        "daily_return": -0.03641621605217449,
+        "cumulative_return": 0.21647068409927783,
+        "drawdown": -0.061797288745989186
+      },
+      {
+        "date": "2019-10-04",
+        "nav": 123041.93232632488,
+        "cash": 171.86094427913667,
+        "positions_value": 122870.07138204575,
+        "daily_return": 0.01146648196811998,
+        "cumulative_return": 0.23041932326324877,
+        "drawdown": -0.05103940427495379
+      },
+      {
+        "date": "2019-10-11",
+        "nav": 120295.89683342785,
+        "cash": 171.86094427913667,
+        "positions_value": 120124.03588914871,
+        "daily_return": -0.02231788335064629,
+        "cumulative_return": 0.2029589683342785,
+        "drawdown": -0.07221819615470519
+      },
+      {
+        "date": "2019-10-18",
+        "nav": 123612.77985287517,
+        "cash": 171.86094427913667,
+        "positions_value": 123440.91890859604,
+        "daily_return": 0.027572702866500685,
+        "cumulative_return": 0.23612779852875176,
+        "drawdown": -0.04663674415233285
+      },
+      {
+        "date": "2019-10-25",
+        "nav": 129311.83278323025,
+        "cash": 171.86094427913667,
+        "positions_value": 129139.97183895111,
+        "daily_return": 0.04610407546159973,
+        "cumulative_return": 0.2931183278323024,
+        "drawdown": -0.0026828126624155926
+      },
+      {
+        "date": "2019-11-01",
+        "nav": 131275.57470656247,
+        "cash": 171.86094427913667,
+        "positions_value": 131103.71376228333,
+        "daily_return": 0.015186096129532981,
+        "cumulative_return": 0.3127557470656248,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-11-08",
+        "nav": 122532.46546412319,
+        "cash": 171.86094427913667,
+        "positions_value": 122360.60451984406,
+        "daily_return": -0.06660118808835971,
+        "cumulative_return": 0.22532465464123197,
+        "drawdown": -0.06660118808835971
+      },
+      {
+        "date": "2019-11-15",
+        "nav": 125127.39441347927,
+        "cash": 171.86094427913667,
+        "positions_value": 124955.53346920013,
+        "daily_return": 0.02117748091925776,
+        "cumulative_return": 0.25127394413479265,
+        "drawdown": -0.046834152559043093
+      },
+      {
+        "date": "2019-11-22",
+        "nav": 124110.50425911754,
+        "cash": 171.86094427913667,
+        "positions_value": 123938.64331483841,
+        "daily_return": -0.00812683872407225,
+        "cumulative_return": 0.24110504259117538,
+        "drawdown": -0.0545803776784894
+      },
+      {
+        "date": "2019-11-29",
+        "nav": 125483.45695639461,
+        "cash": 171.86094427913667,
+        "positions_value": 125311.59601211548,
+        "daily_return": 0.01106234081855491,
+        "cumulative_return": 0.25483456956394623,
+        "drawdown": -0.044121823599819386
+      }
+    ],
+    "error_message": null
+  },
+  "bt_20260207_223255_27ea5f": {
+    "backtest_id": "bt_20260207_223255_27ea5f",
+    "status": "completed",
+    "parameters": {
+      "start_date": "2019-06-01",
+      "end_date": "2019-11-30",
+      "initial_capital": 100000,
+      "entry_threshold": 70,
+      "exit_threshold": 50,
+      "max_positions": 10,
+      "position_sizing": "equal_weight",
+      "rebalance_freq": "weekly",
+      "transaction_cost": 0.001,
+      "slippage": 0.001
+    },
+    "created_at": "2026-02-07T22:32:55.213999",
+    "completed_at": "2026-02-07T22:35:12.056609",
+    "total_return": 0.2548345619156285,
+    "cagr": 0.5770666534459219,
+    "volatility": 0.4788376151796758,
+    "sharpe_ratio": 4.599652364901434,
+    "max_drawdown": -0.07221820238027292,
+    "win_rate": 0.5,
+    "total_trades": 10,
+    "benchmark_return": 0.15561494845544765,
+    "alpha": 0.09921961346018082,
+    "beta": null,
+    "score_ic": null,
+    "hit_rate": null,
+    "equity_curve": [
+      {
+        "date": "2019-06-03",
+        "nav": 99900.27158626144,
+        "cash": 171.85784771366343,
+        "positions_value": 99728.41373854778,
+        "daily_return": -0.0009972841373855773,
+        "cumulative_return": -0.0009972841373855346,
+        "drawdown": -0.0009972841373855773
+      },
+      {
+        "date": "2019-06-07",
+        "nav": 101917.65789463444,
+        "cash": 171.85784771366343,
+        "positions_value": 101745.80004692078,
+        "daily_return": 0.020194002241836068,
+        "cumulative_return": 0.01917657894634428,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-06-14",
+        "nav": 104691.67647983952,
+        "cash": 171.85784771366343,
+        "positions_value": 104519.81863212585,
+        "daily_return": 0.027218233253289068,
+        "cumulative_return": 0.04691676479839524,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-06-21",
+        "nav": 108999.5908937685,
+        "cash": 171.85784771366343,
+        "positions_value": 108827.73304605484,
+        "daily_return": 0.041148585625702165,
+        "cumulative_return": 0.08999590893768494,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-06-28",
+        "nav": 110329.16938927097,
+        "cash": 171.85784771366343,
+        "positions_value": 110157.31154155731,
+        "daily_return": 0.012198013631062939,
+        "cumulative_return": 0.10329169389270976,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-07-05",
+        "nav": 110947.6385283701,
+        "cash": 171.85784771366343,
+        "positions_value": 110775.78068065643,
+        "daily_return": 0.005605672031455214,
+        "cumulative_return": 0.10947638528370085,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-07-12",
+        "nav": 112992.90524246616,
+        "cash": 171.85784771366343,
+        "positions_value": 112821.0473947525,
+        "daily_return": 0.018434522277579437,
+        "cumulative_return": 0.12992905242466168,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-07-19",
+        "nav": 116928.89065363331,
+        "cash": 171.85784771366343,
+        "positions_value": 116757.03280591965,
+        "daily_return": 0.03483391636599748,
+        "cumulative_return": 0.169288906536333,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-07-26",
+        "nav": 117515.76691772862,
+        "cash": 171.85784771366343,
+        "positions_value": 117343.90907001495,
+        "daily_return": 0.005019086906705982,
+        "cumulative_return": 0.17515766917728626,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-08-02",
+        "nav": 118271.80106880589,
+        "cash": 171.85784771366343,
+        "positions_value": 118099.94322109222,
+        "daily_return": 0.006433469915628947,
+        "cumulative_return": 0.18271801068805882,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-08-09",
+        "nav": 125486.0314145319,
+        "cash": 171.85784771366343,
+        "positions_value": 125314.17356681824,
+        "daily_return": 0.06099704477763941,
+        "cumulative_return": 0.25486031414531896,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-08-16",
+        "nav": 122965.92144205494,
+        "cash": 171.85784771366343,
+        "positions_value": 122794.06359434128,
+        "daily_return": -0.02008279283414423,
+        "cumulative_return": 0.22965921442054937,
+        "drawdown": -0.02008279283414423
+      },
+      {
+        "date": "2019-08-23",
+        "nav": 129610.60028603,
+        "cash": 171.85784771366343,
+        "positions_value": 129438.74243831635,
+        "daily_return": 0.05403675071963926,
+        "cumulative_return": 0.2961060028603,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-08-30",
+        "nav": 129659.6855292551,
+        "cash": 171.85784771366343,
+        "positions_value": 129487.82768154144,
+        "daily_return": 0.0003787131848535098,
+        "cumulative_return": 0.2965968552925511,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-09-06",
+        "nav": 125562.19242098255,
+        "cash": 171.85784771366343,
+        "positions_value": 125390.33457326889,
+        "daily_return": -0.031601905338171095,
+        "cumulative_return": 0.25562192420982544,
+        "drawdown": -0.031601905338171095
+      },
+      {
+        "date": "2019-09-13",
+        "nav": 120516.3394038908,
+        "cash": 171.85784771366343,
+        "positions_value": 120344.48155617714,
+        "daily_return": -0.0401860856345524,
+        "cumulative_return": 0.20516339403890793,
+        "drawdown": -0.07051803409858873
+      },
+      {
+        "date": "2019-09-20",
+        "nav": 126244.41725113316,
+        "cash": 171.85784771366343,
+        "positions_value": 126072.5594034195,
+        "daily_return": 0.04752947090473466,
+        "cumulative_return": 0.26244417251133156,
+        "drawdown": -0.02634024804380203
+      },
+      {
+        "date": "2019-09-27",
+        "nav": 121647.07421305103,
+        "cash": 171.85784771366343,
+        "positions_value": 121475.21636533737,
+        "daily_return": -0.036416208638650575,
+        "cumulative_return": 0.21647074213051032,
+        "drawdown": -0.0617972447140957
+      },
+      {
+        "date": "2019-10-04",
+        "nav": 123041.93791057987,
+        "cash": 171.85784771366343,
+        "positions_value": 122870.08006286621,
+        "daily_return": 0.011466479621909309,
+        "cumulative_return": 0.23041937910579868,
+        "drawdown": -0.051039361939390716
+      },
+      {
+        "date": "2019-10-11",
+        "nav": 120295.89611914082,
+        "cash": 171.85784771366343,
+        "positions_value": 120124.03827142715,
+        "daily_return": -0.022317933527954744,
+        "cumulative_return": 0.20295896119140822,
+        "drawdown": -0.07221820238027292
+      },
+      {
+        "date": "2019-10-18",
+        "nav": 123612.79016878529,
+        "cash": 171.85784771366343,
+        "positions_value": 123440.93232107162,
+        "daily_return": 0.027572794722435293,
+        "cumulative_return": 0.2361279016878528,
+        "drawdown": -0.04663666532729217
+      },
+      {
+        "date": "2019-10-25",
+        "nav": 129311.83461716099,
+        "cash": 171.85784771366343,
+        "positions_value": 129139.97676944733,
+        "daily_return": 0.046104002996728934,
+        "cumulative_return": 0.2931183461716098,
+        "drawdown": -0.0026827992885701596
+      },
+      {
+        "date": "2019-11-01",
+        "nav": 131275.57435324116,
+        "cash": 171.85784771366343,
+        "positions_value": 131103.7165055275,
+        "daily_return": 0.015186078999605822,
+        "cumulative_return": 0.31275574353241153,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-11-08",
+        "nav": 122532.46531584187,
+        "cash": 171.85784771366343,
+        "positions_value": 122360.6074681282,
+        "daily_return": -0.06660118670570819,
+        "cumulative_return": 0.22532465315841876,
+        "drawdown": -0.06660118670570819
+      },
+      {
+        "date": "2019-11-15",
+        "nav": 125127.38749744816,
+        "cash": 171.85784771366343,
+        "positions_value": 124955.5296497345,
+        "daily_return": 0.021177425712586254,
+        "cumulative_return": 0.2512738749744816,
+        "drawdown": -0.04683420267695216
+      },
+      {
+        "date": "2019-11-22",
+        "nav": 124110.50240566654,
+        "cash": 171.85784771366343,
+        "positions_value": 123938.64455795288,
+        "daily_return": -0.008126798713849552,
+        "cumulative_return": 0.24110502405666545,
+        "drawdown": -0.05458038925272249
+      },
+      {
+        "date": "2019-11-29",
+        "nav": 125483.45619156284,
+        "cash": 171.85784771366343,
+        "positions_value": 125311.59834384918,
+        "daily_return": 0.011062349755129312,
+        "cumulative_return": 0.2548345619156285,
+        "drawdown": -0.04412182685327789
+      }
+    ],
+    "error_message": null
+  },
+  "bt_20260207_224729_5e0be8": {
+    "backtest_id": "bt_20260207_224729_5e0be8",
+    "status": "running",
+    "parameters": {
+      "start_date": "2019-06-01",
+      "end_date": "2019-11-30",
+      "initial_capital": 100000,
+      "entry_threshold": 70,
+      "exit_threshold": 50,
+      "max_positions": 10,
+      "position_sizing": "equal_weight",
+      "rebalance_freq": "weekly",
+      "transaction_cost": 0.001,
+      "slippage": 0.001
+    },
+    "created_at": "2026-02-07T22:47:29.186073",
+    "completed_at": null,
+    "total_return": null,
+    "cagr": null,
+    "volatility": null,
+    "sharpe_ratio": null,
+    "max_drawdown": null,
+    "win_rate": null,
+    "total_trades": null,
+    "benchmark_return": null,
+    "alpha": null,
+    "beta": null,
+    "score_ic": null,
+    "hit_rate": null,
+    "equity_curve": [],
+    "error_message": null
+  },
+  "bt_20260207_224930_93bb19": {
+    "backtest_id": "bt_20260207_224930_93bb19",
+    "status": "running",
+    "parameters": {
+      "start_date": "2019-06-01",
+      "end_date": "2019-11-30",
+      "initial_capital": 100000,
+      "entry_threshold": 70,
+      "exit_threshold": 50,
+      "max_positions": 10,
+      "position_sizing": "equal_weight",
+      "rebalance_freq": "weekly",
+      "transaction_cost": 0.001,
+      "slippage": 0.001
+    },
+    "created_at": "2026-02-07T22:49:30.556735",
+    "completed_at": null,
+    "total_return": null,
+    "cagr": null,
+    "volatility": null,
+    "sharpe_ratio": null,
+    "max_drawdown": null,
+    "win_rate": null,
+    "total_trades": null,
+    "benchmark_return": null,
+    "alpha": null,
+    "beta": null,
+    "score_ic": null,
+    "hit_rate": null,
+    "equity_curve": [],
+    "error_message": null
+  },
+  "bt_20260207_231117_888ece": {
+    "backtest_id": "bt_20260207_231117_888ece",
+    "status": "completed",
+    "parameters": {
+      "start_date": "2019-06-01",
+      "end_date": "2019-11-30",
+      "initial_capital": 100000,
+      "entry_threshold": 70,
+      "exit_threshold": 50,
+      "max_positions": 10,
+      "position_sizing": "equal_weight",
+      "rebalance_freq": "weekly",
+      "transaction_cost": 0.001,
+      "slippage": 0.001
+    },
+    "created_at": "2026-02-07T23:11:17.210905",
+    "completed_at": "2026-02-07T23:13:53.517083",
+    "total_return": 0.2548345636207805,
+    "cagr": 0.577066657746685,
+    "volatility": 0.47883783230088767,
+    "sharpe_ratio": 4.599650521355156,
+    "max_drawdown": -0.07221825093316711,
+    "win_rate": 0.5,
+    "total_trades": 10,
+    "benchmark_return": 0.1556149539497358,
+    "alpha": 0.0992196096710447,
+    "beta": null,
+    "score_ic": null,
+    "hit_rate": null,
+    "equity_curve": [
+      {
+        "date": "2019-06-03",
+        "nav": 99900.27158735783,
+        "cash": 171.85894520030524,
+        "positions_value": 99728.41264215752,
+        "daily_return": -0.0009972841264217277,
+        "cumulative_return": -0.0009972841264217491,
+        "drawdown": -0.0009972841264217277
+      },
+      {
+        "date": "2019-06-07",
+        "nav": 101917.65562612758,
+        "cash": 171.85894520030524,
+        "positions_value": 101745.79668092728,
+        "daily_return": 0.02019397952292506,
+        "cumulative_return": 0.01917655626127579,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-06-14",
+        "nav": 104691.68124515758,
+        "cash": 171.85894520030524,
+        "positions_value": 104519.82229995728,
+        "daily_return": 0.02721830287390216,
+        "cumulative_return": 0.04691681245157575,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-06-21",
+        "nav": 108999.59510023342,
+        "cash": 171.85894520030524,
+        "positions_value": 108827.73615503311,
+        "daily_return": 0.041148578414630196,
+        "cumulative_return": 0.08999595100233426,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-06-28",
+        "nav": 110329.16636354671,
+        "cash": 171.85894520030524,
+        "positions_value": 110157.3074183464,
+        "daily_return": 0.0121979468097166,
+        "cumulative_return": 0.10329166363546705,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-07-05",
+        "nav": 110947.63845951305,
+        "cash": 171.85894520030524,
+        "positions_value": 110775.77951431274,
+        "daily_return": 0.005605698985601012,
+        "cumulative_return": 0.10947638459513054,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-07-12",
+        "nav": 112992.91131050335,
+        "cash": 171.85894520030524,
+        "positions_value": 112821.05236530304,
+        "daily_return": 0.018434577602448522,
+        "cumulative_return": 0.12992911310503352,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-07-19",
+        "nav": 116928.89330465542,
+        "cash": 171.85894520030524,
+        "positions_value": 116757.03435945511,
+        "daily_return": 0.03483388425434965,
+        "cumulative_return": 0.16928893304655412,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-07-26",
+        "nav": 117515.76655370937,
+        "cash": 171.85894520030524,
+        "positions_value": 117343.90760850906,
+        "daily_return": 0.005019061007657628,
+        "cumulative_return": 0.17515766553709367,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-08-02",
+        "nav": 118271.79752905117,
+        "cash": 171.85894520030524,
+        "positions_value": 118099.93858385086,
+        "daily_return": 0.00643344291164761,
+        "cumulative_return": 0.1827179752905117,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-08-09",
+        "nav": 125486.0380871986,
+        "cash": 171.85894520030524,
+        "positions_value": 125314.17914199829,
+        "daily_return": 0.06099713295027407,
+        "cumulative_return": 0.25486038087198604,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-08-16",
+        "nav": 122965.92568714367,
+        "cash": 171.85894520030524,
+        "positions_value": 122794.06674194336,
+        "daily_return": -0.020082811111653224,
+        "cumulative_return": 0.22965925687143662,
+        "drawdown": -0.020082811111653224
+      },
+      {
+        "date": "2019-08-23",
+        "nav": 129610.61311609493,
+        "cash": 171.85894520030524,
+        "positions_value": 129438.75417089462,
+        "daily_return": 0.05403681867005193,
+        "cumulative_return": 0.2961061311609492,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-08-30",
+        "nav": 129659.69415695415,
+        "cash": 171.85894520030524,
+        "positions_value": 129487.83521175385,
+        "daily_return": 0.00037868072435749917,
+        "cumulative_return": 0.29659694156954153,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-09-06",
+        "nav": 125562.20099146114,
+        "cash": 171.85894520030524,
+        "positions_value": 125390.34204626083,
+        "daily_return": -0.03160190367665808,
+        "cumulative_return": 0.25562200991461137,
+        "drawdown": -0.03160190367665808
+      },
+      {
+        "date": "2019-09-13",
+        "nav": 120516.34248835788,
+        "cash": 171.85894520030524,
+        "positions_value": 120344.48354315758,
+        "daily_return": -0.04018612658316176,
+        "cumulative_return": 0.20516342488357875,
+        "drawdown": -0.07051807215840077
+      },
+      {
+        "date": "2019-09-20",
+        "nav": 126244.41859466778,
+        "cash": 171.85894520030524,
+        "positions_value": 126072.55964946747,
+        "daily_return": 0.047529455242663325,
+        "cumulative_return": 0.26244418594667773,
+        "drawdown": -0.026340302470189057
+      },
+      {
+        "date": "2019-09-27",
+        "nav": 121647.0661829208,
+        "cash": 171.85894520030524,
+        "positions_value": 121475.20723772049,
+        "daily_return": -0.036416282501230184,
+        "cumulative_return": 0.21647066182920804,
+        "drawdown": -0.06179736907549699
+      },
+      {
+        "date": "2019-10-04",
+        "nav": 123041.93372041927,
+        "cash": 171.85894520030524,
+        "positions_value": 122870.07477521896,
+        "daily_return": 0.011466511945310795,
+        "cumulative_return": 0.23041933720419272,
+        "drawdown": -0.05103945740087916
+      },
+      {
+        "date": "2019-10-11",
+        "nav": 120295.89782840954,
+        "cash": 171.85894520030524,
+        "positions_value": 120124.03888320923,
+        "daily_return": -0.02231788634149221,
+        "cumulative_return": 0.20295897828409526,
+        "drawdown": -0.07221825093316711
+      },
+      {
+        "date": "2019-10-18",
+        "nav": 123612.79330379711,
+        "cash": 171.85894520030524,
+        "positions_value": 123440.9343585968,
+        "daily_return": 0.027572806182624813,
+        "cumulative_return": 0.23612793303797108,
+        "drawdown": -0.04663670458637068
+      },
+      {
+        "date": "2019-10-25",
+        "nav": 129311.82891256557,
+        "cash": 171.85894520030524,
+        "positions_value": 129139.96996736526,
+        "daily_return": 0.04610393031700386,
+        "cumulative_return": 0.29311828912565563,
+        "drawdown": -0.00268290964783155
+      },
+      {
+        "date": "2019-11-01",
+        "nav": 131275.5790155624,
+        "cash": 171.85894520030524,
+        "positions_value": 131103.7200703621,
+        "daily_return": 0.015186159839442217,
+        "cumulative_return": 0.31275579015562394,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-11-08",
+        "nav": 122532.46930010067,
+        "cash": 171.85894520030524,
+        "positions_value": 122360.61035490036,
+        "daily_return": -0.0666011895055154,
+        "cumulative_return": 0.22532469300100666,
+        "drawdown": -0.0666011895055154
+      },
+      {
+        "date": "2019-11-15",
+        "nav": 125127.39524204479,
+        "cash": 171.85894520030524,
+        "positions_value": 124955.53629684448,
+        "daily_return": 0.02117745571248347,
+        "cumulative_return": 0.2512739524204479,
+        "drawdown": -0.046834177534183695
+      },
+      {
+        "date": "2019-11-22",
+        "nav": 124110.50635797725,
+        "cash": 171.85894520030524,
+        "positions_value": 123938.64741277695,
+        "daily_return": -0.00812682851825117,
+        "cumulative_return": 0.24110506357977246,
+        "drawdown": -0.05458039272282122
+      },
+      {
+        "date": "2019-11-29",
+        "nav": 125483.45636207805,
+        "cash": 171.85894520030524,
+        "positions_value": 125311.59741687775,
+        "daily_return": 0.011062318931652257,
+        "cumulative_return": 0.2548345636207805,
+        "drawdown": -0.044121859502883644
+      }
+    ],
+    "error_message": null
+  },
+  "bt_20260207_232515_73d186": {
+    "backtest_id": "bt_20260207_232515_73d186",
+    "status": "completed",
+    "parameters": {
+      "start_date": "2019-06-01",
+      "end_date": "2019-11-30",
+      "initial_capital": 100000,
+      "entry_threshold": 70,
+      "exit_threshold": 50,
+      "max_positions": 10,
+      "position_sizing": "equal_weight",
+      "rebalance_freq": "weekly",
+      "transaction_cost": 0.001,
+      "slippage": 0.001
+    },
+    "created_at": "2026-02-07T23:25:15.705704",
+    "completed_at": "2026-02-07T23:27:40.968946",
+    "total_return": 0.25483457298153533,
+    "cagr": 0.5770666813565382,
+    "volatility": 0.47883781864146846,
+    "sharpe_ratio": 4.59965076756307,
+    "max_drawdown": -0.07221816680334102,
+    "win_rate": 1.0,
+    "total_trades": 10,
+    "benchmark_return": 0.15561530393982714,
+    "alpha": 0.09921926904170819,
+    "beta": null,
+    "score_ic": null,
+    "hit_rate": null,
+    "equity_curve": [
+      {
+        "date": "2019-06-03",
+        "nav": 99900.27158380186,
+        "cash": 171.85538565505522,
+        "positions_value": 99728.4161981468,
+        "daily_return": -0.00099728416198137,
+        "cumulative_return": -0.0009972841619814155,
+        "drawdown": -0.00099728416198137
+      },
+      {
+        "date": "2019-06-07",
+        "nav": 101917.66114794601,
+        "cash": 171.85538565505522,
+        "positions_value": 101745.80576229095,
+        "daily_return": 0.020194034832546486,
+        "cumulative_return": 0.019176611479460037,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-06-14",
+        "nav": 104691.67161833633,
+        "cash": 171.85538565505522,
+        "positions_value": 104519.81623268127,
+        "daily_return": 0.027218152763175192,
+        "cumulative_return": 0.04691671618336324,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-06-21",
+        "nav": 108999.5837658583,
+        "cash": 171.85538565505522,
+        "positions_value": 108827.72838020325,
+        "daily_return": 0.041148565888095526,
+        "cumulative_return": 0.08999583765858299,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-06-28",
+        "nav": 110329.16599642624,
+        "cash": 171.85538565505522,
+        "positions_value": 110157.31061077118,
+        "daily_return": 0.012198048695525333,
+        "cumulative_return": 0.10329165996426237,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-07-05",
+        "nav": 110947.63175618042,
+        "cash": 171.85538565505522,
+        "positions_value": 110775.77637052536,
+        "daily_return": 0.005605641574180069,
+        "cumulative_return": 0.10947631756180409,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-07-12",
+        "nav": 112992.9102572142,
+        "cash": 171.85538565505522,
+        "positions_value": 112821.05487155914,
+        "daily_return": 0.018434629641563748,
+        "cumulative_return": 0.12992910257214207,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-07-19",
+        "nav": 116928.88594853271,
+        "cash": 171.85538565505522,
+        "positions_value": 116757.03056287766,
+        "daily_return": 0.03483382879827377,
+        "cumulative_return": 0.16928885948532701,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-07-26",
+        "nav": 117515.76889120926,
+        "cash": 171.85538565505522,
+        "positions_value": 117343.9135055542,
+        "daily_return": 0.005019144225276087,
+        "cumulative_return": 0.1751576889120925,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-08-02",
+        "nav": 118271.78667961944,
+        "cash": 171.85538565505522,
+        "positions_value": 118099.93129396439,
+        "daily_return": 0.00643333056953466,
+        "cumulative_return": 0.1827178667961944,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-08-09",
+        "nav": 125486.03426634659,
+        "cash": 171.85538565505522,
+        "positions_value": 125314.17888069153,
+        "daily_return": 0.060997197973084304,
+        "cumulative_return": 0.2548603426634659,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-08-16",
+        "nav": 122965.9031466185,
+        "cash": 171.85538565505522,
+        "positions_value": 122794.04776096344,
+        "daily_return": -0.020082960900486026,
+        "cumulative_return": 0.22965903146618505,
+        "drawdown": -0.020082960900486026
+      },
+      {
+        "date": "2019-08-23",
+        "nav": 129610.59801852096,
+        "cash": 171.85538565505522,
+        "positions_value": 129438.7426328659,
+        "daily_return": 0.0540368891039629,
+        "cumulative_return": 0.2961059801852097,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-08-30",
+        "nav": 129659.67040860046,
+        "cash": 171.85538565505522,
+        "positions_value": 129487.8150229454,
+        "daily_return": 0.0003786140240822436,
+        "cumulative_return": 0.2965967040860047,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-09-06",
+        "nav": 125562.20228421081,
+        "cash": 171.85538565505522,
+        "positions_value": 125390.34689855576,
+        "daily_return": -0.031601716335366056,
+        "cumulative_return": 0.2556220228421082,
+        "drawdown": -0.031601716335366056
+      },
+      {
+        "date": "2019-09-13",
+        "nav": 120516.33537732948,
+        "cash": 171.85538565505522,
+        "positions_value": 120344.47999167442,
+        "daily_return": -0.04018619309862041,
+        "cumulative_return": 0.20516335377329487,
+        "drawdown": -0.07051795675908562
+      },
+      {
+        "date": "2019-09-20",
+        "nav": 126244.4071940123,
+        "cash": 171.85538565505522,
+        "positions_value": 126072.55180835724,
+        "daily_return": 0.047529422453384124,
+        "cumulative_return": 0.26244407194012287,
+        "drawdown": -0.02634021206305355
+      },
+      {
+        "date": "2019-09-27",
+        "nav": 121647.07027136673,
+        "cash": 171.85538565505522,
+        "positions_value": 121475.21488571167,
+        "daily_return": -0.03641616309846016,
+        "cumulative_return": 0.2164707027136672,
+        "drawdown": -0.061797165702977525
+      },
+      {
+        "date": "2019-10-04",
+        "nav": 123041.92704140533,
+        "cash": 171.85538565505522,
+        "positions_value": 122870.07165575027,
+        "daily_return": 0.011466423046005128,
+        "cumulative_return": 0.2304192704140533,
+        "drawdown": -0.051039335101966815
+      },
+      {
+        "date": "2019-10-11",
+        "nav": 120295.88670336593,
+        "cash": 171.85538565505522,
+        "positions_value": 120124.03131771088,
+        "daily_return": -0.02231792368722669,
+        "cumulative_return": 0.20295886703365928,
+        "drawdown": -0.07221816680334102
+      },
+      {
+        "date": "2019-10-18",
+        "nav": 123612.77712475647,
+        "cash": 171.85538565505522,
+        "positions_value": 123440.92173910141,
+        "daily_return": 0.02757276671952679,
+        "cumulative_return": 0.23612777124756468,
+        "drawdown": -0.04663665474999462
+      },
+      {
+        "date": "2019-10-25",
+        "nav": 129311.83188187469,
+        "cash": 171.85538565505522,
+        "positions_value": 129139.97649621964,
+        "daily_return": 0.04610409125722045,
+        "cumulative_return": 0.29311831881874695,
+        "drawdown": -0.0026827040792994066
+      },
+      {
+        "date": "2019-11-01",
+        "nav": 131275.56751763212,
+        "cash": 171.85538565505522,
+        "positions_value": 131103.71213197708,
+        "daily_return": 0.015186047612033586,
+        "cumulative_return": 0.3127556751763212,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2019-11-08",
+        "nav": 122532.46634375442,
+        "cash": 171.85538565505522,
+        "positions_value": 122360.61095809937,
+        "daily_return": -0.06660113027280101,
+        "cumulative_return": 0.22532466343754431,
+        "drawdown": -0.06660113027280101
+      },
+      {
+        "date": "2019-11-15",
+        "nav": 125127.38778960098,
+        "cash": 171.85538565505522,
+        "positions_value": 124955.53240394592,
+        "daily_return": 0.021177419530320447,
+        "cumulative_return": 0.25127387789600975,
+        "drawdown": -0.04683415081946119
+      },
+      {
+        "date": "2019-11-22",
+        "nav": 124110.49180018295,
+        "cash": 171.85538565505522,
+        "positions_value": 123938.6364145279,
+        "daily_return": -0.00812688578721006,
+        "cumulative_return": 0.24110491800182943,
+        "drawdown": -0.054580420812020525
+      },
+      {
+        "date": "2019-11-29",
+        "nav": 125483.45729815353,
+        "cash": 171.85538565505522,
+        "positions_value": 125311.60191249847,
+        "daily_return": 0.011062445068552675,
+        "cumulative_return": 0.25483457298153533,
+        "drawdown": -0.04412176865051931
+      }
+    ],
+    "error_message": null
+  },
+  "bt_20260208_173206_72cead": {
+    "backtest_id": "bt_20260208_173206_72cead",
+    "status": "completed",
+    "parameters": {
+      "start_date": "2018-06-01",
+      "end_date": "2019-11-30",
+      "initial_capital": 100000,
+      "entry_threshold": 70,
+      "exit_threshold": 50,
+      "max_positions": 10,
+      "position_sizing": "equal_weight",
+      "rebalance_freq": "weekly",
+      "transaction_cost": 0.001,
+      "slippage": 0.001
+    },
+    "created_at": "2026-02-08T17:32:06.840640",
+    "completed_at": "2026-02-08T17:34:34.573941",
+    "total_return": 0.038388945227392446,
+    "cagr": 0.025472812337327566,
+    "volatility": 0.379378667190413,
+    "sharpe_ratio": 0.4021415554321126,
+    "max_drawdown": -0.21606413748856493,
+    "win_rate": 0.5,
+    "total_trades": 10,
+    "benchmark_return": 0.18221080035172776,
+    "alpha": -0.14382185512433532,
+    "beta": null,
+    "score_ic": null,
+    "hit_rate": null,
+    "equity_curve": [
+      {
+        "date": "2018-06-01",
+        "nav": 99900.224158068,
+        "cash": 124.38222606260933,
+        "positions_value": 99775.8419320054,
+        "daily_return": -0.0009977584193200165,
+        "cumulative_return": -0.0009977584193200384,
+        "drawdown": -0.0009977584193200165
+      },
+      {
+        "date": "2018-06-08",
+        "nav": 101605.55577428419,
+        "cash": 124.38222606260933,
+        "positions_value": 101481.17354822159,
+        "daily_return": 0.017070348245844955,
+        "cumulative_return": 0.01605555774284184,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2018-06-15",
+        "nav": 101774.07958562452,
+        "cash": 124.38222606260933,
+        "positions_value": 101649.69735956192,
+        "daily_return": 0.0016586082331433345,
+        "cumulative_return": 0.017740795856245217,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2018-06-22",
+        "nav": 102977.8630052336,
+        "cash": 124.38222606260933,
+        "positions_value": 102853.48077917099,
+        "daily_return": 0.011827996131336204,
+        "cumulative_return": 0.02977863005233594,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2018-06-29",
+        "nav": 98766.1654253729,
+        "cash": 124.38222606260933,
+        "positions_value": 98641.7831993103,
+        "daily_return": -0.04089905788437888,
+        "cumulative_return": -0.012338345746270907,
+        "drawdown": -0.04089905788437888
+      },
+      {
+        "date": "2018-07-06",
+        "nav": 100711.31842429716,
+        "cash": 124.38222606260933,
+        "positions_value": 100586.93619823456,
+        "daily_return": 0.019694527883579734,
+        "cumulative_return": 0.007113184242971693,
+        "drawdown": -0.022010017636715187
+      },
+      {
+        "date": "2018-07-13",
+        "nav": 99587.58115918715,
+        "cash": 124.38222606260933,
+        "positions_value": 99463.19893312454,
+        "daily_return": -0.011158003714892367,
+        "cumulative_return": -0.00412418840812856,
+        "drawdown": -0.03292243349305224
+      },
+      {
+        "date": "2018-07-20",
+        "nav": 100065.89530856688,
+        "cash": 124.38222606260933,
+        "positions_value": 99941.51308250427,
+        "daily_return": 0.004802949763536905,
+        "cumulative_return": 0.0006589530856686565,
+        "drawdown": -0.028277608523675852
+      },
+      {
+        "date": "2018-07-27",
+        "nav": 100335.31003577787,
+        "cash": 124.38222606260933,
+        "positions_value": 100210.92780971527,
+        "daily_return": 0.0026923731245318033,
+        "cumulative_return": 0.0033531003577786933,
+        "drawdown": -0.025661369272359222
+      },
+      {
+        "date": "2018-08-03",
+        "nav": 99210.19949491102,
+        "cash": 124.38222606260933,
+        "positions_value": 99085.81726884842,
+        "daily_return": -0.011213505399700827,
+        "cumulative_return": -0.007898005050889778,
+        "drawdown": -0.036587120769160736
+      },
+      {
+        "date": "2018-08-10",
+        "nav": 98919.98571450789,
+        "cash": 124.38222606260933,
+        "positions_value": 98795.60348844528,
+        "daily_return": -0.002925241375187676,
+        "cumulative_return": -0.010800142854921146,
+        "drawdown": -0.03940533598487547
+      },
+      {
+        "date": "2018-08-17",
+        "nav": 97732.57083661635,
+        "cash": 124.38222606260933,
+        "positions_value": 97608.18861055374,
+        "daily_return": -0.01200379144128193,
+        "cumulative_return": -0.022674291633836496,
+        "drawdown": -0.050936113991321315
+      },
+      {
+        "date": "2018-08-24",
+        "nav": 101117.1105247267,
+        "cash": 124.38222606260933,
+        "positions_value": 100992.7282986641,
+        "daily_return": 0.03463062169692056,
+        "cumulative_return": 0.011171105247266944,
+        "drawdown": -0.018069441588745426
+      },
+      {
+        "date": "2018-08-31",
+        "nav": 103340.54115684111,
+        "cash": 124.38222606260933,
+        "positions_value": 103216.1589307785,
+        "daily_return": 0.02198866859007708,
+        "cumulative_return": 0.033405411568411036,
+        "drawdown": 0.0
+      },
+      {
+        "date": "2018-09-07",
+        "nav": 100712.56583936293,
+        "cash": 124.38222606260933,
+        "positions_value": 100588.18361330032,
+        "daily_return": -0.02543024536217274,
+        "cumulative_return": 0.0071256583936292195,
+        "drawdown": -0.02543024536217274
+      },
+      {
+        "date": "2018-09-14",
+        "nav": 100478.921565605,
+        "cash": 124.38222606260933,
+        "positions_value": 100354.53933954239,
+        "daily_return": -0.0023199118383161682,
+        "cumulative_return": 0.004789215656049839,
+        "drawdown": -0.02769116127322192
+      },
+      {
+        "date": "2018-09-21",
+        "nav": 101020.39877803404,
+        "cash": 124.38222606260933,
+        "positions_value": 100896.01655197144,
+        "daily_return": 0.00538896321728039,
+        "cumulative_return": 0.010203987780340373,
+        "drawdown": -0.0224514247054867
+      },
+      {
+        "date": "2018-09-28",
+        "nav": 102045.85000999052,
+        "cash": 124.38222606260933,
+        "positions_value": 101921.46778392792,
+        "daily_return": 0.010150932330109321,
+        "cumulative_return": 0.02045850009990513,
+        "drawdown": -0.012528395268277322
+      },
+      {
+        "date": "2018-10-05",
+        "nav": 99244.19048650343,
+        "cash": 124.38222606260933,
+        "positions_value": 99119.80826044083,
+        "daily_return": -0.027454908976825634,
+        "cumulative_return": -0.007558095134965748,
+        "drawdown": -0.03963933829338671
+      },
+      {
+        "date": "2018-10-12",
+        "nav": 95244.56634290297,
+        "cash": 124.38222606260933,
+        "positions_value": 95120.18411684036,
+        "daily_return": -0.04030083901127076,
+        "cumulative_return": -0.0475543365709703,
+        "drawdown": -0.07834267871358239
+      },
+      {
+        "date": "2018-10-19",
+        "nav": 94015.31679208357,
+        "cash": 124.38222606260933,
+        "positions_value": 93890.93456602097,
+        "daily_return": -0.012906243348243173,
+        "cumulative_return": -0.0598468320791643,
+        "drawdown": -0.09023781238579484
+      },
+      {
+        "date": "2018-10-26",
+        "nav": 87561.7918382414,
+        "cash": 124.38222606260933,
+        "positions_value": 87437.4096121788,
+        "daily_return": -0.06864333572490364,
+        "cumulative_return": -0.1243820816175859,
+        "drawdown": -0.15268692366001949
+      },
+      {
+        "date": "2018-11-02",
+        "nav": 91824.38813121397,
+        "cash": 124.38222606260933,
+        "positions_value": 91700.00590515137,
+        "daily_return": 0.048681008045691164,
+        "cumulative_return": -0.08175611868786026,
+        "drawdown": -0.11143886897349357
+      },
+      {
+        "date": "2018-11-09",
+        "nav": 92778.40621764738,
+        "cash": 124.38222606260933,
+        "positions_value": 92654.02399158478,
+        "daily_return": 0.010389593721769763,
+        "cumulative_return": -0.0722159378235262,
+        "drawdown": -0.10220707982517194
+      },
+      {
+        "date": "2018-11-16",
+        "nav": 90331.24730832655,
+        "cash": 124.38222606260933,
+        "positions_value": 90206.86508226395,
+        "daily_return": -0.026376384431309158,
+        "cumulative_return": -0.09668752691673455,
+        "drawdown": -0.12588761102741086
+      },
+      {
+        "date": "2018-11-23",
+        "nav": 86608.96967752058,
+        "cash": 124.38222606260933,
+        "positions_value": 86484.58745145798,
+        "daily_return": -0.041206977006536444,
+        "cumulative_return": -0.13391030322479414,
+        "drawdown": -0.161907140140933
+      },
+      {
+        "date": "2018-11-30",
+        "nav": 89388.48296554167,
+        "cash": 124.38222606260933,
+        "positions_value": 89264.10073947906,
+        "daily_return": 0.03209267236835069,
+        "cumulative_return": -0.10611517034458329,
+        "drawdown": -0.1350105005752219
+      },
+      {
+        "date": "2018-12-07",
+        "nav": 86380.40688712675,
+        "cash": 124.38222606260933,
+        "positions_value": 86256.02466106415,
+        "daily_return": -0.033651718640023226,
+        "cumulative_return": -0.13619593112873252,
+        "drawdown": -0.16411888383643905
+      },
+      {
+        "date": "2018-12-14",
+        "nav": 85909.02885110457,
+        "cash": 124.38222606260933,
+        "positions_value": 85784.64662504196,
+        "daily_return": -0.00545700180178748,
+        "cumulative_return": -0.14090971148895437,
+        "drawdown": -0.16868028859342374
+      },
+      {
+        "date": "2018-12-21",
+        "nav": 81012.35626418669,
+        "cash": 124.38222606260933,
+        "positions_value": 80887.97403812408,
+        "daily_return": -0.05699834641833364,
+        "cumulative_return": -0.1898764373581331,
+        "drawdown": -0.21606413748856493
+      },
+      {
+        "date": "2018-12-28",
+        "nav": 83818.10144670088,
+        "cash": 124.38222606260933,
+        "positions_value": 83693.71922063828,
+        "daily_return": 0.03463354618849091,
+        "cumulative_return": -0.16181898553299123,
+        "drawdown": -0.18891365858546066
+      },
+      {
+        "date": "2019-01-04",
+        "nav": 87974.26209790785,
+        "cash": 124.38222606260933,
+        "positions_value": 87849.87987184525,
+        "daily_return": 0.04958547830923888,
+        "cumulative_return": -0.12025737902092148,
+        "drawdown": -0.14869555439633012
+      },
+      {
+        "date": "2019-01-11",
+        "nav": 91100.95647866804,
+        "cash": 124.38222606260933,
+        "positions_value": 90976.57425260544,
+        "daily_return": 0.03554101286215335,
+        "cumulative_return": -0.08899043521331962,
+        "drawdown": -0.11843933214552176
+      },
+      {
+        "date": "2019-01-18",
+        "nav": 93011.02229602415,
+        "cash": 124.38222606260933,
+        "positions_value": 92886.64006996155,
+        "daily_return": 0.020966473802098505,
+        "cumulative_return": -0.06988977703975852,
+        "drawdown": -0.09995611349799038
+      },
+      {
+        "date": "2019-01-25",
+        "nav": 93754.06120402891,
+        "cash": 124.38222606260933,
+        "positions_value": 93629.67897796631,
+        "daily_return": 0.007988718860006795,
+        "cumulative_return": -0.062459387959710844,
+        "drawdown": -0.09276591592705796
+      },
+      {
+        "date": "2019-02-01",
+        "nav": 94946.65360696394,
+        "cash": 124.38222606260933,
+        "positions_value": 94822.27138090134,
+        "daily_return": 0.012720434588318171,
+        "cumulative_return": -0.05053346393036062,
+        "drawdown": -0.08122550410431535
+      },
+      {
+        "date": "2019-02-08",
+        "nav": 94165.22323901732,
+        "cash": 124.38222606260933,
+        "positions_value": 94040.84101295471,
+        "daily_return": -0.008230204417539473,
+        "cumulative_return": -0.05834776760982685,
+        "drawdown": -0.08878720601915861
+      },
+      {
+        "date": "2019-02-15",
+        "nav": 95894.14567143995,
+        "cash": 124.38222606260933,
+        "positions_value": 95769.76344537735,
+        "daily_return": 0.01836051965845348,
+        "cumulative_return": -0.041058543285600435,
+        "drawdown": -0.07205686560223906
+      },
+      {
+        "date": "2019-02-22",
+        "nav": 97679.11668641646,
+        "cash": 124.38222606260933,
+        "positions_value": 97554.73446035385,
+        "daily_return": 0.018613972755879272,
+        "cumulative_return": -0.02320883313583544,
+        "drawdown": -0.054784157379553916
+      },
+      {
+        "date": "2019-03-01",
+        "nav": 96997.18898065168,
+        "cash": 124.38222606260933,
+        "positions_value": 96872.80675458908,
+        "daily_return": -0.006981305000474082,
+        "cumulative_return": -0.03002811019348317,
+        "drawdown": -0.06138299746816736
+      },
+      {
+        "date": "2019-03-08",
+        "nav": 94587.1174517401,
+        "cash": 124.38222606260933,
+        "positions_value": 94462.73522567749,
+        "daily_return": -0.024846818286582868,
+        "cumulative_return": -0.05412882548259901,
+        "drawdown": -0.0847046435707729
+      },
+      {
+        "date": "2019-03-15",
+        "nav": 97439.54946143705,
+        "cash": 124.38222606260933,
+        "positions_value": 97315.16723537445,
+        "daily_return": 0.0301566649512532,
+        "cumulative_return": -0.025604505385629417,
+        "drawdown": -0.05710238817549882
+      },
+      {
+        "date": "2019-03-22",
+        "nav": 95277.85461623747,
+        "cash": 124.38222606260933,
+        "positions_value": 95153.47239017487,
+        "daily_return": -0.022184983994154275,
+        "cumulative_return": -0.04722145383762533,
+        "drawdown": -0.07802055660195167
+      },
+      {
+        "date": "2019-03-29",
+        "nav": 96689.84086997587,
+        "cash": 124.38222606260933,
+        "positions_value": 96565.45864391327,
+        "daily_return": 0.01481966884566867,
+        "cumulative_return": -0.03310159130024126,
+        "drawdown": -0.06435712656827867
+      },
+      {
+        "date": "2019-04-05",
+        "nav": 98876.2549072035,
+        "cash": 124.38222606260933,
+        "positions_value": 98751.8726811409,
+        "daily_return": 0.02261265524438934,
+        "cumulative_return": -0.01123745092796491,
+        "drawdown": -0.043199756839497346
+      },
+      {
+        "date": "2019-04-12",
+        "nav": 97629.82693107206,
+        "cash": 124.38222606260933,
+        "positions_value": 97505.44470500946,
+        "daily_return": -0.012605938375206727,
+        "cumulative_return": -0.023701730689279388,
+        "drawdown": -0.055261121742161454
+      },
+      {
+        "date": "2019-04-19",
+        "nav": 97903.3219743498,
+        "cash": 124.38222606260933,
+        "positions_value": 97778.9397482872,
+        "daily_return": 0.0028013472099139495,
+        "cumulative_return": -0.020966780256502004,
+        "drawdown": -0.052614580121456624
+      },
+      {
+        "date": "2019-04-26",
+        "nav": 98344.95969731886,
+        "cash": 124.38222606260933,
+        "positions_value": 98220.57747125626,
+        "daily_return": 0.004510957484004088,
+        "cumulative_return": -0.016550403026811433,
+        "drawdown": -0.04834096477141916
+      },
+      {
+        "date": "2019-05-03",
+        "nav": 99735.47387225706,
+        "cash": 124.38222606260933,
+        "positions_value": 99611.09164619446,
+        "daily_return": 0.01413915038673925,
+        "cumulative_return": -0.002645261277429367,
+        "drawdown": -0.03488531455542306
+      },
+      {
+        "date": "2019-05-10",
+        "nav": 96698.48832805235,
+        "cash": 124.38222606260933,
+        "positions_value": 96574.10610198975,
+        "daily_return": -0.030450404718531103,
+        "cumulative_return": -0.033015116719476545,
+        "drawdown": -0.06427344732700827
+      },
+      {
+        "date": "2019-05-17",
+        "nav": 94037.39636809904,
+        "cash": 124.38222606260933,
+        "positions_value": 93913.01414203644,
+        "daily_return": -0.027519478390659827,
+        "cumulative_return": -0.059626036319009534,
+        "drawdown": -0.09002415397285927
+      },
+      {
+        "date": "2019-05-24",
+        "nav": 92163.7335601576,
+        "cash": 124.38222606260933,
+        "positions_value": 92039.351334095,
+        "daily_return": -0.019924656363381116,
+        "cumulative_return": -0.07836266439842399,
+        "drawdown": -0.10815511000392707
+      },
+      {
+        "date": "2019-05-31",
+        "nav": 89244.60888536055,
+        "cash": 124.38222606260933,
+        "positions_value": 89120.22665929794,
+        "daily_return": -0.031673246753742584,
+        "cumulative_return": -0.10755391114639457,
+        "drawdown": -0.1364027332708371
+      },
+      {
+        "date": "2019-06-07",
+        "nav": 92407.67406613905,
+        "cash": 124.38222606260933,
+        "positions_value": 92283.29184007645,
+        "daily_return": 0.035442647127756806,
+        "cumulative_return": -0.07592325933860955,
+        "drawdown": -0.1057945600856601
+      },
+      {
+        "date": "2019-06-14",
+        "nav": 92211.01440484602,
+        "cash": 124.38222606260933,
+        "positions_value": 92086.63217878342,
+        "daily_return": -0.002128174562128621,
+        "cumulative_return": -0.07788985595153974,
+        "drawdown": -0.10769758535620283
+      },
+      {
+        "date": "2019-06-21",
+        "nav": 96294.5095396765,
+        "cash": 124.38222606260933,
+        "positions_value": 96170.12731361389,
+        "daily_return": 0.04428424479642068,
+        "cumulative_return": -0.03705490460323502,
+        "drawdown": -0.06818264679367965
+      },
+      {
+        "date": "2019-06-28",
+        "nav": 97250.79489953596,
+        "cash": 124.38222606260933,
+        "positions_value": 97126.41267347336,
+        "daily_return": 0.0099308399246319,
+        "cumulative_return": -0.02749205100464036,
+        "drawdown": -0.058928917819993494
+      },
+      {
+        "date": "2019-07-05",
+        "nav": 98345.00767762739,
+        "cash": 124.38222606260933,
+        "positions_value": 98220.62545156479,
+        "daily_return": 0.011251453309166234,
+        "cumulative_return": -0.01654992322372606,
+        "drawdown": -0.04834050047823861
+      },
+      {
+        "date": "2019-07-12",
+        "nav": 98949.23007829268,
+        "cash": 124.38222606260933,
+        "positions_value": 98824.84785223007,
+        "daily_return": 0.006143905165434629,
+        "cumulative_return": -0.010507699217073285,
+        "drawdown": -0.04249359476339193
+      },
+      {
+        "date": "2019-07-19",
+        "nav": 98284.0253020056,
+        "cash": 124.38222606260933,
+        "positions_value": 98159.643075943,
+        "daily_return": -0.006722687743610957,
+        "cumulative_return": -0.017159746979944046,
+        "drawdown": -0.04893061133830506
+      },
+      {
+        "date": "2019-07-26",
+        "nav": 100088.50860364515,
+        "cash": 124.38222606260933,
+        "positions_value": 99964.12637758255,
+        "daily_return": 0.01835988398007478,
+        "cumulative_return": 0.0008850860364515434,
+        "drawdown": -0.03146908770547569
+      },
+      {
+        "date": "2019-08-02",
+        "nav": 98579.64812476713,
+        "cash": 124.38222606260933,
+        "positions_value": 98455.26589870453,
+        "daily_return": -0.015075261884989958,
+        "cumulative_return": -0.014203518752328725,
+        "drawdown": -0.04606994485202389
+      },
+      {
+        "date": "2019-08-09",
+        "nav": 96740.534369541,
+        "cash": 124.38222606260933,
+        "positions_value": 96616.1521434784,
+        "daily_return": -0.018656120104004272,
+        "cumulative_return": -0.03259465630459002,
+        "drawdown": -0.06386657853168395
+      },
+      {
+        "date": "2019-08-16",
+        "nav": 94542.13711364348,
+        "cash": 124.38222606260933,
+        "positions_value": 94417.75488758087,
+        "daily_return": -0.022724675548098823,
+        "cumulative_return": -0.05457862886356524,
+        "drawdown": -0.08513990680428309
+      },
+      {
+        "date": "2019-08-23",
+        "nav": 92507.22715241987,
+        "cash": 124.38222606260933,
+        "positions_value": 92382.84492635727,
+        "daily_return": -0.02152384136163072,
+        "cumulative_return": -0.07492772847580131,
+        "drawdown": -0.10483121031831438
+      },
+      {
+        "date": "2019-08-30",
+        "nav": 93316.69249398787,
+        "cash": 124.38222606260933,
+        "positions_value": 93192.31026792526,
+        "daily_return": 0.008750292993154735,
+        "cumulative_return": -0.06683307506012137,
+        "drawdown": -0.09699822113027193
+      },
+      {
+        "date": "2019-09-06",
+        "nav": 94415.62700898726,
+        "cash": 124.38222606260933,
+        "positions_value": 94291.24478292465,
+        "daily_return": 0.011776398044435522,
+        "cumulative_return": -0.055843729910127426,
+        "drawdown": -0.08636411274746866
+      },
+      {
+        "date": "2019-09-13",
+        "nav": 97480.83276136,
+        "cash": 124.38222606260933,
+        "positions_value": 97356.4505352974,
+        "daily_return": 0.03246502564751246,
+        "cumulative_return": -0.025191672386400077,
+        "drawdown": -0.05670290023532743
+      },
+      {
+        "date": "2019-09-20",
+        "nav": 97480.73649652083,
+        "cash": 124.38222606260933,
+        "positions_value": 97356.35427045822,
+        "daily_return": -9.875258186194044e-07,
+        "cumulative_return": -0.025192635034791744,
+        "drawdown": -0.05670383176556808
+      },
+      {
+        "date": "2019-09-27",
+        "nav": 94491.86879451353,
+        "cash": 124.38222606260933,
+        "positions_value": 94367.48656845093,
+        "daily_return": -0.03066111120440672,
+        "cumulative_return": -0.05508131205486466,
+        "drawdown": -0.08562634047849474
+      },
+      {
+        "date": "2019-10-04",
+        "nav": 95451.33740766127,
+        "cash": 124.38222606260933,
+        "positions_value": 95326.95518159866,
+        "daily_return": 0.010153980711655108,
+        "cumulative_return": -0.04548662592338737,
+        "drawdown": -0.07634180797646789
+      },
+      {
+        "date": "2019-10-11",
+        "nav": 97361.73985250074,
+        "cash": 124.38222606260933,
+        "positions_value": 97237.35762643814,
+        "daily_return": 0.02001441254490104,
+        "cumulative_return": -0.026382601474992606,
+        "drawdown": -0.057855331870831486
+      },
+      {
+        "date": "2019-10-18",
+        "nav": 96462.46779306013,
+        "cash": 124.38222606260933,
+        "positions_value": 96338.08556699753,
+        "daily_return": -0.009236400877829166,
+        "cumulative_return": -0.03537532206939864,
+        "drawdown": -0.06655735771058181
+      },
+      {
+        "date": "2019-10-25",
+        "nav": 98058.79254491407,
+        "cash": 124.38222606260933,
+        "positions_value": 97934.41031885147,
+        "daily_return": 0.016548661758047915,
+        "cumulative_return": -0.01941207455085925,
+        "drawdown": -0.05111013115279572
+      },
+      {
+        "date": "2019-11-01",
+        "nav": 100462.30109746534,
+        "cash": 124.38222606260933,
+        "positions_value": 100337.91887140274,
+        "daily_return": 0.024510892803930717,
+        "cumulative_return": 0.004623010974653452,
+        "drawdown": -0.027851993294746014
+      },
+      {
+        "date": "2019-11-08",
+        "nav": 101379.2028504141,
+        "cash": 124.38222606260933,
+        "positions_value": 101254.8206243515,
+        "daily_return": 0.009126824121410597,
+        "cumulative_return": 0.013792028504141074,
+        "drawdown": -0.018979369417567272
+      },
+      {
+        "date": "2019-11-15",
+        "nav": 101613.8979345091,
+        "cash": 124.38222606260933,
+        "positions_value": 101489.5157084465,
+        "daily_return": 0.0023150219916534148,
+        "cumulative_return": 0.01613897934509101,
+        "drawdown": -0.01670828508350324
+      },
+      {
+        "date": "2019-11-22",
+        "nav": 101785.65048511107,
+        "cash": 124.38222606260933,
+        "positions_value": 101661.26825904846,
+        "daily_return": 0.0016902466502432079,
+        "cumulative_return": 0.017856504851110566,
+        "drawdown": -0.01504627955615373
+      },
+      {
+        "date": "2019-11-29",
+        "nav": 103838.89452273924,
+        "cash": 124.38222606260933,
+        "positions_value": 103714.51229667664,
+        "daily_return": 0.020172234768284128,
+        "cumulative_return": 0.038388945227392446,
+        "drawdown": 0.0
+      }
+    ],
+    "error_message": null
   }
 }

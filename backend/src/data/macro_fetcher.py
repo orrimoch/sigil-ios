@@ -409,6 +409,238 @@ def get_sector_macro_sensitivity() -> Dict[str, Dict]:
     }
 
 
+# Historical macro data cache
+HISTORICAL_MACRO_CACHE = CACHE_DIR / "macro_historical.json"
+
+
+def fetch_historical_macro_data(
+    start_date: str,
+    end_date: str,
+    force: bool = False
+) -> Dict[str, pd.DataFrame]:
+    """
+    Fetch historical macro data for a date range.
+    
+    Args:
+        start_date: Start date (YYYY-MM-DD)
+        end_date: End date (YYYY-MM-DD)
+        force: Force re-fetch even if cached
+    
+    Returns:
+        Dict mapping indicator name to DataFrame with date/value
+    """
+    cache_key = f"{start_date}_{end_date}"
+    
+    # Check cache
+    if not force and HISTORICAL_MACRO_CACHE.exists():
+        try:
+            with open(HISTORICAL_MACRO_CACHE) as f:
+                cached = json.load(f)
+            if cache_key in cached:
+                logger.info(f"Loading cached historical macro data for {start_date} to {end_date}")
+                result = {}
+                for name, records in cached[cache_key].items():
+                    df = pd.DataFrame(records)
+                    df['date'] = pd.to_datetime(df['date'])
+                    result[name] = df
+                return result
+        except Exception as e:
+            logger.warning(f"Failed to load macro cache: {e}")
+    
+    logger.info(f"Fetching historical macro data from FRED: {start_date} to {end_date}")
+    
+    result = {}
+    failed = []
+    
+    for name, series_id in FRED_SERIES.items():
+        df = fetch_fred_series(series_id, start_date=start_date, end_date=end_date)
+        if df is not None and not df.empty:
+            result[name] = df
+            logger.debug(f"  {name}: {len(df)} observations")
+        else:
+            failed.append(name)
+    
+    if failed:
+        logger.warning(f"Failed to fetch: {failed}")
+    
+    logger.info(f"Fetched {len(result)}/{len(FRED_SERIES)} indicators")
+    
+    # Cache the results
+    try:
+        cached = {}
+        if HISTORICAL_MACRO_CACHE.exists():
+            with open(HISTORICAL_MACRO_CACHE) as f:
+                cached = json.load(f)
+        
+        cached[cache_key] = {
+            name: df.to_dict('records') for name, df in result.items()
+        }
+        
+        with open(HISTORICAL_MACRO_CACHE, 'w') as f:
+            json.dump(cached, f, default=str)
+        
+        logger.info(f"Cached historical macro data")
+    except Exception as e:
+        logger.warning(f"Failed to cache macro data: {e}")
+    
+    return result
+
+
+def get_macro_value_at_date(
+    indicator: str,
+    target_date: str,
+    historical_data: Dict[str, pd.DataFrame]
+) -> Optional[float]:
+    """
+    Get macro indicator value for a specific date.
+    
+    Uses the most recent available value on or before target_date.
+    """
+    if indicator not in historical_data:
+        return None
+    
+    df = historical_data[indicator]
+    target = pd.to_datetime(target_date)
+    
+    # Get values on or before target date
+    mask = df['date'] <= target
+    if not mask.any():
+        return None
+    
+    # Get most recent value
+    recent = df[mask].iloc[-1]
+    return float(recent['value']) if pd.notna(recent['value']) else None
+
+
+def calculate_macro_score_for_date(
+    target_date: str,
+    historical_data: Dict[str, pd.DataFrame]
+) -> Dict:
+    """
+    Calculate macro score for a specific historical date.
+    
+    Uses same logic as calculate_macro_score() but with historical values.
+    """
+    score = 50  # Start neutral
+    details = {}
+    
+    # Fed Funds Rate (lower is better for stocks) - weight: 20
+    fed_rate = get_macro_value_at_date("fed_funds_rate", target_date, historical_data)
+    if fed_rate is not None:
+        if fed_rate < 2:
+            rate_score = 20
+        elif fed_rate < 3:
+            rate_score = 15
+        elif fed_rate < 4:
+            rate_score = 10
+        elif fed_rate < 5:
+            rate_score = 5
+        else:
+            rate_score = -5
+        score += rate_score - 10
+        details["fed_rate"] = {"value": fed_rate, "contribution": rate_score - 10}
+    
+    # Unemployment Rate (lower is better) - weight: 15
+    unemployment = get_macro_value_at_date("unemployment_rate", target_date, historical_data)
+    if unemployment is not None:
+        if unemployment < 4:
+            unemp_score = 15
+        elif unemployment < 5:
+            unemp_score = 10
+        elif unemployment < 6:
+            unemp_score = 5
+        else:
+            unemp_score = -5
+        score += unemp_score - 7.5
+        details["unemployment"] = {"value": unemployment, "contribution": unemp_score - 7.5}
+    
+    # VIX (lower is better) - weight: 20
+    vix = get_macro_value_at_date("vix", target_date, historical_data)
+    if vix is not None:
+        if vix < 15:
+            vix_score = 20
+        elif vix < 20:
+            vix_score = 15
+        elif vix < 25:
+            vix_score = 10
+        elif vix < 30:
+            vix_score = 0
+        else:
+            vix_score = -10
+        score += vix_score - 10
+        details["vix"] = {"value": vix, "contribution": vix_score - 10}
+    
+    # Consumer Sentiment (higher is better) - weight: 15
+    sentiment = get_macro_value_at_date("consumer_sentiment", target_date, historical_data)
+    if sentiment is not None:
+        if sentiment > 100:
+            sent_score = 15
+        elif sentiment > 90:
+            sent_score = 10
+        elif sentiment > 80:
+            sent_score = 5
+        elif sentiment > 70:
+            sent_score = 0
+        else:
+            sent_score = -10
+        score += sent_score - 7.5
+        details["consumer_sentiment"] = {"value": sentiment, "contribution": sent_score - 7.5}
+    
+    # GDP Growth (higher is better) - weight: 15
+    gdp_growth = get_macro_value_at_date("gdp_growth", target_date, historical_data)
+    if gdp_growth is not None:
+        if gdp_growth > 3:
+            gdp_score = 15
+        elif gdp_growth > 2:
+            gdp_score = 10
+        elif gdp_growth > 1:
+            gdp_score = 5
+        elif gdp_growth > 0:
+            gdp_score = 0
+        else:
+            gdp_score = -10
+        score += gdp_score - 7.5
+        details["gdp_growth"] = {"value": gdp_growth, "contribution": gdp_score - 7.5}
+    
+    # Yield curve (10Y - 2Y) - weight: 15
+    treasury_10y = get_macro_value_at_date("treasury_10y", target_date, historical_data)
+    treasury_2y = get_macro_value_at_date("treasury_2y", target_date, historical_data)
+    if treasury_10y is not None and treasury_2y is not None:
+        spread = treasury_10y - treasury_2y
+        if spread > 1.0:
+            yield_score = 15  # Steep curve = good
+        elif spread > 0.5:
+            yield_score = 10
+        elif spread > 0:
+            yield_score = 5
+        elif spread > -0.5:
+            yield_score = 0  # Flat/inverted = caution
+        else:
+            yield_score = -10  # Deeply inverted = recession signal
+        score += yield_score - 7.5
+        details["yield_curve"] = {"value": spread, "contribution": yield_score - 7.5}
+    
+    # Clamp score
+    score = max(0, min(100, score))
+    
+    # Determine regime
+    if score >= 70:
+        regime = "bullish"
+    elif score >= 50:
+        regime = "neutral"
+    elif score >= 30:
+        regime = "cautious"
+    else:
+        regime = "bearish"
+    
+    return {
+        "score": round(score, 1),
+        "regime": regime,
+        "details": details,
+        "date": target_date,
+    }
+
+
 # CLI for testing
 if __name__ == "__main__":
     import sys

@@ -81,6 +81,9 @@ from ibkr import ibkr_router
 # Push notification imports
 from notifications.push_routes import router as push_router
 
+# Risk management imports
+from risk.routes import router as risk_router
+
 # Per-user trading service
 from trading.user_trading_service import UserTradingService
 from db.models import ANONYMOUS_USER_ID
@@ -242,6 +245,9 @@ app.include_router(ibkr_router)
 
 # Include push notification router
 app.include_router(push_router, prefix="/api/v1")
+
+# Include risk management router
+app.include_router(risk_router)
 
 
 # ========== Pydantic Models ==========

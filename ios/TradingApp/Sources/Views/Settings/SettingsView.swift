@@ -12,6 +12,27 @@ struct SettingsView: View {
     @State private var showResetAlert = false
     @State private var showPinSetup = false
     
+    // Risk settings summary for display
+    private var riskSettingsSummary: String {
+        let settings = RiskSettingsService.shared.settings
+        var active: [String] = []
+        
+        if settings.hardStop.enabled {
+            active.append("Stop-Loss")
+        }
+        if settings.trailingStop.enabled {
+            active.append("Trailing")
+        }
+        if settings.vixAdjustment.enabled {
+            active.append("VIX")
+        }
+        if settings.positionLimit.enabled {
+            active.append("Limits")
+        }
+        
+        return active.isEmpty ? "All protections disabled" : active.joined(separator: ", ")
+    }
+    
     var body: some View {
         NavigationStack {
             List {
@@ -123,6 +144,33 @@ struct SettingsView: View {
                 if IBKRService.shared.isConnected {
                     DailyLossLimitSettingsSection()
                 }
+                
+                // REC-215: Risk Management Section
+                Section {
+                    NavigationLink {
+                        RiskSettingsView()
+                    } label: {
+                        HStack {
+                            Image(systemName: "shield.lefthalf.filled")
+                                .foregroundColor(.Accent.gold)
+                            
+                            VStack(alignment: .leading) {
+                                Text("Risk Management")
+                                    .foregroundColor(.Text.primary)
+                                
+                                Text(riskSettingsSummary)
+                                    .font(.caption)
+                                    .foregroundColor(.Text.tertiary)
+                            }
+                        }
+                    }
+                } header: {
+                    Text("Risk Protection")
+                        .accessibilityAddTraits(.isHeader)
+                } footer: {
+                    Text("Configure stop-loss orders, trailing stops, and position limits.")
+                }
+                .listRowBackground(Color.Background.secondary)
                 
                 // F8.4: Notifications Section (M2: differentiated icon colors, H5: gold tints)
                 Section {

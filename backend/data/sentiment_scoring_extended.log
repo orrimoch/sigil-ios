@@ -1,0 +1,276 @@
+2026-02-08 16:07:04 | INFO | ============================================================
+2026-02-08 16:07:04 | INFO | STARTING HISTORICAL SENTIMENT SCORING (EXTENDED)
+2026-02-08 16:07:04 | INFO | ============================================================
+2026-02-08 16:07:04 | INFO | Period: 2018-06-01 to 2019-05-31
+2026-02-08 16:07:04 | INFO | Loading articles from Kaggle dataset...
+2026-02-08 16:07:04 | INFO | Loaded 938 tickers from universe
+2026-02-08 16:07:04 | INFO | Loading Kaggle data from /Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/kaggle_sentiment/analyst_ratings_processed.csv...
+2026-02-08 16:07:07 | WARNING | Dropped 2578 rows with invalid dates
+2026-02-08 16:07:07 | INFO | Loaded 1,397,891 articles, 6192 tickers, range: 2009-02-14 to 2020-06-11
+2026-02-08 16:07:08 | INFO | Found 46,974 articles to score
+2026-02-08 16:07:08 | INFO | Sample articles:
+2026-02-08 16:07:08 | INFO |   2019-05-16 A: Shares of many Healthcare companies are trading hi...
+2026-02-08 16:07:08 | INFO |   2019-05-16 A: 60 Biggest Movers From Yesterday...
+2026-02-08 16:07:08 | INFO |   2019-05-15 A: 44 Stocks Moving In Wednesday's Mid-Day Session...
+2026-02-08 16:07:08 | INFO | Initializing scorer...
+2026-02-08 16:07:08 | ERROR | Scoring failed: __init__() got an unexpected keyword argument 'cache_path'
+Traceback (most recent call last):
+
+  File "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/backend/run_sentiment_scoring_extended.py", line 86, in <module>
+    main()
+    └ <function main at 0x106065e50>
+
+> File "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/backend/run_sentiment_scoring_extended.py", line 60, in main
+    scorer = HistoricalSentimentScorer(
+             └ <class 'src.sentiment_historical.sentiment_scorer.HistoricalSentimentScorer'>
+
+TypeError: __init__() got an unexpected keyword argument 'cache_path'
+2026-02-08 16:07:35 | INFO | ============================================================
+2026-02-08 16:07:35 | INFO | STARTING HISTORICAL SENTIMENT SCORING (EXTENDED)
+2026-02-08 16:07:35 | INFO | ============================================================
+2026-02-08 16:07:35 | INFO | Period: 2018-06-01 to 2019-05-31
+2026-02-08 16:07:35 | INFO | Loading articles from Kaggle dataset...
+2026-02-08 16:07:35 | INFO | Loaded 938 tickers from universe
+2026-02-08 16:07:35 | INFO | Loading Kaggle data from /Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/kaggle_sentiment/analyst_ratings_processed.csv...
+2026-02-08 16:07:38 | WARNING | Dropped 2578 rows with invalid dates
+2026-02-08 16:07:38 | INFO | Loaded 1,397,891 articles, 6192 tickers, range: 2009-02-14 to 2020-06-11
+2026-02-08 16:07:39 | INFO | Found 46,974 articles to score
+2026-02-08 16:07:39 | INFO | Sample articles:
+2026-02-08 16:07:39 | INFO |   2019-05-16 A: Shares of many Healthcare companies are trading hi...
+2026-02-08 16:07:39 | INFO |   2019-05-16 A: 60 Biggest Movers From Yesterday...
+2026-02-08 16:07:39 | INFO |   2019-05-15 A: 44 Stocks Moving In Wednesday's Mid-Day Session...
+2026-02-08 16:07:39 | INFO | Initializing scorer...
+2026-02-08 16:07:39 | INFO | Sentiment config loaded: model=keyword, llm_enabled=False, cache_ttl=24h
+2026-02-08 16:07:39 | INFO | Starting scoring...
+2026-02-08 16:07:39 | INFO | This will take ~1 hour for 148k headlines (batched 20/call)
+2026-02-08 16:07:39 | ERROR | Scoring failed: score_articles() got an unexpected keyword argument 'progress_interval'
+Traceback (most recent call last):
+
+  File "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/backend/run_sentiment_scoring_extended.py", line 86, in <module>
+    main()
+    └ <function main at 0x107af3dc0>
+
+> File "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/backend/run_sentiment_scoring_extended.py", line 68, in main
+    result = scorer.score_articles(
+             │      └ <function HistoricalSentimentScorer.score_articles at 0x111c82280>
+             └ <src.sentiment_historical.sentiment_scorer.HistoricalSentimentScorer object at 0x111c6c790>
+
+TypeError: score_articles() got an unexpected keyword argument 'progress_interval'
+2026-02-08 16:07:59 | INFO | ============================================================
+2026-02-08 16:07:59 | INFO | STARTING HISTORICAL SENTIMENT SCORING (EXTENDED)
+2026-02-08 16:07:59 | INFO | ============================================================
+2026-02-08 16:07:59 | INFO | Period: 2018-06-01 to 2019-05-31
+2026-02-08 16:07:59 | INFO | Loading articles from Kaggle dataset...
+2026-02-08 16:07:59 | INFO | Loaded 938 tickers from universe
+2026-02-08 16:07:59 | INFO | Loading Kaggle data from /Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/kaggle_sentiment/analyst_ratings_processed.csv...
+2026-02-08 16:08:02 | WARNING | Dropped 2578 rows with invalid dates
+2026-02-08 16:08:02 | INFO | Loaded 1,397,891 articles, 6192 tickers, range: 2009-02-14 to 2020-06-11
+2026-02-08 16:08:03 | INFO | Found 46,974 articles to score
+2026-02-08 16:08:03 | INFO | Sample articles:
+2026-02-08 16:08:03 | INFO |   2019-05-16 A: Shares of many Healthcare companies are trading hi...
+2026-02-08 16:08:03 | INFO |   2019-05-16 A: 60 Biggest Movers From Yesterday...
+2026-02-08 16:08:03 | INFO |   2019-05-15 A: 44 Stocks Moving In Wednesday's Mid-Day Session...
+2026-02-08 16:08:03 | INFO | Initializing scorer...
+2026-02-08 16:08:03 | INFO | Sentiment config loaded: model=keyword, llm_enabled=False, cache_ttl=24h
+2026-02-08 16:08:03 | INFO | Starting scoring...
+2026-02-08 16:08:03 | INFO | This will take ~30-60 min for 47k headlines (batched 20/call)
+2026-02-08 16:08:03 | INFO | Resuming from index 30826
+2026-02-08 16:08:03 | INFO | Scoring 16148 headlines in batches of 20...
+2026-02-08 16:08:13 | INFO | Progress: 30906/46974 (65.8%) - Cost: $1.53
+2026-02-08 16:08:26 | INFO | Progress: 31006/46974 (66.0%) - Cost: $1.54
+2026-02-08 16:08:37 | INFO | Progress: 31106/46974 (66.2%) - Cost: $1.54
+2026-02-08 16:08:50 | INFO | Progress: 31206/46974 (66.4%) - Cost: $1.55
+2026-02-08 16:09:04 | INFO | Progress: 31306/46974 (66.6%) - Cost: $1.55
+2026-02-08 16:09:18 | INFO | Progress: 31406/46974 (66.9%) - Cost: $1.56
+2026-02-08 16:09:30 | INFO | Progress: 31506/46974 (67.1%) - Cost: $1.56
+2026-02-08 16:09:43 | INFO | Progress: 31606/46974 (67.3%) - Cost: $1.57
+2026-02-08 16:09:56 | INFO | Progress: 31706/46974 (67.5%) - Cost: $1.57
+2026-02-08 16:10:08 | INFO | Progress: 31806/46974 (67.7%) - Cost: $1.58
+2026-02-08 16:10:20 | INFO | Progress: 31906/46974 (67.9%) - Cost: $1.58
+2026-02-08 16:10:32 | INFO | Progress: 32006/46974 (68.1%) - Cost: $1.59
+2026-02-08 16:10:45 | INFO | Progress: 32106/46974 (68.3%) - Cost: $1.59
+2026-02-08 16:10:58 | INFO | Progress: 32206/46974 (68.6%) - Cost: $1.60
+2026-02-08 16:11:10 | INFO | Progress: 32306/46974 (68.8%) - Cost: $1.60
+2026-02-08 16:11:23 | INFO | Progress: 32406/46974 (69.0%) - Cost: $1.61
+2026-02-08 16:11:37 | INFO | Progress: 32506/46974 (69.2%) - Cost: $1.61
+2026-02-08 16:11:49 | INFO | Progress: 32606/46974 (69.4%) - Cost: $1.62
+2026-02-08 16:12:01 | INFO | Progress: 32706/46974 (69.6%) - Cost: $1.62
+2026-02-08 16:12:14 | INFO | Progress: 32806/46974 (69.8%) - Cost: $1.63
+2026-02-08 16:12:27 | INFO | Progress: 32906/46974 (70.1%) - Cost: $1.63
+2026-02-08 16:12:42 | INFO | Progress: 33006/46974 (70.3%) - Cost: $1.64
+2026-02-08 16:12:56 | INFO | Progress: 33106/46974 (70.5%) - Cost: $1.64
+2026-02-08 16:13:09 | INFO | Progress: 33206/46974 (70.7%) - Cost: $1.65
+2026-02-08 16:13:21 | INFO | Progress: 33306/46974 (70.9%) - Cost: $1.65
+2026-02-08 16:13:33 | INFO | Progress: 33406/46974 (71.1%) - Cost: $1.66
+2026-02-08 16:13:46 | INFO | Progress: 33506/46974 (71.3%) - Cost: $1.66
+2026-02-08 16:13:58 | INFO | Progress: 33606/46974 (71.5%) - Cost: $1.67
+2026-02-08 16:14:10 | INFO | Progress: 33706/46974 (71.8%) - Cost: $1.67
+2026-02-08 16:14:23 | INFO | Progress: 33806/46974 (72.0%) - Cost: $1.68
+2026-02-08 16:14:35 | INFO | Progress: 33906/46974 (72.2%) - Cost: $1.68
+2026-02-08 16:14:48 | INFO | Progress: 34006/46974 (72.4%) - Cost: $1.69
+2026-02-08 16:15:01 | INFO | Progress: 34106/46974 (72.6%) - Cost: $1.69
+2026-02-08 16:15:13 | INFO | Progress: 34206/46974 (72.8%) - Cost: $1.70
+2026-02-08 16:15:27 | INFO | Progress: 34306/46974 (73.0%) - Cost: $1.70
+2026-02-08 16:15:39 | INFO | Progress: 34406/46974 (73.2%) - Cost: $1.71
+2026-02-08 16:22:11 | INFO | ============================================================
+2026-02-08 16:22:11 | INFO | STARTING HISTORICAL SENTIMENT SCORING (EXTENDED)
+2026-02-08 16:22:11 | INFO | ============================================================
+2026-02-08 16:22:11 | INFO | Period: 2018-06-01 to 2019-05-31
+2026-02-08 16:22:11 | INFO | Loading articles from Kaggle dataset...
+2026-02-08 16:22:11 | INFO | Loaded 938 tickers from universe
+2026-02-08 16:22:11 | INFO | Loading Kaggle data from /Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/kaggle_sentiment/analyst_ratings_processed.csv...
+2026-02-08 16:22:13 | WARNING | Dropped 2578 rows with invalid dates
+2026-02-08 16:22:13 | INFO | Loaded 1,397,891 articles, 6192 tickers, range: 2009-02-14 to 2020-06-11
+2026-02-08 16:22:14 | INFO | Found 46,974 articles to score
+2026-02-08 16:22:14 | INFO | Sample articles:
+2026-02-08 16:22:14 | INFO |   2019-05-16 A: Shares of many Healthcare companies are trading hi...
+2026-02-08 16:22:14 | INFO |   2019-05-16 A: 60 Biggest Movers From Yesterday...
+2026-02-08 16:22:14 | INFO |   2019-05-15 A: 44 Stocks Moving In Wednesday's Mid-Day Session...
+2026-02-08 16:22:14 | INFO | Initializing scorer...
+2026-02-08 16:22:14 | INFO | Sentiment config loaded: model=keyword, llm_enabled=False, cache_ttl=24h
+2026-02-08 16:22:14 | INFO | Starting scoring...
+2026-02-08 16:22:14 | INFO | This will take ~30-60 min for 47k headlines (batched 20/call)
+2026-02-08 16:22:14 | INFO | Resuming from index 34406
+2026-02-08 16:22:15 | INFO | Scoring 12568 headlines in batches of 20...
+2026-02-08 16:22:26 | INFO | Progress: 34506/46974 (73.5%) - Cost: $1.71
+2026-02-08 16:22:39 | INFO | Progress: 34606/46974 (73.7%) - Cost: $1.72
+2026-02-08 16:22:51 | INFO | Progress: 34706/46974 (73.9%) - Cost: $1.72
+2026-02-08 16:23:03 | INFO | Progress: 34806/46974 (74.1%) - Cost: $1.73
+2026-02-08 16:23:17 | INFO | Progress: 34906/46974 (74.3%) - Cost: $1.73
+2026-02-08 16:23:29 | INFO | Progress: 35006/46974 (74.5%) - Cost: $1.74
+2026-02-08 16:23:41 | INFO | Progress: 35106/46974 (74.7%) - Cost: $1.74
+2026-02-08 16:23:53 | INFO | Progress: 35206/46974 (74.9%) - Cost: $1.75
+2026-02-08 16:24:06 | INFO | Progress: 35306/46974 (75.2%) - Cost: $1.75
+2026-02-08 16:24:18 | INFO | Progress: 35406/46974 (75.4%) - Cost: $1.76
+2026-02-08 16:24:36 | INFO | Progress: 35506/46974 (75.6%) - Cost: $1.76
+2026-02-08 16:24:48 | INFO | Progress: 35606/46974 (75.8%) - Cost: $1.77
+2026-02-08 16:25:00 | INFO | Progress: 35706/46974 (76.0%) - Cost: $1.77
+2026-02-08 16:25:12 | INFO | Progress: 35806/46974 (76.2%) - Cost: $1.78
+2026-02-08 16:25:26 | INFO | Progress: 35906/46974 (76.4%) - Cost: $1.78
+2026-02-08 16:25:37 | INFO | Progress: 36006/46974 (76.7%) - Cost: $1.79
+2026-02-08 16:25:50 | INFO | Progress: 36106/46974 (76.9%) - Cost: $1.79
+2026-02-08 16:26:02 | INFO | Progress: 36206/46974 (77.1%) - Cost: $1.80
+2026-02-08 16:26:15 | INFO | Progress: 36306/46974 (77.3%) - Cost: $1.80
+2026-02-08 16:26:28 | INFO | Progress: 36406/46974 (77.5%) - Cost: $1.81
+2026-02-08 16:26:41 | INFO | Progress: 36506/46974 (77.7%) - Cost: $1.81
+2026-02-08 16:26:53 | INFO | Progress: 36606/46974 (77.9%) - Cost: $1.82
+2026-02-08 16:27:07 | INFO | Progress: 36706/46974 (78.1%) - Cost: $1.82
+2026-02-08 16:27:20 | INFO | Progress: 36806/46974 (78.4%) - Cost: $1.83
+2026-02-08 16:27:33 | INFO | Progress: 36906/46974 (78.6%) - Cost: $1.83
+2026-02-08 16:27:46 | INFO | Progress: 37006/46974 (78.8%) - Cost: $1.84
+2026-02-08 16:27:58 | INFO | Progress: 37106/46974 (79.0%) - Cost: $1.84
+2026-02-08 16:28:10 | INFO | Progress: 37206/46974 (79.2%) - Cost: $1.85
+2026-02-08 16:28:23 | INFO | Progress: 37306/46974 (79.4%) - Cost: $1.85
+2026-02-08 16:28:35 | INFO | Progress: 37406/46974 (79.6%) - Cost: $1.86
+2026-02-08 16:28:48 | INFO | Progress: 37506/46974 (79.8%) - Cost: $1.86
+2026-02-08 16:29:00 | INFO | Progress: 37606/46974 (80.1%) - Cost: $1.87
+2026-02-08 16:29:12 | INFO | Progress: 37706/46974 (80.3%) - Cost: $1.87
+2026-02-08 16:29:25 | INFO | Progress: 37806/46974 (80.5%) - Cost: $1.88
+2026-02-08 16:29:37 | INFO | Progress: 37906/46974 (80.7%) - Cost: $1.88
+2026-02-08 16:29:50 | INFO | Progress: 38006/46974 (80.9%) - Cost: $1.89
+2026-02-08 16:30:03 | INFO | Progress: 38106/46974 (81.1%) - Cost: $1.89
+2026-02-08 16:30:15 | INFO | Progress: 38206/46974 (81.3%) - Cost: $1.90
+2026-02-08 16:30:31 | INFO | Progress: 38306/46974 (81.5%) - Cost: $1.90
+2026-02-08 16:30:44 | INFO | Progress: 38406/46974 (81.8%) - Cost: $1.91
+2026-02-08 16:30:57 | INFO | Progress: 38506/46974 (82.0%) - Cost: $1.91
+2026-02-08 16:31:09 | INFO | Progress: 38606/46974 (82.2%) - Cost: $1.92
+2026-02-08 16:31:21 | INFO | Progress: 38706/46974 (82.4%) - Cost: $1.92
+2026-02-08 16:31:34 | INFO | Progress: 38806/46974 (82.6%) - Cost: $1.93
+2026-02-08 16:31:47 | INFO | Progress: 38906/46974 (82.8%) - Cost: $1.93
+2026-02-08 16:32:00 | INFO | Progress: 39006/46974 (83.0%) - Cost: $1.94
+2026-02-08 16:32:13 | INFO | Progress: 39106/46974 (83.3%) - Cost: $1.94
+2026-02-08 16:32:28 | INFO | Progress: 39206/46974 (83.5%) - Cost: $1.95
+2026-02-08 16:32:41 | INFO | Progress: 39306/46974 (83.7%) - Cost: $1.95
+2026-02-08 16:32:54 | INFO | Progress: 39406/46974 (83.9%) - Cost: $1.96
+2026-02-08 16:33:06 | INFO | Progress: 39506/46974 (84.1%) - Cost: $1.96
+2026-02-08 16:33:18 | INFO | Progress: 39606/46974 (84.3%) - Cost: $1.97
+2026-02-08 16:33:32 | INFO | Progress: 39706/46974 (84.5%) - Cost: $1.97
+2026-02-08 16:33:44 | INFO | Progress: 39806/46974 (84.7%) - Cost: $1.98
+2026-02-08 16:33:57 | INFO | Progress: 39906/46974 (85.0%) - Cost: $1.98
+2026-02-08 16:34:09 | INFO | Progress: 40006/46974 (85.2%) - Cost: $1.99
+2026-02-08 16:34:22 | INFO | Progress: 40106/46974 (85.4%) - Cost: $1.99
+2026-02-08 16:34:34 | INFO | Progress: 40206/46974 (85.6%) - Cost: $2.00
+2026-02-08 16:34:48 | INFO | Progress: 40306/46974 (85.8%) - Cost: $2.00
+2026-02-08 16:35:00 | INFO | Progress: 40406/46974 (86.0%) - Cost: $2.01
+2026-02-08 16:35:12 | INFO | Progress: 40506/46974 (86.2%) - Cost: $2.01
+2026-02-08 16:35:25 | INFO | Progress: 40606/46974 (86.4%) - Cost: $2.02
+2026-02-08 16:35:37 | INFO | Progress: 40706/46974 (86.7%) - Cost: $2.02
+2026-02-08 16:35:49 | INFO | Progress: 40806/46974 (86.9%) - Cost: $2.03
+2026-02-08 16:36:03 | INFO | Progress: 40906/46974 (87.1%) - Cost: $2.03
+2026-02-08 16:36:15 | INFO | Progress: 41006/46974 (87.3%) - Cost: $2.04
+2026-02-08 16:36:29 | INFO | Progress: 41106/46974 (87.5%) - Cost: $2.04
+2026-02-08 16:36:42 | INFO | Progress: 41206/46974 (87.7%) - Cost: $2.05
+2026-02-08 16:36:54 | INFO | Progress: 41306/46974 (87.9%) - Cost: $2.05
+2026-02-08 16:37:08 | INFO | Progress: 41406/46974 (88.1%) - Cost: $2.06
+2026-02-08 16:37:22 | INFO | Progress: 41506/46974 (88.4%) - Cost: $2.06
+2026-02-08 16:37:36 | INFO | Progress: 41606/46974 (88.6%) - Cost: $2.07
+2026-02-08 16:37:48 | INFO | Progress: 41706/46974 (88.8%) - Cost: $2.07
+2026-02-08 16:38:01 | INFO | Progress: 41806/46974 (89.0%) - Cost: $2.08
+2026-02-08 16:38:13 | INFO | Progress: 41906/46974 (89.2%) - Cost: $2.08
+2026-02-08 16:38:26 | INFO | Progress: 42006/46974 (89.4%) - Cost: $2.09
+2026-02-08 16:38:39 | INFO | Progress: 42106/46974 (89.6%) - Cost: $2.09
+2026-02-08 16:38:52 | INFO | Progress: 42206/46974 (89.8%) - Cost: $2.10
+2026-02-08 16:39:04 | INFO | Progress: 42306/46974 (90.1%) - Cost: $2.10
+2026-02-08 16:39:19 | INFO | Progress: 42406/46974 (90.3%) - Cost: $2.11
+2026-02-08 16:39:31 | INFO | Progress: 42506/46974 (90.5%) - Cost: $2.11
+2026-02-08 16:39:43 | INFO | Progress: 42606/46974 (90.7%) - Cost: $2.12
+2026-02-08 16:39:56 | INFO | Progress: 42706/46974 (90.9%) - Cost: $2.12
+2026-02-08 16:40:09 | INFO | Progress: 42806/46974 (91.1%) - Cost: $2.13
+2026-02-08 16:40:21 | INFO | Progress: 42906/46974 (91.3%) - Cost: $2.13
+2026-02-08 16:40:34 | INFO | Progress: 43006/46974 (91.6%) - Cost: $2.14
+2026-02-08 16:40:46 | INFO | Progress: 43106/46974 (91.8%) - Cost: $2.14
+2026-02-08 16:40:58 | INFO | Progress: 43206/46974 (92.0%) - Cost: $2.15
+2026-02-08 16:41:11 | INFO | Progress: 43306/46974 (92.2%) - Cost: $2.15
+2026-02-08 16:41:24 | INFO | Progress: 43406/46974 (92.4%) - Cost: $2.16
+2026-02-08 16:41:36 | INFO | Progress: 43506/46974 (92.6%) - Cost: $2.16
+2026-02-08 16:41:49 | INFO | Progress: 43606/46974 (92.8%) - Cost: $2.17
+2026-02-08 16:42:01 | INFO | Progress: 43706/46974 (93.0%) - Cost: $2.17
+2026-02-08 16:42:14 | INFO | Progress: 43806/46974 (93.3%) - Cost: $2.18
+2026-02-08 16:42:26 | INFO | Progress: 43906/46974 (93.5%) - Cost: $2.18
+2026-02-08 16:42:39 | INFO | Progress: 44006/46974 (93.7%) - Cost: $2.19
+2026-02-08 16:42:52 | INFO | Progress: 44106/46974 (93.9%) - Cost: $2.19
+2026-02-08 16:43:06 | INFO | Progress: 44206/46974 (94.1%) - Cost: $2.20
+2026-02-08 16:43:19 | INFO | Progress: 44306/46974 (94.3%) - Cost: $2.20
+2026-02-08 16:43:32 | INFO | Progress: 44406/46974 (94.5%) - Cost: $2.21
+2026-02-08 16:43:46 | INFO | Progress: 44506/46974 (94.7%) - Cost: $2.21
+2026-02-08 16:43:58 | INFO | Progress: 44606/46974 (95.0%) - Cost: $2.22
+2026-02-08 16:44:10 | INFO | Progress: 44706/46974 (95.2%) - Cost: $2.22
+2026-02-08 16:44:22 | INFO | Progress: 44806/46974 (95.4%) - Cost: $2.23
+2026-02-08 16:44:34 | INFO | Progress: 44906/46974 (95.6%) - Cost: $2.23
+2026-02-08 16:44:47 | INFO | Progress: 45006/46974 (95.8%) - Cost: $2.24
+2026-02-08 16:45:00 | INFO | Progress: 45106/46974 (96.0%) - Cost: $2.24
+2026-02-08 16:45:13 | INFO | Progress: 45206/46974 (96.2%) - Cost: $2.25
+2026-02-08 16:45:25 | INFO | Progress: 45306/46974 (96.4%) - Cost: $2.25
+2026-02-08 16:45:38 | INFO | Progress: 45406/46974 (96.7%) - Cost: $2.26
+2026-02-08 16:45:51 | INFO | Progress: 45506/46974 (96.9%) - Cost: $2.26
+2026-02-08 16:46:03 | INFO | Progress: 45606/46974 (97.1%) - Cost: $2.27
+2026-02-08 16:46:15 | INFO | Progress: 45706/46974 (97.3%) - Cost: $2.27
+2026-02-08 16:46:29 | INFO | Progress: 45806/46974 (97.5%) - Cost: $2.28
+2026-02-08 16:46:41 | INFO | Progress: 45906/46974 (97.7%) - Cost: $2.28
+2026-02-08 16:46:54 | INFO | Progress: 46006/46974 (97.9%) - Cost: $2.29
+2026-02-08 16:47:06 | INFO | Progress: 46106/46974 (98.2%) - Cost: $2.29
+2026-02-08 16:47:19 | INFO | Progress: 46206/46974 (98.4%) - Cost: $2.30
+2026-02-08 16:47:32 | INFO | Progress: 46306/46974 (98.6%) - Cost: $2.30
+2026-02-08 16:47:45 | INFO | Progress: 46406/46974 (98.8%) - Cost: $2.31
+2026-02-08 16:47:58 | INFO | Progress: 46506/46974 (99.0%) - Cost: $2.31
+2026-02-08 16:48:10 | INFO | Progress: 46606/46974 (99.2%) - Cost: $2.32
+2026-02-08 16:48:25 | INFO | Progress: 46706/46974 (99.4%) - Cost: $2.32
+2026-02-08 16:48:38 | INFO | Progress: 46806/46974 (99.6%) - Cost: $2.33
+2026-02-08 16:48:51 | INFO | Progress: 46906/46974 (99.9%) - Cost: $2.33
+2026-02-08 16:49:01 | INFO | Completed: 46674 scored, 300 failed
+2026-02-08 16:49:01 | INFO | ============================================================
+2026-02-08 16:49:01 | INFO | SCORING COMPLETE
+2026-02-08 16:49:01 | INFO | ============================================================
+2026-02-08 16:49:01 | ERROR | Scoring failed: 'list' object has no attribute 'get'
+Traceback (most recent call last):
+
+  File "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/backend/run_sentiment_scoring_extended.py", line 85, in <module>
+    main()
+    └ <function main at 0x10a247dc0>
+
+> File "/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/backend/run_sentiment_scoring_extended.py", line 76, in main
+    logger.info(f"Total scored: {result.get('scored', 0):,}")
+    │      └ <function Logger.info at 0x10a24cc10>
+    └ <loguru.logger handlers=[(id=1, level=20, sink='/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/backend/data/sentiment_scor...
+
+AttributeError: 'list' object has no attribute 'get'

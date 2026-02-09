@@ -189,33 +189,34 @@ class HistoricalSentimentScorer:
         user_message = f"Stock: {ticker}\nHeadline: {clean_headline}"
         
         try:
+            # Use a JSON-friendly prompt that returns structured data
+            json_prompt = f"""Analyze this headline for stock {ticker} and return sentiment score.
+
+Headline: {clean_headline}
+
+Return JSON: {{"score": <number 0-100>}}"""
+            
             response = self.client.analyze(
                 system_prompt=HISTORICAL_SENTIMENT_PROMPT,
-                user_message=user_message,
-                # Request raw text response, not JSON
-                raw_response=True,
+                user_message=json_prompt,
             )
             
             if response is None:
                 return None
             
-            # Parse score from response
+            # Parse score from JSON response
             if isinstance(response, dict):
-                # If JSON was returned, extract score
                 score = response.get("score", response.get("sentiment_score"))
                 if score is not None:
-                    return float(score)
-                return None
+                    return min(100, max(0, float(score)))
             
-            # Parse text response
-            response_text = str(response).strip()
-            
-            # Extract number from response
-            import re
-            match = re.search(r'\b(\d{1,3})\b', response_text)
-            if match:
-                score = int(match.group(1))
-                return min(100, max(0, score))
+            # Try to extract number from string response
+            if isinstance(response, str):
+                import re
+                match = re.search(r'\b(\d{1,3})\b', response)
+                if match:
+                    score = int(match.group(1))
+                    return min(100, max(0, score))
             
             return None
             
@@ -223,17 +224,98 @@ class HistoricalSentimentScorer:
             logger.warning(f"Failed to score headline: {e}")
             return None
     
+    def score_headlines_batch(self, items: List[tuple]) -> List[Optional[float]]:
+        """
+        Score multiple headlines in a single API call.
+        
+        Args:
+            items: List of (ticker, headline) tuples
+        
+        Returns:
+            List of scores (or None for failed items)
+        """
+        if not items:
+            return []
+        
+        # Sanitize all headlines
+        cleaned = []
+        for i, (ticker, headline) in enumerate(items):
+            clean = sanitize_headline(headline)
+            if clean:
+                cleaned.append((i, ticker, clean))
+        
+        if not cleaned:
+            return [None] * len(items)
+        
+        # Build batch prompt
+        lines = []
+        for idx, (i, ticker, headline) in enumerate(cleaned):
+            lines.append(f"{idx+1}. [{ticker}] {headline}")
+        
+        batch_prompt = f"""Score these {len(cleaned)} headlines. Return JSON array of scores.
+
+Headlines:
+{chr(10).join(lines)}
+
+Return: {{"scores": [<score1>, <score2>, ...]}}
+Each score is 0-100. Use null for unclear sentiment."""
+        
+        try:
+            response = self.client.analyze(
+                system_prompt=HISTORICAL_SENTIMENT_PROMPT,
+                user_message=batch_prompt,
+            )
+            
+            if response is None:
+                return [None] * len(items)
+            
+            # Parse scores from response
+            scores_list = None
+            if isinstance(response, dict):
+                scores_list = response.get("scores", [])
+            elif isinstance(response, str):
+                import json
+                import re
+                # Try to extract JSON from response
+                match = re.search(r'\{[^}]*"scores"\s*:\s*\[([^\]]+)\]', response)
+                if match:
+                    try:
+                        scores_str = match.group(1)
+                        scores_list = json.loads(f"[{scores_str}]")
+                    except:
+                        pass
+            
+            if not scores_list or len(scores_list) != len(cleaned):
+                return [None] * len(items)
+            
+            # Map back to original indices
+            results = [None] * len(items)
+            for (orig_idx, _, _), score in zip(cleaned, scores_list):
+                if score is not None:
+                    try:
+                        results[orig_idx] = min(100, max(0, float(score)))
+                    except:
+                        pass
+            
+            return results
+            
+        except Exception as e:
+            logger.warning(f"Failed to score batch: {e}")
+            return [None] * len(items)
+    
     def score_articles(
         self,
         articles: List[NewsArticle],
         resume: bool = True,
+        batch_size: int = 20,
     ) -> List[ScoredHeadline]:
         """
-        Score a list of articles.
+        Score a list of articles using batch processing.
         
         Args:
             articles: List of NewsArticle objects
             resume: Whether to resume from checkpoint
+            batch_size: Number of headlines per API call (default 20)
         
         Returns:
             List of ScoredHeadline objects
@@ -256,11 +338,75 @@ class HistoricalSentimentScorer:
             )
         
         scored = self._load_partial_results() if resume else []
+        remaining = articles[start_index:]
+        
+        logger.info(f"Scoring {len(remaining)} headlines in batches of {batch_size}...")
+        
+        # Process in batches
+        for batch_start in range(0, len(remaining), batch_size):
+            batch = remaining[batch_start:batch_start + batch_size]
+            batch_items = [(a.ticker, a.headline) for a in batch]
+            
+            # Score batch
+            scores = self.score_headlines_batch(batch_items)
+            
+            # Process results
+            for article, score in zip(batch, scores):
+                if score is not None:
+                    scored.append(ScoredHeadline(
+                        ticker=article.ticker,
+                        headline=article.headline,
+                        published=article.published,
+                        score=score,
+                    ))
+                    progress.scored_headlines += 1
+                    progress.total_cost_usd += 0.00005  # Amortized per headline
+                else:
+                    progress.failed_headlines += 1
+            
+            # Update progress
+            i = start_index + batch_start + len(batch)
+            progress.last_processed_index = i
+            
+            # Checkpoint every 100 headlines
+            if i % 100 < batch_size:
+                logger.info(f"Progress: {i}/{len(articles)} ({100*i/len(articles):.1f}%) - Cost: ${progress.total_cost_usd:.2f}")
+                self._save_checkpoint(progress, scored)
+        
+        # Final save
+        self._save_checkpoint(progress, scored)
+        
+        logger.info(f"Completed: {progress.scored_headlines} scored, {progress.failed_headlines} failed")
+        return scored
+    
+    def _score_articles_single(
+        self,
+        articles: List[NewsArticle],
+        resume: bool = True,
+    ) -> List[ScoredHeadline]:
+        """
+        Score articles one at a time (slower fallback).
+        """
+        if not self.is_available:
+            raise RuntimeError("Claude API not available")
+        
+        progress = self._load_checkpoint() if resume else None
+        start_index = progress.last_processed_index if progress else 0
+        
+        if progress and start_index > 0:
+            logger.info(f"Resuming from index {start_index}")
+        
+        if not progress:
+            progress = ScoringProgress(
+                total_headlines=len(articles),
+                start_time=datetime.now().isoformat(),
+            )
+        
+        scored = self._load_partial_results() if resume else []
         
         logger.info(f"Scoring {len(articles) - start_index} headlines...")
         
         for i, article in enumerate(articles[start_index:], start=start_index):
-            # Score headline
             score = self.score_headline(article.ticker, article.headline)
             
             if score is not None:

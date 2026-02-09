@@ -51,7 +51,21 @@ def cmd_run(args):
     print(f"Entry threshold: {args.entry}")
     print(f"Exit threshold: {args.exit}")
     print(f"Max positions: {args.positions}")
+    
+    # REC-221: Print risk rules if enabled
+    if args.enable_risk_rules or args.hard_stop or args.trailing_stop:
+        print(f"\nRisk Rules: ENABLED")
+        if args.hard_stop:
+            print(f"  Hard Stop: {args.hard_stop*100:.1f}%")
+        if args.trailing_stop:
+            print(f"  Trailing Stop: {args.trailing_stop*100:.1f}%")
+    else:
+        print(f"\nRisk Rules: DISABLED")
+    
     print(f"{'='*60}\n")
+
+    # Determine if risk rules are enabled
+    enable_risk = args.enable_risk_rules or (args.hard_stop is not None) or (args.trailing_stop is not None)
 
     params = BacktestParameters(
         start_date=args.start,
@@ -61,6 +75,10 @@ def cmd_run(args):
         exit_threshold=args.exit,
         max_positions=args.positions,
         rebalance_freq=args.rebalance,
+        # REC-221: Risk rules
+        enable_risk_rules=enable_risk,
+        hard_stop_pct=args.hard_stop,
+        trailing_stop_pct=args.trailing_stop,
     )
 
     engine = BacktestEngine()
@@ -527,6 +545,10 @@ Examples:
     run_parser.add_argument("--exit", type=float, default=50, help="Exit threshold")
     run_parser.add_argument("--positions", type=int, default=10, help="Max positions")
     run_parser.add_argument("--rebalance", default="weekly", help="Rebalance frequency")
+    # REC-221: Risk rules
+    run_parser.add_argument("--enable-risk-rules", action="store_true", help="Enable risk management rules")
+    run_parser.add_argument("--hard-stop", type=float, default=None, help="Hard stop-loss %% (e.g., -0.08 for -8%%)")
+    run_parser.add_argument("--trailing-stop", type=float, default=None, help="Trailing stop %% (e.g., -0.10 for -10%%)")
 
     # results
     results_parser = subparsers.add_parser("results", help="Show backtest results")

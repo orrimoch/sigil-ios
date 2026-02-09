@@ -1,0 +1,181 @@
+<img src="../docs/sigil_logo.jpg" alt="Sigil" width="240" />
+
+# Backtest Report: Extended Period (18 Months)
+
+**Backtest ID:** `bt_20260208_173206_72cead`  
+**Generated:** 2026-02-08  
+**Period:** June 1, 2018 – November 30, 2019 (18 months)
+
+---
+
+## Executive Summary
+
+| Metric | 18 Months | 6 Months (prev) | Change |
+|--------|-----------|-----------------|--------|
+| **Total Return** | 3.84% | 25.48% | -21.64% |
+| **SPY Benchmark** | 18.22% | 15.56% | +2.66% |
+| **Alpha** | **-14.38%** | +9.92% | -24.30% |
+| **Sharpe Ratio** | 0.40 | 4.60 | -4.20 |
+| **Max Drawdown** | -21.61% | -7.22% | -14.39% |
+| **Win Rate** | 50% | 100% | -50% |
+
+⚠️ **Key Finding:** The model underperformed SPY by 14.38% over 18 months, despite outperforming by 9.92% in the latter 6 months.
+
+---
+
+## Configuration
+
+| Parameter | Value |
+|-----------|-------|
+| Initial Capital | $100,000 |
+| Universe | 845 stocks |
+| Entry Threshold | Score ≥ 70 (BUY) |
+| Exit Threshold | Score < 50 (SELL) |
+| Max Positions | 10 |
+| Position Sizing | Equal weight (10% each) |
+| Rebalance | Weekly |
+| Historical Scores | 65,382 (79 weeks) |
+| Sentiment Headlines | 46,674 scored |
+
+---
+
+## Trades Executed
+
+All 10 positions opened on 2018-06-01:
+
+| Ticker | Entry Price | Score | Sector |
+|--------|-------------|-------|--------|
+| NFLX | $36.03 | 73.6 | Technology |
+| CF | $33.62 | 72.7 | Basic Materials |
+| LNG | $63.14 | 72.7 | Energy |
+| NLY | $15.53 | 72.6 | REIT |
+| AGNC | $7.20 | 72.6 | REIT |
+| EWBC | $58.90 | 72.5 | Financial |
+| TSM | $32.38 | 72.3 | Technology |
+| INCY | $67.98 | 72.2 | Healthcare |
+| MU | $57.37 | 72.1 | Technology |
+| SSB | $74.84 | 72.0 | Financial |
+
+**Sell Trades:** 0 (all positions held through entire period)
+
+---
+
+## Q4 2018 Crash Analysis
+
+### Score Trajectory During Crash
+
+| Date | NFLX | MU | TSM | Action |
+|------|------|-----|-----|--------|
+| Oct 5 | 64.5 | 62.9 | 65.6 | HOLD |
+| Oct 26 | 57.6 | 59.1 | 60.3 | HOLD |
+| Nov 30 | 61.3 | 63.8 | 64.3 | HOLD |
+| Dec 21 | 56.3 | 55.8 | 55.0 | HOLD |
+
+**Problem:** Scores dropped from ~72 to ~55, but never below 50 (SELL threshold).  
+**Result:** Model "held the bag" through -21% drawdown instead of rotating out.
+
+---
+
+## Performance Analysis
+
+### Returns Comparison
+```
+SPY:        ██████████████████░░░░░░░░░░░  18.22%
+Portfolio:  ███░░░░░░░░░░░░░░░░░░░░░░░░░░   3.84%
+Alpha:      ▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░░░░░░░░ -14.38%
+```
+
+### Risk Metrics
+| Metric | Value | Assessment |
+|--------|-------|------------|
+| Sharpe Ratio | 0.40 | Below average (< 1) |
+| Max Drawdown | -21.61% | Significant |
+| Alpha | -14.38% | Underperformed |
+
+---
+
+## Why the Difference?
+
+### 6-Month Period (Jun-Nov 2019): ✅ Success
+- Gold miners dominated (KGC, HMY, GFI, AU, AEM)
+- Trade war fears → gold sentiment boost
+- Favorable macro conditions
+- Model correctly identified safe-haven rotation
+
+### 18-Month Period (Jun 2018 - Nov 2019): ❌ Underperformance
+- Tech stocks dominated (NFLX, TSM, MU)
+- Q4 2018 selloff hit tech hard (-20% correction)
+- Model held through drawdown instead of rotating
+- Exit threshold (50) too generous — never triggered
+
+---
+
+## Market Context
+
+### 2018-2019 Timeline
+| Period | Event | Market Impact |
+|--------|-------|---------------|
+| Jun-Sep 2018 | Trade war escalation | Tech volatility |
+| Oct-Dec 2018 | Market correction | -20% from peak |
+| Jan-Jun 2019 | Recovery rally | +15% |
+| Jul-Nov 2019 | Safe-haven rotation | Gold outperforms |
+
+---
+
+## Root Cause Analysis
+
+1. **Exit threshold too low (50):** Scores dropped to 55-57 but never triggered SELL
+2. **No momentum filter:** Model doesn't detect deteriorating trends
+3. **Sector concentration:** 3/10 positions were tech (30%)
+4. **Entry timing:** June 2018 was near market peak
+
+---
+
+## Recommendations
+
+| Issue | Fix |
+|-------|-----|
+| Exit threshold too low | Raise from 50 → 60 |
+| No trend detection | Add momentum/MA filter |
+| Sector concentration | Cap at 20-30% per sector |
+| No drawdown protection | Add trailing stop-loss |
+| Regime blindness | Add VIX-based regime filter |
+
+---
+
+## Comparison Summary
+
+| Metric | 6 Months | 18 Months |
+|--------|----------|-----------|
+| Period | Jun-Nov 2019 | Jun 2018 - Nov 2019 |
+| Return | 25.48% | 3.84% |
+| Alpha | +9.92% | -14.38% |
+| Sharpe | 4.60 | 0.40 |
+| Max DD | -7.22% | -21.61% |
+| Verdict | ✅ Strong | ⚠️ Needs work |
+
+---
+
+## Conclusion
+
+The Sigil scoring model shows **regime-dependent performance**:
+- Excels when clear macro narrative exists (2019 trade war → gold)
+- Struggles when holding through corrections (2018 tech selloff)
+
+The fix is not the scoring model itself, but **risk management**:
+- Tighter exit threshold
+- Sector limits
+- Trend/momentum filters
+
+---
+
+## Files
+
+- **Backtest ID:** `bt_20260208_173206_72cead`
+- **Historical Scores:** `data/backtest/historical_scores.json` (65,382 scores)
+- **Sentiment Data:** `data/historical_sentiment.json` (46,674 headlines)
+- **Trades:** `data/backtest/backtest_trades.json`
+
+---
+
+*Report generated by Sigil Backtesting Engine v1.0*

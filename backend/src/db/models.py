@@ -54,6 +54,8 @@ class UserPosition(Base):
     quantity = Column(Float, nullable=False, default=0.0)
     avg_cost = Column(Float, nullable=False, default=0.0)
     opened_at = Column(DateTime(timezone=True), default=_utcnow, nullable=False)
+    # REC-220: High-Water-Mark Tracking for trailing stop-loss
+    high_water_mark = Column(Float, nullable=True)  # Highest price since position opened
 
     portfolio = relationship("UserPortfolio", back_populates="positions")
 
@@ -67,6 +69,7 @@ class UserPosition(Base):
             "avg_cost": self.avg_cost,
             "cost_basis": round(self.quantity * self.avg_cost, 2),  # BUG-010: iOS expects this
             "opened_at": self.opened_at.isoformat() if self.opened_at else None,
+            "high_water_mark": self.high_water_mark,  # REC-220
         }
 
 

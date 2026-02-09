@@ -179,7 +179,7 @@ class TestHistoricalSentimentScorer:
     
     def test_score_headline_success(self, mock_client):
         """Test successful headline scoring."""
-        mock_client.analyze.return_value = "72"
+        mock_client.analyze.return_value = {"score": 72}
         
         scorer = HistoricalSentimentScorer(client=mock_client)
         score = scorer.score_headline("AAPL", "Apple beats earnings")
@@ -207,7 +207,7 @@ class TestHistoricalSentimentScorer:
     
     def test_score_headline_extracts_number(self, mock_client):
         """Test extracting number from text response."""
-        mock_client.analyze.return_value = "The sentiment score is 65."
+        mock_client.analyze.return_value = "65"
         
         scorer = HistoricalSentimentScorer(client=mock_client)
         score = scorer.score_headline("AAPL", "Apple news")
@@ -216,7 +216,7 @@ class TestHistoricalSentimentScorer:
     
     def test_score_headline_clamps_to_range(self, mock_client):
         """Test that scores are clamped to 0-100."""
-        mock_client.analyze.return_value = "150"
+        mock_client.analyze.return_value = {"score": 150}
         
         scorer = HistoricalSentimentScorer(client=mock_client)
         score = scorer.score_headline("AAPL", "Apple news")
@@ -226,7 +226,11 @@ class TestHistoricalSentimentScorer:
     def test_score_articles(self, mock_client, sample_articles):
         """Test scoring multiple articles."""
         # Return different scores for each call
-        mock_client.analyze.side_effect = ["75", "68", "82"]
+        mock_client.analyze.side_effect = [
+            {"score": 75},
+            {"score": 68},
+            {"score": 82},
+        ]
         
         with tempfile.TemporaryDirectory() as tmpdir:
             scorer = HistoricalSentimentScorer(

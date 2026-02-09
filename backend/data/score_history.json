@@ -426,5 +426,261 @@
       "technical_score": 81.34,
       "macro_score": 69.7
     }
+  ],
+  "LITE": [
+    {
+      "date": "2026-02-08",
+      "total_score": 83.2,
+      "signal": "BUY",
+      "fundamental_score": 57.91,
+      "sentiment_score": 50.0,
+      "technical_score": 88.67,
+      "macro_score": 69.7
+    },
+    {
+      "date": "2026-02-07",
+      "total_score": 84.5,
+      "signal": "BUY",
+      "fundamental_score": 57.91,
+      "sentiment_score": 50.0,
+      "technical_score": 88.67,
+      "macro_score": 69.7
+    },
+    {
+      "date": "2026-02-06",
+      "total_score": 84.6,
+      "signal": "BUY",
+      "fundamental_score": 57.91,
+      "sentiment_score": 50.0,
+      "technical_score": 88.67,
+      "macro_score": 69.7
+    },
+    {
+      "date": "2026-02-05",
+      "total_score": 84.3,
+      "signal": "BUY",
+      "fundamental_score": 57.91,
+      "sentiment_score": 50.0,
+      "technical_score": 88.67,
+      "macro_score": 69.7
+    },
+    {
+      "date": "2026-02-04",
+      "total_score": 81.7,
+      "signal": "BUY",
+      "fundamental_score": 57.91,
+      "sentiment_score": 50.0,
+      "technical_score": 88.67,
+      "macro_score": 69.7
+    },
+    {
+      "date": "2026-02-03",
+      "total_score": 84.3,
+      "signal": "BUY",
+      "fundamental_score": 57.91,
+      "sentiment_score": 50.0,
+      "technical_score": 88.67,
+      "macro_score": 69.7
+    },
+    {
+      "date": "2026-02-02",
+      "total_score": 81.7,
+      "signal": "BUY",
+      "fundamental_score": 57.91,
+      "sentiment_score": 50.0,
+      "technical_score": 88.67,
+      "macro_score": 69.7
+    },
+    {
+      "date": "2026-02-01",
+      "total_score": 81.9,
+      "signal": "BUY",
+      "fundamental_score": 57.91,
+      "sentiment_score": 50.0,
+      "technical_score": 88.67,
+      "macro_score": 69.7
+    },
+    {
+      "date": "2026-01-31",
+      "total_score": 83.1,
+      "signal": "BUY",
+      "fundamental_score": 57.91,
+      "sentiment_score": 50.0,
+      "technical_score": 88.67,
+      "macro_score": 69.7
+    },
+    {
+      "date": "2026-01-30",
+      "total_score": 81.6,
+      "signal": "BUY",
+      "fundamental_score": 57.91,
+      "sentiment_score": 50.0,
+      "technical_score": 88.67,
+      "macro_score": 69.7
+    },
+    {
+      "date": "2026-01-29",
+      "total_score": 82.2,
+      "signal": "BUY",
+      "fundamental_score": 57.91,
+      "sentiment_score": 50.0,
+      "technical_score": 88.67,
+      "macro_score": 69.7
+    },
+    {
+      "date": "2026-01-28",
+      "total_score": 82.2,
+      "signal": "BUY",
+      "fundamental_score": 57.91,
+      "sentiment_score": 50.0,
+      "technical_score": 88.67,
+      "macro_score": 69.7
+    },
+    {
+      "date": "2026-01-27",
+      "total_score": 82.5,
+      "signal": "BUY",
+      "fundamental_score": 57.91,
+      "sentiment_score": 50.0,
+      "technical_score": 88.67,
+      "macro_score": 69.7
+    },
+    {
+      "date": "2026-01-26",
+      "total_score": 83.9,
+      "signal": "BUY",
+      "fundamental_score": 57.91,
+      "sentiment_score": 50.0,
+      "technical_score": 88.67,
+      "macro_score": 69.7
+    }
+  ],
+  "ON": [
+    {
+      "date": "2026-02-08",
+      "total_score": 89.7,
+      "signal": "BUY",
+      "fundamental_score": 65.5,
+      "sentiment_score": 61.97,
+      "technical_score": 70.49,
+      "macro_score": 69.7
+    },
+    {
+      "date": "2026-02-07",
+      "total_score": 89.3,
+      "signal": "BUY",
+      "fundamental_score": 65.5,
+      "sentiment_score": 61.97,
+      "technical_score": 70.49,
+      "macro_score": 69.7
+    },
+    {
+      "date": "2026-02-06",
+      "total_score": 87.1,
+      "signal": "BUY",
+      "fundamental_score": 65.5,
+      "sentiment_score": 61.97,
+      "technical_score": 70.49,
+      "macro_score": 69.7
+    },
+    {
+      "date": "2026-02-05",
+      "total_score": 87.7,
+      "signal": "BUY",
+      "fundamental_score": 65.5,
+      "sentiment_score": 61.97,
+      "technical_score": 70.49,
+      "macro_score": 69.7
+    },
+    {
+      "date": "2026-02-04",
+      "total_score": 88.7,
+      "signal": "BUY",
+      "fundamental_score": 65.5,
+      "sentiment_score": 61.97,
+      "technical_score": 70.49,
+      "macro_score": 69.7
+    },
+    {
+      "date": "2026-02-03",
+      "total_score": 86.9,
+      "signal": "BUY",
+      "fundamental_score": 65.5,
+      "sentiment_score": 61.97,
+      "technical_score": 70.49,
+      "macro_score": 69.7
+    },
+    {
+      "date": "2026-02-02",
+      "total_score": 90.8,
+      "signal": "BUY",
+      "fundamental_score": 65.5,
+      "sentiment_score": 61.97,
+      "technical_score": 70.49,
+      "macro_score": 69.7
+    },
+    {
+      "date": "2026-02-01",
+      "total_score": 88.6,
+      "signal": "BUY",
+      "fundamental_score": 65.5,
+      "sentiment_score": 61.97,
+      "technical_score": 70.49,
+      "macro_score": 69.7
+    },
+    {
+      "date": "2026-01-31",
+      "total_score": 87.9,
+      "signal": "BUY",
+      "fundamental_score": 65.5,
+      "sentiment_score": 61.97,
+      "technical_score": 70.49,
+      "macro_score": 69.7
+    },
+    {
+      "date": "2026-01-30",
+      "total_score": 87.6,
+      "signal": "BUY",
+      "fundamental_score": 65.5,
+      "sentiment_score": 61.97,
+      "technical_score": 70.49,
+      "macro_score": 69.7
+    },
+    {
+      "date": "2026-01-29",
+      "total_score": 90.7,
+      "signal": "BUY",
+      "fundamental_score": 65.5,
+      "sentiment_score": 61.97,
+      "technical_score": 70.49,
+      "macro_score": 69.7
+    },
+    {
+      "date": "2026-01-28",
+      "total_score": 88.2,
+      "signal": "BUY",
+      "fundamental_score": 65.5,
+      "sentiment_score": 61.97,
+      "technical_score": 70.49,
+      "macro_score": 69.7
+    },
+    {
+      "date": "2026-01-27",
+      "total_score": 88.0,
+      "signal": "BUY",
+      "fundamental_score": 65.5,
+      "sentiment_score": 61.97,
+      "technical_score": 70.49,
+      "macro_score": 69.7
+    },
+    {
+      "date": "2026-01-26",
+      "total_score": 88.0,
+      "signal": "BUY",
+      "fundamental_score": 65.5,
+      "sentiment_score": 61.97,
+      "technical_score": 70.49,
+      "macro_score": 69.7
+    }
   ]
 }

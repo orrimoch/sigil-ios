@@ -33,6 +33,11 @@ from data.stock_universe import get_universe, load_universe
 from scoring.fundamental_score import calculate_fundamental_scores
 from scoring.technical_score import calculate_technical_scores
 from scoring.macro_score import calculate_macro_scores
+from data.macro_fetcher import (
+    fetch_historical_macro_data,
+    calculate_macro_score_for_date,
+    get_sector_macro_sensitivity,
+)
 
 
 # Cache directory
@@ -100,6 +105,9 @@ class HistoricalScoreGenerator:
         # Historical sentiment cache (REC-210)
         self._historical_sentiment: Optional[Dict[str, Dict[str, float]]] = None
         self._load_historical_sentiment()
+        
+        # Historical macro data cache
+        self._historical_macro: Optional[Dict[str, pd.DataFrame]] = None
     
     def generate_historical_scores(
         self,
@@ -175,6 +183,10 @@ class HistoricalScoreGenerator:
         logger.info("Fetching price history...")
         self._prefetch_prices(tickers, start_date, end_date)
         
+        # Fetch historical macro data from FRED
+        logger.info("Fetching historical macro data from FRED...")
+        self._historical_macro = fetch_historical_macro_data(start_date, end_date)
+        
         # Generate scores for each date
         total_scores = 0
         total_dates = len(dates)
@@ -243,7 +255,11 @@ class HistoricalScoreGenerator:
                 if parquet_path.exists():
                     df = pd.read_parquet(parquet_path)
                     df['date'] = pd.to_datetime(df['date']).dt.strftime('%Y-%m-%d')
-                    return ticker, df
+                    # Check if cache covers our date range
+                    min_date = df['date'].min()
+                    if min_date <= buffer_start:
+                        return ticker, df
+                    # Cache doesn't cover our range, fetch from yfinance
                 
                 # Fetch from yfinance
                 stock = yf.Ticker(ticker)
@@ -497,27 +513,60 @@ class HistoricalScoreGenerator:
         sector: str
     ) -> float:
         """
-        Calculate macro score based on sector alignment.
+        Calculate macro score using real FRED data for the date.
         
-        Simplified for historical: use sector rotation model.
+        Uses VIX, Fed rate, unemployment, GDP, yield curve.
+        Then adjusts for sector sensitivity.
         """
-        # Sector macro sensitivity (simplified model)
-        # Different sectors perform differently in different rate environments
-        sector_scores = {
-            "Technology": 65,      # Generally good in low rate environment
-            "Healthcare": 55,
-            "Financial Services": 50,
-            "Consumer Cyclical": 55,
-            "Communication Services": 60,
-            "Industrials": 50,
-            "Consumer Defensive": 45,  # Defensive
-            "Energy": 45,
-            "Utilities": 40,
-            "Real Estate": 45,
-            "Basic Materials": 50,
-        }
+        # If no historical macro data, fall back to sector-based estimate
+        if self._historical_macro is None:
+            sector_scores = {
+                "Technology": 65,
+                "Healthcare": 55,
+                "Financial Services": 50,
+                "Consumer Cyclical": 55,
+                "Communication Services": 60,
+                "Industrials": 50,
+                "Consumer Defensive": 45,
+                "Energy": 45,
+                "Utilities": 40,
+                "Real Estate": 45,
+                "Basic Materials": 50,
+            }
+            return sector_scores.get(sector, 50.0)
         
-        return sector_scores.get(sector, 50.0)
+        # Calculate base macro score from FRED data
+        macro_result = calculate_macro_score_for_date(score_date, self._historical_macro)
+        base_score = macro_result["score"]
+        
+        # Apply sector adjustment
+        sector_sensitivity = get_sector_macro_sensitivity().get(sector, {})
+        
+        # Get current conditions for sector adjustment
+        details = macro_result.get("details", {})
+        
+        adjustment = 0
+        
+        # Rate sensitivity adjustment
+        rate_sens = sector_sensitivity.get("rate_sensitivity", 0)
+        if "fed_rate" in details:
+            fed_rate = details["fed_rate"]["value"]
+            # Negative sensitivity = hurt by high rates
+            if rate_sens < 0 and fed_rate > 3:
+                adjustment += rate_sens * 5  # Negative adjustment for rate-sensitive sectors
+            elif rate_sens > 0 and fed_rate > 3:
+                adjustment += rate_sens * 5  # Positive for financials
+        
+        # VIX sensitivity adjustment
+        vix_sens = sector_sensitivity.get("vix_sensitivity", 0)
+        if "vix" in details:
+            vix = details["vix"]["value"]
+            if vix > 20:
+                adjustment += vix_sens * 5  # Defensive sectors benefit
+        
+        # Apply adjustment and clamp
+        final_score = base_score + adjustment
+        return max(0, min(100, final_score))
     
     def _get_universe(self) -> List[Dict]:
         """Get stock universe, cached."""

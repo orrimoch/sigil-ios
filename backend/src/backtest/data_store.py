@@ -76,6 +76,10 @@ class BacktestParameters:
     rebalance_freq: str = "weekly"
     transaction_cost: float = 0.001  # 0.1%
     slippage: float = 0.001  # 0.1%
+    # REC-221: Risk rules for backtesting
+    enable_risk_rules: bool = False  # Master switch for all risk rules
+    hard_stop_pct: Optional[float] = None  # e.g., -0.08 for -8%
+    trailing_stop_pct: Optional[float] = None  # e.g., -0.10 for -10%
     
     def to_dict(self) -> dict:
         return asdict(self)

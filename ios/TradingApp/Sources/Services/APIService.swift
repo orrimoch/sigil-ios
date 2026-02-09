@@ -377,6 +377,60 @@ class APIService: ObservableObject {
         return try decoder.decode(OrderResponse.self, from: data)
     }
     
+    // MARK: - Risk Settings (REC-215)
+    
+    func getRiskSettings() async throws -> RiskSettingsAPIResponse {
+        let url = URL(string: "\(baseURL)/user/risk-settings")!
+        let request = authorizedRequest(url: url)
+        
+        let (data, response) = try await dataWithAutoRefresh(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse, 200...299 ~= httpResponse.statusCode else {
+            if let httpResponse = response as? HTTPURLResponse {
+                throw APIError.httpError(statusCode: httpResponse.statusCode)
+            }
+            throw APIError.invalidResponse
+        }
+        
+        return try decoder.decode(RiskSettingsAPIResponse.self, from: data)
+    }
+    
+    func updateRiskSettings(_ settings: RiskSettingsUpdatePayload) async throws -> RiskSettingsAPIResponse {
+        let url = URL(string: "\(baseURL)/user/risk-settings")!
+        
+        var request = authorizedRequest(url: url, method: "PUT")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = try JSONEncoder().encode(settings)
+        
+        let (data, response) = try await dataWithAutoRefresh(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse, 200...299 ~= httpResponse.statusCode else {
+            if let httpResponse = response as? HTTPURLResponse {
+                throw APIError.httpError(statusCode: httpResponse.statusCode)
+            }
+            throw APIError.invalidResponse
+        }
+        
+        return try decoder.decode(RiskSettingsAPIResponse.self, from: data)
+    }
+    
+    func resetRiskSettings() async throws -> RiskSettingsAPIResponse {
+        let url = URL(string: "\(baseURL)/user/risk-settings/reset")!
+        
+        var request = authorizedRequest(url: url, method: "POST")
+        
+        let (data, response) = try await dataWithAutoRefresh(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse, 200...299 ~= httpResponse.statusCode else {
+            if let httpResponse = response as? HTTPURLResponse {
+                throw APIError.httpError(statusCode: httpResponse.statusCode)
+            }
+            throw APIError.invalidResponse
+        }
+        
+        return try decoder.decode(RiskSettingsAPIResponse.self, from: data)
+    }
+    
     // MARK: - Auth header injection
 
     /// Build a URLRequest with the current Bearer token attached (if available).
@@ -954,5 +1008,76 @@ extension APIService {
         
         let result = try decoder.decode(PreferencesResponse.self, from: data)
         return result.preferences
+    }
+}
+
+// MARK: - Risk Settings API Types (REC-215)
+
+struct RiskSettingsAPIResponse: Codable {
+    let success: Bool
+    let data: RiskSettingsData?
+}
+
+struct RiskSettingsData: Codable {
+    var userId: String?
+    var hardStop: RiskStopData
+    var trailingStop: RiskTrailingStopData
+    var vixAdjustment: RiskVixData
+    var positionLimit: RiskPositionLimitData
+    
+    enum CodingKeys: String, CodingKey {
+        case userId = "user_id"
+        case hardStop = "hard_stop"
+        case trailingStop = "trailing_stop"
+        case vixAdjustment = "vix_adjustment"
+        case positionLimit = "position_limit"
+    }
+}
+
+struct RiskStopData: Codable {
+    var enabled: Bool
+    var thresholdPct: Double
+    
+    enum CodingKeys: String, CodingKey {
+        case enabled
+        case thresholdPct = "threshold_pct"
+    }
+}
+
+struct RiskTrailingStopData: Codable {
+    var enabled: Bool
+    var distancePct: Double
+    
+    enum CodingKeys: String, CodingKey {
+        case enabled
+        case distancePct = "distance_pct"
+    }
+}
+
+struct RiskVixData: Codable {
+    var enabled: Bool
+}
+
+struct RiskPositionLimitData: Codable {
+    var enabled: Bool
+    var maxPct: Double
+    
+    enum CodingKeys: String, CodingKey {
+        case enabled
+        case maxPct = "max_pct"
+    }
+}
+
+struct RiskSettingsUpdatePayload: Codable {
+    var hardStop: RiskStopData?
+    var trailingStop: RiskTrailingStopData?
+    var vixAdjustment: RiskVixData?
+    var positionLimit: RiskPositionLimitData?
+    
+    enum CodingKeys: String, CodingKey {
+        case hardStop = "hard_stop"
+        case trailingStop = "trailing_stop"
+        case vixAdjustment = "vix_adjustment"
+        case positionLimit = "position_limit"
     }
 }

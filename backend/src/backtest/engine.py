@@ -93,6 +93,7 @@ class BacktestEngine:
         self,
         params: BacktestParameters,
         progress_callback: Optional[callable] = None,
+        tickers: Optional[List[str]] = None,
     ) -> BacktestResult:
         """
         Run a complete backtest.
@@ -128,6 +129,17 @@ class BacktestEngine:
             for date_scores in scores_by_date.values():
                 all_tickers.update(date_scores.keys())
             
+            # Filter to specific tickers if provided
+            if tickers:
+                ticker_set = set(t.upper() for t in tickers)
+                all_tickers = all_tickers & ticker_set
+                # Also filter scores_by_date
+                for date in scores_by_date:
+                    scores_by_date[date] = {
+                        t: s for t, s in scores_by_date[date].items() 
+                        if t.upper() in ticker_set
+                    }
+            
             logger.info(f"Fetching prices for {len(all_tickers)} tickers...")
             self._prefetch_prices(list(all_tickers), params.start_date, params.end_date)
             
@@ -161,6 +173,10 @@ class BacktestEngine:
                 
                 # Update prices for current positions
                 self._update_position_prices(portfolio, trade_date)
+                
+                # REC-221: Check risk-based exits (stop-loss triggers)
+                risk_trades = self._check_risk_exits(portfolio, params, trade_date)
+                trades.extend(risk_trades)
                 
                 # Get scores for this date
                 date_scores = scores_by_date.get(trade_date, {})
@@ -202,8 +218,8 @@ class BacktestEngine:
             if trades:
                 self.data_store.save_trades(result.backtest_id, trades)
             
-            # Calculate final metrics
-            result = self._calculate_metrics(result, equity_curve, trades, params)
+            # Calculate final metrics (pass portfolio for open position win rate)
+            result = self._calculate_metrics(result, equity_curve, trades, params, portfolio)
             result.equity_curve = equity_curve
             result.status = BacktestStatus.COMPLETED
             result.completed_at = datetime.now().isoformat()
@@ -281,8 +297,12 @@ class BacktestEngine:
                 if parquet_path.exists():
                     df = pd.read_parquet(parquet_path)
                     df['date'] = pd.to_datetime(df['date']).dt.strftime('%Y-%m-%d')
-                    self._price_cache[ticker] = df
-                    continue
+                    # Check if cache covers our date range
+                    min_date = df['date'].min()
+                    if min_date <= buffer_start:
+                        self._price_cache[ticker] = df
+                        continue
+                    # Cache doesn't cover our range, fetch from yfinance
                 
                 # Fetch from yfinance
                 stock = yf.Ticker(ticker)
@@ -339,6 +359,82 @@ class BacktestEngine:
                 position.current_price = price
                 position.current_value = position.quantity * price
                 position.unrealized_pnl = position.current_value - (position.quantity * position.avg_cost)
+                # REC-220: Update high-water-mark for trailing stop
+                if not hasattr(position, 'high_water_mark') or position.high_water_mark is None:
+                    position.high_water_mark = price
+                else:
+                    position.high_water_mark = max(position.high_water_mark, price)
+
+    def _check_risk_exits(
+        self,
+        portfolio: PortfolioState,
+        params: BacktestParameters,
+        date: str
+    ) -> List[BacktestTrade]:
+        """
+        REC-221: Check for risk-based exits (hard stop, trailing stop).
+        
+        Returns list of trades for positions that hit stop-loss levels.
+        """
+        if not params.enable_risk_rules:
+            return []
+        
+        trades = []
+        positions_to_close = []
+        
+        for ticker, position in portfolio.positions.items():
+            exit_reason = None
+            
+            # Check hard stop-loss
+            if params.hard_stop_pct is not None:
+                pnl_pct = (position.current_price - position.avg_cost) / position.avg_cost
+                if pnl_pct <= params.hard_stop_pct:
+                    exit_reason = f"HARD_STOP ({pnl_pct*100:.1f}%)"
+            
+            # Check trailing stop-loss
+            if exit_reason is None and params.trailing_stop_pct is not None:
+                hwm = getattr(position, 'high_water_mark', position.current_price)
+                if hwm and hwm > 0:
+                    drawdown = (position.current_price - hwm) / hwm
+                    if drawdown <= params.trailing_stop_pct:
+                        exit_reason = f"TRAILING_STOP ({drawdown*100:.1f}% from peak)"
+            
+            if exit_reason:
+                positions_to_close.append((ticker, position, exit_reason))
+        
+        # Execute risk-based exits
+        for ticker, position, exit_reason in positions_to_close:
+            price = position.current_price
+            if not price:
+                continue
+            
+            # Apply slippage (sell at slightly lower price)
+            execution_price = price * (1 - params.slippage)
+            value = position.quantity * execution_price
+            commission = value * params.transaction_cost
+            
+            # Update portfolio
+            portfolio.cash += value - commission
+            del portfolio.positions[ticker]
+            
+            trades.append(BacktestTrade(
+                trade_id=f"t_{date}_{ticker}_risk_sell",
+                backtest_id="",
+                date=date,
+                ticker=ticker,
+                side="sell",
+                quantity=position.quantity,
+                price=execution_price,
+                value=value,
+                score_at_trade=0,  # Risk exit, not score-based
+                signal_at_trade=exit_reason,
+                commission=commission,
+                slippage_cost=position.quantity * price * params.slippage,
+            ))
+            
+            logger.debug(f"[RISK] {date}: Sold {ticker} - {exit_reason}")
+        
+        return trades
     
     def _execute_rebalance(
         self,
@@ -470,7 +566,8 @@ class BacktestEngine:
         result: BacktestResult,
         equity_curve: List[EquityPoint],
         trades: List[BacktestTrade],
-        params: BacktestParameters
+        params: BacktestParameters,
+        portfolio: Optional[PortfolioState] = None
     ) -> BacktestResult:
         """Calculate all performance metrics."""
         if not equity_curve:
@@ -529,8 +626,13 @@ class BacktestEngine:
                             wins += 1
                 
                 result.win_rate = wins / len(sell_trades) if sell_trades else 0.5
+            elif portfolio and portfolio.positions:
+                # No sell trades but have open positions - calculate based on unrealized P&L
+                wins = sum(1 for p in portfolio.positions.values() if p.unrealized_pnl > 0)
+                total_positions = len(portfolio.positions)
+                result.win_rate = wins / total_positions if total_positions > 0 else 0.0
             else:
-                result.win_rate = 0.5  # No completed trades
+                result.win_rate = 0.0  # No trades or positions
         
         # Benchmark comparison
         if self._benchmark_cache is not None and len(self._benchmark_cache) > 0:
