@@ -54,6 +54,10 @@ struct HomeView: View {
                     TopAIPicksCard(picks: viewModel.topPicks)
                         .padding(.horizontal)
                     
+                    // REC-259: Smart Money Picks (Crowd Wisdom)
+                    SmartMoneyPicksSection()
+                        .padding(.horizontal)
+                    
                     // F4.4: Alerts Feed
                     AlertsFeedCard(alerts: viewModel.alerts)
                         .padding(.horizontal)

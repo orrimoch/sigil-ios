@@ -531,6 +531,34 @@ class APIService: ObservableObject {
         return try decoder.decode(WarmCacheResponse.self, from: data)
     }
     
+    // MARK: - Crowd Wisdom (REC-259, REC-261)
+    
+    /// Get weekly top 5 smart money picks based on insider buying
+    func getSmartMoneyPicks(week: String? = nil) async throws -> TopPicksResponse {
+        var urlString = "\(baseURL)/crowd-wisdom/top-picks"
+        if let week = week {
+            urlString += "?week=\(week)"
+        }
+        let url = URL(string: urlString)!
+        return try await fetch(url)
+    }
+    
+    /// Get all crowd wisdom scores for a week
+    func getCrowdWisdomScores(week: String? = nil, limit: Int = 50) async throws -> CrowdWisdomScoresResponse {
+        var urlString = "\(baseURL)/crowd-wisdom/scores?limit=\(limit)"
+        if let week = week {
+            urlString += "&week=\(week)"
+        }
+        let url = URL(string: urlString)!
+        return try await fetch(url)
+    }
+    
+    /// Get crowd wisdom score for a specific ticker
+    func getCrowdWisdomScore(ticker: String) async throws -> CrowdWisdomScore {
+        let url = URL(string: "\(baseURL)/crowd-wisdom/scores/\(ticker)")!
+        return try await fetch(url)
+    }
+    
     // MARK: - Auth header injection
 
     /// Build a URLRequest with the current Bearer token attached (if available).
