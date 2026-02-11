@@ -74,15 +74,25 @@ struct PortfolioView: View {
                     switch selectedTab {
                     case 0:
                         // F7.1: Holdings List
-                        HoldingsSection(holdings: viewModel.holdings, onSellAll: {
+                        HoldingsSection(holdings: viewModel.holdings, viewModel: viewModel, onSellAll: {
                             showSellAllConfirm = true
                         })
                     case 1:
                         // F7.2: Performance Chart
                         PerformanceChartSection(viewModel: viewModel)
                     case 2:
-                        // F7.3: Sector Allocation
-                        SectorAllocationSection(viewModel: viewModel)
+                        // F7.3: Sector Allocation with Risk Module warnings
+                        VStack(spacing: 16) {
+                            // Risk Module: Sector concentration warning banner
+                            if !viewModel.sectorWarnings.isEmpty {
+                                SectorWarningBanner(
+                                    warnings: viewModel.sectorWarnings,
+                                    hhi: viewModel.sectorHHI
+                                )
+                            }
+                            
+                            SectorAllocationSection(viewModel: viewModel)
+                        }
                     case 3:
                         // REC-167: Trade History from IB
                         TradeHistoryContent()
@@ -236,6 +246,23 @@ struct PortfolioDetailSummaryCard: View {
     
     var body: some View {
         VStack(spacing: 16) {
+            // REC-230: Risk badge + VaR in header
+            HStack {
+                // Risk Module: VaR Display
+                if let varDaily = viewModel.var95Daily, let varPct = viewModel.var95Pct {
+                    VaRDisplay(varDaily: varDaily, varPct: varPct)
+                }
+                
+                Spacer()
+                
+                if viewModel.isLoadingRisk {
+                    ProgressView()
+                        .scaleEffect(0.7)
+                } else {
+                    RiskBadge(riskScore: viewModel.portfolioRiskScore)
+                }
+            }
+            
             // Total value
             VStack(spacing: 4) {
                 Text("Total Value")
@@ -326,6 +353,7 @@ struct StatCard: View {
 
 struct HoldingsSection: View {
     let holdings: [Holding]
+    var viewModel: PortfolioViewModel? = nil  // REC-231: For stop distance calculation
     var onSellAll: (() -> Void)? = nil  // REC-177: Sell all callback
     
     /// M8: Holdings sorted by market value (largest first)
@@ -391,7 +419,11 @@ struct HoldingsSection: View {
                         NavigationLink {
                             StockDetailView(ticker: holding.ticker)
                         } label: {
-                            HoldingRow(holding: holding, portfolioWeight: weight(for: holding))
+                            HoldingRow(
+                                holding: holding,
+                                portfolioWeight: weight(for: holding),
+                                stopDistance: viewModel?.stopDistance(for: holding)
+                            )
                         }
                         .accessibilityElement(children: .combine)
                         
@@ -415,6 +447,8 @@ struct HoldingRow: View {
     let holding: Holding
     /// M7: Portfolio weight percentage
     var portfolioWeight: Double = 0
+    /// REC-231: Stop distance info (stopPrice, distancePct, stopType)
+    var stopDistance: (stopPrice: Double, distancePct: Double, stopType: String)? = nil
     
     var body: some View {
         HStack {
@@ -428,6 +462,16 @@ struct HoldingRow: View {
                 Text("\(String(format: "%.2f", holding.shares)) shares · avg \(holding.avgCost.asCurrency)")
                     .font(.caption)
                     .foregroundColor(.Text.tertiary)
+                
+                // REC-231: Stop distance indicator
+                if let stop = stopDistance {
+                    StopDistanceView(
+                        stopPrice: stop.stopPrice,
+                        stopDistancePercent: stop.distancePct,
+                        stopType: stop.stopType == "trailing" ? .trailing : .hard
+                    )
+                    .padding(.top, 2)
+                }
             }
             
             Spacer()

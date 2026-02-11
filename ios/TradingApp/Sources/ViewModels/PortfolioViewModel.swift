@@ -21,6 +21,21 @@ class PortfolioViewModel: ObservableObject {
     // F7.3: Sector Allocation
     @Published var sectorAllocation: [SectorAllocation] = []
     
+    // REC-230: Portfolio Risk Score
+    @Published var portfolioRiskScore: RiskScore = .low
+    @Published var isLoadingRisk = false
+    
+    // Risk Module: Full VaR Display
+    @Published var var95Daily: Double?
+    @Published var var95Pct: Double?
+    
+    // Risk Module: Sector Concentration Warnings
+    @Published var sectorWarnings: [SectorWarning] = []
+    @Published var sectorHHI: Double?
+    
+    // REC-231: Risk Settings (for stop distance calculation)
+    @Published var riskSettings: RiskSettingsData?
+    
     // Loading states
     @Published var isLoading = false
     @Published var isLoadingHistory = false
@@ -131,10 +146,86 @@ class PortfolioViewModel: ObservableObject {
         isLoading = false
     }
     
+    // MARK: - REC-230: Portfolio Risk Score
+    
+    func fetchPortfolioRisk() async {
+        isLoadingRisk = true
+        
+        do {
+            let response = try await api.getPortfolioRisk()
+            if let data = response.data {
+                // Convert string to RiskScore enum
+                portfolioRiskScore = RiskScore(rawValue: data.riskScore) ?? .low
+                
+                // Risk Module: Extract VaR data for display
+                var95Daily = data.var95Daily
+                var95Pct = data.var95Pct
+            }
+        } catch {
+            print("Portfolio risk error: \(error)")
+            // Default to low on error (don't block UI)
+            portfolioRiskScore = .low
+        }
+        
+        isLoadingRisk = false
+    }
+    
+    // MARK: - Risk Module: Sector Concentration
+    
+    func fetchSectorRisk() async {
+        do {
+            let response = try await api.getSectorRisk()
+            sectorWarnings = response.warnings
+            sectorHHI = response.hhi
+        } catch {
+            print("Sector risk error: \(error)")
+            // Don't block UI on error
+        }
+    }
+    
+    // MARK: - REC-231: Risk Settings for Stop Distance
+    
+    func fetchRiskSettings() async {
+        do {
+            let response = try await api.getRiskSettings()
+            riskSettings = response.data
+        } catch {
+            print("Risk settings error: \(error)")
+        }
+    }
+    
+    /// Calculate stop distance for a holding based on risk settings
+    func stopDistance(for holding: Holding) -> (stopPrice: Double, distancePct: Double, stopType: String)? {
+        guard let settings = riskSettings else { return nil }
+        
+        // Check trailing stop first (it's more dynamic)
+        if settings.trailingStop.enabled {
+            // Use current price as high water mark approximation
+            // In production, HWM would come from backend
+            let highWaterMark = max(holding.currentPrice, holding.avgCost)
+            let trailPct = settings.trailingStop.distancePct
+            let stopPrice = highWaterMark * (1 + trailPct)
+            let distancePct = (stopPrice - holding.currentPrice) / holding.currentPrice * 100
+            return (stopPrice, distancePct, "trailing")
+        }
+        
+        // Fall back to hard stop
+        if settings.hardStop.enabled {
+            let stopPrice = holding.avgCost * (1 + settings.hardStop.thresholdPct)
+            let distancePct = (stopPrice - holding.currentPrice) / holding.currentPrice * 100
+            return (stopPrice, distancePct, "hard")
+        }
+        
+        return nil
+    }
+    
     func fetchAll() async {
         await fetchPortfolio()
         await fetchHistory()
         await fetchSectorAllocation()
+        await fetchPortfolioRisk()
+        await fetchRiskSettings()
+        await fetchSectorRisk()  // Risk Module: Sector concentration warnings
     }
 }
 

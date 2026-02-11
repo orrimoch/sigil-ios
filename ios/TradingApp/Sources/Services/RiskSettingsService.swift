@@ -33,18 +33,27 @@ class RiskSettingsService: ObservableObject {
         
         do {
             let response = try await apiService.getRiskSettings()
+            print("🔍 RiskSettings fetch - success: \(response.success), hasData: \(response.data != nil)")
             
             if response.success, let data = response.data {
                 let newSettings = RiskSettings.from(data)
+                print("🔍 RiskSettings loaded - hardStop.enabled: \(newSettings.hardStop.enabled)")
                 await MainActor.run {
                     self.settings = newSettings
                     self.cacheSettings(newSettings)
                     self.isLoading = false
                 }
             } else {
-                throw APIError.invalidResponse
+                // Use cached settings if not logged in
+                let errorMessage = response.error ?? "Please log in to sync settings"
+                print("⚠️ RiskSettings fetch failed: \(errorMessage)")
+                await MainActor.run {
+                    self.lastError = errorMessage
+                    self.isLoading = false
+                }
             }
         } catch {
+            print("❌ RiskSettings fetch error: \(error)")
             await MainActor.run {
                 self.lastError = error.localizedDescription
                 self.isLoading = false
@@ -68,7 +77,9 @@ class RiskSettingsService: ObservableObject {
                     self.isSyncing = false
                 }
             } else {
-                throw APIError.invalidResponse
+                // Show specific error message from backend
+                let errorMessage = response.error ?? "Failed to save settings"
+                throw NSError(domain: "RiskSettings", code: 0, userInfo: [NSLocalizedDescriptionKey: errorMessage])
             }
         } catch {
             await MainActor.run {
@@ -108,9 +119,16 @@ class RiskSettingsService: ObservableObject {
     // MARK: - Private Methods
     
     private func loadCachedSettings() {
-        if let data = UserDefaults.standard.data(forKey: "cached_risk_settings"),
-           let cached = try? JSONDecoder().decode(RiskSettings.self, from: data) {
-            settings = cached
+        // Try to load cached settings, clear if corrupt/outdated
+        if let data = UserDefaults.standard.data(forKey: "cached_risk_settings") {
+            do {
+                let cached = try JSONDecoder().decode(RiskSettings.self, from: data)
+                settings = cached
+            } catch {
+                // Cache is corrupt or outdated - clear it
+                UserDefaults.standard.removeObject(forKey: "cached_risk_settings")
+                print("Cleared corrupt risk settings cache: \(error)")
+            }
         }
     }
     
@@ -129,14 +147,6 @@ struct RiskSettings: Codable, Equatable {
     var trailingStop: TrailingStopConfig
     var vixAdjustment: VixAdjustmentConfig
     var positionLimit: PositionLimitConfig
-    
-    enum CodingKeys: String, CodingKey {
-        case userId = "user_id"
-        case hardStop = "hard_stop"
-        case trailingStop = "trailing_stop"
-        case vixAdjustment = "vix_adjustment"
-        case positionLimit = "position_limit"
-    }
     
     /// Default settings (all OFF)
     static let defaults = RiskSettings(
@@ -173,11 +183,6 @@ struct StopConfig: Codable, Equatable {
     var enabled: Bool
     var thresholdPct: Double  // e.g., -0.08 for -8%
     
-    enum CodingKeys: String, CodingKey {
-        case enabled
-        case thresholdPct = "threshold_pct"
-    }
-    
     static let defaults = StopConfig(enabled: false, thresholdPct: -0.08)
     
     /// Percentage as display string (e.g., "-8%")
@@ -189,11 +194,6 @@ struct StopConfig: Codable, Equatable {
 struct TrailingStopConfig: Codable, Equatable {
     var enabled: Bool
     var distancePct: Double  // e.g., -0.10 for -10%
-    
-    enum CodingKeys: String, CodingKey {
-        case enabled
-        case distancePct = "distance_pct"
-    }
     
     static let defaults = TrailingStopConfig(enabled: false, distancePct: -0.10)
     
@@ -212,11 +212,6 @@ struct VixAdjustmentConfig: Codable, Equatable {
 struct PositionLimitConfig: Codable, Equatable {
     var enabled: Bool
     var maxPct: Double  // e.g., 0.15 for 15%
-    
-    enum CodingKeys: String, CodingKey {
-        case enabled
-        case maxPct = "max_pct"
-    }
     
     static let defaults = PositionLimitConfig(enabled: false, maxPct: 0.15)
     

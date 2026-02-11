@@ -190,11 +190,11 @@ class RiskSettingsService:
         try:
             from .ibkr_orders import IBKRStopOrderManager
             
-            # Get IBKR connection
-            from ibkr.ibkr_service import IBKRService
-            ibkr = IBKRService()
+            # Get IBKR connection (use singleton to avoid blocking)
+            from ibkr.ibkr_service import get_ibkr_service
+            ibkr = get_ibkr_service()
             
-            if not ibkr.is_connected():
+            if not ibkr.is_connected(user_id):
                 logger.warning(f"IBKR not connected, skipping stop order sync for user {user_id}")
                 return
             

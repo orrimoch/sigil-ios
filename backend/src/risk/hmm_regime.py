@@ -86,8 +86,8 @@ class HMMRegimeDetector:
     Falls back to rule-based detection if HMM unavailable or fails.
     """
     
-    # Model persistence
-    MODEL_PATH = Path(__file__).parent.parent.parent / "data" / "hmm_model.pkl"
+    # Model persistence - new trained model with metadata
+    MODEL_PATH = Path(__file__).parent.parent.parent / "data" / "models" / "hmm_regime_model.pkl"
     
     # HMM parameters
     N_STATES = 4  # LOW_VOL, NORMAL, HIGH_VOL, CRISIS
@@ -110,6 +110,8 @@ class HMMRegimeDetector:
     
     def __init__(self):
         self.model: Optional[hmm.GaussianHMM] = None
+        self.scaler = None
+        self.state_mapping = None
         self._load_model()
     
     def _load_model(self) -> None:
@@ -120,8 +122,19 @@ class HMMRegimeDetector:
         if self.MODEL_PATH.exists():
             try:
                 with open(self.MODEL_PATH, 'rb') as f:
-                    self.model = pickle.load(f)
-                logger.info(f"Loaded HMM model from {self.MODEL_PATH}")
+                    model_data = pickle.load(f)
+                
+                # Handle new format with metadata
+                if isinstance(model_data, dict):
+                    self.model = model_data.get('model')
+                    self.scaler = model_data.get('scaler')
+                    self.state_mapping = model_data.get('state_mapping')
+                    trained_at = model_data.get('trained_at', 'unknown')
+                    logger.info(f"Loaded HMM model from {self.MODEL_PATH} (trained: {trained_at})")
+                else:
+                    # Legacy format - just the model
+                    self.model = model_data
+                    logger.info(f"Loaded legacy HMM model from {self.MODEL_PATH}")
             except Exception as e:
                 logger.warning(f"Failed to load HMM model: {e}")
                 self.model = None
@@ -251,20 +264,36 @@ class HMMRegimeDetector:
         vix = vix_value if vix_value is not None else 20.0  # Default VIX
         features = np.array([[volatility, vix]])
         
-        # Normalize
-        features_normalized = (features - self._feature_mean) / self._feature_std
+        # Normalize using scaler if available, otherwise use legacy method
+        if self.scaler is not None:
+            features_normalized = self.scaler.transform(features)
+        elif hasattr(self, '_feature_mean') and hasattr(self, '_feature_std'):
+            features_normalized = (features - self._feature_mean) / self._feature_std
+        else:
+            # Fallback to simple normalization
+            features_normalized = features
         
         # Predict state and probabilities
         state = self.model.predict(features_normalized)[0]
         proba = self.model.predict_proba(features_normalized)[0]
         
-        regime = self._state_to_regime[state]
-        confidence = float(proba[state])
+        # Map state to regime using state_mapping if available
+        if self.state_mapping is not None:
+            regime_str = self.state_mapping.get(state, 'normal')
+            regime = MarketRegime(regime_str)
+            
+            # Build probabilities dict using state_mapping
+            probabilities = {}
+            for s, regime_name in self.state_mapping.items():
+                probabilities[regime_name] = float(proba[s])
+        else:
+            # Legacy: use _state_to_regime
+            regime = self._state_to_regime[state]
+            probabilities = {}
+            for s, r in self._state_to_regime.items():
+                probabilities[r.value] = float(proba[s])
         
-        # Build probabilities dict
-        probabilities = {}
-        for s, r in self._state_to_regime.items():
-            probabilities[r.value] = float(proba[s])
+        confidence = float(proba[state])
         
         return RegimeResult(
             regime=regime,

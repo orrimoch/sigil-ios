@@ -21,6 +21,16 @@ class HomeViewModel: ObservableObject {
     // F4.4: Alerts Feed
     @Published var alerts: [AlertItem] = []
     
+    // Risk Module: VIX Indicator
+    @Published var vixValue: Double?
+    @Published var vixChange: Double?
+    @Published var vixChangePct: Double?
+    @Published var vixRegime: String?
+    
+    // Risk Module: Market Regime
+    @Published var marketRegime: String = "normal"
+    @Published var regimeConfidence: Double?
+    
     // Loading states
     @Published var isLoading = false
     @Published var errorMessage: String?
@@ -59,6 +69,15 @@ class HomeViewModel: ObservableObject {
             }
             group.addTask {
                 await self.loadAlerts()
+                return nil
+            }
+            // Risk Module: Load VIX and regime
+            group.addTask {
+                await self.loadVIX()
+                return nil
+            }
+            group.addTask {
+                await self.loadMarketRegime()
                 return nil
             }
             
@@ -251,6 +270,35 @@ class HomeViewModel: ObservableObject {
         } catch {
             // Show empty alerts on error (no sample data)
             alerts = []
+        }
+    }
+    
+    // MARK: - Risk Module: VIX
+    
+    private func loadVIX() async {
+        do {
+            let response = try await api.getMarketVIX()
+            vixValue = response.vix
+            vixChange = response.change
+            vixChangePct = response.changePct
+            vixRegime = response.regime
+        } catch {
+            // VIX is optional - don't block UI
+            print("VIX load error: \(error)")
+        }
+    }
+    
+    // MARK: - Risk Module: Market Regime
+    
+    private func loadMarketRegime() async {
+        do {
+            let response = try await api.getMarketRegime()
+            marketRegime = response.regime
+            regimeConfidence = response.confidence
+        } catch {
+            // Regime is optional - default to normal
+            print("Market regime load error: \(error)")
+            marketRegime = "normal"
         }
     }
     

@@ -9,7 +9,8 @@ portfolio cash/positions) scoped to a specific user.
 import json
 import uuid
 from datetime import datetime, timezone
-from typing import Optional, List
+from typing import Optional, List, Dict
+from loguru import logger
 
 from sqlalchemy import select, and_, func
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -127,6 +128,29 @@ class UserTradingService:
         return list(result.scalars().all())
 
     @staticmethod
+    def _get_ibkr_prices_static(user_id: str, tickers: List[str]) -> Dict[str, dict]:
+        """
+        Try to get live prices from IBKR for portfolio holdings.
+        Returns dict mapping ticker -> price data, empty if IBKR unavailable.
+        """
+        try:
+            from ibkr.ibkr_service import get_ibkr_service
+            ibkr = get_ibkr_service()
+            
+            # Check if connected
+            conn = ibkr.get_connection(user_id)
+            if conn.state.value != "connected":
+                return {}
+            
+            # Get batch quotes
+            quotes = ibkr.get_quotes_batch(user_id, tickers)
+            logger.info(f"Got IBKR prices for {len(quotes)} tickers")
+            return quotes
+        except Exception as e:
+            logger.debug(f"IBKR prices unavailable: {e}")
+            return {}
+
+    @staticmethod
     async def get_portfolio_data(
         db: AsyncSession,
         user_id: str,
@@ -135,15 +159,33 @@ class UserTradingService:
         portfolio = await UserTradingService.get_or_create_portfolio(db, user_id)
         positions = await UserTradingService.get_positions(db, portfolio.id)
 
+        # Try IBKR for live prices first (fast, reliable)
+        tickers = [pos.ticker for pos in positions]
+        ibkr_prices = UserTradingService._get_ibkr_prices_static(user_id, tickers)
+        price_source = "ibkr" if ibkr_prices else "yahoo"
+        logger.info(f"Portfolio prices source: {price_source}")
+
         holdings = []
         total_market_value = 0.0
         for pos in positions:
             holding = pos.to_dict()
-            # Try to get current price
+            # Try to get current price - IBKR first, then Yahoo fallback
             try:
-                price_data = get_price_summary(pos.ticker)
-                if price_data and price_data.get("price"):
-                    current_price = price_data["price"]
+                current_price = None
+                
+                # Try IBKR price
+                if pos.ticker in ibkr_prices and ibkr_prices[pos.ticker].get("price"):
+                    current_price = ibkr_prices[pos.ticker]["price"]
+                    holding["price_source"] = "ibkr"
+                
+                # Fallback to Yahoo
+                if not current_price:
+                    price_data = get_price_summary(pos.ticker)
+                    if price_data and price_data.get("price"):
+                        current_price = price_data["price"]
+                        holding["price_source"] = "yahoo"
+                
+                if current_price:
                     market_value = pos.quantity * current_price
                     cost_basis = pos.quantity * pos.avg_cost
                     unrealized_pnl = (current_price - pos.avg_cost) * pos.quantity
@@ -154,6 +196,8 @@ class UserTradingService:
                     holding["unrealized_pnl"] = round(unrealized_pnl, 2)
                     holding["unrealized_pnl_percent"] = round(unrealized_pnl_pct, 2)  # BUG-010
                     total_market_value += market_value
+                else:
+                    raise ValueError("No price available")
             except Exception:
                 # Use avg_cost as fallback so iOS decode doesn't break
                 holding["current_price"] = pos.avg_cost
@@ -161,6 +205,7 @@ class UserTradingService:
                 holding["cost_basis"] = round(pos.quantity * pos.avg_cost, 2)
                 holding["unrealized_pnl"] = 0.0
                 holding["unrealized_pnl_percent"] = 0.0
+                holding["price_source"] = "fallback"
                 total_market_value += pos.quantity * pos.avg_cost
             holdings.append(holding)
 

@@ -42,7 +42,8 @@ struct RiskSettingsView: View {
                             Text("Threshold")
                                 .foregroundColor(.Text.secondary)
                             Spacer()
-                            Text(String(format: "%.0f%%", localSettings.hardStop.thresholdPct * 100))
+                            // UX-005: Use absolute value for consistent sign convention
+                            Text(String(format: "%.0f%%", abs(localSettings.hardStop.thresholdPct * 100)))
                                 .foregroundColor(.Signal.sell)
                                 .fontWeight(.semibold)
                         }
@@ -102,7 +103,8 @@ struct RiskSettingsView: View {
                             Text("Distance from Peak")
                                 .foregroundColor(.Text.secondary)
                             Spacer()
-                            Text(String(format: "%.0f%%", localSettings.trailingStop.distancePct * 100))
+                            // UX-005: Use absolute value for consistent sign convention
+                            Text(String(format: "%.0f%%", abs(localSettings.trailingStop.distancePct * 100)))
                                 .foregroundColor(.Accent.gold)
                                 .fontWeight(.semibold)
                         }
@@ -267,6 +269,14 @@ struct RiskSettingsView: View {
         }
         .onAppear {
             loadSettings()
+        }
+        .onDisappear {
+            // Auto-save when navigating away if there are unsaved changes
+            if hasChanges {
+                Task {
+                    try? await service.updateSettings(localSettings)
+                }
+            }
         }
         .alert("Reset to Defaults?", isPresented: $showResetAlert) {
             Button("Cancel", role: .cancel) {}

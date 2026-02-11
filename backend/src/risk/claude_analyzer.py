@@ -210,6 +210,34 @@ class RiskAnalysisCache:
         self._misses += 1
         return None
     
+    def get_any(self, ticker: str) -> Optional[RiskAnalysisResult]:
+        """
+        Get any cached result for a ticker, regardless of price/vix/etc.
+        Returns the most recent cached result if available.
+        Used for instant response before running full analysis.
+        """
+        try:
+            with sqlite3.connect(self.db_path) as conn:
+                cursor = conn.execute(
+                    """SELECT result_json FROM risk_analysis_cache 
+                       WHERE ticker = ? AND expires_at > ?
+                       ORDER BY created_at DESC LIMIT 1""",
+                    (ticker, datetime.now(timezone.utc).isoformat())
+                )
+                row = cursor.fetchone()
+                
+                if row:
+                    result_data = json.loads(row[0])
+                    result = RiskAnalysisResult.from_dict(result_data)
+                    result.cached = True
+                    self._hits += 1
+                    logger.debug(f"get_any cache hit for {ticker}")
+                    return result
+        except Exception as e:
+            logger.warning(f"get_any cache error: {e}")
+        
+        return None
+    
     def set(
         self,
         ticker: str,
@@ -601,3 +629,158 @@ def clear_risk_cache() -> None:
 def invalidate_risk_cache_for_ticker(ticker: str) -> None:
     """Invalidate cache entries for a specific ticker."""
     _risk_cache.invalidate_ticker(ticker)
+
+
+async def warm_cache_for_tickers(
+    tickers: List[str],
+    force: bool = False,
+) -> Dict[str, Any]:
+    """
+    Pre-warm the risk analysis cache for a list of tickers.
+    
+    Runs Claude analysis in the background for tickers without cached results.
+    Used to pre-populate cache for portfolio holdings on login.
+    
+    Args:
+        tickers: List of stock symbols to analyze
+        force: If True, re-analyze even if cached
+        
+    Returns:
+        Summary of what was cached/skipped/failed
+    """
+    from concurrent.futures import ThreadPoolExecutor
+    import asyncio
+    
+    analyzer = ClaudeRiskAnalyzer()
+    results = {
+        "requested": len(tickers),
+        "already_cached": 0,
+        "analyzed": 0,
+        "failed": 0,
+        "details": [],
+    }
+    
+    # Check which tickers need analysis
+    tickers_to_analyze = []
+    for ticker in tickers:
+        if not force:
+            cached = analyzer.cache.get_any(ticker)
+            if cached is not None:
+                results["already_cached"] += 1
+                results["details"].append({
+                    "ticker": ticker,
+                    "status": "cached",
+                    "risk_score": cached.risk_score,
+                })
+                continue
+        tickers_to_analyze.append(ticker)
+    
+    if not tickers_to_analyze:
+        logger.info(f"All {len(tickers)} tickers already cached")
+        return results
+    
+    logger.info(f"Warming cache for {len(tickers_to_analyze)} tickers: {tickers_to_analyze}")
+    
+    # Fetch market data for analysis
+    try:
+        from .vix_service import fetch_vix
+        vix_data = await fetch_vix(use_cache=True)
+        vix = vix_data.value
+        vix_regime = vix_data.regime
+    except Exception:
+        vix = 20.0
+        vix_regime = "normal"
+    
+    # Analyze each ticker
+    for ticker in tickers_to_analyze:
+        try:
+            # Get price and returns data
+            price = 100.0
+            return_5d = 0.0
+            return_20d = 0.0
+            sentiment = 50.0
+            
+            try:
+                # Use run_in_executor to avoid blocking
+                loop = asyncio.get_event_loop()
+                price_data = await loop.run_in_executor(
+                    None, _fetch_ticker_data_sync, ticker
+                )
+                if price_data:
+                    price = price_data.get("price", 100.0)
+                    return_5d = price_data.get("return_5d", 0.0)
+                    return_20d = price_data.get("return_20d", 0.0)
+                    sentiment = price_data.get("sentiment", 50.0)
+            except Exception as e:
+                logger.warning(f"Failed to fetch data for {ticker}: {e}")
+            
+            # Run Claude analysis
+            result = await analyzer.analyze(
+                ticker=ticker,
+                price=price,
+                vix=vix,
+                vix_regime=vix_regime,
+                return_5d=return_5d,
+                return_20d=return_20d,
+                sentiment=sentiment,
+                use_cache=False,  # Force fresh analysis
+            )
+            
+            results["analyzed"] += 1
+            results["details"].append({
+                "ticker": ticker,
+                "status": "analyzed",
+                "risk_score": result.risk_score,
+                "risk_level": result.risk_level.value,
+            })
+            logger.info(f"Analyzed {ticker}: risk_score={result.risk_score}")
+            
+        except Exception as e:
+            results["failed"] += 1
+            results["details"].append({
+                "ticker": ticker,
+                "status": "failed",
+                "error": str(e),
+            })
+            logger.error(f"Failed to analyze {ticker}: {e}")
+    
+    return results
+
+
+def _fetch_ticker_data_sync(ticker: str) -> Dict[str, Any]:
+    """
+    Synchronously fetch ticker data for risk analysis.
+    Called via run_in_executor to avoid blocking async loop.
+    """
+    try:
+        import yfinance as yf
+        
+        stock = yf.Ticker(ticker)
+        hist = stock.history(period="1mo")
+        
+        if hist.empty:
+            return None
+        
+        current_price = float(hist['Close'].iloc[-1])
+        
+        # Calculate returns
+        if len(hist) >= 5:
+            return_5d = ((hist['Close'].iloc[-1] / hist['Close'].iloc[-5]) - 1) * 100
+        else:
+            return_5d = 0.0
+            
+        if len(hist) >= 20:
+            return_20d = ((hist['Close'].iloc[-1] / hist['Close'].iloc[-20]) - 1) * 100
+        else:
+            return_20d = return_5d
+        
+        return {
+            "price": current_price,
+            "return_5d": float(return_5d),
+            "return_20d": float(return_20d),
+            "sentiment": 50.0,  # Default, would need separate lookup
+        }
+        
+    except Exception as e:
+        logger.warning(f"yfinance fetch failed for {ticker}: {e}")
+        return None

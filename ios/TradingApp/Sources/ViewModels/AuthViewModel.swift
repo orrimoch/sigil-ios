@@ -35,10 +35,44 @@ final class AuthViewModel: ObservableObject {
         Task {
             do {
                 try await authService.login(email: email, password: password)
+                
+                // Pre-warm risk cache once per day (first login of the day)
+                warmRiskCacheIfNeeded()
             } catch {
                 errorMessage = error.localizedDescription
             }
             isLoading = false
+        }
+    }
+    
+    // MARK: - Daily Risk Cache Warming
+    
+    private static let lastWarmDateKey = "riskCacheLastWarmDate"
+    
+    /// Warm risk cache once per day (first app open of the day)
+    func warmRiskCacheIfNeeded() {
+        let today = Calendar.current.startOfDay(for: Date())
+        let lastWarm = UserDefaults.standard.object(forKey: Self.lastWarmDateKey) as? Date
+        
+        // Skip if already warmed today
+        if let lastWarm = lastWarm, Calendar.current.isDate(lastWarm, inSameDayAs: today) {
+            print("Risk cache already warmed today, skipping")
+            return
+        }
+        
+        // Warm cache in background
+        Task.detached(priority: .background) {
+            do {
+                let result = try await APIService.shared.warmRiskCache()
+                print("Risk cache warmed: \(result.data.analyzed) analyzed, \(result.data.alreadyCached) cached")
+                
+                // Mark today as warmed
+                await MainActor.run {
+                    UserDefaults.standard.set(Date(), forKey: Self.lastWarmDateKey)
+                }
+            } catch {
+                print("Risk cache warming failed (non-critical): \(error)")
+            }
         }
     }
 

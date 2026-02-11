@@ -26,6 +26,10 @@ struct RiskBadge: View {
             .background(riskScore.color.opacity(0.15))
             .cornerRadius(12)
         }
+        .frame(minHeight: 44)  // UX-001: Ensure 44pt touch target
+        .contentShape(Rectangle())  // UX-001: Expand tap area
+        .accessibilityLabel("Portfolio risk: \(riskScore.label)")  // UX-002: VoiceOver
+        .accessibilityHint("Tap to learn more about risk levels")
         .sheet(isPresented: $showExplainer) {
             RiskExplainerView(riskScore: riskScore)
         }
@@ -151,6 +155,8 @@ struct RiskExplainerView: View {
                 .foregroundColor(.Text.tertiary)
         }
         .font(.subheadline)
+        .accessibilityElement(children: .combine)  // UX-007: Combine for VoiceOver
+        .accessibilityLabel("\(level.label) risk: Value at Risk \(range)")
     }
 }
 
@@ -181,12 +187,15 @@ struct StopDistanceView: View {
     var body: some View {
         HStack(spacing: 4) {
             Image(systemName: stopType == .hard ? "hand.raised" : "arrow.down.right")
-                .font(.caption2)
+                .font(.caption)  // UX-003: Larger font for accessibility
             
             Text("\(stopType.rawValue) at $\(stopPrice, specifier: "%.2f") (\(stopDistancePercent, specifier: "%.1f")%)")
-                .font(.caption2)
+                .font(.caption)  // UX-003: Larger font for accessibility
         }
         .foregroundColor(distanceColor)
+        // UX-004: VoiceOver accessibility
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(stopType.rawValue) loss at \(String(format: "%.2f", stopPrice)) dollars, \(String(format: "%.1f", abs(stopDistancePercent))) percent from current price")
     }
 }
 

@@ -36,6 +36,11 @@ struct ProfileResponse: Codable {
 
 struct AuthErrorResponse: Codable {
     let detail: String?
+    let error: String?  // Backend uses "error" field
+    
+    var message: String? {
+        error ?? detail
+    }
 }
 
 /// REC-130: Server auth status response
@@ -231,8 +236,12 @@ final class AuthService: ObservableObject {
 
         guard 200...299 ~= http.statusCode else {
             if let errResp = try? decoder.decode(AuthErrorResponse.self, from: data),
-               let detail = errResp.detail {
-                throw AuthError.api(detail)
+               let msg = errResp.message {
+                // User-friendly message for auth failures
+                if http.statusCode == 401 || msg.lowercased().contains("invalid") || msg.lowercased().contains("password") {
+                    throw AuthError.invalidCredentials
+                }
+                throw AuthError.api(msg)
             }
             throw AuthError.httpError(http.statusCode)
         }
@@ -254,10 +263,14 @@ final class AuthService: ObservableObject {
         }
 
         guard 200...299 ~= http.statusCode else {
-            // Try to extract backend error detail
+            // Try to extract backend error
             if let errResp = try? decoder.decode(AuthErrorResponse.self, from: data),
-               let detail = errResp.detail {
-                throw AuthError.api(detail)
+               let msg = errResp.message {
+                // User-friendly message for auth failures
+                if http.statusCode == 401 || msg.lowercased().contains("invalid") || msg.lowercased().contains("password") {
+                    throw AuthError.invalidCredentials
+                }
+                throw AuthError.api(msg)
             }
             throw AuthError.httpError(http.statusCode)
         }
@@ -274,6 +287,7 @@ enum AuthError: Error, LocalizedError {
     case serverError
     case httpError(Int)
     case api(String)
+    case invalidCredentials  // User-friendly login error
 
     var errorDescription: String? {
         switch self {
@@ -282,6 +296,7 @@ enum AuthError: Error, LocalizedError {
         case .serverError:       return "Server error"
         case .httpError(let c):  return "HTTP error \(c)"
         case .api(let msg):      return msg
+        case .invalidCredentials: return "Wrong email or password!"
         }
     }
 }

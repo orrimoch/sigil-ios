@@ -258,6 +258,16 @@ class IBKRService:
             self._connections[user_id] = IBKRConnection(user_id=user_id)
         return self._connections[user_id]
 
+    def is_connected(self, user_id: str = "anonymous") -> bool:
+        """Check if IBKR is connected for a user (defaults to anonymous)."""
+        ibc = self._ib_connections.get(user_id)
+        if ibc is None:
+            return False
+        try:
+            return ibc.is_connected
+        except Exception:
+            return False
+
     def _get_ib(self, user_id: str) -> _IBConnection:
         """Get the live IB wrapper for a user. Raises ValueError if not connected."""
         ibc = self._ib_connections.get(user_id)
@@ -731,6 +741,82 @@ class IBKRService:
         except Exception as exc:
             logger.error("Failed to get quote for %s: %s", _ticker, exc)
             raise ValueError(f"Failed to get quote for {_ticker}: {exc}") from exc
+
+    def get_quotes_batch(self, user_id: str, tickers: List[str]) -> Dict[str, dict]:
+        """
+        Get real-time quotes for multiple tickers from IB Gateway.
+        
+        More efficient than calling get_quote() in a loop.
+        Returns dict mapping ticker -> quote data.
+        """
+        if not tickers:
+            return {}
+            
+        conn = self.get_connection(user_id)
+        if conn.state != IBKRConnectionState.CONNECTED:
+            raise ValueError("IBKR not connected. Please connect first.")
+
+        ibc = self._get_ib(user_id)
+        ibi = _IBConnection._import_ib_insync()
+        
+        def _get_quotes_batch(ib):
+            results = {}
+            contracts = []
+            ticker_map = {}
+            
+            # Create and qualify all contracts
+            for ticker in tickers:
+                _ticker = ticker.upper()
+                contract = ibi.Stock(_ticker, "SMART", "USD")
+                contracts.append(contract)
+                ticker_map[contract] = _ticker
+            
+            ib.qualifyContracts(*contracts)
+            
+            # Request market data for all
+            ticker_data_list = []
+            for contract in contracts:
+                td = ib.reqMktData(contract, snapshot=True)
+                ticker_data_list.append((contract, td))
+            
+            # Wait for data
+            ib.sleep(2.0)
+            
+            # Extract results
+            for contract, ticker_data in ticker_data_list:
+                _ticker = ticker_map[contract]
+                
+                price = None
+                if ticker_data.last and ticker_data.last > 0:
+                    price = ticker_data.last
+                elif ticker_data.close and ticker_data.close > 0:
+                    price = ticker_data.close
+                
+                results[_ticker] = {
+                    "ticker": _ticker,
+                    "price": price,
+                    "bid": ticker_data.bid if ticker_data.bid and ticker_data.bid > 0 else None,
+                    "ask": ticker_data.ask if ticker_data.ask and ticker_data.ask > 0 else None,
+                    "last": ticker_data.last if ticker_data.last and ticker_data.last > 0 else None,
+                    "close": ticker_data.close if ticker_data.close and ticker_data.close > 0 else None,
+                    "high": ticker_data.high if ticker_data.high and ticker_data.high > 0 else None,
+                    "low": ticker_data.low if ticker_data.low and ticker_data.low > 0 else None,
+                    "volume": int(ticker_data.volume) if ticker_data.volume and ticker_data.volume > 0 else None,
+                    "source": "ibkr",
+                }
+                
+                # Cancel subscription
+                ib.cancelMktData(contract)
+            
+            return results
+
+        try:
+            quotes = ibc.run_ib(_get_quotes_batch)
+            logger.info("Batch quotes for %d tickers from IBKR", len(quotes))
+            return quotes
+        except Exception as exc:
+            logger.error("Failed to get batch quotes: %s", exc)
+            raise ValueError(f"Failed to get batch quotes: {exc}") from exc
 
     # -- historical bars (REC-160) ---------------------------------------
 

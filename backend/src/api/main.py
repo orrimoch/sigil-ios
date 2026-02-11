@@ -261,6 +261,10 @@ app.include_router(risk_analysis_router) # GET /api/v1/risk/analyze/{ticker}
 # Phase 3 risk routes (REC-243, REC-244, REC-245, REC-247)
 app.include_router(risk_p3_router)       # GET /api/v1/market/regime, /portfolio/sectors/exposure
 
+# Crowd Wisdom routes (REC-251 to REC-265)
+from crowd_wisdom.routes import router as crowd_wisdom_router
+app.include_router(crowd_wisdom_router)  # GET /api/v1/crowd-wisdom/top-picks, /scores, etc.
+
 
 # ========== Pydantic Models ==========
 

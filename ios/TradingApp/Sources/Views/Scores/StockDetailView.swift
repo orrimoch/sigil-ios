@@ -56,6 +56,29 @@ struct StockDetailView: View {
                 ScoreHistoryCard(history: viewModel.scoreHistory, signalChanges: viewModel.signalChanges)
                     .padding(.horizontal)
                 
+                // Risk Module: Claude AI Risk Analysis
+                if viewModel.isLoadingRiskAnalysis {
+                    ClaudeRiskCardLoading()
+                        .padding(.horizontal)
+                } else if let error = viewModel.riskAnalysisError {
+                    ClaudeRiskCardError(error: error) {
+                        Task { await viewModel.loadRiskAnalysis() }
+                    }
+                    .padding(.horizontal)
+                } else if let riskScore = viewModel.riskScore,
+                          let riskLevel = viewModel.riskLevel,
+                          let recommendation = viewModel.riskRecommendation,
+                          let reasoning = viewModel.riskReasoning {
+                    ClaudeRiskCard(
+                        riskScore: riskScore,
+                        riskLevel: riskLevel,
+                        riskFactors: viewModel.riskFactors,
+                        recommendation: recommendation,
+                        reasoning: reasoning
+                    )
+                    .padding(.horizontal)
+                }
+                
                 // Key metrics
                 KeyMetricsCard(
                     price: viewModel.price,

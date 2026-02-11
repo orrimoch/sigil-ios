@@ -11,9 +11,27 @@ struct HomeView: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 24) {
-                    // F4.3: Market Hours Indicator
-                    MarketHoursIndicator(service: marketHours)
-                        .padding(.horizontal)
+                    // F4.3: Market Hours Indicator + Risk Indicators Row
+                    HStack(spacing: 12) {
+                        MarketHoursIndicator(service: marketHours)
+                        
+                        Spacer()
+                        
+                        // Risk Module: VIX Indicator
+                        if let vix = viewModel.vixValue {
+                            VIXIndicator(
+                                vix: vix,
+                                changePct: viewModel.vixChangePct
+                            )
+                        }
+                        
+                        // Risk Module: Regime Badge
+                        RegimeBadge(
+                            regime: viewModel.marketRegime,
+                            confidence: viewModel.regimeConfidence
+                        )
+                    }
+                    .padding(.horizontal)
                     
                     // F4.1: Portfolio Summary Card (H1: portfolio first)
                     PortfolioSummaryCard(

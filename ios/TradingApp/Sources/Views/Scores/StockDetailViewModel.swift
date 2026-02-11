@@ -53,6 +53,15 @@ class StockDetailViewModel: ObservableObject {
     @Published var errorMessage: String?
     @Published var selectedChartPeriod: ChartPeriod = .oneMonth
     
+    // Risk Module: Claude Risk Analysis
+    @Published var riskScore: Int?
+    @Published var riskLevel: String?
+    @Published var riskFactors: [RiskFactor] = []
+    @Published var riskRecommendation: String?
+    @Published var riskReasoning: String?
+    @Published var isLoadingRiskAnalysis = false
+    @Published var riskAnalysisError: String?
+    
     // MARK: - Chart Periods
     
     enum ChartPeriod: String, CaseIterable {
@@ -94,8 +103,9 @@ class StockDetailViewModel: ObservableObject {
         async let newsTask: () = loadNews()
         async let historyTask: () = loadScoreHistory()
         async let priceHistoryTask: () = loadPriceHistory()
+        async let riskTask: () = loadRiskAnalysis()  // Risk Module
         
-        let _ = await (priceTask, scoreTask, stockTask, newsTask, historyTask, priceHistoryTask)
+        let _ = await (priceTask, scoreTask, stockTask, newsTask, historyTask, priceHistoryTask, riskTask)
         
         isLoading = false
     }
@@ -273,6 +283,31 @@ class StockDetailViewModel: ObservableObject {
         else if currentScore >= 40 { sig = "HOLD" }
         else { sig = "SELL" }
         scoreHistory = [ScoreHistoryPoint(date: Date(), score: currentScore, signal: sig)]
+    }
+    
+    // MARK: - Risk Module: Claude Risk Analysis
+    
+    func loadRiskAnalysis() async {
+        isLoadingRiskAnalysis = true
+        riskAnalysisError = nil
+        
+        do {
+            let response = try await APIService.shared.getRiskAnalysis(ticker: ticker)
+            riskScore = response.riskScore
+            riskLevel = response.riskLevel
+            // Map string factors to RiskFactor objects
+            riskFactors = response.riskFactors.map { factorString in
+                RiskFactor(factor: factorString, impact: "medium", description: nil)
+            }
+            riskRecommendation = response.recommendation
+            riskReasoning = response.reasoning
+        } catch {
+            print("Risk analysis error: \(error)")
+            riskAnalysisError = "Unable to load risk analysis"
+            // Don't block UI - risk analysis is supplementary
+        }
+        
+        isLoadingRiskAnalysis = false
     }
     
     // MARK: - Helpers

@@ -134,6 +134,8 @@ struct SigilApp: App {
                             Task {
                                 await WatchlistService.shared.checkForSignalChanges()
                             }
+                            // Daily risk cache warming (once per day)
+                            authVM.warmRiskCacheIfNeeded()
                             // Prompt PIN setup if not set up yet (after first use)
                             if !lockManager.isSetUp && !UserDefaults.standard.bool(forKey: "pinSetupDismissed") {
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {

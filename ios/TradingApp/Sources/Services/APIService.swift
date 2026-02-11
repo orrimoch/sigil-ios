@@ -429,7 +429,9 @@ class APIService: ObservableObject {
         
         var request = authorizedRequest(url: url, method: "PUT")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = try JSONEncoder().encode(settings)
+        let encoder = JSONEncoder()
+        encoder.keyEncodingStrategy = .convertToSnakeCase
+        request.httpBody = try encoder.encode(settings)
         
         let (data, response) = try await dataWithAutoRefresh(for: request)
         
@@ -440,7 +442,17 @@ class APIService: ObservableObject {
             throw APIError.invalidResponse
         }
         
-        return try decoder.decode(RiskSettingsAPIResponse.self, from: data)
+        // Debug: print raw response
+        if let jsonString = String(data: data, encoding: .utf8) {
+            print("🔍 Risk settings response: \(jsonString)")
+        }
+        
+        do {
+            return try decoder.decode(RiskSettingsAPIResponse.self, from: data)
+        } catch {
+            print("❌ Risk settings decode error: \(error)")
+            throw error
+        }
     }
     
     func resetRiskSettings() async throws -> RiskSettingsAPIResponse {
@@ -458,6 +470,65 @@ class APIService: ObservableObject {
         }
         
         return try decoder.decode(RiskSettingsAPIResponse.self, from: data)
+    }
+    
+    // MARK: - Portfolio Risk (REC-230)
+    
+    /// Get portfolio-level risk metrics including risk score
+    func getPortfolioRisk() async throws -> PortfolioRiskAPIResponse {
+        let url = URL(string: "\(baseURL)/risk/portfolio")!
+        return try await fetch(url)
+    }
+    
+    // MARK: - Market VIX (Risk Module)
+    
+    /// Get current VIX value and regime classification
+    func getMarketVIX() async throws -> MarketVIXResponse {
+        let url = URL(string: "\(baseURL)/market/vix")!
+        return try await fetch(url)
+    }
+    
+    // MARK: - Claude Risk Analysis (Risk Module)
+    
+    /// Get AI-powered risk analysis for a specific ticker
+    func getRiskAnalysis(ticker: String) async throws -> ClaudeRiskAnalysisResponse {
+        let url = URL(string: "\(baseURL)/risk/analyze/\(ticker)")!
+        let response: ClaudeRiskAnalysisAPIResponse = try await fetch(url)
+        return response.data
+    }
+    
+    // MARK: - Market Regime (Risk Module)
+    
+    /// Get HMM-based market regime classification
+    func getMarketRegime() async throws -> MarketRegimeResponse {
+        let url = URL(string: "\(baseURL)/market/regime")!
+        return try await fetch(url)
+    }
+    
+    // MARK: - Sector Risk (Risk Module)
+    
+    /// Get sector concentration analysis and warnings
+    func getSectorRisk() async throws -> SectorRiskResponse {
+        let url = URL(string: "\(baseURL)/portfolio/sectors/exposure")!
+        return try await fetch(url)
+    }
+    
+    // MARK: - Risk Cache Warming
+    
+    /// Pre-warm risk analysis cache for portfolio holdings.
+    /// Call after login to ensure instant risk display.
+    func warmRiskCache(force: Bool = false) async throws -> WarmCacheResponse {
+        let url = URL(string: "\(baseURL)/risk/warm-cache?force=\(force)")!
+        var request = authorizedRequest(url: url, method: "POST")
+        request.httpMethod = "POST"
+        let (data, response) = try await dataWithAutoRefresh(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse,
+              200...299 ~= httpResponse.statusCode else {
+            throw APIError.invalidResponse
+        }
+        
+        return try decoder.decode(WarmCacheResponse.self, from: data)
     }
     
     // MARK: - Auth header injection
@@ -1068,6 +1139,7 @@ extension APIService {
 struct RiskSettingsAPIResponse: Codable {
     let success: Bool
     let data: RiskSettingsData?
+    let error: String?
 }
 
 struct RiskSettingsData: Codable {
@@ -1076,34 +1148,19 @@ struct RiskSettingsData: Codable {
     var trailingStop: RiskTrailingStopData
     var vixAdjustment: RiskVixData
     var positionLimit: RiskPositionLimitData
-    
-    enum CodingKeys: String, CodingKey {
-        case userId = "user_id"
-        case hardStop = "hard_stop"
-        case trailingStop = "trailing_stop"
-        case vixAdjustment = "vix_adjustment"
-        case positionLimit = "position_limit"
-    }
+    // Note: No CodingKeys needed - decoder uses .convertFromSnakeCase
 }
 
 struct RiskStopData: Codable {
     var enabled: Bool
     var thresholdPct: Double
-    
-    enum CodingKeys: String, CodingKey {
-        case enabled
-        case thresholdPct = "threshold_pct"
-    }
+    // Note: No CodingKeys needed - decoder uses .convertFromSnakeCase
 }
 
 struct RiskTrailingStopData: Codable {
     var enabled: Bool
     var distancePct: Double
-    
-    enum CodingKeys: String, CodingKey {
-        case enabled
-        case distancePct = "distance_pct"
-    }
+    // Note: No CodingKeys needed - decoder uses .convertFromSnakeCase
 }
 
 struct RiskVixData: Codable {
@@ -1113,11 +1170,7 @@ struct RiskVixData: Codable {
 struct RiskPositionLimitData: Codable {
     var enabled: Bool
     var maxPct: Double
-    
-    enum CodingKeys: String, CodingKey {
-        case enabled
-        case maxPct = "max_pct"
-    }
+    // Note: No CodingKeys needed - decoder uses .convertFromSnakeCase
 }
 
 struct RiskSettingsUpdatePayload: Codable {
@@ -1125,11 +1178,145 @@ struct RiskSettingsUpdatePayload: Codable {
     var trailingStop: RiskTrailingStopData?
     var vixAdjustment: RiskVixData?
     var positionLimit: RiskPositionLimitData?
+    // Note: Uses snake_case encoder in updateRiskSettings
+}
+
+// MARK: - Market VIX Response (Risk Module)
+
+struct MarketVIXResponse: Codable {
+    let vix: Double
+    let regime: String
+    let change: Double?
+    let changePct: Double?
     
     enum CodingKeys: String, CodingKey {
-        case hardStop = "hard_stop"
-        case trailingStop = "trailing_stop"
-        case vixAdjustment = "vix_adjustment"
-        case positionLimit = "position_limit"
+        case vix
+        case regime
+        case change
+        case changePct = "change_pct"
+    }
+}
+
+// MARK: - Warm Cache Response (Risk Module)
+
+struct WarmCacheResponse: Codable {
+    let success: Bool
+    let data: WarmCacheData
+}
+
+struct WarmCacheData: Codable {
+    let requested: Int
+    let alreadyCached: Int
+    let analyzed: Int
+    let failed: Int
+    let message: String?
+    // Note: decoder uses .convertFromSnakeCase
+}
+
+// MARK: - Claude Risk Analysis Response (Risk Module)
+
+struct ClaudeRiskAnalysisAPIResponse: Codable {
+    let success: Bool
+    let data: ClaudeRiskAnalysisResponse
+}
+
+struct ClaudeRiskAnalysisResponse: Codable {
+    let ticker: String
+    let riskScore: Int
+    let riskLevel: String
+    let riskFactors: [String]  // Backend returns simple strings
+    let recommendation: String
+    let reasoning: String
+    let confidence: Double?
+    let analyzedAt: String?
+    let cached: Bool?
+    // Note: No CodingKeys needed - decoder uses .convertFromSnakeCase
+}
+
+struct RiskFactor: Codable, Identifiable {
+    var id: String { factor }
+    let factor: String
+    let impact: String
+    let description: String?
+}
+
+// MARK: - HMM Regime Response (Risk Module)
+
+struct MarketRegimeResponse: Codable {
+    let regime: String
+    let confidence: Double
+    let states: [String]
+}
+
+// MARK: - Sector Risk Response (Risk Module)
+
+struct SectorRiskResponse: Codable {
+    let sectors: [SectorRiskData]
+    let warnings: [SectorWarning]
+    let hhi: Double
+}
+
+struct SectorRiskData: Codable, Identifiable {
+    var id: String { sector }
+    let sector: String
+    let weight: Double
+    let value: Double?
+}
+
+struct SectorWarning: Codable, Identifiable {
+    var id: String { sector }
+    let sector: String
+    let weight: Double
+    let message: String
+}
+
+// MARK: - Portfolio Risk API Types (REC-230)
+
+struct PortfolioRiskAPIResponse: Codable {
+    let success: Bool
+    let data: PortfolioRiskData?
+}
+
+struct PortfolioRiskData: Codable {
+    let totalValue: Double?
+    let var95Daily: Double?
+    let var99Daily: Double?
+    let var95Pct: Double?
+    let var99Pct: Double?
+    let riskScore: String
+    let positionVars: [PositionVarData]?
+    let correlationBenefit: Double?
+    let calculatedAt: String?
+    let message: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case totalValue = "total_value"
+        case var95Daily = "var_95_daily"
+        case var99Daily = "var_99_daily"
+        case var95Pct = "var_95_pct"
+        case var99Pct = "var_99_pct"
+        case riskScore = "risk_score"
+        case positionVars = "position_vars"
+        case correlationBenefit = "correlation_benefit"
+        case calculatedAt = "calculated_at"
+        case message
+    }
+}
+
+struct PositionVarData: Codable {
+    let ticker: String
+    let positionValue: Double
+    let var95Daily: Double
+    let var95Pct: Double
+    let dailyVolatility: Double?
+    let annualizedVolatility: Double?
+    
+    enum CodingKeys: String, CodingKey {
+        case ticker
+        case positionValue = "position_value"
+        case var95Daily = "var_95_daily"
+        case var95Pct = "var_95_pct"
+        case dailyVolatility = "daily_volatility"
+        case annualizedVolatility = "annualized_volatility"
     }
 }
