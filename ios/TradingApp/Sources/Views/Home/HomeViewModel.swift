@@ -31,6 +31,10 @@ class HomeViewModel: ObservableObject {
     @Published var marketRegime: String = "normal"
     @Published var regimeConfidence: Double?
     
+    // Pipeline Status (Scores Last Updated)
+    @Published var scoresLastUpdated: Date?
+    @Published var isPipelineRunning: Bool = false
+    
     // Loading states
     @Published var isLoading = false
     @Published var errorMessage: String?
@@ -78,6 +82,11 @@ class HomeViewModel: ObservableObject {
             }
             group.addTask {
                 await self.loadMarketRegime()
+                return nil
+            }
+            // Pipeline Status
+            group.addTask {
+                await self.loadPipelineStatus()
                 return nil
             }
             
@@ -299,6 +308,23 @@ class HomeViewModel: ObservableObject {
             // Regime is optional - default to normal
             print("Market regime load error: \(error)")
             marketRegime = "normal"
+        }
+    }
+    
+    // MARK: - Pipeline Status (Scores Last Updated)
+    
+    private func loadPipelineStatus() async {
+        do {
+            let response = try await api.getPipelineStatus()
+            isPipelineRunning = response.data.activeRuns > 0
+            
+            // Parse completed_at from latest run
+            if let latest = response.data.latest,
+               let completedAt = latest.completedAt {
+                scoresLastUpdated = parseDate(completedAt)
+            }
+        } catch {
+            print("Pipeline status load error: \(error)")
         }
     }
     

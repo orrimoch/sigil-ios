@@ -1,6 +1,7 @@
 import Foundation
 
 // MARK: - REC-261: Crowd Wisdom iOS Models
+// Note: No CodingKeys needed - decoder uses .convertFromSnakeCase
 
 /// Weekly top pick stock with insider buying signals
 struct SmartMoneyPick: Codable, Identifiable {
@@ -15,18 +16,6 @@ struct SmartMoneyPick: Codable, Identifiable {
     let signal: String
     
     var id: String { ticker }
-    
-    enum CodingKeys: String, CodingKey {
-        case rank
-        case ticker
-        case companyName = "company_name"
-        case insiderScore = "insider_score"
-        case insiderBuyCount = "insider_buy_count"
-        case insiderBuyValue = "insider_buy_value"
-        case notableEvents = "notable_events"
-        case currentPrice = "current_price"
-        case signal
-    }
     
     /// Formatted buy value (e.g., "$1.2M")
     var formattedBuyValue: String {
@@ -63,12 +52,6 @@ struct TopPicksResponse: Codable {
     let success: Bool
     let weekStart: String
     let picks: [SmartMoneyPick]
-    
-    enum CodingKeys: String, CodingKey {
-        case success
-        case weekStart = "week_start"
-        case picks
-    }
 }
 
 /// Detailed crowd wisdom score for a stock
@@ -87,21 +70,6 @@ struct CrowdWisdomScore: Codable, Identifiable {
     let signal: String
     
     var id: String { ticker }
-    
-    enum CodingKeys: String, CodingKey {
-        case ticker
-        case companyName = "company_name"
-        case sector
-        case currentPrice = "current_price"
-        case insiderScore = "insider_score"
-        case insiderBuyCount = "insider_buy_count"
-        case insiderBuyValue = "insider_buy_value"
-        case insiderCluster = "insider_cluster"
-        case executiveBuys = "executive_buys"
-        case notableEvents = "notable_events"
-        case discoveryReason = "discovery_reason"
-        case signal
-    }
 }
 
 /// Response from /api/v1/crowd-wisdom/scores
@@ -110,11 +78,4 @@ struct CrowdWisdomScoresResponse: Codable {
     let count: Int
     let weekStart: String
     let scores: [CrowdWisdomScore]
-    
-    enum CodingKeys: String, CodingKey {
-        case success
-        case count
-        case weekStart = "week_start"
-        case scores
-    }
 }

@@ -11,6 +11,13 @@ struct HomeView: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 24) {
+                    // Scores Last Updated Banner
+                    ScoresLastUpdatedBanner(
+                        lastUpdated: viewModel.scoresLastUpdated,
+                        isRunning: viewModel.isPipelineRunning
+                    )
+                    .padding(.horizontal)
+                    
                     // F4.3: Market Hours Indicator + Risk Indicators Row
                     HStack(spacing: 12) {
                         MarketHoursIndicator(service: marketHours)
@@ -535,6 +542,88 @@ struct PulseAnimation: ViewModifier {
                 value: isPulsing
             )
             .onAppear { isPulsing = true }
+    }
+}
+
+// MARK: - Scores Last Updated Banner
+
+struct ScoresLastUpdatedBanner: View {
+    let lastUpdated: Date?
+    let isRunning: Bool
+    
+    private var formattedDate: String {
+        guard let date = lastUpdated else { return "Unknown" }
+        
+        let calendar = Calendar.current
+        let now = Date()
+        
+        // If today, show "Today at HH:mm"
+        if calendar.isDateInToday(date) {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "h:mm a"
+            return "Today at \(formatter.string(from: date))"
+        }
+        
+        // If yesterday, show "Yesterday at HH:mm"
+        if calendar.isDateInYesterday(date) {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "h:mm a"
+            return "Yesterday at \(formatter.string(from: date))"
+        }
+        
+        // Otherwise show relative time
+        let formatter = RelativeDateTimeFormatter()
+        formatter.unitsStyle = .full
+        return formatter.localizedString(for: date, relativeTo: now)
+    }
+    
+    private var isStale: Bool {
+        guard let date = lastUpdated else { return true }
+        let daysSince = Calendar.current.dateComponents([.day], from: date, to: Date()).day ?? 0
+        return daysSince >= 7
+    }
+    
+    var body: some View {
+        HStack(spacing: 10) {
+            // Icon
+            if isRunning {
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle(tint: .Brand.primary))
+                    .scaleEffect(0.8)
+            } else {
+                Image(systemName: isStale ? "exclamationmark.triangle.fill" : "clock.fill")
+                    .font(.caption)
+                    .foregroundColor(isStale ? .Signal.sell : .Text.tertiary)
+            }
+            
+            // Text
+            if isRunning {
+                Text("Updating scores...")
+                    .font(.caption)
+                    .foregroundColor(.Brand.primary)
+            } else {
+                Text("Scores updated \(formattedDate)")
+                    .font(.caption)
+                    .foregroundColor(isStale ? .Signal.sell : .Text.tertiary)
+            }
+            
+            Spacer()
+            
+            // Stale warning
+            if isStale && !isRunning {
+                Text("STALE")
+                    .font(.caption2.bold())
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 6)
+                    .padding(.vertical, 2)
+                    .background(Color.Signal.sell)
+                    .cornerRadius(4)
+            }
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 8)
+        .background(Color.Background.secondary.opacity(0.7))
+        .cornerRadius(8)
     }
 }
 

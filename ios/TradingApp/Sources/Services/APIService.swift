@@ -559,6 +559,14 @@ class APIService: ObservableObject {
         return try await fetch(url)
     }
     
+    // MARK: - Pipeline Status (Scores Last Updated)
+    
+    /// Get pipeline status including last run time
+    func getPipelineStatus() async throws -> PipelineStatusResponse {
+        let url = URL(string: "\(baseURL)/pipeline/status")!
+        return try await fetch(url)
+    }
+    
     // MARK: - Auth header injection
 
     /// Build a URLRequest with the current Bearer token attached (if available).
@@ -1346,5 +1354,50 @@ struct PositionVarData: Codable {
         case var95Pct = "var_95_pct"
         case dailyVolatility = "daily_volatility"
         case annualizedVolatility = "annualized_volatility"
+    }
+}
+
+// MARK: - Pipeline Status Response (Scores Last Updated)
+
+struct PipelineStatusResponse: Codable {
+    let success: Bool
+    let data: PipelineStatusData
+}
+
+struct PipelineStatusData: Codable {
+    let activeRuns: Int
+    let active: [String: ActiveRunInfo]?
+    let latest: LatestPipelineRun?
+    
+    enum CodingKeys: String, CodingKey {
+        case activeRuns = "active_runs"
+        case active
+        case latest
+    }
+}
+
+struct ActiveRunInfo: Codable {
+    let status: String
+    let startedAt: String
+    
+    enum CodingKeys: String, CodingKey {
+        case status
+        case startedAt = "started_at"
+    }
+}
+
+struct LatestPipelineRun: Codable {
+    let runId: String
+    let startedAt: String
+    let completedAt: String?
+    let status: String
+    let totalDurationSeconds: Double?
+    
+    enum CodingKeys: String, CodingKey {
+        case runId = "run_id"
+        case startedAt = "started_at"
+        case completedAt = "completed_at"
+        case status
+        case totalDurationSeconds = "total_duration_seconds"
     }
 }
