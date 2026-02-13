@@ -27,6 +27,9 @@ from .fundamental_fetcher import fetch_all_fundamentals, save_fundamentals
 from .news_fetcher import fetch_all_news, save_news
 from .macro_fetcher import fetch_all_macro_data, save_macro_data
 
+# Import scoring
+from src.scoring.composite_score import calculate_composite_scores, save_composite_scores
+
 
 # Directories
 DATA_DIR = Path(__file__).parent.parent.parent / "data"
@@ -251,6 +254,14 @@ class Pipeline:
                 )
                 self.result.steps.append(step)
             
+            # Step 6: Calculate Composite Scores
+            step = self._run_step(
+                "scoring",
+                self._calculate_scores,
+                tickers
+            )
+            self.result.steps.append(step)
+            
             # Determine overall status
             failed_steps = [s for s in self.result.steps if s.status == StepStatus.FAILED]
             
@@ -325,6 +336,14 @@ class Pipeline:
         macro = fetch_all_macro_data(periods=365)
         save_macro_data(macro)
         return macro
+    
+    def _calculate_scores(self, tickers: List[str]) -> Dict:
+        """Calculate and save composite scores for all tickers."""
+        logger.info(f"Calculating composite scores for {len(tickers)} tickers...")
+        scores = calculate_composite_scores(tickers=tickers)
+        save_composite_scores(scores)
+        logger.info(f"Saved {len(scores)} composite scores")
+        return {"count": len(scores)}
     
     def _alert(self, title: str, message: str):
         """Send alert notification."""
