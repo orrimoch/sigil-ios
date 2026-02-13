@@ -16,7 +16,8 @@ class PortfolioViewModel: ObservableObject {
     // F7.2: History & Performance
     @Published var history: [PortfolioSnapshot] = []
     @Published var performance: PortfolioPerformance?
-    @Published var selectedPeriod: PerformancePeriod = .oneMonth
+    @Published var selectedPeriod: PerformancePeriod = .oneWeek
+    @Published var portfolioAgeDays: Int = 0  // Days since first trade/snapshot
     
     // F7.3: Sector Allocation
     @Published var sectorAllocation: [SectorAllocation] = []
@@ -96,6 +97,23 @@ class PortfolioViewModel: ObservableObject {
             let response = try await api.getPortfolioHistory(days: selectedPeriod.days)
             history = response.data
             
+            // Calculate portfolio age from first snapshot
+            if let firstSnapshot = response.data.first {
+                let formatter = ISO8601DateFormatter()
+                formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+                if let firstDate = formatter.date(from: firstSnapshot.timestamp) ?? {
+                    formatter.formatOptions = [.withInternetDateTime]
+                    return formatter.date(from: firstSnapshot.timestamp)
+                }() {
+                    portfolioAgeDays = max(1, Calendar.current.dateComponents([.day], from: firstDate, to: Date()).day ?? 1)
+                    
+                    // Auto-select appropriate period on first load
+                    if selectedPeriod.days > portfolioAgeDays * 2 {
+                        selectedPeriod = appropriatePeriod
+                    }
+                }
+            }
+            
             let perfResponse = try await api.getPortfolioPerformance(days: selectedPeriod.days)
             performance = perfResponse.data
         } catch {
@@ -105,6 +123,23 @@ class PortfolioViewModel: ObservableObject {
         }
         
         isLoadingHistory = false
+    }
+    
+    /// Returns periods that make sense for the portfolio's age
+    var availablePeriods: [PerformancePeriod] {
+        PerformancePeriod.allCases.filter { period in
+            // Show period if portfolio is at least 50% of that period's duration
+            // (e.g., show 1W if portfolio is at least 3-4 days old)
+            period.days <= portfolioAgeDays * 2 || period == .all
+        }
+    }
+    
+    /// Best period to show based on portfolio age
+    var appropriatePeriod: PerformancePeriod {
+        if portfolioAgeDays <= 7 { return .oneWeek }
+        if portfolioAgeDays <= 30 { return .oneMonth }
+        if portfolioAgeDays <= 90 { return .threeMonths }
+        return .oneYear
     }
     
     /// REMOVED: No more fake data generation

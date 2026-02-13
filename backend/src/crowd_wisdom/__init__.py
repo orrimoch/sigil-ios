@@ -1,7 +1,19 @@
 """
-Crowd Wisdom Module - Smart Money Stock Discovery
+REC-266: Crowd Wisdom Module (Reddit-based)
 
-REC-251 to REC-265: Weekly Top 5 Smart Money Picks
-Source: OpenInsider (insider buying transactions)
-Filter: Tech sector, price < $30
+Provides Reddit-based viral stock detection and scoring.
 """
+
+from .routes import router
+from .models import init_db
+from .reddit_fetcher import RedditFetcher, fetch_reddit_mentions
+from .reddit_scorer import RedditScorer, get_weekly_top_picks
+
+__all__ = [
+    "router",
+    "init_db",
+    "RedditFetcher",
+    "fetch_reddit_mentions",
+    "RedditScorer",
+    "get_weekly_top_picks"
+]

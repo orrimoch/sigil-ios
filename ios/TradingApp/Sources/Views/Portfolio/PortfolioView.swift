@@ -514,15 +514,24 @@ struct PerformanceChartSection: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
-                Text("Performance")
-                    .font(.headline)
-                    .foregroundColor(.Text.primary)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("Performance")
+                        .font(.headline)
+                        .foregroundColor(.Text.primary)
+                    
+                    // Show portfolio age
+                    if viewModel.portfolioAgeDays > 0 {
+                        Text("Portfolio age: \(viewModel.portfolioAgeDays) day\(viewModel.portfolioAgeDays == 1 ? "" : "s")")
+                            .font(.caption2)
+                            .foregroundColor(.Text.tertiary)
+                    }
+                }
                 
                 Spacer()
                 
-                // Period selector
+                // Period selector — only show periods that make sense
                 Picker("Period", selection: $viewModel.selectedPeriod) {
-                    ForEach(PerformancePeriod.allCases, id: \.self) { period in
+                    ForEach(viewModel.availablePeriods, id: \.self) { period in
                         Text(period.rawValue).tag(period)
                     }
                 }

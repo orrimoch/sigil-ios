@@ -1,8 +1,8 @@
 import SwiftUI
 
-// MARK: - REC-259: Smart Money Picks Section
+// MARK: - REC-266: Reddit Trending Stocks Section
 
-/// Displays weekly top 5 stocks with strongest insider buying signals
+/// Displays weekly top 5 trending stocks based on Reddit viral activity
 struct SmartMoneyPicksSection: View {
     @StateObject private var viewModel = SmartMoneyPicksViewModel()
     @State private var isExpanded = true
@@ -12,7 +12,7 @@ struct SmartMoneyPicksSection: View {
             // Header
             Button(action: { withAnimation { isExpanded.toggle() }}) {
                 HStack {
-                    Label("Smart Money Picks", systemImage: "chart.line.uptrend.xyaxis")
+                    Label("🔥 Trending on Reddit", systemImage: "flame")
                         .font(.headline)
                         .foregroundColor(.Text.primary)
                     
@@ -28,7 +28,7 @@ struct SmartMoneyPicksSection: View {
                         .font(.caption)
                 }
             }
-            .accessibilityLabel("Smart Money Picks")
+            .accessibilityLabel("Trending on Reddit")
             .accessibilityHint(isExpanded ? "Tap to collapse" : "Tap to expand")
             
             if isExpanded {
@@ -52,10 +52,10 @@ struct SmartMoneyPicksSection: View {
                 } else if viewModel.picks.isEmpty && !viewModel.isLoading {
                     // Empty state
                     VStack(spacing: 8) {
-                        Image(systemName: "sparkles")
+                        Image(systemName: "flame.circle")
                             .font(.title2)
                             .foregroundColor(.Text.secondary)
-                        Text("No smart money picks this week")
+                        Text("No trending stocks this week")
                             .font(.caption)
                             .foregroundColor(.Text.secondary)
                     }
@@ -65,7 +65,7 @@ struct SmartMoneyPicksSection: View {
                     // Picks list
                     VStack(spacing: 8) {
                         ForEach(viewModel.picks) { pick in
-                            SmartMoneyPickRow(pick: pick)
+                            TrendingPickRow(pick: pick)
                         }
                     }
                     
@@ -100,9 +100,9 @@ struct SmartMoneyPicksSection: View {
     }
 }
 
-// MARK: - Smart Money Pick Row
+// MARK: - Trending Pick Row
 
-struct SmartMoneyPickRow: View {
+struct TrendingPickRow: View {
     let pick: SmartMoneyPick
     
     var body: some View {
@@ -129,6 +129,9 @@ struct SmartMoneyPickRow: View {
                         
                         Text(pick.signalEmoji)
                             .font(.caption)
+                        
+                        Text(pick.sentimentEmoji)
+                            .font(.caption)
                     }
                     
                     Text(pick.companyName)
@@ -139,15 +142,25 @@ struct SmartMoneyPickRow: View {
                 
                 Spacer()
                 
-                // Insider buying info
+                // Reddit metrics
                 VStack(alignment: .trailing, spacing: 2) {
-                    Text(pick.formattedBuyValue)
-                        .font(.subheadline.bold())
-                        .foregroundColor(.Signal.buy)
+                    HStack(spacing: 4) {
+                        Image(systemName: "bubble.left.fill")
+                            .font(.system(size: 10))
+                            .foregroundColor(.Text.tertiary)
+                        Text(pick.formattedMentions)
+                            .font(.subheadline.bold())
+                            .foregroundColor(.Brand.primary)
+                    }
                     
-                    Text("\(pick.insiderBuyCount) insiders")
-                        .font(.caption)
-                        .foregroundColor(.Text.secondary)
+                    HStack(spacing: 4) {
+                        Image(systemName: "arrow.up.circle.fill")
+                            .font(.system(size: 10))
+                            .foregroundColor(.Text.tertiary)
+                        Text(pick.formattedUpvotes)
+                            .font(.caption)
+                            .foregroundColor(.Text.secondary)
+                    }
                 }
                 
                 Image(systemName: "chevron.right")
@@ -157,14 +170,14 @@ struct SmartMoneyPickRow: View {
             .padding(.vertical, 8)
             .padding(.horizontal, 4)
             .accessibilityElement(children: .combine)
-            .accessibilityLabel("\(pick.ticker), rank \(pick.rank), \(pick.insiderBuyCount) insider buys totaling \(pick.formattedBuyValue)")
+            .accessibilityLabel("\(pick.ticker), rank \(pick.rank), \(pick.mentionCount) mentions, \(pick.totalUpvotes) upvotes")
         }
         .buttonStyle(PlainButtonStyle())
     }
     
     private var rankColor: Color {
         switch pick.rank {
-        case 1: return .Brand.primary
+        case 1: return .red
         case 2: return .orange
         case 3: return .yellow.opacity(0.8)
         default: return .Text.secondary
@@ -192,8 +205,8 @@ class SmartMoneyPicksViewModel: ObservableObject {
             picks = response.picks
             weekStart = response.weekStart
         } catch {
-            self.error = "Unable to load picks"
-            print("[SmartMoneyPicks] Error: \(error)")
+            self.error = "Unable to load trending stocks"
+            print("[TrendingPicks] Error: \(error)")
         }
         
         isLoading = false

@@ -1,13 +1,14 @@
 """
-REC-252: Insider Transactions Storage Schema
+REC-266: Crowd Wisdom Storage Schema (Reddit-based)
 
-SQLite models for storing insider transactions and crowd wisdom scores.
+SQLite models for storing Reddit mentions and viral scores.
+Replaces the previous insider-based schema.
 """
 
 import aiosqlite
 from datetime import date, datetime
 from typing import List, Optional, Dict, Any
-from dataclasses import dataclass, asdict
+from dataclasses import dataclass
 import json
 import logging
 
@@ -17,224 +18,261 @@ DB_PATH = "data/crowd_wisdom.db"
 
 
 @dataclass
-class InsiderTransactionModel:
-    """Stored insider transaction."""
+class RedditMentionModel:
+    """Stored Reddit mention of a ticker."""
     id: Optional[int]
     ticker: str
-    company_name: str
-    insider_name: str
-    insider_title: str
-    trade_type: str
-    price: float
-    quantity: int
-    shares_owned: int
-    ownership_change_pct: float
-    value: float
-    trade_date: str  # ISO format
-    filing_date: str  # ISO format
-    created_at: Optional[str] = None
+    subreddit: str
+    post_id: str
+    post_title: str
+    post_body: Optional[str]
+    upvotes: int
+    comments: int
+    sentiment: Optional[str]  # bullish/neutral/bearish
+    sentiment_score: Optional[float]  # 0.0 to 1.0
+    is_comment: bool
+    post_created_at: str  # ISO format
+    fetched_at: Optional[str] = None
 
 
 @dataclass
-class CrowdWisdomScore:
-    """Weekly crowd wisdom score for a stock."""
+class RedditViralScore:
+    """Weekly viral score for a stock based on Reddit activity."""
     id: Optional[int]
     ticker: str
     company_name: str
-    sector: str
-    current_price: float
-    market_cap: Optional[float]
+    week_start: str  # ISO format (Monday of the week)
     
-    # Insider metrics
-    insider_score: float  # 0-100
-    insider_buy_count: int
-    insider_buy_value: float
-    insider_cluster: bool  # 3+ insiders bought
-    executive_buys: int  # C-suite buys
+    # Reddit metrics
+    mention_count: int
+    total_upvotes: int
+    total_comments: int
+    unique_posts: int
+    subreddits: str  # JSON array of subreddits
     
-    # Notable events
-    notable_events: str  # JSON array
-    discovery_reason: str
+    # Sentiment
+    avg_sentiment: Optional[float]  # -1.0 (bearish) to 1.0 (bullish)
+    sentiment_label: Optional[str]  # VERY_BULLISH, BULLISH, NEUTRAL, BEARISH, VERY_BEARISH
+    
+    # Velocity
+    trending_velocity: Optional[float]  # mentions_today / mentions_yesterday
+    
+    # Calculated score
+    viral_score: float  # 0-100
+    
+    # Quality filter data (from fundamentals)
+    current_price: Optional[float]
+    revenue_ttm: Optional[float]
+    eps_latest: Optional[float]
+    earnings_growth: Optional[float]
+    
+    # Filter results
+    passes_filters: bool
+    filter_reason: Optional[str]  # If fails, why?
     
     # Signal
-    signal: str  # STRONG_BUY, BUY, NEUTRAL
+    signal: str  # VERY_HOT, HOT, TRENDING, NEUTRAL
     
-    week_start: str  # ISO format (Monday of the week)
     created_at: Optional[str] = None
+    updated_at: Optional[str] = None
 
 
 async def init_db():
-    """Initialize the crowd wisdom database."""
+    """Initialize the crowd wisdom database with Reddit-based schema."""
     async with aiosqlite.connect(DB_PATH) as db:
-        # Insider transactions table
+        # Reddit mentions table
         await db.execute("""
-            CREATE TABLE IF NOT EXISTS insider_transactions (
+            CREATE TABLE IF NOT EXISTS reddit_mentions (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 ticker TEXT NOT NULL,
-                company_name TEXT,
-                insider_name TEXT NOT NULL,
-                insider_title TEXT,
-                trade_type TEXT,
-                price REAL,
-                quantity INTEGER,
-                shares_owned INTEGER,
-                ownership_change_pct REAL,
-                value REAL,
-                trade_date TEXT,
-                filing_date TEXT,
-                created_at TEXT DEFAULT CURRENT_TIMESTAMP,
-                UNIQUE(ticker, insider_name, trade_date, quantity)
+                subreddit TEXT NOT NULL,
+                post_id TEXT NOT NULL,
+                post_title TEXT,
+                post_body TEXT,
+                upvotes INTEGER DEFAULT 0,
+                comments INTEGER DEFAULT 0,
+                sentiment TEXT,
+                sentiment_score REAL,
+                is_comment INTEGER DEFAULT 0,
+                post_created_at TEXT,
+                fetched_at TEXT DEFAULT CURRENT_TIMESTAMP,
+                UNIQUE(ticker, post_id)
             )
         """)
         
-        # Create indexes
+        # Indexes for reddit_mentions
         await db.execute("""
-            CREATE INDEX IF NOT EXISTS idx_insider_ticker_date 
-            ON insider_transactions(ticker, trade_date)
+            CREATE INDEX IF NOT EXISTS idx_reddit_mentions_ticker 
+            ON reddit_mentions(ticker)
+        """)
+        await db.execute("""
+            CREATE INDEX IF NOT EXISTS idx_reddit_mentions_created 
+            ON reddit_mentions(post_created_at)
+        """)
+        await db.execute("""
+            CREATE INDEX IF NOT EXISTS idx_reddit_mentions_subreddit 
+            ON reddit_mentions(subreddit)
         """)
         
-        # Crowd wisdom scores table
+        # Reddit viral scores table
         await db.execute("""
-            CREATE TABLE IF NOT EXISTS crowd_wisdom_scores (
+            CREATE TABLE IF NOT EXISTS reddit_viral_scores (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 ticker TEXT NOT NULL,
                 company_name TEXT,
-                sector TEXT,
-                current_price REAL,
-                market_cap REAL,
-                insider_score REAL,
-                insider_buy_count INTEGER,
-                insider_buy_value REAL,
-                insider_cluster INTEGER,
-                executive_buys INTEGER,
-                notable_events TEXT,
-                discovery_reason TEXT,
-                signal TEXT,
                 week_start TEXT NOT NULL,
+                mention_count INTEGER DEFAULT 0,
+                total_upvotes INTEGER DEFAULT 0,
+                total_comments INTEGER DEFAULT 0,
+                unique_posts INTEGER DEFAULT 0,
+                subreddits TEXT,
+                avg_sentiment REAL,
+                sentiment_label TEXT,
+                trending_velocity REAL,
+                viral_score REAL,
+                current_price REAL,
+                revenue_ttm REAL,
+                eps_latest REAL,
+                earnings_growth REAL,
+                passes_filters INTEGER DEFAULT 0,
+                filter_reason TEXT,
+                signal TEXT,
                 created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+                updated_at TEXT DEFAULT CURRENT_TIMESTAMP,
                 UNIQUE(ticker, week_start)
             )
         """)
         
         await db.execute("""
-            CREATE INDEX IF NOT EXISTS idx_scores_week 
-            ON crowd_wisdom_scores(week_start)
+            CREATE INDEX IF NOT EXISTS idx_viral_scores_week 
+            ON reddit_viral_scores(week_start)
+        """)
+        await db.execute("""
+            CREATE INDEX IF NOT EXISTS idx_viral_scores_score 
+            ON reddit_viral_scores(viral_score DESC)
         """)
         
-        # Top 5 weekly picks table
+        # Weekly top picks table (Reddit-based)
         await db.execute("""
-            CREATE TABLE IF NOT EXISTS weekly_top_picks (
+            CREATE TABLE IF NOT EXISTS reddit_top_picks (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 week_start TEXT NOT NULL,
                 rank INTEGER NOT NULL,
                 ticker TEXT NOT NULL,
                 company_name TEXT,
-                insider_score REAL,
-                insider_buy_count INTEGER,
-                insider_buy_value REAL,
-                notable_events TEXT,
+                viral_score REAL,
+                mention_count INTEGER,
+                total_upvotes INTEGER,
+                sentiment_label TEXT,
+                trending_velocity REAL,
                 current_price REAL,
+                signal TEXT,
                 created_at TEXT DEFAULT CURRENT_TIMESTAMP,
                 UNIQUE(week_start, rank)
             )
         """)
         
         await db.commit()
-        logger.info("Crowd wisdom database initialized")
+        logger.info("Crowd wisdom database initialized (Reddit schema)")
 
 
-async def save_transactions(transactions: List[Dict[str, Any]]) -> int:
+async def save_reddit_mentions(mentions: List[Dict[str, Any]]) -> int:
     """
-    Save insider transactions to database.
+    Save Reddit mentions to database.
     
     Args:
-        transactions: List of transaction dicts
+        mentions: List of mention dicts from RedditFetcher
         
     Returns:
-        Number of new transactions saved
+        Number of new mentions saved
     """
     async with aiosqlite.connect(DB_PATH) as db:
         saved = 0
-        for txn in transactions:
+        for m in mentions:
             try:
                 await db.execute("""
-                    INSERT OR IGNORE INTO insider_transactions
-                    (ticker, company_name, insider_name, insider_title, trade_type,
-                     price, quantity, shares_owned, ownership_change_pct, value,
-                     trade_date, filing_date)
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    INSERT OR IGNORE INTO reddit_mentions
+                    (ticker, subreddit, post_id, post_title, post_body,
+                     upvotes, comments, sentiment, sentiment_score,
+                     is_comment, post_created_at)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """, (
-                    txn['ticker'],
-                    txn.get('company_name', ''),
-                    txn['insider_name'],
-                    txn.get('insider_title', ''),
-                    txn.get('trade_type', 'P'),
-                    txn.get('price', 0),
-                    txn.get('quantity', 0),
-                    txn.get('shares_owned', 0),
-                    txn.get('ownership_change_pct', 0),
-                    txn.get('value', 0),
-                    txn.get('trade_date', ''),
-                    txn.get('filing_date', '')
+                    m['ticker'],
+                    m['subreddit'],
+                    m['post_id'],
+                    m.get('post_title', ''),
+                    m.get('post_body', ''),
+                    m.get('upvotes', 0),
+                    m.get('comments', 0),
+                    m.get('sentiment'),
+                    m.get('sentiment_score'),
+                    1 if m.get('is_comment') else 0,
+                    m.get('post_created_at', '')
                 ))
-                if db.total_changes > 0:
-                    saved += 1
+                saved += 1
             except Exception as e:
-                logger.debug(f"Failed to save transaction: {e}")
+                logger.debug(f"Failed to save mention: {e}")
                 continue
         
         await db.commit()
-        logger.info(f"Saved {saved} new insider transactions")
+        logger.info(f"Saved {saved} Reddit mentions")
         return saved
 
 
-async def get_transactions_by_ticker(ticker: str, days: int = 30) -> List[Dict]:
-    """Get recent transactions for a ticker."""
+async def get_mentions_by_ticker(ticker: str, days: int = 7) -> List[Dict]:
+    """Get recent Reddit mentions for a ticker."""
     async with aiosqlite.connect(DB_PATH) as db:
         db.row_factory = aiosqlite.Row
         cursor = await db.execute("""
-            SELECT * FROM insider_transactions
+            SELECT * FROM reddit_mentions
             WHERE ticker = ? 
-            AND date(trade_date) >= date('now', ?)
-            ORDER BY trade_date DESC
-        """, (ticker, f'-{days} days'))
+            AND date(post_created_at) >= date('now', ?)
+            ORDER BY post_created_at DESC
+        """, (ticker.upper(), f'-{days} days'))
         
         rows = await cursor.fetchall()
         return [dict(row) for row in rows]
 
 
-async def save_weekly_scores(scores: List[Dict[str, Any]], week_start: str) -> int:
-    """Save weekly crowd wisdom scores."""
+async def save_viral_scores(scores: List[Dict[str, Any]], week_start: str) -> int:
+    """Save weekly viral scores."""
     async with aiosqlite.connect(DB_PATH) as db:
         saved = 0
         for score in scores:
             try:
+                subreddits_json = json.dumps(score.get('subreddits', []))
                 await db.execute("""
-                    INSERT OR REPLACE INTO crowd_wisdom_scores
-                    (ticker, company_name, sector, current_price, market_cap,
-                     insider_score, insider_buy_count, insider_buy_value, 
-                     insider_cluster, executive_buys, notable_events,
-                     discovery_reason, signal, week_start)
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    INSERT OR REPLACE INTO reddit_viral_scores
+                    (ticker, company_name, week_start, mention_count, total_upvotes,
+                     total_comments, unique_posts, subreddits, avg_sentiment,
+                     sentiment_label, trending_velocity, viral_score, current_price,
+                     revenue_ttm, eps_latest, earnings_growth, passes_filters,
+                     filter_reason, signal, updated_at)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
                 """, (
                     score['ticker'],
                     score.get('company_name', ''),
-                    score.get('sector', 'Technology'),
-                    score.get('current_price', 0),
-                    score.get('market_cap'),
-                    score['insider_score'],
-                    score.get('insider_buy_count', 0),
-                    score.get('insider_buy_value', 0),
-                    1 if score.get('insider_cluster') else 0,
-                    score.get('executive_buys', 0),
-                    json.dumps(score.get('notable_events', [])),
-                    score.get('discovery_reason', ''),
-                    score.get('signal', 'NEUTRAL'),
-                    week_start
+                    week_start,
+                    score.get('mention_count', 0),
+                    score.get('total_upvotes', 0),
+                    score.get('total_comments', 0),
+                    score.get('unique_posts', 0),
+                    subreddits_json,
+                    score.get('avg_sentiment'),
+                    score.get('sentiment_label', 'NEUTRAL'),
+                    score.get('trending_velocity'),
+                    score['viral_score'],
+                    score.get('current_price'),
+                    score.get('revenue_ttm'),
+                    score.get('eps_latest'),
+                    score.get('earnings_growth'),
+                    1 if score.get('passes_filters') else 0,
+                    score.get('filter_reason'),
+                    score.get('signal', 'NEUTRAL')
                 ))
                 saved += 1
             except Exception as e:
-                logger.error(f"Failed to save score for {score.get('ticker')}: {e}")
+                logger.error(f"Failed to save viral score for {score.get('ticker')}: {e}")
                 continue
         
         await db.commit()
@@ -242,34 +280,37 @@ async def save_weekly_scores(scores: List[Dict[str, Any]], week_start: str) -> i
 
 
 async def save_top_picks(picks: List[Dict[str, Any]], week_start: str):
-    """Save weekly top 5 picks."""
+    """Save weekly top 5 picks (Reddit-based)."""
     async with aiosqlite.connect(DB_PATH) as db:
         # Clear existing picks for this week
         await db.execute(
-            "DELETE FROM weekly_top_picks WHERE week_start = ?",
+            "DELETE FROM reddit_top_picks WHERE week_start = ?",
             (week_start,)
         )
         
         for i, pick in enumerate(picks[:5], 1):
             await db.execute("""
-                INSERT INTO weekly_top_picks
-                (week_start, rank, ticker, company_name, insider_score,
-                 insider_buy_count, insider_buy_value, notable_events, current_price)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                INSERT INTO reddit_top_picks
+                (week_start, rank, ticker, company_name, viral_score,
+                 mention_count, total_upvotes, sentiment_label,
+                 trending_velocity, current_price, signal)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """, (
                 week_start,
                 i,
                 pick['ticker'],
                 pick.get('company_name', ''),
-                pick.get('insider_score', 0),
-                pick.get('insider_buy_count', 0),
-                pick.get('insider_buy_value', 0),
-                json.dumps(pick.get('notable_events', [])),
-                pick.get('current_price', 0)
+                pick.get('viral_score', 0),
+                pick.get('mention_count', 0),
+                pick.get('total_upvotes', 0),
+                pick.get('sentiment_label', 'NEUTRAL'),
+                pick.get('trending_velocity', 1.0),
+                pick.get('current_price', 0),
+                pick.get('signal', 'TRENDING')
             ))
         
         await db.commit()
-        logger.info(f"Saved top {len(picks[:5])} picks for week {week_start}")
+        logger.info(f"Saved top {len(picks[:5])} Reddit picks for week {week_start}")
 
 
 async def get_top_picks(week_start: Optional[str] = None) -> List[Dict]:
@@ -282,62 +323,87 @@ async def get_top_picks(week_start: Optional[str] = None) -> List[Dict]:
         
         if week_start:
             cursor = await db.execute("""
-                SELECT * FROM weekly_top_picks
+                SELECT * FROM reddit_top_picks
                 WHERE week_start = ?
                 ORDER BY rank
             """, (week_start,))
         else:
             cursor = await db.execute("""
-                SELECT * FROM weekly_top_picks
-                WHERE week_start = (SELECT MAX(week_start) FROM weekly_top_picks)
+                SELECT * FROM reddit_top_picks
+                WHERE week_start = (SELECT MAX(week_start) FROM reddit_top_picks)
                 ORDER BY rank
             """)
         
         rows = await cursor.fetchall()
-        picks = []
-        for row in rows:
-            pick = dict(row)
-            # Parse notable_events JSON
-            if pick.get('notable_events'):
-                try:
-                    pick['notable_events'] = json.loads(pick['notable_events'])
-                except:
-                    pick['notable_events'] = []
-            picks.append(pick)
-        
-        return picks
+        return [dict(row) for row in rows]
 
 
-async def get_all_scores(week_start: Optional[str] = None) -> List[Dict]:
-    """Get all crowd wisdom scores for a week."""
+async def get_viral_scores(
+    week_start: Optional[str] = None,
+    passes_filters_only: bool = False,
+    limit: int = 50
+) -> List[Dict]:
+    """Get viral scores for a week."""
     async with aiosqlite.connect(DB_PATH) as db:
         db.row_factory = aiosqlite.Row
         
-        if week_start:
-            cursor = await db.execute("""
-                SELECT * FROM crowd_wisdom_scores
-                WHERE week_start = ?
-                ORDER BY insider_score DESC
-            """, (week_start,))
-        else:
-            cursor = await db.execute("""
-                SELECT * FROM crowd_wisdom_scores
-                WHERE week_start = (SELECT MAX(week_start) FROM crowd_wisdom_scores)
-                ORDER BY insider_score DESC
-            """)
+        query = """
+            SELECT * FROM reddit_viral_scores
+            WHERE week_start = COALESCE(?, (SELECT MAX(week_start) FROM reddit_viral_scores))
+        """
+        params = [week_start]
+        
+        if passes_filters_only:
+            query += " AND passes_filters = 1"
+        
+        query += " ORDER BY viral_score DESC LIMIT ?"
+        params.append(limit)
+        
+        cursor = await db.execute(query, params)
         
         rows = await cursor.fetchall()
         scores = []
         for row in rows:
             score = dict(row)
-            if score.get('notable_events'):
+            # Parse subreddits JSON
+            if score.get('subreddits'):
                 try:
-                    score['notable_events'] = json.loads(score['notable_events'])
+                    score['subreddits'] = json.loads(score['subreddits'])
                 except:
-                    score['notable_events'] = []
+                    score['subreddits'] = []
             scores.append(score)
         
         return scores
+
+
+async def get_viral_score_by_ticker(ticker: str, week_start: Optional[str] = None) -> Optional[Dict]:
+    """Get viral score for a specific ticker."""
+    async with aiosqlite.connect(DB_PATH) as db:
+        db.row_factory = aiosqlite.Row
+        
+        cursor = await db.execute("""
+            SELECT * FROM reddit_viral_scores
+            WHERE ticker = ?
+            AND week_start = COALESCE(?, (SELECT MAX(week_start) FROM reddit_viral_scores))
+        """, (ticker.upper(), week_start))
+        
+        row = await cursor.fetchone()
+        if not row:
+            return None
+        
+        score = dict(row)
+        if score.get('subreddits'):
+            try:
+                score['subreddits'] = json.loads(score['subreddits'])
+            except:
+                score['subreddits'] = []
+        
+        return score
+
+
+async def get_trending_tickers(limit: int = 20) -> List[Dict]:
+    """Get all trending tickers (unfiltered) sorted by viral score."""
+    return await get_viral_scores(passes_filters_only=False, limit=limit)
 
 
 # Initialize on import
@@ -345,4 +411,4 @@ import asyncio
 import os
 
 # Ensure data directory exists
-os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
+os.makedirs(os.path.dirname(DB_PATH) if os.path.dirname(DB_PATH) else "data", exist_ok=True)

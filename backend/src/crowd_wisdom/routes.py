@@ -1,23 +1,28 @@
 """
-REC-254: Crowd Wisdom API Endpoints
+REC-266: Crowd Wisdom API Endpoints (Reddit-based)
 
 Endpoints:
-- GET /api/v1/crowd-wisdom/top-picks - Weekly top 5 smart money picks
-- GET /api/v1/crowd-wisdom/scores - All crowd wisdom scores
+- GET /api/v1/crowd-wisdom/top-picks - Weekly top 5 trending stocks
+- GET /api/v1/crowd-wisdom/trending - All trending tickers (unfiltered)
 - GET /api/v1/crowd-wisdom/scores/{ticker} - Score for specific ticker
 - POST /api/v1/crowd-wisdom/refresh - Manually trigger data refresh
 """
 
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, HTTPException, Query
 from typing import List, Optional
-from datetime import date, datetime, timedelta
+from datetime import date, timedelta
 from pydantic import BaseModel
-import asyncio
 import logging
 
-from .insider_fetcher import InsiderFetcher
-from .insider_scorer import InsiderScorer, calculate_weekly_scores
 from . import models
+from .reddit_scorer import (
+    RedditScorer,
+    score_to_dict,
+    get_weekly_top_picks,
+    create_mock_fundamentals,
+    create_mock_aggregated_mentions,
+    create_mock_sentiment
+)
 
 logger = logging.getLogger(__name__)
 
@@ -26,59 +31,78 @@ router = APIRouter(prefix="/api/v1/crowd-wisdom", tags=["crowd-wisdom"])
 
 # --- Response Models ---
 
-class InsiderEvent(BaseModel):
-    """Notable insider event."""
-    event: str
-
-
-class TopPickResponse(BaseModel):
-    """Single top pick stock."""
+class TrendingPickResponse(BaseModel):
+    """Single trending stock pick (Reddit-based)."""
     rank: int
     ticker: str
     company_name: str
-    insider_score: float
-    insider_buy_count: int
-    insider_buy_value: float
-    notable_events: List[str]
+    viral_score: float
+    mention_count: int
+    total_upvotes: int
+    sentiment_label: str
+    trending_velocity: float
     current_price: Optional[float] = None
-    signal: str = "STRONG_BUY"
+    signal: str = "TRENDING"
 
 
 class TopPicksResponse(BaseModel):
-    """Weekly top 5 picks response."""
+    """Weekly top 5 trending picks response."""
     success: bool
     week_start: str
-    picks: List[TopPickResponse]
+    picks: List[TrendingPickResponse]
 
 
-class CrowdWisdomScoreResponse(BaseModel):
-    """Crowd wisdom score for a stock."""
+class TrendingTickerResponse(BaseModel):
+    """Trending ticker with full viral score data."""
     ticker: str
     company_name: str
-    sector: str
+    viral_score: float
+    mention_count: int
+    total_upvotes: int
+    total_comments: int
+    unique_posts: int
+    subreddits: List[str]
+    avg_sentiment: Optional[float]
+    sentiment_label: str
+    trending_velocity: float
     current_price: Optional[float]
-    insider_score: float
-    insider_buy_count: int
-    insider_buy_value: float
-    insider_cluster: bool
-    executive_buys: int
-    notable_events: List[str]
-    discovery_reason: str
+    revenue_ttm: Optional[float]
+    eps_latest: Optional[float]
+    passes_filters: bool
+    filter_reason: Optional[str]
     signal: str
 
 
-class ScoresListResponse(BaseModel):
-    """List of all crowd wisdom scores."""
+class TrendingListResponse(BaseModel):
+    """List of all trending tickers."""
     success: bool
     count: int
     week_start: str
-    scores: List[CrowdWisdomScoreResponse]
+    tickers: List[TrendingTickerResponse]
+
+
+class TickerScoreResponse(BaseModel):
+    """Viral score for a specific ticker."""
+    success: bool
+    ticker: str
+    company_name: str
+    viral_score: float
+    mention_count: int
+    total_upvotes: int
+    total_comments: int
+    subreddits: List[str]
+    sentiment_label: str
+    trending_velocity: float
+    passes_filters: bool
+    filter_reason: Optional[str]
+    signal: str
+    week_start: str
 
 
 class RefreshResponse(BaseModel):
     """Response from manual refresh."""
     success: bool
-    transactions_fetched: int
+    mentions_fetched: int
     scores_calculated: int
     top_picks_saved: int
 
@@ -88,13 +112,13 @@ class RefreshResponse(BaseModel):
 @router.get("/top-picks", response_model=TopPicksResponse)
 async def get_top_picks(week: Optional[str] = None):
     """
-    Get weekly top 5 smart money picks.
+    Get weekly top 5 trending Reddit picks.
     
     Args:
         week: Optional week start date (ISO format). Defaults to current week.
     
     Returns:
-        Top 5 stocks with strongest insider buying signals.
+        Top 5 stocks with highest viral scores that pass quality filters.
     """
     try:
         # Initialize DB if needed
@@ -103,8 +127,8 @@ async def get_top_picks(week: Optional[str] = None):
         picks = await models.get_top_picks(week)
         
         if not picks:
-            # No picks stored - run a live fetch
-            picks = await _fetch_live_top_picks()
+            # No picks stored - generate live using mock data
+            picks = await _generate_live_picks()
         
         # Determine week_start
         if picks:
@@ -116,16 +140,17 @@ async def get_top_picks(week: Optional[str] = None):
             success=True,
             week_start=week_start,
             picks=[
-                TopPickResponse(
+                TrendingPickResponse(
                     rank=p.get('rank', i+1),
                     ticker=p['ticker'],
                     company_name=p.get('company_name', ''),
-                    insider_score=p.get('insider_score', 0),
-                    insider_buy_count=p.get('insider_buy_count', 0),
-                    insider_buy_value=p.get('insider_buy_value', 0),
-                    notable_events=p.get('notable_events', []),
+                    viral_score=p.get('viral_score', 0),
+                    mention_count=p.get('mention_count', 0),
+                    total_upvotes=p.get('total_upvotes', 0),
+                    sentiment_label=p.get('sentiment_label', 'NEUTRAL'),
+                    trending_velocity=p.get('trending_velocity', 1.0),
                     current_price=p.get('current_price'),
-                    signal=p.get('signal', 'STRONG_BUY')
+                    signal=p.get('signal', 'TRENDING')
                 )
                 for i, p in enumerate(picks[:5])
             ]
@@ -135,92 +160,113 @@ async def get_top_picks(week: Optional[str] = None):
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.get("/scores", response_model=ScoresListResponse)
-async def get_all_scores(week: Optional[str] = None, limit: int = 50):
+@router.get("/trending", response_model=TrendingListResponse)
+async def get_trending_tickers(
+    week: Optional[str] = None,
+    limit: int = Query(default=50, le=100),
+    filtered: bool = Query(default=False, description="Only return stocks that pass quality filters")
+):
     """
-    Get all crowd wisdom scores.
+    Get all trending tickers with viral scores.
     
     Args:
         week: Optional week start date
-        limit: Maximum results (default 50)
+        limit: Maximum results (default 50, max 100)
+        filtered: If true, only return stocks passing quality filters
     
     Returns:
-        List of all scored stocks sorted by insider_score.
+        List of all trending tickers sorted by viral score.
     """
     try:
         await models.init_db()
         
-        scores = await models.get_all_scores(week)
+        scores = await models.get_viral_scores(
+            week_start=week,
+            passes_filters_only=filtered,
+            limit=limit
+        )
         
         if not scores:
-            # No scores stored - calculate live
-            scores = await _calculate_live_scores()
+            # No scores stored - generate live
+            scores = await _generate_live_scores(passes_filters_only=filtered)
         
         week_start = scores[0].get('week_start', _get_current_week_start()) if scores else _get_current_week_start()
         
-        return ScoresListResponse(
+        return TrendingListResponse(
             success=True,
-            count=len(scores[:limit]),
+            count=len(scores),
             week_start=week_start,
-            scores=[
-                CrowdWisdomScoreResponse(
+            tickers=[
+                TrendingTickerResponse(
                     ticker=s['ticker'],
                     company_name=s.get('company_name', ''),
-                    sector=s.get('sector', 'Technology'),
+                    viral_score=s.get('viral_score', 0),
+                    mention_count=s.get('mention_count', 0),
+                    total_upvotes=s.get('total_upvotes', 0),
+                    total_comments=s.get('total_comments', 0),
+                    unique_posts=s.get('unique_posts', 0),
+                    subreddits=s.get('subreddits', []),
+                    avg_sentiment=s.get('avg_sentiment'),
+                    sentiment_label=s.get('sentiment_label', 'NEUTRAL'),
+                    trending_velocity=s.get('trending_velocity', 1.0),
                     current_price=s.get('current_price'),
-                    insider_score=s.get('insider_score', 0),
-                    insider_buy_count=s.get('insider_buy_count', 0),
-                    insider_buy_value=s.get('insider_buy_value', 0),
-                    insider_cluster=bool(s.get('insider_cluster')),
-                    executive_buys=s.get('executive_buys', 0),
-                    notable_events=s.get('notable_events', []),
-                    discovery_reason=s.get('discovery_reason', ''),
+                    revenue_ttm=s.get('revenue_ttm'),
+                    eps_latest=s.get('eps_latest'),
+                    passes_filters=bool(s.get('passes_filters')),
+                    filter_reason=s.get('filter_reason'),
                     signal=s.get('signal', 'NEUTRAL')
                 )
-                for s in scores[:limit]
+                for s in scores
             ]
         )
     except Exception as e:
-        logger.error(f"Failed to get scores: {e}")
+        logger.error(f"Failed to get trending tickers: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@router.get("/scores/{ticker}", response_model=CrowdWisdomScoreResponse)
-async def get_score_by_ticker(ticker: str):
+@router.get("/scores/{ticker}", response_model=TickerScoreResponse)
+async def get_ticker_score(ticker: str, week: Optional[str] = None):
     """
-    Get crowd wisdom score for a specific stock.
+    Get viral score for a specific stock.
     
     Args:
         ticker: Stock ticker symbol
+        week: Optional week start date
     
     Returns:
-        Crowd wisdom score details.
+        Viral score details for the ticker.
     """
     try:
         await models.init_db()
         
-        scores = await models.get_all_scores()
+        score = await models.get_viral_score_by_ticker(ticker.upper(), week)
         
-        # Find the ticker
-        ticker_upper = ticker.upper()
-        for s in scores:
-            if s['ticker'].upper() == ticker_upper:
-                return CrowdWisdomScoreResponse(
-                    ticker=s['ticker'],
-                    company_name=s.get('company_name', ''),
-                    sector=s.get('sector', 'Technology'),
-                    current_price=s.get('current_price'),
-                    insider_score=s.get('insider_score', 0),
-                    insider_buy_count=s.get('insider_buy_count', 0),
-                    insider_buy_value=s.get('insider_buy_value', 0),
-                    insider_cluster=bool(s.get('insider_cluster')),
-                    executive_buys=s.get('executive_buys', 0),
-                    notable_events=s.get('notable_events', []),
-                    discovery_reason=s.get('discovery_reason', ''),
-                    signal=s.get('signal', 'NEUTRAL')
-                )
+        if not score:
+            # Try generating live
+            scores = await _generate_live_scores()
+            score = next((s for s in scores if s['ticker'].upper() == ticker.upper()), None)
         
-        raise HTTPException(status_code=404, detail=f"No crowd wisdom data for {ticker}")
+        if not score:
+            raise HTTPException(status_code=404, detail=f"No viral score data for {ticker}")
+        
+        week_start = score.get('week_start', _get_current_week_start())
+        
+        return TickerScoreResponse(
+            success=True,
+            ticker=score['ticker'],
+            company_name=score.get('company_name', ''),
+            viral_score=score.get('viral_score', 0),
+            mention_count=score.get('mention_count', 0),
+            total_upvotes=score.get('total_upvotes', 0),
+            total_comments=score.get('total_comments', 0),
+            subreddits=score.get('subreddits', []),
+            sentiment_label=score.get('sentiment_label', 'NEUTRAL'),
+            trending_velocity=score.get('trending_velocity', 1.0),
+            passes_filters=bool(score.get('passes_filters')),
+            filter_reason=score.get('filter_reason'),
+            signal=score.get('signal', 'NEUTRAL'),
+            week_start=week_start
+        )
         
     except HTTPException:
         raise
@@ -233,52 +279,46 @@ async def get_score_by_ticker(ticker: str):
 async def refresh_data():
     """
     Manually trigger a data refresh.
-    Fetches latest insider data, calculates scores, saves top picks.
+    
+    For now, uses mock data. In production, this would:
+    1. Fetch mentions from Reddit using PRAW
+    2. Calculate viral scores with fundamentals filtering
+    3. Save top picks for the week
     """
     try:
         await models.init_db()
         
-        # Fetch transactions
-        fetcher = InsiderFetcher(max_price=30, days_back=7)
-        transactions = fetcher.fetch_insider_buys(tech_only=False)
-        
-        # Convert to dicts for storage
-        txn_dicts = [
-            {
-                'ticker': t.ticker,
-                'company_name': t.company_name,
-                'insider_name': t.insider_name,
-                'insider_title': t.insider_title,
-                'trade_type': t.trade_type,
-                'price': t.price,
-                'quantity': t.quantity,
-                'shares_owned': t.shares_owned,
-                'ownership_change_pct': t.ownership_change_pct,
-                'value': t.value,
-                'trade_date': t.trade_date.isoformat(),
-                'filing_date': t.filing_date.isoformat()
-            }
-            for t in transactions
-        ]
-        
-        # Save transactions
-        await models.save_transactions(txn_dicts)
+        # For now, use mock data
+        # In production: fetcher = RedditFetcher(); mentions = fetcher.fetch_mentions()
+        mock_mentions = create_mock_aggregated_mentions()
+        mock_fundamentals = create_mock_fundamentals()
+        mock_sentiment = create_mock_sentiment()
         
         # Calculate scores
-        scores = calculate_weekly_scores(transactions)
+        scorer = RedditScorer()
+        scorer.set_fundamentals(mock_fundamentals)
+        scores = scorer.score_tickers(mock_mentions, mock_sentiment)
+        
+        # Convert to dicts
+        score_dicts = [score_to_dict(s) for s in scores]
+        
         week_start = _get_current_week_start()
         
         # Save scores
-        await models.save_weekly_scores(scores, week_start)
+        await models.save_viral_scores(score_dicts, week_start)
         
-        # Save top 5 picks
-        await models.save_top_picks(scores[:5], week_start)
+        # Get top picks (passing filters)
+        top_picks = get_weekly_top_picks(scores, max_picks=5)
+        top_pick_dicts = [score_to_dict(s) for s in top_picks]
+        
+        # Save top picks
+        await models.save_top_picks(top_pick_dicts, week_start)
         
         return RefreshResponse(
             success=True,
-            transactions_fetched=len(transactions),
+            mentions_fetched=len(mock_mentions),
             scores_calculated=len(scores),
-            top_picks_saved=min(5, len(scores))
+            top_picks_saved=len(top_pick_dicts)
         )
         
     except Exception as e:
@@ -295,47 +335,46 @@ def _get_current_week_start() -> str:
     return monday.isoformat()
 
 
-async def _fetch_live_top_picks() -> List[dict]:
-    """Fetch and calculate top picks live (no DB)."""
-    fetcher = InsiderFetcher(max_price=30, days_back=7)
-    transactions = fetcher.fetch_insider_buys(tech_only=False)
-    
-    if not transactions:
-        return []
-    
-    scorer = InsiderScorer()
-    scores = scorer.score_transactions(transactions)
+async def _generate_live_picks() -> List[dict]:
+    """Generate top picks live using mock data."""
+    scores = await _generate_live_scores(passes_filters_only=True)
     
     week_start = _get_current_week_start()
     
     return [
         {
             'rank': i + 1,
-            'ticker': s.ticker,
-            'company_name': s.company_name,
-            'insider_score': s.insider_score,
-            'insider_buy_count': s.insider_buy_count,
-            'insider_buy_value': s.insider_buy_value,
-            'notable_events': s.notable_events,
-            'signal': s.signal,
+            'ticker': s['ticker'],
+            'company_name': s.get('company_name', ''),
+            'viral_score': s['viral_score'],
+            'mention_count': s.get('mention_count', 0),
+            'total_upvotes': s.get('total_upvotes', 0),
+            'sentiment_label': s.get('sentiment_label', 'NEUTRAL'),
+            'trending_velocity': s.get('trending_velocity', 1.0),
+            'current_price': s.get('current_price'),
+            'signal': s.get('signal', 'TRENDING'),
             'week_start': week_start
         }
         for i, s in enumerate(scores[:5])
     ]
 
 
-async def _calculate_live_scores() -> List[dict]:
-    """Calculate scores live (no DB)."""
-    fetcher = InsiderFetcher(max_price=30, days_back=7)
-    transactions = fetcher.fetch_insider_buys(tech_only=False)
+async def _generate_live_scores(passes_filters_only: bool = False) -> List[dict]:
+    """Generate viral scores live using mock data."""
+    mock_mentions = create_mock_aggregated_mentions()
+    mock_fundamentals = create_mock_fundamentals()
+    mock_sentiment = create_mock_sentiment()
     
-    if not transactions:
-        return []
+    scorer = RedditScorer()
+    scorer.set_fundamentals(mock_fundamentals)
+    scores = scorer.score_tickers(mock_mentions, mock_sentiment)
     
-    scores = calculate_weekly_scores(transactions)
+    if passes_filters_only:
+        scores = [s for s in scores if s.passes_filters]
+    
     week_start = _get_current_week_start()
     
-    for s in scores:
-        s['week_start'] = week_start
-    
-    return scores
+    return [
+        {**score_to_dict(s), 'week_start': week_start}
+        for s in scores
+    ]
