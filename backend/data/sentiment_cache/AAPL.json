@@ -1,39 +1,23 @@
 {
   "ticker": "AAPL",
-  "overall_score": 82.0,
-  "overall_sentiment": "bullish",
-  "confidence": 0.9,
-  "rationale": "Apple demonstrated strong fundamental performance with record Q4 revenue beating expectations by a significant margin, coupled with impressive iPhone growth in the challenging Chinese market. Both articles from highly credible sources present clear positive catalysts with no offsetting negative factors.",
+  "overall_score": 50.0,
+  "overall_sentiment": "neutral",
+  "confidence": 0.3,
+  "rationale": "The provided article is completely unrelated to AAPL, concerning SUPERNUS PHARMACEUTICALS instead. This SEC filing provides no information or sentiment signals relevant to Apple stock.",
   "article_analyses": [
     {
-      "headline": "Apple Reports Record Q4 Revenue, Beats Analyst Expectations",
-      "sentiment": "bullish",
-      "score": 85.0,
+      "headline": "8-K - SUPERNUS PHARMACEUTICALS, INC. (0001356576) (Filer)",
+      "sentiment": "neutral",
+      "score": 50.0,
       "key_factors": [
-        "Record quarterly revenue",
-        "8% YoY growth",
-        "Beat analyst expectations"
+        "Unrelated to AAPL",
+        "SEC filing for different company"
       ],
-      "relevance": 1.0
-    },
-    {
-      "headline": "iPhone 16 Sales Surge in China Despite Competition",
-      "sentiment": "bullish",
-      "score": 78.0,
-      "key_factors": [
-        "12% growth in China",
-        "Outperformed expectations",
-        "Market share resilience"
-      ],
-      "relevance": 0.9
+      "relevance": 0.0
     }
   ],
-  "bullish_factors": [
-    "Record Q4 revenue of $89.5B with 8% YoY growth",
-    "Beat analyst expectations",
-    "Strong iPhone performance in China with 12% growth"
-  ],
+  "bullish_factors": [],
   "bearish_factors": [],
-  "analyzed_at": "2026-02-05T19:40:41.396800",
+  "analyzed_at": "2026-02-13T12:21:22.660478",
   "model_used": "claude-sonnet-4-20250514"
 }
