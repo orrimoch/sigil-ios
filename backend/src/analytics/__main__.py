@@ -57,8 +57,10 @@ def cmd_sector_scores(args):
         dates = analyzer.get_available_dates()
         date = dates[-1] if dates else datetime.now().strftime("%Y-%m-%d")
     
-    print(f"\n📊 SECTOR SCORES for {date}")
-    print("=" * 80)
+    # Only print header for table format
+    if args.format == "table":
+        print(f"\n📊 SECTOR SCORES for {date}")
+        print("=" * 80)
     
     if args.sector:
         # Single sector
