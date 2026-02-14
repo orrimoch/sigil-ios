@@ -1,0 +1,32 @@
+{
+  "ticker": "MS",
+  "overall_score": 58.0,
+  "overall_sentiment": "slightly_bullish",
+  "confidence": 0.4,
+  "rationale": "Morgan Stanley is mentioned as identifying investment themes that could benefit European markets, showcasing their analytical capabilities and market positioning. However, the article primarily focuses on European market opportunities rather than MS's direct business performance or prospects.",
+  "article_analyses": [
+    {
+      "headline": "Key themes from AI adoption to protein demand are suddenly lining up for European stocks",
+      "sentiment": "slightly_bullish",
+      "score": 58.0,
+      "key_factors": [
+        "MS cited as market expert identifying investment themes",
+        "Demonstrates thought leadership in global market analysis",
+        "Indirect exposure to potential European market flows"
+      ],
+      "relevance": 0.3
+    }
+  ],
+  "bullish_factors": [
+    "Morgan Stanley positioned as thought leader in identifying global investment themes",
+    "Potential to benefit from increased European investment flows if themes materialize",
+    "Demonstrates analytical capabilities in identifying market opportunities"
+  ],
+  "bearish_factors": [
+    "Limited direct relevance to MS's core business performance",
+    "Article focuses on European opportunities rather than MS-specific developments",
+    "No mention of MS's financial metrics or business outlook"
+  ],
+  "analyzed_at": "2026-02-13T15:20:47.255208",
+  "model_used": "claude-sonnet-4-20250514"
+}

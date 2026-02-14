@@ -1,0 +1,24 @@
+{
+  "ticker": "GOOGL",
+  "overall_score": 50.0,
+  "overall_sentiment": "neutral",
+  "confidence": 0.3,
+  "rationale": "The 8-K filing indicates some corporate event or disclosure but lacks specific details about the nature or impact. Without knowing the content of the 'Other Events' disclosure, this is purely procedural regulatory filing information with no clear directional signal.",
+  "article_analyses": [
+    {
+      "headline": "8-K - Alphabet Inc. (0001652044) (Filer)",
+      "sentiment": "neutral",
+      "score": 50.0,
+      "key_factors": [
+        "Regulatory filing disclosure",
+        "No specific content details",
+        "Standard 8-K procedure"
+      ],
+      "relevance": 0.4
+    }
+  ],
+  "bullish_factors": [],
+  "bearish_factors": [],
+  "analyzed_at": "2026-02-14T10:28:39.611413",
+  "model_used": "claude-sonnet-4-20250514"
+}

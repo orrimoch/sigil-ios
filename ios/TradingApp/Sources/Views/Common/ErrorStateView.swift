@@ -63,7 +63,7 @@ struct ErrorStateView: View {
     ErrorStateView(
         title: "Something went wrong",
         message: "We couldn't load the data. Check your connection and try again.",
-        retryAction: { print("Retry tapped") }
+        retryAction: { debugLog("Retry tapped") }
     )
 }
 

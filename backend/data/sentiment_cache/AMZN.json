@@ -1,0 +1,33 @@
+{
+  "ticker": "AMZN",
+  "overall_score": 50.0,
+  "overall_sentiment": "neutral",
+  "confidence": 0.3,
+  "rationale": "Both provided articles are SEC filings from unrelated companies (Tri Pointe Homes and Alexandria Real Estate Equities) and contain no information about Amazon. The analysis cannot determine sentiment for AMZN based on completely irrelevant content.",
+  "article_analyses": [
+    {
+      "headline": "8-K - Tri Pointe Homes, Inc. (0001561680) (Filer)",
+      "sentiment": "neutral",
+      "score": 50.0,
+      "key_factors": [
+        "Unrelated company SEC filing",
+        "No Amazon mention"
+      ],
+      "relevance": 0.0
+    },
+    {
+      "headline": "8-K - ALEXANDRIA REAL ESTATE EQUITIES, INC. (0001035443) (Filer)",
+      "sentiment": "neutral",
+      "score": 50.0,
+      "key_factors": [
+        "Unrelated company SEC filing",
+        "No Amazon mention"
+      ],
+      "relevance": 0.0
+    }
+  ],
+  "bullish_factors": [],
+  "bearish_factors": [],
+  "analyzed_at": "2026-02-13T15:20:02.425275",
+  "model_used": "claude-sonnet-4-20250514"
+}

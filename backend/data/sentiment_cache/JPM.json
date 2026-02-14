@@ -1,0 +1,32 @@
+{
+  "ticker": "JPM",
+  "overall_score": 58.0,
+  "overall_sentiment": "slightly_bullish",
+  "confidence": 0.4,
+  "rationale": "JPMorgan's bullish stance on crypto for 2026 suggests strategic positioning in digital assets despite recent market volatility. However, the limited information and single source provide insufficient detail to assess the full impact on JPM's business fundamentals.",
+  "article_analyses": [
+    {
+      "headline": "JPMorgan turns bullish on crypto in 2026 despite crash",
+      "sentiment": "slightly_bullish",
+      "score": 58.0,
+      "key_factors": [
+        "bullish crypto outlook",
+        "strategic positioning",
+        "forward-looking view"
+      ],
+      "relevance": 0.6
+    }
+  ],
+  "bullish_factors": [
+    "positive outlook on crypto market recovery",
+    "potential revenue opportunities in digital assets",
+    "strategic positioning ahead of competitors"
+  ],
+  "bearish_factors": [
+    "acknowledges recent crypto crash",
+    "limited immediate impact",
+    "speculative nature of crypto predictions"
+  ],
+  "analyzed_at": "2026-02-13T15:20:08.556652",
+  "model_used": "claude-sonnet-4-20250514"
+}

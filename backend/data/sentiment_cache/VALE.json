@@ -1,0 +1,23 @@
+{
+  "ticker": "VALE",
+  "overall_score": 50.0,
+  "overall_sentiment": "neutral",
+  "confidence": 0.3,
+  "rationale": "The provided article is completely unrelated to Vale S.A. as it discusses Valentine's Day gifting trends rather than mining, commodities, or any business aspects relevant to the company. This creates an absence of actionable sentiment information.",
+  "article_analyses": [
+    {
+      "headline": "At first I laughed.' More couples are gifting practical things like vacuum cleaners this Valentine's Day.",
+      "sentiment": "neutral",
+      "score": 50.0,
+      "key_factors": [
+        "irrelevant content",
+        "no company mention"
+      ],
+      "relevance": 0.0
+    }
+  ],
+  "bullish_factors": [],
+  "bearish_factors": [],
+  "analyzed_at": "2026-02-13T17:06:42.193665",
+  "model_used": "claude-sonnet-4-20250514"
+}

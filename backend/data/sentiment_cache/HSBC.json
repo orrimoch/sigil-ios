@@ -1,0 +1,31 @@
+{
+  "ticker": "HSBC",
+  "overall_score": 72.0,
+  "overall_sentiment": "bullish",
+  "confidence": 0.7,
+  "rationale": "HSBC being selected by the UK government as the platform provider for its digital bond pilot represents a significant competitive win and validation of their technological capabilities. This positions HSBC as a leader in digital financial infrastructure, though it's a single data point without revenue details.",
+  "article_analyses": [
+    {
+      "headline": "UK picks HSBC as platform provider for its digital bond pilot issuance",
+      "sentiment": "bullish",
+      "score": 72.0,
+      "key_factors": [
+        "Government contract win",
+        "Digital finance leadership",
+        "Competitive selection"
+      ],
+      "relevance": 1.0
+    }
+  ],
+  "bullish_factors": [
+    "UK government selection validates HSBC's digital capabilities",
+    "Competitive advantage in digital bond technology",
+    "Potential for future government contracts"
+  ],
+  "bearish_factors": [
+    "Single pilot project with unclear revenue impact",
+    "No details on contract value or duration"
+  ],
+  "analyzed_at": "2026-02-13T17:05:57.674212",
+  "model_used": "claude-sonnet-4-20250514"
+}

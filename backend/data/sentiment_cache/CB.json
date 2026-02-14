@@ -1,0 +1,28 @@
+{
+  "ticker": "CB",
+  "overall_score": 78.0,
+  "overall_sentiment": "bullish",
+  "confidence": 0.7,
+  "rationale": "BMO's price target increase following Q4 results indicates positive analyst sentiment with specific catalysts identified. The mention of reserve and investment income tailwinds suggests multiple positive drivers for future performance.",
+  "article_analyses": [
+    {
+      "headline": "BMO Lifts Chubb (CB) Target After Q4, Flags Reserve and Investment Income Tailwinds",
+      "sentiment": "bullish",
+      "score": 78.0,
+      "key_factors": [
+        "Analyst price target increase",
+        "Q4 results catalyst",
+        "Reserve tailwinds"
+      ],
+      "relevance": 0.9
+    }
+  ],
+  "bullish_factors": [
+    "BMO analyst price target increase",
+    "Positive Q4 earnings reaction",
+    "Reserve release potential"
+  ],
+  "bearish_factors": [],
+  "analyzed_at": "2026-02-13T17:06:15.673800",
+  "model_used": "claude-sonnet-4-20250514"
+}

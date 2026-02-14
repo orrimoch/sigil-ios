@@ -20,6 +20,7 @@ targets:
         type: group
         excludes:
           - "Info.plist"
+      - path: PrivacyInfo.xcprivacy
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.sigil.ios

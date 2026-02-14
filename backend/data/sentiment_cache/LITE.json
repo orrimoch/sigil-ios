@@ -1,0 +1,24 @@
+{
+  "ticker": "LITE",
+  "overall_score": 50.0,
+  "overall_sentiment": "neutral",
+  "confidence": 0.3,
+  "rationale": "The single 8-K filing regarding director/officer changes provides insufficient information to determine market impact direction. Such filings are routine corporate governance matters that could be neutral succession planning or indicate underlying issues.",
+  "article_analyses": [
+    {
+      "headline": "8-K - Lite Strategy, Inc. (0001262104) (Filer)",
+      "sentiment": "neutral",
+      "score": 50.0,
+      "key_factors": [
+        "Director/officer departure or appointment",
+        "Routine SEC filing",
+        "Incomplete information from summary"
+      ],
+      "relevance": 0.6
+    }
+  ],
+  "bullish_factors": [],
+  "bearish_factors": [],
+  "analyzed_at": "2026-02-13T17:07:06.053372",
+  "model_used": "claude-sonnet-4-20250514"
+}

@@ -2,34 +2,82 @@ version: '3.8'
 
 services:
   backend:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    container_name: sigil-backend
     ports:
       - "8000:8000"
     environment:
       - PYTHONPATH=/app
-      - LOG_LEVEL=INFO
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - ENVIRONMENT=${ENVIRONMENT:-development}
+      - AUTH_REQUIRED=${AUTH_REQUIRED:-false}
+      - JWT_SECRET=${JWT_SECRET:-dev-secret-change-in-prod}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      - IBKR_HOST=${IBKR_HOST:-127.0.0.1}
+      - IBKR_PORT=${IBKR_PORT:-4002}
     volumes:
-      - ./src:/app/src          # Hot reload
-      - ./data:/app/data        # Persist cache
+      - ./data:/app/data          # Persist database and cache
+      - ./reports:/app/reports    # Persist reports
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+    restart: unless-stopped
+    networks:
+      - sigil-network
+
+  # Development service with hot reload
+  backend-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    container_name: sigil-backend-dev
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONPATH=/app
+      - LOG_LEVEL=DEBUG
+      - ENVIRONMENT=development
+      - AUTH_REQUIRED=false
+      - JWT_SECRET=dev-secret-change-in-prod
+    volumes:
+      - ./src:/app/src:ro         # Mount source read-only for hot reload
+      - ./data:/app/data
+      - ./reports:/app/reports
     command: uvicorn src.api.main:app --host 0.0.0.0 --port 8000 --reload
+    networks:
+      - sigil-network
+    profiles:
+      - dev
 
-  # Database (for future use)
-  # db:
-  #   image: postgres:15
-  #   environment:
-  #     POSTGRES_USER: tradingapp
-  #     POSTGRES_PASSWORD: tradingapp
-  #     POSTGRES_DB: tradingapp
-  #   volumes:
-  #     - postgres_data:/var/lib/postgresql/data
-  #   ports:
-  #     - "5432:5432"
+  # Redis cache (optional, for future scaling)
+  redis:
+    image: redis:7-alpine
+    container_name: sigil-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - sigil-network
+    profiles:
+      - with-redis
 
-  # Redis cache (for future use)
-  # redis:
-  #   image: redis:7-alpine
-  #   ports:
-  #     - "6379:6379"
+networks:
+  sigil-network:
+    driver: bridge
 
-# volumes:
-#   postgres_data:
+volumes:
+  redis_data:

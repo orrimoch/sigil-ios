@@ -45,3 +45,13 @@ schedule>=1.2.0
 # Agentic Sentiment (REC-171)
 anthropic>=0.18.0
 tenacity>=8.2.0
+aiohttp>=3.9.0
+vaderSentiment>=3.3.2
+optuna>=3.5.0
+
+# Scheduler
+apscheduler>=3.10.0
+
+# HMM for risk regime detection
+hmmlearn>=0.3.0
+matplotlib>=3.8.0

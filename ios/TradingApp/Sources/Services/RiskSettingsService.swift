@@ -33,11 +33,11 @@ class RiskSettingsService: ObservableObject {
         
         do {
             let response = try await apiService.getRiskSettings()
-            print("🔍 RiskSettings fetch - success: \(response.success), hasData: \(response.data != nil)")
+            debugLog("🔍 RiskSettings fetch - success: \(response.success), hasData: \(response.data != nil)")
             
             if response.success, let data = response.data {
                 let newSettings = RiskSettings.from(data)
-                print("🔍 RiskSettings loaded - hardStop.enabled: \(newSettings.hardStop.enabled)")
+                debugLog("🔍 RiskSettings loaded - hardStop.enabled: \(newSettings.hardStop.enabled)")
                 await MainActor.run {
                     self.settings = newSettings
                     self.cacheSettings(newSettings)
@@ -46,14 +46,14 @@ class RiskSettingsService: ObservableObject {
             } else {
                 // Use cached settings if not logged in
                 let errorMessage = response.error ?? "Please log in to sync settings"
-                print("⚠️ RiskSettings fetch failed: \(errorMessage)")
+                debugLog("⚠️ RiskSettings fetch failed: \(errorMessage)")
                 await MainActor.run {
                     self.lastError = errorMessage
                     self.isLoading = false
                 }
             }
         } catch {
-            print("❌ RiskSettings fetch error: \(error)")
+            debugError(error, context: "RiskSettings fetch")
             await MainActor.run {
                 self.lastError = error.localizedDescription
                 self.isLoading = false
@@ -127,7 +127,7 @@ class RiskSettingsService: ObservableObject {
             } catch {
                 // Cache is corrupt or outdated - clear it
                 UserDefaults.standard.removeObject(forKey: "cached_risk_settings")
-                print("Cleared corrupt risk settings cache: \(error)")
+                debugLog("Cleared corrupt risk settings cache: \(error.localizedDescription)")
             }
         }
     }

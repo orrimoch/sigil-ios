@@ -1,0 +1,33 @@
+{
+  "ticker": "COST",
+  "overall_score": 50.0,
+  "overall_sentiment": "neutral",
+  "confidence": 0.3,
+  "rationale": "Neither article directly relates to Costco (COST). The first discusses DraftKings' costs, while the second is a regulatory filing from Origin Materials about exit/disposal costs.",
+  "article_analyses": [
+    {
+      "headline": "DraftKings' stock sinks as investors balk at the high cost of a push into prediction markets",
+      "sentiment": "neutral",
+      "score": 50.0,
+      "key_factors": [
+        "article about different company",
+        "no direct COST relevance"
+      ],
+      "relevance": 0.0
+    },
+    {
+      "headline": "8-K - Origin Materials, Inc. (0001802457) (Filer)",
+      "sentiment": "neutral",
+      "score": 50.0,
+      "key_factors": [
+        "regulatory filing from different company",
+        "no COST connection"
+      ],
+      "relevance": 0.0
+    }
+  ],
+  "bullish_factors": [],
+  "bearish_factors": [],
+  "analyzed_at": "2026-02-13T15:20:21.763124",
+  "model_used": "claude-sonnet-4-20250514"
+}

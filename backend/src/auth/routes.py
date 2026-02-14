@@ -239,7 +239,9 @@ async def request_password_reset(
     # AUTH-004: Use DEBUG level to avoid exposing codes in production logs
     if code is not None:
         import logging
-        logging.getLogger("auth").debug(f"[DEV] Password reset code for {request.email}: {code}")
+        # AUTH-004: Log only partial code (first 2 digits) to avoid exposing full reset codes
+        masked_code = f"{code[:2]}****" if len(code) >= 2 else "****"
+        logging.getLogger("auth").debug(f"[DEV] Password reset code generated for {request.email}: {masked_code}")
     return {"success": True, "message": "If an account exists, a reset code has been sent."}
 
 

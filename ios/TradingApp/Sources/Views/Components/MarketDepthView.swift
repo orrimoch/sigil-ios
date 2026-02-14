@@ -281,7 +281,10 @@ struct DepthLevel: Codable {
 
 extension APIService {
     func getMarketDepth(ticker: String, levels: Int = 10) async throws -> MarketDepthData {
-        let url = URL(string: "http://127.0.0.1:8000/api/v1/market-depth/\(ticker)?levels=\(levels)")!
+        guard let encodedTicker = ticker.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed),
+              let url = URL(string: "\(baseURL)/market-depth/\(encodedTicker)?levels=\(levels)") else {
+            throw APIError.invalidURL
+        }
         
         let (data, response) = try await URLSession.shared.data(from: url)
         

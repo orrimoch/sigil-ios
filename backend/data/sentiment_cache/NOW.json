@@ -1,0 +1,23 @@
+{
+  "ticker": "NOW",
+  "overall_score": 50.0,
+  "overall_sentiment": "neutral",
+  "confidence": 0.3,
+  "rationale": "The provided article has no relevance to ServiceNow (NOW) stock, as it discusses personal real estate and inheritance matters between spouses. Without any company-specific information, no meaningful sentiment assessment can be made.",
+  "article_analyses": [
+    {
+      "headline": "'We have no prenup': I want rights of survivorship in our marital home. My wife prefers tenants in common. Now what?",
+      "sentiment": "neutral",
+      "score": 50.0,
+      "key_factors": [
+        "Article discusses personal real estate matters",
+        "No mention of ServiceNow or related business topics"
+      ],
+      "relevance": 0.0
+    }
+  ],
+  "bullish_factors": [],
+  "bearish_factors": [],
+  "analyzed_at": "2026-02-13T17:06:25.608302",
+  "model_used": "claude-sonnet-4-20250514"
+}

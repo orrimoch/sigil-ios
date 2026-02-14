@@ -63,7 +63,12 @@ final class AuthService: ObservableObject {
     }
 
     private let keychain = KeychainHelper.shared
-    private let baseURL  = "http://127.0.0.1:8000/api/v1/auth"
+    
+    #if DEBUG
+    private let baseURL = "http://127.0.0.1:8000/api/v1/auth"
+    #else
+    private let baseURL = "https://api.sigil.app/api/v1/auth"
+    #endif
 
     private let decoder: JSONDecoder = {
         let d = JSONDecoder()
@@ -210,7 +215,9 @@ final class AuthService: ObservableObject {
     /// Check whether the server requires authentication.
     /// Returns `true` if auth is required, `false` otherwise.
     func checkServerAuthStatus() async throws -> Bool {
-        let url = URL(string: "\(baseURL)/status")!
+        guard let url = URL(string: "\(baseURL)/status") else {
+            throw AuthError.serverError
+        }
         let (data, response) = try await URLSession.shared.data(from: url)
         guard let http = response as? HTTPURLResponse, 200...299 ~= http.statusCode else {
             throw AuthError.serverError
@@ -222,7 +229,9 @@ final class AuthService: ObservableObject {
     // MARK: - Networking helpers
 
     private func postRaw(path: String, body: [String: Any]) async throws -> [String: Any] {
-        let url = URL(string: "\(baseURL)\(path)")!
+        guard let url = URL(string: "\(baseURL)\(path)") else {
+            throw AuthError.serverError
+        }
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -250,7 +259,9 @@ final class AuthService: ObservableObject {
     }
 
     private func post<T: Decodable>(path: String, body: [String: Any]) async throws -> T {
-        let url = URL(string: "\(baseURL)\(path)")!
+        guard let url = URL(string: "\(baseURL)\(path)") else {
+            throw AuthError.serverError
+        }
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")

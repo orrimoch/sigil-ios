@@ -56,7 +56,7 @@ final class AuthViewModel: ObservableObject {
         
         // Skip if already warmed today
         if let lastWarm = lastWarm, Calendar.current.isDate(lastWarm, inSameDayAs: today) {
-            print("Risk cache already warmed today, skipping")
+            debugLog("Risk cache already warmed today, skipping")
             return
         }
         
@@ -64,14 +64,14 @@ final class AuthViewModel: ObservableObject {
         Task.detached(priority: .background) {
             do {
                 let result = try await APIService.shared.warmRiskCache()
-                print("Risk cache warmed: \(result.data.analyzed) analyzed, \(result.data.alreadyCached) cached")
+                debugLog("Risk cache warmed: \(result.data.analyzed) analyzed, \(result.data.alreadyCached) cached")
                 
                 // Mark today as warmed
                 await MainActor.run {
                     UserDefaults.standard.set(Date(), forKey: Self.lastWarmDateKey)
                 }
             } catch {
-                print("Risk cache warming failed (non-critical): \(error)")
+                debugLog("Risk cache warming failed (non-critical): \(error)")
             }
         }
     }

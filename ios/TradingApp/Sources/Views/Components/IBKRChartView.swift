@@ -151,7 +151,9 @@ struct IBKRChartView: View {
                 return
             } catch {
                 // Fall through to Yahoo Finance fallback
-                print("IBKR bars failed, falling back to Yahoo: \(error)")
+                #if DEBUG
+                debugError(error, context: "IBKR bars failed, falling back to Yahoo")
+                #endif
             }
         }
         

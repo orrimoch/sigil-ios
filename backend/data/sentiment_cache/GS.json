@@ -1,0 +1,24 @@
+{
+  "ticker": "GS",
+  "overall_score": 50.0,
+  "overall_sentiment": "neutral",
+  "confidence": 0.4,
+  "rationale": "The 8-K filing regarding officer/director changes provides insufficient detail to determine market impact. Executive transitions can be neutral corporate governance events without clear directional implications for stock performance.",
+  "article_analyses": [
+    {
+      "headline": "8-K - GOLDMAN SACHS GROUP INC (0000886982) (Filer)",
+      "sentiment": "neutral",
+      "score": 50.0,
+      "key_factors": [
+        "Executive/director change filing",
+        "Routine SEC disclosure",
+        "No specific details provided"
+      ],
+      "relevance": 0.6
+    }
+  ],
+  "bullish_factors": [],
+  "bearish_factors": [],
+  "analyzed_at": "2026-02-14T10:28:45.962693",
+  "model_used": "claude-sonnet-4-20250514"
+}

@@ -52,7 +52,7 @@ final class Analytics {
     private func log(_ event: String, properties: [String: Any]) {
         #if DEBUG
         let propsString = properties.map { "\($0.key)=\($0.value)" }.joined(separator: ", ")
-        print("[Analytics] \(event) | \(propsString)")
+        debugLog("[Analytics] \(event) | \(propsString)")
         #endif
     }
 }

@@ -1,8 +1,34 @@
 <img src="docs/sigil_logo.jpg" alt="Sigil" width="240" />
 
-# TradingApp iOS
+# Sigil — AI Stock Intelligence
 
 **AI-Powered Stock Recommendations for S&P 500**
+
+![CI](https://github.com/YOUR_USERNAME/sigil/actions/workflows/ci.yml/badge.svg)
+
+---
+
+## 🐳 Quick Start with Docker
+
+```bash
+# Start backend
+cd backend
+docker-compose up -d
+
+# API available at http://localhost:8000
+curl http://localhost:8000/api/v1/health
+```
+
+### Development Mode (hot reload)
+```bash
+docker-compose --profile dev up backend-dev
+```
+
+### Environment Setup
+```bash
+cp .env.example .env
+# Edit .env with your API keys
+```
 
 ---
 

@@ -1,0 +1,24 @@
+{
+  "ticker": "ROK",
+  "overall_score": 50.0,
+  "overall_sentiment": "neutral",
+  "confidence": 0.3,
+  "rationale": "The 8-K filing regarding submission of matters to security holder vote is routine corporate governance activity with no clear directional sentiment. Without details on what matters were voted on or the outcomes, this represents standard regulatory disclosure.",
+  "article_analyses": [
+    {
+      "headline": "8-K - ROCKWELL AUTOMATION, INC (0001024478) (Filer)",
+      "sentiment": "neutral",
+      "score": 50.0,
+      "key_factors": [
+        "Routine SEC filing",
+        "Standard corporate governance",
+        "No substantive details provided"
+      ],
+      "relevance": 0.4
+    }
+  ],
+  "bullish_factors": [],
+  "bearish_factors": [],
+  "analyzed_at": "2026-02-13T17:06:59.088915",
+  "model_used": "claude-sonnet-4-20250514"
+}

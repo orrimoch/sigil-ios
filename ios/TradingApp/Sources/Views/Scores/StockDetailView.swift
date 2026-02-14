@@ -98,6 +98,10 @@ struct StockDetailView: View {
                 )
                 .padding(.horizontal)
                 
+                // REC-260: Crowd Wisdom Section (Reddit Viral Data)
+                CrowdWisdomCard(ticker: ticker)
+                    .padding(.horizontal)
+                
                 // REC-150: Market Depth link
                 NavigationLink {
                     MarketDepthView(ticker: ticker)

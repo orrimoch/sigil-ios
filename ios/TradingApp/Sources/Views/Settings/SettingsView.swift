@@ -33,6 +33,13 @@ struct SettingsView: View {
         return active.isEmpty ? "All protections disabled" : active.joined(separator: ", ")
     }
     
+    // Dynamic app version from bundle
+    private var appVersion: String {
+        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
+        let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "1"
+        return "\(version) (Build \(build))"
+    }
+    
     var body: some View {
         NavigationStack {
             List {
@@ -354,7 +361,7 @@ struct SettingsView: View {
                         Text("Version")
                             .foregroundColor(.Text.primary)
                         Spacer()
-                        Text("1.0.0 (Build 1)")
+                        Text(appVersion)
                             .foregroundColor(.Text.secondary)
                     }
                     
@@ -482,7 +489,9 @@ class SettingsViewModel: ObservableObject {
         do {
             _ = try await APIService.shared.resetPortfolio()
         } catch {
-            print("Reset error: \(error)")
+            #if DEBUG
+            debugError(error, context: "Reset")
+            #endif
         }
     }
     
@@ -510,7 +519,9 @@ class SettingsViewModel: ObservableObject {
                     portfolioSize: nil  // Portfolio size handled by AppState
                 )
             } catch {
-                print("Failed to sync preferences: \(error)")
+                #if DEBUG
+                debugError(error, context: "Failed to sync preferences")
+                #endif
             }
         }
     }
@@ -529,7 +540,9 @@ class SettingsViewModel: ObservableObject {
                 UserDefaults.standard.set(risk.rawValue, forKey: "riskTolerance")
             }
         } catch {
-            print("Failed to load preferences: \(error)")
+            #if DEBUG
+            debugError(error, context: "Failed to load preferences")
+            #endif
         }
     }
 }

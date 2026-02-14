@@ -206,7 +206,9 @@ class SmartMoneyPicksViewModel: ObservableObject {
             weekStart = response.weekStart
         } catch {
             self.error = "Unable to load trending stocks"
-            print("[TrendingPicks] Error: \(error)")
+            #if DEBUG
+            debugError(error, context: "[TrendingPicks]")
+            #endif
         }
         
         isLoading = false

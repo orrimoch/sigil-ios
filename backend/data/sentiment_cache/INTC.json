@@ -1,0 +1,33 @@
+{
+  "ticker": "INTC",
+  "overall_score": 50.0,
+  "overall_sentiment": "neutral",
+  "confidence": 0.3,
+  "rationale": "The provided articles contain no specific information about Intel (INTC). The first article discusses general market sentiment with no mention of Intel, while the second is an unrelated SEC filing for a different company.",
+  "article_analyses": [
+    {
+      "headline": "Investors see hope in the economy despite AI fears igniting a turbulent week for markets",
+      "sentiment": "neutral",
+      "score": 50.0,
+      "key_factors": [
+        "general market commentary",
+        "AI industry concerns mentioned but not Intel-specific"
+      ],
+      "relevance": 0.1
+    },
+    {
+      "headline": "8-K - FARADAY FUTURE INTELLIGENT ELECTRIC INC. (0001805521) (Filer)",
+      "sentiment": "neutral",
+      "score": 50.0,
+      "key_factors": [
+        "unrelated company filing",
+        "no Intel relevance"
+      ],
+      "relevance": 0.0
+    }
+  ],
+  "bullish_factors": [],
+  "bearish_factors": [],
+  "analyzed_at": "2026-02-14T10:28:51.189528",
+  "model_used": "claude-sonnet-4-20250514"
+}

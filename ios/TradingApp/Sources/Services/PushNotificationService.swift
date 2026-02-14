@@ -36,7 +36,7 @@ final class PushNotificationService {
             return granted
         } catch {
             #if DEBUG
-            print("[Push] Authorization failed: \(error)")
+            debugError(error, context: "[Push] Authorization failed")
             #endif
             return false
         }
@@ -48,7 +48,7 @@ final class PushNotificationService {
         self.deviceToken = token
 
         #if DEBUG
-        print("[Push] Device token: \(token)")
+        debugLog("[Push] Device token: \(token)")
         #endif
 
         // Send token to backend
@@ -60,8 +60,8 @@ final class PushNotificationService {
     /// Called when APNs registration fails.
     func didFailToRegisterForRemoteNotifications(error: Error) {
         #if DEBUG
-        print("[Push] Registration failed: \(error.localizedDescription)")
-        print("[Push] This is expected on Simulator — push notifications require a real device")
+        debugLog("[Push] Registration failed: \(error.localizedDescription)")
+        debugLog("[Push] This is expected on Simulator — push notifications require a real device")
         #endif
     }
 
@@ -90,12 +90,12 @@ final class PushNotificationService {
             let (_, response) = try await URLSession.shared.data(for: request)
             if let http = response as? HTTPURLResponse {
                 #if DEBUG
-                print("[Push] Token registered with backend: \(http.statusCode)")
+                debugLog("[Push] Token registered with backend: \(http.statusCode)")
                 #endif
             }
         } catch {
             #if DEBUG
-            print("[Push] Failed to register token: \(error)")
+            debugError(error, context: "[Push] Failed to register token")
             #endif
         }
     }
@@ -113,7 +113,7 @@ final class PushNotificationService {
             deviceToken = nil
         } catch {
             #if DEBUG
-            print("[Push] Failed to unregister: \(error)")
+            debugError(error, context: "[Push] Failed to unregister")
             #endif
         }
     }

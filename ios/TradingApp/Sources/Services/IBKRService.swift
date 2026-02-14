@@ -20,7 +20,20 @@ final class IBKRService: ObservableObject {
     private let accountIdKey = "sigil_ibkr_account_id"
     private let connectedKey = "sigil_ibkr_connected"
     
+    #if DEBUG
     private let baseURL = "http://127.0.0.1:8000/api/v1/ibkr"
+    #else
+    private let baseURL = "https://api.sigil.app/api/v1/ibkr"
+    #endif
+    
+    // MARK: - URL Helper
+    
+    private func makeURL(_ path: String) throws -> URL {
+        guard let url = URL(string: "\(baseURL)\(path)") else {
+            throw IBKRError.connectionFailed("Invalid URL")
+        }
+        return url
+    }
     
     // MARK: - Init
     
@@ -41,7 +54,7 @@ final class IBKRService: ObservableObject {
         connectionError = nil
         defer { isConnecting = false }
         
-        let url = URL(string: "\(baseURL)/connect")!
+        let url = try makeURL("/connect")
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -82,7 +95,7 @@ final class IBKRService: ObservableObject {
     
     /// Disconnect from IBKR
     func disconnect() async throws {
-        let url = URL(string: "\(baseURL)/disconnect")!
+        let url = try makeURL("/disconnect")
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         
@@ -148,7 +161,7 @@ final class IBKRService: ObservableObject {
         goodTillDate: String? = nil,
         autoStopLossPercent: Double? = nil
     ) async throws -> IBKROrderResult {
-        let url = URL(string: "\(baseURL)/orders")!
+        let url = try makeURL("/orders")
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -198,7 +211,10 @@ final class IBKRService: ObservableObject {
     
     /// Cancel an open order via IBKR
     func cancelOrder(orderId: String) async throws {
-        let url = URL(string: "\(baseURL)/orders/\(orderId)")!
+        guard let encodedId = orderId.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) else {
+            throw IBKRError.cancelFailed("Invalid order ID")
+        }
+        let url = try makeURL("/orders/\(encodedId)")
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"
         
@@ -221,7 +237,7 @@ final class IBKRService: ObservableObject {
     
     /// Get open (pending) orders from IBKR
     func getOpenOrders() async throws -> [IBKROrderResult] {
-        let url = URL(string: "\(baseURL)/orders/open")!
+        let url = try makeURL("/orders/open")
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         
@@ -245,7 +261,7 @@ final class IBKRService: ObservableObject {
     /// Get real-time quote from IB Gateway (REC-140)
     /// Returns bid, ask, last, volume directly from IB — faster than Yahoo Finance
     func getQuote(ticker: String) async throws -> IBKRQuote {
-        let url = URL(string: "\(baseURL)/quote/\(ticker.uppercased())")!
+        let url = try makeURL("/quote/\(ticker.uppercased())")
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         
@@ -277,7 +293,9 @@ final class IBKRService: ObservableObject {
         whatToShow: String = "TRADES",
         useRth: Bool = true
     ) async throws -> [IBKRBar] {
-        var components = URLComponents(string: "\(baseURL)/bars/\(ticker.uppercased())")!
+        guard var components = URLComponents(string: "\(baseURL)/bars/\(ticker.uppercased())") else {
+            throw IBKRError.fetchFailed
+        }
         components.queryItems = [
             URLQueryItem(name: "duration", value: duration),
             URLQueryItem(name: "bar_size", value: barSize),
@@ -285,7 +303,10 @@ final class IBKRService: ObservableObject {
             URLQueryItem(name: "use_rth", value: useRth ? "true" : "false"),
         ]
         
-        var request = URLRequest(url: components.url!)
+        guard let url = components.url else {
+            throw IBKRError.fetchFailed
+        }
+        var request = URLRequest(url: url)
         request.httpMethod = "GET"
         
         if let token = AuthService.shared.accessToken {
@@ -318,7 +339,7 @@ final class IBKRService: ObservableObject {
         stopLossPrice: Double,
         outsideRth: Bool = false
     ) async throws -> IBKRBracketResult {
-        let url = URL(string: "\(baseURL)/bracket")!
+        let url = try makeURL("/bracket")
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -366,7 +387,9 @@ final class IBKRService: ObservableObject {
         aboveVolume: Int = 100000,
         marketCapAbove: Double = 1_000_000_000
     ) async throws -> [IBKRScannerResult] {
-        var components = URLComponents(string: "\(baseURL)/scanner")!
+        guard var components = URLComponents(string: "\(baseURL)/scanner") else {
+            throw IBKRError.fetchFailed
+        }
         components.queryItems = [
             URLQueryItem(name: "scan_code", value: scanCode),
             URLQueryItem(name: "instrument", value: instrument),
@@ -378,7 +401,10 @@ final class IBKRService: ObservableObject {
             URLQueryItem(name: "market_cap_above", value: String(marketCapAbove)),
         ]
         
-        var request = URLRequest(url: components.url!)
+        guard let url = components.url else {
+            throw IBKRError.fetchFailed
+        }
+        var request = URLRequest(url: url)
         request.httpMethod = "GET"
         
         if let token = AuthService.shared.accessToken {
@@ -409,7 +435,7 @@ final class IBKRService: ObservableObject {
         orderType: String = "MARKET",
         limitPrice: Double? = nil
     ) async throws -> IBKRWhatIfResult {
-        let url = URL(string: "\(baseURL)/whatif")!
+        let url = try makeURL("/whatif")
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -446,7 +472,7 @@ final class IBKRService: ObservableObject {
     
     /// Get margin status and alerts
     func getMarginStatus() async throws -> IBKRMarginStatus {
-        let url = URL(string: "\(baseURL)/margin")!
+        let url = try makeURL("/margin")
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         
@@ -471,7 +497,7 @@ final class IBKRService: ObservableObject {
     
     /// Get trade execution history from IB Gateway
     func getTradeHistory() async throws -> [IBKRTradeExecution] {
-        let url = URL(string: "\(baseURL)/history")!
+        let url = try makeURL("/history")
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         
@@ -496,7 +522,7 @@ final class IBKRService: ObservableObject {
     
     /// Get today's PnL and trading status
     func getDailyPnL() async throws -> IBKRDailyPnL {
-        let url = URL(string: "\(baseURL)/daily-pnl")!
+        let url = try makeURL("/daily-pnl")
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         
@@ -519,7 +545,7 @@ final class IBKRService: ObservableObject {
     
     /// Set daily loss limit percentage
     func setDailyLossLimit(percent: Double) async throws {
-        let url = URL(string: "\(baseURL)/daily-loss-limit")!
+        let url = try makeURL("/daily-loss-limit")
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -541,7 +567,7 @@ final class IBKRService: ObservableObject {
     
     /// Check if trading is halted due to daily loss limit
     func isTradingHalted() async throws -> Bool {
-        let url = URL(string: "\(baseURL)/trading-status")!
+        let url = try makeURL("/trading-status")
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         
@@ -570,13 +596,18 @@ final class IBKRService: ObservableObject {
         lookbackDays: Int = 20,
         spikeThreshold: Double = 2.0
     ) async throws -> IBKRVolumeAnalysis {
-        var components = URLComponents(string: "\(baseURL)/volume/\(ticker.uppercased())")!
+        guard var components = URLComponents(string: "\(baseURL)/volume/\(ticker.uppercased())") else {
+            throw IBKRError.fetchFailed
+        }
         components.queryItems = [
             URLQueryItem(name: "lookback_days", value: String(lookbackDays)),
             URLQueryItem(name: "spike_threshold", value: String(spikeThreshold)),
         ]
         
-        var request = URLRequest(url: components.url!)
+        guard let url = components.url else {
+            throw IBKRError.fetchFailed
+        }
+        var request = URLRequest(url: url)
         request.httpMethod = "GET"
         
         if let token = AuthService.shared.accessToken {
@@ -601,7 +632,7 @@ final class IBKRService: ObservableObject {
         tickers: [String],
         spikeThreshold: Double = 2.0
     ) async throws -> [IBKRVolumeAnalysis] {
-        let url = URL(string: "\(baseURL)/volume/watchlist")!
+        let url = try makeURL("/volume/watchlist")
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")

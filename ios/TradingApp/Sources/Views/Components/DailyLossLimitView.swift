@@ -93,7 +93,9 @@ struct DailyPnLIndicator: View {
         do {
             dailyPnL = try await IBKRService.shared.getDailyPnL()
         } catch {
-            print("Failed to load daily PnL: \(error)")
+            #if DEBUG
+            debugError(error, context: "Failed to load daily PnL")
+            #endif
         }
     }
 }

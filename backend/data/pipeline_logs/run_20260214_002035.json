@@ -1,0 +1,49 @@
+{
+  "run_id": "20260214_002035",
+  "started_at": "2026-02-14T00:20:35.206502",
+  "completed_at": "2026-02-14T00:20:43.262739",
+  "status": "success",
+  "total_duration_seconds": 8.056237,
+  "steps": [
+    {
+      "name": "price_data",
+      "status": "success",
+      "duration_seconds": 1.439018,
+      "records_processed": 850,
+      "error": null,
+      "retries": 0
+    },
+    {
+      "name": "fundamental_data",
+      "status": "success",
+      "duration_seconds": 0.030956,
+      "records_processed": 965,
+      "error": null,
+      "retries": 0
+    },
+    {
+      "name": "news_data",
+      "status": "success",
+      "duration_seconds": 0.528677,
+      "records_processed": 155,
+      "error": null,
+      "retries": 0
+    },
+    {
+      "name": "macro_data",
+      "status": "success",
+      "duration_seconds": 4.160522,
+      "records_processed": 17,
+      "error": null,
+      "retries": 0
+    },
+    {
+      "name": "scoring",
+      "status": "success",
+      "duration_seconds": 1.890456,
+      "records_processed": 1,
+      "error": null,
+      "retries": 0
+    }
+  ]
+}

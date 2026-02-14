@@ -189,6 +189,30 @@ struct SigilApp: App {
         }
     }
     
+    /// Check if app was launched in demo mode (via environment variable or launch argument).
+    /// Usage: `xcrun simctl launch --console-pty booted com.sigil.ios DEMO_MODE=1`
+    private var isDemoMode: Bool {
+        // Check environment variable (most reliable with simctl)
+        if ProcessInfo.processInfo.environment["DEMO_MODE"] == "1" {
+            return true
+        }
+        // Check launch arguments (alternative)
+        for (index, arg) in CommandLine.arguments.enumerated() {
+            if arg == "-demo_mode" || arg == "DEMO_MODE=1" {
+                return true
+            }
+            // Handle -demo_mode YES format
+            if arg == "-demo_mode" && index + 1 < CommandLine.arguments.count {
+                let value = CommandLine.arguments[index + 1].lowercased()
+                if value == "yes" || value == "true" || value == "1" {
+                    return true
+                }
+            }
+        }
+        // Check UserDefaults (set via `simctl spawn booted defaults write`)
+        return UserDefaults.standard.bool(forKey: "demo_mode")
+    }
+    
     /// Check auth state on launch (REC-130).
     ///
     /// 1. Ask backend `/auth/status` whether auth is required.
@@ -196,6 +220,17 @@ struct SigilApp: App {
     /// 3. If `auth_required == true` AND we have a stored session → validate it.
     /// 4. If server unreachable → grant if stored session exists, otherwise show login.
     private func checkAuthState() {
+        // DEMO MODE: Bypass all auth checks
+        if isDemoMode {
+            #if DEBUG
+            debugLog("🎬 Demo mode enabled — bypassing auth")
+            #endif
+            authVM.isLoggedIn = true
+            appState.hasCompletedOnboarding = true
+            authCheckDone = true
+            return
+        }
+        
         // Fast path: stored session — try to use it
         let hasSession = AuthService.shared.isLoggedIn
 
@@ -345,7 +380,9 @@ class AppState: ObservableObject {
                     portfolioSize: sizeValue
                 )
             } catch {
-                print("Failed to sync portfolio size: \(error)")
+                #if DEBUG
+                debugError(error, context: "Failed to sync portfolio size")
+                #endif
             }
         }
     }

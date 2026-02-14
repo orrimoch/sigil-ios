@@ -16,7 +16,7 @@ struct DailyQuote {
     
     /// Get a completely random quote
     static func random() -> DailyQuote {
-        quotes.randomElement() ?? quotes[0]
+        quotes.randomElement() ?? DailyQuote(text: "The best time to invest was yesterday. The second best time is now.", author: "Sigil")
     }
     
     // MARK: - Quotes Collection (50+)

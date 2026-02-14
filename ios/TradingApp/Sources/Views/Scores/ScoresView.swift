@@ -273,14 +273,26 @@ struct FilterChip: View {
 
 struct StockScoreRow: View {
     let stock: StockScoreItem
+    @ObservedObject private var trendingService = TrendingTickersService.shared
+    
+    private var isTrending: Bool {
+        trendingService.isTrending(stock.ticker)
+    }
     
     var body: some View {
         HStack(spacing: 12) {
             // Ticker and name
             VStack(alignment: .leading, spacing: 2) {
-                Text(stock.ticker)
-                    .font(.headline)
-                    .foregroundColor(.Text.primary)
+                HStack(spacing: 6) {
+                    Text(stock.ticker)
+                        .font(.headline)
+                        .foregroundColor(.Text.primary)
+                    
+                    // REC-259: Smart Money Badge
+                    if isTrending {
+                        SmartMoneyBadge()
+                    }
+                }
                 
                 Text(stock.name.isEmpty ? stock.sector : stock.name)
                     .font(.caption)
@@ -408,6 +420,35 @@ struct RecentSearchesView: View {
             .padding()
             .background(Color.Background.secondary)
         }
+    }
+}
+
+// MARK: - Smart Money Badge (REC-259)
+
+struct SmartMoneyBadge: View {
+    var compact: Bool = false
+    
+    var body: some View {
+        HStack(spacing: 2) {
+            Image(systemName: "flame.fill")
+                .font(.system(size: compact ? 8 : 10))
+            if !compact {
+                Text("TRENDING")
+                    .font(.system(size: 8, weight: .bold))
+            }
+        }
+        .foregroundColor(.white)
+        .padding(.horizontal, compact ? 4 : 6)
+        .padding(.vertical, 2)
+        .background(
+            LinearGradient(
+                colors: [.red, .orange],
+                startPoint: .leading,
+                endPoint: .trailing
+            )
+        )
+        .cornerRadius(4)
+        .accessibilityLabel("Trending on Reddit")
     }
 }
 

@@ -23,14 +23,22 @@ final class BackgroundRefreshManager {
             forTaskWithIdentifier: Self.refreshTaskId,
             using: nil
         ) { task in
-            self.handleAppRefresh(task: task as! BGAppRefreshTask)
+            guard let refreshTask = task as? BGAppRefreshTask else {
+                task.setTaskCompleted(success: false)
+                return
+            }
+            self.handleAppRefresh(task: refreshTask)
         }
         
         BGTaskScheduler.shared.register(
             forTaskWithIdentifier: Self.processingTaskId,
             using: nil
         ) { task in
-            self.handleProcessingTask(task: task as! BGProcessingTask)
+            guard let processingTask = task as? BGProcessingTask else {
+                task.setTaskCompleted(success: false)
+                return
+            }
+            self.handleProcessingTask(task: processingTask)
         }
         
         #if DEBUG
@@ -156,7 +164,9 @@ final class BackgroundRefreshManager {
     }
     
     private func fetchScoreSummary() async throws -> ScoreSummaryData {
-        let url = URL(string: "http://127.0.0.1:8000/api/v1/scores/summary")!
+        guard let url = URL(string: "\(APIService.shared.baseURL)/scores/summary") else {
+            throw NSError(domain: "BackgroundRefresh", code: 1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])
+        }
         let (data, _) = try await URLSession.shared.data(from: url)
         let decoder = JSONDecoder()
         let response = try decoder.decode(ScoreSummaryResponse.self, from: data)

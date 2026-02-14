@@ -9,7 +9,9 @@ from pathlib import Path
 from datetime import date
 
 # Set API key FIRST before any imports
-os.environ['ANTHROPIC_API_KEY'] = 'ANTHROPIC_API_KEY_REDACTED'
+# API key should be set in environment or .env file
+if not os.getenv('ANTHROPIC_API_KEY'):
+    print('Warning: ANTHROPIC_API_KEY not set')
 
 from loguru import logger
 

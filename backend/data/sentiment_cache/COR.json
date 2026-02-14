@@ -1,0 +1,29 @@
+{
+  "ticker": "COR",
+  "overall_score": 50.0,
+  "overall_sentiment": "neutral",
+  "confidence": 0.3,
+  "rationale": "The 8-K filing indicates material definitive agreements and financial obligations, but without specific details about the nature or impact of these agreements, the sentiment remains neutral. The filing items suggest potential business developments but lack sufficient information to determine positive or negative implications.",
+  "article_analyses": [
+    {
+      "headline": "8-K - Cencora, Inc. (0001140859) (Filer)",
+      "sentiment": "neutral",
+      "score": 50.0,
+      "key_factors": [
+        "Material definitive agreement entered",
+        "Direct financial obligation created",
+        "Regulation FD disclosure"
+      ],
+      "relevance": 0.9
+    }
+  ],
+  "bullish_factors": [
+    "Material agreement could signal business expansion or strategic partnership"
+  ],
+  "bearish_factors": [
+    "Creation of financial obligation may increase debt burden",
+    "Lack of specific details creates uncertainty"
+  ],
+  "analyzed_at": "2026-02-14T10:29:16.709341",
+  "model_used": "claude-sonnet-4-20250514"
+}

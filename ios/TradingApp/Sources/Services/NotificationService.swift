@@ -39,7 +39,7 @@ final class NotificationService: ObservableObject {
             
             return granted
         } catch {
-            print("[NotificationService] Authorization error: \(error)")
+            debugError(error, context: "[NotificationService] Authorization")
             return false
         }
     }
@@ -95,7 +95,7 @@ final class NotificationService: ObservableObject {
         
         center.add(request) { error in
             if let error {
-                print("[NotificationService] Failed to schedule trade notification: \(error)")
+                debugError(error, context: "[NotificationService] Failed to schedule trade notification")
             }
         }
     }
@@ -135,7 +135,7 @@ final class NotificationService: ObservableObject {
         
         center.add(request) { error in
             if let error {
-                print("[NotificationService] Failed to schedule score notification: \(error)")
+                debugError(error, context: "[NotificationService] Failed to schedule score notification")
             }
         }
     }
@@ -164,7 +164,7 @@ final class NotificationService: ObservableObject {
         
         center.add(request) { error in
             if let error {
-                print("[NotificationService] Failed to schedule batch score notification: \(error)")
+                debugError(error, context: "[NotificationService] Failed to schedule batch score notification")
             }
         }
     }
@@ -212,7 +212,7 @@ final class NotificationService: ObservableObject {
         
         center.add(request) { error in
             if let error {
-                print("[NotificationService] Failed to schedule weekly notification: \(error)")
+                debugError(error, context: "[NotificationService] Failed to schedule weekly notification")
             }
         }
         
@@ -265,12 +265,12 @@ final class NotificationService: ObservableObject {
             
             center.add(request) { error in
                 if let error {
-                    print("[NotificationService] Failed to update weekly notification: \(error)")
+                    debugError(error, context: "[NotificationService] Failed to update weekly notification")
                 }
             }
         } catch {
             // Silently fail — keep static notification
-            print("[NotificationService] Failed to fetch score summary: \(error)")
+            debugError(error, context: "[NotificationService] Failed to fetch score summary")
         }
     }
     

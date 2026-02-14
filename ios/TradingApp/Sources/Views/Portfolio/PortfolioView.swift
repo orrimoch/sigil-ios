@@ -230,7 +230,9 @@ struct PortfolioView: View {
                     limitPrice: nil
                 )
             } catch {
-                print("Failed to sell \(holding.ticker): \(error)")
+                #if DEBUG
+                debugError(error, context: "Failed to sell \(holding.ticker)")
+                #endif
             }
         }
         

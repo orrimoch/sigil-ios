@@ -14,10 +14,12 @@ final class CertificatePinningDelegate: NSObject, URLSessionDelegate {
     private static let pinnedHashes: Set<String> = []
     #else
     // Production: Pin to Sigil API certificate
-    // IMPORTANT: Add backup pins for certificate rotation
+    // IMPORTANT: Add real certificate hashes before App Store release
+    // For TestFlight: Using empty set to allow connections (same as debug)
+    // TODO: Generate hashes with: openssl s_client -connect api.sigil.app:443 | openssl x509 -pubkey -noout | openssl pkey -pubin -outform der | openssl dgst -sha256 -binary | base64
     private static let pinnedHashes: Set<String> = [
-        "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",  // Primary cert hash (replace before production)
-        "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB=",  // Backup cert hash (replace before production)
+        // "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",  // Primary cert hash (uncomment and replace for production)
+        // "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB=",  // Backup cert hash (uncomment and replace for production)
     ]
     #endif
     
@@ -47,7 +49,7 @@ final class CertificatePinningDelegate: NSObject, URLSessionDelegate {
         
         guard isValid else {
             #if DEBUG
-            print("[Security] Certificate validation failed: \(error?.localizedDescription ?? "unknown")")
+            debugLog("[Security] Certificate validation failed: \(error?.localizedDescription ?? "unknown")")
             #endif
             completionHandler(.cancelAuthenticationChallenge, nil)
             return
@@ -70,7 +72,7 @@ final class CertificatePinningDelegate: NSObject, URLSessionDelegate {
             
             guard matchFound else {
                 #if DEBUG
-                print("[Security] Certificate pinning failed - no matching hash")
+                debugLog("[Security] Certificate pinning failed - no matching hash")
                 #endif
                 completionHandler(.cancelAuthenticationChallenge, nil)
                 return
@@ -111,16 +113,19 @@ class APIService: ObservableObject {
     // IOS-001: HTTPS enforcement with environment-based configuration
     #if DEBUG
     // Development: Use HTTPS localhost (requires mkcert or similar local CA)
-    private let baseURL = "http://127.0.0.1:8000/api/v1"
+    let baseURL = "http://127.0.0.1:8000/api/v1"
     #else
     // Production: Use secure production endpoint
-    private let baseURL = "https://api.sigil.app/api/v1"
+    let baseURL = "https://api.sigil.app/api/v1"
     #endif
     
-    // IOS-002: URLSession with certificate pinning
+    // IOS-002: URLSession with certificate pinning and timeout
     private let pinningDelegate = CertificatePinningDelegate()
     private lazy var pinnedSession: URLSession = {
-        URLSession(configuration: .default, delegate: pinningDelegate, delegateQueue: nil)
+        let config = URLSessionConfiguration.default
+        config.timeoutIntervalForRequest = 30  // 30 seconds for request
+        config.timeoutIntervalForResource = 60 // 60 seconds for resource
+        return URLSession(configuration: config, delegate: pinningDelegate, delegateQueue: nil)
     }()
     
     private let decoder: JSONDecoder = {
@@ -132,14 +137,75 @@ class APIService: ObservableObject {
     // MARK: - Disk Cache
     
     private let cacheDir: URL = {
-        let dir = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
-            .appendingPathComponent("SigilAPICache")
+        guard let cachesDir = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
+            // Fallback to temp directory if caches unavailable (should never happen on iOS)
+            return FileManager.default.temporaryDirectory.appendingPathComponent("SigilAPICache")
+        }
+        let dir = cachesDir.appendingPathComponent("SigilAPICache")
         try? FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
         return dir
     }()
     
     /// Default cache TTL: 30 minutes
     private let defaultTTL: TimeInterval = 30 * 60
+    
+    // MARK: - URL Helpers
+    
+    /// Safely construct a URL, encoding path components
+    private func makeURL(_ path: String) throws -> URL {
+        guard let url = URL(string: "\(baseURL)\(path)") else {
+            throw APIError.invalidURL
+        }
+        return url
+    }
+    
+    /// Safely construct a URL with a ticker/symbol parameter
+    private func makeURL(_ path: String, ticker: String) throws -> URL {
+        guard let encoded = ticker.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed),
+              let url = URL(string: "\(baseURL)\(path)/\(encoded)") else {
+            throw APIError.invalidURL
+        }
+        return url
+    }
+    
+    /// Safely construct a URL with query parameters
+    private func makeURL(_ path: String, queryItems: [URLQueryItem]) throws -> URL {
+        guard var components = URLComponents(string: "\(baseURL)\(path)") else {
+            throw APIError.invalidURL
+        }
+        if !queryItems.isEmpty {
+            components.queryItems = queryItems
+        }
+        guard let url = components.url else {
+            throw APIError.invalidURL
+        }
+        return url
+    }
+    
+    /// Safely construct URLComponents for building dynamic queries
+    private func makeComponents(_ path: String) throws -> URLComponents {
+        guard let components = URLComponents(string: "\(baseURL)\(path)") else {
+            throw APIError.invalidURL
+        }
+        return components
+    }
+    
+    /// Handle HTTP error responses with special handling for rate limiting (429)
+    /// Always throws an error - marked as -> Never so compiler knows control flow doesn't continue
+    private func handleHTTPError(_ response: URLResponse?) throws -> Never {
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw APIError.invalidResponse
+        }
+        
+        if httpResponse.statusCode == 429 {
+            // Parse Retry-After header if present
+            let retryAfter = httpResponse.value(forHTTPHeaderField: "Retry-After")
+                .flatMap { Int($0) }
+            throw APIError.rateLimited(retryAfter: retryAfter)
+        }
+        
+        throw APIError.httpError(statusCode: httpResponse.statusCode)
+    }
     
     private func cacheKey(for url: URL) -> String {
         url.absoluteString
@@ -177,163 +243,164 @@ class APIService: ObservableObject {
     // MARK: - Stocks
     
     func getStocks(sector: String? = nil, limit: Int = 100) async throws -> StocksResponse {
-        var components = URLComponents(string: "\(baseURL)/stocks")!
         var queryItems: [URLQueryItem] = [URLQueryItem(name: "limit", value: String(limit))]
         if let sector = sector {
             queryItems.append(URLQueryItem(name: "sector", value: sector))
         }
-        components.queryItems = queryItems
-        
-        return try await fetch(components.url!)
+        let url = try makeURL("/stocks", queryItems: queryItems)
+        return try await fetch(url)
     }
     
     func getStock(ticker: String) async throws -> StockResponse {
-        let url = URL(string: "\(baseURL)/stocks/\(ticker)")!
+        let url = try makeURL("/stocks", ticker: ticker)
         return try await fetch(url)
     }
     
     // MARK: - Scores
     
     func getScores(signal: String? = nil, limit: Int = 50) async throws -> ScoresResponse {
-        var components = URLComponents(string: "\(baseURL)/scores")!
         var queryItems: [URLQueryItem] = [URLQueryItem(name: "limit", value: String(limit))]
         if let signal = signal {
             queryItems.append(URLQueryItem(name: "signal", value: signal))
         }
-        components.queryItems = queryItems
-        
-        return try await fetch(components.url!)
+        let url = try makeURL("/scores", queryItems: queryItems)
+        return try await fetch(url)
     }
     
     func getScore(ticker: String) async throws -> ScoreDetailResponse {
-        let url = URL(string: "\(baseURL)/scores/\(ticker)")!
+        let url = try makeURL("/scores", ticker: ticker)
         return try await fetch(url)
     }
     
     func getTopScores(n: Int, signal: String = "BUY") async throws -> TopScoresResponse {
-        let url = URL(string: "\(baseURL)/scores/top/\(n)?signal=\(signal)")!
+        let url = try makeURL("/scores/top/\(n)", queryItems: [URLQueryItem(name: "signal", value: signal)])
         return try await fetch(url)
     }
     
     // MARK: - Score Summary (F9.1)
     
     func getScoreSummary() async throws -> ScoreSummaryResponse {
-        let url = URL(string: "\(baseURL)/scores/summary")!
+        let url = try makeURL("/scores/summary")
         return try await fetch(url)
     }
     
     // MARK: - Score Changes (F9.3)
     
     func getScoreChanges() async throws -> ScoreChangesResponse {
-        let url = URL(string: "\(baseURL)/scores/changes")!
+        let url = try makeURL("/scores/changes")
         return try await fetch(url)
     }
     
     // MARK: - Score History
     
     func getScoreHistory(symbol: String, days: Int = 30) async throws -> ScoreHistoryResponse {
-        let url = URL(string: "\(baseURL)/scores/\(symbol)/history?days=\(days)")!
+        guard let encoded = symbol.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed),
+              let url = URL(string: "\(baseURL)/scores/\(encoded)/history?days=\(days)") else {
+            throw APIError.invalidURL
+        }
         return try await fetch(url)
     }
     
     // MARK: - Market Indices
     
     func getMarketIndices() async throws -> MarketIndicesResponse {
-        let url = URL(string: "\(baseURL)/market/indices")!
+        let url = try makeURL("/market/indices")
         return try await fetch(url)
     }
     
     // MARK: - Prices
     
     func getPrice(ticker: String) async throws -> PriceResponse {
-        let url = URL(string: "\(baseURL)/prices/\(ticker)")!
+        let url = try makeURL("/prices", ticker: ticker)
         return try await fetch(url)
     }
     
     // MARK: - Price History
     
     func getPriceHistory(symbol: String, period: String = "3m") async throws -> PriceHistoryResponse {
-        let url = URL(string: "\(baseURL)/data/price-history/\(symbol)?period=\(period)")!
+        guard let encoded = symbol.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed),
+              let url = URL(string: "\(baseURL)/data/price-history/\(encoded)?period=\(period)") else {
+            throw APIError.invalidURL
+        }
         return try await fetch(url)
     }
     
     // MARK: - News
     
     func getNews(ticker: String) async throws -> NewsResponse {
-        let url = URL(string: "\(baseURL)/news/\(ticker)")!
+        let url = try makeURL("/news", ticker: ticker)
         return try await fetch(url)
     }
     
     // MARK: - Macro
     
     func getMacro() async throws -> MacroResponse {
-        let url = URL(string: "\(baseURL)/macro")!
+        let url = try makeURL("/macro")
         return try await fetch(url)
     }
     
     // MARK: - Portfolio
     
     func getPortfolio() async throws -> PortfolioResponse {
-        let url = URL(string: "\(baseURL)/portfolio")!
+        let url = try makeURL("/portfolio")
         return try await fetch(url)
     }
     
     func resetPortfolio(startingCash: Double = 100000) async throws -> [String: Any] {
-        let url = URL(string: "\(baseURL)/portfolio/reset?starting_cash=\(startingCash)")!
+        let url = try makeURL("/portfolio/reset", queryItems: [URLQueryItem(name: "starting_cash", value: String(startingCash))])
         return try await post(url, body: nil)
     }
     
     func getPortfolioHistory(days: Int = 30) async throws -> PortfolioHistoryResponse {
-        let url = URL(string: "\(baseURL)/portfolio/history?days=\(days)")!
+        let url = try makeURL("/portfolio/history", queryItems: [URLQueryItem(name: "days", value: String(days))])
         return try await fetch(url)
     }
     
     func getPortfolioPerformance(days: Int = 30) async throws -> PortfolioPerformanceResponse {
-        let url = URL(string: "\(baseURL)/portfolio/performance?days=\(days)")!
+        let url = try makeURL("/portfolio/performance", queryItems: [URLQueryItem(name: "days", value: String(days))])
         return try await fetch(url)
     }
     
     func getSectorAllocation() async throws -> SectorAllocationResponse {
-        let url = URL(string: "\(baseURL)/portfolio/sectors")!
+        let url = try makeURL("/portfolio/sectors")
         return try await fetch(url)
     }
     
     func recordPortfolioSnapshot() async throws -> [String: Any] {
-        let url = URL(string: "\(baseURL)/portfolio/snapshot")!
+        let url = try makeURL("/portfolio/snapshot")
         return try await post(url, body: nil)
     }
     
     // MARK: - Alerts
     
     func getAlerts(limit: Int = 20) async throws -> AlertsResponse {
-        let url = URL(string: "\(baseURL)/alerts?limit=\(limit)")!
+        let url = try makeURL("/alerts", queryItems: [URLQueryItem(name: "limit", value: String(limit))])
         return try await fetch(url)
     }
     
     func getRecentAlerts(hours: Int = 24) async throws -> AlertsResponse {
-        let url = URL(string: "\(baseURL)/alerts/recent?hours=\(hours)")!
+        let url = try makeURL("/alerts/recent", queryItems: [URLQueryItem(name: "hours", value: String(hours))])
         return try await fetch(url)
     }
     
     // MARK: - Orders
     
     func getOrders(status: String? = nil, limit: Int = 50) async throws -> OrdersResponse {
-        var components = URLComponents(string: "\(baseURL)/orders")!
         var queryItems: [URLQueryItem] = [URLQueryItem(name: "limit", value: String(limit))]
         if let status = status {
             queryItems.append(URLQueryItem(name: "status", value: status))
         }
-        components.queryItems = queryItems
-        return try await fetch(components.url!)
+        let url = try makeURL("/orders", queryItems: queryItems)
+        return try await fetch(url)
     }
     
     func getTodaysOrders() async throws -> OrdersResponse {
-        let url = URL(string: "\(baseURL)/orders/today")!
+        let url = try makeURL("/orders/today")
         return try await fetch(url)
     }
     
     func createOrder(ticker: String, side: String, quantity: Double, orderType: String = "MARKET", limitPrice: Double? = nil) async throws -> OrderResponse {
-        let url = URL(string: "\(baseURL)/orders")!
+        let url = try makeURL("/orders")
         var body: [String: Any] = [
             "ticker": ticker,
             "side": side,
@@ -352,7 +419,7 @@ class APIService: ObservableObject {
         
         guard let httpResponse = response as? HTTPURLResponse, 200...299 ~= httpResponse.statusCode else {
             if let httpResponse = response as? HTTPURLResponse {
-                throw APIError.httpError(statusCode: httpResponse.statusCode)
+                try handleHTTPError(response)
             }
             throw APIError.invalidResponse
         }
@@ -361,7 +428,10 @@ class APIService: ObservableObject {
     }
     
     func cancelOrder(orderId: String) async throws -> OrderResponse {
-        let url = URL(string: "\(baseURL)/orders/\(orderId)")!
+        guard let encodedId = orderId.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) else {
+            throw APIError.invalidURL
+        }
+        let url = try makeURL("/orders/\(encodedId)")
         
         var request = authorizedRequest(url: url, method: "DELETE")
         
@@ -369,7 +439,7 @@ class APIService: ObservableObject {
         
         guard let httpResponse = response as? HTTPURLResponse, 200...299 ~= httpResponse.statusCode else {
             if let httpResponse = response as? HTTPURLResponse {
-                throw APIError.httpError(statusCode: httpResponse.statusCode)
+                try handleHTTPError(response)
             }
             throw APIError.invalidResponse
         }
@@ -382,7 +452,7 @@ class APIService: ObservableObject {
     /// Validate a trade against risk settings before submission
     /// Returns warnings if trade exceeds position limits or other risk rules
     func validateTrade(ticker: String, action: String, quantity: Double, price: Double) async throws -> TradeValidationResponse {
-        let url = URL(string: "\(baseURL)/trade/validate")!
+        let url = try makeURL("/trade/validate")
         let body: [String: Any] = [
             "ticker": ticker,
             "action": action,
@@ -398,7 +468,7 @@ class APIService: ObservableObject {
         
         guard let httpResponse = response as? HTTPURLResponse, 200...299 ~= httpResponse.statusCode else {
             if let httpResponse = response as? HTTPURLResponse {
-                throw APIError.httpError(statusCode: httpResponse.statusCode)
+                try handleHTTPError(response)
             }
             throw APIError.invalidResponse
         }
@@ -409,14 +479,14 @@ class APIService: ObservableObject {
     // MARK: - Risk Settings (REC-215)
     
     func getRiskSettings() async throws -> RiskSettingsAPIResponse {
-        let url = URL(string: "\(baseURL)/user/risk-settings")!
+        let url = try makeURL("/user/risk-settings")
         let request = authorizedRequest(url: url)
         
         let (data, response) = try await dataWithAutoRefresh(for: request)
         
         guard let httpResponse = response as? HTTPURLResponse, 200...299 ~= httpResponse.statusCode else {
             if let httpResponse = response as? HTTPURLResponse {
-                throw APIError.httpError(statusCode: httpResponse.statusCode)
+                try handleHTTPError(response)
             }
             throw APIError.invalidResponse
         }
@@ -425,7 +495,7 @@ class APIService: ObservableObject {
     }
     
     func updateRiskSettings(_ settings: RiskSettingsUpdatePayload) async throws -> RiskSettingsAPIResponse {
-        let url = URL(string: "\(baseURL)/user/risk-settings")!
+        let url = try makeURL("/user/risk-settings")
         
         var request = authorizedRequest(url: url, method: "PUT")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -437,26 +507,30 @@ class APIService: ObservableObject {
         
         guard let httpResponse = response as? HTTPURLResponse, 200...299 ~= httpResponse.statusCode else {
             if let httpResponse = response as? HTTPURLResponse {
-                throw APIError.httpError(statusCode: httpResponse.statusCode)
+                try handleHTTPError(response)
             }
             throw APIError.invalidResponse
         }
         
+        #if DEBUG
         // Debug: print raw response
         if let jsonString = String(data: data, encoding: .utf8) {
-            print("🔍 Risk settings response: \(jsonString)")
+            debugLog("🔍 Risk settings response: \(jsonString)")
         }
+        #endif
         
         do {
             return try decoder.decode(RiskSettingsAPIResponse.self, from: data)
         } catch {
-            print("❌ Risk settings decode error: \(error)")
+            #if DEBUG
+            debugError(error, context: "Risk settings decode")
+            #endif
             throw error
         }
     }
     
     func resetRiskSettings() async throws -> RiskSettingsAPIResponse {
-        let url = URL(string: "\(baseURL)/user/risk-settings/reset")!
+        let url = try makeURL("/user/risk-settings/reset")
         
         var request = authorizedRequest(url: url, method: "POST")
         
@@ -464,7 +538,7 @@ class APIService: ObservableObject {
         
         guard let httpResponse = response as? HTTPURLResponse, 200...299 ~= httpResponse.statusCode else {
             if let httpResponse = response as? HTTPURLResponse {
-                throw APIError.httpError(statusCode: httpResponse.statusCode)
+                try handleHTTPError(response)
             }
             throw APIError.invalidResponse
         }
@@ -476,7 +550,7 @@ class APIService: ObservableObject {
     
     /// Get portfolio-level risk metrics including risk score
     func getPortfolioRisk() async throws -> PortfolioRiskAPIResponse {
-        let url = URL(string: "\(baseURL)/risk/portfolio")!
+        let url = try makeURL("/risk/portfolio")
         return try await fetch(url)
     }
     
@@ -484,7 +558,7 @@ class APIService: ObservableObject {
     
     /// Get current VIX value and regime classification
     func getMarketVIX() async throws -> MarketVIXResponse {
-        let url = URL(string: "\(baseURL)/market/vix")!
+        let url = try makeURL("/market/vix")
         return try await fetch(url)
     }
     
@@ -492,7 +566,7 @@ class APIService: ObservableObject {
     
     /// Get AI-powered risk analysis for a specific ticker
     func getRiskAnalysis(ticker: String) async throws -> ClaudeRiskAnalysisResponse {
-        let url = URL(string: "\(baseURL)/risk/analyze/\(ticker)")!
+        let url = try makeURL("/risk/analyze", ticker: ticker)
         let response: ClaudeRiskAnalysisAPIResponse = try await fetch(url)
         return response.data
     }
@@ -501,7 +575,7 @@ class APIService: ObservableObject {
     
     /// Get HMM-based market regime classification
     func getMarketRegime() async throws -> MarketRegimeResponse {
-        let url = URL(string: "\(baseURL)/market/regime")!
+        let url = try makeURL("/market/regime")
         return try await fetch(url)
     }
     
@@ -509,7 +583,7 @@ class APIService: ObservableObject {
     
     /// Get sector concentration analysis and warnings
     func getSectorRisk() async throws -> SectorRiskResponse {
-        let url = URL(string: "\(baseURL)/portfolio/sectors/exposure")!
+        let url = try makeURL("/portfolio/sectors/exposure")
         return try await fetch(url)
     }
     
@@ -518,7 +592,7 @@ class APIService: ObservableObject {
     /// Pre-warm risk analysis cache for portfolio holdings.
     /// Call after login to ensure instant risk display.
     func warmRiskCache(force: Bool = false) async throws -> WarmCacheResponse {
-        let url = URL(string: "\(baseURL)/risk/warm-cache?force=\(force)")!
+        let url = try makeURL("/risk/warm-cache", queryItems: [URLQueryItem(name: "force", value: String(force))])
         var request = authorizedRequest(url: url, method: "POST")
         request.httpMethod = "POST"
         let (data, response) = try await dataWithAutoRefresh(for: request)
@@ -535,27 +609,27 @@ class APIService: ObservableObject {
     
     /// Get weekly top 5 smart money picks based on insider buying
     func getSmartMoneyPicks(week: String? = nil) async throws -> TopPicksResponse {
-        var urlString = "\(baseURL)/crowd-wisdom/top-picks"
+        var queryItems: [URLQueryItem] = []
         if let week = week {
-            urlString += "?week=\(week)"
+            queryItems.append(URLQueryItem(name: "week", value: week))
         }
-        let url = URL(string: urlString)!
+        let url = try makeURL("/crowd-wisdom/top-picks", queryItems: queryItems)
         return try await fetch(url)
     }
     
     /// Get all crowd wisdom scores for a week
     func getCrowdWisdomScores(week: String? = nil, limit: Int = 50) async throws -> CrowdWisdomScoresResponse {
-        var urlString = "\(baseURL)/crowd-wisdom/scores?limit=\(limit)"
+        var queryItems: [URLQueryItem] = [URLQueryItem(name: "limit", value: String(limit))]
         if let week = week {
-            urlString += "&week=\(week)"
+            queryItems.append(URLQueryItem(name: "week", value: week))
         }
-        let url = URL(string: urlString)!
+        let url = try makeURL("/crowd-wisdom/scores", queryItems: queryItems)
         return try await fetch(url)
     }
     
     /// Get crowd wisdom score for a specific ticker
     func getCrowdWisdomScore(ticker: String) async throws -> CrowdWisdomScore {
-        let url = URL(string: "\(baseURL)/crowd-wisdom/scores/\(ticker)")!
+        let url = try makeURL("/crowd-wisdom/scores", ticker: ticker)
         return try await fetch(url)
     }
     
@@ -563,7 +637,7 @@ class APIService: ObservableObject {
     
     /// Get pipeline status including last run time
     func getPipelineStatus() async throws -> PipelineStatusResponse {
-        let url = URL(string: "\(baseURL)/pipeline/status")!
+        let url = try makeURL("/pipeline/status")
         return try await fetch(url)
     }
     
@@ -618,7 +692,7 @@ class APIService: ObservableObject {
         
         guard let httpResponse = response as? HTTPURLResponse, 200...299 ~= httpResponse.statusCode else {
             if let httpResponse = response as? HTTPURLResponse {
-                throw APIError.httpError(statusCode: httpResponse.statusCode)
+                try handleHTTPError(response)
             }
             throw APIError.invalidResponse
         }
@@ -638,7 +712,7 @@ class APIService: ObservableObject {
             }
             
             guard 200...299 ~= httpResponse.statusCode else {
-                throw APIError.httpError(statusCode: httpResponse.statusCode)
+                try handleHTTPError(response)
             }
             
             // Cache the raw response data on success
@@ -670,15 +744,24 @@ class APIService: ObservableObject {
 
 enum APIError: Error, LocalizedError {
     case invalidResponse
+    case invalidURL
     case httpError(statusCode: Int)
+    case rateLimited(retryAfter: Int?)
     case decodingError(Error)
     
     var errorDescription: String? {
         switch self {
         case .invalidResponse:
             return "Invalid response from server"
+        case .invalidURL:
+            return "Invalid URL"
         case .httpError(let statusCode):
             return "HTTP error: \(statusCode)"
+        case .rateLimited(let retryAfter):
+            if let seconds = retryAfter {
+                return "Too many requests. Please wait \(seconds) seconds."
+            }
+            return "Too many requests. Please try again later."
         case .decodingError(let error):
             return "Decoding error: \(error.localizedDescription)"
         }
@@ -714,6 +797,8 @@ struct ScoresResponse: Codable {
     let success: Bool
     let count: Int
     let scores: [StockScore]
+    let updatedAt: String?
+    // Note: No CodingKeys needed - APIService uses .convertFromSnakeCase globally
 }
 
 struct TopScoresResponse: Codable {
@@ -1121,7 +1206,7 @@ extension APIService {
             throw APIError.httpError(statusCode: 401)
         }
         
-        let url = URL(string: "\(baseURL)/auth/preferences")!
+        let url = try makeURL("/auth/preferences")
         var request = URLRequest(url: url)
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
@@ -1144,7 +1229,7 @@ extension APIService {
             throw APIError.httpError(statusCode: 401)
         }
         
-        let url = URL(string: "\(baseURL)/auth/preferences")!
+        let url = try makeURL("/auth/preferences")
         var request = URLRequest(url: url)
         request.httpMethod = "PUT"
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")

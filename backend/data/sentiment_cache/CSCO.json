@@ -1,0 +1,23 @@
+{
+  "ticker": "CSCO",
+  "overall_score": 50.0,
+  "overall_sentiment": "neutral",
+  "confidence": 0.3,
+  "rationale": "The provided article is an SEC filing for Federal Home Loan Bank of San Francisco, which has no relevance to Cisco Systems (CSCO). This appears to be incorrectly attributed news that provides no meaningful sentiment signal for CSCO.",
+  "article_analyses": [
+    {
+      "headline": "8-K - Federal Home Loan Bank of San Francisco (0001316944) (Filer)",
+      "sentiment": "neutral",
+      "score": 50.0,
+      "key_factors": [
+        "Irrelevant to CSCO",
+        "Wrong company filing"
+      ],
+      "relevance": 0.0
+    }
+  ],
+  "bullish_factors": [],
+  "bearish_factors": [],
+  "analyzed_at": "2026-02-13T15:20:28.007861",
+  "model_used": "claude-sonnet-4-20250514"
+}

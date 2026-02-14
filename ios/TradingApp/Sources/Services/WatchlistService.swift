@@ -81,7 +81,9 @@ final class WatchlistService: ObservableObject {
                 }
             }
         } catch {
-            print("[WatchlistService] Failed to check signal changes: \(error)")
+            #if DEBUG
+            debugError(error, context: "[WatchlistService] Failed to check signal changes")
+            #endif
         }
     }
     

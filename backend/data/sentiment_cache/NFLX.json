@@ -1,0 +1,28 @@
+{
+  "ticker": "NFLX",
+  "overall_score": 52.0,
+  "overall_sentiment": "neutral",
+  "confidence": 0.4,
+  "rationale": "The article mentions Netflix in the context of a Paramount bidding war but provides no specific information about Netflix's financial performance, strategic moves, or direct impact. The content is primarily focused on Warner Bros. shareholders and their concerns about Paramount.",
+  "article_analyses": [
+    {
+      "headline": "Big Warner Bros. shareholders are losing patience with the Paramount-Netflix bidding war",
+      "sentiment": "neutral",
+      "score": 52.0,
+      "key_factors": [
+        "Indirect mention in bidding context",
+        "No specific Netflix fundamentals discussed",
+        "Focus on competitor dynamics"
+      ],
+      "relevance": 0.2
+    }
+  ],
+  "bullish_factors": [
+    "Potential involvement in strategic acquisition activity"
+  ],
+  "bearish_factors": [
+    "Limited specific information about Netflix's position or strategy"
+  ],
+  "analyzed_at": "2026-02-14T10:17:00.124911",
+  "model_used": "claude-sonnet-4-20250514"
+}

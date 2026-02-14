@@ -131,7 +131,7 @@ final class RiskModuleTests: XCTestCase {
     // MARK: - REC-231: Risk Settings Tests
     
     func testRiskSettingsResponseDecode() throws {
-        // Note: RiskSettingsData uses explicit CodingKeys, so use rawDecoder
+        // Note: RiskSettingsData uses .convertFromSnakeCase decoder
         let json = """
         {
             "success": true,
@@ -155,7 +155,7 @@ final class RiskModuleTests: XCTestCase {
             }
         }
         """
-        let response = try decodeRaw(RiskSettingsAPIResponse.self, from: json)
+        let response = try decode(RiskSettingsAPIResponse.self, from: json)
         XCTAssertTrue(response.success)
         XCTAssertNotNil(response.data)
         XCTAssertEqual(response.data?.hardStop.enabled, true)
@@ -168,7 +168,7 @@ final class RiskModuleTests: XCTestCase {
     }
     
     func testRiskSettingsResponseDecode_AllDefaults() throws {
-        // Note: RiskSettingsData uses explicit CodingKeys, so use rawDecoder
+        // Note: RiskSettingsData uses .convertFromSnakeCase decoder
         let json = """
         {
             "success": true,
@@ -191,7 +191,7 @@ final class RiskModuleTests: XCTestCase {
             }
         }
         """
-        let response = try decodeRaw(RiskSettingsAPIResponse.self, from: json)
+        let response = try decode(RiskSettingsAPIResponse.self, from: json)
         XCTAssertTrue(response.success)
         XCTAssertEqual(response.data?.hardStop.enabled, false)
         XCTAssertEqual(response.data?.trailingStop.enabled, false)

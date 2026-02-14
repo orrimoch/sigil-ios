@@ -1,0 +1,33 @@
+{
+  "ticker": "SO",
+  "overall_score": 50.0,
+  "overall_sentiment": "neutral",
+  "confidence": 0.3,
+  "rationale": "Neither article is relevant to Southern Company (SO) stock. The first discusses personal real estate tax issues, while the second covers SoftBank's investment in OpenAI. No company-specific information is available for analysis.",
+  "article_analyses": [
+    {
+      "headline": "'I'm close to retiring': I'm behind on my property tax. Is this a really bad time to sell my house?",
+      "sentiment": "neutral",
+      "score": 50.0,
+      "key_factors": [
+        "Personal finance advice article",
+        "No mention of SO"
+      ],
+      "relevance": 0.0
+    },
+    {
+      "headline": "SoftBank's All In on OpenAI and So Far It's Paying Off",
+      "sentiment": "neutral",
+      "score": 50.0,
+      "key_factors": [
+        "Discusses SoftBank and OpenAI",
+        "No relevance to utilities sector"
+      ],
+      "relevance": 0.0
+    }
+  ],
+  "bullish_factors": [],
+  "bearish_factors": [],
+  "analyzed_at": "2026-02-14T10:29:06.659657",
+  "model_used": "claude-sonnet-4-20250514"
+}

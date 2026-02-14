@@ -1,0 +1,28 @@
+{
+  "ticker": "ENB",
+  "overall_score": 50.0,
+  "overall_sentiment": "neutral",
+  "confidence": 0.3,
+  "rationale": "The 8-K filing indicates Enbridge reported financial results, but without access to the actual content or context around performance versus expectations, this is purely procedural regulatory filing. SEC filings are routine corporate disclosures that don't inherently signal positive or negative sentiment without content analysis.",
+  "article_analyses": [
+    {
+      "headline": "8-K - ENBRIDGE INC (0000895728) (Filer)",
+      "sentiment": "neutral",
+      "score": 50.0,
+      "key_factors": [
+        "Routine SEC filing",
+        "Results of operations disclosure",
+        "No content available for analysis"
+      ],
+      "relevance": 0.4
+    }
+  ],
+  "bullish_factors": [
+    "Company maintaining regulatory compliance and transparency"
+  ],
+  "bearish_factors": [
+    "No substantive information to assess performance or outlook"
+  ],
+  "analyzed_at": "2026-02-13T17:06:21.088954",
+  "model_used": "claude-sonnet-4-20250514"
+}

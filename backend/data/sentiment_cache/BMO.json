@@ -1,0 +1,29 @@
+{
+  "ticker": "BMO",
+  "overall_score": 52.0,
+  "overall_sentiment": "neutral",
+  "confidence": 0.3,
+  "rationale": "The article mentions BMO but is primarily focused on Chubb (CB), not Bank of Montreal. The content discusses BMO's analyst coverage of another company rather than BMO's own business performance or prospects.",
+  "article_analyses": [
+    {
+      "headline": "BMO Lifts Chubb (CB) Target After Q4, Flags Reserve and Investment Income Tailwinds",
+      "sentiment": "neutral",
+      "score": 52.0,
+      "key_factors": [
+        "Article focuses on Chubb, not BMO",
+        "BMO mentioned only as analyst firm",
+        "No direct impact on BMO's business"
+      ],
+      "relevance": 0.1
+    }
+  ],
+  "bullish_factors": [
+    "BMO analysts providing coverage shows active research division"
+  ],
+  "bearish_factors": [
+    "No direct news about BMO's own performance",
+    "Limited relevance to BMO stock"
+  ],
+  "analyzed_at": "2026-02-13T17:06:31.032336",
+  "model_used": "claude-sonnet-4-20250514"
+}

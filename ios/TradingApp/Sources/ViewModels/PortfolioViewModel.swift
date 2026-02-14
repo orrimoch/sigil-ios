@@ -83,7 +83,7 @@ class PortfolioViewModel: ObservableObject {
             realizedPnl = response.data.realizedPnl
         } catch {
             self.error = error.localizedDescription
-            print("Portfolio error: \(error)")
+            debugError(error, context: "Portfolio")
         }
         
         isLoading = false
@@ -117,7 +117,7 @@ class PortfolioViewModel: ObservableObject {
             let perfResponse = try await api.getPortfolioPerformance(days: selectedPeriod.days)
             performance = perfResponse.data
         } catch {
-            print("History error: \(error)")
+            debugError(error, context: "History")
             // No fallback — show empty state if API fails
             history = []
         }
@@ -160,7 +160,7 @@ class PortfolioViewModel: ObservableObject {
             let response = try await api.getSectorAllocation()
             sectorAllocation = response.data
         } catch {
-            print("Sectors error: \(error)")
+            debugError(error, context: "Sectors")
         }
         
         isLoadingSectors = false
@@ -197,7 +197,7 @@ class PortfolioViewModel: ObservableObject {
                 var95Pct = data.var95Pct
             }
         } catch {
-            print("Portfolio risk error: \(error)")
+            debugError(error, context: "Portfolio risk")
             // Default to low on error (don't block UI)
             portfolioRiskScore = .low
         }
@@ -213,7 +213,7 @@ class PortfolioViewModel: ObservableObject {
             sectorWarnings = response.warnings
             sectorHHI = response.hhi
         } catch {
-            print("Sector risk error: \(error)")
+            debugError(error, context: "Sector risk")
             // Don't block UI on error
         }
     }
@@ -225,7 +225,7 @@ class PortfolioViewModel: ObservableObject {
             let response = try await api.getRiskSettings()
             riskSettings = response.data
         } catch {
-            print("Risk settings error: \(error)")
+            debugError(error, context: "Risk settings")
         }
     }
     

@@ -1,0 +1,42 @@
+{
+  "ticker": "T",
+  "overall_score": 50.0,
+  "overall_sentiment": "neutral",
+  "confidence": 0.3,
+  "rationale": "The articles reference AIR T INC filings rather than AT&T Inc. Even if relevant to AT&T, these are procedural SEC filings without disclosed content, making sentiment assessment impossible. The mention of financial results filing could be material but requires actual disclosure content for meaningful analysis.",
+  "article_analyses": [
+    {
+      "headline": "8-K - AIR T INC (0000353184) (Filer)",
+      "sentiment": "neutral",
+      "score": 50.0,
+      "key_factors": [
+        "Regulation FD disclosure filing",
+        "Procedural SEC requirement",
+        "No content disclosed"
+      ],
+      "relevance": 0.1
+    },
+    {
+      "headline": "8-K - AIR T INC (0000353184) (Filer)",
+      "sentiment": "neutral",
+      "score": 50.0,
+      "key_factors": [
+        "Financial results filing",
+        "Operations disclosure",
+        "No actual results revealed"
+      ],
+      "relevance": 0.1
+    }
+  ],
+  "bullish_factors": [
+    "Regulatory compliance maintained",
+    "Financial results being disclosed"
+  ],
+  "bearish_factors": [
+    "Ticker mismatch uncertainty",
+    "No substantive information provided",
+    "Multiple recent filings may indicate issues"
+  ],
+  "analyzed_at": "2026-02-14T10:28:58.181303",
+  "model_used": "claude-sonnet-4-20250514"
+}

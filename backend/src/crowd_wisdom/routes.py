@@ -19,10 +19,10 @@ from .reddit_scorer import (
     RedditScorer,
     score_to_dict,
     get_weekly_top_picks,
-    create_mock_fundamentals,
-    create_mock_aggregated_mentions,
     create_mock_sentiment
 )
+from .free_reddit_fetcher import FreeRedditFetcher, fetch_reddit_trending
+from .fundamentals_fetcher import fetch_fundamentals_batch
 
 logger = logging.getLogger(__name__)
 
@@ -278,26 +278,54 @@ async def get_ticker_score(ticker: str, week: Optional[str] = None):
 @router.post("/refresh", response_model=RefreshResponse)
 async def refresh_data():
     """
-    Manually trigger a data refresh.
+    Manually trigger a data refresh using REAL Reddit data.
     
-    For now, uses mock data. In production, this would:
-    1. Fetch mentions from Reddit using PRAW
-    2. Calculate viral scores with fundamentals filtering
-    3. Save top picks for the week
+    Fetches live data from:
+    1. ApeWisdom API (trending tickers + mentions)
+    2. Reddit JSON API (sentiment analysis)
+    
+    No API keys required - all sources are free and public.
     """
     try:
         await models.init_db()
         
-        # For now, use mock data
-        # In production: fetcher = RedditFetcher(); mentions = fetcher.fetch_mentions()
-        mock_mentions = create_mock_aggregated_mentions()
-        mock_fundamentals = create_mock_fundamentals()
-        mock_sentiment = create_mock_sentiment()
+        # Fetch REAL data from free Reddit APIs
+        fetcher = FreeRedditFetcher()
+        try:
+            trending = await fetcher.fetch_trending_tickers(limit=50, enrich_sentiment=True)
+            logger.info(f"Refreshed: fetched {len(trending)} tickers from Reddit APIs")
+        finally:
+            await fetcher.close()
         
-        # Calculate scores
+        if not trending:
+            raise HTTPException(status_code=503, detail="Reddit APIs unavailable")
+        
+        # Convert to aggregated format
+        aggregated_mentions = {}
+        sentiment_data = {}
+        
+        for ticker_data in trending:
+            ticker = ticker_data.ticker
+            aggregated_mentions[ticker] = {
+                "ticker": ticker,
+                "mention_count": ticker_data.mentions,
+                "total_upvotes": ticker_data.upvotes,
+                "total_comments": 0,
+                "unique_posts": ticker_data.mentions // 3,
+                "subreddits": ["wallstreetbets", "stocks", "investing"],
+                "trending_velocity": ticker_data.trending_velocity
+            }
+            sentiment_data[ticker] = ticker_data.sentiment_score
+        
+        # Fetch REAL fundamentals from Yahoo Finance
+        ticker_list = list(aggregated_mentions.keys())
+        real_fundamentals = fetch_fundamentals_batch(ticker_list, max_workers=5)
+        logger.info(f"Refresh: fetched real fundamentals for {len(real_fundamentals)}/{len(ticker_list)} tickers")
+        
+        # Calculate scores with real fundamentals filtering
         scorer = RedditScorer()
-        scorer.set_fundamentals(mock_fundamentals)
-        scores = scorer.score_tickers(mock_mentions, mock_sentiment)
+        scorer.set_fundamentals(real_fundamentals)
+        scores = scorer.score_tickers(aggregated_mentions, sentiment_data)
         
         # Convert to dicts
         score_dicts = [score_to_dict(s) for s in scores]
@@ -316,11 +344,13 @@ async def refresh_data():
         
         return RefreshResponse(
             success=True,
-            mentions_fetched=len(mock_mentions),
+            mentions_fetched=len(aggregated_mentions),
             scores_calculated=len(scores),
             top_picks_saved=len(top_pick_dicts)
         )
         
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"Failed to refresh data: {e}")
         raise HTTPException(status_code=500, detail=str(e))
@@ -336,7 +366,7 @@ def _get_current_week_start() -> str:
 
 
 async def _generate_live_picks() -> List[dict]:
-    """Generate top picks live using mock data."""
+    """Generate top picks live using real Reddit data from free APIs."""
     scores = await _generate_live_scores(passes_filters_only=True)
     
     week_start = _get_current_week_start()
@@ -360,21 +390,173 @@ async def _generate_live_picks() -> List[dict]:
 
 
 async def _generate_live_scores(passes_filters_only: bool = False) -> List[dict]:
-    """Generate viral scores live using mock data."""
-    mock_mentions = create_mock_aggregated_mentions()
-    mock_fundamentals = create_mock_fundamentals()
-    mock_sentiment = create_mock_sentiment()
+    """
+    Generate viral scores live using REAL Reddit data from free APIs.
     
-    scorer = RedditScorer()
-    scorer.set_fundamentals(mock_fundamentals)
-    scores = scorer.score_tickers(mock_mentions, mock_sentiment)
+    Data sources (no API keys needed):
+    - ApeWisdom: Pre-aggregated trending tickers
+    - Reddit JSON: Real-time posts for sentiment
+    """
+    try:
+        # Fetch real data from ApeWisdom + Reddit JSON APIs
+        fetcher = FreeRedditFetcher()
+        try:
+            trending = await fetcher.fetch_trending_tickers(limit=50, enrich_sentiment=True)
+            logger.info(f"Fetched {len(trending)} trending tickers from Reddit APIs")
+        finally:
+            await fetcher.close()
+        
+        if not trending:
+            logger.warning("No Reddit data available, using minimal fallback")
+            return []
+        
+        # Convert to aggregated format for scorer
+        aggregated_mentions = {}
+        sentiment_data = {}
+        
+        for ticker_data in trending:
+            ticker = ticker_data.ticker
+            aggregated_mentions[ticker] = {
+                "ticker": ticker,
+                "mention_count": ticker_data.mentions,
+                "total_upvotes": ticker_data.upvotes,
+                "total_comments": 0,  # Not available from ApeWisdom
+                "unique_posts": ticker_data.mentions // 3,  # Estimate
+                "subreddits": ["wallstreetbets", "stocks", "investing"],
+                "trending_velocity": ticker_data.trending_velocity
+            }
+            sentiment_data[ticker] = ticker_data.sentiment_score
+        
+        # Fetch REAL fundamentals from Yahoo Finance
+        ticker_list = list(aggregated_mentions.keys())
+        real_fundamentals = fetch_fundamentals_batch(ticker_list, max_workers=5)
+        logger.info(f"Fetched real fundamentals for {len(real_fundamentals)}/{len(ticker_list)} tickers")
+        
+        # Score tickers
+        scorer = RedditScorer()
+        scorer.set_fundamentals(real_fundamentals)
+        scores = scorer.score_tickers(aggregated_mentions, sentiment_data)
+        
+        if passes_filters_only:
+            scores = [s for s in scores if s.passes_filters]
+        
+        week_start = _get_current_week_start()
+        
+        return [
+            {**score_to_dict(s), 'week_start': week_start}
+            for s in scores
+        ]
+        
+    except Exception as e:
+        logger.error(f"Failed to fetch live Reddit data: {e}")
+        # Return empty list on error (graceful degradation)
+        return []
+
+
+# --- REC-264: Stock Discovery Endpoints ---
+
+class DiscoveryCandidateResponse(BaseModel):
+    """Stock discovered outside universe."""
+    ticker: str
+    company_name: str
+    sector: str
+    current_price: float
+    market_cap: float
+    viral_score: float
+    mention_count: int
+    total_upvotes: int
+    sentiment_label: str
+    discovered_at: str
+    passes_filters: bool
+    filter_reasons: list
+
+
+class DiscoveryResponse(BaseModel):
+    """Discovery candidates response."""
+    success: bool
+    count: int
+    quarterly_additions: int
+    max_quarterly: int
+    candidates: List[DiscoveryCandidateResponse]
+
+
+@router.get("/discovery", response_model=DiscoveryResponse)
+async def get_discovery_candidates():
+    """
+    REC-264: Get stock discovery candidates.
     
-    if passes_filters_only:
-        scores = [s for s in scores if s.passes_filters]
+    Returns stocks trending on Reddit that are not in our universe
+    but meet quality criteria (Tech sector, price < $30, market cap $500M-$50B).
+    """
+    try:
+        from .stock_discovery import load_discovery_candidates, DISCOVERY_FILTERS, get_quarterly_additions
+        
+        candidates = load_discovery_candidates()
+        
+        return {
+            "success": True,
+            "count": len(candidates),
+            "quarterly_additions": get_quarterly_additions(),
+            "max_quarterly": DISCOVERY_FILTERS["max_quarterly_additions"],
+            "candidates": candidates,
+        }
+    except Exception as e:
+        logger.error(f"Failed to load discovery candidates: {e}")
+        return {
+            "success": False,
+            "count": 0,
+            "quarterly_additions": 0,
+            "max_quarterly": 10,
+            "candidates": [],
+        }
+
+
+@router.post("/discovery/refresh")
+async def refresh_discovery_candidates():
+    """
+    REC-264: Refresh stock discovery candidates.
     
-    week_start = _get_current_week_start()
-    
-    return [
-        {**score_to_dict(s), 'week_start': week_start}
-        for s in scores
-    ]
+    Fetches current Reddit trending data and identifies new discovery candidates.
+    """
+    try:
+        from .stock_discovery import discover_stocks, save_discovery_candidates
+        
+        # Fetch trending data
+        fetcher = FreeRedditFetcher()
+        try:
+            trending = await fetcher.fetch_trending_tickers(limit=100, enrich_sentiment=True)
+        finally:
+            await fetcher.close()
+        
+        if not trending:
+            return {"success": False, "message": "No trending data available"}
+        
+        # Convert to expected format
+        class TrendingData:
+            def __init__(self, data):
+                self.ticker = data.ticker
+                self.viral_score = data.mentions * 2 + data.upvotes / 100  # Rough score
+                self.mention_count = data.mentions
+                self.total_upvotes = data.upvotes
+                self.sentiment_label = (
+                    "VERY_BULLISH" if data.sentiment_score > 0.5 else
+                    "BULLISH" if data.sentiment_score > 0.2 else
+                    "NEUTRAL" if data.sentiment_score > -0.2 else
+                    "BEARISH" if data.sentiment_score > -0.5 else
+                    "VERY_BEARISH"
+                )
+        
+        trending_data = [TrendingData(t) for t in trending]
+        
+        # Discover and save
+        candidates = await discover_stocks(trending_data)
+        save_discovery_candidates(candidates)
+        
+        return {
+            "success": True,
+            "message": f"Found {len(candidates)} discovery candidates",
+            "count": len(candidates),
+        }
+    except Exception as e:
+        logger.error(f"Failed to refresh discovery candidates: {e}")
+        raise HTTPException(status_code=500, detail=str(e))

@@ -49,6 +49,16 @@ WEIGHTS = {
     "technical": 0.20,
 }
 
+# REC-263: Crowd Wisdom Score Boost Configuration
+CROWD_WISDOM_CONFIG = {
+    "enabled": True,
+    "boost_threshold": 70,      # Viral score above this gets boost
+    "penalty_threshold": 30,    # Viral score below this gets penalty (if stock is in CW data)
+    "max_boost": 10,            # Maximum points to add
+    "max_penalty": 3,           # Maximum points to subtract
+    "boost_curve": "linear",    # linear | sqrt | log
+}
+
 # Signal thresholds (default: moderate risk)
 SIGNAL_THRESHOLDS = {
     "BUY": 70,
@@ -79,6 +89,75 @@ class Signal(str, Enum):
     BUY = "BUY"
     HOLD = "HOLD"
     SELL = "SELL"
+
+
+def get_crowd_wisdom_boost(viral_score: float) -> float:
+    """
+    REC-263: Calculate score boost/penalty based on crowd wisdom viral score.
+    
+    - viral_score > 70: Boost up to +10 points
+    - viral_score < 30: Penalty up to -3 points
+    - Otherwise: No adjustment
+    
+    Returns: Points to add/subtract from composite score
+    """
+    if not CROWD_WISDOM_CONFIG.get("enabled", False):
+        return 0.0
+    
+    boost_threshold = CROWD_WISDOM_CONFIG["boost_threshold"]
+    penalty_threshold = CROWD_WISDOM_CONFIG["penalty_threshold"]
+    max_boost = CROWD_WISDOM_CONFIG["max_boost"]
+    max_penalty = CROWD_WISDOM_CONFIG["max_penalty"]
+    
+    if viral_score >= boost_threshold:
+        # Calculate boost proportional to how much above threshold
+        excess = viral_score - boost_threshold
+        max_excess = 100 - boost_threshold  # e.g., 30 points from 70 to 100
+        boost = (excess / max_excess) * max_boost
+        return min(boost, max_boost)
+    
+    elif viral_score > 0 and viral_score < penalty_threshold:
+        # Calculate penalty proportional to how much below threshold
+        # Only apply if stock is actually in crowd wisdom data (viral_score > 0)
+        deficit = penalty_threshold - viral_score
+        max_deficit = penalty_threshold  # e.g., 30 points from 30 to 0
+        penalty = (deficit / max_deficit) * max_penalty
+        return -min(penalty, max_penalty)
+    
+    return 0.0
+
+
+def load_crowd_wisdom_scores() -> Dict[str, float]:
+    """
+    REC-263: Load current crowd wisdom viral scores from database.
+    
+    Returns: Dict mapping ticker -> viral_score
+    """
+    try:
+        import sqlite3
+        db_path = CACHE_DIR / "crowd_wisdom.db"
+        if not db_path.exists():
+            return {}
+        
+        conn = sqlite3.connect(str(db_path))
+        cursor = conn.cursor()
+        
+        # Get latest scores from this week (from Reddit-based viral scores table)
+        cursor.execute("""
+            SELECT ticker, viral_score 
+            FROM reddit_viral_scores 
+            WHERE week_start = (SELECT MAX(week_start) FROM reddit_viral_scores)
+            AND passes_filters = 1
+        """)
+        
+        scores = {row[0].upper(): row[1] for row in cursor.fetchall()}
+        conn.close()
+        
+        logger.info(f"Loaded {len(scores)} crowd wisdom scores")
+        return scores
+    except Exception as e:
+        logger.warning(f"Failed to load crowd wisdom scores: {e}")
+        return {}
 
 
 @dataclass
@@ -166,6 +245,11 @@ def calculate_composite_scores(
     logger.info("\n[4/4] Calculating macro scores...")
     macro_scores = calculate_macro_scores(tickers)
     
+    # REC-263: Load crowd wisdom scores for boost calculation
+    crowd_wisdom_scores = load_crowd_wisdom_scores()
+    cw_boost_count = 0
+    cw_penalty_count = 0
+    
     # Combine into composite scores
     logger.info("\nCombining scores...")
     results = {}
@@ -191,6 +275,15 @@ def calculate_composite_scores(
             t_val * WEIGHTS["technical"] +
             m_val * WEIGHTS["macro"]
         )
+        
+        # REC-263: Apply crowd wisdom boost/penalty
+        cw_score = crowd_wisdom_scores.get(ticker_upper, 0)
+        cw_adjustment = get_crowd_wisdom_boost(cw_score)
+        if cw_adjustment > 0:
+            cw_boost_count += 1
+        elif cw_adjustment < 0:
+            cw_penalty_count += 1
+        total_score += cw_adjustment
         
         # Get signal
         signal = get_signal(total_score)
@@ -223,6 +316,10 @@ def calculate_composite_scores(
                 "sentiment": s_score.details if s_score else {},
                 "technical": t_score.details if t_score else {},
                 "macro": m_score.details if m_score else {},
+                "crowd_wisdom": {
+                    "viral_score": cw_score,
+                    "adjustment": round(cw_adjustment, 2),
+                } if cw_score > 0 else {},
             }
         )
     
@@ -258,6 +355,8 @@ def calculate_composite_scores(
     logger.info("SCORING COMPLETE")
     logger.info(f"Total: {len(results)} stocks")
     logger.info(f"Signals: {buy_count} BUY | {hold_count} HOLD | {sell_count} SELL")
+    if CROWD_WISDOM_CONFIG.get("enabled"):
+        logger.info(f"Crowd Wisdom: {cw_boost_count} boosted | {cw_penalty_count} penalized")
     logger.info("=" * 60)
     
     return results
@@ -306,6 +405,16 @@ def save_composite_scores(scores: Dict[str, CompositeScoreResult], path: Path = 
         for stock in universe.get("stocks", []):
             _ticker_to_company[stock["ticker"]] = stock.get("name", stock["ticker"])
     
+    # F4.4: Load previous scores BEFORE overwriting (for alert comparison)
+    old_scores = {}
+    if path.exists():
+        try:
+            with open(path, 'r') as f:
+                old_data = json.load(f)
+                old_scores = old_data.get("scores", {})
+        except Exception as e:
+            logger.warning(f"Failed to load previous scores for alerts: {e}")
+    
     data = {
         "updated_at": datetime.now().isoformat(),
         "count": len(scores),
@@ -348,6 +457,27 @@ def save_composite_scores(scores: Dict[str, CompositeScoreResult], path: Path = 
         logger.info(f"Recorded {recorded} scores to history")
     except Exception as e:
         logger.warning(f"Failed to record score history: {e}")
+    
+    # F4.4: Generate alerts for score/signal changes
+    try:
+        from alerts import get_alert_manager
+        alert_manager = get_alert_manager()
+        
+        new_scores = data.get("scores", {})
+        
+        if old_scores:
+            # Check for score changes > 10 points
+            score_alerts = alert_manager.check_score_changes(old_scores, new_scores, threshold=10)
+            # Check for signal changes
+            signal_alerts = alert_manager.check_signal_changes(old_scores, new_scores)
+            
+            total_alerts = len(score_alerts) + len(signal_alerts)
+            if total_alerts > 0:
+                logger.info(f"Generated {total_alerts} alerts ({len(score_alerts)} score, {len(signal_alerts)} signal)")
+        else:
+            logger.info("No previous scores to compare - skipping alert generation")
+    except Exception as e:
+        logger.warning(f"Failed to generate alerts: {e}")
 
 
 def load_composite_scores(path: Path = COMPOSITE_CACHE) -> Optional[Dict]:

@@ -14,6 +14,8 @@ struct LockScreenView: View {
     @State private var isLockedOut: Bool = false
     @State private var lockoutSecondsRemaining: Int = 0
     @State private var currentTier: LockoutTier = .first
+    @State private var pendingNextTier: LockoutTier? = nil
+    @State private var lockoutID: UUID = UUID()  // Triggers .task when lockout starts
     @State private var isWiped: Bool = false
     @FocusState private var pinFocused: Bool
     
@@ -84,6 +86,27 @@ struct LockScreenView: View {
         }
         .task {
             await tryBiometric()
+        }
+        .task(id: lockoutID) {
+            // Handle lockout countdown using structured concurrency
+            guard isLockedOut else { return }
+            
+            while lockoutSecondsRemaining > 0 {
+                try? await Task.sleep(nanoseconds: 1_000_000_000)  // 1 second
+                guard !Task.isCancelled else { return }
+                lockoutSecondsRemaining -= 1
+            }
+            
+            // Lockout complete
+            isLockedOut = false
+            errorMessage = nil
+            
+            // Apply pending tier change
+            if let nextTier = pendingNextTier {
+                currentTier = nextTier
+                tierAttempts = 0
+                pendingNextTier = nil
+            }
         }
     }
     
@@ -336,10 +359,7 @@ struct LockScreenView: View {
                 if let nextTier = currentTier.next {
                     // Move to next tier with cooldown
                     errorMessage = "Too many attempts"
-                    startLockout(seconds: currentTier.cooldownSeconds) {
-                        currentTier = nextTier
-                        tierAttempts = 0
-                    }
+                    startLockout(seconds: currentTier.cooldownSeconds, nextTier: nextTier)
                 } else {
                     // Final tier exhausted → WIPE
                     performWipe()
@@ -371,21 +391,12 @@ struct LockScreenView: View {
         }
     }
     
-    private func startLockout(seconds: Int, onComplete: @escaping () -> Void) {
-        isLockedOut = true
+    private func startLockout(seconds: Int, nextTier: LockoutTier? = nil) {
+        // Set state — the .task(id: lockoutID) handles the countdown
+        pendingNextTier = nextTier
         lockoutSecondsRemaining = seconds
-        
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
-            DispatchQueue.main.async {
-                lockoutSecondsRemaining -= 1
-                if lockoutSecondsRemaining <= 0 {
-                    timer.invalidate()
-                    isLockedOut = false
-                    errorMessage = nil
-                    onComplete()
-                }
-            }
-        }
+        isLockedOut = true
+        lockoutID = UUID()  // Trigger the countdown task
     }
     
     private func performWipe() {

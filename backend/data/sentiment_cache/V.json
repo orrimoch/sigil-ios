@@ -1,0 +1,24 @@
+{
+  "ticker": "V",
+  "overall_score": 50.0,
+  "overall_sentiment": "neutral",
+  "confidence": 0.3,
+  "rationale": "The 8-K filing with Regulation FD Disclosure provides no specific information about the content or nature of the disclosure. Without knowing what information was disclosed, this is purely administrative filing with no clear directional impact.",
+  "article_analyses": [
+    {
+      "headline": "8-K - VISA INC. (0001403161) (Filer)",
+      "sentiment": "neutral",
+      "score": 50.0,
+      "key_factors": [
+        "Administrative SEC filing",
+        "Regulation FD Disclosure without content details",
+        "No specific business impact indicated"
+      ],
+      "relevance": 0.4
+    }
+  ],
+  "bullish_factors": [],
+  "bearish_factors": [],
+  "analyzed_at": "2026-02-13T17:05:51.714181",
+  "model_used": "claude-sonnet-4-20250514"
+}

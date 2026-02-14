@@ -115,6 +115,7 @@ class TradeViewModel: ObservableObject {
     
     private let api = APIService.shared
     private var searchTask: Task<Void, Never>?
+    private var selectStockTask: Task<Void, Never>?
     
     // MARK: - Search
     
@@ -157,7 +158,7 @@ class TradeViewModel: ObservableObject {
                     )
                 }
             } catch {
-                print("Stock search error: \(error)")
+                debugError(error, context: "Stock search")
                 searchResults = []
             }
         }
@@ -176,8 +177,12 @@ class TradeViewModel: ObservableObject {
         }
         // For HOLD, keep current selection (user decides)
         
+        // Cancel any previous selection task
+        selectStockTask?.cancel()
+        
         // Fetch current price, score, and position in parallel
-        Task {
+        selectStockTask = Task {
+            guard !Task.isCancelled else { return }
             await withTaskGroup(of: Void.self) { group in
                 group.addTask { await self.fetchPrice(for: stock.ticker) }
                 group.addTask { await self.fetchScore(for: stock.ticker) }
@@ -195,7 +200,7 @@ class TradeViewModel: ObservableObject {
                 self.currentPosition = response.data.holdings.first { $0.ticker == ticker }
             }
         } catch {
-            print("Position fetch error: \(error)")
+            debugError(error, context: "Position fetch")
             await MainActor.run {
                 self.currentPosition = nil
             }
@@ -220,7 +225,7 @@ class TradeViewModel: ObservableObject {
             let response = try await api.getPortfolio()
             allHoldings = response.data.holdings
         } catch {
-            print("Failed to fetch portfolio: \(error)")
+            debugError(error, context: "Portfolio fetch")
             return
         }
         
@@ -244,7 +249,7 @@ class TradeViewModel: ObservableObject {
                     "context": "sell_all_portfolio"
                 ])
             } catch {
-                print("Failed to sell \(holding.ticker): \(error)")
+                debugError(error, context: "Sell \(holding.ticker)")
             }
         }
         
@@ -272,7 +277,7 @@ class TradeViewModel: ObservableObject {
                 )
             }
         } catch {
-            print("Score fetch unavailable for \(ticker): \(error)")
+            debugError(error, context: "Score fetch for \(ticker)")
             // Keep the stock selected without score — that's fine
         }
     }
@@ -301,7 +306,7 @@ class TradeViewModel: ObservableObject {
             dailyChange = response.change
             dailyChangePercent = response.changePercent
         } catch {
-            print("Price error: \(error)")
+            debugError(error, context: "Price")
             currentPrice = nil
             dailyChange = nil
             dailyChangePercent = nil
@@ -356,12 +361,12 @@ class TradeViewModel: ObservableObject {
             if !warnings.isEmpty {
                 riskWarnings = warnings
                 // Show warning but don't block - user can still proceed
-                print("[Trade] Risk warnings: \(warnings)")
+                debugLog("[Trade] Risk warnings: \(warnings)")
             }
         } catch {
             // Validation failed - log but don't block trade
             // This could be auth issue or endpoint not available
-            print("[Trade] Validation skipped: \(error.localizedDescription)")
+            debugLog("[Trade] Validation skipped: \(error.localizedDescription)")
         }
         
         do {
@@ -452,7 +457,7 @@ class TradeViewModel: ObservableObject {
             todaysOrders = response.data
         } catch {
             ordersError = error.localizedDescription
-            print("Orders error: \(error)")
+            debugError(error, context: "Orders")
         }
     }
     
@@ -467,7 +472,7 @@ class TradeViewModel: ObservableObject {
             }
             await fetchTodaysOrders()
         } catch {
-            print("Cancel error: \(error)")
+            debugError(error, context: "Cancel")
         }
     }
 }

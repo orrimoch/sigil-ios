@@ -372,7 +372,9 @@ struct SlippageDetailView: View {
         do {
             records = try await APIService.shared.getSlippageAnalysis()
         } catch {
-            print("Failed to load slippage: \(error)")
+            #if DEBUG
+            debugError(error, context: "Failed to load slippage")
+            #endif
         }
         isLoading = false
     }
@@ -452,7 +454,9 @@ extension APIService {
             throw APIError.httpError(statusCode: 401)
         }
         
-        let url = URL(string: "http://127.0.0.1:8000/api/v1/trading/performance?days=\(days)")!
+        guard let url = URL(string: "\(baseURL)/trading/performance?days=\(days)") else {
+            throw APIError.invalidURL
+        }
         var request = URLRequest(url: url)
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
@@ -477,7 +481,9 @@ extension APIService {
             throw APIError.httpError(statusCode: 401)
         }
         
-        let url = URL(string: "http://127.0.0.1:8000/api/v1/trading/slippage")!
+        guard let url = URL(string: "\(baseURL)/trading/slippage") else {
+            throw APIError.invalidURL
+        }
         var request = URLRequest(url: url)
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         

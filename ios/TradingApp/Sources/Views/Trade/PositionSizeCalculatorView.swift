@@ -272,8 +272,19 @@ extension APIService {
         riskPercent: Double,
         stopPercent: Double
     ) async throws -> PositionSizeResult {
-        let baseURL = "http://127.0.0.1:8000/api/v1"
-        let url = URL(string: "\(baseURL)/trading/position-size?ticker=\(ticker)&account_size=\(accountSize)&risk_percent=\(riskPercent)&stop_percent=\(stopPercent)")!
+        // Use URLComponents for safe query parameter encoding
+        guard var components = URLComponents(string: "\(baseURL)/trading/position-size") else {
+            throw APIError.invalidURL
+        }
+        components.queryItems = [
+            URLQueryItem(name: "ticker", value: ticker),
+            URLQueryItem(name: "account_size", value: String(accountSize)),
+            URLQueryItem(name: "risk_percent", value: String(riskPercent)),
+            URLQueryItem(name: "stop_percent", value: String(stopPercent))
+        ]
+        guard let url = components.url else {
+            throw APIError.invalidURL
+        }
         
         let (data, response) = try await URLSession.shared.data(from: url)
         

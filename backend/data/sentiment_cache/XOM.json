@@ -1,0 +1,31 @@
+{
+  "ticker": "XOM",
+  "overall_score": 72.0,
+  "overall_sentiment": "bullish",
+  "confidence": 0.6,
+  "rationale": "The article highlights strong YTD performance with 24% gains and discusses potential for trillion-dollar valuation by 2030, indicating positive momentum. However, the questioning tone about whether it's still a buy suggests some valuation concerns after the significant run-up.",
+  "article_analyses": [
+    {
+      "headline": "I Predicted That ExxonMobil Would Join the $1 Trillion Club by 2030, But the Stock Is Already Up 24% in 2026. Is the High-Yield Dividend Stock Still a Buy Now?",
+      "sentiment": "bullish",
+      "score": 72.0,
+      "key_factors": [
+        "24% YTD performance",
+        "trillion dollar club prediction",
+        "high-yield dividend appeal"
+      ],
+      "relevance": 0.9
+    }
+  ],
+  "bullish_factors": [
+    "Strong 24% year-to-date performance",
+    "Analyst prediction of trillion-dollar valuation by 2030",
+    "High-yield dividend attractiveness"
+  ],
+  "bearish_factors": [
+    "Valuation concerns after significant price appreciation",
+    "Questioning whether current levels present good entry point"
+  ],
+  "analyzed_at": "2026-02-13T15:20:15.312489",
+  "model_used": "claude-sonnet-4-20250514"
+}

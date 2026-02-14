@@ -1,0 +1,23 @@
+{
+  "ticker": "SAP",
+  "overall_score": 50.0,
+  "overall_sentiment": "neutral",
+  "confidence": 0.3,
+  "rationale": "The provided article is about Pinterest, not SAP, making it completely irrelevant for SAP sentiment analysis. Without any SAP-specific news, no directional sentiment can be determined.",
+  "article_analyses": [
+    {
+      "headline": "Pinned down by AI: Why 619 million users may not be able to rescue Pinterest",
+      "sentiment": "neutral",
+      "score": 50.0,
+      "key_factors": [
+        "Article about Pinterest, not SAP",
+        "No relevance to target company"
+      ],
+      "relevance": 0.0
+    }
+  ],
+  "bullish_factors": [],
+  "bearish_factors": [],
+  "analyzed_at": "2026-02-13T17:06:01.431497",
+  "model_used": "claude-sonnet-4-20250514"
+}

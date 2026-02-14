@@ -3,7 +3,9 @@ import os
 import sys
 
 # Set key FIRST
-os.environ['ANTHROPIC_API_KEY'] = 'ANTHROPIC_API_KEY_REDACTED'
+# API key should be set in environment or .env file
+if not os.getenv('ANTHROPIC_API_KEY'):
+    print('Warning: ANTHROPIC_API_KEY not set')
 
 from datetime import date
 from pathlib import Path

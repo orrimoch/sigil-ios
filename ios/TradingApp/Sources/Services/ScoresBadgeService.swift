@@ -46,14 +46,16 @@ class ScoresBadgeService: ObservableObject {
                 hasNewScores = false
             }
         } catch {
-            print("ScoresBadgeService: Failed to check for new scores: \(error)")
+            debugError(error, context: "ScoresBadgeService: Failed to check for new scores")
             hasNewScores = false
         }
     }
     
     /// Fetch latest pipeline run timestamp from backend
     private func fetchLatestPipelineRun() async throws -> TimeInterval? {
-        let url = URL(string: "http://127.0.0.1:8000/api/v1/pipeline/latest")!
+        guard let url = URL(string: "\(APIService.shared.baseURL)/pipeline/latest") else {
+            return nil
+        }
         let (data, response) = try await URLSession.shared.data(from: url)
         
         guard let http = response as? HTTPURLResponse, http.statusCode == 200 else {

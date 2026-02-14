@@ -1,0 +1,23 @@
+{
+  "ticker": "LOW",
+  "overall_score": 50.0,
+  "overall_sentiment": "neutral",
+  "confidence": 0.2,
+  "rationale": "The provided article is about Wendy's (WEN), not Lowe's Companies Inc. (LOW). Without any relevant news about LOW specifically, no sentiment assessment can be made.",
+  "article_analyses": [
+    {
+      "headline": "Wendy's sales keep getting worse, as the stock sinks toward a 13-year low",
+      "sentiment": "neutral",
+      "score": 50.0,
+      "key_factors": [
+        "Article about different company (Wendy's vs Lowe's)",
+        "No relevance to LOW"
+      ],
+      "relevance": 0.0
+    }
+  ],
+  "bullish_factors": [],
+  "bearish_factors": [],
+  "analyzed_at": "2026-02-13T17:06:10.858271",
+  "model_used": "claude-sonnet-4-20250514"
+}

@@ -1,0 +1,24 @@
+{
+  "ticker": "ALL",
+  "overall_score": 50.0,
+  "overall_sentiment": "neutral",
+  "confidence": 0.3,
+  "rationale": "The provided article is completely unrelated to Allstate Corporation (ALL) stock, discussing personal finance and marital property rights instead. No company-specific information is available to assess stock sentiment.",
+  "article_analyses": [
+    {
+      "headline": "'We have no prenup': I want rights of survivorship in our marital home. My wife prefers tenants in common. Now what?",
+      "sentiment": "neutral",
+      "score": 50.0,
+      "key_factors": [
+        "Article unrelated to ALL stock",
+        "Personal finance advice content",
+        "No company mentions"
+      ],
+      "relevance": 0.0
+    }
+  ],
+  "bullish_factors": [],
+  "bearish_factors": [],
+  "analyzed_at": "2026-02-13T17:06:46.698678",
+  "model_used": "claude-sonnet-4-20250514"
+}

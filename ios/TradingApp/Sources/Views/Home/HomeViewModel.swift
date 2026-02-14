@@ -122,7 +122,9 @@ class HomeViewModel: ObservableObject {
             dailyChangePercent = summary.dailyPnlPercent
         } catch {
             // Keep existing values on error
-            print("Portfolio load error: \(error)")
+            #if DEBUG
+            debugError(error, context: "Portfolio load")
+            #endif
         }
     }
     
@@ -155,7 +157,9 @@ class HomeViewModel: ObservableObject {
             
             marketIndices = indices
         } catch {
-            print("Market indices load error: \(error)")
+            #if DEBUG
+            debugError(error, context: "Market indices load")
+            #endif
             
             // Fallback: try macro endpoint for whatever is available
             do {
@@ -214,6 +218,11 @@ class HomeViewModel: ObservableObject {
                 throw APIError.httpError(statusCode: 404)
             }
             
+            // Always set from scores API (pipeline status may not be reachable)
+            if let updatedAt = response.updatedAt {
+                scoresLastUpdated = parseDate(updatedAt)
+            }
+            
             picks = response.scores.map { score in
                 TopPick(
                     ticker: score.ticker,
@@ -229,7 +238,9 @@ class HomeViewModel: ObservableObject {
             if throwOnError {
                 throw error
             }
-            print("Top picks API unavailable, using sample data: \(error)")
+            #if DEBUG
+            debugError(error, context: "Top picks API unavailable, using sample data")
+            #endif
             // Fallback sample data (matches ScoresViewModel)
             picks = [
                 TopPick(ticker: "NVDA", name: "NVIDIA Corporation", score: 85, signal: "BUY", price: 0, change: 0, changePercent: 0),
@@ -293,7 +304,9 @@ class HomeViewModel: ObservableObject {
             vixRegime = response.regime
         } catch {
             // VIX is optional - don't block UI
-            print("VIX load error: \(error)")
+            #if DEBUG
+            debugError(error, context: "VIX load")
+            #endif
         }
     }
     
@@ -306,7 +319,9 @@ class HomeViewModel: ObservableObject {
             regimeConfidence = response.confidence
         } catch {
             // Regime is optional - default to normal
-            print("Market regime load error: \(error)")
+            #if DEBUG
+            debugError(error, context: "Market regime load")
+            #endif
             marketRegime = "normal"
         }
     }
@@ -324,7 +339,9 @@ class HomeViewModel: ObservableObject {
                 scoresLastUpdated = parseDate(completedAt)
             }
         } catch {
-            print("Pipeline status load error: \(error)")
+            #if DEBUG
+            debugError(error, context: "Pipeline status load")
+            #endif
         }
     }
     
@@ -450,7 +467,9 @@ func withTimeout<T>(seconds: TimeInterval, operation: @escaping () async throws 
             throw TimeoutError()
         }
         
-        let result = try await group.next()!
+        guard let result = try await group.next() else {
+            throw TimeoutError()
+        }
         group.cancelAll()
         return result
     }

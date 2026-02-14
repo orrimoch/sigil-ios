@@ -1,0 +1,29 @@
+{
+  "ticker": "RCL",
+  "overall_score": 50.0,
+  "overall_sentiment": "neutral",
+  "confidence": 0.3,
+  "rationale": "The 8-K filing indicates entry into a material definitive agreement, but without specific details about the nature or terms of the agreement, it's impossible to determine positive or negative implications. SEC filings are routine corporate disclosures that require more context for sentiment analysis.",
+  "article_analyses": [
+    {
+      "headline": "8-K - ROYAL CARIBBEAN CRUISES LTD (0000884887) (Filer)",
+      "sentiment": "neutral",
+      "score": 50.0,
+      "key_factors": [
+        "Material definitive agreement disclosed",
+        "Routine SEC filing",
+        "No specific details provided"
+      ],
+      "relevance": 0.7
+    }
+  ],
+  "bullish_factors": [
+    "Material agreement could indicate business expansion or strategic partnership"
+  ],
+  "bearish_factors": [
+    "Lack of transparency about agreement terms",
+    "Could involve additional obligations or risks"
+  ],
+  "analyzed_at": "2026-02-13T17:06:37.166203",
+  "model_used": "claude-sonnet-4-20250514"
+}

@@ -1,0 +1,28 @@
+{
+  "ticker": "C",
+  "overall_score": 50.0,
+  "overall_sentiment": "neutral",
+  "confidence": 0.3,
+  "rationale": "The 8-K filing indicates routine corporate disclosure with no specific content details provided. Without knowing the substance of the 'Other Events' disclosure, this represents standard regulatory compliance activity that is inherently neutral.",
+  "article_analyses": [
+    {
+      "headline": "8-K - CITIGROUP INC (0000831001) (Filer)",
+      "sentiment": "neutral",
+      "score": 50.0,
+      "key_factors": [
+        "Routine SEC filing",
+        "No content specifics disclosed",
+        "Standard regulatory compliance"
+      ],
+      "relevance": 0.4
+    }
+  ],
+  "bullish_factors": [
+    "Maintaining regulatory compliance"
+  ],
+  "bearish_factors": [
+    "Lack of transparency on filing content"
+  ],
+  "analyzed_at": "2026-02-13T17:06:06.557505",
+  "model_used": "claude-sonnet-4-20250514"
+}

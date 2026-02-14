@@ -230,7 +230,9 @@ class StockDetailViewModel: ObservableObject {
             }
         } catch {
             // API unavailable — fall back to showing just the current score
-            print("Score history API error: \(error)")
+            #if DEBUG
+            debugError(error, context: "Score history API")
+            #endif
             fallbackToCurrentScore()
         }
     }
@@ -271,7 +273,9 @@ class StockDetailViewModel: ObservableObject {
                 priceHistoryUnavailable = true
             }
         } catch {
-            print("Price history API error: \(error)")
+            #if DEBUG
+            debugError(error, context: "Price history API")
+            #endif
             priceHistoryUnavailable = true
         }
     }
@@ -302,7 +306,9 @@ class StockDetailViewModel: ObservableObject {
             riskRecommendation = response.recommendation
             riskReasoning = response.reasoning
         } catch {
-            print("Risk analysis error: \(error)")
+            #if DEBUG
+            debugError(error, context: "Risk analysis")
+            #endif
             riskAnalysisError = "Unable to load risk analysis"
             // Don't block UI - risk analysis is supplementary
         }

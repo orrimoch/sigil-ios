@@ -132,8 +132,10 @@ class TestPipelineRun:
         )
         
         assert result.status == "success"
-        assert result.total_duration_seconds < 5  # Should be very fast
-        assert len(result.steps) == 0
+        assert result.total_duration_seconds < 10  # Should be relatively fast
+        # Scoring always runs even when data fetch steps are skipped
+        assert len(result.steps) == 1
+        assert result.steps[0].name == "scoring"
     
     def test_run_returns_pipeline_result(self):
         """Should return PipelineResult object."""

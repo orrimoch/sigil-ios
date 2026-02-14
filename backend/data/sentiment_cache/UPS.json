@@ -1,0 +1,24 @@
+{
+  "ticker": "UPS",
+  "overall_score": 50.0,
+  "overall_sentiment": "neutral",
+  "confidence": 0.3,
+  "rationale": "The provided article discusses Warner Bros. and Paramount, which has no relevance to UPS (United Parcel Service). Without any UPS-specific news, sentiment remains neutral with low confidence due to lack of relevant information.",
+  "article_analyses": [
+    {
+      "headline": "Big Warner Bros. shareholders are losing patience with the Paramount-Netflix bidding war",
+      "sentiment": "neutral",
+      "score": 50.0,
+      "key_factors": [
+        "Article discusses Warner Bros. and Paramount",
+        "No mention of UPS",
+        "Entertainment industry focus"
+      ],
+      "relevance": 0.0
+    }
+  ],
+  "bullish_factors": [],
+  "bearish_factors": [],
+  "analyzed_at": "2026-02-14T10:29:10.974491",
+  "model_used": "claude-sonnet-4-20250514"
+}

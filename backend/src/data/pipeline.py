@@ -422,22 +422,62 @@ def get_run_history(limit: int = 10) -> List[Dict]:
     return history
 
 
-# CLI for manual testing
+# CLI for manual runs
 if __name__ == "__main__":
     import sys
+    import argparse
+    
     logger.add(sys.stderr, level="INFO")
     
-    print("\n=== Pipeline Test ===\n")
+    parser = argparse.ArgumentParser(description="Run the Sigil data pipeline")
+    parser.add_argument("--test", action="store_true", help="Test mode: only 3 stocks (AAPL, MSFT, GOOGL)")
+    parser.add_argument("--full", action="store_true", help="Full pipeline including universe rebuild")
+    parser.add_argument("--skip-universe", action="store_true", help="Skip universe fetch (use existing)")
+    parser.add_argument("--skip-prices", action="store_true", help="Skip price fetching")
+    parser.add_argument("--skip-fundamentals", action="store_true", help="Skip fundamental fetching")
+    parser.add_argument("--skip-news", action="store_true", help="Skip news fetching")
+    parser.add_argument("--skip-macro", action="store_true", help="Skip macro data fetching")
+    parser.add_argument("--scores-only", action="store_true", help="Only recalculate scores (skip all data fetching)")
+    args = parser.parse_args()
     
-    # Test with minimal set (faster)
-    test_tickers = ["AAPL", "MSFT", "GOOGL"]
+    print("\n=== Sigil Data Pipeline ===\n")
     
-    print("Running pipeline for 3 stocks...")
-    pipeline = Pipeline(max_retries=2, retry_delay=5)
-    result = pipeline.run(
-        skip_universe=True,  # Use existing universe
-        tickers=test_tickers
-    )
+    # Determine tickers
+    if args.test:
+        tickers = ["AAPL", "MSFT", "GOOGL"]
+        print(f"TEST MODE: Running for {len(tickers)} stocks")
+        skip_universe = True
+    else:
+        tickers = None  # Full universe
+        print("FULL MODE: Running for entire stock universe")
+        skip_universe = args.skip_universe
+    
+    # Scores-only mode
+    if args.scores_only:
+        print("SCORES-ONLY: Skipping all data fetching, recalculating scores")
+        universe = get_universe()
+        tickers = [s["ticker"] for s in universe]
+        print(f"Universe has {len(tickers)} stocks")
+        
+        pipeline = Pipeline(max_retries=2, retry_delay=5)
+        result = pipeline.run(
+            skip_universe=True,
+            skip_prices=True,
+            skip_fundamentals=True,
+            skip_news=True,
+            skip_macro=True,
+            tickers=tickers
+        )
+    else:
+        pipeline = Pipeline(max_retries=2, retry_delay=5)
+        result = pipeline.run(
+            skip_universe=skip_universe,
+            skip_prices=args.skip_prices,
+            skip_fundamentals=args.skip_fundamentals,
+            skip_news=args.skip_news,
+            skip_macro=args.skip_macro,
+            tickers=tickers
+        )
     
     print(f"\nResult: {result.status}")
     print(f"Duration: {result.total_duration_seconds:.1f}s")
@@ -446,4 +486,4 @@ if __name__ == "__main__":
         status_icon = "✓" if step.status == StepStatus.SUCCESS else "✗"
         print(f"  {status_icon} {step.name}: {step.status.value} ({step.records_processed} records)")
     
-    print("\n✅ Pipeline test complete!")
+    print("\n✅ Pipeline complete!")

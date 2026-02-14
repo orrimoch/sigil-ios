@@ -26,6 +26,7 @@
 		38034E8BF33BF5524EA0CF11 /* ScoresView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34192B20D8BEE8DB24F4E7C4 /* ScoresView.swift */; };
 		3BCC52CC7882F5888E472ECD /* RiskBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9893484F5A61E83D62A7B245 /* RiskBadge.swift */; };
 		4054CA088D67C54E0551E951 /* IBKRService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF085E6CC961498A611E900 /* IBKRService.swift */; };
+		425A19BAB60333F5E6256A64 /* DebugLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E656323987EF1F8E640CF3D /* DebugLog.swift */; };
 		452732A33BB1154D145CE1A6 /* SectorWarningBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F9EF09BDA5ABA764E9DAC /* SectorWarningBanner.swift */; };
 		46F4560F2CBEEF076B0BE569 /* CrowdWisdomModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72B7AF949A032BA191BD7F8B /* CrowdWisdomModels.swift */; };
 		4B1DEE45FEB7433AFCDB26A4 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6FCBAFE203360F593CE742 /* OnboardingView.swift */; };
@@ -43,6 +44,8 @@
 		7D318BB9D701E75E238DE195 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E0970BBC9EEF8A622664BE /* HomeViewModel.swift */; };
 		7D51261053A2EB61C1833CAE /* ScoresBadgeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F91FF4BACCB5B340F45B74E /* ScoresBadgeService.swift */; };
 		81865911A88B947245C52185 /* DemoShowcaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04917A336F6CFAAF65847FD1 /* DemoShowcaseView.swift */; };
+		83C1394255EA6D8C903D5B77 /* CrowdWisdomCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66D362FBA978CD6359E68C3B /* CrowdWisdomCard.swift */; };
+		84E1450E28D4331E43721E8C /* TrendingTickersService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C917E11A4BC5BCFDF0BF1863 /* TrendingTickersService.swift */; };
 		87DCF0D2B7F5CDC00001BC39 /* NotificationServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22ABA1BD0CCCEE1495A5483E /* NotificationServiceTests.swift */; };
 		8850D027F0AEBA64CD154961 /* TradingAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9FDE5CC4CF06B747DCFC13 /* TradingAppApp.swift */; };
 		887DB6027F86C4CE28CD5C0B /* RiskSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD135CD2A2EDADA2E14E0AB8 /* RiskSettingsView.swift */; };
@@ -58,6 +61,7 @@
 		B60D8BF184577B935318AA2E /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E0FF42437F27ADD36CF7381 /* AuthViewModel.swift */; };
 		B95FAFA883AA7E95D682D0BF /* WatchlistService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D41D3D2C2FE1FB528E76A6 /* WatchlistService.swift */; };
 		BB5216A2BD102204B738C324 /* ScoresViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3BD9BDB307D776C0877B6D /* ScoresViewModel.swift */; };
+		BC686BD12383A2CAFEAC2B96 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 07BADC907E463C38C743D117 /* PrivacyInfo.xcprivacy */; };
 		BF6B7D4725041304678F3C1D /* WatchlistServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC08546474CCA6A6ED1D6ED5 /* WatchlistServiceTests.swift */; };
 		C29EE84807FDAA20D6E015F2 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55D984C29CB5823089F169A /* APIService.swift */; };
 		C547B4CB000AC8D73C7E0FC4 /* PushNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE83FFCFECC6DE4AEC681EA1 /* PushNotificationService.swift */; };
@@ -88,6 +92,7 @@
 /* Begin PBXFileReference section */
 		00BE2723B832CCC37A1F30AE /* APIDecodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIDecodeTests.swift; sourceTree = "<group>"; };
 		04917A336F6CFAAF65847FD1 /* DemoShowcaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoShowcaseView.swift; sourceTree = "<group>"; };
+		07BADC907E463C38C743D117 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		0AFEEE2C58CB8466ADDDC5E4 /* LockScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockScreenView.swift; sourceTree = "<group>"; };
 		0E6FCBAFE203360F593CE742 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		0E9FDE5CC4CF06B747DCFC13 /* TradingAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradingAppApp.swift; sourceTree = "<group>"; };
@@ -112,6 +117,7 @@
 		5FF085E6CC961498A611E900 /* IBKRService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IBKRService.swift; sourceTree = "<group>"; };
 		6134AA754BE7F6A850EC86FD /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		646254719DCBFF22BF2793B8 /* AuthGateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthGateTests.swift; sourceTree = "<group>"; };
+		66D362FBA978CD6359E68C3B /* CrowdWisdomCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrowdWisdomCard.swift; sourceTree = "<group>"; };
 		67102CC49BF0A93534CBEF97 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6C9EE7C746B33E5E9E3E26C9 /* TradingApp.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = TradingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DBF657B2C95337664CFD786 /* StockDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockDetailViewModel.swift; sourceTree = "<group>"; };
@@ -121,6 +127,7 @@
 		74268F376D0C749CE8F58D7E /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		7836ABA484EC8D3759C1A893 /* ClaudeRiskCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaudeRiskCard.swift; sourceTree = "<group>"; };
 		7C2A9954E91260D5B952A090 /* BracketOrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BracketOrderView.swift; sourceTree = "<group>"; };
+		7E656323987EF1F8E640CF3D /* DebugLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLog.swift; sourceTree = "<group>"; };
 		807A448A452F62FFB4A99CA0 /* PositionSizeCalculatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionSizeCalculatorView.swift; sourceTree = "<group>"; };
 		8A01C93F22EB770A2F5BD339 /* MarketScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketScannerView.swift; sourceTree = "<group>"; };
 		9171BBA83EA1E22DDAB01A07 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
@@ -143,6 +150,7 @@
 		C1CB90D3DF699379DC624D30 /* RiskSettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskSettingsService.swift; sourceTree = "<group>"; };
 		C84017D4C6F3B4B6500456C6 /* ErrorStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorStateView.swift; sourceTree = "<group>"; };
 		C84907440C9629455E52205C /* DailyQuotes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyQuotes.swift; sourceTree = "<group>"; };
+		C917E11A4BC5BCFDF0BF1863 /* TrendingTickersService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingTickersService.swift; sourceTree = "<group>"; };
 		CA52F348722B79173BD66735 /* TradeHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeHistoryView.swift; sourceTree = "<group>"; };
 		CE83FFCFECC6DE4AEC681EA1 /* PushNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationService.swift; sourceTree = "<group>"; };
 		D1E79EFD83BF82BC2E9BB467 /* TradingAppTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = TradingAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -182,6 +190,7 @@
 			children = (
 				7C2A9954E91260D5B952A090 /* BracketOrderView.swift */,
 				7836ABA484EC8D3759C1A893 /* ClaudeRiskCard.swift */,
+				66D362FBA978CD6359E68C3B /* CrowdWisdomCard.swift */,
 				E6E830BBC082F0BAD4F5C37E /* DailyLossLimitView.swift */,
 				F63E321BB29F49C1FE4E4493 /* IBKRChartView.swift */,
 				C1603D8590A5145A36697586 /* MarginPreviewView.swift */,
@@ -233,6 +242,7 @@
 			isa = PBXGroup;
 			children = (
 				C84907440C9629455E52205C /* DailyQuotes.swift */,
+				7E656323987EF1F8E640CF3D /* DebugLog.swift */,
 				6134AA754BE7F6A850EC86FD /* Theme.swift */,
 			);
 			path = Utils;
@@ -253,6 +263,7 @@
 				CE83FFCFECC6DE4AEC681EA1 /* PushNotificationService.swift */,
 				C1CB90D3DF699379DC624D30 /* RiskSettingsService.swift */,
 				4F91FF4BACCB5B340F45B74E /* ScoresBadgeService.swift */,
+				C917E11A4BC5BCFDF0BF1863 /* TrendingTickersService.swift */,
 				72D41D3D2C2FE1FB528E76A6 /* WatchlistService.swift */,
 			);
 			path = Services;
@@ -299,6 +310,7 @@
 		A01F759209BE4D176B8D30D2 = {
 			isa = PBXGroup;
 			children = (
+				07BADC907E463C38C743D117 /* PrivacyInfo.xcprivacy */,
 				7524857A70AC63038F9F3171 /* Sources */,
 				A2C0F3360F5DB04CBCB1BD7E /* Tests */,
 				9848E5CD919C002CE59892B8 /* Products */,
@@ -469,6 +481,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4725757DED6CC5852DE4BA1 /* Assets.xcassets in Resources */,
+				BC686BD12383A2CAFEAC2B96 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -504,9 +517,11 @@
 				E56A5B987A2F4E2BB292850C /* BracketOrderView.swift in Sources */,
 				60CE0B5F707A005068DC7B33 /* ClaudeRiskCard.swift in Sources */,
 				5A6A2B484FA095B2451B9A0B /* ContentView.swift in Sources */,
+				83C1394255EA6D8C903D5B77 /* CrowdWisdomCard.swift in Sources */,
 				46F4560F2CBEEF076B0BE569 /* CrowdWisdomModels.swift in Sources */,
 				4CE995F7845C0008E8A7C18A /* DailyLossLimitView.swift in Sources */,
 				18EC2C02385C89D96F9C4D73 /* DailyQuotes.swift in Sources */,
+				425A19BAB60333F5E6256A64 /* DebugLog.swift in Sources */,
 				81865911A88B947245C52185 /* DemoShowcaseView.swift in Sources */,
 				8BDE5667403DFE9BD014406A /* ErrorStateView.swift in Sources */,
 				31574C2163567C37E4A6DFE8 /* ForgotPasswordView.swift in Sources */,
@@ -548,6 +563,7 @@
 				F16A948B1D986EC8D5FD9A14 /* TradeView.swift in Sources */,
 				1BCD127188C488157EFD9F82 /* TradeViewModel.swift in Sources */,
 				8850D027F0AEBA64CD154961 /* TradingAppApp.swift in Sources */,
+				84E1450E28D4331E43721E8C /* TrendingTickersService.swift in Sources */,
 				34413A5F76397F98F7C02866 /* VIXIndicator.swift in Sources */,
 				1B3B68C5E3C758DEBBE7A15E /* VolumeSpikeView.swift in Sources */,
 				B95FAFA883AA7E95D682D0BF /* WatchlistService.swift in Sources */,
