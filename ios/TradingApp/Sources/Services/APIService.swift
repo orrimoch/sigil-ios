@@ -111,8 +111,8 @@ class APIService: ObservableObject {
     static let shared = APIService()
     
     // IOS-001: HTTPS enforcement with environment-based configuration
-    // Railway production endpoint (used for both DEBUG and Release)
-    let baseURL = "https://sigil-ios-production.up.railway.app/api/v1"
+    // Local Mac mini backend
+    let baseURL = "http://127.0.0.1:8000/api/v1"
     
     // IOS-002: URLSession with certificate pinning and timeout
     private let pinningDelegate = CertificatePinningDelegate()
@@ -1248,6 +1248,50 @@ extension APIService {
         let result = try decoder.decode(PreferencesResponse.self, from: data)
         return result.preferences
     }
+    
+    // MARK: - REC-272: Configuration Management
+    
+    /// Save IBKR account configuration
+    func saveIBKRConfig(accountId: String, gatewayHost: String = "127.0.0.1", gatewayPort: Int = 4002, isPaper: Bool = true) async throws {
+        let url = try makeURL("/config/ibkr")
+        var request = authorizedRequest(url: url, method: "POST")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let body: [String: Any] = [
+            "account_id": accountId,
+            "gateway_host": gatewayHost,
+            "gateway_port": gatewayPort,
+            "is_paper": isPaper
+        ]
+        request.httpBody = try JSONSerialization.data(withJSONObject: body)
+        
+        let (data, response) = try await dataWithAutoRefresh(for: request)
+        
+        guard let http = response as? HTTPURLResponse, 200...299 ~= http.statusCode else {
+            throw APIError.httpError(statusCode: (response as? HTTPURLResponse)?.statusCode ?? 500)
+        }
+        
+        // Also save to Keychain locally
+        KeychainHelper.shared.save(key: "sigil_ibkr_account_id", string: accountId)
+    }
+    
+    /// Get IBKR account configuration
+    func getIBKRConfig() async throws -> IBKRConfigResponse {
+        let url = try makeURL("/config/ibkr")
+        return try await fetch(url)
+    }
+    
+    /// Get LLM provider configuration
+    func getLLMConfig() async throws -> LLMConfigResponse {
+        let url = try makeURL("/config/llm")
+        return try await fetch(url)
+    }
+    
+    /// Get system configuration overview
+    func getSystemConfig() async throws -> SystemConfigResponse {
+        let url = try makeURL("/config/system")
+        return try await fetch(url)
+    }
 }
 
 // MARK: - Risk Settings API Types (REC-215)
@@ -1479,5 +1523,84 @@ struct LatestPipelineRun: Codable {
         case completedAt = "completed_at"
         case status
         case totalDurationSeconds = "total_duration_seconds"
+    }
+}
+
+// MARK: - REC-272: Configuration Response Types
+
+struct IBKRConfigResponse: Codable {
+    let success: Bool
+    let data: IBKRConfigData
+}
+
+struct IBKRConfigData: Codable {
+    let accountId: String?
+    let gatewayHost: String
+    let gatewayPort: Int
+    let isConfigured: Bool
+    let isPaper: Bool?
+    let source: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case accountId = "account_id"
+        case gatewayHost = "gateway_host"
+        case gatewayPort = "gateway_port"
+        case isConfigured = "is_configured"
+        case isPaper = "is_paper"
+        case source
+    }
+}
+
+struct LLMConfigResponse: Codable {
+    let success: Bool
+    let data: LLMConfigData
+}
+
+struct LLMConfigData: Codable {
+    let provider: String
+    let model: String
+    let available: Bool
+    let fallbackModel: String?
+    let note: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case provider
+        case model
+        case available
+        case fallbackModel = "fallback_model"
+        case note
+    }
+}
+
+struct SystemConfigResponse: Codable {
+    let success: Bool
+    let data: SystemConfigData
+}
+
+struct SystemConfigData: Codable {
+    let llm: SystemLLMConfig
+    let database: SystemDatabaseConfig
+    let ibkr: SystemIBKRConfig
+    let environment: String?
+}
+
+struct SystemLLMConfig: Codable {
+    let provider: String
+    let configured: Bool
+}
+
+struct SystemDatabaseConfig: Codable {
+    let type: String
+}
+
+struct SystemIBKRConfig: Codable {
+    let configured: Bool
+    let gatewayHost: String
+    let gatewayPort: Int
+    
+    enum CodingKeys: String, CodingKey {
+        case configured
+        case gatewayHost = "gateway_host"
+        case gatewayPort = "gateway_port"
     }
 }

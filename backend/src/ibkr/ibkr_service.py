@@ -32,10 +32,11 @@ except ImportError:
     pass
 
 # ── Configuration (env-overridable) ─────────────────────────────────────
+# REC-272: Removed hardcoded IBKR account ID - users must provide their own
 
 IB_GATEWAY_HOST = os.environ.get("IB_GATEWAY_HOST", "127.0.0.1")
 IB_GATEWAY_PORT = int(os.environ.get("IB_GATEWAY_PORT", "4002"))
-IB_ACCOUNT_ID = os.environ.get("IB_ACCOUNT_ID", "DUP526287")
+IB_ACCOUNT_ID = os.environ.get("IB_ACCOUNT_ID")  # No default - must be configured
 
 # Base clientId — each user connection gets base + offset
 _IB_CLIENT_ID_BASE = 10

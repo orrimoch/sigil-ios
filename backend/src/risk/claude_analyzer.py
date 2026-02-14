@@ -1,8 +1,8 @@
 """
-Claude Risk Analyzer - REC-232
+LLM Risk Analyzer - REC-232, REC-272
 
-Uses Claude Haiku to estimate risk from multiple metrics.
-Model: claude-3-5-haiku-20241022
+Uses LLM (Claude/GPT/Gemini) to estimate risk from multiple metrics.
+Provider selection is environment-based via LLM_PROVIDER env var.
 
 Inputs: VIX, returns, sentiment, events
 Outputs: risk_score 0-100, risk_level, risk_factors, recommendation, reasoning
@@ -38,7 +38,15 @@ except ImportError:
 
 logger = logging.getLogger(__name__)
 
-# Claude model to use
+# Import LLM abstraction layer (REC-272)
+try:
+    from llm import get_llm_provider, LLMProvider, LLMProviderType
+    LLM_ABSTRACTION_AVAILABLE = True
+except ImportError:
+    LLM_ABSTRACTION_AVAILABLE = False
+    logger.warning("LLM abstraction layer not available, using direct Anthropic")
+
+# Fallback model for direct Anthropic (backward compatibility)
 CLAUDE_MODEL = "claude-3-5-haiku-20241022"
 
 # Cache configuration
@@ -374,14 +382,37 @@ Respond ONLY with valid JSON, no markdown formatting."""
 
 class ClaudeRiskAnalyzer:
     """
-    Claude-powered risk analysis for stocks.
-    Uses Haiku model for cost efficiency (~$5/month).
+    LLM-powered risk analysis for stocks (REC-272).
+    
+    Supports multiple providers via LLM abstraction:
+    - Anthropic (Claude) - default
+    - OpenAI (GPT)
+    - Google (Gemini)
+    
+    Provider selection via LLM_PROVIDER env var.
+    Uses cost-efficient models by default (~$5/month).
     """
     
     def __init__(self, api_key: Optional[str] = None):
         self.api_key = api_key or os.environ.get("ANTHROPIC_API_KEY")
         self.model = CLAUDE_MODEL
         self.cache = _risk_cache
+        
+        # Initialize LLM provider (REC-272)
+        self._llm_provider: Optional[LLMProvider] = None
+        if LLM_ABSTRACTION_AVAILABLE:
+            try:
+                self._llm_provider = get_llm_provider()
+                logger.info(f"Risk analyzer using LLM provider: {self._llm_provider.provider_type.value}")
+            except Exception as e:
+                logger.warning(f"Failed to initialize LLM provider for risk: {e}")
+    
+    @property
+    def provider_name(self) -> str:
+        """Get the current provider name."""
+        if self._llm_provider:
+            return self._llm_provider.provider_type.value
+        return "anthropic-direct"
     
     async def analyze(
         self,
@@ -467,7 +498,23 @@ class ClaudeRiskAnalyzer:
         return result
     
     async def _call_claude(self, prompt: str, ticker: str) -> RiskAnalysisResult:
-        """Call Claude API and parse response."""
+        """Call LLM API and parse response (REC-272: multi-provider support)."""
+        
+        # Use LLM abstraction layer if available
+        if self._llm_provider and self._llm_provider.is_available:
+            try:
+                response = await self._llm_provider.generate(
+                    prompt=prompt,
+                    max_tokens=512,
+                )
+                response_text = response.text
+                logger.debug(f"Risk analysis via {self.provider_name}: {response.usage.total_tokens} tokens")
+                return self._parse_response(response_text, ticker)
+            except Exception as e:
+                logger.error(f"LLM provider call failed: {e}")
+                raise
+        
+        # Fallback to direct Anthropic API
         try:
             from anthropic import AsyncAnthropic
             

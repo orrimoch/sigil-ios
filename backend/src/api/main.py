@@ -88,6 +88,9 @@ from risk.routes_p2 import trade_router as risk_trade_router
 from risk.routes_p2 import risk_router as risk_analysis_router
 from risk.routes_p3 import router as risk_p3_router
 
+# REC-272: Configuration management routes
+from api.config_routes import config_router
+
 # Per-user trading service
 from trading.user_trading_service import UserTradingService
 from db.models import ANONYMOUS_USER_ID
@@ -264,6 +267,9 @@ app.include_router(risk_p3_router)       # GET /api/v1/market/regime, /portfolio
 # Crowd Wisdom routes (REC-251 to REC-265)
 from crowd_wisdom.routes import router as crowd_wisdom_router
 app.include_router(crowd_wisdom_router)  # GET /api/v1/crowd-wisdom/top-picks, /scores, etc.
+
+# REC-272: Configuration management routes
+app.include_router(config_router)  # GET /api/v1/config/llm, /ibkr, /database, /system
 
 
 # ========== Pydantic Models ==========

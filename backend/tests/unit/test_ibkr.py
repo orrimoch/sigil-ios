@@ -103,8 +103,9 @@ class TestIBKRConnection:
 
     @patch.object(_IBConnection, "connect", return_value=["DUP526287"])
     def test_connect_with_default_account(self, mock_connect, service):
-        """Connection with default account should succeed."""
-        conn = service.connect("user1")
+        """Connection with explicit account should succeed (REC-272: no hardcoded default)."""
+        # REC-272: Must provide account_id explicitly since default was removed
+        conn = service.connect("user1", account_id="DUP526287")
 
         assert conn.state == IBKRConnectionState.CONNECTED
         assert conn.account_id == "DUP526287"
@@ -163,7 +164,8 @@ class TestIBKRConnection:
     @patch.object(_IBConnection, "connect", return_value=["DUP526287"])
     def test_per_user_isolation(self, mock_connect, service):
         """Different users should have independent connection state."""
-        service.connect("user1")
+        # REC-272: Must provide account_id explicitly
+        service.connect("user1", account_id="DUP526287")
 
         conn1 = service.get_connection("user1")
         conn2 = service.get_connection("user2")
@@ -187,7 +189,8 @@ class TestIBKRConnection:
     @patch.object(_IBConnection, "connect", return_value=["DUP526287"])
     def test_reconnect_updates_state(self, mock_connect, service):
         """Reconnecting should update the connection state."""
-        service.connect("user1")
+        # REC-272: Must provide account_id explicitly
+        service.connect("user1", account_id="DUP526287")
         assert service.get_connection("user1").account_id == "DUP526287"
 
 

@@ -1,16 +1,19 @@
 import SwiftUI
 
-/// F3.1: App Launch & Onboarding
-/// First launch experience (4 screens, <60 sec)
+/// F3.1: App Launch & Onboarding (REC-272 Enhanced)
+/// First launch experience (5 screens, <90 sec)
 /// - Skip button always visible
 /// - Score system explained
 /// - Portfolio size selection
+/// - IBKR account setup (optional)
 /// - Paper trading enabled by default
 struct OnboardingView: View {
     @EnvironmentObject var appState: AppState
     @State private var currentPage = 0
+    @State private var ibkrAccountId: String = ""
+    @State private var showIBKRSetup: Bool = false
     
-    private let totalPages = 4
+    private let totalPages = 5
     
     var body: some View {
         ZStack {
@@ -44,8 +47,16 @@ struct OnboardingView: View {
                         .tag(2)
                         .accessibilityLabel("Portfolio size selection page")
                     
+                    // REC-272: IBKR Account Setup Page
+                    IBKRSetupPage(
+                        accountId: $ibkrAccountId,
+                        showSetup: $showIBKRSetup
+                    )
+                    .tag(3)
+                    .accessibilityLabel("IBKR account setup page")
+                    
                     PaperTradingPage(isPaperTrading: $appState.isPaperTrading)
-                        .tag(3)
+                        .tag(4)
                         .accessibilityLabel("Paper trading page")
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
@@ -105,7 +116,29 @@ struct OnboardingView: View {
     }
     
     private func completeOnboarding() {
+        // REC-272: Save IBKR account if configured
+        if showIBKRSetup && !ibkrAccountId.isEmpty {
+            Task {
+                await saveIBKRConfig()
+            }
+        }
         appState.completeOnboarding()
+    }
+    
+    // REC-272: Save IBKR configuration to backend
+    private func saveIBKRConfig() async {
+        guard !ibkrAccountId.isEmpty else { return }
+        
+        do {
+            try await APIService.shared.saveIBKRConfig(
+                accountId: ibkrAccountId,
+                isPaper: ibkrAccountId.hasPrefix("DU")
+            )
+        } catch {
+            #if DEBUG
+            print("Failed to save IBKR config: \(error)")
+            #endif
+        }
     }
 }
 
@@ -324,7 +357,96 @@ struct PortfolioSizeOption: View {
     }
 }
 
-// MARK: - Page 4: Paper Trading
+// MARK: - Page 4: IBKR Setup (REC-272)
+
+struct IBKRSetupPage: View {
+    @Binding var accountId: String
+    @Binding var showSetup: Bool
+    
+    var body: some View {
+        VStack(spacing: 24) {
+            Spacer()
+            
+            Image(systemName: "link.circle.fill")
+                .font(.iconSize(60)).limitedScaling()
+                .foregroundColor(.Accent.gold)
+            
+            Text("Interactive Brokers")
+                .font(.title)
+                .fontWeight(.bold)
+                .foregroundColor(.Text.primary)
+            
+            Text("Connect your IBKR account for live trading\n(optional, can be set up later)")
+                .font(.body)
+                .foregroundColor(.Text.secondary)
+                .multilineTextAlignment(.center)
+            
+            Toggle(isOn: $showSetup) {
+                HStack {
+                    Text("Configure IBKR Account")
+                        .foregroundColor(.Text.primary)
+                    
+                    Spacer()
+                    
+                    Text(showSetup ? "YES" : "SKIP")
+                        .font(.caption.bold())
+                        .foregroundColor(showSetup ? .Signal.buy : .Text.secondary)
+                }
+            }
+            .toggleStyle(SwitchToggleStyle(tint: .Accent.gold))
+            .padding()
+            .background(Color.Background.secondary)
+            .cornerRadius(12)
+            .padding(.horizontal)
+            
+            if showSetup {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Account ID")
+                        .font(.caption)
+                        .foregroundColor(.Text.secondary)
+                    
+                    TextField("e.g., DU1234567 or U1234567", text: $accountId)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .autocapitalization(.allCharacters)
+                        .disableAutocorrection(true)
+                        .keyboardType(.asciiCapable)
+                    
+                    if accountId.hasPrefix("DU") {
+                        HStack {
+                            Image(systemName: "checkmark.shield.fill")
+                                .foregroundColor(.Signal.hold)
+                            Text("Paper trading account detected")
+                                .font(.caption)
+                                .foregroundColor(.Signal.hold)
+                        }
+                    } else if accountId.hasPrefix("U") && accountId.count >= 6 {
+                        HStack {
+                            Image(systemName: "exclamationmark.triangle.fill")
+                                .foregroundColor(.Signal.sell)
+                            Text("Live trading account - use carefully")
+                                .font(.caption)
+                                .foregroundColor(.Signal.sell)
+                        }
+                    }
+                }
+                .padding()
+                .background(Color.Background.secondary)
+                .cornerRadius(12)
+                .padding(.horizontal)
+                
+                Text("Your account ID is stored securely in Keychain\nand is never shared with third parties.")
+                    .font(.caption)
+                    .foregroundColor(.Text.tertiary)
+                    .multilineTextAlignment(.center)
+            }
+            
+            Spacer()
+        }
+        .padding()
+    }
+}
+
+// MARK: - Page 5: Paper Trading
 
 struct PaperTradingPage: View {
     @Binding var isPaperTrading: Bool
