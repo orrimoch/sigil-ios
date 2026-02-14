@@ -21,28 +21,29 @@
 6. [Reference Projects (Don't Reinvent the Wheel)](#reference-projects-dont-reinvent-the-wheel)
 
 **Part III: Architecture & Design**
-7. [Data Freshness & Coherence](#data-freshness--coherence) ⚠️ CRITICAL
-8. [Core Challenges](#core-challenges)
-9. [Architecture Overview](#architecture-overview)
-10. [Module Breakdown](#module-breakdown)
-11. [State & Signal Integration](#state--signal-integration)
-12. [Decision Framework](#decision-framework)
-13. [Position Sizing & Risk Management](#position-sizing--risk-management)
-14. [Execution Layer](#execution-layer)
-15. [User Preference Alignment](#user-preference-alignment)
-16. [iOS App Integration](#ios-app-integration)
-17. [Real-Time vs Batch Considerations](#real-time-vs-batch-considerations)
+7. [Trading Resolution & Frequency](#trading-resolution--frequency) ⚠️ NOT HFT
+8. [Data Freshness & Coherence](#data-freshness--coherence)
+9. [Core Challenges](#core-challenges)
+10. [Architecture Overview](#architecture-overview)
+11. [Module Breakdown](#module-breakdown)
+12. [State & Signal Integration](#state--signal-integration)
+13. [Decision Framework](#decision-framework)
+14. [Position Sizing & Risk Management](#position-sizing--risk-management)
+15. [Execution Layer](#execution-layer)
+16. [User Preference Alignment](#user-preference-alignment)
+17. [iOS App Integration](#ios-app-integration)
+18. [Real-Time vs Batch Considerations](#real-time-vs-batch-considerations)
 
 **Part IV: Validation & Governance**
-18. [Validation & Backtesting](#validation--backtesting)
-19. [Regulatory & Compliance](#regulatory--compliance)
-20. [Success Metrics](#success-metrics)
+19. [Validation & Backtesting](#validation--backtesting)
+20. [Regulatory & Compliance](#regulatory--compliance)
+21. [Success Metrics](#success-metrics)
 
 **Part V: Resources & Planning**
-21. [Research & References](#research--references)
-22. [Open Questions](#open-questions)
-23. [Phased Implementation Plan](#phased-implementation-plan)
-24. [Next Steps](#next-steps)
+22. [Research & References](#research--references)
+23. [Open Questions](#open-questions)
+24. [Phased Implementation Plan](#phased-implementation-plan)
+25. [Next Steps](#next-steps)
 
 ---
 
@@ -1121,6 +1122,132 @@ Combining best practices from all 5 projects:
 8. ✅ Backtest system with historical sentiment (30K+ headlines)
 
 **The LLM doesn't start from raw data** — it gets pre-digested insights. This is more efficient and likely more effective.
+
+---
+
+## Trading Resolution & Frequency
+
+> **Critical Clarification**: Sigil is **NOT** a High-Frequency Trading (HFT) system. The agent captures **weekly trends**, not intraday noise.
+
+### Trading Philosophy
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                    SIGIL TRADING RESOLUTION                                 │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│  ❌ NOT THIS (HFT)                    ✅ THIS (Weekly Trend Capture)        │
+│  ──────────────────                   ────────────────────────────          │
+│                                                                             │
+│  • Millisecond execution              • Weekly decision cycle               │
+│  • Exploit tick-by-tick noise         • Capture multi-day/week trends      │
+│  • Thousands of trades/day            • 3-10 trades/week maximum           │
+│  • Requires co-location               • Standard retail execution          │
+│  • Scalping small profits             • Position trades for 5-30 days      │
+│  • Real-time data feeds ($$$)         • Weekly pipeline + minute execution │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Time Horizons
+
+| Layer | Time Resolution | Purpose |
+|-------|-----------------|---------|
+| **Strategic** | Weekly | Score generation, signal identification, target portfolio |
+| **Tactical** | Daily | Regime check, VIX adjustment, queue prioritization |
+| **Execution** | Minutes | Order placement, price validation, fill confirmation |
+
+### Why Weekly Trends?
+
+1. **Signal Quality**: Composite scores are based on fundamentals, sentiment, technicals — these move on weekly timescales, not seconds
+2. **Noise Reduction**: Intraday price movements are mostly noise; weekly trends are more predictable
+3. **Cost Efficiency**: Fewer trades = lower commissions, lower slippage, better tax treatment
+4. **Data Alignment**: Our pipeline updates weekly — decisions should match data freshness
+5. **User Fit**: "Busy Builder" persona wants set-and-forget, not day-trading
+
+### Decision Cycle
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                    WEEKLY DECISION CYCLE                                    │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│  SUNDAY 6PM          MONDAY 9:30AM         DURING WEEK        FRIDAY       │
+│  ───────────         ─────────────         ────────────       ──────       │
+│                                                                             │
+│  Pipeline runs       Agent executes        Monitor:           Review:      │
+│  Scores updated      planned trades        • Stop-losses      • P&L        │
+│  Agent decides:      (minute-level         • Regime shifts    • Positions  │
+│  • What to BUY       execution)            • VIX spikes       • Prepare    │
+│  • What to SELL                            • Earnings          for next    │
+│  • Position sizes                          (react if needed)   week        │
+│                                                                             │
+│  ◄──────────── STRATEGIC ────────────►    ◄─── TACTICAL ───►              │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Execution Resolution (Minutes, Not Milliseconds)
+
+When the agent executes, it operates at **minute-level resolution**:
+
+```python
+class ExecutionTiming:
+    """Execution operates at minute resolution, not HFT."""
+    
+    # NOT doing this (HFT):
+    # - Sub-second order routing
+    # - Market microstructure exploitation
+    # - Latency arbitrage
+    
+    # DOING this (minute-level):
+    CHECK_INTERVAL_SECONDS = 60      # Check prices every minute
+    PRICE_STALENESS_MINUTES = 5      # Price valid for 5 minutes
+    ORDER_TIMEOUT_MINUTES = 15       # Cancel unfilled orders after 15 min
+    
+    def execute_trade(self, trade: PlannedTrade):
+        # 1. Get current price (minute-level)
+        price = self.get_quote(trade.ticker)  # ~1 sec latency is fine
+        
+        # 2. Validate price hasn't moved too much from decision time
+        if abs(price - trade.decision_price) / trade.decision_price > 0.02:
+            return self.re_evaluate(trade)  # >2% move → reconsider
+        
+        # 3. Submit order (market or limit)
+        order = self.submit_order(trade)
+        
+        # 4. Wait for fill (up to 15 minutes)
+        return self.await_fill(order, timeout_minutes=15)
+```
+
+### Data Freshness Aligned with Strategy
+
+| Data Type | Update Frequency | Aligns With |
+|-----------|------------------|-------------|
+| Composite Scores | Weekly (Sunday) | Strategic decisions |
+| HMM Regime | Daily (6am) | Tactical adjustment |
+| VIX | Every 4 hours | Tactical adjustment |
+| Prices | Real-time via IBKR | Execution only |
+| Insider Data | Weekly | Strategic (slow signal) |
+| Sector Trends | Weekly | Strategic context |
+
+**Key Principle**: Strategic decisions use weekly data. Real-time data is only for execution validation, not for changing the strategy mid-week.
+
+### When to React Intraday
+
+The agent only reacts intraday for **risk events**, not opportunities:
+
+| Event | Action | Rationale |
+|-------|--------|-----------|
+| Stop-loss triggered | Execute SELL immediately | Risk management |
+| VIX > 30 spike | Halt new BUYs | Crisis protection |
+| Regime → "crisis" | Review all positions | Risk management |
+| Earnings surprise (>5%) | Flag for review | May invalidate thesis |
+
+**NOT reacting to**:
+- Normal intraday price swings
+- Minor news headlines
+- Short-term momentum shifts
 
 ---
 
