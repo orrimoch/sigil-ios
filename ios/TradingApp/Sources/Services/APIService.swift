@@ -111,13 +111,8 @@ class APIService: ObservableObject {
     static let shared = APIService()
     
     // IOS-001: HTTPS enforcement with environment-based configuration
-    #if DEBUG
-    // Development: Use HTTPS localhost (requires mkcert or similar local CA)
-    let baseURL = "http://127.0.0.1:8000/api/v1"
-    #else
-    // Production: Use secure production endpoint
-    let baseURL = "https://api.sigil.app/api/v1"
-    #endif
+    // Railway production endpoint (used for both DEBUG and Release)
+    let baseURL = "https://sigil-ios-production.up.railway.app/api/v1"
     
     // IOS-002: URLSession with certificate pinning and timeout
     private let pinningDelegate = CertificatePinningDelegate()
