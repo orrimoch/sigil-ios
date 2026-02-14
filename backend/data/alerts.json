@@ -1,6 +1,42 @@
 {
   "alerts": [
     {
+      "id": "775aa2c8",
+      "type": "signal_change",
+      "ticker": "DLR",
+      "title": "Signal changed",
+      "subtitle": "SELL \u2192 HOLD",
+      "timestamp": "2026-02-14T14:33:48.362550",
+      "read": false
+    },
+    {
+      "id": "f95c49b3",
+      "type": "signal_change",
+      "ticker": "MNST",
+      "title": "Signal changed",
+      "subtitle": "SELL \u2192 HOLD",
+      "timestamp": "2026-02-14T14:33:48.361915",
+      "read": false
+    },
+    {
+      "id": "9fd6485c",
+      "type": "signal_change",
+      "ticker": "DLR",
+      "title": "Signal changed",
+      "subtitle": "HOLD \u2192 SELL",
+      "timestamp": "2026-02-14T14:33:46.650105",
+      "read": false
+    },
+    {
+      "id": "e5a48db4",
+      "type": "signal_change",
+      "ticker": "MNST",
+      "title": "Signal changed",
+      "subtitle": "HOLD \u2192 SELL",
+      "timestamp": "2026-02-14T14:33:46.648766",
+      "read": false
+    },
+    {
       "id": "1ab56455",
       "type": "signal_change",
       "ticker": "GME",
@@ -424,5 +460,5 @@
       "read": false
     }
   ],
-  "updated_at": "2026-02-14T00:24:52.032261"
+  "updated_at": "2026-02-14T14:33:48.362889"
 }
