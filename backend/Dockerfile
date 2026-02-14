@@ -17,7 +17,7 @@ RUN python -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 
 # Install dependencies
-COPY requirements.txt .
+COPY backend/requirements.txt .
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
@@ -34,8 +34,8 @@ COPY --from=builder /opt/venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 
 # Copy source code
-COPY src/ ./src/
-COPY scripts/ ./scripts/
+COPY backend/src/ ./src/
+COPY backend/scripts/ ./scripts/
 
 # Create data directory with proper permissions
 RUN mkdir -p /app/data && chown -R appuser:appuser /app
