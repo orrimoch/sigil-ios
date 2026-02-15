@@ -67,6 +67,7 @@
 		B95FAFA883AA7E95D682D0BF /* WatchlistService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D41D3D2C2FE1FB528E76A6 /* WatchlistService.swift */; };
 		BB5216A2BD102204B738C324 /* ScoresViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3BD9BDB307D776C0877B6D /* ScoresViewModel.swift */; };
 		BC686BD12383A2CAFEAC2B96 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 07BADC907E463C38C743D117 /* PrivacyInfo.xcprivacy */; };
+		BCDDC82A20828D074B9864AC /* PriceAlertTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969E81D5FC158B310213615F /* PriceAlertTests.swift */; };
 		BF6B7D4725041304678F3C1D /* WatchlistServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC08546474CCA6A6ED1D6ED5 /* WatchlistServiceTests.swift */; };
 		C29EE84807FDAA20D6E015F2 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55D984C29CB5823089F169A /* APIService.swift */; };
 		C547B4CB000AC8D73C7E0FC4 /* PushNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE83FFCFECC6DE4AEC681EA1 /* PushNotificationService.swift */; };
@@ -140,6 +141,7 @@
 		90F69B63211E16C6DE4E2E4A /* WatchlistSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistSection.swift; sourceTree = "<group>"; };
 		9171BBA83EA1E22DDAB01A07 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		9291D4262615E65F92A438CF /* PortfolioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioView.swift; sourceTree = "<group>"; };
+		969E81D5FC158B310213615F /* PriceAlertTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceAlertTests.swift; sourceTree = "<group>"; };
 		9893484F5A61E83D62A7B245 /* RiskBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskBadge.swift; sourceTree = "<group>"; };
 		A5A23A6C7F5387898AC32FC7 /* MarketHoursService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketHoursService.swift; sourceTree = "<group>"; };
 		A93D2F1A56BA122694B64C62 /* PinSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinSetupView.swift; sourceTree = "<group>"; };
@@ -340,6 +342,7 @@
 				1BFF8A3E4DF3C8334D97F83C /* ErrorStateViewTests.swift */,
 				A9A93A10D107BD4ABBEB74CD /* IBKRServiceTests.swift */,
 				22ABA1BD0CCCEE1495A5483E /* NotificationServiceTests.swift */,
+				969E81D5FC158B310213615F /* PriceAlertTests.swift */,
 				E486F5F123C7DCF6F6F3652F /* RiskModuleTests.swift */,
 				B5AD2075CCB4639F3E8C3380 /* TradeViewModelTests.swift */,
 				AC08546474CCA6A6ED1D6ED5 /* WatchlistServiceTests.swift */,
@@ -513,6 +516,7 @@
 				67DBA6FA3C3D70196F6B6207 /* ErrorStateViewTests.swift in Sources */,
 				9090BFD93412DCEA8AA18EEA /* IBKRServiceTests.swift in Sources */,
 				87DCF0D2B7F5CDC00001BC39 /* NotificationServiceTests.swift in Sources */,
+				BCDDC82A20828D074B9864AC /* PriceAlertTests.swift in Sources */,
 				A1E36D9E78EBE392CDED1BB1 /* RiskModuleTests.swift in Sources */,
 				1516009541BDD2C6FA7343DF /* TradeViewModelTests.swift in Sources */,
 				BF6B7D4725041304678F3C1D /* WatchlistServiceTests.swift in Sources */,
