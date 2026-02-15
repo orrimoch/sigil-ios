@@ -31,11 +31,10 @@ ALPHA_VANTAGE_API_KEY = os.environ.get("ALPHA_VANTAGE_API_KEY", "")
 FINNHUB_API_KEY = os.environ.get("FINNHUB_API_KEY", "")
 
 # RSS Feed URLs (always free, no API key needed)
+# Note: Reuters RSS and SEC EDGAR feeds removed (deprecated/broken as of Feb 2026)
 NEWS_FEEDS = {
     "yahoo_finance": "https://finance.yahoo.com/news/rssindex",
     "marketwatch": "https://feeds.content.dowjones.io/public/rss/mw_topstories",
-    "reuters_business": "https://www.rss.reuters.com/news/businessNews",
-    "sec_filings": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&type=8-K&company=&dateb=&owner=include&count=100&search_text=&output=atom",
 }
 
 # User agent for requests
@@ -48,9 +47,9 @@ SOURCE_TIERS = {
     # Tier 1 (3x weight) - Premium sources
     "wsj": 3, "ft": 3, "economist": 3,
     # Tier 2 (2x weight) - Quality sources
-    "reuters": 2, "bloomberg": 2, "finnhub": 2, "alpha_vantage": 2,
+    "bloomberg": 2, "finnhub": 2, "alpha_vantage": 2,
     # Tier 3 (1x weight) - General sources
-    "yahoo_finance": 1, "marketwatch": 1, "sec_filings": 1,
+    "yahoo_finance": 1, "marketwatch": 1,
 }
 
 
