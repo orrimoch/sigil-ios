@@ -30,7 +30,7 @@ ANTHROPIC_PRICING = {
     "claude-opus-4-20250514": {"input": 15.0, "output": 75.0},
 }
 
-DEFAULT_MODEL = "claude-sonnet-4-20250514"
+DEFAULT_MODEL = "claude-3-5-haiku-20241022"
 FALLBACK_MODEL = "claude-3-5-haiku-20241022"
 
 

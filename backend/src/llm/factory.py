@@ -28,7 +28,7 @@ class LLMProviderType(str, Enum):
 
 # Default models per provider
 DEFAULT_MODELS = {
-    LLMProviderType.ANTHROPIC: "claude-sonnet-4-20250514",
+    LLMProviderType.ANTHROPIC: "claude-3-5-haiku-20241022",
     LLMProviderType.OPENAI: "gpt-4o",
     LLMProviderType.GOOGLE: "gemini-2.0-flash",
 }

@@ -29,7 +29,7 @@ class SentimentConfig:
     
     # Claude API settings
     anthropic_api_key: Optional[str] = None
-    claude_model: str = "claude-sonnet-4-20250514"  # Default to Sonnet for quality
+    claude_model: str = "claude-3-5-haiku-20241022"  # Default to Haiku for cost efficiency
     claude_model_fallback: str = "claude-3-haiku-20240307"  # Cheaper for simple cases
     
     # Rate limiting
@@ -74,7 +74,7 @@ def load_sentiment_config() -> SentimentConfig:
     Environment Variables:
         ANTHROPIC_API_KEY: Claude API key (required for LLM mode)
         SENTIMENT_MODEL: keyword | llm | hybrid (default: keyword)
-        SENTIMENT_CLAUDE_MODEL: Claude model to use (default: claude-sonnet-4-20250514)
+        SENTIMENT_CLAUDE_MODEL: Claude model to use (default: claude-3-5-haiku-20241022)
         SENTIMENT_CACHE_TTL: Cache TTL in hours (default: 24)
         SENTIMENT_RATE_LIMIT: Requests per minute (default: 50)
         SENTIMENT_MAX_ARTICLES: Max articles per stock (default: 10)
@@ -95,7 +95,7 @@ def load_sentiment_config() -> SentimentConfig:
     config = SentimentConfig(
         model=model,
         anthropic_api_key=api_key,
-        claude_model=os.environ.get("SENTIMENT_CLAUDE_MODEL", "claude-sonnet-4-20250514"),
+        claude_model=os.environ.get("SENTIMENT_CLAUDE_MODEL", "claude-3-5-haiku-20241022"),
         cache_ttl_hours=int(os.environ.get("SENTIMENT_CACHE_TTL", "24")),
         rate_limit_rpm=int(os.environ.get("SENTIMENT_RATE_LIMIT", "50")),
         max_articles_per_stock=int(os.environ.get("SENTIMENT_MAX_ARTICLES", "10")),
