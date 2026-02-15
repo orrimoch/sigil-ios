@@ -9,6 +9,7 @@ struct StockDetailView: View {
     @ObservedObject private var watchlistService = WatchlistService.shared
     @State private var showTradeSheet = false
     @State private var showScoreBreakdown = false
+    @State private var showSetAlertModal = false
     
     // REC-148: Auto-refresh price every 15 seconds
     private let priceRefreshTimer = Timer.publish(every: 15, on: .main, in: .common).autoconnect()
@@ -122,6 +123,26 @@ struct StockDetailView: View {
                 }
                 .padding(.horizontal)
                 
+                // Set Alert button
+                Button {
+                    showSetAlertModal = true
+                } label: {
+                    HStack {
+                        Image(systemName: "bell.badge.fill")
+                        Text("Set Price Alert")
+                    }
+                    .font(.subheadline.bold())
+                    .foregroundColor(.Accent.gold)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 12)
+                    .background(Color.Background.secondary)
+                    .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.Accent.gold, lineWidth: 1))
+                    .cornerRadius(12)
+                }
+                .padding(.horizontal)
+                .accessibilityLabel("Set price alert for \(ticker)")
+                .accessibilityHint("Opens modal to set a price alert")
+                
                 // Buy/Sell buttons
                 HStack(spacing: 16) {
                     Button {
@@ -179,14 +200,19 @@ struct StockDetailView: View {
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
                     watchlistService.toggleWatchlist(ticker)
+                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
                 } label: {
-                    Image(systemName: watchlistService.isWatched(ticker) ? "bell.fill" : "bell")
-                        .foregroundColor(watchlistService.isWatched(ticker) ? .Brand.primary : .Text.secondary)
+                    Image(systemName: watchlistService.isWatched(ticker) ? "star.fill" : "star")
+                        .foregroundColor(watchlistService.isWatched(ticker) ? .Accent.gold : .Text.secondary)
                 }
+                .accessibilityLabel(watchlistService.isWatched(ticker) ? "Remove from watchlist" : "Add to watchlist")
             }
         }
         .sheet(isPresented: $showTradeSheet) {
             TradeEntrySheet(ticker: ticker, currentPrice: viewModel.price)
+        }
+        .sheet(isPresented: $showSetAlertModal) {
+            SetAlertModal(ticker: ticker, currentPrice: viewModel.price)
         }
         .overlay {
             if viewModel.isLoading && viewModel.price == 0 {

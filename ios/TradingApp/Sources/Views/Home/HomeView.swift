@@ -57,6 +57,10 @@ struct HomeView: View {
                     MarketOverviewCard(indices: viewModel.marketIndices, errorMessage: viewModel.marketError)
                         .padding(.horizontal)
                     
+                    // P2: Watchlist Section
+                    WatchlistSection()
+                        .padding(.horizontal)
+                    
                     // F4.3: Top AI Picks
                     TopAIPicksCard(picks: viewModel.topPicks)
                         .padding(.horizontal)

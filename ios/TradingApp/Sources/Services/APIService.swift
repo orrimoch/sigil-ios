@@ -636,6 +636,53 @@ class APIService: ObservableObject {
         return try await fetch(url)
     }
     
+    // MARK: - Price Alerts (REC-158)
+    
+    /// Create a price alert
+    func createPriceAlert(ticker: String, condition: PriceAlertCondition, targetPrice: Double) async throws -> CreatePriceAlertResponse {
+        let url = try makeURL("/ibkr/alerts")
+        let requestBody = CreatePriceAlertRequest(
+            ticker: ticker.uppercased(),
+            condition: condition.rawValue,
+            targetPrice: targetPrice
+        )
+        let body = try JSONEncoder().encode(requestBody)
+        
+        var request = authorizedRequest(url: url, method: "POST")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = body
+        
+        let (data, response) = try await dataWithAutoRefresh(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse, 200...299 ~= httpResponse.statusCode else {
+            try handleHTTPError(response)
+            throw APIError.invalidResponse
+        }
+        
+        return try decoder.decode(CreatePriceAlertResponse.self, from: data)
+    }
+    
+    /// Get all price alerts for the current user
+    func getPriceAlerts() async throws -> PriceAlertsResponse {
+        let url = try makeURL("/ibkr/alerts")
+        return try await fetch(url)
+    }
+    
+    /// Delete a price alert
+    func deletePriceAlert(alertId: String) async throws -> DeletePriceAlertResponse {
+        let url = try makeURL("/ibkr/alerts", ticker: alertId)
+        
+        var request = authorizedRequest(url: url, method: "DELETE")
+        let (data, response) = try await dataWithAutoRefresh(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse, 200...299 ~= httpResponse.statusCode else {
+            try handleHTTPError(response)
+            throw APIError.invalidResponse
+        }
+        
+        return try decoder.decode(DeletePriceAlertResponse.self, from: data)
+    }
+    
     // MARK: - Auth header injection
 
     /// Build a URLRequest with the current Bearer token attached (if available).

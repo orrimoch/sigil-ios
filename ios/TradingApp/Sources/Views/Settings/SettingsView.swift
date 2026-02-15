@@ -179,6 +179,31 @@ struct SettingsView: View {
                 }
                 .listRowBackground(Color.Background.secondary)
                 
+                // REC-158: Price Alerts Section
+                Section {
+                    NavigationLink {
+                        MyAlertsView()
+                    } label: {
+                        HStack {
+                            Image(systemName: "bell.badge.fill")
+                                .foregroundColor(.Accent.gold)
+                            
+                            VStack(alignment: .leading) {
+                                Text("My Price Alerts")
+                                    .foregroundColor(.Text.primary)
+                                
+                                Text("Manage your price alerts")
+                                    .font(.caption)
+                                    .foregroundColor(.Text.tertiary)
+                            }
+                        }
+                    }
+                } header: {
+                    Text("Alerts")
+                        .accessibilityAddTraits(.isHeader)
+                }
+                .listRowBackground(Color.Background.secondary)
+                
                 // F8.4: Notifications Section (M2: differentiated icon colors, H5: gold tints)
                 Section {
                     Toggle(isOn: $viewModel.weeklyScoreAlerts) {
