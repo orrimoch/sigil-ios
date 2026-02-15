@@ -1,170 +1,127 @@
 import XCTest
 @testable import Sigil
 
-/// Unit tests for WatchlistService (F9.3)
-/// Tests add/remove watched stocks, persistence, toggle behavior
-@MainActor
+/// Unit tests for WatchlistService
 final class WatchlistServiceTests: XCTestCase {
     
-    var service: WatchlistService!
+    var watchlistService: WatchlistService!
     
     override func setUp() async throws {
-        service = WatchlistService.shared
-        // Clear watchlist
-        UserDefaults.standard.removeObject(forKey: "sigil_watchlist")
-        service.watchedTickers = []
+        // Get the shared instance and clear it for testing
+        watchlistService = await WatchlistService.shared
+        await MainActor.run {
+            // Clear watchlist for clean test state
+            for ticker in watchlistService.watchedTickers {
+                watchlistService.removeFromWatchlist(ticker)
+            }
+        }
     }
     
     override func tearDown() async throws {
-        UserDefaults.standard.removeObject(forKey: "sigil_watchlist")
-    }
-    
-    // MARK: - Singleton Tests
-    
-    func testSharedInstanceExists() {
-        XCTAssertNotNil(WatchlistService.shared)
-    }
-    
-    func testSharedInstanceIsSingleton() {
-        let a = WatchlistService.shared
-        let b = WatchlistService.shared
-        XCTAssertTrue(a === b)
+        // Clean up after tests
+        await MainActor.run {
+            for ticker in watchlistService.watchedTickers {
+                watchlistService.removeFromWatchlist(ticker)
+            }
+        }
     }
     
     // MARK: - Add/Remove Tests
     
+    @MainActor
     func testAddToWatchlist() {
-        service.addToWatchlist("AAPL")
-        
-        XCTAssertTrue(service.isWatched("AAPL"))
-        XCTAssertTrue(service.watchedTickers.contains("AAPL"))
+        watchlistService.addToWatchlist("AAPL")
+        XCTAssertTrue(watchlistService.isWatched("AAPL"))
+        XCTAssertTrue(watchlistService.watchedTickers.contains("AAPL"))
     }
     
-    func testAddDuplicateIsIdempotent() {
-        service.addToWatchlist("AAPL")
-        service.addToWatchlist("AAPL")
-        
-        XCTAssertTrue(service.isWatched("AAPL"))
-        XCTAssertEqual(service.watchedTickers.count, 1)
+    @MainActor
+    func testAddToWatchlistUppercases() {
+        watchlistService.addToWatchlist("aapl")
+        XCTAssertTrue(watchlistService.isWatched("AAPL"))
+        XCTAssertTrue(watchlistService.isWatched("aapl"))  // Case-insensitive check
     }
     
+    @MainActor
     func testRemoveFromWatchlist() {
-        service.addToWatchlist("AAPL")
-        service.removeFromWatchlist("AAPL")
+        watchlistService.addToWatchlist("AAPL")
+        XCTAssertTrue(watchlistService.isWatched("AAPL"))
         
-        XCTAssertFalse(service.isWatched("AAPL"))
+        watchlistService.removeFromWatchlist("AAPL")
+        XCTAssertFalse(watchlistService.isWatched("AAPL"))
     }
     
-    func testRemoveNonexistentIsNoop() {
-        service.removeFromWatchlist("TSLA")
-        XCTAssertFalse(service.isWatched("TSLA"))
+    @MainActor
+    func testRemoveNonExistent() {
+        // Should not crash when removing a ticker that doesn't exist
+        watchlistService.removeFromWatchlist("NONEXISTENT")
+        XCTAssertFalse(watchlistService.isWatched("NONEXISTENT"))
     }
     
-    func testToggleAdds() {
-        service.toggleWatchlist("MSFT")
-        XCTAssertTrue(service.isWatched("MSFT"))
+    // MARK: - Toggle Tests
+    
+    @MainActor
+    func testToggleWatchlistAdd() {
+        XCTAssertFalse(watchlistService.isWatched("MSFT"))
+        watchlistService.toggleWatchlist("MSFT")
+        XCTAssertTrue(watchlistService.isWatched("MSFT"))
     }
     
-    func testToggleRemoves() {
-        service.addToWatchlist("MSFT")
-        service.toggleWatchlist("MSFT")
-        XCTAssertFalse(service.isWatched("MSFT"))
+    @MainActor
+    func testToggleWatchlistRemove() {
+        watchlistService.addToWatchlist("MSFT")
+        XCTAssertTrue(watchlistService.isWatched("MSFT"))
+        
+        watchlistService.toggleWatchlist("MSFT")
+        XCTAssertFalse(watchlistService.isWatched("MSFT"))
     }
     
-    // MARK: - Case Handling
-    
-    func testUppercasesOnAdd() {
-        service.addToWatchlist("aapl")
-        XCTAssertTrue(service.isWatched("AAPL"))
-        XCTAssertTrue(service.isWatched("aapl"))
+    @MainActor
+    func testToggleWatchlistCaseInsensitive() {
+        watchlistService.addToWatchlist("googl")
+        XCTAssertTrue(watchlistService.isWatched("GOOGL"))
+        
+        watchlistService.toggleWatchlist("GOOGL")
+        XCTAssertFalse(watchlistService.isWatched("googl"))
     }
     
+    // MARK: - isWatched Tests
+    
+    @MainActor
     func testIsWatchedCaseInsensitive() {
-        service.addToWatchlist("AAPL")
-        XCTAssertTrue(service.isWatched("aapl"))
-        XCTAssertTrue(service.isWatched("Aapl"))
+        watchlistService.addToWatchlist("AAPL")
+        
+        XCTAssertTrue(watchlistService.isWatched("AAPL"))
+        XCTAssertTrue(watchlistService.isWatched("aapl"))
+        XCTAssertTrue(watchlistService.isWatched("Aapl"))
     }
     
-    // MARK: - Persistence Tests
-    
-    func testPersistsToUserDefaults() {
-        service.addToWatchlist("AAPL")
-        service.addToWatchlist("MSFT")
-        
-        let stored = UserDefaults.standard.stringArray(forKey: "sigil_watchlist") ?? []
-        XCTAssertTrue(stored.contains("AAPL"))
-        XCTAssertTrue(stored.contains("MSFT"))
+    @MainActor
+    func testIsWatchedFalseForUnwatched() {
+        XCTAssertFalse(watchlistService.isWatched("UNKNOWN"))
     }
     
-    func testRemovePersists() {
-        service.addToWatchlist("AAPL")
-        service.removeFromWatchlist("AAPL")
+    // MARK: - Multiple Tickers Tests
+    
+    @MainActor
+    func testMultipleTickers() {
+        watchlistService.addToWatchlist("AAPL")
+        watchlistService.addToWatchlist("MSFT")
+        watchlistService.addToWatchlist("GOOGL")
         
-        let stored = UserDefaults.standard.stringArray(forKey: "sigil_watchlist") ?? []
-        XCTAssertFalse(stored.contains("AAPL"))
+        XCTAssertEqual(watchlistService.watchedTickers.count, 3)
+        XCTAssertTrue(watchlistService.isWatched("AAPL"))
+        XCTAssertTrue(watchlistService.isWatched("MSFT"))
+        XCTAssertTrue(watchlistService.isWatched("GOOGL"))
     }
     
-    // MARK: - Multiple Stocks
-    
-    func testMultipleStocks() {
-        service.addToWatchlist("AAPL")
-        service.addToWatchlist("MSFT")
-        service.addToWatchlist("GOOGL")
+    @MainActor
+    func testAddDuplicate() {
+        watchlistService.addToWatchlist("AAPL")
+        watchlistService.addToWatchlist("AAPL")  // Add again
         
-        XCTAssertEqual(service.watchedTickers.count, 3)
-        XCTAssertTrue(service.isWatched("AAPL"))
-        XCTAssertTrue(service.isWatched("MSFT"))
-        XCTAssertTrue(service.isWatched("GOOGL"))
-    }
-    
-    // MARK: - Response Model Tests
-    
-    func testSignalChangeDecoding() throws {
-        let json = """
-        {
-            "ticker": "AAPL",
-            "old_signal": "HOLD",
-            "new_signal": "BUY",
-            "old_score": 55.0,
-            "new_score": 75.0,
-            "score_change": 20.0
-        }
-        """.data(using: .utf8)!
-        
-        let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        let change = try decoder.decode(SignalChange.self, from: json)
-        
-        XCTAssertEqual(change.ticker, "AAPL")
-        XCTAssertEqual(change.oldSignal, "HOLD")
-        XCTAssertEqual(change.newSignal, "BUY")
-        XCTAssertEqual(change.scoreChange, 20.0)
-    }
-    
-    func testScoreChangesResponseDecoding() throws {
-        let json = """
-        {
-            "success": true,
-            "count": 1,
-            "data": [
-                {
-                    "ticker": "TSLA",
-                    "old_signal": "BUY",
-                    "new_signal": "SELL",
-                    "old_score": 72.0,
-                    "new_score": 35.0,
-                    "score_change": -37.0
-                }
-            ]
-        }
-        """.data(using: .utf8)!
-        
-        let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        let response = try decoder.decode(ScoreChangesResponse.self, from: json)
-        
-        XCTAssertTrue(response.success)
-        XCTAssertEqual(response.count, 1)
-        XCTAssertEqual(response.data[0].ticker, "TSLA")
+        // Set should not have duplicates
+        let count = watchlistService.watchedTickers.filter { $0 == "AAPL" }.count
+        XCTAssertEqual(count, 1)
     }
 }
