@@ -1,14 +1,46 @@
 {
-  "updated_at": "2026-02-15T18:23:17.061949",
+  "updated_at": "2026-02-15T20:55:08.966413",
   "count": 59,
   "articles": [
+    {
+      "source": "yahoo_finance",
+      "title": "Is Quantum Computing Stock Going to $0?",
+      "summary": "",
+      "link": "https://finance.yahoo.com/news/quantum-computing-stock-going-0-183500253.html",
+      "published": "2026-02-15T18:35:00+00:00",
+      "fetched_at": "2026-02-15T20:55:08.963172"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Tesla Rival Xiaomi's YU7 SUV Overtakes Model Y China Sales In January",
+      "summary": "",
+      "link": "https://finance.yahoo.com/news/tesla-rival-xiaomis-yu7-suv-183233313.html",
+      "published": "2026-02-15T18:32:33+00:00",
+      "fetched_at": "2026-02-15T20:55:08.963346"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Nvidia Stock Just Did This for the First Time in Nearly a Year. History is Very Clear About What Happens Next.",
+      "summary": "",
+      "link": "https://finance.yahoo.com/news/nvidia-stock-just-did-first-183000736.html",
+      "published": "2026-02-15T18:30:00+00:00",
+      "fetched_at": "2026-02-15T20:55:08.963492"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "The Smartest Growth ETF to Buy With $1,000 Right Now. (Hint: It Has Averaged Annual Gains of 18.6% Over the Past 10 Years.)",
+      "summary": "",
+      "link": "https://finance.yahoo.com/news/smartest-growth-etf-buy-1-182000536.html",
+      "published": "2026-02-15T18:20:00+00:00",
+      "fetched_at": "2026-02-15T20:55:08.963638"
+    },
     {
       "source": "yahoo_finance",
       "title": "Is It Too Late to Buy Lemonade Stock?",
       "summary": "",
       "link": "https://finance.yahoo.com/news/too-buy-lemonade-stock-180500294.html",
       "published": "2026-02-15T18:05:00+00:00",
-      "fetched_at": "2026-02-15T18:23:16.924201"
+      "fetched_at": "2026-02-15T20:55:08.963785"
     },
     {
       "source": "yahoo_finance",
@@ -16,7 +48,7 @@
       "summary": "",
       "link": "https://finance.yahoo.com/news/most-side-hustles-trash-according-180229413.html",
       "published": "2026-02-15T18:02:29+00:00",
-      "fetched_at": "2026-02-15T18:23:16.924387"
+      "fetched_at": "2026-02-15T20:55:08.963931"
     },
     {
       "source": "yahoo_finance",
@@ -24,7 +56,7 @@
       "summary": "",
       "link": "https://finance.yahoo.com/news/prediction-digitalocean-stock-going-soar-175000024.html",
       "published": "2026-02-15T17:50:00+00:00",
-      "fetched_at": "2026-02-15T18:23:16.924520"
+      "fetched_at": "2026-02-15T20:55:08.964079"
     },
     {
       "source": "yahoo_finance",
@@ -32,7 +64,7 @@
       "summary": "",
       "link": "https://finance.yahoo.com/news/jim-simons-renaissance-drops-520-174700542.html",
       "published": "2026-02-15T17:47:00+00:00",
-      "fetched_at": "2026-02-15T18:23:16.924691"
+      "fetched_at": "2026-02-15T20:55:08.964225"
     },
     {
       "source": "yahoo_finance",
@@ -40,7 +72,7 @@
       "summary": "",
       "link": "https://finance.yahoo.com/news/stock-market-crash-coming-1-174000148.html",
       "published": "2026-02-15T17:40:00+00:00",
-      "fetched_at": "2026-02-15T18:23:16.924812"
+      "fetched_at": "2026-02-15T20:55:08.964376"
     },
     {
       "source": "yahoo_finance",
@@ -48,15 +80,7 @@
       "summary": "",
       "link": "https://finance.yahoo.com/news/wall-street-wrong-amazon-stock-173500545.html",
       "published": "2026-02-15T17:35:00+00:00",
-      "fetched_at": "2026-02-15T18:23:16.924932"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Her Mom Took Out A $36K Student Loan And Now Wants It Repaid In Full, Although Nearly Half Of The Money Was Refunded. 'Your Mom Is Deceiving You'",
-      "summary": "",
-      "link": "https://finance.yahoo.com/news/her-mom-took-36k-student-173128219.html",
-      "published": "2026-02-15T17:31:28+00:00",
-      "fetched_at": "2026-02-15T18:23:16.925059"
+      "fetched_at": "2026-02-15T20:55:08.964512"
     },
     {
       "source": "marketwatch",
@@ -64,15 +88,7 @@
       "summary": "Here\u2019s how trading hours and other services will be affected on the federal holiday, which falls on Monday, Feb. 16, this year.",
       "link": "https://www.marketwatch.com/story/is-the-stock-market-open-on-presidents-day-will-usps-fedex-and-ups-make-deliveries-31d15912?mod=mw_rss_topstories",
       "published": "2026-02-15T17:25:00",
-      "fetched_at": "2026-02-15T18:23:16.998152"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Intel Lost Money Again in 2025. Here's Why -- and What It Means for the Stock",
-      "summary": "",
-      "link": "https://finance.yahoo.com/news/intel-lost-money-again-2025-172300022.html",
-      "published": "2026-02-15T17:23:00+00:00",
-      "fetched_at": "2026-02-15T18:23:16.925176"
+      "fetched_at": "2026-02-15T20:55:08.648012"
     },
     {
       "source": "yahoo_finance",
@@ -80,15 +96,7 @@
       "summary": "",
       "link": "https://finance.yahoo.com/news/aurora-innovation-aur-reports-q4-171145595.html",
       "published": "2026-02-15T17:11:45+00:00",
-      "fetched_at": "2026-02-15T18:23:16.924246"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Skyworks Solutions Stockholders Approve Share Issuance Proposal at Virtual Special Meeting",
-      "summary": "",
-      "link": "https://finance.yahoo.com/news/skyworks-solutions-stockholders-approve-share-171116788.html",
-      "published": "2026-02-15T17:11:16+00:00",
-      "fetched_at": "2026-02-15T18:23:16.925429"
+      "fetched_at": "2026-02-15T20:55:08.963213"
     },
     {
       "source": "yahoo_finance",
@@ -96,7 +104,7 @@
       "summary": "",
       "link": "https://finance.yahoo.com/news/why-jfrog-ltd-frog-price-171109083.html",
       "published": "2026-02-15T17:11:09+00:00",
-      "fetched_at": "2026-02-15T18:23:16.924281"
+      "fetched_at": "2026-02-15T20:55:08.963247"
     },
     {
       "source": "marketwatch",
@@ -104,7 +112,7 @@
       "summary": "The \u201cMagnificent Seven\u201d are breaking down, defensive consumer staples are on a tear \u2014 and then there\u2019s the midterm curse.",
       "link": "https://www.marketwatch.com/story/here-are-7-charts-guaranteed-to-stress-you-out-about-the-stock-market-085b23c1?mod=mw_rss_topstories",
       "published": "2026-02-15T17:00:00",
-      "fetched_at": "2026-02-15T18:23:16.998182"
+      "fetched_at": "2026-02-15T20:55:08.648034"
     },
     {
       "source": "yahoo_finance",
@@ -112,7 +120,7 @@
       "summary": "",
       "link": "https://finance.yahoo.com/news/1-2-gw-gas-fired-164001997.html",
       "published": "2026-02-15T16:40:01+00:00",
-      "fetched_at": "2026-02-15T18:23:16.924308"
+      "fetched_at": "2026-02-15T20:55:08.963286"
     },
     {
       "source": "yahoo_finance",
@@ -120,7 +128,7 @@
       "summary": "",
       "link": "https://finance.yahoo.com/news/the-dark-side-of-ai-wall-street-weighs-recent-stock-sell-off-over-disruption-fears-160054016.html",
       "published": "2026-02-15T16:00:54+00:00",
-      "fetched_at": "2026-02-15T18:23:16.924340"
+      "fetched_at": "2026-02-15T20:55:08.963316"
     },
     {
       "source": "yahoo_finance",
@@ -128,7 +136,7 @@
       "summary": "",
       "link": "https://finance.yahoo.com/news/average-income-americans-age-2026-160000048.html",
       "published": "2026-02-15T16:00:00+00:00",
-      "fetched_at": "2026-02-15T18:23:16.924417"
+      "fetched_at": "2026-02-15T20:55:08.963376"
     },
     {
       "source": "yahoo_finance",
@@ -136,7 +144,7 @@
       "summary": "",
       "link": "https://www.investors.com/market-trend/stock-market-today/dow-jones-futures-apple-google-amazon-meta-nvidia-five-ways-to-handle-market/?src=A00220&yptr=yahoo",
       "published": "2026-02-15T15:56:36+00:00",
-      "fetched_at": "2026-02-15T18:23:16.924443"
+      "fetched_at": "2026-02-15T20:55:08.963404"
     },
     {
       "source": "yahoo_finance",
@@ -144,7 +152,7 @@
       "summary": "",
       "link": "https://finance.yahoo.com/news/hapag-lloyd-talks-acquire-zim-152958723.html",
       "published": "2026-02-15T15:29:58+00:00",
-      "fetched_at": "2026-02-15T18:23:16.924605"
+      "fetched_at": "2026-02-15T20:55:08.963550"
     },
     {
       "source": "yahoo_finance",
@@ -152,7 +160,7 @@
       "summary": "",
       "link": "https://finance.yahoo.com/news/jim-cramer-discusses-broadcom-avgo-151357096.html",
       "published": "2026-02-15T15:13:57+00:00",
-      "fetched_at": "2026-02-15T18:23:16.924638"
+      "fetched_at": "2026-02-15T20:55:08.963579"
     },
     {
       "source": "yahoo_finance",
@@ -160,7 +168,7 @@
       "summary": "",
       "link": "https://finance.yahoo.com/news/nvidia-nvda-invented-category-says-151352040.html",
       "published": "2026-02-15T15:13:52+00:00",
-      "fetched_at": "2026-02-15T18:23:16.924665"
+      "fetched_at": "2026-02-15T20:55:08.963608"
     },
     {
       "source": "yahoo_finance",
@@ -168,7 +176,7 @@
       "summary": "",
       "link": "https://finance.yahoo.com/news/advanced-micro-devices-inc-amd-151341261.html",
       "published": "2026-02-15T15:13:41+00:00",
-      "fetched_at": "2026-02-15T18:23:16.924716"
+      "fetched_at": "2026-02-15T20:55:08.963667"
     },
     {
       "source": "yahoo_finance",
@@ -176,7 +184,7 @@
       "summary": "",
       "link": "https://finance.yahoo.com/news/apple-aapl-free-rider-says-151335567.html",
       "published": "2026-02-15T15:13:35+00:00",
-      "fetched_at": "2026-02-15T18:23:16.924740"
+      "fetched_at": "2026-02-15T20:55:08.963696"
     },
     {
       "source": "yahoo_finance",
@@ -184,7 +192,7 @@
       "summary": "",
       "link": "https://finance.yahoo.com/news/disney-dis-magic-not-maga-151315846.html",
       "published": "2026-02-15T15:13:15+00:00",
-      "fetched_at": "2026-02-15T18:23:16.924764"
+      "fetched_at": "2026-02-15T20:55:08.963725"
     },
     {
       "source": "yahoo_finance",
@@ -192,7 +200,7 @@
       "summary": "",
       "link": "https://finance.yahoo.com/news/general-motors-company-gm-ceo-151307641.html",
       "published": "2026-02-15T15:13:07+00:00",
-      "fetched_at": "2026-02-15T18:23:16.924788"
+      "fetched_at": "2026-02-15T20:55:08.963755"
     },
     {
       "source": "yahoo_finance",
@@ -200,7 +208,7 @@
       "summary": "",
       "link": "https://finance.yahoo.com/news/stellantis-stla-devastating-says-jim-151301025.html",
       "published": "2026-02-15T15:13:01+00:00",
-      "fetched_at": "2026-02-15T18:23:16.924835"
+      "fetched_at": "2026-02-15T20:55:08.963814"
     },
     {
       "source": "yahoo_finance",
@@ -208,7 +216,7 @@
       "summary": "",
       "link": "https://finance.yahoo.com/news/jim-cramer-discusses-cvs-health-151255868.html",
       "published": "2026-02-15T15:12:55+00:00",
-      "fetched_at": "2026-02-15T18:23:16.924859"
+      "fetched_at": "2026-02-15T20:55:08.963844"
     },
     {
       "source": "yahoo_finance",
@@ -216,7 +224,7 @@
       "summary": "",
       "link": "https://finance.yahoo.com/news/salesforce-crm-great-company-says-151248903.html",
       "published": "2026-02-15T15:12:48+00:00",
-      "fetched_at": "2026-02-15T18:23:16.924884"
+      "fetched_at": "2026-02-15T20:55:08.963873"
     },
     {
       "source": "yahoo_finance",
@@ -224,7 +232,7 @@
       "summary": "",
       "link": "https://finance.yahoo.com/news/vertiv-vrt-orders-were-incredible-151232966.html",
       "published": "2026-02-15T15:12:32+00:00",
-      "fetched_at": "2026-02-15T18:23:16.924909"
+      "fetched_at": "2026-02-15T20:55:08.963902"
     },
     {
       "source": "yahoo_finance",
@@ -232,7 +240,7 @@
       "summary": "",
       "link": "https://finance.yahoo.com/news/ge-vernova-gev-still-buyable-151227451.html",
       "published": "2026-02-15T15:12:27+00:00",
-      "fetched_at": "2026-02-15T18:23:16.924956"
+      "fetched_at": "2026-02-15T20:55:08.963962"
     },
     {
       "source": "yahoo_finance",
@@ -240,7 +248,7 @@
       "summary": "",
       "link": "https://finance.yahoo.com/news/eaton-etn-still-buyable-says-151220888.html",
       "published": "2026-02-15T15:12:20+00:00",
-      "fetched_at": "2026-02-15T18:23:16.924979"
+      "fetched_at": "2026-02-15T20:55:08.963991"
     },
     {
       "source": "yahoo_finance",
@@ -248,7 +256,7 @@
       "summary": "",
       "link": "https://finance.yahoo.com/news/corning-glw-still-buyable-says-151215452.html",
       "published": "2026-02-15T15:12:15+00:00",
-      "fetched_at": "2026-02-15T18:23:16.925009"
+      "fetched_at": "2026-02-15T20:55:08.964021"
     },
     {
       "source": "yahoo_finance",
@@ -256,7 +264,7 @@
       "summary": "",
       "link": "https://finance.yahoo.com/news/how-much-of-families-paychecks-go-toward-healthcare-costs-it-depends-on-the-state-150004908.html",
       "published": "2026-02-15T15:05:33+00:00",
-      "fetched_at": "2026-02-15T18:23:16.925034"
+      "fetched_at": "2026-02-15T20:55:08.964050"
     },
     {
       "source": "yahoo_finance",
@@ -264,7 +272,7 @@
       "summary": "",
       "link": "https://finance.yahoo.com/news/amd-stock-buy-why-wall-150002852.html",
       "published": "2026-02-15T15:00:02+00:00",
-      "fetched_at": "2026-02-15T18:23:16.925083"
+      "fetched_at": "2026-02-15T20:55:08.964108"
     },
     {
       "source": "yahoo_finance",
@@ -272,7 +280,7 @@
       "summary": "",
       "link": "https://finance.yahoo.com/news/louisiana-baker-quit-her-job-150000502.html",
       "published": "2026-02-15T15:00:00+00:00",
-      "fetched_at": "2026-02-15T18:23:16.925106"
+      "fetched_at": "2026-02-15T20:55:08.964137"
     },
     {
       "source": "yahoo_finance",
@@ -280,7 +288,7 @@
       "summary": "",
       "link": "https://finance.yahoo.com/news/turkcell-tkc-5g-launch-2026-141107417.html",
       "published": "2026-02-15T14:11:07+00:00",
-      "fetched_at": "2026-02-15T18:23:16.925130"
+      "fetched_at": "2026-02-15T20:55:08.964167"
     },
     {
       "source": "yahoo_finance",
@@ -288,7 +296,7 @@
       "summary": "",
       "link": "https://finance.yahoo.com/news/santander-san-webster-deal-faces-141105737.html",
       "published": "2026-02-15T14:11:05+00:00",
-      "fetched_at": "2026-02-15T18:23:16.925153"
+      "fetched_at": "2026-02-15T20:55:08.964254"
     },
     {
       "source": "yahoo_finance",
@@ -296,7 +304,7 @@
       "summary": "",
       "link": "https://finance.yahoo.com/news/ing-groep-ing-target-raised-141104474.html",
       "published": "2026-02-15T14:11:04+00:00",
-      "fetched_at": "2026-02-15T18:23:16.925199"
+      "fetched_at": "2026-02-15T20:55:08.964196"
     },
     {
       "source": "yahoo_finance",
@@ -304,7 +312,7 @@
       "summary": "",
       "link": "https://finance.yahoo.com/news/arcelormittal-mt-reported-strong-q4-141102360.html",
       "published": "2026-02-15T14:11:02+00:00",
-      "fetched_at": "2026-02-15T18:23:16.925222"
+      "fetched_at": "2026-02-15T20:55:08.964283"
     },
     {
       "source": "yahoo_finance",
@@ -312,7 +320,7 @@
       "summary": "",
       "link": "https://finance.yahoo.com/news/totalenergies-tte-expands-ev-charging-141100824.html",
       "published": "2026-02-15T14:11:00+00:00",
-      "fetched_at": "2026-02-15T18:23:16.925245"
+      "fetched_at": "2026-02-15T20:55:08.964343"
     },
     {
       "source": "yahoo_finance",
@@ -320,7 +328,7 @@
       "summary": "",
       "link": "https://finance.yahoo.com/news/stellantis-stla-stock-rated-equalweight-141059172.html",
       "published": "2026-02-15T14:10:59+00:00",
-      "fetched_at": "2026-02-15T18:23:16.925268"
+      "fetched_at": "2026-02-15T20:55:08.964312"
     },
     {
       "source": "yahoo_finance",
@@ -328,7 +336,7 @@
       "summary": "",
       "link": "https://finance.yahoo.com/news/amcor-amcr-delivers-strong-eps-141057044.html",
       "published": "2026-02-15T14:10:57+00:00",
-      "fetched_at": "2026-02-15T18:23:16.925313"
+      "fetched_at": "2026-02-15T20:55:08.964402"
     },
     {
       "source": "yahoo_finance",
@@ -336,7 +344,7 @@
       "summary": "",
       "link": "https://finance.yahoo.com/news/rio-tinto-rio-upgraded-buy-141033069.html",
       "published": "2026-02-15T14:10:33+00:00",
-      "fetched_at": "2026-02-15T18:23:16.925337"
+      "fetched_at": "2026-02-15T20:55:08.964433"
     },
     {
       "source": "yahoo_finance",
@@ -344,7 +352,7 @@
       "summary": "",
       "link": "https://finance.yahoo.com/news/gsk-plc-gsk-q4-results-141032359.html",
       "published": "2026-02-15T14:10:32+00:00",
-      "fetched_at": "2026-02-15T18:23:16.925376"
+      "fetched_at": "2026-02-15T20:55:08.964459"
     },
     {
       "source": "yahoo_finance",
@@ -352,7 +360,7 @@
       "summary": "",
       "link": "https://finance.yahoo.com/news/shell-shel-q4-revenue-beat-141030051.html",
       "published": "2026-02-15T14:10:30+00:00",
-      "fetched_at": "2026-02-15T18:23:16.925404"
+      "fetched_at": "2026-02-15T20:55:08.964485"
     },
     {
       "source": "yahoo_finance",
@@ -360,7 +368,7 @@
       "summary": "",
       "link": "https://finance.yahoo.com/news/chubb-cb-strengthens-emerging-market-141029619.html",
       "published": "2026-02-15T14:10:29+00:00",
-      "fetched_at": "2026-02-15T18:23:16.925453"
+      "fetched_at": "2026-02-15T20:55:08.964538"
     },
     {
       "source": "yahoo_finance",
@@ -368,7 +376,7 @@
       "summary": "",
       "link": "https://finance.yahoo.com/news/warren-buffett-once-said-us-140700372.html",
       "published": "2026-02-15T14:07:00+00:00",
-      "fetched_at": "2026-02-15T18:23:16.925477"
+      "fetched_at": "2026-02-15T20:55:08.964564"
     },
     {
       "source": "yahoo_finance",
@@ -376,15 +384,7 @@
       "summary": "",
       "link": "https://finance.yahoo.com/news/charlie-munger-once-said-finfluencers-140500261.html",
       "published": "2026-02-15T14:05:00+00:00",
-      "fetched_at": "2026-02-15T18:23:16.925504"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Carry trade, commodities make emerging market currencies more stable than G-7",
-      "summary": "",
-      "link": "https://finance.yahoo.com/news/carry-trade-commodities-em-currencies-133000108.html",
-      "published": "2026-02-15T13:30:00+00:00",
-      "fetched_at": "2026-02-15T18:23:16.925290"
+      "fetched_at": "2026-02-15T20:55:08.964589"
     },
     {
       "source": "marketwatch",
@@ -392,7 +392,7 @@
       "summary": "\u201cMy sister is planning to move out of state and feels it is her right to control the money.\u201d",
       "link": "https://www.marketwatch.com/story/she-is-planning-to-move-out-of-state-my-sister-secretly-sold-our-elderly-mothers-house-what-can-i-do-e9a9f486?mod=mw_rss_topstories",
       "published": "2026-02-15T13:30:00",
-      "fetched_at": "2026-02-15T18:23:16.998207"
+      "fetched_at": "2026-02-15T20:55:08.648051"
     },
     {
       "source": "marketwatch",
@@ -400,7 +400,7 @@
       "summary": "\u201cI have never been married, have no siblings, and both my parents have passed away.\u201d",
       "link": "https://www.marketwatch.com/story/im-a-loner-im-62-with-a-multimillion-dollar-portfolio-and-no-heirs-should-i-find-a-wife-for-my-twilight-years-4f4f4408?mod=mw_rss_topstories",
       "published": "2026-02-15T13:17:00",
-      "fetched_at": "2026-02-15T18:23:16.998230"
+      "fetched_at": "2026-02-15T20:55:08.648065"
     },
     {
       "source": "marketwatch",
@@ -408,7 +408,7 @@
       "summary": "\u201cI\u2019ve never been late on a mortgage, so this makes me nervous.\u201d",
       "link": "https://www.marketwatch.com/story/im-close-to-retiring-im-behind-on-my-property-taxes-is-this-a-bad-time-to-sell-my-house-40954efd?mod=mw_rss_topstories",
       "published": "2026-02-15T13:10:00",
-      "fetched_at": "2026-02-15T18:23:16.998252"
+      "fetched_at": "2026-02-15T20:55:08.648079"
     },
     {
       "source": "yahoo_finance",
@@ -416,7 +416,7 @@
       "summary": "",
       "link": "https://finance.yahoo.com/news/walmart-earnings-spending-data-and-more-ai-disruptions-what-to-watch-this-week-125712762.html",
       "published": "2026-02-15T12:57:12+00:00",
-      "fetched_at": "2026-02-15T18:23:16.924470"
+      "fetched_at": "2026-02-15T20:55:08.963434"
     },
     {
       "source": "marketwatch",
@@ -424,7 +424,7 @@
       "summary": "\u201cEvery year his very wealthy parents say that he needs to \u2018earn more\u2019 before he can marry me.\u201d",
       "link": "https://www.marketwatch.com/story/weve-been-dating-for-5-years-my-boyfriends-parents-say-he-doesnt-earn-enough-to-marry-should-i-speak-to-his-father-44b48700?mod=mw_rss_topstories",
       "published": "2026-02-15T12:49:00",
-      "fetched_at": "2026-02-15T18:23:16.998275"
+      "fetched_at": "2026-02-15T20:55:08.648093"
     },
     {
       "source": "marketwatch",
@@ -432,7 +432,7 @@
       "summary": "\u201cShe is an old-school farm girl who inherited all her money and wants to pass it down to her children.\u201d",
       "link": "https://www.marketwatch.com/story/we-have-no-prenup-i-want-rights-of-survivorship-in-our-marital-home-my-wife-prefers-tenants-in-common-now-what-996cf652?mod=mw_rss_topstories",
       "published": "2026-02-15T00:30:00",
-      "fetched_at": "2026-02-15T18:23:16.998297"
+      "fetched_at": "2026-02-15T20:55:08.648107"
     },
     {
       "source": "marketwatch",
@@ -440,7 +440,7 @@
       "summary": "\u201cIt\u2019s things like this that make me wonder what else she might be doing.\u201d",
       "link": "https://www.marketwatch.com/story/my-mom-was-very-upset-my-stepsister-changed-the-address-on-our-mothers-bank-account-can-she-be-trusted-as-executor-dab23670?mod=mw_rss_topstories",
       "published": "2026-02-15T00:00:00",
-      "fetched_at": "2026-02-15T18:23:16.998319"
+      "fetched_at": "2026-02-15T20:55:08.648121"
     },
     {
       "source": "marketwatch",
@@ -448,7 +448,7 @@
       "summary": "\u201cWe could survive financially, but my people would not.\u201d",
       "link": "https://www.marketwatch.com/story/i-feel-the-clock-ticking-my-wife-and-i-are-in-our-60s-and-employ-48-people-in-a-small-town-can-we-ever-retire-2399ba41?mod=mw_rss_topstories",
       "published": "2026-02-14T23:31:00",
-      "fetched_at": "2026-02-15T18:23:16.998341"
+      "fetched_at": "2026-02-15T20:55:08.648135"
     },
     {
       "source": "marketwatch",
@@ -456,7 +456,7 @@
       "summary": "Want to pay rent in two installments instead of one? The fine print can make \u201c0% interest\u201d costlier than it sounds.",
       "link": "https://www.marketwatch.com/story/tempted-to-use-buy-now-pay-later-to-split-your-rent-payments-watch-out-for-these-fees-8849433a?mod=mw_rss_topstories",
       "published": "2026-02-14T20:19:00",
-      "fetched_at": "2026-02-15T18:23:16.998381"
+      "fetched_at": "2026-02-15T20:55:08.648148"
     },
     {
       "source": "yahoo_finance",
@@ -464,7 +464,7 @@
       "summary": "",
       "link": "https://finance.yahoo.com/news/from-slippery-slope-to-existential-threat-auto-ceos-sound-alarm-on-chinese-competition-153037342.html",
       "published": "2026-02-14T15:30:37+00:00",
-      "fetched_at": "2026-02-15T18:23:16.924544"
+      "fetched_at": "2026-02-15T20:55:08.963521"
     },
     {
       "source": "yahoo_finance",
@@ -472,7 +472,7 @@
       "summary": "",
       "link": "https://finance.yahoo.com/news/healthcare-costs-are-eating-into-social-security-checks-130028966.html",
       "published": "2026-02-14T13:00:28+00:00",
-      "fetched_at": "2026-02-15T18:23:16.924495"
+      "fetched_at": "2026-02-15T20:55:08.963463"
     }
   ]
 }

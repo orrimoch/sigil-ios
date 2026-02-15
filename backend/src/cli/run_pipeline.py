@@ -82,21 +82,28 @@ def run_scores_only() -> int:
 def run_crowd_wisdom() -> int:
     """Run crowd wisdom data fetching (Reddit + Insider)."""
     try:
-        # Try to import crowd wisdom modules
         print(f"[{datetime.now().isoformat()}] Starting crowd wisdom fetch...")
         
+        # === 1. Insider Trading Data ===
         from src.crowd_wisdom.insider_fetcher import InsiderFetcher
         from src.crowd_wisdom.insider_scorer import InsiderScorer
         
-        # Fetch insider data
         fetcher = InsiderFetcher()
         transactions = fetcher.fetch_insider_buys(tech_only=False)
         print(f"  Fetched {len(transactions)} insider transactions")
         
-        # Score insider data
         scorer = InsiderScorer()
-        scores = scorer.score_transactions(transactions)
-        print(f"  Scored {len(scores)} tickers")
+        insider_scores = scorer.score_transactions(transactions)
+        print(f"  Scored {len(insider_scores)} insider tickers")
+        
+        # === 2. Reddit Data (Free, no API key) ===
+        try:
+            from src.crowd_wisdom.free_reddit_fetcher import fetch_reddit_trending_sync
+            
+            reddit_scores = fetch_reddit_trending_sync(limit=50)
+            print(f"  Fetched {len(reddit_scores)} Reddit trending tickers")
+        except Exception as e:
+            print(f"  [WARN] Reddit fetch failed (non-fatal): {e}")
         
         print(f"[{datetime.now().isoformat()}] Crowd wisdom completed successfully")
         return 0
