@@ -58,3 +58,4 @@ apscheduler>=3.10.0
 # HMM for risk regime detection
 hmmlearn>=0.3.0
 matplotlib>=3.8.0
+pyarrow>=14.0.0
