@@ -12,7 +12,10 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from datetime import datetime, timezone
 
-from auth.database import Base
+try:
+    from auth.database import Base
+except ImportError:
+    from src.auth.database import Base
 from .models import UserRiskSettings
 
 logger = logging.getLogger(__name__)
