@@ -67,6 +67,12 @@ class PipelineResult:
     status: str = "running"
     steps: List[StepResult] = field(default_factory=list)
     total_duration_seconds: float = 0
+    errors: List[str] = field(default_factory=list)
+    
+    @property
+    def success(self) -> bool:
+        """Returns True if pipeline completed successfully."""
+        return self.status == "success"
     
     def to_dict(self) -> Dict:
         return {
