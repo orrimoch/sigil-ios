@@ -95,7 +95,7 @@ def run_crowd_wisdom() -> int:
         
         # Score insider data
         scorer = InsiderScorer()
-        scores = scorer.score_all_tickers(transactions)
+        scores = scorer.score_transactions(transactions)
         print(f"  Scored {len(scores)} tickers")
         
         print(f"[{datetime.now().isoformat()}] Crowd wisdom completed successfully")
