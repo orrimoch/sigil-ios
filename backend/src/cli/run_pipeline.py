@@ -21,17 +21,24 @@ def run_full_pipeline(test_mode: bool = False, stocks: int = None) -> int:
     try:
         from src.data.pipeline import run_pipeline
         
-        args = []
-        if test_mode:
-            args.append("--test")
-        if stocks:
-            args.extend(["--stocks", str(stocks)])
-        
-        # Run pipeline
         print(f"[{datetime.now().isoformat()}] Starting full pipeline...")
-        asyncio.run(run_pipeline(test_mode=test_mode))
-        print(f"[{datetime.now().isoformat()}] Full pipeline completed successfully")
-        return 0
+        
+        # In test mode, limit to specific tickers
+        if test_mode:
+            test_tickers = ["AAPL", "MSFT", "GOOGL", "NVDA", "AMZN"]
+            if stocks and stocks < len(test_tickers):
+                test_tickers = test_tickers[:stocks]
+            print(f"  Test mode: processing {len(test_tickers)} stocks: {test_tickers}")
+            result = run_pipeline(tickers=test_tickers)
+        else:
+            result = run_pipeline()
+        
+        if result.success:
+            print(f"[{datetime.now().isoformat()}] Full pipeline completed successfully")
+            return 0
+        else:
+            print(f"[ERROR] Pipeline completed with errors: {result.errors}", file=sys.stderr)
+            return 1
     except Exception as e:
         print(f"[ERROR] Full pipeline failed: {e}", file=sys.stderr)
         return 1
@@ -40,12 +47,33 @@ def run_full_pipeline(test_mode: bool = False, stocks: int = None) -> int:
 def run_scores_only() -> int:
     """Run only the scoring step (no data fetch)."""
     try:
-        from src.data.pipeline import run_pipeline
+        from src.data.pipeline import Pipeline
+        from src.data.stock_universe import get_universe
         
         print(f"[{datetime.now().isoformat()}] Starting scores-only pipeline...")
-        asyncio.run(run_pipeline(scores_only=True))
-        print(f"[{datetime.now().isoformat()}] Scoring completed successfully")
-        return 0
+        
+        # Get current universe
+        universe = get_universe()
+        tickers = [s["ticker"] for s in universe]
+        print(f"  Processing {len(tickers)} stocks from universe")
+        
+        # Run with all data fetching skipped
+        pipeline = Pipeline()
+        result = pipeline.run(
+            skip_universe=True,
+            skip_prices=True,
+            skip_fundamentals=True,
+            skip_news=True,
+            skip_macro=True,
+            tickers=tickers
+        )
+        
+        if result.success:
+            print(f"[{datetime.now().isoformat()}] Scoring completed successfully")
+            return 0
+        else:
+            print(f"[ERROR] Scoring completed with errors: {result.errors}", file=sys.stderr)
+            return 1
     except Exception as e:
         print(f"[ERROR] Scoring failed: {e}", file=sys.stderr)
         return 1
