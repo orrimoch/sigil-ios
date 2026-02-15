@@ -90,7 +90,7 @@ def run_crowd_wisdom() -> int:
         
         # Fetch insider data
         fetcher = InsiderFetcher()
-        transactions = fetcher.fetch_recent_insider_buys(days=30)
+        transactions = fetcher.fetch_insider_buys(tech_only=False)
         print(f"  Fetched {len(transactions)} insider transactions")
         
         # Score insider data
