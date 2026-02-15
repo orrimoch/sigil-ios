@@ -113,16 +113,12 @@ def run_train_hmm() -> int:
     try:
         print(f"[{datetime.now().isoformat()}] Starting HMM training...")
         
-        from src.risk.hmm_regime import HMMRegimeDetector
+        from src.risk.hmm_regime import train_regime_model_from_history
         
-        detector = HMMRegimeDetector()
-        detector.train()
+        # Train on historical data (fetches SPY + VIX automatically)
+        train_regime_model_from_history()
         
-        # Get current regime
-        regime = detector.get_current_regime()
-        print(f"  Model trained successfully")
-        print(f"  Current regime: {regime.get('regime', 'unknown')}")
-        
+        print(f"  Model trained and saved successfully")
         print(f"[{datetime.now().isoformat()}] HMM training completed successfully")
         return 0
     except Exception as e:
