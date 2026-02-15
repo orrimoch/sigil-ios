@@ -75,3 +75,34 @@ class TestGitHubWorkflows:
                 # Jobs that depend on others or have if conditions are ok
                 assert "timeout-minutes" in job or "needs" in job, \
                     f"Job '{job_name}' in {workflow_file.name} should have timeout-minutes"
+
+
+class TestWorkflowPermissions:
+    """Test workflow commit-back configuration."""
+    
+    @pytest.fixture
+    def workflows_dir(self):
+        return Path(__file__).parent.parent.parent.parent.parent / ".github" / "workflows"
+    
+    def test_workflows_use_github_token(self, workflows_dir):
+        """T-008: Verify workflows use GITHUB_TOKEN for commits."""
+        for workflow_file in workflows_dir.glob("*.yml"):
+            if workflow_file.name.startswith("."):
+                continue
+            content = workflow_file.read_text()
+            # Workflows that commit should use GITHUB_TOKEN
+            if "git push" in content or "git commit" in content:
+                assert "GITHUB_TOKEN" in content or "token:" in content, \
+                    f"{workflow_file.name} should use GITHUB_TOKEN for git operations"
+    
+    def test_workflows_configure_git_user(self, workflows_dir):
+        """T-008: Verify workflows configure git user for commits."""
+        for workflow_file in workflows_dir.glob("*.yml"):
+            if workflow_file.name.startswith("."):
+                continue
+            content = workflow_file.read_text()
+            if "git commit" in content:
+                assert "git config" in content, \
+                    f"{workflow_file.name} should configure git user before commit"
+                assert "user.email" in content, \
+                    f"{workflow_file.name} should set git user.email"

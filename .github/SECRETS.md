@@ -34,3 +34,22 @@ gh secret set ANTHROPIC_API_KEY
 ```bash
 gh secret list
 ```
+
+## Workflow Permissions
+
+The workflows need write access to commit data updates back to the repository.
+
+### Required Settings
+
+1. Go to: **Settings → Actions → General**
+2. Under "Workflow permissions":
+   - Select **"Read and write permissions"**
+   - Check **"Allow GitHub Actions to create and approve pull requests"** (optional)
+
+### How it works
+
+Workflows use `${{ secrets.GITHUB_TOKEN }}` which is automatically provided by GitHub Actions. With write permissions enabled, this token can:
+- Push commits to the repository
+- Create issues (for failure notifications)
+
+No additional secrets are needed for this functionality.
