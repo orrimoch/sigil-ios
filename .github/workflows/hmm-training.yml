@@ -99,17 +99,6 @@ jobs:
               raise FileNotFoundError('HMM model not found!')
           "
       
-      - name: Get current regime
-        working-directory: backend
-        run: |
-          python -c "
-          from src.risk.hmm_regime import HMMRegimeDetector
-          detector = HMMRegimeDetector()
-          regime = detector.get_current_regime()
-          print(f'📊 Current regime: {regime.get(\"regime\", \"unknown\")}')
-          print(f'   Confidence: {regime.get(\"confidence\", 0):.1%}')
-          "
-      
       - name: Commit updated model
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
