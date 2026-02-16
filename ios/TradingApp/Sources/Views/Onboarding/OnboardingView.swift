@@ -405,11 +405,19 @@ struct IBKRSetupPage: View {
                         .font(.caption)
                         .foregroundColor(.Text.secondary)
                     
+                    // LOW FIX ONB-002: Custom styled TextField for Institutional Dark theme
                     TextField("e.g., DU1234567 or U1234567", text: $accountId)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding(12)
+                        .background(Color.Background.secondary)
+                        .cornerRadius(8)
+                        .foregroundColor(.Text.primary)
                         .autocapitalization(.allCharacters)
                         .disableAutocorrection(true)
                         .keyboardType(.asciiCapable)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(Color.Accent.gold.opacity(0.3), lineWidth: 1)
+                        )
                     
                     if accountId.hasPrefix("DU") {
                         HStack {

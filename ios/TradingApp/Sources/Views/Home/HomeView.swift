@@ -153,8 +153,9 @@ struct DailyQuoteCard: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
+                // LOW FIX HOME-001: Quote icon gold for better visual hierarchy
                 Image(systemName: "quote.opening")
-                    .foregroundColor(.Text.tertiary)
+                    .foregroundColor(.Accent.gold)
                 Spacer()
             }
             

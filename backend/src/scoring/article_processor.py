@@ -98,7 +98,7 @@ class ArticleProcessor:
     def __init__(
         self,
         max_articles_per_ticker: int = 5,
-        max_content_length: int = 300,
+        max_content_length: int = 500,  # LOW FIX SE-005: Increased from 300 for more context
         min_content_length: int = 20,
     ):
         self.max_articles = max_articles_per_ticker

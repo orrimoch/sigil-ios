@@ -84,13 +84,15 @@ struct LoginView: View {
                         .opacity(email.isEmpty || password.isEmpty ? 0.5 : 1.0)
                         .padding(.horizontal, 24)
 
-                        // Forgot Password
+                        // Forgot Password (LOW FIX AUTH-001: Larger touch target)
                         Button {
                             showForgotPassword = true
                         } label: {
                             Text("Forgot Password?")
                                 .font(.subheadline)
                                 .foregroundColor(.Accent.gold)
+                                .padding(.vertical, 8)
+                                .padding(.horizontal, 16)
                         }
 
                         // Face ID shortcut
