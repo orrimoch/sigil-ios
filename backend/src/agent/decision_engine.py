@@ -13,12 +13,12 @@ from datetime import datetime
 from pathlib import Path
 from loguru import logger
 
-# Add src to path
+# Add src to path for imports
 import sys
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from agent.position_sizing import TradeDecision
-from agent.memory import Memory
+from .position_sizing import TradeDecision
+from .memory import Memory
 
 
 # Default model (Haiku for cost efficiency)

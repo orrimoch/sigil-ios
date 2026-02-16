@@ -145,16 +145,35 @@ class AgentMemory:
     
     async def store_decision(
         self, 
-        decision: Decision,
-        context: Optional[Any] = None
+        decision: Any,
+        context: Optional[Any] = None,
+        user_id: Optional[str] = None,
     ) -> int:
         """
         Store a decision in memory.
         
+        Accepts either a Decision dataclass or a DecisionResult from decision_engine.
         Returns the decision ID for later outcome update.
         """
+        # Handle DecisionResult from decision_engine
+        if hasattr(decision, 'ticker') and not isinstance(decision, Decision):
+            # Convert DecisionResult to Decision-like
+            dec = Decision(
+                ticker=decision.ticker,
+                action=decision.action,
+                shares=getattr(decision, 'shares', 0),
+                price=getattr(decision, 'price', 0.0),
+                score=decision.score,
+                regime=getattr(decision, 'regime', 'normal'),
+                sector=decision.sector,
+                rationale=decision.rationale,
+                confidence=decision.confidence,
+            )
+        else:
+            dec = decision
+        
         # Generate embedding
-        embedding = await self._generate_embedding(decision, context)
+        embedding = await self._generate_embedding(dec, context)
         
         # Serialize context
         context_json = {}
@@ -168,26 +187,27 @@ class AgentMemory:
             row = await conn.fetchrow("""
                 INSERT INTO agent_decisions 
                 (timestamp, ticker, action, shares, price, score, regime, 
-                 sector, rationale, confidence, context_json, embedding)
-                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
+                 sector, rationale, confidence, context_json, embedding, user_id)
+                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
                 RETURNING id
             """,
-                decision.timestamp or datetime.now(timezone.utc),
-                decision.ticker,
-                decision.action,
-                decision.shares,
-                decision.price,
-                decision.score,
-                decision.regime,
-                decision.sector,
-                decision.rationale,
-                decision.confidence,
+                dec.timestamp or datetime.now(timezone.utc),
+                dec.ticker,
+                dec.action,
+                dec.shares,
+                dec.price,
+                dec.score,
+                dec.regime,
+                dec.sector,
+                dec.rationale,
+                dec.confidence,
                 json.dumps(context_json),
                 embedding,
+                user_id,
             )
             decision_id = row['id']
         
-        logger.info(f"Stored decision {decision_id}: {decision.action} {decision.ticker}")
+        logger.info(f"Stored decision {decision_id}: {dec.action} {dec.ticker}")
         return decision_id
     
     async def retrieve_similar(
@@ -295,17 +315,104 @@ class AgentMemory:
         
         return [dict(row) for row in rows]
     
-    async def get_recent_decisions(self, limit: int = 50) -> List[Decision]:
-        """Get most recent decisions (short-term memory)."""
+    async def get_decisions_without_outcomes(
+        self,
+        after: datetime,
+        before: datetime,
+        limit: int = 10,
+    ) -> List[Decision]:
+        """
+        Get decisions without outcomes within a date range.
+        
+        Used by the learning loop to find decisions needing outcome updates.
+        """
         async with self._pool.acquire() as conn:
             rows = await conn.fetch("""
                 SELECT id, timestamp, ticker, action, shares, price, score,
-                       regime, sector, rationale, confidence, outcome_pct,
-                       outcome_date, lesson_learned
+                       regime, sector, rationale, confidence, user_id
                 FROM agent_decisions
-                ORDER BY timestamp DESC
-                LIMIT $1
-            """, limit)
+                WHERE outcome_pct IS NULL
+                  AND timestamp BETWEEN $1 AND $2
+                ORDER BY timestamp ASC
+                LIMIT $3
+            """, after, before, limit)
+        
+        decisions = []
+        for row in rows:
+            decisions.append(Decision(
+                id=row['id'],
+                timestamp=row['timestamp'],
+                ticker=row['ticker'],
+                action=row['action'],
+                shares=row['shares'],
+                price=float(row['price']),
+                score=float(row['score']),
+                regime=row['regime'],
+                sector=row['sector'],
+                rationale=row['rationale'],
+                confidence=float(row['confidence']) if row['confidence'] else 0.0,
+            ))
+        
+        return decisions
+    
+    async def store_lesson(self, decision_id: int, lesson: str):
+        """
+        Store a lesson learned for a decision.
+        
+        Called by the learning loop after generating a lesson from outcome.
+        """
+        async with self._pool.acquire() as conn:
+            await conn.execute("""
+                UPDATE agent_decisions
+                SET lesson_learned = $1
+                WHERE id = $2
+            """, lesson, decision_id)
+        
+        logger.info(f"Stored lesson for decision {decision_id}")
+    
+    async def get_recent_decisions(
+        self, 
+        limit: int = 50,
+        user_id: Optional[str] = None,
+        ticker: Optional[str] = None,
+        action: Optional[str] = None,
+    ) -> List[Decision]:
+        """
+        Get most recent decisions (short-term memory).
+        
+        Supports optional filters for user, ticker, and action.
+        """
+        # Build query dynamically based on filters
+        query = """
+            SELECT id, timestamp, ticker, action, shares, price, score,
+                   regime, sector, rationale, confidence, outcome_pct,
+                   outcome_date, lesson_learned
+            FROM agent_decisions
+            WHERE 1=1
+        """
+        params = []
+        param_idx = 1
+        
+        if user_id:
+            query += f" AND user_id = ${param_idx}"
+            params.append(user_id)
+            param_idx += 1
+        
+        if ticker:
+            query += f" AND ticker = ${param_idx}"
+            params.append(ticker.upper())
+            param_idx += 1
+        
+        if action:
+            query += f" AND action = ${param_idx}"
+            params.append(action.upper())
+            param_idx += 1
+        
+        query += f" ORDER BY timestamp DESC LIMIT ${param_idx}"
+        params.append(limit)
+        
+        async with self._pool.acquire() as conn:
+            rows = await conn.fetch(query, *params)
         
         decisions = []
         for row in rows:
