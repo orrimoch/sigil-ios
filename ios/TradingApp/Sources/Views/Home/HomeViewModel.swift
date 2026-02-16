@@ -21,6 +21,9 @@ class HomeViewModel: ObservableObject {
     // F4.4: Alerts Feed
     @Published var alerts: [AlertItem] = []
     
+    // GAP-005: Actions This Week (recommended trades based on portfolio vs scores)
+    @Published var weeklyActions: [WeeklyAction] = []
+    
     // Risk Module: VIX Indicator
     @Published var vixValue: Double?
     @Published var vixChange: Double?
@@ -87,6 +90,11 @@ class HomeViewModel: ObservableObject {
             // Pipeline Status
             group.addTask {
                 await self.loadPipelineStatus()
+                return nil
+            }
+            // GAP-005: Weekly Actions
+            group.addTask {
+                await self.loadWeeklyActions()
                 return nil
             }
             
@@ -293,6 +301,55 @@ class HomeViewModel: ObservableObject {
         }
     }
     
+    // MARK: - GAP-005: Actions This Week
+    
+    private func loadWeeklyActions() async {
+        var actions: [WeeklyAction] = []
+        
+        do {
+            // Get portfolio holdings
+            let portfolio = try await api.getPortfolio()
+            let holdingTickers = Set(portfolio.data.holdings.map { $0.ticker })
+            
+            // Get top scores (potential buys)
+            let scores = try await api.getScores(limit: 20)
+            
+            // Find top BUY signals not in portfolio
+            for score in scores.scores.prefix(3) {
+                if score.signal == "BUY" && !holdingTickers.contains(score.ticker) {
+                    actions.append(WeeklyAction(
+                        type: .buy,
+                        ticker: score.ticker,
+                        companyName: score.companyName ?? score.ticker,
+                        score: Int(score.totalScore),
+                        reason: "Score \(Int(score.totalScore)) — Strong fundamentals"
+                    ))
+                }
+            }
+            
+            // Check holdings for SELL signals
+            for holding in portfolio.data.holdings {
+                if let score = scores.scores.first(where: { $0.ticker == holding.ticker }),
+                   score.signal == "SELL" {
+                    actions.append(WeeklyAction(
+                        type: .sell,
+                        ticker: holding.ticker,
+                        companyName: score.companyName ?? holding.ticker,
+                        score: Int(score.totalScore),
+                        reason: "Score \(Int(score.totalScore)) — Consider reducing"
+                    ))
+                }
+            }
+            
+            weeklyActions = actions
+        } catch {
+            // Silent fail - actions are optional
+            #if DEBUG
+            debugError(error, context: "Weekly actions load")
+            #endif
+        }
+    }
+    
     // MARK: - Risk Module: VIX
     
     private func loadVIX() async {
@@ -451,6 +508,42 @@ enum AlertType: String {
     case signalChange = "signal_change"
     case earnings = "earnings"
     case news = "news"
+}
+
+// GAP-005: Weekly Action Model
+struct WeeklyAction: Identifiable {
+    let id = UUID()
+    let type: WeeklyActionType
+    let ticker: String
+    let companyName: String
+    let score: Int
+    let reason: String
+}
+
+enum WeeklyActionType {
+    case buy
+    case sell
+    
+    var label: String {
+        switch self {
+        case .buy: return "BUY"
+        case .sell: return "SELL"
+        }
+    }
+    
+    var color: Color {
+        switch self {
+        case .buy: return .Signal.buy
+        case .sell: return .Signal.sell
+        }
+    }
+    
+    var icon: String {
+        switch self {
+        case .buy: return "arrow.up.circle.fill"
+        case .sell: return "arrow.down.circle.fill"
+        }
+    }
 }
 
 // MARK: - Timeout Helper

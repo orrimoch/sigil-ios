@@ -570,26 +570,38 @@ struct ScoreBreakdownCard: View {
             }
             
             if isExpanded {
+                // GAP-003: Prominent explanation callout at top
+                if !explanation.isEmpty {
+                    HStack(alignment: .top, spacing: 12) {
+                        Image(systemName: "lightbulb.circle.fill")
+                            .font(.title2)
+                            .foregroundColor(.Accent.gold)
+                        
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("Why this score?")
+                                .font(.subheadline.weight(.semibold))
+                                .foregroundColor(.Text.primary)
+                            
+                            Text(explanation)
+                                .font(.subheadline)
+                                .foregroundColor(.Text.secondary)
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
+                    }
+                    .padding(12)
+                    .background(Color.Accent.gold.opacity(0.1))
+                    .cornerRadius(10)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.Accent.gold.opacity(0.3), lineWidth: 1)
+                    )
+                }
+                
                 // Component bars
                 ScoreComponentBar(name: "Fundamental", score: fundamental, weight: 35, icon: "building.columns.fill")
                 ScoreComponentBar(name: "Sentiment", score: sentiment, weight: 25, icon: "newspaper.fill")
                 ScoreComponentBar(name: "Technical", score: technical, weight: 20, icon: "chart.xyaxis.line")
                 ScoreComponentBar(name: "Macro", score: macro, weight: 20, icon: "globe")
-                
-                // Explanation
-                if !explanation.isEmpty {
-                    Divider()
-                        .background(Color.Utility.divider)
-                    
-                    HStack(alignment: .top, spacing: 8) {
-                        Image(systemName: "lightbulb.fill")
-                            .foregroundColor(.Brand.accent)
-                        
-                        Text(explanation)
-                            .font(.caption)
-                            .foregroundColor(.Text.secondary)
-                    }
-                }
             }
         }
         .padding()

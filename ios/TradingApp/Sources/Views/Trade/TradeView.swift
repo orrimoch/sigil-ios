@@ -54,7 +54,65 @@ struct TradeView: View {
                     Text("\(order.side) \(Int(order.quantity)) \(order.ticker) - \(order.status)")
                 }
             }
+            // GAP-009: Undo toast overlay
+            .overlay(alignment: .bottom) {
+                if viewModel.showUndoToast, let order = viewModel.lastOrder {
+                    UndoToast(
+                        order: order,
+                        countdown: viewModel.undoCountdown,
+                        onUndo: {
+                            Task { await viewModel.undoLastOrder() }
+                        },
+                        onDismiss: viewModel.dismissUndoToast
+                    )
+                    .padding(.horizontal, 20)
+                    .padding(.bottom, 20)
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
+                }
+            }
+            .animation(.spring(response: 0.3), value: viewModel.showUndoToast)
         }
+    }
+}
+
+// MARK: - GAP-009: Undo Toast
+
+struct UndoToast: View {
+    let order: OrderData
+    let countdown: Int
+    let onUndo: () -> Void
+    let onDismiss: () -> Void
+    
+    var body: some View {
+        HStack(spacing: 12) {
+            Image(systemName: "checkmark.circle.fill")
+                .foregroundColor(.Signal.buy)
+            
+            VStack(alignment: .leading, spacing: 2) {
+                Text("Order Submitted")
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundColor(.Text.primary)
+                Text("\(order.side) \(Int(order.quantity)) \(order.ticker)")
+                    .font(.caption)
+                    .foregroundColor(.Text.secondary)
+            }
+            
+            Spacer()
+            
+            Button(action: onUndo) {
+                Text("Undo (\(countdown)s)")
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundColor(.Accent.gold)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 8)
+                    .background(Color.Accent.gold.opacity(0.15))
+                    .cornerRadius(8)
+            }
+        }
+        .padding()
+        .background(Color.Background.secondary)
+        .cornerRadius(12)
+        .shadow(color: .black.opacity(0.3), radius: 8, y: 4)
     }
 }
 

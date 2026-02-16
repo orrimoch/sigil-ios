@@ -49,6 +49,10 @@ struct HomeView: View {
                     .accessibilityElement(children: .combine)
                     .padding(.horizontal)
                     
+                    // GAP-005: Actions This Week
+                    ActionsThisWeekCard(actions: viewModel.weeklyActions)
+                        .padding(.horizontal)
+                    
                     // F3.2: Daily Quote
                     DailyQuoteCard(quote: quote)
                         .padding(.horizontal)

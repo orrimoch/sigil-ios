@@ -404,16 +404,36 @@ struct HoldingsSection: View {
             }
             
             if holdings.isEmpty {
-                VStack(spacing: 8) {
+                // GAP-006: Actionable empty state
+                VStack(spacing: 16) {
                     Image(systemName: "briefcase")
-                        .font(.title)
-                        .foregroundColor(.Text.tertiary)
-                    Text("No positions yet")
-                        .font(.subheadline)
-                        .foregroundColor(.Text.tertiary)
-                    Text("Buy stocks from the Trade tab")
-                        .font(.caption)
-                        .foregroundColor(.Text.tertiary)
+                        .font(.system(size: 40))
+                        .foregroundColor(.Accent.gold.opacity(0.6))
+                    
+                    VStack(spacing: 4) {
+                        Text("No positions yet")
+                            .font(.headline)
+                            .foregroundColor(.Text.primary)
+                        Text("Explore our AI picks and start building your portfolio")
+                            .font(.subheadline)
+                            .foregroundColor(.Text.secondary)
+                            .multilineTextAlignment(.center)
+                    }
+                    
+                    NavigationLink {
+                        ScoresView()
+                    } label: {
+                        HStack {
+                            Image(systemName: "sparkles")
+                            Text("Explore Top AI Picks")
+                        }
+                        .font(.subheadline.weight(.semibold))
+                        .foregroundColor(.white)
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 12)
+                        .background(Color.Accent.gold)
+                        .cornerRadius(10)
+                    }
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 32)

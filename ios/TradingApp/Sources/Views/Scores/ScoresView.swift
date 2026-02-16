@@ -128,6 +128,18 @@ struct ScoresView: View {
             .navigationBarTitleDisplayMode(.large)
             .toolbarBackground(Color.Background.primary, for: .navigationBar)
             .toolbarColorScheme(.dark, for: .navigationBar)
+            .toolbar {
+                // GAP-008: Market Scanner access
+                ToolbarItem(placement: .topBarTrailing) {
+                    NavigationLink {
+                        MarketScannerView()
+                    } label: {
+                        Image(systemName: "waveform.badge.magnifyingglass")
+                            .foregroundColor(.Accent.gold)
+                    }
+                    .accessibilityLabel("Market Scanner")
+                }
+            }
             .searchable(
                 text: $viewModel.searchText,
                 placement: .navigationBarDrawer(displayMode: .automatic),

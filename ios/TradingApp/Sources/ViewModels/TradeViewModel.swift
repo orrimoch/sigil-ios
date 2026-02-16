@@ -39,6 +39,11 @@ class TradeViewModel: ObservableObject {
     @Published var lastOrder: OrderData?
     @Published var orderError: String?
     
+    // GAP-009: Undo toast for order submission
+    @Published var showUndoToast = false
+    @Published var undoCountdown: Int = 5
+    private var undoTask: Task<Void, Never>?
+    
     // Risk validation (Phase 2)
     @Published var riskWarnings: [String] = []
     @Published var showRiskWarning = false
@@ -413,6 +418,11 @@ class TradeViewModel: ObservableObject {
             showPreview = false
             showConfirmation = true
             
+            // GAP-009: Show undo toast for paper trading (non-IBKR) orders
+            if !shouldUseIBKR, let order = lastOrder {
+                startUndoCountdown(order: order)
+            }
+            
             // Analytics: track successful order submission
             Analytics.shared.track(.orderSubmitted, properties: [
                 "ticker": stock.ticker,
@@ -474,6 +484,50 @@ class TradeViewModel: ObservableObject {
         } catch {
             debugError(error, context: "Cancel")
         }
+    }
+    
+    // MARK: - GAP-009: Undo Toast
+    
+    private func startUndoCountdown(order: OrderData) {
+        undoTask?.cancel()
+        undoCountdown = 5
+        showUndoToast = true
+        
+        undoTask = Task { [weak self] in
+            for countdown in (0...5).reversed() {
+                try? await Task.sleep(nanoseconds: 1_000_000_000) // 1 second
+                guard !Task.isCancelled else { return }
+                await MainActor.run {
+                    self?.undoCountdown = countdown
+                }
+            }
+            await MainActor.run {
+                self?.showUndoToast = false
+            }
+        }
+    }
+    
+    func undoLastOrder() async {
+        undoTask?.cancel()
+        showUndoToast = false
+        
+        guard let order = lastOrder else { return }
+        
+        // Cancel the order (paper trading only)
+        do {
+            _ = try await api.cancelOrder(orderId: order.orderId)
+            lastOrder = nil
+            showConfirmation = false
+            await fetchTodaysOrders()
+            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+        } catch {
+            debugError(error, context: "Undo order")
+        }
+    }
+    
+    func dismissUndoToast() {
+        undoTask?.cancel()
+        showUndoToast = false
     }
 }
 
