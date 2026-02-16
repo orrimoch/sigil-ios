@@ -113,6 +113,33 @@ struct SettingsView: View {
                 }
                 .listRowBackground(Color.Background.secondary)
                 
+                // REC-272: AI Provider Selection
+                Section {
+                    NavigationLink {
+                        AIProviderSettingsView()
+                    } label: {
+                        HStack {
+                            Image(systemName: "brain.head.profile")
+                                .foregroundColor(.Accent.gold)
+                            
+                            VStack(alignment: .leading) {
+                                Text("AI Provider")
+                                    .foregroundColor(.Text.primary)
+                                
+                                Text(viewModel.currentAIProvider)
+                                    .font(.caption)
+                                    .foregroundColor(.Text.tertiary)
+                            }
+                        }
+                    }
+                } header: {
+                    Text("AI Engine")
+                        .accessibilityAddTraits(.isHeader)
+                } footer: {
+                    Text("Choose the AI model for scoring and risk analysis.")
+                }
+                .listRowBackground(Color.Background.secondary)
+                
                 // F8.2: Broker Connection
                 Section {
                     NavigationLink {
@@ -477,6 +504,7 @@ class SettingsViewModel: ObservableObject {
     }
     
     @Published var isIBKRConnected = false
+    @Published var currentAIProvider: String = "Loading..."
     
     private var ibkrCancellable: AnyCancellable?
     
@@ -500,6 +528,22 @@ class SettingsViewModel: ObservableObject {
         ibkrCancellable = IBKRService.shared.$isConnected
             .receive(on: RunLoop.main)
             .assign(to: \.isIBKRConnected, on: self)
+        
+        // Fetch AI provider
+        Task { await fetchAIProvider() }
+    }
+    
+    func fetchAIProvider() async {
+        do {
+            let config = try await APIService.shared.getAIConfig()
+            await MainActor.run {
+                self.currentAIProvider = config.providerDisplayName
+            }
+        } catch {
+            await MainActor.run {
+                self.currentAIProvider = "Claude (default)"
+            }
+        }
     }
     
     func reload() {

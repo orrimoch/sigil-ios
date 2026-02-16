@@ -636,6 +636,22 @@ class APIService: ObservableObject {
         return try await fetch(url)
     }
     
+    // MARK: - AI Provider Config (REC-272)
+    
+    /// Get current AI provider configuration
+    func getAIConfig() async throws -> AIConfigResponse {
+        let url = try makeURL("/config/llm")
+        let response: AIConfigAPIResponse = try await fetch(url)
+        return response.data
+    }
+    
+    /// Get list of available AI providers
+    func getAIProviders() async throws -> AIProvidersResponse {
+        let url = try makeURL("/config/llm/providers")
+        let response: AIProvidersAPIResponse = try await fetch(url)
+        return response.data
+    }
+    
     // MARK: - Price Alerts (REC-158)
     
     /// Create a price alert

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.sigil.backend</string>
+    
+    <key>ProgramArguments</key>
+    <array>
+        <string>/usr/bin/env</string>
+        <string>python3</string>
+        <string>-m</string>
+        <string>uvicorn</string>
+        <string>src.api.main:app</string>
+        <string>--host</string>
+        <string>0.0.0.0</string>
+        <string>--port</string>
+        <string>8000</string>
+    </array>
+    
+    <key>RunAtLoad</key>
+    <true/>
+    
+    <key>KeepAlive</key>
+    <dict>
+        <key>SuccessfulExit</key>
+        <false/>
+    </dict>
+    
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>AUTH_REQUIRED</key>
+        <string>true</string>
+        <key>PATH</key>
+        <string>/usr/local/bin:/usr/bin:/bin:/opt/homebrew/bin</string>
+    </dict>
+    
+    <key>WorkingDirectory</key>
+    <string>/Users/blazeneon/Desktop/Cool_Apps/TradingApp_iOS/backend</string>
+    
+    <key>StandardOutPath</key>
+    <string>/tmp/sigil_backend.log</string>
+    
+    <key>StandardErrorPath</key>
+    <string>/tmp/sigil_backend_error.log</string>
+    
+    <key>ThrottleInterval</key>
+    <integer>30</integer>
+</dict>
+</plist>
