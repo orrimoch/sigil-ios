@@ -83,17 +83,31 @@ def get_provider_config(
     
     fallback_model = FALLBACK_MODELS.get(provider)
     
-    # Get other config from env
+    # Get other config from env with validation (HIGH FIX LLM-001)
+    def _safe_float(key: str, default: float, min_val: float = 0, max_val: float = float('inf')) -> float:
+        try:
+            val = float(os.environ.get(key, str(default)))
+            return max(min_val, min(max_val, val))
+        except (ValueError, TypeError):
+            return default
+    
+    def _safe_int(key: str, default: int, min_val: int = 0) -> int:
+        try:
+            val = int(os.environ.get(key, str(default)))
+            return max(min_val, val)
+        except (ValueError, TypeError):
+            return default
+    
     config = LLMConfig(
         provider=provider,
         api_key=api_key,
         model=model,
         fallback_model=fallback_model,
-        max_tokens=int(os.environ.get("LLM_MAX_TOKENS", "1024")),
-        temperature=float(os.environ.get("LLM_TEMPERATURE", "0.0")),
-        rate_limit_rpm=int(os.environ.get("LLM_RATE_LIMIT", "50")),
-        max_retries=int(os.environ.get("LLM_MAX_RETRIES", "3")),
-        max_daily_spend_usd=float(os.environ.get("LLM_MAX_DAILY_SPEND", "10.0")),
+        max_tokens=_safe_int("LLM_MAX_TOKENS", 1024, 1),
+        temperature=_safe_float("LLM_TEMPERATURE", 0.0, 0.0, 2.0),
+        rate_limit_rpm=_safe_int("LLM_RATE_LIMIT", 50, 1),
+        max_retries=_safe_int("LLM_MAX_RETRIES", 3, 0),
+        max_daily_spend_usd=_safe_float("LLM_MAX_DAILY_SPEND", 10.0, 0.0),
     )
     
     logger.info(

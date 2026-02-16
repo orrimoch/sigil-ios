@@ -19,6 +19,9 @@ auth_router = APIRouter(prefix="/api/v1/auth", tags=["auth"])
 
 # AUTH-003: Brute force protection
 # Track failed login attempts: email -> (attempts, first_attempt_time)
+# HIGH NOTE SEC-004: In-memory tracking doesn't persist across restarts.
+# For production with multiple instances, use Redis or database-backed tracking.
+# Current implementation is acceptable for single-server deployment.
 _failed_logins: Dict[str, Tuple[int, float]] = defaultdict(lambda: (0, 0.0))
 _LOCKOUT_THRESHOLD = 5  # Lock after 5 failed attempts
 _LOCKOUT_DURATION = 15 * 60  # 15 minutes in seconds
@@ -235,13 +238,11 @@ async def request_password_reset(
     code = await AuthService.request_password_reset(db=db, email=request.email)
 
     # Never expose reset code in API response (BUG-008 fix).
-    # In production: send via email. For dev: check server logs.
-    # AUTH-004: Use DEBUG level to avoid exposing codes in production logs
+    # In production: send via email/SMS.
+    # HIGH FIX SEC-003: Don't log any part of reset code (even partial logging reduces entropy)
     if code is not None:
         import logging
-        # AUTH-004: Log only partial code (first 2 digits) to avoid exposing full reset codes
-        masked_code = f"{code[:2]}****" if len(code) >= 2 else "****"
-        logging.getLogger("auth").debug(f"[DEV] Password reset code generated for {request.email}: {masked_code}")
+        logging.getLogger("auth").debug(f"[DEV] Password reset code generated for {request.email}")
     return {"success": True, "message": "If an account exists, a reset code has been sent."}
 
 

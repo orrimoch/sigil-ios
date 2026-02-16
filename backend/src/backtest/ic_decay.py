@@ -147,9 +147,13 @@ class ICDecayAnalyzer:
                         returns_list.append(fwd_return)
                 
                 if len(scores_list) >= min_stocks_per_day:
-                    ic, _ = stats.spearmanr(scores_list, returns_list)
-                    if not np.isnan(ic):
-                        ic_samples[day_offset].append(ic)
+                    # HIGH FIX BT-002: Check variance before correlation (avoid NaN)
+                    scores_arr = np.array(scores_list)
+                    returns_arr = np.array(returns_list)
+                    if np.std(scores_arr) > 1e-10 and np.std(returns_arr) > 1e-10:
+                        ic, _ = stats.spearmanr(scores_arr, returns_arr)
+                        if not np.isnan(ic):
+                            ic_samples[day_offset].append(ic)
         
         # Aggregate results
         ic_by_day = {}
@@ -254,10 +258,14 @@ class ICDecayAnalyzer:
                     returns_list.append(fwd_return)
             
             if len(scores_list) >= 20:
-                ic, _ = stats.spearmanr(scores_list, returns_list)
-                if not np.isnan(ic):
-                    dates.append(score_date)
-                    ic_values.append(round(ic, 4))
+                # HIGH FIX BT-002: Check variance before correlation (avoid NaN)
+                scores_arr = np.array(scores_list)
+                returns_arr = np.array(returns_list)
+                if np.std(scores_arr) > 1e-10 and np.std(returns_arr) > 1e-10:
+                    ic, _ = stats.spearmanr(scores_arr, returns_arr)
+                    if not np.isnan(ic):
+                        dates.append(score_date)
+                        ic_values.append(round(ic, 4))
         
         # Calculate moving average
         ic_moving_avg = []

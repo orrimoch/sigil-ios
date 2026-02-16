@@ -347,13 +347,17 @@ def _analyze_with_keywords(ticker: str, articles: List[Dict], hours: int) -> Sen
         })
     
     # Calculate weighted average sentiment (-1 to 1)
-    if total_weight > 0:
+    # HIGH FIX SE-002: Check for empty weighted_scores list
+    if total_weight > 0 and weighted_scores:
         weighted_sentiment = sum(weighted_scores) / total_weight
     else:
         weighted_sentiment = 0.0
     
-    # Raw (unweighted) average
-    raw_sentiment = sum(analyze_sentiment(a["title"])["score"] for a in articles) / len(articles)
+    # Raw (unweighted) average - guard against empty articles
+    if articles:
+        raw_sentiment = sum(analyze_sentiment(a["title"])["score"] for a in articles) / len(articles)
+    else:
+        raw_sentiment = 0.0
     
     # Convert to 0-100 score
     # -1 -> 0, 0 -> 50, 1 -> 100

@@ -576,11 +576,15 @@ Respond with JSON only, matching this structure:
             # Fallback: derive from score
             overall_sentiment = SentimentLabel.from_score(data.get("overall_score", 50))
         
+        # HIGH FIX SE-001: Validate score bounds (0-100)
+        raw_score = float(data.get("overall_score", 50))
+        validated_score = max(0.0, min(100.0, raw_score))
+        
         return AgentSentimentResult(
             ticker=ticker,
-            overall_score=float(data.get("overall_score", 50)),
+            overall_score=validated_score,
             overall_sentiment=overall_sentiment,
-            confidence=float(data.get("confidence", 0.5)),
+            confidence=max(0.0, min(1.0, float(data.get("confidence", 0.5)))),
             rationale=data.get("rationale", "")[:500],
             article_analyses=article_analyses,
             bullish_factors=data.get("bullish_factors", [])[:3],

@@ -30,44 +30,63 @@ REQUEST_TIMEOUT = 30
 def fetch_price_history(
     ticker: str,
     period: str = "5y",
-    interval: str = "1d"
+    interval: str = "1d",
+    max_retries: int = 3
 ) -> Optional[pd.DataFrame]:
     """
-    Fetch price history for a single stock.
+    Fetch price history for a single stock with exponential backoff.
     
     Args:
         ticker: Stock ticker symbol
         period: Data period (1d, 5d, 1mo, 3mo, 6mo, 1y, 2y, 5y, 10y, ytd, max)
         interval: Data interval (1m, 2m, 5m, 15m, 30m, 60m, 90m, 1h, 1d, 5d, 1wk, 1mo, 3mo)
+        max_retries: Maximum retry attempts on rate limit (HIGH FIX DP-002)
     
     Returns:
         DataFrame with OHLCV data or None if failed
     """
-    try:
-        stock = yf.Ticker(ticker)
-        # API-003: yfinance uses requests internally, timeout applied via session
-        df = stock.history(period=period, interval=interval, timeout=REQUEST_TIMEOUT)
-        
-        if df.empty:
-            logger.warning(f"No price data for {ticker}")
+    last_error = None
+    
+    for attempt in range(max_retries):
+        try:
+            stock = yf.Ticker(ticker)
+            # API-003: yfinance uses requests internally, timeout applied via session
+            df = stock.history(period=period, interval=interval, timeout=REQUEST_TIMEOUT)
+            
+            if df.empty:
+                logger.warning(f"No price data for {ticker}")
+                return None
+            
+            # Clean up column names
+            df = df.reset_index()
+            df.columns = [c.lower().replace(' ', '_') for c in df.columns]
+            
+            # Add ticker column
+            df['ticker'] = ticker
+            
+            # Select relevant columns
+            columns = ['date', 'ticker', 'open', 'high', 'low', 'close', 'volume']
+            df = df[[c for c in columns if c in df.columns]]
+            
+            return df
+            
+        except Exception as e:
+            last_error = e
+            error_str = str(e).lower()
+            
+            # HIGH FIX DP-002: Exponential backoff on rate limit (429) errors
+            if "429" in error_str or "rate" in error_str or "too many" in error_str:
+                wait_time = (2 ** attempt) + (attempt * 0.5)  # 1s, 2.5s, 4.5s
+                logger.warning(f"Rate limited on {ticker}, waiting {wait_time}s (attempt {attempt + 1}/{max_retries})")
+                time.sleep(wait_time)
+                continue
+            
+            # Non-rate-limit error, don't retry
+            logger.error(f"Failed to fetch prices for {ticker}: {e}")
             return None
-        
-        # Clean up column names
-        df = df.reset_index()
-        df.columns = [c.lower().replace(' ', '_') for c in df.columns]
-        
-        # Add ticker column
-        df['ticker'] = ticker
-        
-        # Select relevant columns
-        columns = ['date', 'ticker', 'open', 'high', 'low', 'close', 'volume']
-        df = df[[c for c in columns if c in df.columns]]
-        
-        return df
-        
-    except Exception as e:
-        logger.error(f"Failed to fetch prices for {ticker}: {e}")
-        return None
+    
+    logger.error(f"Failed to fetch prices for {ticker} after {max_retries} retries: {last_error}")
+    return None
 
 
 def fetch_latest_price(ticker: str) -> Optional[Dict]:
