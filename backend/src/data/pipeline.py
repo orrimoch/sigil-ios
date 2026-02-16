@@ -323,10 +323,11 @@ class Pipeline:
     
     def _fetch_fundamentals(self, tickers: List[str]) -> Dict:
         """Fetch and save fundamental data with rate-limit-safe batching."""
+        # MEDIUM FIX DP-003: Increased parallelism (2→4 workers, adjusted delays)
         fundamentals = fetch_all_fundamentals(
             tickers,
-            max_workers=2, delay=1.0,
-            batch_size=20, batch_pause=10.0
+            max_workers=4, delay=0.5,
+            batch_size=25, batch_pause=8.0
         )
         save_fundamentals(fundamentals)
         return fundamentals

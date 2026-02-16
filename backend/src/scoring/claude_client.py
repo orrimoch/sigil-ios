@@ -366,6 +366,8 @@ class ClaudeClient:
         except Exception as e:
             logger.error(f"LLM API error: {e}")
             self.circuit_breaker.record_failure()
+            # MEDIUM FIX SE-003: Persist usage before returning on failure
+            self._save_usage()
             return None
     
     def _parse_json(self, text: str) -> Optional[Dict[str, Any]]:

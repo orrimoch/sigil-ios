@@ -28,7 +28,8 @@ DEFAULT_SELL_THRESHOLD = 50
 DEFAULT_HOLD_MIN = 40
 
 # VIX baseline and adjustment factor
-VIX_BASELINE = 15.0
+# MEDIUM FIX RK-002: Ensure baseline is never 0 to prevent potential issues
+VIX_BASELINE = max(1.0, 15.0)  # Historical average ~15, minimum 1
 VIX_ADJUSTMENT_FACTOR = 0.5  # Points per VIX above baseline
 
 
