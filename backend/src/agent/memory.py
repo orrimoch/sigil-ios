@@ -3,22 +3,23 @@ Agent Memory System (REC-281, REC-282)
 
 Three-tier memory for agent learning:
 1. Working Memory: Current session context (RAM)
-2. Short-Term Memory: Recent decisions (SQLite/PostgreSQL)
-3. Long-Term Memory: Historical patterns with embeddings (pgvector ready)
+2. Short-Term Memory: Recent decisions (PostgreSQL)
+3. Long-Term Memory: Historical patterns with embeddings (pgvector)
 
-Dev mode: Uses SQLite with JSON embeddings + numpy similarity
-Prod mode: Uses PostgreSQL with pgvector for efficient similarity search
+Uses PostgreSQL with pgvector for efficient vector similarity search.
+Connection string from DATABASE_URL env var or defaults to local.
 """
 
 import json
+import os
 import numpy as np
-from dataclasses import dataclass, asdict, field
+from dataclasses import dataclass, field
 from datetime import datetime, timezone, timedelta
 from typing import List, Dict, Optional, Any
 from pathlib import Path
 from loguru import logger
-import aiosqlite
-import hashlib
+import asyncpg
+from pgvector.asyncpg import register_vector
 
 # Add src to path for imports
 import sys
@@ -27,6 +28,9 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 # Embedding dimension (OpenAI text-embedding-3-small = 1536)
 EMBEDDING_DIM = 1536
+
+# Default database URL (local PostgreSQL)
+DEFAULT_DATABASE_URL = "postgresql://localhost/sigil_agent"
 
 
 @dataclass
@@ -51,7 +55,7 @@ class Decision:
     lesson_learned: Optional[str] = None
     
     # Embedding for similarity search
-    embedding: Optional[List[float]] = None
+    embedding: Optional[np.ndarray] = None
     
     def to_dict(self) -> Dict[str, Any]:
         return {
@@ -87,7 +91,7 @@ class Memory:
 
 class AgentMemory:
     """
-    Three-tier memory system for the trading agent.
+    Three-tier memory system for the trading agent using PostgreSQL + pgvector.
     
     Working Memory: In-RAM context for current session
     Short-Term Memory: Last 50 decisions (full context)
@@ -107,60 +111,37 @@ class AgentMemory:
         await memory.update_outcome(decision_id, outcome_pct=12.5)
     """
     
-    DB_PATH = Path(__file__).parent.parent.parent / "data" / "agent_memory.db"
-    
-    def __init__(self, db_path: Path = None, embedding_model: str = "text-embedding-3-small"):
-        self.db_path = db_path or self.DB_PATH
+    def __init__(
+        self, 
+        database_url: str = None,
+        embedding_model: str = "text-embedding-3-small"
+    ):
+        self.database_url = database_url or os.getenv("DATABASE_URL", DEFAULT_DATABASE_URL)
         self.embedding_model = embedding_model
+        self._pool: Optional[asyncpg.Pool] = None
         self._embedding_client = None
         
         # Working memory (current session)
         self.working_memory: Dict[str, Any] = {}
     
     async def initialize(self):
-        """Initialize database tables."""
-        self.db_path.parent.mkdir(parents=True, exist_ok=True)
-        
-        async with aiosqlite.connect(self.db_path) as db:
-            await db.execute("""
-                CREATE TABLE IF NOT EXISTS decisions (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    timestamp TEXT NOT NULL,
-                    ticker TEXT NOT NULL,
-                    action TEXT NOT NULL,
-                    shares INTEGER NOT NULL,
-                    price REAL NOT NULL,
-                    score REAL NOT NULL,
-                    regime TEXT NOT NULL,
-                    sector TEXT,
-                    rationale TEXT,
-                    confidence REAL,
-                    context_json TEXT,
-                    
-                    -- Outcome (filled 1-4 weeks later)
-                    outcome_pct REAL,
-                    outcome_date TEXT,
-                    lesson_learned TEXT,
-                    
-                    -- Embedding stored as JSON array
-                    embedding_json TEXT,
-                    
-                    -- Indexes
-                    created_at TEXT DEFAULT CURRENT_TIMESTAMP
-                )
-            """)
-            
-            await db.execute("""
-                CREATE INDEX IF NOT EXISTS idx_decisions_ticker ON decisions(ticker)
-            """)
-            
-            await db.execute("""
-                CREATE INDEX IF NOT EXISTS idx_decisions_outcome ON decisions(outcome_pct)
-            """)
-            
-            await db.commit()
-            
-        logger.info(f"Agent memory initialized at {self.db_path}")
+        """Initialize database connection pool."""
+        self._pool = await asyncpg.create_pool(
+            self.database_url,
+            min_size=2,
+            max_size=10,
+            init=self._init_connection
+        )
+        logger.info(f"Agent memory connected to PostgreSQL")
+    
+    async def _init_connection(self, conn):
+        """Initialize each connection with pgvector support."""
+        await register_vector(conn)
+    
+    async def close(self):
+        """Close the connection pool."""
+        if self._pool:
+            await self._pool.close()
     
     async def store_decision(
         self, 
@@ -176,21 +157,22 @@ class AgentMemory:
         embedding = await self._generate_embedding(decision, context)
         
         # Serialize context
-        context_json = "{}"
+        context_json = {}
         if context:
             try:
-                context_json = json.dumps(context.to_dict() if hasattr(context, 'to_dict') else context)
+                context_json = context.to_dict() if hasattr(context, 'to_dict') else context
             except:
-                context_json = "{}"
+                context_json = {}
         
-        async with aiosqlite.connect(self.db_path) as db:
-            cursor = await db.execute("""
-                INSERT INTO decisions 
+        async with self._pool.acquire() as conn:
+            row = await conn.fetchrow("""
+                INSERT INTO agent_decisions 
                 (timestamp, ticker, action, shares, price, score, regime, 
-                 sector, rationale, confidence, context_json, embedding_json)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            """, (
-                decision.timestamp.isoformat() if decision.timestamp else datetime.now(timezone.utc).isoformat(),
+                 sector, rationale, confidence, context_json, embedding)
+                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
+                RETURNING id
+            """,
+                decision.timestamp or datetime.now(timezone.utc),
                 decision.ticker,
                 decision.action,
                 decision.shares,
@@ -200,12 +182,10 @@ class AgentMemory:
                 decision.sector,
                 decision.rationale,
                 decision.confidence,
-                context_json,
-                json.dumps(embedding) if embedding else None,
-            ))
-            
-            await db.commit()
-            decision_id = cursor.lastrowid
+                json.dumps(context_json),
+                embedding,
+            )
+            decision_id = row['id']
         
         logger.info(f"Stored decision {decision_id}: {decision.action} {decision.ticker}")
         return decision_id
@@ -217,7 +197,7 @@ class AgentMemory:
         only_with_outcomes: bool = True
     ) -> List[Memory]:
         """
-        Retrieve similar past situations using embedding similarity.
+        Retrieve similar past situations using pgvector similarity search.
         
         Args:
             context: Current trading context
@@ -234,56 +214,37 @@ class AgentMemory:
             logger.warning("Could not generate query embedding, returning empty")
             return []
         
-        # Fetch all decisions with embeddings
-        async with aiosqlite.connect(self.db_path) as db:
-            db.row_factory = aiosqlite.Row
-            
+        # Query using pgvector cosine similarity
+        async with self._pool.acquire() as conn:
             query = """
                 SELECT id, ticker, action, score, regime, outcome_pct, 
-                       rationale, lesson_learned, embedding_json
-                FROM decisions
-                WHERE embedding_json IS NOT NULL
+                       rationale, lesson_learned,
+                       1 - (embedding <=> $1) as similarity
+                FROM agent_decisions
+                WHERE embedding IS NOT NULL
             """
             
             if only_with_outcomes:
                 query += " AND outcome_pct IS NOT NULL"
             
-            cursor = await db.execute(query)
-            rows = await cursor.fetchall()
-        
-        if not rows:
-            return []
-        
-        # Calculate similarities
-        similarities = []
-        query_vec = np.array(query_embedding)
-        
-        for row in rows:
-            embedding = json.loads(row['embedding_json'])
-            row_vec = np.array(embedding)
+            query += """
+                ORDER BY embedding <=> $1
+                LIMIT $2
+            """
             
-            # Cosine similarity
-            similarity = np.dot(query_vec, row_vec) / (
-                np.linalg.norm(query_vec) * np.linalg.norm(row_vec) + 1e-8
-            )
-            
-            similarities.append((row, float(similarity)))
+            rows = await conn.fetch(query, query_embedding, k)
         
-        # Sort by similarity (descending)
-        similarities.sort(key=lambda x: x[1], reverse=True)
-        
-        # Return top k
         results = []
-        for row, similarity in similarities[:k]:
+        for row in rows:
             results.append(Memory(
                 ticker=row['ticker'],
                 action=row['action'],
-                score=row['score'],
+                score=float(row['score']),
                 regime=row['regime'],
-                outcome_pct=row['outcome_pct'] or 0.0,
+                outcome_pct=float(row['outcome_pct']) if row['outcome_pct'] else 0.0,
                 rationale=row['rationale'] or "",
                 lesson_learned=row['lesson_learned'],
-                similarity=similarity,
+                similarity=float(row['similarity']),
             ))
         
         return results
@@ -299,21 +260,19 @@ class AgentMemory:
         
         Called after the trade is closed (1-4 weeks later).
         """
-        async with aiosqlite.connect(self.db_path) as db:
-            await db.execute("""
-                UPDATE decisions
-                SET outcome_pct = ?,
-                    outcome_date = ?,
-                    lesson_learned = ?
-                WHERE id = ?
-            """, (
+        async with self._pool.acquire() as conn:
+            await conn.execute("""
+                UPDATE agent_decisions
+                SET outcome_pct = $1,
+                    outcome_date = $2,
+                    lesson_learned = $3
+                WHERE id = $4
+            """,
                 outcome_pct,
-                datetime.now(timezone.utc).isoformat(),
+                datetime.now(timezone.utc),
                 lesson_learned,
                 decision_id,
-            ))
-            
-            await db.commit()
+            )
         
         logger.info(f"Updated decision {decision_id} outcome: {outcome_pct:+.2f}%")
     
@@ -325,50 +284,45 @@ class AgentMemory:
         """
         cutoff = datetime.now(timezone.utc) - timedelta(days=min_age_days)
         
-        async with aiosqlite.connect(self.db_path) as db:
-            db.row_factory = aiosqlite.Row
-            
-            cursor = await db.execute("""
+        async with self._pool.acquire() as conn:
+            rows = await conn.fetch("""
                 SELECT id, timestamp, ticker, action, shares, price, score
-                FROM decisions
+                FROM agent_decisions
                 WHERE outcome_pct IS NULL
-                  AND timestamp < ?
+                  AND timestamp < $1
                 ORDER BY timestamp ASC
-            """, (cutoff.isoformat(),))
-            
-            rows = await cursor.fetchall()
+            """, cutoff)
         
         return [dict(row) for row in rows]
     
     async def get_recent_decisions(self, limit: int = 50) -> List[Decision]:
         """Get most recent decisions (short-term memory)."""
-        async with aiosqlite.connect(self.db_path) as db:
-            db.row_factory = aiosqlite.Row
-            
-            cursor = await db.execute("""
-                SELECT * FROM decisions
+        async with self._pool.acquire() as conn:
+            rows = await conn.fetch("""
+                SELECT id, timestamp, ticker, action, shares, price, score,
+                       regime, sector, rationale, confidence, outcome_pct,
+                       outcome_date, lesson_learned
+                FROM agent_decisions
                 ORDER BY timestamp DESC
-                LIMIT ?
-            """, (limit,))
-            
-            rows = await cursor.fetchall()
+                LIMIT $1
+            """, limit)
         
         decisions = []
         for row in rows:
             decisions.append(Decision(
                 id=row['id'],
-                timestamp=datetime.fromisoformat(row['timestamp']) if row['timestamp'] else None,
+                timestamp=row['timestamp'],
                 ticker=row['ticker'],
                 action=row['action'],
                 shares=row['shares'],
-                price=row['price'],
-                score=row['score'],
+                price=float(row['price']),
+                score=float(row['score']),
                 regime=row['regime'],
                 sector=row['sector'],
                 rationale=row['rationale'],
-                confidence=row['confidence'],
-                outcome_pct=row['outcome_pct'],
-                outcome_date=datetime.fromisoformat(row['outcome_date']) if row['outcome_date'] else None,
+                confidence=float(row['confidence']) if row['confidence'] else 0.0,
+                outcome_pct=float(row['outcome_pct']) if row['outcome_pct'] else None,
+                outcome_date=row['outcome_date'],
                 lesson_learned=row['lesson_learned'],
             ))
         
@@ -376,45 +330,48 @@ class AgentMemory:
     
     async def get_statistics(self) -> Dict[str, Any]:
         """Get memory statistics."""
-        async with aiosqlite.connect(self.db_path) as db:
+        async with self._pool.acquire() as conn:
             # Total decisions
-            cursor = await db.execute("SELECT COUNT(*) FROM decisions")
-            total = (await cursor.fetchone())[0]
+            total = await conn.fetchval("SELECT COUNT(*) FROM agent_decisions")
             
             # With outcomes
-            cursor = await db.execute("SELECT COUNT(*) FROM decisions WHERE outcome_pct IS NOT NULL")
-            with_outcomes = (await cursor.fetchone())[0]
+            with_outcomes = await conn.fetchval(
+                "SELECT COUNT(*) FROM agent_decisions WHERE outcome_pct IS NOT NULL"
+            )
             
             # Win rate
-            cursor = await db.execute("""
-                SELECT COUNT(*) FROM decisions 
+            wins = await conn.fetchval("""
+                SELECT COUNT(*) FROM agent_decisions 
                 WHERE outcome_pct IS NOT NULL AND outcome_pct > 0
             """)
-            wins = (await cursor.fetchone())[0]
             
             # Average outcome
-            cursor = await db.execute("""
-                SELECT AVG(outcome_pct) FROM decisions 
+            avg_outcome = await conn.fetchval("""
+                SELECT AVG(outcome_pct) FROM agent_decisions 
                 WHERE outcome_pct IS NOT NULL
-            """)
-            avg_outcome = (await cursor.fetchone())[0] or 0
+            """) or 0
             
             # By action
-            cursor = await db.execute("""
-                SELECT action, COUNT(*), AVG(outcome_pct)
-                FROM decisions
+            action_stats = await conn.fetch("""
+                SELECT action, COUNT(*) as count, AVG(outcome_pct) as avg_pct
+                FROM agent_decisions
                 WHERE outcome_pct IS NOT NULL
                 GROUP BY action
             """)
-            by_action = await cursor.fetchall()
         
         return {
             "total_decisions": total,
             "with_outcomes": with_outcomes,
             "pending_outcomes": total - with_outcomes,
             "win_rate": wins / with_outcomes if with_outcomes > 0 else 0,
-            "avg_outcome_pct": avg_outcome,
-            "by_action": {row[0]: {"count": row[1], "avg_pct": row[2]} for row in by_action},
+            "avg_outcome_pct": float(avg_outcome),
+            "by_action": {
+                row['action']: {
+                    "count": row['count'], 
+                    "avg_pct": float(row['avg_pct']) if row['avg_pct'] else 0
+                } 
+                for row in action_stats
+            },
         }
     
     # Embedding generation
@@ -423,17 +380,17 @@ class AgentMemory:
         self, 
         decision: Decision, 
         context: Optional[Any]
-    ) -> Optional[List[float]]:
+    ) -> Optional[np.ndarray]:
         """Generate embedding for a decision."""
         text = self._decision_to_text(decision, context)
         return await self._embed_text(text)
     
-    async def _embed_context(self, context: Any) -> Optional[List[float]]:
+    async def _embed_context(self, context: Any) -> Optional[np.ndarray]:
         """Generate embedding for a trading context."""
         text = self._context_to_text(context)
         return await self._embed_text(text)
     
-    async def _embed_text(self, text: str) -> Optional[List[float]]:
+    async def _embed_text(self, text: str) -> Optional[np.ndarray]:
         """
         Generate embedding for text.
         
@@ -445,7 +402,6 @@ class AgentMemory:
             import openai
             
             if self._embedding_client is None:
-                import os
                 self._embedding_client = openai.AsyncOpenAI(
                     api_key=os.environ.get("OPENAI_API_KEY")
                 )
@@ -455,19 +411,21 @@ class AgentMemory:
                 input=text
             )
             
-            return response.data[0].embedding
+            return np.array(response.data[0].embedding)
             
         except Exception as e:
             logger.debug(f"OpenAI embedding failed: {e}, using hash-based fallback")
             return self._hash_embedding(text)
     
-    def _hash_embedding(self, text: str) -> List[float]:
+    def _hash_embedding(self, text: str) -> np.ndarray:
         """
         Generate deterministic pseudo-embedding from text hash.
         
         NOT for production - just for development/testing.
         Same text always produces same embedding.
         """
+        import hashlib
+        
         # Hash the text
         hash_bytes = hashlib.sha256(text.encode()).digest()
         
@@ -476,11 +434,9 @@ class AgentMemory:
         seed = hash_bytes
         
         while len(embeddings) < EMBEDDING_DIM:
-            # Hash again with counter
             for i in range(32):
                 if len(embeddings) >= EMBEDDING_DIM:
                     break
-                # Convert byte to float in [-1, 1]
                 val = (seed[i % len(seed)] - 128) / 128.0
                 embeddings.append(val)
             seed = hashlib.sha256(seed).digest()
@@ -489,7 +445,7 @@ class AgentMemory:
         arr = np.array(embeddings[:EMBEDDING_DIM])
         arr = arr / (np.linalg.norm(arr) + 1e-8)
         
-        return arr.tolist()
+        return arr
     
     def _decision_to_text(self, decision: Decision, context: Optional[Any]) -> str:
         """Convert decision + context to text for embedding."""
@@ -523,14 +479,12 @@ class AgentMemory:
                 f"Positions: {context.portfolio.position_count}",
             ]
             
-            # Add top candidates
             if context.buy_candidates:
                 top_buys = [c.ticker for c in context.buy_candidates[:3]]
                 parts.append(f"Top BUY: {', '.join(top_buys)}")
             
             return " | ".join(parts)
         
-        # Fallback for dict-like context
         if isinstance(context, dict):
             return json.dumps(context, sort_keys=True)[:500]
         
@@ -538,9 +492,9 @@ class AgentMemory:
 
 
 # Convenience function
-async def get_agent_memory() -> AgentMemory:
+async def get_agent_memory(database_url: str = None) -> AgentMemory:
     """Get initialized agent memory instance."""
-    memory = AgentMemory()
+    memory = AgentMemory(database_url=database_url)
     await memory.initialize()
     return memory
 
@@ -550,39 +504,73 @@ if __name__ == "__main__":
     import asyncio
     import argparse
     
-    parser = argparse.ArgumentParser(description="Agent Memory System")
+    parser = argparse.ArgumentParser(description="Agent Memory System (pgvector)")
     parser.add_argument("--stats", action="store_true", help="Show memory statistics")
     parser.add_argument("--recent", type=int, default=0, help="Show N recent decisions")
     parser.add_argument("--pending", action="store_true", help="Show pending outcomes")
+    parser.add_argument("--test", action="store_true", help="Run a test store/retrieve")
     
     args = parser.parse_args()
     
     async def main():
         memory = await get_agent_memory()
         
-        if args.stats:
-            stats = await memory.get_statistics()
-            print("\n=== Agent Memory Statistics ===")
-            print(f"Total decisions: {stats['total_decisions']}")
-            print(f"With outcomes: {stats['with_outcomes']}")
-            print(f"Pending: {stats['pending_outcomes']}")
-            print(f"Win rate: {stats['win_rate']:.1%}")
-            print(f"Avg outcome: {stats['avg_outcome_pct']:+.2f}%")
+        try:
+            if args.stats:
+                stats = await memory.get_statistics()
+                print("\n=== Agent Memory Statistics (pgvector) ===")
+                print(f"Total decisions: {stats['total_decisions']}")
+                print(f"With outcomes: {stats['with_outcomes']}")
+                print(f"Pending: {stats['pending_outcomes']}")
+                print(f"Win rate: {stats['win_rate']:.1%}")
+                print(f"Avg outcome: {stats['avg_outcome_pct']:+.2f}%")
+            
+            elif args.recent > 0:
+                decisions = await memory.get_recent_decisions(args.recent)
+                print(f"\n=== Last {len(decisions)} Decisions ===")
+                for d in decisions:
+                    outcome = f"{d.outcome_pct:+.1f}%" if d.outcome_pct else "pending"
+                    print(f"{d.timestamp.strftime('%Y-%m-%d')}: {d.action} {d.ticker} @ ${d.price:.2f} → {outcome}")
+            
+            elif args.pending:
+                pending = await memory.get_pending_outcomes()
+                print(f"\n=== Pending Outcomes ({len(pending)}) ===")
+                for p in pending:
+                    print(f"ID {p['id']}: {p['action']} {p['ticker']} ({p['timestamp'].strftime('%Y-%m-%d')})")
+            
+            elif args.test:
+                print("\n=== Testing pgvector Memory ===")
+                
+                # Store a test decision
+                decision = Decision(
+                    ticker='TEST',
+                    action='BUY',
+                    shares=10,
+                    price=100.0,
+                    score=85.0,
+                    regime='normal',
+                    sector='Technology',
+                    rationale='Test decision',
+                    confidence=0.8,
+                )
+                
+                decision_id = await memory.store_decision(decision)
+                print(f"✅ Stored decision {decision_id}")
+                
+                # Update outcome
+                await memory.update_outcome(decision_id, outcome_pct=5.0, lesson_learned="Test lesson")
+                print(f"✅ Updated outcome")
+                
+                # Get stats
+                stats = await memory.get_statistics()
+                print(f"✅ Stats: {stats['total_decisions']} decisions, {stats['win_rate']:.0%} win rate")
+                
+                print("\n✅ pgvector memory working!")
+            
+            else:
+                parser.print_help()
         
-        elif args.recent > 0:
-            decisions = await memory.get_recent_decisions(args.recent)
-            print(f"\n=== Last {len(decisions)} Decisions ===")
-            for d in decisions:
-                outcome = f"{d.outcome_pct:+.1f}%" if d.outcome_pct else "pending"
-                print(f"{d.timestamp.strftime('%Y-%m-%d')}: {d.action} {d.ticker} @ ${d.price:.2f} → {outcome}")
-        
-        elif args.pending:
-            pending = await memory.get_pending_outcomes()
-            print(f"\n=== Pending Outcomes ({len(pending)}) ===")
-            for p in pending:
-                print(f"ID {p['id']}: {p['action']} {p['ticker']} ({p['timestamp'][:10]})")
-        
-        else:
-            parser.print_help()
+        finally:
+            await memory.close()
     
     asyncio.run(main())
