@@ -343,15 +343,167 @@ must_sell = (
 
 ### Position Sizing
 
-**MVP:** Fixed 5% per position
-**Later:** Conviction-weighted (higher score = bigger size)
+#### Phase 1: Fixed + Conviction (Simple)
+
+```python
+def calculate_position_size_simple(score, regime, portfolio_value):
+    # Base: 5% of portfolio
+    base_pct = 0.05
+    
+    # Conviction adjustment: score 90 → 7%, score 70 → 4%
+    conviction_mult = 0.8 + (score - 70) / 100  # Range: 0.8 to 1.1
+    
+    # Regime adjustment
+    regime_mult = {
+        "low_vol": 1.0,
+        "normal": 1.0,
+        "high_vol": 0.7,
+        "crisis": 0.5
+    }[regime]
+    
+    position_pct = base_pct * conviction_mult * regime_mult
+    position_pct = min(position_pct, 0.10)  # Cap at 10%
+    
+    return portfolio_value * position_pct
+```
+
+#### Phase 2: Risk Parity (Recommended)
+
+> **Goal:** Each position contributes equal RISK, not equal DOLLARS
+
+**Why it matters:**
+```
+Without Risk Parity:         With Risk Parity:
+AAPL: $10K (10%)             AAPL: $12K (12%)  ← low vol
+TSLA: $10K (10%)             TSLA: $4K  (4%)   ← high vol
+                              
+Risk contribution:           Risk contribution:
+AAPL: 15%                    AAPL: 50%
+TSLA: 85% ← dominates!       TSLA: 50% ← balanced!
+```
+
+**Implementation:**
+
+```python
+import numpy as np
+from scipy.optimize import minimize
+
+class RiskParityOptimizer:
+    """
+    Risk Parity position sizing for the Sigil agent.
+    
+    Uses historical returns to calculate volatilities and correlations,
+    then finds weights where each position contributes equal portfolio risk.
+    """
+    
+    def __init__(self, lookback_days: int = 60):
+        self.lookback_days = lookback_days
+    
+    def get_covariance_matrix(self, tickers: list) -> np.ndarray:
+        """Fetch price history and compute covariance matrix."""
+        import yfinance as yf
+        
+        prices = yf.download(tickers, period=f"{self.lookback_days}d")['Close']
+        returns = prices.pct_change().dropna()
+        
+        # Annualized covariance (252 trading days)
+        cov_matrix = returns.cov() * 252
+        return cov_matrix.values
+    
+    def risk_contribution(self, weights: np.ndarray, cov_matrix: np.ndarray) -> np.ndarray:
+        """Calculate each position's contribution to portfolio risk."""
+        portfolio_vol = np.sqrt(weights @ cov_matrix @ weights)
+        marginal_contrib = cov_matrix @ weights
+        risk_contrib = weights * marginal_contrib / portfolio_vol
+        return risk_contrib
+    
+    def optimize(self, tickers: list, target_total_pct: float = 0.80) -> dict:
+        """
+        Find risk parity weights.
+        
+        Args:
+            tickers: List of stock tickers
+            target_total_pct: Total portfolio allocation (e.g., 0.80 = 80% invested)
+            
+        Returns:
+            Dict mapping ticker to weight
+        """
+        n = len(tickers)
+        cov_matrix = self.get_covariance_matrix(tickers)
+        
+        # Target: equal risk contribution
+        target_risk = np.ones(n) / n
+        
+        def objective(weights):
+            rc = self.risk_contribution(weights, cov_matrix)
+            return np.sum((rc - target_risk)**2)
+        
+        # Constraints: weights sum to target, each between 1-15%
+        constraints = [{'type': 'eq', 'fun': lambda w: np.sum(w) - target_total_pct}]
+        bounds = [(0.01, 0.15) for _ in range(n)]
+        
+        # Initial guess: equal weight
+        x0 = np.ones(n) * target_total_pct / n
+        
+        result = minimize(objective, x0, bounds=bounds, constraints=constraints)
+        
+        return {ticker: weight for ticker, weight in zip(tickers, result.x)}
+
+# Usage in agent
+optimizer = RiskParityOptimizer()
+weights = optimizer.optimize(["AAPL", "MSFT", "TSLA", "JNJ", "XOM"])
+# Result: {"AAPL": 0.18, "MSFT": 0.17, "TSLA": 0.08, "JNJ": 0.19, "XOM": 0.18}
+```
+
+#### Position Sizing Decision Tree
+
+```
+New position to add?
+       ↓
+┌──────────────────────────────────────────┐
+│ 1. Get candidate tickers (BUY signals)   │
+│ 2. Run Risk Parity optimizer             │
+│ 3. Apply conviction multiplier           │
+│ 4. Apply regime multiplier               │
+│ 5. Check hard limits (max 10%, sector)   │
+│ 6. Return final position sizes           │
+└──────────────────────────────────────────┘
+```
 
 ### Risk Constraints
 
-- Max position: 10% of portfolio
-- Max sector: 30% of portfolio
-- Regime adjustment: reduce size in high_vol/crisis
-- Daily loss limit: pause if exceeded
+| Constraint | Limit | Enforcement |
+|------------|-------|-------------|
+| Max single position | 10% | Hard cap in optimizer |
+| Max sector exposure | 30% | Pre-filter candidates |
+| Min position | 1% | Optimizer lower bound |
+| Total invested | 60-90% | Optimizer constraint |
+| Regime adjustment | 50-100% | Post-multiply weights |
+| Daily loss limit | 3% | Pause trading |
+
+### Risk Budget Allocation
+
+```python
+def allocate_risk_budget(portfolio_var_limit: float, candidates: list) -> dict:
+    """
+    Allocate risk budget across candidates.
+    
+    If portfolio VaR limit is 2%, and we have 5 positions,
+    each gets ~0.4% VaR budget (adjusted for correlation).
+    """
+    # Get current portfolio VaR
+    current_var = calculate_portfolio_var()
+    available_var = portfolio_var_limit - current_var
+    
+    if available_var <= 0:
+        return {}  # No room for new positions
+    
+    # Distribute available risk budget via risk parity
+    optimizer = RiskParityOptimizer()
+    weights = optimizer.optimize(candidates, target_var=available_var)
+    
+    return weights
+```
 
 ---
 
