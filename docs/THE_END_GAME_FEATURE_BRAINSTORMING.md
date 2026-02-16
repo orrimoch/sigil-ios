@@ -519,10 +519,11 @@ CREATE TABLE agent_decisions (
     rationale TEXT NOT NULL,
     confidence DECIMAL(3, 2),
     
-    -- Outcome (filled later)
-    outcome_pct DECIMAL(6, 2),
-    outcome_date TIMESTAMPTZ,
-    lesson_learned TEXT,
+    -- Outcome (filled 1-4 weeks AFTER decision, by Learning Loop)
+    -- NULL until position closes or 14-day timeout
+    outcome_pct DECIMAL(6, 2),      -- e.g., +12.5 or -3.2
+    outcome_date TIMESTAMPTZ,       -- When outcome was recorded
+    lesson_learned TEXT,            -- Claude's reflection on what worked/failed
     
     -- Embedding for similarity search
     embedding vector(1536)  -- OpenAI embedding size
@@ -1358,6 +1359,53 @@ Tracks outcomes of past decisions and learns lessons for future retrieval.
 │                                                                 │
 └─────────────────────────────────────────────────────────────────┘
 ```
+
+### Outcome Calculation & Tagging
+
+**How outcomes are calculated:**
+
+```python
+# When position is closed (sold) OR after 14 days:
+outcome_pct = (exit_price - entry_price) / entry_price * 100
+
+# Examples:
+# Bought at $175, sold at $196 → +12.0%
+# Bought at $175, now at $168 (14 days later) → -4.0%
+```
+
+**Outcome tags (derived from percentage):**
+
+| Outcome % | Tag | Meaning | Memory Usage |
+|-----------|-----|---------|--------------|
+| > +10% | 🏆 **Strong Win** | Excellent trade | High-priority retrieval |
+| +5% to +10% | ✅ **Win** | Good trade | Positive example |
+| +1% to +5% | ✅ **Small Win** | Modest gain | Positive example |
+| -1% to +1% | ➖ **Neutral** | Breakeven | Low value |
+| -1% to -5% | ❌ **Loss** | Bad trade | Learn from mistake |
+| < -5% | 💀 **Strong Loss** | Significant loss | Critical lesson |
+
+**When outcomes are recorded:**
+
+```
+Day 0:  Decision made → entry_price stored, outcome_pct = NULL
+Day 7:  Position still open → no update yet
+Day 14: Position closed OR timeout → calculate outcome_pct
+        → Claude generates lesson_learned
+        → Record stored with outcome
+        → Available for future retrieval
+```
+
+**Only decisions with known outcomes are used for learning:**
+
+```python
+# Memory retrieval query
+SELECT * FROM agent_decisions
+WHERE outcome_pct IS NOT NULL  -- Only completed trades!
+ORDER BY embedding <=> current_embedding
+LIMIT 10
+```
+
+This ensures Claude learns from **actual results**, not pending decisions.
 
 ### Implementation
 
