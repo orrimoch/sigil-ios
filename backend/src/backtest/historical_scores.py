@@ -33,7 +33,8 @@ from data.stock_universe import get_universe, load_universe
 from scoring.fundamental_score import calculate_fundamental_scores
 from scoring.technical_score import calculate_technical_scores
 from scoring.macro_score import calculate_macro_scores
-from scoring.composite_score import WEIGHTS as PIPELINE_WEIGHTS, SIGNAL_THRESHOLDS
+from scoring.composite_score import WEIGHTS as PIPELINE_WEIGHTS, SIGNAL_THRESHOLDS, RELATIVE_SCORING_ENABLED, PRIOR_STRENGTH
+from scoring.relative_scoring import apply_relative_scoring
 from data.macro_fetcher import (
     fetch_historical_macro_data,
     calculate_macro_score_for_date,
@@ -352,44 +353,93 @@ class HistoricalScoreGenerator:
         if not raw_scores_data:
             return []
         
-        # Second pass: Z-score normalization (matches live pipeline logic)
-        # Formula: normalized = 50 + z * 15, capped at 5-95
-        raw_composites = [d["raw_composite"] for d in raw_scores_data]
-        mean_score = np.mean(raw_composites)
-        std_score = np.std(raw_composites)
+        # Second pass: Apply relative scoring (same as live pipeline)
+        # This replaces the old Z-score normalization with Bayesian shrinkage + percentile ranking
         
-        scores = []
-        for data in raw_scores_data:
-            if std_score > 0:
-                # Z-score: how many std devs from mean
-                z = (data["raw_composite"] - mean_score) / std_score
-                # Map z-score to 0-100 range (z of ±2.5 maps to ~12.5/87.5)
-                # This gives ~15-20% BUY and ~15-20% SELL with normal distribution
-                normalized = 50 + z * 15  # 15 points per std dev
-                normalized = max(5, min(95, normalized))  # Cap at 5-95
-            else:
-                # All scores identical, use 50
-                normalized = 50.0
+        if RELATIVE_SCORING_ENABLED:
+            # Prepare component scores with sample sizes for relative scoring
+            # For backtesting, we use consistent sample sizes since we don't track article counts historically
+            f_raw = {d["ticker"]: (d["fundamental"], 4) for d in raw_scores_data}  # 4 metrics typical
+            s_raw = {d["ticker"]: (d["sentiment"], 5) for d in raw_scores_data}    # assume moderate confidence
+            t_raw = {d["ticker"]: (d["technical"], 3) for d in raw_scores_data}    # 3 indicators
+            m_raw = {d["ticker"]: (d["macro"], 3) for d in raw_scores_data}        # 3 factors
             
-            # Determine signal based on normalized score
-            if normalized >= BUY_THRESHOLD:
-                signal = "BUY"
-            elif normalized < SELL_THRESHOLD:
-                signal = "SELL"
-            else:
-                signal = "HOLD"
+            # Apply relative scoring to each component
+            f_relative = {t: r.percentile_score for t, r in apply_relative_scoring(f_raw, k=PRIOR_STRENGTH).items()}
+            s_relative = {t: r.percentile_score for t, r in apply_relative_scoring(s_raw, k=PRIOR_STRENGTH).items()}
+            t_relative = {t: r.percentile_score for t, r in apply_relative_scoring(t_raw, k=PRIOR_STRENGTH).items()}
+            m_relative = {t: r.percentile_score for t, r in apply_relative_scoring(m_raw, k=PRIOR_STRENGTH).items()}
             
-            scores.append(HistoricalScore(
-                date=score_date,
-                ticker=data["ticker"],
-                composite_score=round(normalized, 2),
-                signal=signal,
-                fundamental_score=round(data["fundamental"], 2),
-                sentiment_score=round(data["sentiment"], 2),
-                technical_score=round(data["technical"], 2),
-                macro_score=round(data["macro"], 2),
-                sector=data["sector"],
-            ))
+            scores = []
+            for data in raw_scores_data:
+                ticker = data["ticker"]
+                
+                # Get relative scores
+                f_val = f_relative.get(ticker, 50.0)
+                s_val = s_relative.get(ticker, 50.0)
+                t_val = t_relative.get(ticker, 50.0)
+                m_val = m_relative.get(ticker, 50.0)
+                
+                # Calculate weighted composite from relative scores
+                composite = (
+                    f_val * self.weights["fundamental"] +
+                    s_val * self.weights["sentiment"] +
+                    t_val * self.weights["technical"] +
+                    m_val * self.weights["macro"]
+                )
+                
+                # Determine signal
+                if composite >= BUY_THRESHOLD:
+                    signal = "BUY"
+                elif composite < SELL_THRESHOLD:
+                    signal = "SELL"
+                else:
+                    signal = "HOLD"
+                
+                scores.append(HistoricalScore(
+                    date=score_date,
+                    ticker=ticker,
+                    composite_score=round(composite, 2),
+                    signal=signal,
+                    fundamental_score=round(f_val, 2),
+                    sentiment_score=round(s_val, 2),
+                    technical_score=round(t_val, 2),
+                    macro_score=round(m_val, 2),
+                    sector=data["sector"],
+                ))
+        else:
+            # Fallback: Z-score normalization (old behavior)
+            raw_composites = [d["raw_composite"] for d in raw_scores_data]
+            mean_score = np.mean(raw_composites)
+            std_score = np.std(raw_composites)
+            
+            scores = []
+            for data in raw_scores_data:
+                if std_score > 0:
+                    z = (data["raw_composite"] - mean_score) / std_score
+                    normalized = 50 + z * 15
+                    normalized = max(5, min(95, normalized))
+                else:
+                    normalized = 50.0
+                
+                if normalized >= BUY_THRESHOLD:
+                    signal = "BUY"
+                elif normalized < SELL_THRESHOLD:
+                    signal = "SELL"
+                else:
+                    signal = "HOLD"
+                
+                scores.append(HistoricalScore(
+                    date=score_date,
+                    ticker=data["ticker"],
+                    composite_score=round(normalized, 2),
+                    signal=signal,
+                    fundamental_score=round(data["fundamental"], 2),
+                    sentiment_score=round(data["sentiment"], 2),
+                    technical_score=round(data["technical"], 2),
+                    macro_score=round(data["macro"], 2),
+                    sector=data["sector"],
+                ))
         
         return scores
     

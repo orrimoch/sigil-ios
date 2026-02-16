@@ -34,7 +34,18 @@ from scoring.macro_score import (
     calculate_macro_scores,
     MacroScoreResult,
 )
+from scoring.relative_scoring import (
+    transform_sentiment_scores,
+    transform_fundamental_scores,
+    transform_technical_scores,
+    transform_macro_scores,
+)
 from data.stock_universe import get_universe
+
+
+# Relative scoring configuration
+RELATIVE_SCORING_ENABLED = True  # Toggle for A/B testing
+PRIOR_STRENGTH = 5  # k value for Bayesian shrinkage
 
 
 # Cache directory
@@ -253,35 +264,42 @@ def calculate_composite_scores(
     # Combine into composite scores
     logger.info("\nCombining scores...")
     
-    # Calculate mean of each component for fallback (instead of fixed 50)
-    # This gives missing data a neutral value relative to the population
-    f_values = [s.total_score for s in fundamental_scores.values() if s and s.total_score is not None]
-    s_values = [s.total_score for s in sentiment_scores.values() if s and s.total_score is not None]
-    t_values = [s.total_score for s in technical_scores.values() if s and s.total_score is not None]
-    m_values = [s.total_score for s in macro_scores.values() if s and s.total_score is not None]
-    
-    f_mean = np.mean(f_values) if f_values else 50.0
-    s_mean = np.mean(s_values) if s_values else 50.0
-    t_mean = np.mean(t_values) if t_values else 50.0
-    m_mean = np.mean(m_values) if m_values else 50.0
-    
-    logger.info(f"Component means for fallback: F={f_mean:.1f} S={s_mean:.1f} T={t_mean:.1f} M={m_mean:.1f}")
+    # Apply relative scoring (Bayesian shrinkage + percentile ranking)
+    if RELATIVE_SCORING_ENABLED:
+        logger.info(f"Applying relative scoring (k={PRIOR_STRENGTH})...")
+        
+        # Transform each component to relative percentile scores
+        f_relative = transform_fundamental_scores(fundamental_scores, k=PRIOR_STRENGTH)
+        s_relative = transform_sentiment_scores(sentiment_scores, k=PRIOR_STRENGTH)
+        t_relative = transform_technical_scores(technical_scores, k=PRIOR_STRENGTH)
+        m_relative = transform_macro_scores(macro_scores, k=PRIOR_STRENGTH)
+    else:
+        # Fallback: use raw scores with mean imputation (old behavior)
+        f_values = [s.total_score for s in fundamental_scores.values() if s and s.total_score is not None]
+        s_values = [s.total_score for s in sentiment_scores.values() if s and s.total_score is not None]
+        t_values = [s.total_score for s in technical_scores.values() if s and s.total_score is not None]
+        m_values = [s.total_score for s in macro_scores.values() if s and s.total_score is not None]
+        
+        f_mean = np.mean(f_values) if f_values else 50.0
+        s_mean = np.mean(s_values) if s_values else 50.0
+        t_mean = np.mean(t_values) if t_values else 50.0
+        m_mean = np.mean(m_values) if m_values else 50.0
+        
+        f_relative = {t: (s.total_score if s and s.total_score else f_mean) for t, s in fundamental_scores.items()}
+        s_relative = {t: (s.total_score if s and s.total_score else s_mean) for t, s in sentiment_scores.items()}
+        t_relative = {t: (s.total_score if s and s.total_score else t_mean) for t, s in technical_scores.items()}
+        m_relative = {t: (s.total_score if s and s.total_score else m_mean) for t, s in macro_scores.items()}
     
     results = {}
     
     for ticker in tickers:
         ticker_upper = ticker.upper()
         
-        # Get component scores (default to population mean if missing)
-        f_score = fundamental_scores.get(ticker_upper)
-        s_score = sentiment_scores.get(ticker_upper)
-        t_score = technical_scores.get(ticker_upper)
-        m_score = macro_scores.get(ticker_upper)
-        
-        f_val = f_score.total_score if (f_score and f_score.total_score is not None) else f_mean
-        s_val = s_score.total_score if (s_score and s_score.total_score is not None) else s_mean
-        t_val = t_score.total_score if (t_score and t_score.total_score is not None) else t_mean
-        m_val = m_score.total_score if (m_score and m_score.total_score is not None) else m_mean
+        # Get relative (percentile) scores for each component
+        f_val = f_relative.get(ticker_upper, 50.0)
+        s_val = s_relative.get(ticker_upper, 50.0)
+        t_val = t_relative.get(ticker_upper, 50.0)
+        m_val = m_relative.get(ticker_upper, 50.0)
         
         # Calculate weighted composite
         total_score = (
@@ -330,14 +348,15 @@ def calculate_composite_scores(
             score_change=round(score_change, 2) if score_change else None,
             signal_change=signal_change,
             details={
-                "fundamental": f_score.details if f_score else {},
-                "sentiment": s_score.details if s_score else {},
-                "technical": t_score.details if t_score else {},
-                "macro": m_score.details if m_score else {},
+                "fundamental": fundamental_scores.get(ticker_upper, {}).details if fundamental_scores.get(ticker_upper) else {},
+                "sentiment": sentiment_scores.get(ticker_upper, {}).details if sentiment_scores.get(ticker_upper) else {},
+                "technical": technical_scores.get(ticker_upper, {}).details if technical_scores.get(ticker_upper) else {},
+                "macro": macro_scores.get(ticker_upper, {}).details if macro_scores.get(ticker_upper) else {},
                 "crowd_wisdom": {
                     "viral_score": cw_score,
                     "adjustment": round(cw_adjustment, 2),
                 } if cw_score > 0 else {},
+                "relative_scoring": RELATIVE_SCORING_ENABLED,
             }
         )
     
