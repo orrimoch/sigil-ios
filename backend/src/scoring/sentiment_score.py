@@ -150,16 +150,17 @@ def calculate_sentiment_score_for_ticker(
         articles = fetch_news_for_ticker(ticker, hours=hours)
     
     if not articles:
+        # Return None to signal missing data - composite_score.py will use population mean
         return SentimentScoreResult(
             ticker=ticker,
-            total_score=50.0,  # Neutral when no news
+            total_score=None,  # Will be replaced with mean in composite scoring
             raw_sentiment=0.0,
             article_count=0,
             positive_count=0,
             negative_count=0,
             neutral_count=0,
             weighted_sentiment=0.0,
-            details={"message": "No news found", "model": "none"}
+            details={"message": "No news found - using population mean", "model": "mean_fallback"}
         )
     
     # REC-175: Get fallback manager for tracking

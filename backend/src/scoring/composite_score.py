@@ -252,21 +252,36 @@ def calculate_composite_scores(
     
     # Combine into composite scores
     logger.info("\nCombining scores...")
+    
+    # Calculate mean of each component for fallback (instead of fixed 50)
+    # This gives missing data a neutral value relative to the population
+    f_values = [s.total_score for s in fundamental_scores.values() if s and s.total_score is not None]
+    s_values = [s.total_score for s in sentiment_scores.values() if s and s.total_score is not None]
+    t_values = [s.total_score for s in technical_scores.values() if s and s.total_score is not None]
+    m_values = [s.total_score for s in macro_scores.values() if s and s.total_score is not None]
+    
+    f_mean = np.mean(f_values) if f_values else 50.0
+    s_mean = np.mean(s_values) if s_values else 50.0
+    t_mean = np.mean(t_values) if t_values else 50.0
+    m_mean = np.mean(m_values) if m_values else 50.0
+    
+    logger.info(f"Component means for fallback: F={f_mean:.1f} S={s_mean:.1f} T={t_mean:.1f} M={m_mean:.1f}")
+    
     results = {}
     
     for ticker in tickers:
         ticker_upper = ticker.upper()
         
-        # Get component scores (default to 50 if missing)
+        # Get component scores (default to population mean if missing)
         f_score = fundamental_scores.get(ticker_upper)
         s_score = sentiment_scores.get(ticker_upper)
         t_score = technical_scores.get(ticker_upper)
         m_score = macro_scores.get(ticker_upper)
         
-        f_val = f_score.total_score if f_score else 50.0
-        s_val = s_score.total_score if s_score else 50.0
-        t_val = t_score.total_score if t_score else 50.0
-        m_val = m_score.total_score if m_score else 50.0
+        f_val = f_score.total_score if (f_score and f_score.total_score is not None) else f_mean
+        s_val = s_score.total_score if (s_score and s_score.total_score is not None) else s_mean
+        t_val = t_score.total_score if (t_score and t_score.total_score is not None) else t_mean
+        m_val = m_score.total_score if (m_score and m_score.total_score is not None) else m_mean
         
         # Calculate weighted composite
         total_score = (
