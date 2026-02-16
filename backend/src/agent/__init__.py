@@ -39,6 +39,18 @@ from .position_sizing import (
     size_positions,
 )
 
+from .decision_engine import (
+    DecisionEngine,
+    DecisionResult,
+    make_decisions,
+)
+
+from .risk_validator import (
+    RiskValidator,
+    RiskValidation,
+    validate_trades,
+)
+
 __all__ = [
     # Context
     "ContextAggregator",
@@ -59,4 +71,12 @@ __all__ = [
     "SizedPosition",
     "TradeDecision",
     "size_positions",
+    # Decision Engine
+    "DecisionEngine",
+    "DecisionResult",
+    "make_decisions",
+    # Risk Validator
+    "RiskValidator",
+    "RiskValidation",
+    "validate_trades",
 ]
