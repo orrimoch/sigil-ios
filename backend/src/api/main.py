@@ -271,6 +271,10 @@ app.include_router(crowd_wisdom_router)  # GET /api/v1/crowd-wisdom/top-picks, /
 # REC-272: Configuration management routes
 app.include_router(config_router)  # GET /api/v1/config/llm, /ibkr, /database, /system
 
+# REC-278/279: Agent routes
+from agent.routes import router as agent_router
+app.include_router(agent_router)  # GET /api/v1/agent/context, /status, etc.
+
 
 # ========== Pydantic Models ==========
 
