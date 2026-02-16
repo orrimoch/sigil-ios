@@ -236,9 +236,9 @@ struct MarketOverviewCard: View {
                 .foregroundColor(.Text.primary)
             
             if indices.isEmpty {
-                HStack {
-                    Spacer()
-                    if let errorMessage = errorMessage {
+                if let errorMessage = errorMessage {
+                    HStack {
+                        Spacer()
                         VStack(spacing: 8) {
                             Image(systemName: "chart.line.downtrend.xyaxis")
                                 .font(.title)
@@ -247,13 +247,31 @@ struct MarketOverviewCard: View {
                                 .font(.caption)
                                 .foregroundColor(.Text.tertiary)
                         }
-                    } else {
-                        ProgressView()
-                            .tint(.Brand.primary)
+                        Spacer()
                     }
-                    Spacer()
+                    .padding()
+                } else {
+                    // LOW FIX HOME-002: Skeleton loading instead of spinner
+                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
+                        ForEach(0..<4, id: \.self) { _ in
+                            VStack(alignment: .leading, spacing: 8) {
+                                RoundedRectangle(cornerRadius: 4)
+                                    .fill(Color.Background.tertiary)
+                                    .frame(width: 60, height: 14)
+                                RoundedRectangle(cornerRadius: 4)
+                                    .fill(Color.Background.tertiary)
+                                    .frame(width: 80, height: 20)
+                                RoundedRectangle(cornerRadius: 4)
+                                    .fill(Color.Background.tertiary)
+                                    .frame(width: 50, height: 12)
+                            }
+                            .padding(12)
+                            .background(Color.Background.tertiary.opacity(0.3))
+                            .cornerRadius(8)
+                            .shimmering()
+                        }
+                    }
                 }
-                .padding()
             } else {
                 LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
                     ForEach(indices) { index in

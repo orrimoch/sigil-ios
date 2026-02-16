@@ -377,18 +377,23 @@ struct SectorPickerSheet: View {
     }
 }
 
-// MARK: - Recent Searches (F5.2)
+// MARK: - Recent Searches (F5.2) — LOW FIX SCORE-001: More prominent styling
 
 struct RecentSearchesView: View {
     @ObservedObject var viewModel: ScoresViewModel
     
     var body: some View {
         if !viewModel.recentSearches.isEmpty {
-            VStack(alignment: .leading, spacing: 8) {
+            VStack(alignment: .leading, spacing: 12) {
                 HStack {
-                    Text("Recent Searches")
-                        .font(.caption)
-                        .foregroundColor(.Text.secondary)
+                    HStack(spacing: 6) {
+                        Image(systemName: "clock.arrow.circlepath")
+                            .font(.caption)
+                            .foregroundColor(.Accent.gold)
+                        Text("Recent Searches")
+                            .font(.subheadline.weight(.medium))
+                            .foregroundColor(.Text.primary)
+                    }
                     
                     Spacer()
                     
@@ -396,22 +401,30 @@ struct RecentSearchesView: View {
                         viewModel.clearRecentSearches()
                     }
                     .font(.caption)
-                    .foregroundColor(.Brand.primary)
+                    .foregroundColor(.Text.tertiary)
                 }
                 
                 ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 8) {
+                    HStack(spacing: 10) {
                         ForEach(viewModel.recentSearches, id: \.self) { search in
                             Button {
                                 viewModel.search(search)
                             } label: {
-                                Text(search)
-                                    .font(.caption)
-                                    .foregroundColor(.Text.primary)
-                                    .padding(.horizontal, 12)
-                                    .padding(.vertical, 6)
-                                    .background(Color.Background.tertiary)
-                                    .cornerRadius(8)
+                                HStack(spacing: 4) {
+                                    Image(systemName: "magnifyingglass")
+                                        .font(.caption2)
+                                    Text(search)
+                                        .font(.subheadline)
+                                }
+                                .foregroundColor(.Text.primary)
+                                .padding(.horizontal, 14)
+                                .padding(.vertical, 8)
+                                .background(Color.Background.tertiary)
+                                .cornerRadius(20)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 20)
+                                        .stroke(Color.Accent.gold.opacity(0.2), lineWidth: 1)
+                                )
                             }
                         }
                     }
@@ -419,6 +432,7 @@ struct RecentSearchesView: View {
             }
             .padding()
             .background(Color.Background.secondary)
+            .cornerRadius(12)
         }
     }
 }

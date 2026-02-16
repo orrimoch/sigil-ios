@@ -28,19 +28,18 @@ struct PortfolioView: View {
                 } else {
             ScrollView {
                 VStack(spacing: 20) {
-                    // M3: Paper mode indicator — subtle inline style
+                    // M3: Paper mode indicator — LOW FIX PORT-002: Match TradeView's style
                     if viewModel.isPaper {
                         HStack(spacing: 6) {
                             Image(systemName: "doc.text.fill")
-                                .font(.caption2)
-                            Text("PAPER")
-                                .font(.caption2.bold())
+                            Text("PAPER TRADING")
+                                .font(.caption.bold())
                         }
                         .foregroundColor(.Signal.hold)
                         .padding(.horizontal, 10)
-                        .padding(.vertical, 4)
-                        .background(Color.Signal.hold.opacity(0.10))
-                        .cornerRadius(12)
+                        .padding(.vertical, 5)
+                        .background(Color.Signal.hold.opacity(0.15))
+                        .cornerRadius(16)
                     }
                     
                     // F4.1: Portfolio Summary Card
@@ -100,7 +99,7 @@ struct PortfolioView: View {
                         EmptyView()
                     }
                     
-                    // M17: Reset button (paper trading only) — text-only, less prominent
+                    // M17: Reset button (paper trading only) — LOW FIX PORT-001: More visible
                     if viewModel.isPaper {
                         Button {
                             showResetConfirm = true
@@ -109,10 +108,14 @@ struct PortfolioView: View {
                                 Image(systemName: "arrow.counterclockwise")
                                 Text("Reset Paper Portfolio")
                             }
-                            .font(.caption)
-                            .foregroundColor(.Text.tertiary)
+                            .font(.caption.weight(.medium))
+                            .foregroundColor(.Text.secondary)
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 6)
+                            .background(Color.Background.tertiary)
+                            .cornerRadius(16)
                         }
-                        .padding(.top, 8)
+                        .padding(.top, 12)
                     }
                 }
                 .padding()

@@ -628,12 +628,19 @@ struct OrderPreviewSheet: View {
                         .cornerRadius(8)
                 }
                 
-                // Disclaimer
-                Text("This does not constitute financial advice. Past performance is not indicative of future results.")
-                    .font(.caption)
-                    .foregroundColor(.Text.tertiary)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal)
+                // Disclaimer — LOW FIX SHEET-002: Slightly more visible
+                HStack(spacing: 4) {
+                    Image(systemName: "info.circle")
+                        .font(.caption2)
+                    Text("This does not constitute financial advice. Past performance is not indicative of future results.")
+                        .font(.caption)
+                }
+                .foregroundColor(.Text.secondary)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal)
+                .padding(.vertical, 8)
+                .background(Color.Background.tertiary.opacity(0.5))
+                .cornerRadius(8)
                 
                 Spacer()
                 
