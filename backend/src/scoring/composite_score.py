@@ -285,6 +285,9 @@ def calculate_composite_scores(
             cw_penalty_count += 1
         total_score += cw_adjustment
         
+        # CRITICAL FIX: Ensure score stays within 0-100 bounds after all adjustments
+        total_score = max(0.0, min(100.0, total_score))
+        
         # Get signal
         signal = get_signal(total_score)
         

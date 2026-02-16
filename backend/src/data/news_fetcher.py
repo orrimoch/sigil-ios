@@ -284,13 +284,14 @@ def fetch_alpha_vantage_news(tickers: List[str] = None, hours: int = 168) -> Lis
         return []
 
 
-def fetch_all_news(hours: int = 168, tickers: List[str] = None) -> List[Dict]:
+def fetch_all_news(hours: int = 168, tickers: List[str] = None, timeout: int = 60) -> List[Dict]:
     """
-    Fetch news from all sources (RSS + APIs).
+    Fetch news from all sources (RSS + APIs) with circuit breaker protection.
     
     Args:
         hours: Only return articles from last N hours (default 7 days)
         tickers: Optional list of tickers for API sources
+        timeout: Overall timeout in seconds (default 60s) - circuit breaker
     
     Returns:
         List of all articles, sorted by date
@@ -301,24 +302,38 @@ def fetch_all_news(hours: int = 168, tickers: List[str] = None) -> List[Dict]:
     if ALPHA_VANTAGE_API_KEY:
         sources_count += 1
     
-    logger.info(f"Fetching news from {sources_count} sources (last {hours}h)...")
+    logger.info(f"Fetching news from {sources_count} sources (last {hours}h, timeout {timeout}s)...")
     
     all_articles = []
+    failed_count = 0
+    start_time = time.time()
     
-    # Fetch RSS feeds in parallel
+    # Circuit breaker: stop if too many failures or timeout exceeded
+    MAX_FAILURES = 3
+    
+    # Fetch RSS feeds in parallel with timeout
     with ThreadPoolExecutor(max_workers=5) as executor:
         future_to_source = {
             executor.submit(fetch_feed, source, url, hours): source
             for source, url in NEWS_FEEDS.items()
         }
         
-        for future in as_completed(future_to_source):
+        for future in as_completed(future_to_source, timeout=timeout):
+            # Check circuit breaker conditions
+            if failed_count >= MAX_FAILURES:
+                logger.warning(f"Circuit breaker: stopping after {MAX_FAILURES} failures")
+                break
+            if time.time() - start_time > timeout:
+                logger.warning(f"Circuit breaker: overall timeout ({timeout}s) exceeded")
+                break
+                
             source = future_to_source[future]
             try:
-                articles = future.result()
+                articles = future.result(timeout=15)  # 15s per-source timeout
                 all_articles.extend(articles)
                 logger.info(f"  {source}: {len(articles)} articles")
             except Exception as e:
+                failed_count += 1
                 logger.error(f"  {source}: ERROR - {e}")
     
     # Fetch from Finnhub (if API key set)

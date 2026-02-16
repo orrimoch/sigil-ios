@@ -111,8 +111,17 @@ class APIService: ObservableObject {
     static let shared = APIService()
     
     // IOS-001: HTTPS enforcement with environment-based configuration
-    // Local Mac mini backend
-    let baseURL = "http://127.0.0.1:8000/api/v1"
+    // Production uses HTTPS, debug allows HTTP for local development
+    let baseURL: String = {
+        #if DEBUG
+        // Local development - allow HTTP for Mac mini backend
+        return "http://127.0.0.1:8000/api/v1"
+        #else
+        // Production - MUST use HTTPS
+        // TODO: Update to production domain (e.g., https://api.sigil.app/api/v1)
+        return "https://api.sigil.app/api/v1"
+        #endif
+    }()
     
     // IOS-002: URLSession with certificate pinning and timeout
     private let pinningDelegate = CertificatePinningDelegate()
