@@ -222,7 +222,11 @@ class RiskValidator:
     ) -> Tuple[bool, str, int]:
         """Ensure sector doesn't exceed max_sector_pct of portfolio."""
         # Get stock sector
-        sector = await self._get_sector(trade.ticker)
+        try:
+            sector = await self._get_sector(trade.ticker)
+        except Exception as e:
+            logger.warning(f"Sector lookup failed for {trade.ticker}: {e}")
+            sector = "Unknown"
         
         # Current sector exposure
         current_exposure = context.portfolio.sector_exposure.get(sector, 0)
