@@ -6,8 +6,8 @@ Autonomous trading agent that uses Sigil's signals to make trading decisions.
 Components:
 - context.py: Context aggregator (REC-278)
 - routes.py: API endpoints (REC-279)
-- memory.py: Memory system (Phase 1)
-- position_sizing.py: Risk parity optimizer (Phase 1)
+- memory.py: Memory system (REC-281, REC-282)
+- position_sizing.py: Risk parity optimizer (REC-283)
 - decision_engine.py: Claude integration (Phase 2)
 - risk_validator.py: Risk checks (Phase 2)
 - executor.py: Trade execution (Phase 3)
@@ -25,7 +25,22 @@ from .context import (
     aggregate_context,
 )
 
+from .memory import (
+    AgentMemory,
+    Decision,
+    Memory,
+    get_agent_memory,
+)
+
+from .position_sizing import (
+    PositionSizer,
+    SizedPosition,
+    TradeDecision,
+    size_positions,
+)
+
 __all__ = [
+    # Context
     "ContextAggregator",
     "TradingContext",
     "PortfolioState",
@@ -34,4 +49,14 @@ __all__ = [
     "Position",
     "DataFreshness",
     "aggregate_context",
+    # Memory
+    "AgentMemory",
+    "Decision",
+    "Memory",
+    "get_agent_memory",
+    # Position Sizing
+    "PositionSizer",
+    "SizedPosition",
+    "TradeDecision",
+    "size_positions",
 ]
