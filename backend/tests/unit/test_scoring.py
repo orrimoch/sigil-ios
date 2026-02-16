@@ -67,14 +67,16 @@ class TestSentimentScore:
         )
         assert SENTIMENT_MODEL == "keyword"
     
-    def test_no_news_returns_neutral(self):
-        """Stock with no news should return neutral (50)."""
+    def test_no_news_returns_mean_fallback(self):
+        """Stock with no news should return None (signals use population mean)."""
         from scoring.sentiment_score import calculate_sentiment_score_for_ticker
         
         # Use empty articles list
         result = calculate_sentiment_score_for_ticker("FAKE_TICKER", hours=1)
-        assert result.total_score == 50.0
+        # None signals composite_score.py to use population mean instead of fixed 50
+        assert result.total_score is None
         assert result.article_count == 0
+        assert result.details["model"] == "mean_fallback"
     
     def test_recency_weight_function(self):
         """Recency weight should decay over time."""
