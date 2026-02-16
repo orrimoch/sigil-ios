@@ -1,0 +1,33 @@
+{
+  "run_id": "20260216_202546",
+  "started_at": "2026-02-16T20:25:46.876459",
+  "completed_at": "2026-02-16T20:26:02.664986",
+  "status": "success",
+  "total_duration_seconds": 15.788527,
+  "steps": [
+    {
+      "name": "news_data",
+      "status": "success",
+      "duration_seconds": 0.344732,
+      "records_processed": 58,
+      "error": null,
+      "retries": 0
+    },
+    {
+      "name": "macro_data",
+      "status": "success",
+      "duration_seconds": 14.888874,
+      "records_processed": 17,
+      "error": null,
+      "retries": 0
+    },
+    {
+      "name": "scoring",
+      "status": "success",
+      "duration_seconds": 0.554623,
+      "records_processed": 1,
+      "error": null,
+      "retries": 0
+    }
+  ]
+}

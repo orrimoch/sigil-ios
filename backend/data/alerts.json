@@ -1,6 +1,195 @@
 {
   "alerts": [
     {
+      "id": "ca74fae8",
+      "type": "signal_change",
+      "ticker": "BALL",
+      "title": "Signal changed",
+      "subtitle": "SELL \u2192 HOLD",
+      "timestamp": "2026-02-16T20:22:43.664055",
+      "read": false
+    },
+    {
+      "id": "83a76712",
+      "type": "signal_change",
+      "ticker": "STE",
+      "title": "Signal changed",
+      "subtitle": "SELL \u2192 HOLD",
+      "timestamp": "2026-02-16T20:22:43.663139",
+      "read": false
+    },
+    {
+      "id": "dea76a12",
+      "type": "signal_change",
+      "ticker": "RMD",
+      "title": "Signal changed",
+      "subtitle": "HOLD \u2192 SELL",
+      "timestamp": "2026-02-16T20:22:43.662144",
+      "read": false
+    },
+    {
+      "id": "f233d790",
+      "type": "signal_change",
+      "ticker": "IDXX",
+      "title": "Signal changed",
+      "subtitle": "HOLD \u2192 SELL",
+      "timestamp": "2026-02-16T20:22:43.661302",
+      "read": false
+    },
+    {
+      "id": "a4106e7e",
+      "type": "signal_change",
+      "ticker": "GE",
+      "title": "Signal changed",
+      "subtitle": "HOLD \u2192 SELL",
+      "timestamp": "2026-02-16T20:22:43.660449",
+      "read": false
+    },
+    {
+      "id": "2bfe9009",
+      "type": "signal_change",
+      "ticker": "HD",
+      "title": "Signal changed",
+      "subtitle": "BUY \u2192 HOLD",
+      "timestamp": "2026-02-16T20:22:43.659651",
+      "read": false
+    },
+    {
+      "id": "fe464196",
+      "type": "score_change",
+      "ticker": "STE",
+      "title": "Score increased +11 pts",
+      "subtitle": "Now rated HOLD (42)",
+      "timestamp": "2026-02-16T20:22:43.658611",
+      "read": false
+    },
+    {
+      "id": "25850322",
+      "type": "score_change",
+      "ticker": "GEHC",
+      "title": "Score decreased +15 pts",
+      "subtitle": "Now rated HOLD (43)",
+      "timestamp": "2026-02-16T20:22:43.657760",
+      "read": false
+    },
+    {
+      "id": "d16aa04f",
+      "type": "score_change",
+      "ticker": "RMD",
+      "title": "Score decreased +11 pts",
+      "subtitle": "Now rated SELL (31)",
+      "timestamp": "2026-02-16T20:22:43.656720",
+      "read": false
+    },
+    {
+      "id": "eef8e41f",
+      "type": "score_change",
+      "ticker": "IDXX",
+      "title": "Score decreased +17 pts",
+      "subtitle": "Now rated SELL (26)",
+      "timestamp": "2026-02-16T20:22:43.655831",
+      "read": false
+    },
+    {
+      "id": "49f50881",
+      "type": "score_change",
+      "ticker": "GE",
+      "title": "Score decreased +25 pts",
+      "subtitle": "Now rated SELL (33)",
+      "timestamp": "2026-02-16T20:22:43.654762",
+      "read": false
+    },
+    {
+      "id": "49bab539",
+      "type": "signal_change",
+      "ticker": "FIG",
+      "title": "Signal changed",
+      "subtitle": "HOLD \u2192 SELL",
+      "timestamp": "2026-02-16T20:20:05.548760",
+      "read": false
+    },
+    {
+      "id": "ec2b8a04",
+      "type": "signal_change",
+      "ticker": "STE",
+      "title": "Signal changed",
+      "subtitle": "HOLD \u2192 SELL",
+      "timestamp": "2026-02-16T20:20:05.548039",
+      "read": false
+    },
+    {
+      "id": "3a6dd76b",
+      "type": "signal_change",
+      "ticker": "IDXX",
+      "title": "Signal changed",
+      "subtitle": "SELL \u2192 HOLD",
+      "timestamp": "2026-02-16T20:20:05.547347",
+      "read": false
+    },
+    {
+      "id": "16958af1",
+      "type": "signal_change",
+      "ticker": "GE",
+      "title": "Signal changed",
+      "subtitle": "SELL \u2192 HOLD",
+      "timestamp": "2026-02-16T20:20:05.546678",
+      "read": false
+    },
+    {
+      "id": "605ff0aa",
+      "type": "score_change",
+      "ticker": "STE",
+      "title": "Score decreased +11 pts",
+      "subtitle": "Now rated SELL (32)",
+      "timestamp": "2026-02-16T20:20:05.545921",
+      "read": false
+    },
+    {
+      "id": "b7c48e06",
+      "type": "score_change",
+      "ticker": "GEHC",
+      "title": "Score increased +15 pts",
+      "subtitle": "Now rated HOLD (58)",
+      "timestamp": "2026-02-16T20:20:05.545254",
+      "read": false
+    },
+    {
+      "id": "59903b3e",
+      "type": "score_change",
+      "ticker": "RMD",
+      "title": "Score decreased +15 pts",
+      "subtitle": "Now rated SELL (17)",
+      "timestamp": "2026-02-16T20:20:05.544631",
+      "read": false
+    },
+    {
+      "id": "95233570",
+      "type": "score_change",
+      "ticker": "IDXX",
+      "title": "Score increased +17 pts",
+      "subtitle": "Now rated HOLD (44)",
+      "timestamp": "2026-02-16T20:20:05.543980",
+      "read": false
+    },
+    {
+      "id": "74eaf0ae",
+      "type": "score_change",
+      "ticker": "GE",
+      "title": "Score increased +25 pts",
+      "subtitle": "Now rated HOLD (59)",
+      "timestamp": "2026-02-16T20:20:05.543234",
+      "read": false
+    },
+    {
+      "id": "b20087f4",
+      "type": "signal_change",
+      "ticker": "AAPL",
+      "title": "Signal changed",
+      "subtitle": "HOLD \u2192 SELL",
+      "timestamp": "2026-02-16T20:19:59.762565",
+      "read": false
+    },
+    {
       "id": "775aa2c8",
       "type": "signal_change",
       "ticker": "DLR",
@@ -460,5 +649,5 @@
       "read": false
     }
   ],
-  "updated_at": "2026-02-14T14:33:48.362889"
+  "updated_at": "2026-02-16T20:22:43.664580"
 }

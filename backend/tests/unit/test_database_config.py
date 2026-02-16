@@ -11,6 +11,13 @@ import pytest
 import os
 from unittest.mock import patch
 
+# Check if asyncpg is available for PostgreSQL tests
+try:
+    import asyncpg
+    ASYNCPG_AVAILABLE = True
+except ImportError:
+    ASYNCPG_AVAILABLE = False
+
 
 class TestDatabaseURL:
     """Tests for database URL generation."""
@@ -27,6 +34,7 @@ class TestDatabaseURL:
             assert "sqlite" in url
             assert "aiosqlite" in url
     
+    @pytest.mark.skipif(not ASYNCPG_AVAILABLE, reason="asyncpg not installed")
     def test_postgresql_from_database_url(self):
         """Should use PostgreSQL when DATABASE_URL is set."""
         with patch.dict(os.environ, {"DATABASE_URL": "postgres://user:pass@host:5432/db"}, clear=True):
@@ -38,6 +46,7 @@ class TestDatabaseURL:
             assert "postgresql+asyncpg" in url
             assert "host:5432" in url
     
+    @pytest.mark.skipif(not ASYNCPG_AVAILABLE, reason="asyncpg not installed")
     def test_postgresql_conversion(self):
         """postgres:// should be converted to postgresql+asyncpg://."""
         with patch.dict(os.environ, {"DATABASE_URL": "postgres://user:pass@host:5432/db"}, clear=True):
@@ -49,6 +58,7 @@ class TestDatabaseURL:
             assert url.startswith("postgresql+asyncpg://")
             assert not url.startswith("postgres://")
     
+    @pytest.mark.skipif(not ASYNCPG_AVAILABLE, reason="asyncpg not installed")
     def test_database_type_postgresql(self):
         """DATABASE_TYPE=postgresql should build PostgreSQL URL from components."""
         env = {
@@ -83,6 +93,7 @@ class TestEngineOptions:
             options = db_module.get_engine_options()
             assert "pool_size" not in options  # SQLite doesn't use pooling
     
+    @pytest.mark.skipif(not ASYNCPG_AVAILABLE, reason="asyncpg not installed")
     def test_postgresql_pool_options(self):
         """PostgreSQL should have pool configuration."""
         env = {
@@ -103,6 +114,7 @@ class TestEngineOptions:
 class TestDatabaseInfo:
     """Tests for database info endpoint."""
     
+    @pytest.mark.skipif(not ASYNCPG_AVAILABLE, reason="asyncpg not installed")
     def test_database_info_sanitizes_password(self):
         """Password should be hidden in database info."""
         with patch.dict(os.environ, {"DATABASE_URL": "postgres://user:secretpass@host:5432/db"}, clear=True):

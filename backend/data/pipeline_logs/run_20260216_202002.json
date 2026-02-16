@@ -1,0 +1,17 @@
+{
+  "run_id": "20260216_202002",
+  "started_at": "2026-02-16T20:20:02.040400",
+  "completed_at": "2026-02-16T20:20:03.791984",
+  "status": "success",
+  "total_duration_seconds": 1.751584,
+  "steps": [
+    {
+      "name": "scoring",
+      "status": "success",
+      "duration_seconds": 1.750742,
+      "records_processed": 1,
+      "error": null,
+      "retries": 0
+    }
+  ]
+}

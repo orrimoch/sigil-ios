@@ -65,8 +65,8 @@ class TestTokenUsage:
         usage = TokenUsage(input_tokens=1_000_000, output_tokens=100_000)
         cost = provider.estimate_cost(usage)
         
-        # Sonnet: $3/M input + $15/M output = 3.0 + 1.5 = $4.50
-        expected = 4.5
+        # Default is Haiku: $1/M input + $5/M output = 1.0 + 0.5 = $1.50
+        expected = 1.5
         assert abs(cost - expected) < 0.01
     
     def test_zero_tokens(self):
