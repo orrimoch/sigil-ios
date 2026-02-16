@@ -296,16 +296,19 @@ class FreeRedditFetcher:
             return []
     
     async def fetch_all_reddit_posts(self) -> List[Dict]:
-        """Fetch posts from all configured subreddits."""
-        tasks = [self.fetch_reddit_posts(sub) for sub in self.SUBREDDITS]
-        results = await asyncio.gather(*tasks, return_exceptions=True)
-        
+        """Fetch posts from all configured subreddits with rate limiting."""
         all_posts = []
-        for result in results:
-            if isinstance(result, list):
-                all_posts.extend(result)
-            elif isinstance(result, Exception):
-                logger.error(f"Subreddit fetch error: {result}")
+        
+        # MEDIUM FIX CW-002: Add rate limiting (1 req/sec) to avoid Reddit blocks
+        for subreddit in self.SUBREDDITS:
+            try:
+                posts = await self.fetch_reddit_posts(subreddit)
+                if posts:
+                    all_posts.extend(posts)
+                # Rate limit: 1 request per second
+                await asyncio.sleep(1.0)
+            except Exception as e:
+                logger.error(f"Subreddit fetch error for r/{subreddit}: {e}")
         
         return all_posts
     

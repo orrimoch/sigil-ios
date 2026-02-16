@@ -84,6 +84,17 @@ struct SigilApp: App {
         
         // REC-133: Register background refresh tasks
         BackgroundRefreshManager.shared.registerTasks()
+        
+        // MEDIUM FIX TRADE-001/SHEET-001: Style segmented controls to match Institutional Dark theme
+        let segmentedAppearance = UISegmentedControl.appearance()
+        segmentedAppearance.selectedSegmentTintColor = UIColor(Color.Accent.gold)
+        segmentedAppearance.backgroundColor = UIColor(Color.Background.secondary)
+        segmentedAppearance.setTitleTextAttributes([
+            .foregroundColor: UIColor(Color.Text.primary)
+        ], for: .normal)
+        segmentedAppearance.setTitleTextAttributes([
+            .foregroundColor: UIColor(Color.Background.primary)
+        ], for: .selected)
     }
     
     var body: some Scene {

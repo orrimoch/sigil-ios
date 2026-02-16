@@ -120,7 +120,10 @@ final class AuthViewModel: ObservableObject {
         Task {
             do {
                 let code = try await authService.requestPasswordReset(email: email)
-                resetCode = code  // DEV: shown in-app for testing
+                // MEDIUM FIX SEC-009: Only show reset code in debug builds
+                #if DEBUG
+                resetCode = code
+                #endif
             } catch {
                 errorMessage = error.localizedDescription
             }

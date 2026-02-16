@@ -5,6 +5,7 @@ Implements LLMProvider interface for Claude models.
 """
 
 import time
+import asyncio
 import logging
 from typing import Optional, Dict, Any
 
@@ -120,7 +121,21 @@ class AnthropicProvider(LLMProvider):
             logger.error(f"Anthropic authentication error: {e}")
             raise
         except anthropic.RateLimitError as e:
-            logger.warning(f"Anthropic rate limit: {e}")
+            # MEDIUM FIX LLM-002: Retry with exponential backoff on rate limit
+            retry_attempt = kwargs.get("_retry_attempt", 0)
+            max_retries = 3
+            if retry_attempt < max_retries:
+                wait_time = (2 ** retry_attempt) * 2  # 2s, 4s, 8s
+                logger.warning(f"Anthropic rate limit hit, waiting {wait_time}s (attempt {retry_attempt + 1}/{max_retries})")
+                await asyncio.sleep(wait_time)
+                return await self.generate(
+                    prompt=prompt,
+                    system_prompt=system_prompt,
+                    model=model,
+                    _retry_attempt=retry_attempt + 1,
+                    **{k: v for k, v in kwargs.items() if k != "_retry_attempt"}
+                )
+            logger.error(f"Anthropic rate limit exceeded after {max_retries} retries: {e}")
             raise
         except anthropic.APIError as e:
             logger.error(f"Anthropic API error: {e}")

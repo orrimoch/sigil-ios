@@ -175,7 +175,16 @@ async def fetch_vix(use_cache: bool = True) -> VIXData:
             logger.warning("Using stale VIX cache as fallback")
             return _vix_cache._data
         
-        raise ValueError(f"Failed to fetch VIX data: {e}")
+        # MEDIUM FIX RK-003: Return default VIX instead of raising (15 = historical average)
+        logger.warning("No VIX data available, using default value (20)")
+        return VIXData(
+            value=20.0,  # Slightly above baseline as conservative default
+            previous_close=20.0,
+            change=0.0,
+            change_pct=0.0,
+            updated_at=datetime.now(timezone.utc),
+            regime="normal",
+        )
 
 
 def get_cached_vix() -> Optional[VIXData]:
