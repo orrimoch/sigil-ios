@@ -6,8 +6,8 @@ name: Weekly Scoring Pipeline
 
 "on":
   schedule:
-    # Sunday 04:00 UTC = 06:00 Israel = Saturday 11:00 PM EST
-    - cron: '0 4 * * 0'
+    # Saturday 23:00 UTC = Sunday 01:00 Israel (matches original cron)
+    - cron: '0 23 * * 6'
   
   workflow_dispatch:
     inputs:
