@@ -215,8 +215,37 @@ The LLM learns from its own history without fine-tuning.
 **Phased rollout:**
 - Phase 1-3: Claude + pgvector ICL only
 - Phase 4: Collect 500+ decision pairs
-- Phase 5: Train Llama 8B pattern model
-- Phase 6: Deploy two-model pipeline
+- Phase 5: **DECISION POINT** — Evaluate if Pattern Model needed
+- Phase 6: (Optional) Train Llama 8B pattern model
+
+### ⚠️ Pattern Model is OPTIONAL
+
+**Claude + pgvector might be enough.** After 3-6 months of paper trading:
+
+```
+Performance Review (Phase 4)
+           ↓
+Is Claude + ICL achieving targets?
+     (Alpha > 0, Sharpe > 1.5)
+          /            \
+        YES             NO
+         ↓               ↓
+    SKIP Pattern      ADD Pattern Model
+    Model (simpler)   (Phase 5-6)
+```
+
+**Arguments for skipping DPO:**
+- Claude reasons well without training
+- pgvector retrieval shows 10-20 relevant past decisions
+- Simpler architecture = fewer failure points
+- Markets change — patterns from 2025 may not work in 2027
+
+**Arguments for adding DPO:**
+- Model learns subtle patterns from 500+ decisions
+- Cheaper inference if running locally
+- Less reliant on Anthropic API
+
+**Recommendation:** Start with Claude + ICL. Add Pattern Model only if needed.
 
 ---
 
@@ -480,43 +509,57 @@ POST /api/v1/agent/resume
 
 **🎯 MILESTONE: First Paper Trade (~Week 7)**
 
-### Phase 4: Data Collection (Months 2-6)
+### Phase 4: Data Collection + Evaluation (Months 2-6)
 - [ ] Automated decision pair logging
 - [ ] Target: 500+ pairs
 - [ ] Weekly performance reports
+- [ ] **DECISION POINT: Evaluate if Claude + ICL is sufficient**
 
-### Phase 5: Pattern Model Training (Month 6-7)
-- [ ] Prepare DPO dataset
+```
+Month 6 Review:
+├── Alpha > 0%? Sharpe > 1.5? Win rate > 55%?
+│     ↓
+│   YES → Skip to Phase 7 (Live Trading)
+│   NO  → Continue to Phase 5 (Pattern Model)
+```
+
+### Phase 5: Pattern Model Training (OPTIONAL - Month 6-7)
+> ⚠️ **Only if Phase 4 evaluation shows Claude + ICL is insufficient**
+
+- [ ] Prepare DPO dataset from 500+ decisions
 - [ ] Fine-tune Llama 8B with LoRA
-- [ ] Evaluate and integrate
+- [ ] Evaluate improvement vs Claude-only
 
-**🎯 MILESTONE: Pattern Model Live (~Month 7)**
+### Phase 6: Two-Model Production (OPTIONAL - Month 7)
+> ⚠️ **Only if Pattern Model shows measurable improvement**
 
-### Phase 6: Two-Model Production (Month 7)
 - [ ] Deploy pattern model locally
 - [ ] Two-model pipeline
 - [ ] Monitoring and alerting
 
-### Phase 7: Live Trading (Month 8+)
-- [ ] Start with 10% capital
+**🎯 MILESTONE: Pattern Model Live (~Month 7) — IF NEEDED**
+
+### Phase 7: Live Trading (Month 4+ or Month 8+)
+- [ ] Start with 10% capital, manual approval
 - [ ] Scale based on performance
+- [ ] Can start as early as Month 4 if Claude + ICL is sufficient
 
 ---
 
 ## Timeline
 
-| Phase | Duration | Cumulative |
-|-------|----------|------------|
-| **0** Context Builder | 1 week | Week 1 |
-| **1** Memory (pgvector) | 2 weeks | Week 3 |
-| **2** Claude Agent + ICL | 2 weeks | Week 5 |
-| **3** Paper Trading | 2 weeks | Week 7 |
-| | **🎯 FIRST PAPER TRADE** | **~7 weeks** |
-| **4** Data Collection | 4-5 months | Month 6 |
-| **5** Pattern Model (DPO) | 2 weeks | Month 7 |
-| **6** Two-Model Integration | 2 weeks | Month 7 |
-| | **🎯 PATTERN MODEL LIVE** | **~7 months** |
-| **7** Live Trading | Ongoing | Month 8+ |
+| Phase | Duration | Cumulative | Required? |
+|-------|----------|------------|-----------|
+| **0** Context Builder | 1 week | Week 1 | ✅ Yes |
+| **1** Memory (pgvector) | 2 weeks | Week 3 | ✅ Yes |
+| **2** Claude Agent + ICL | 2 weeks | Week 5 | ✅ Yes |
+| **3** Paper Trading | 2 weeks | Week 7 | ✅ Yes |
+| | **🎯 FIRST PAPER TRADE** | **~7 weeks** | |
+| **4** Data Collection + Eval | 4-5 months | Month 6 | ✅ Yes |
+| | **🔀 DECISION POINT** | **Month 6** | |
+| **5** Pattern Model (DPO) | 2 weeks | Month 7 | ⚠️ Optional |
+| **6** Two-Model Integration | 2 weeks | Month 7 | ⚠️ Optional |
+| **7** Live Trading | Ongoing | Month 4-8 | ✅ Yes |
 
 ### Key Milestones
 
@@ -524,18 +567,30 @@ POST /api/v1/agent/resume
 |-----------|--------|
 | First paper trade | Week 7 |
 | Stable paper trading | Month 3 |
-| Pattern model trained | Month 7 |
-| Live trading (10%) | Month 8 |
+| **Decision: Pattern Model needed?** | **Month 6** |
+| Live trading (10%) | Month 4-8 (depends on path) |
+
+### Two Paths to Live Trading
+
+```
+PATH A: Claude + ICL Sufficient (Faster)
+Week 7 → Paper Trade → Month 3-4 Evaluate → Month 4 Live
+Total: ~4 months
+
+PATH B: Pattern Model Needed (Full)
+Week 7 → Paper Trade → Month 6 Evaluate → Train DPO → Month 8 Live
+Total: ~8 months
+```
 
 ### Total Timeline
 
 | Scenario | Time to Live |
 |----------|--------------|
-| Aggressive (skip pattern model) | ~4 months |
-| Standard (full two-model) | ~7-8 months |
+| **Claude-only (Path A)** | **~4 months** ← Start here |
+| Full two-model (Path B) | ~7-8 months |
 | Conservative (extended paper) | ~10 months |
 
-**Recommendation:** Standard path. Claude + ICL might be good enough, but pattern model gives flexibility.
+**Recommendation:** Start with Path A. Add Pattern Model only if evaluation shows it's needed.
 
 ### Resource Requirements
 
