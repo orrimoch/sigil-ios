@@ -464,3 +464,28 @@ def train_regime_model_from_history(
     detector.train(returns, vix_values)
     
     logger.info(f"Trained HMM on {min_len} days of data")
+
+
+# Convenience function for agent context aggregator (REC-278)
+async def get_current_regime() -> Dict[str, Any]:
+    """
+    Get current market regime for agent context.
+    
+    Returns dict with regime, confidence for TradingContext.
+    """
+    try:
+        result = await detect_current_regime()
+        return {
+            "regime": result.regime.value,
+            "confidence": result.confidence,
+            "vix": result.vix_value,
+            "method": result.method,
+        }
+    except Exception as e:
+        logger.warning(f"get_current_regime failed: {e}, using defaults")
+        return {
+            "regime": "normal",
+            "confidence": 0.5,
+            "vix": None,
+            "method": "fallback",
+        }

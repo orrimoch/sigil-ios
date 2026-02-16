@@ -273,3 +273,28 @@ def _fetch_vix_sync_impl(use_cache: bool = True) -> VIXData:
         if _vix_cache._data is not None:
             return _vix_cache._data
         raise ValueError(f"Failed to fetch VIX: {e}")
+
+
+# Convenience function for agent context aggregator (REC-278)
+async def get_current_vix() -> Dict[str, Any]:
+    """
+    Get current VIX data for agent context.
+    
+    Returns dict with vix, change, regime for TradingContext.
+    """
+    try:
+        vix_data = await fetch_vix(use_cache=True)
+        return {
+            "vix": vix_data.value,
+            "change": vix_data.change,
+            "change_pct": vix_data.change_pct,
+            "regime": vix_data.regime,
+        }
+    except Exception as e:
+        logger.warning(f"get_current_vix failed: {e}, using defaults")
+        return {
+            "vix": 20.0,
+            "change": 0.0,
+            "change_pct": 0.0,
+            "regime": "normal",
+        }
