@@ -75,9 +75,9 @@ class PositionSizer:
     
     # Configuration
     LOOKBACK_DAYS = 60        # Days of history for covariance
-    TARGET_ALLOCATION = 0.40  # Target total allocation for new trades
-    MIN_WEIGHT = 0.02         # Minimum 2% per position
-    MAX_WEIGHT = 0.10         # Maximum 10% per position
+    TARGET_ALLOCATION = 0.90  # Target % of AVAILABLE CASH to deploy (90% = keep 10% buffer)
+    MIN_WEIGHT = 0.05         # Minimum 5% of cash per position
+    MAX_WEIGHT = 0.40         # Maximum 40% of cash per position
     MIN_SHARES = 1            # Minimum shares to trade
     
     def __init__(self, lookback_days: int = None):
@@ -158,13 +158,13 @@ class PositionSizer:
             scale = self.TARGET_ALLOCATION / total
             final_weights = {k: v * scale for k, v in final_weights.items()}
         
-        # Step 3: Convert weights to shares (respecting available cash)
+        # Step 3: Convert weights to shares (weights are % of available cash)
         results = []
-        portfolio_value = context.portfolio.total_value
         available_cash = context.portfolio.cash
-        remaining_cash = available_cash
+        deployment_budget = available_cash * self.TARGET_ALLOCATION  # 90% of cash, keep 10% buffer
+        remaining_cash = deployment_budget
         
-        logger.info(f"Position sizing: ${available_cash:,.2f} available cash, ${portfolio_value:,.2f} total value")
+        logger.info(f"Position sizing: ${available_cash:,.2f} cash, deploying ${deployment_budget:,.2f} ({self.TARGET_ALLOCATION:.0%})")
         
         for decision in decisions:
             weight = final_weights[decision.ticker]
@@ -178,7 +178,8 @@ class PositionSizer:
                 logger.warning(f"Invalid price for {decision.ticker}, skipping")
                 continue
             
-            dollars = portfolio_value * weight
+            # Weight is % of deployment budget (which is 90% of available cash)
+            dollars = deployment_budget * weight
             shares = int(dollars / price)
             
             if shares < self.MIN_SHARES:
