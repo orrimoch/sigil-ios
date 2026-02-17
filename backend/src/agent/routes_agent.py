@@ -47,6 +47,7 @@ from .executor import (
 )
 from .learning import LearningLoop, get_learning_loop
 from .memory import get_agent_memory
+from .decision_pairs import get_decision_pair_logger, DecisionPairLogger
 
 # Auth imports with fallback for testing
 try:
@@ -456,4 +457,130 @@ async def trigger_learning_update(
         "outcomes_recorded": result.get("outcomes_recorded", 0),
         "lessons_generated": result.get("lessons_generated", 0),
         "errors": result.get("errors", []),
+    }
+
+
+# ============================================================================
+# Decision Pair Logging Endpoints (REC-298)
+# ============================================================================
+
+@router.get("/training/stats")
+async def get_training_stats(
+    current_user: User = Depends(get_current_user),
+):
+    """
+    Get statistics about logged decisions for training data.
+    
+    Returns:
+    - total_decisions: All logged decisions
+    - with_outcomes: Decisions with recorded outcomes
+    - preferred/neutral/dispreferred: Count by preference label
+    - avg_outcome_pct: Average P&L%
+    - ready_for_training: True if enough data for useful training
+    """
+    pair_logger = get_decision_pair_logger()
+    return await pair_logger.get_stats()
+
+
+@router.get("/training/decisions")
+async def get_training_decisions(
+    limit: int = Query(100, ge=1, le=500),
+    with_outcomes_only: bool = Query(True),
+    min_outcome: Optional[float] = Query(None),
+    max_outcome: Optional[float] = Query(None),
+    current_user: User = Depends(get_current_user),
+):
+    """
+    Get logged decisions for analysis.
+    
+    Use with_outcomes_only=True to get only decisions with known outcomes.
+    Filter by outcome range with min_outcome/max_outcome.
+    """
+    pair_logger = get_decision_pair_logger()
+    
+    if with_outcomes_only:
+        decisions = await pair_logger.get_decisions_with_outcomes(
+            user_id=str(current_user.id),
+            min_outcome=min_outcome,
+            max_outcome=max_outcome,
+            limit=limit,
+        )
+    else:
+        decisions = await pair_logger.get_decisions_with_outcomes(
+            user_id=str(current_user.id),
+            limit=limit,
+        )
+    
+    return {
+        "decisions": [d.to_dict() for d in decisions],
+        "count": len(decisions),
+    }
+
+
+@router.post("/training/generate-pairs")
+async def generate_training_pairs(
+    min_outcome_diff: float = Query(5.0, ge=1.0, le=20.0),
+    max_pairs: int = Query(500, ge=10, le=2000),
+    current_user: User = Depends(get_current_user),
+):
+    """
+    Generate DPO training pairs from logged decisions.
+    
+    Pairs high-outcome decisions with low-outcome ones from similar contexts.
+    min_outcome_diff controls the minimum difference required (default 5%).
+    """
+    pair_logger = get_decision_pair_logger()
+    pairs = await pair_logger.generate_training_pairs(
+        min_outcome_diff=min_outcome_diff,
+        max_pairs=max_pairs,
+    )
+    
+    return {
+        "pairs": [p.to_dpo_format() for p in pairs],
+        "count": len(pairs),
+        "min_outcome_diff": min_outcome_diff,
+    }
+
+
+@router.post("/training/export")
+async def export_training_data(
+    format: str = Query("jsonl", pattern="^(jsonl|json)$"),
+    min_outcome_diff: float = Query(5.0, ge=1.0, le=20.0),
+    current_user: User = Depends(get_current_user),
+):
+    """
+    Export training data to file.
+    
+    Formats:
+    - jsonl: DPO training format (prompt, chosen, rejected)
+    - json: Full decision records with context
+    
+    Returns the file path for download.
+    """
+    from pathlib import Path
+    
+    pair_logger = get_decision_pair_logger()
+    export_dir = Path(__file__).parent.parent.parent / "data" / "exports"
+    export_dir.mkdir(parents=True, exist_ok=True)
+    
+    timestamp = datetime.utcnow().strftime("%Y%m%d_%H%M%S")
+    
+    if format == "jsonl":
+        output_path = export_dir / f"dpo_training_{timestamp}.jsonl"
+        count = await pair_logger.export_to_jsonl(
+            str(output_path),
+            min_outcome_diff=min_outcome_diff,
+        )
+    else:
+        output_path = export_dir / f"decisions_{timestamp}.json"
+        count = await pair_logger.export_all_decisions(
+            str(output_path),
+            with_outcomes_only=True,
+        )
+    
+    return {
+        "success": True,
+        "format": format,
+        "file_path": str(output_path),
+        "records_exported": count,
     }

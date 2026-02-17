@@ -36,6 +36,11 @@ from .executor import (
     get_executor,
 )
 from .learning import LearningLoop, run_learning_update
+from .decision_pairs import (
+    DecisionPairLogger,
+    DecisionContext,
+    get_decision_pair_logger,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -429,9 +434,74 @@ class TradingLoop:
         context: TradingContext,
         user_id: str,
     ):
-        """Store decisions in memory for future learning."""
+        """Store decisions in memory for future learning and DPO training."""
+        pair_logger = get_decision_pair_logger()
+        
         for decision in decisions:
+            # Store in memory system
             await self.memory.store_decision(decision, context, user_id)
+            
+            # Log for DPO training (REC-298)
+            try:
+                decision_context = self._build_decision_context(decision, context)
+                await pair_logger.log_decision(
+                    user_id=user_id,
+                    context=decision_context,
+                    action=decision.action,
+                    shares=decision.shares if hasattr(decision, 'shares') else 0,
+                    rationale=decision.rationale,
+                    confidence=decision.confidence,
+                )
+            except Exception as e:
+                logger.warning(f"Failed to log decision pair: {e}")
+    
+    def _build_decision_context(
+        self,
+        decision: DecisionResult,
+        context: TradingContext,
+    ) -> DecisionContext:
+        """Build DecisionContext for DPO logging from TradingContext."""
+        # Find the candidate info for this decision
+        ticker_info = {}
+        for candidate in context.buy_candidates + context.sell_candidates:
+            if candidate.ticker == decision.ticker:
+                ticker_info = {
+                    "ticker_score": candidate.score,
+                    "ticker_sector": candidate.sector,
+                    "ticker_price": candidate.price,
+                    "ticker_market_cap": getattr(candidate, 'market_cap', 0),
+                    "ticker_sentiment": getattr(candidate, 'sentiment_score', 50),
+                    "ticker_technical": getattr(candidate, 'technical_score', 50),
+                    "ticker_fundamental": getattr(candidate, 'fundamental_score', 50),
+                }
+                break
+        
+        # Build top candidates list
+        top_candidates = [
+            {"ticker": c.ticker, "score": c.score}
+            for c in context.buy_candidates[:5]
+        ]
+        
+        return DecisionContext(
+            timestamp=datetime.utcnow().isoformat(),
+            regime=context.market.regime,
+            vix_level=context.market.vix,
+            portfolio_value=context.portfolio.total_value,
+            cash_available=context.portfolio.cash,
+            positions_count=context.portfolio.position_count,
+            sector_exposure=context.portfolio.sector_exposure,
+            ticker=decision.ticker,
+            ticker_score=ticker_info.get("ticker_score", decision.score),
+            ticker_sector=ticker_info.get("ticker_sector", "Unknown"),
+            ticker_price=ticker_info.get("ticker_price", 0),
+            ticker_market_cap=ticker_info.get("ticker_market_cap", 0),
+            ticker_sentiment=ticker_info.get("ticker_sentiment", 50),
+            ticker_technical=ticker_info.get("ticker_technical", 50),
+            ticker_fundamental=ticker_info.get("ticker_fundamental", 50),
+            top_candidates=top_candidates,
+            recent_trades=[],  # TODO: Add recent trades from history
+            recent_outcomes=[],  # TODO: Add recent outcomes from learning
+        )
     
     def get_status(self) -> Dict[str, Any]:
         """Get current agent status."""

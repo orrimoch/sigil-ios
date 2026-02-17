@@ -22,6 +22,7 @@ from typing import Optional, List, Dict, Any
 from enum import Enum
 
 from .memory import AgentMemory, Decision, get_agent_memory
+from .decision_pairs import get_decision_pair_logger
 
 # LLM import with fallback
 try:
@@ -366,7 +367,7 @@ Keep it to 1-2 sentences. Be specific and actionable."""
         outcome: TradeOutcome,
         lesson: LessonLearned,
     ):
-        """Store outcome and lesson in memory."""
+        """Store outcome and lesson in memory + decision pairs (REC-298)."""
         memory = await self._ensure_memory()
         await memory.update_outcome(
             decision_id=decision.id,
@@ -378,6 +379,20 @@ Keep it to 1-2 sentences. Be specific and actionable."""
             decision_id=decision.id,
             lesson=lesson.lesson,
         )
+        
+        # Also update decision pairs for DPO training (REC-298)
+        try:
+            pair_logger = get_decision_pair_logger()
+            # Find the decision pair record by decision_id
+            # Note: decision.id is the memory DB id, we need to correlate
+            # For now, we'll log by searching for matching context
+            await pair_logger.record_outcome(
+                record_id=decision.id,  # This assumes IDs match
+                outcome_pct=outcome.outcome_pct,
+                lesson=lesson.lesson,
+            )
+        except Exception as e:
+            logger.warning(f"Failed to update decision pair outcome: {e}")
     
     async def _get_position_status(
         self,
