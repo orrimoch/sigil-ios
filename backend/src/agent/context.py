@@ -317,12 +317,17 @@ class ContextAggregator:
         import sqlite3
         from pathlib import Path
         
-        # Try multiple paths
-        possible_paths = [
-            Path(__file__).parent.parent.parent / "data" / "sigil.db",  # backend/data/sigil.db
-            Path(__file__).parent.parent / "data" / "sigil.db",  # src/data/sigil.db
-            Path("data/sigil.db"),  # relative to cwd
-        ]
+        # Use data_dir if set (for tests), otherwise try standard paths
+        if self.data_dir:
+            possible_paths = [
+                self.data_dir / "sigil.db",
+            ]
+        else:
+            possible_paths = [
+                Path(__file__).parent.parent.parent / "data" / "sigil.db",  # backend/data/sigil.db
+                Path(__file__).parent.parent / "data" / "sigil.db",  # src/data/sigil.db
+                Path("data/sigil.db"),  # relative to cwd
+            ]
         
         db_path = None
         for p in possible_paths:
@@ -331,7 +336,11 @@ class ContextAggregator:
                 break
         
         if db_path is None:
-            logger.warning("Sigil database not found")
+            # In test mode with data_dir, this is expected - fall back to mock
+            if self.data_dir:
+                logger.debug("Sigil database not found in test data_dir, using mock")
+            else:
+                logger.warning("Sigil database not found")
             return None
         
         conn = sqlite3.connect(str(db_path))
