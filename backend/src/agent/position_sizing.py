@@ -230,7 +230,15 @@ class PositionSizer:
         decision: TradeDecision, 
         context: 'TradingContext'
     ) -> Optional[SizedPosition]:
-        """Size a SELL (full exit)."""
+        """
+        Size a SELL with tiered partial exit logic.
+        
+        Tiers based on score:
+        - Score < 40: Full exit (100%)
+        - Score 40-50: Trim 50%
+        - Score 50-60: Trim 25%
+        - Stop-loss triggered: Full exit (100%)
+        """
         # Find position in portfolio
         position = None
         for p in context.portfolio.positions:
@@ -242,15 +250,61 @@ class PositionSizer:
             logger.warning(f"No position found for {decision.ticker}")
             return None
         
+        # Determine sell percentage based on score and conditions
+        score = decision.score
+        sell_pct, rationale = self._calculate_sell_percentage(decision, position)
+        
+        # Calculate shares to sell
+        shares_to_sell = int(position.shares * sell_pct)
+        
+        if shares_to_sell < 1:
+            logger.debug(f"Skipping {decision.ticker}: calculated 0 shares to sell")
+            return None
+        
+        logger.info(f"SELL {decision.ticker}: {sell_pct:.0%} of position ({shares_to_sell}/{position.shares} shares) - {rationale}")
+        
         return SizedPosition(
             ticker=decision.ticker,
             action="SELL",
-            shares=position.shares,
-            dollars=position.shares * position.current_price,
-            weight=0,  # Exiting
+            shares=shares_to_sell,
+            dollars=shares_to_sell * position.current_price,
+            weight=0,
             price=position.current_price,
-            rationale="Full exit - SELL signal",
+            rationale=rationale,
         )
+    
+    def _calculate_sell_percentage(
+        self, 
+        decision: TradeDecision, 
+        position: 'Position'
+    ) -> tuple[float, str]:
+        """
+        Calculate what percentage of position to sell.
+        
+        Returns:
+            (sell_percentage, rationale)
+        """
+        score = decision.score
+        
+        # Check for stop-loss (position down > 8%)
+        if position.unrealized_pnl_pct <= -8.0:
+            return 1.0, f"Stop-loss triggered ({position.unrealized_pnl_pct:.1f}%) - Full exit"
+        
+        # Check for severe loss (down > 15%) - always full exit
+        if position.unrealized_pnl_pct <= -15.0:
+            return 1.0, f"Severe loss ({position.unrealized_pnl_pct:.1f}%) - Full exit"
+        
+        # Tiered sell based on score
+        if score < 40:
+            return 1.0, f"Score {score:.0f} < 40 - Full exit"
+        elif score < 50:
+            return 0.50, f"Score {score:.0f} (40-50) - Trim 50%"
+        elif score < 60:
+            return 0.25, f"Score {score:.0f} (50-60) - Trim 25%"
+        else:
+            # Score >= 60, shouldn't normally be a SELL candidate
+            # But if Claude recommended it, do a small trim
+            return 0.10, f"Score {score:.0f} - Light trim 10%"
     
     async def _portfolio_risk_parity_weights(
         self,

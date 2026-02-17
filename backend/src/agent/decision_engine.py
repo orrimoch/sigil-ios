@@ -55,8 +55,18 @@ AI and data infrastructure will dominate for the next decade. Apply these biases
 
 ## DECISION RULES
 - BUY when: score ≥75, regime is calm/normal, sector not overweight, within cash budget
-- SELL when: score <40, OR stop-loss triggered, OR regime is crisis + position losing
-- HOLD when: 40 ≤ score < 75, wait for stronger signal
+- HOLD when: score ≥60, position healthy
+- SELL when: score <60, OR stop-loss triggered, OR regime is crisis + position losing
+
+## SELL TIERS (automatic sizing by system)
+When you recommend SELL, the system will size it based on score:
+- Score < 40: Full exit (100% of position)
+- Score 40-50: Trim 50% of position
+- Score 50-60: Trim 25% of position
+- Stop-loss hit (down >8%): Full exit regardless of score
+- Severe loss (down >15%): Full exit regardless of score
+
+**You just recommend SELL - the system handles partial vs full exit.**
 
 ## CONSTRAINT RULES (MUST FOLLOW)
 1. NEVER recommend total BUY value exceeding available cash
