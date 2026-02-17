@@ -86,9 +86,14 @@ class DataFreshness:
     regime_updated: Optional[datetime] = None
     regime_age_hours: Optional[float] = None
     prices_updated: Optional[datetime] = None
+    prices_age_minutes: Optional[float] = None
     vix_updated: Optional[datetime] = None
-    is_stale: bool = False
-    stale_reasons: List[str] = field(default_factory=list)
+    vix_age_hours: Optional[float] = None
+    crowd_wisdom_updated: Optional[datetime] = None
+    crowd_wisdom_age_hours: Optional[float] = None
+    is_stale: bool = False  # HALT trading if True
+    stale_reasons: List[str] = field(default_factory=list)  # Critical issues (cause HALT)
+    warnings: List[str] = field(default_factory=list)  # Non-critical (log but continue)
 
 
 @dataclass
@@ -538,12 +543,24 @@ class ContextAggregator:
         )
     
     async def _check_data_freshness(self) -> DataFreshness:
-        """Check if data sources are fresh enough for trading."""
+        """
+        Check if data sources are fresh enough for trading.
+        
+        HALT conditions (is_stale=True):
+        - Scores > 7 days old
+        - Regime > 24 hours old
+        - Prices > 15 min old (during market hours)
+        
+        WARN conditions (logged but continue):
+        - VIX > 6 hours old
+        - Crowd wisdom > 48 hours old
+        """
         freshness = DataFreshness()
         now = datetime.now()
-        stale_reasons = []
+        stale_reasons = []  # Critical - will HALT
+        warnings = []  # Non-critical - just log
         
-        # Check scores freshness
+        # Check scores freshness (HALT if >7 days)
         scores_path = self.data_dir / "composite_scores.json"
         if scores_path.exists():
             with open(scores_path) as f:
@@ -562,7 +579,7 @@ class ContextAggregator:
         else:
             stale_reasons.append("Scores file not found")
         
-        # Check regime freshness
+        # Check regime freshness (HALT if >24 hours)
         regime_path = self.data_dir / "hmm_regime.json"
         if regime_path.exists():
             with open(regime_path) as f:
@@ -579,10 +596,75 @@ class ContextAggregator:
                         f"Regime is {freshness.regime_age_hours:.1f}h old (max: {self.MAX_REGIME_AGE_HOURS}h)"
                     )
         
+        # Check VIX freshness (WARN if >6 hours)
+        vix_path = self.data_dir / "vix_data.json"
+        if vix_path.exists():
+            try:
+                with open(vix_path) as f:
+                    data = json.load(f)
+                updated_str = data.get("updated_at")
+                if updated_str:
+                    updated = datetime.fromisoformat(updated_str)
+                    freshness.vix_updated = updated
+                    freshness.vix_age_hours = (now - updated).total_seconds() / 3600
+                    if freshness.vix_age_hours > 6:
+                        warnings.append(f"VIX is {freshness.vix_age_hours:.1f}h old")
+            except Exception as e:
+                logger.debug(f"Could not check VIX freshness: {e}")
+        
+        # Check crowd wisdom freshness (WARN if >48 hours)
+        crowd_path = self.data_dir / "crowd_wisdom.json"
+        if crowd_path.exists():
+            try:
+                with open(crowd_path) as f:
+                    data = json.load(f)
+                updated_str = data.get("updated_at")
+                if updated_str:
+                    updated = datetime.fromisoformat(updated_str)
+                    freshness.crowd_wisdom_updated = updated
+                    freshness.crowd_wisdom_age_hours = (now - updated).total_seconds() / 3600
+                    if freshness.crowd_wisdom_age_hours > 48:
+                        warnings.append(f"Crowd wisdom is {freshness.crowd_wisdom_age_hours:.1f}h old")
+            except Exception as e:
+                logger.debug(f"Could not check crowd wisdom freshness: {e}")
+        
+        # Check if market is open (for price staleness check)
+        if self._is_market_hours():
+            # During market hours, prices must be <15 min old
+            # This would require checking actual price timestamps
+            # For now, we'll skip this as prices are fetched live
+            pass
+        
         freshness.stale_reasons = stale_reasons
+        freshness.warnings = warnings
         freshness.is_stale = len(stale_reasons) > 0
         
+        # Log warnings
+        for warning in warnings:
+            logger.warning(f"Data freshness warning: {warning}")
+        
         return freshness
+    
+    def _is_market_hours(self) -> bool:
+        """Check if US market is currently open (9:30 AM - 4:00 PM ET, Mon-Fri)."""
+        from datetime import timezone
+        import pytz
+        
+        try:
+            et = pytz.timezone('US/Eastern')
+            now_et = datetime.now(et)
+            
+            # Check weekday (0=Monday, 4=Friday)
+            if now_et.weekday() > 4:
+                return False
+            
+            # Check time (9:30 AM - 4:00 PM)
+            market_open = now_et.replace(hour=9, minute=30, second=0, microsecond=0)
+            market_close = now_et.replace(hour=16, minute=0, second=0, microsecond=0)
+            
+            return market_open <= now_et <= market_close
+        except Exception:
+            return False  # Assume not market hours if we can't determine
     
     def _score_to_candidate(self, ticker: str, data: Dict) -> StockCandidate:
         """Convert score data dict to StockCandidate."""

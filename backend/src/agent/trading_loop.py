@@ -261,6 +261,21 @@ class TradingLoop:
             context = await self._aggregate_context(user_id)
             result.context_aggregated = True
             
+            # STEP 1.5: Data Freshness Check (HALT if stale)
+            if context.data_freshness.is_stale:
+                stale_reasons = context.data_freshness.stale_reasons
+                error_msg = f"HALT: Data is stale - {'; '.join(stale_reasons)}"
+                logger.error(error_msg)
+                result.errors.append(error_msg)
+                result.success = False
+                result.completed_at = datetime.utcnow()
+                self._status = AgentStatus.ERROR
+                return result
+            
+            # Log data freshness info
+            df = context.data_freshness
+            logger.info(f"Data freshness OK - Scores: {df.scores_age_hours:.1f}h, Regime: {df.regime_age_hours:.1f}h")
+            
             # STEP 2: Memory Retrieval
             logger.info("Step 2: Retrieving similar situations...")
             memories = await self._retrieve_memories(context)
