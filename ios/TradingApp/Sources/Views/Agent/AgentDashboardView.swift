@@ -359,29 +359,21 @@ class AgentDashboardViewModel: ObservableObject {
         errorMessage = nil
         defer { isLoading = false }
         
+        // Direct API call for status only - keep it simple
+        guard let statusURL = URL(string: "http://127.0.0.1:8000/api/v1/agent/status") else { return }
+        
         do {
-            // Load status
-            let statusResponse = try await AgentService.shared.getStatus()
-            status = statusResponse.status
-            totalRuns = statusResponse.totalRuns
-            
-            // Load pending trades
-            pendingTrades = try await AgentService.shared.getPendingTrades()
-            
-            // Load recent executions
-            recentExecutions = try await AgentService.shared.getExecutions(limit: 5)
-            
-            // Load stats
-            let loadedStats = try await AgentService.shared.getStats()
-            stats = loadedStats
-            weeklyTrades = loadedStats.weeklyTrades
-            weeklyDecisions = loadedStats.totalDecisions
-        } catch let error as AgentServiceError {
-            errorMessage = error.localizedDescription
-            print("Failed to load agent data: \(error)")
+            let (data, _) = try await URLSession.shared.data(from: statusURL)
+            if let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
+                if let statusStr = json["status"] as? String {
+                    status = statusStr
+                }
+                if let runs = json["total_runs"] as? Int {
+                    totalRuns = runs
+                }
+            }
         } catch {
-            errorMessage = "Failed to load agent data"
-            print("Failed to load agent data: \(error)")
+            errorMessage = "Failed to load: \(error.localizedDescription)"
         }
     }
     
@@ -390,16 +382,20 @@ class AgentDashboardViewModel: ObservableObject {
     }
     
     func togglePause() async {
+        let endpoint = isPaused ? "resume" : "pause"
+        guard let url = URL(string: "http://127.0.0.1:8000/api/v1/agent/\(endpoint)") else { return }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        
         do {
-            if isPaused {
-                _ = try await AgentService.shared.resume()
-                status = "active"
-            } else {
-                _ = try await AgentService.shared.pause()
-                status = "paused"
+            let (_, response) = try await URLSession.shared.data(for: request)
+            if let http = response as? HTTPURLResponse, http.statusCode == 200 {
+                // Reload all data to refresh UI
+                await loadData()
             }
         } catch {
-            print("Failed to toggle pause: \(error)")
+            errorMessage = "Network error: \(error.localizedDescription)"
         }
     }
     

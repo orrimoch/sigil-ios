@@ -138,14 +138,14 @@ class AgentService {
     
     /// Pause the agent
     func pause() async throws -> Bool {
-        let response: [String: Bool] = try await post("/api/v1/agent/pause")
-        return response["success"] ?? false
+        let response: PauseResumeResponse = try await post("/api/v1/agent/pause")
+        return response.success
     }
     
     /// Resume the agent
     func resume() async throws -> Bool {
-        let response: [String: Bool] = try await post("/api/v1/agent/resume")
-        return response["success"] ?? false
+        let response: PauseResumeResponse = try await post("/api/v1/agent/resume")
+        return response.success
     }
     
     /// Trigger a trading loop run
@@ -231,6 +231,11 @@ enum AgentServiceError: Error, LocalizedError {
 }
 
 // MARK: - Response Types
+
+struct PauseResumeResponse: Codable {
+    let success: Bool
+    let status: String
+}
 
 struct TradingLoopResponse: Codable {
     let success: Bool

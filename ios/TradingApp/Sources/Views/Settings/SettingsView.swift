@@ -140,6 +140,33 @@ struct SettingsView: View {
                 }
                 .listRowBackground(Color.Background.secondary)
                 
+                // AI Agent (End Game)
+                Section {
+                    NavigationLink {
+                        AgentDashboardView()
+                    } label: {
+                        HStack {
+                            Image(systemName: "cpu.fill")
+                                .foregroundColor(.Accent.gold)
+                            
+                            VStack(alignment: .leading) {
+                                Text("AI Trading Agent")
+                                    .foregroundColor(.Text.primary)
+                                
+                                Text("Autonomous trading assistant")
+                                    .font(.caption)
+                                    .foregroundColor(.Text.tertiary)
+                            }
+                        }
+                    }
+                } header: {
+                    Text("Automation")
+                        .accessibilityAddTraits(.isHeader)
+                } footer: {
+                    Text("View agent status, approve trades, and configure automation.")
+                }
+                .listRowBackground(Color.Background.secondary)
+                
                 // F8.2: Broker Connection
                 Section {
                     NavigationLink {
