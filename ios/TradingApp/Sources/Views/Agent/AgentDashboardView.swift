@@ -305,6 +305,8 @@ class AgentDashboardViewModel: ObservableObject {
     @Published var weeklyPnLValue: Double = 0
     @Published var isLoading = false
     @Published var lastRunDate: Date?
+    @Published var stats: AgentStats?
+    @Published var errorMessage: String?
     
     var isPaused: Bool { status == "paused" }
     
@@ -336,9 +338,13 @@ class AgentDashboardViewModel: ObservableObject {
     }
     
     var successRate: String {
+        // Use actual success rate from stats if available
+        if let stats = stats, stats.totalExecutions > 0 {
+            let rate = stats.successRate * 100
+            return String(format: "%.0f%%", rate)
+        }
         guard totalRuns > 0 else { return "N/A" }
-        // Placeholder - would calculate from actual data
-        return "85%"
+        return "N/A"
     }
     
     var weeklyPnL: String {
@@ -350,6 +356,7 @@ class AgentDashboardViewModel: ObservableObject {
     
     func loadData() async {
         isLoading = true
+        errorMessage = nil
         defer { isLoading = false }
         
         do {
@@ -365,10 +372,15 @@ class AgentDashboardViewModel: ObservableObject {
             recentExecutions = try await AgentService.shared.getExecutions(limit: 5)
             
             // Load stats
-            let stats = try await AgentService.shared.getStats()
-            weeklyTrades = stats.weeklyTrades
-            weeklyDecisions = stats.totalDecisions
+            let loadedStats = try await AgentService.shared.getStats()
+            stats = loadedStats
+            weeklyTrades = loadedStats.weeklyTrades
+            weeklyDecisions = loadedStats.totalDecisions
+        } catch let error as AgentServiceError {
+            errorMessage = error.localizedDescription
+            print("Failed to load agent data: \(error)")
         } catch {
+            errorMessage = "Failed to load agent data"
             print("Failed to load agent data: \(error)")
         }
     }

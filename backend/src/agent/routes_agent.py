@@ -380,14 +380,66 @@ async def get_recent_lessons(
 
 
 @router.get("/stats")
-async def get_learning_stats(
+async def get_agent_stats(
     current_user: User = Depends(get_current_user),
 ):
-    """Get learning statistics."""
-    learning = get_learning_loop()
-    stats = await learning.get_learning_stats()
+    """
+    Get agent statistics for dashboard.
     
-    return stats
+    Returns unified stats matching iOS AgentStats model:
+    - total_decisions: Total decisions made
+    - total_executions: Total trades executed
+    - success_rate: Win rate as decimal (0-1)
+    - avg_outcome: Average P&L percentage
+    - weekly_trades: Trades in the last 7 days
+    - lessons_learned: Total lessons generated
+    """
+    from datetime import timedelta
+    
+    learning = get_learning_loop()
+    memory = get_agent_memory()
+    executor = get_executor()
+    
+    # Get learning stats
+    learning_stats = await learning.get_learning_stats()
+    
+    # Get decision count
+    decisions = await memory.get_recent_decisions(
+        user_id=str(current_user.id),
+        limit=1000,  # Get all recent
+    )
+    total_decisions = len(decisions)
+    
+    # Get execution history
+    executions = await executor.get_execution_history(
+        user_id=str(current_user.id),
+        limit=1000,
+    )
+    total_executions = len(executions)
+    
+    # Count successful executions
+    successful = sum(1 for e in executions if e.success)
+    success_rate = (successful / total_executions) if total_executions > 0 else 0.0
+    
+    # Count weekly trades (last 7 days)
+    one_week_ago = datetime.utcnow() - timedelta(days=7)
+    weekly_trades = 0
+    for e in executions:
+        try:
+            exec_time = datetime.fromisoformat(e.executed_at.replace('Z', '+00:00')) if e.executed_at else None
+            if exec_time and exec_time.replace(tzinfo=None) >= one_week_ago:
+                weekly_trades += 1
+        except (ValueError, AttributeError):
+            pass
+    
+    return {
+        "total_decisions": total_decisions,
+        "total_executions": total_executions,
+        "success_rate": success_rate,
+        "avg_outcome": learning_stats.get("avg_outcome", 0.0),
+        "weekly_trades": weekly_trades,
+        "lessons_learned": learning_stats.get("total_lessons", 0),
+    }
 
 
 @router.post("/learn")

@@ -170,7 +170,7 @@ struct AgentDecision: Codable, Identifiable {
 // MARK: - Agent Execution
 
 struct AgentExecution: Codable, Identifiable {
-    var id: String { orderId ?? UUID().uuidString }
+    let id: String
     let ticker: String
     let action: String
     let shares: Int
@@ -191,6 +191,21 @@ struct AgentExecution: Codable, Identifiable {
         case executedAt = "executed_at"
         case success
         case message
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        ticker = try container.decode(String.self, forKey: .ticker)
+        action = try container.decode(String.self, forKey: .action)
+        shares = try container.decode(Int.self, forKey: .shares)
+        fillPrice = try container.decodeIfPresent(Double.self, forKey: .fillPrice)
+        fillValue = try container.decodeIfPresent(Double.self, forKey: .fillValue)
+        orderId = try container.decodeIfPresent(String.self, forKey: .orderId)
+        executedAt = try container.decodeIfPresent(String.self, forKey: .executedAt)
+        success = try container.decode(Bool.self, forKey: .success)
+        message = try container.decode(String.self, forKey: .message)
+        // Stable ID: use orderId if present, otherwise generate from ticker + timestamp
+        id = orderId ?? "\(ticker)-\(executedAt ?? UUID().uuidString)"
     }
 }
 
