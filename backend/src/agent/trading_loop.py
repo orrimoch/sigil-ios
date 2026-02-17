@@ -158,7 +158,7 @@ class TradingLoop:
         memory: Optional[AgentMemory] = None,
         executor: Optional[TradeExecutor] = None,
     ):
-        self.memory = memory or get_agent_memory()
+        self.memory = memory  # Will be initialized in initialize() if None
         self.executor = executor or get_executor()
         
         # Components (initialized on first run)
@@ -193,6 +193,10 @@ class TradingLoop:
         from .decision_engine import DecisionEngine
         from .risk_validator import RiskValidator
         from .learning import LearningLoop
+        
+        # Initialize memory if not provided
+        if self.memory is None:
+            self.memory = await get_agent_memory()
         
         self._context_aggregator = ContextAggregator()
         self._position_sizer = PositionSizer()
@@ -331,7 +335,8 @@ class TradingLoop:
     
     async def _aggregate_context(self, user_id: str) -> TradingContext:
         """Aggregate all trading context."""
-        return await aggregate_context(user_id=user_id)
+        # TODO: Pass user_id once context supports per-user portfolios
+        return await aggregate_context()
     
     async def _retrieve_memories(
         self,
@@ -344,9 +349,12 @@ class TradingLoop:
         self,
         context: TradingContext,
         memories: List[Any],
-    ) -> List[DecisionResult]:
+    ) -> List[Any]:  # List of TradeDecision
         """Make trading decisions using Claude."""
-        decisions = await make_decisions(context, memories)
+        result = await make_decisions(context, memories)
+        
+        # Extract decisions from result
+        decisions = result.decisions if hasattr(result, 'decisions') else []
         
         # Filter by settings
         filtered = []
@@ -376,13 +384,16 @@ class TradingLoop:
         validated = []
         
         for position in positions:
-            validation = await validate_trades([position], context)
-            if validation and validation[0].passed:
-                # Use adjusted shares if reduced
-                if validation[0].adjusted_shares != position.shares:
-                    position.shares = validation[0].adjusted_shares
-                    position.dollars = position.shares * position.price
-                validated.append(position)
+            results = await validate_trades([position], context)
+            if results:
+                # validate_trades returns List[Tuple[SizedPosition, RiskValidation]]
+                pos, risk_validation = results[0]
+                if risk_validation.passed:
+                    # Use adjusted shares if reduced
+                    if risk_validation.adjusted_shares != position.shares:
+                        position.shares = risk_validation.adjusted_shares
+                        position.dollars = position.shares * position.price
+                    validated.append(position)
         
         return validated
     

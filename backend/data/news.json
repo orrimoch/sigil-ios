@@ -1,14 +1,54 @@
 {
-  "updated_at": "2026-02-16T20:33:16.106010",
-  "count": 58,
+  "updated_at": "2026-02-17T03:11:46.879650",
+  "count": 57,
   "articles": [
+    {
+      "source": "marketwatch",
+      "title": "U.S. stock futures inch higher as investors digest ongoing tech selloff",
+      "summary": "U.S. stock futures were little changed late Monday, following another brutal week for tech stocks.",
+      "link": "https://www.marketwatch.com/story/u-s-stock-futures-flat-as-investors-digest-ongoing-tech-selloff-over-holiday-weekend-765f3c5c?mod=mw_rss_topstories",
+      "published": "2026-02-17T00:18:00",
+      "fetched_at": "2026-02-17T03:11:46.551877"
+    },
+    {
+      "source": "marketwatch",
+      "title": "\u2018I\u2019m close to retiring\u2019: I\u2019m behind on my property tax. Is this a really bad time to sell my house?",
+      "summary": "\u201cI\u2019ve never been late on a mortgage, so this makes me nervous.\u201d",
+      "link": "https://www.marketwatch.com/story/im-close-to-retiring-im-behind-on-my-property-taxes-is-this-a-bad-time-to-sell-my-house-40954efd?mod=mw_rss_topstories",
+      "published": "2026-02-16T23:00:00",
+      "fetched_at": "2026-02-17T03:11:46.551908"
+    },
+    {
+      "source": "marketwatch",
+      "title": "Buying stocks everyone admires is a recipe for underperformance \u2014 but Apple breaks the rule",
+      "summary": "Unloved companies with rock-bottom expectations are the real engines of your portfolio.",
+      "link": "https://www.marketwatch.com/story/buying-stocks-everyone-admires-is-a-recipe-for-underperformance-but-apple-breaks-the-rule-26de6e2f?mod=mw_rss_topstories",
+      "published": "2026-02-16T22:57:00",
+      "fetched_at": "2026-02-17T03:11:46.551935"
+    },
+    {
+      "source": "marketwatch",
+      "title": "\u2018Am I crazy?\u2019 My boyfriend\u2019s parents say he doesn\u2019t earn enough to marry me. Who is to blame here?",
+      "summary": "The Moneyist: \u201cI have a Valentine\u2019s message for you, but you won\u2019t read it in a Hallmark card.\u201d",
+      "link": "https://www.marketwatch.com/story/weve-been-dating-for-5-years-my-boyfriends-parents-say-he-doesnt-earn-enough-to-marry-should-i-speak-to-his-father-44b48700?mod=mw_rss_topstories",
+      "published": "2026-02-16T22:49:00",
+      "fetched_at": "2026-02-17T03:11:46.551961"
+    },
+    {
+      "source": "marketwatch",
+      "title": "\u2018It\u2019s a life-changing sum\u2019: Can I stop my kids from using their inheritance to support political causes I vehemently oppose?",
+      "summary": "\u201dI would hate for our money to end up in the hands of organizations that oppose everything we have supported throughout our lives.\u201d",
+      "link": "https://www.marketwatch.com/story/its-a-life-changing-sum-can-i-stop-my-kids-from-using-their-inheritance-to-support-political-causes-i-vehemently-oppose-90809fd7?mod=mw_rss_topstories",
+      "published": "2026-02-16T22:28:00",
+      "fetched_at": "2026-02-17T03:11:46.551985"
+    },
     {
       "source": "marketwatch",
       "title": "\u2018I\u2019m a loner\u2019: I\u2019m 62 with a multimillion-dollar portfolio and no heirs. Should I find a wife for my twilight years?",
       "summary": "\u201cI have never been married, have no siblings, and both my parents have passed away.\u201d",
       "link": "https://www.marketwatch.com/story/im-a-loner-im-62-with-a-multimillion-dollar-portfolio-and-no-heirs-should-i-find-a-wife-for-my-twilight-years-4f4f4408?mod=mw_rss_topstories",
       "published": "2026-02-16T16:45:00",
-      "fetched_at": "2026-02-16T20:33:15.977705"
+      "fetched_at": "2026-02-17T03:11:46.552010"
     },
     {
       "source": "marketwatch",
@@ -16,31 +56,7 @@
       "summary": "\u201cWe could survive financially, but my people would not.\u201d",
       "link": "https://www.marketwatch.com/story/i-feel-the-clock-ticking-my-wife-and-i-are-in-our-60s-and-employ-48-people-in-a-small-town-can-we-ever-retire-2399ba41?mod=mw_rss_topstories",
       "published": "2026-02-16T16:07:00",
-      "fetched_at": "2026-02-16T20:33:15.977753"
-    },
-    {
-      "source": "marketwatch",
-      "title": "\u2018It\u2019s a life-changing sum\u2019: Can I stop my kids from using their inheritance to support political causes I vehemently oppose?",
-      "summary": "\u201dI would hate for our money to end up in the hands of organizations that oppose everything we have supported throughout our lives.\u201d",
-      "link": "https://www.marketwatch.com/story/its-a-life-changing-sum-can-i-stop-my-kids-from-using-their-inheritance-to-support-political-causes-i-vehemently-oppose-90809fd7?mod=mw_rss_topstories",
-      "published": "2026-02-16T15:57:00",
-      "fetched_at": "2026-02-16T20:33:15.977794"
-    },
-    {
-      "source": "marketwatch",
-      "title": "\u2018I\u2019m close to retiring\u2019: I\u2019m behind on my property tax. Is this a really bad time to sell my house?",
-      "summary": "\u201cI\u2019ve never been late on a mortgage, so this makes me nervous.\u201d",
-      "link": "https://www.marketwatch.com/story/im-close-to-retiring-im-behind-on-my-property-taxes-is-this-a-bad-time-to-sell-my-house-40954efd?mod=mw_rss_topstories",
-      "published": "2026-02-16T15:18:00",
-      "fetched_at": "2026-02-16T20:33:15.977833"
-    },
-    {
-      "source": "marketwatch",
-      "title": "\u2018Am I crazy?\u2019 My boyfriend\u2019s parents say he doesn\u2019t earn enough to marry me. Who is to blame here?",
-      "summary": "The Moneyist: \u201cI have a Valentine\u2019s message for you, but you won\u2019t read it in a Hallmark card.\u201d",
-      "link": "https://www.marketwatch.com/story/weve-been-dating-for-5-years-my-boyfriends-parents-say-he-doesnt-earn-enough-to-marry-should-i-speak-to-his-father-44b48700?mod=mw_rss_topstories",
-      "published": "2026-02-16T15:18:00",
-      "fetched_at": "2026-02-16T20:33:15.977872"
+      "fetched_at": "2026-02-17T03:11:46.552035"
     },
     {
       "source": "marketwatch",
@@ -48,7 +64,7 @@
       "summary": "Shipping giant Hapag-Lloyd agreed to buy Israel\u2019s ZIM Integrated Shipping Services for $4.2 billion.",
       "link": "https://www.marketwatch.com/story/shipping-industry-set-to-consolidate-as-hapag-lloyd-to-buy-israeli-firm-for-58-premium-35839cf0?mod=mw_rss_topstories",
       "published": "2026-02-16T15:02:00",
-      "fetched_at": "2026-02-16T20:33:15.977911"
+      "fetched_at": "2026-02-17T03:11:46.552059"
     },
     {
       "source": "marketwatch",
@@ -56,7 +72,7 @@
       "summary": "The holiday period is crucial for the launch of new products and Chinese AI plays are trying to prove they are as good as, or close enough to, global frontier models from OpenAI and Google.",
       "link": "https://www.marketwatch.com/story/these-might-be-the-winners-from-the-latest-round-of-chinese-new-year-ai-launches-06779445?mod=mw_rss_topstories",
       "published": "2026-02-16T14:27:00",
-      "fetched_at": "2026-02-16T20:33:15.977950"
+      "fetched_at": "2026-02-17T03:11:46.552083"
     },
     {
       "source": "marketwatch",
@@ -64,407 +80,383 @@
       "summary": "Defense Sec. Pete Hegseth reportedly is close to putting Claude maker Anthropic on a \u201csupply chain risk\u201d list that would be a devastating blow to its finances.",
       "link": "https://www.marketwatch.com/story/hegseth-reportedly-considering-severe-penalty-on-anthropic-as-negotiations-stall-16dae92f?mod=mw_rss_topstories",
       "published": "2026-02-16T13:58:00",
-      "fetched_at": "2026-02-16T20:33:15.977988"
-    },
-    {
-      "source": "marketwatch",
-      "title": "Buying stocks everyone admires is a recipe for underperformance \u2014 but Apple breaks the rule",
-      "summary": "Unloved companies with rock-bottom expectations are the real engines of your portfolio.",
-      "link": "https://www.marketwatch.com/story/buying-stocks-everyone-admires-is-a-recipe-for-underperformance-but-apple-breaks-the-rule-26de6e2f?mod=mw_rss_topstories",
-      "published": "2026-02-16T13:51:00",
-      "fetched_at": "2026-02-16T20:33:15.978024"
-    },
-    {
-      "source": "marketwatch",
-      "title": "The shale boom that made the U.S. the world\u2019s top oil producer is nearing a crucial turning point",
-      "summary": "The shale-oil revolution that transformed the U.S. into the world\u2019s top oil producer is entering a new phase \u2014 one that could see America\u2019s hard-fought lead in energy erode in fewer than five years as oil production growth peters out.",
-      "link": "https://www.marketwatch.com/story/the-shale-boom-that-made-the-u-s-the-worlds-top-oil-producer-is-nearing-a-crucial-turning-point-a7bf72f8?mod=mw_rss_topstories",
-      "published": "2026-02-16T13:07:00",
-      "fetched_at": "2026-02-16T20:33:15.978061"
+      "fetched_at": "2026-02-17T03:11:46.552106"
     },
     {
       "source": "yahoo_finance",
-      "title": "Insulet Corporation (PODD) Announces Strategic Expansion and Supply Agreement Update",
+      "title": "Stellantis (STLA) Stock Rated Equalweight by Morgan Stanley After Strategy Concerns",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/insulet-corporation-podd-announces-strategic-115332139.html",
-      "published": "2026-02-15T11:53:32+00:00",
-      "fetched_at": "2026-02-16T20:33:16.104870"
+      "link": "https://finance.yahoo.com/news/stellantis-stla-stock-rated-equalweight-141059172.html",
+      "published": "2026-02-15T14:10:59+00:00",
+      "fetched_at": "2026-02-17T03:11:46.878923"
     },
     {
       "source": "yahoo_finance",
-      "title": "GE HealthCare Technologies Inc. (GEHC) Expands Healthcare Technology Offerings",
+      "title": "Amcor (AMCR) Delivers Strong EPS and Synergy Gains After Berry Merger, Truist Reiterates Buy",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/ge-healthcare-technologies-inc-gehc-115330273.html",
-      "published": "2026-02-15T11:53:30+00:00",
-      "fetched_at": "2026-02-16T20:33:16.104896"
+      "link": "https://finance.yahoo.com/news/amcor-amcr-delivers-strong-eps-141057044.html",
+      "published": "2026-02-15T14:10:57+00:00",
+      "fetched_at": "2026-02-17T03:11:46.878909"
     },
     {
       "source": "yahoo_finance",
-      "title": "Edwards Lifesciences Corporation (EW) Draws Positive Analyst View After Q4 Update",
+      "title": "Rio Tinto (RIO) Upgraded to Buy by Erste Group on Copper Growth Outlook",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/edwards-lifesciences-corporation-ew-draws-115256144.html",
-      "published": "2026-02-15T11:52:56+00:00",
-      "fetched_at": "2026-02-16T20:33:16.104793"
+      "link": "https://finance.yahoo.com/news/rio-tinto-rio-upgraded-buy-141033069.html",
+      "published": "2026-02-15T14:10:33+00:00",
+      "fetched_at": "2026-02-17T03:11:46.878880"
     },
     {
       "source": "yahoo_finance",
-      "title": "DexCom Inc. (DXCM) Reports Strong Performance While Maintaining Forward Outlook",
+      "title": "GSK plc (GSK) Q4 Results Topped Forecasts as Specialty Medicines Jump 17%",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/dexcom-inc-dxcm-reports-strong-115255163.html",
-      "published": "2026-02-15T11:52:55+00:00",
-      "fetched_at": "2026-02-16T20:33:16.104743"
+      "link": "https://finance.yahoo.com/news/gsk-plc-gsk-q4-results-141032359.html",
+      "published": "2026-02-15T14:10:32+00:00",
+      "fetched_at": "2026-02-17T03:11:46.878851"
     },
     {
       "source": "yahoo_finance",
-      "title": "Boston Scientific Corporation (BSX) Maintains Analyst Ratings Amid Target Adjustments",
+      "title": "Shell (SHEL) Q4 Revenue Beat Estimates, Delivers $43 Billion Operating Cash Flow in 2025",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/boston-scientific-corporation-bsx-maintains-115253002.html",
-      "published": "2026-02-15T11:52:53+00:00",
-      "fetched_at": "2026-02-16T20:33:16.104819"
+      "link": "https://finance.yahoo.com/news/shell-shel-q4-revenue-beat-141030051.html",
+      "published": "2026-02-15T14:10:30+00:00",
+      "fetched_at": "2026-02-17T03:11:46.878836"
     },
     {
       "source": "yahoo_finance",
-      "title": "How Itron (ITRI) Will Use AI To Reduce Wildfire Risks",
+      "title": "Chubb (CB) Strengthens Emerging Market Growth With Nubank Partnership, Citizens Maintains Market Outperform",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/itron-itri-ai-reduce-wildfire-115252757.html",
-      "published": "2026-02-15T11:52:52+00:00",
-      "fetched_at": "2026-02-16T20:33:16.104768"
+      "link": "https://finance.yahoo.com/news/chubb-cb-strengthens-emerging-market-141029619.html",
+      "published": "2026-02-15T14:10:29+00:00",
+      "fetched_at": "2026-02-17T03:11:46.878865"
     },
     {
       "source": "yahoo_finance",
-      "title": "Tax season is here. Here's what you need to know for stress-free filing",
+      "title": "Warren Buffett once said this US investment was \u2018terrible long-term.\u2019 Now he has $381 billion of it. Should you get in?",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/tax-season-heres-know-stress-111620266.html",
-      "published": "2026-02-15T11:16:20+00:00",
-      "fetched_at": "2026-02-16T20:33:16.104691"
+      "link": "https://finance.yahoo.com/news/warren-buffett-once-said-us-140700372.html",
+      "published": "2026-02-15T14:07:00+00:00",
+      "fetched_at": "2026-02-17T03:11:46.878807"
     },
     {
       "source": "yahoo_finance",
-      "title": "Best money market account rates today, February 15, 2026 (best account provides 4.01% APY)",
+      "title": "Charlie Munger once said finfluencers \u2018mislead you on purpose\u2019 \u2014 here\u2019s the wealth-building plan he recommended instead",
       "summary": "",
-      "link": "https://finance.yahoo.com/personal-finance/banking/article/best-money-market-account-rates-today-sunday-february-15-2026-110022933.html",
-      "published": "2026-02-15T11:00:22+00:00",
-      "fetched_at": "2026-02-16T20:33:16.104614"
+      "link": "https://finance.yahoo.com/news/charlie-munger-once-said-finfluencers-140500261.html",
+      "published": "2026-02-15T14:05:00+00:00",
+      "fetched_at": "2026-02-17T03:11:46.878792"
     },
     {
       "source": "yahoo_finance",
-      "title": "Mortgage and refinance interest rates today, February 15, 2026: This is the sub-6% 30-year fixed rate to beat",
+      "title": "Analysts are Lovin' McDonald's With Higher Price Targets and Estimates - Is MCD Stock a Buy Here?",
       "summary": "",
-      "link": "https://finance.yahoo.com/personal-finance/mortgages/article/mortgage-refinance-interest-rates-today-sunday-february-15-2026-110022297.html",
-      "published": "2026-02-15T11:00:22+00:00",
-      "fetched_at": "2026-02-16T20:33:16.104640"
+      "link": "https://finance.yahoo.com/news/analysts-lovin-mcdonalds-higher-price-140002662.html",
+      "published": "2026-02-15T14:00:02+00:00",
+      "fetched_at": "2026-02-17T03:11:46.878757"
     },
     {
       "source": "yahoo_finance",
-      "title": "Best high-yield savings interest rates today, February 15, 2026 (Earn up to 4% APY)",
+      "title": "Dear Salesforce Stock Fans, Mark Your Calendars for February 25",
       "summary": "",
-      "link": "https://finance.yahoo.com/personal-finance/article/best-high-yield-savings-interest-rates-today-sunday-february-15-2026-110022228.html",
-      "published": "2026-02-15T11:00:22+00:00",
-      "fetched_at": "2026-02-16T20:33:16.104666"
+      "link": "https://finance.yahoo.com/news/dear-salesforce-stock-fans-mark-140002247.html",
+      "published": "2026-02-15T14:00:02+00:00",
+      "fetched_at": "2026-02-17T03:11:46.878777"
     },
     {
       "source": "yahoo_finance",
-      "title": "HELOC and home equity loan rates Sunday, February 15, 2026: How to get your best rate offer",
+      "title": "Scott Bessent delivers stark message amid massive economic shift, says workers need this skill in 2026 (and beyond)",
       "summary": "",
-      "link": "https://finance.yahoo.com/personal-finance/mortgages/article/heloc-home-equity-loan-interest-rates-today-sunday-february-15-2026-110018637.html",
-      "published": "2026-02-15T11:00:18+00:00",
-      "fetched_at": "2026-02-16T20:33:16.104563"
+      "link": "https://finance.yahoo.com/news/scott-bessent-delivers-stark-message-140000160.html",
+      "published": "2026-02-15T14:00:00+00:00",
+      "fetched_at": "2026-02-17T03:11:46.878714"
     },
     {
       "source": "yahoo_finance",
-      "title": "Vitalik Buterin Warns Prediction Markets Are Becoming Overly Speculative",
+      "title": "Georgia financial advisor admitted to scamming $380M from 2,000 clients in Ponzi scheme. How to spot shady investments",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/vitalik-buterin-warns-prediction-markets-094800785.html",
-      "published": "2026-02-15T09:48:00+00:00",
-      "fetched_at": "2026-02-16T20:33:16.104589"
+      "link": "https://finance.yahoo.com/news/georgia-financial-advisor-admitted-scamming-140000435.html",
+      "published": "2026-02-15T14:00:00+00:00",
+      "fetched_at": "2026-02-17T03:11:46.878728"
     },
     {
       "source": "yahoo_finance",
-      "title": "3 Tech Stocks With More Potential Than Any Cryptocurrency",
+      "title": "What Next For Planet Labs (PL) After Slovenia Partnership?",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/3-tech-stocks-more-potential-093500450.html",
-      "published": "2026-02-15T09:35:00+00:00",
-      "fetched_at": "2026-02-16T20:33:16.104200"
+      "link": "https://finance.yahoo.com/news/next-planet-labs-pl-slovenia-135839062.html",
+      "published": "2026-02-15T13:58:39+00:00",
+      "fetched_at": "2026-02-17T03:11:46.878625"
     },
     {
       "source": "yahoo_finance",
-      "title": "Data Centers, Office Buildings, Retail & More: A Look at Commercial Real Estate in 2026",
+      "title": "Is The Negative Analyst Sentiment On Freshworks Inc (FRSH) A Buying Opportunity?",
       "summary": "",
-      "link": "https://finance.yahoo.com/video/data-centers-office-buildings-retail-093207330.html",
-      "published": "2026-02-15T09:32:07+00:00",
-      "fetched_at": "2026-02-16T20:33:16.103941"
+      "link": "https://finance.yahoo.com/news/negative-analyst-sentiment-freshworks-inc-135837457.html",
+      "published": "2026-02-15T13:58:37+00:00",
+      "fetched_at": "2026-02-17T03:11:46.878582"
     },
     {
       "source": "yahoo_finance",
-      "title": "Prediction: The Trump Bull Market Will Soon Be Derailed, With This Historically Insurmountable Headwind Being the Culprit",
+      "title": "Needham Analysts Stay Bullish On Mobileye Global (MBLY)",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/prediction-trump-bull-market-soon-092600424.html",
-      "published": "2026-02-15T09:26:00+00:00",
-      "fetched_at": "2026-02-16T20:33:16.103656"
+      "link": "https://finance.yahoo.com/news/needham-analysts-stay-bullish-mobileye-135836710.html",
+      "published": "2026-02-15T13:58:36+00:00",
+      "fetched_at": "2026-02-17T03:11:46.878655"
     },
     {
       "source": "yahoo_finance",
-      "title": "Robinhood Stock Just Sold Off. Here's Why Its Growth Engine Is Still Intact.",
+      "title": "RBC Capital Lowers Zeta Global Holdings (ZETA) Price Target to $27",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/robinhood-stock-just-sold-off-092500381.html",
-      "published": "2026-02-15T09:25:00+00:00",
-      "fetched_at": "2026-02-16T20:33:16.103802"
+      "link": "https://finance.yahoo.com/news/rbc-capital-lowers-zeta-global-135834799.html",
+      "published": "2026-02-15T13:58:34+00:00",
+      "fetched_at": "2026-02-17T03:11:46.878611"
     },
     {
       "source": "yahoo_finance",
-      "title": "Is the World's Largest Corporate Holder of Bitcoin a Buy, Sell, or Hold in 2026?",
+      "title": "Klaviyo (KVYO) Reports Impressive Earnings But Jeffries Downgrades Target Price To $29",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/worlds-largest-corporate-holder-bitcoin-092000731.html",
-      "published": "2026-02-15T09:20:00+00:00",
-      "fetched_at": "2026-02-16T20:33:16.104071"
+      "link": "https://finance.yahoo.com/news/klaviyo-kvyo-reports-impressive-earnings-135833195.html",
+      "published": "2026-02-15T13:58:33+00:00",
+      "fetched_at": "2026-02-17T03:11:46.878552"
     },
     {
       "source": "yahoo_finance",
-      "title": "Will Micron Be the Next Nvidia -- or the Next Intel?",
+      "title": "Analysts Are Bullish On Charles River Laboratories (CRL) Prospects",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/micron-next-nvidia-next-intel-091400946.html",
-      "published": "2026-02-15T09:14:00+00:00",
-      "fetched_at": "2026-02-16T20:33:16.104330"
+      "link": "https://finance.yahoo.com/news/analysts-bullish-charles-river-laboratories-135831701.html",
+      "published": "2026-02-15T13:58:31+00:00",
+      "fetched_at": "2026-02-17T03:11:46.878640"
     },
     {
       "source": "yahoo_finance",
-      "title": "Is Coterra Energy Inc. (CTRA) One of the High-Growth, Low P/E Stocks to Buy Now?",
+      "title": "Analyst Upgrade Followed GDS Holdings (GDS) Convertible Notes Offering",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/coterra-energy-inc-ctra-one-090955358.html",
-      "published": "2026-02-15T09:09:55+00:00",
-      "fetched_at": "2026-02-16T20:33:16.103774"
+      "link": "https://finance.yahoo.com/news/analyst-upgrade-followed-gds-holdings-135830642.html",
+      "published": "2026-02-15T13:58:30+00:00",
+      "fetched_at": "2026-02-17T03:11:46.878699"
     },
     {
       "source": "yahoo_finance",
-      "title": "Delta Air Lines, Inc. (DAL) Strengthens International Expansion",
+      "title": "Here\u2019s Why UBS Analysts Lowered Monday.com\u2019s (MNDY) Price Target to $93",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/delta-air-lines-inc-dal-090953875.html",
-      "published": "2026-02-15T09:09:53+00:00",
-      "fetched_at": "2026-02-16T20:33:16.103719"
+      "link": "https://finance.yahoo.com/news/why-ubs-analysts-lowered-monday-135828298.html",
+      "published": "2026-02-15T13:58:28+00:00",
+      "fetched_at": "2026-02-17T03:11:46.878684"
     },
     {
       "source": "yahoo_finance",
-      "title": "Carnival Corporation & plc (CCL) Advances Fleet Efficiency and Growth Strategy",
+      "title": "Strategic Partnership And Strong Earnings Boost Maplebear (CART) Stock",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/carnival-corporation-plc-ccl-advances-090952637.html",
-      "published": "2026-02-15T09:09:52+00:00",
-      "fetched_at": "2026-02-16T20:33:16.103690"
+      "link": "https://finance.yahoo.com/news/strategic-partnership-strong-earnings-boost-135826548.html",
+      "published": "2026-02-15T13:58:26+00:00",
+      "fetched_at": "2026-02-17T03:11:46.878567"
     },
     {
       "source": "yahoo_finance",
-      "title": "LPL Financial Holdings Inc. (LPLA) Delivers Growth and Analyst Support",
+      "title": "B.Riley Maintains Buy Rating on Bitmine (BMNR) After Strategic MrBeast Partnership",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/lpl-financial-holdings-inc-lpla-090950474.html",
-      "published": "2026-02-15T09:09:50+00:00",
-      "fetched_at": "2026-02-16T20:33:16.103829"
+      "link": "https://finance.yahoo.com/news/b-riley-maintains-buy-rating-134202545.html",
+      "published": "2026-02-15T13:42:02+00:00",
+      "fetched_at": "2026-02-17T03:11:46.878405"
     },
     {
       "source": "yahoo_finance",
-      "title": "Apollo Global Management, Inc. (APO) Targets Private Credit, AI, and Global Expansion",
+      "title": "UBS Reaffirmed Buy Rating on Veracyte (VCYT) After Strong Q4 Testing Revenue",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/apollo-global-management-inc-apo-090948386.html",
-      "published": "2026-02-15T09:09:48+00:00",
-      "fetched_at": "2026-02-16T20:33:16.103747"
+      "link": "https://finance.yahoo.com/news/ubs-reaffirmed-buy-rating-veracyte-134200524.html",
+      "published": "2026-02-15T13:42:00+00:00",
+      "fetched_at": "2026-02-17T03:11:46.878390"
     },
     {
       "source": "yahoo_finance",
-      "title": "United Airlines Holdings, Inc. (UAL) Expands Global Reach and Assets",
+      "title": "H.C. Wainwright Reiterated Buy on Beam Therapeutics (BEAM) After BEAM-302 FDA Expedited Approval",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/united-airlines-holdings-inc-ual-090945367.html",
-      "published": "2026-02-15T09:09:45+00:00",
-      "fetched_at": "2026-02-16T20:33:16.103856"
+      "link": "https://finance.yahoo.com/news/h-c-wainwright-reiterated-buy-134158245.html",
+      "published": "2026-02-15T13:41:58+00:00",
+      "fetched_at": "2026-02-17T03:11:46.878330"
     },
     {
       "source": "yahoo_finance",
-      "title": "Patria Investments Limited (PAX) Advances Credit Strategy, Global Acquisitions, and AUM Growth",
+      "title": "Circle Internet (CRCL) Faces Regulatory and Crypto Volatility, Says Morgan Stanley",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/patria-investments-limited-pax-advances-090944084.html",
-      "published": "2026-02-15T09:09:44+00:00",
-      "fetched_at": "2026-02-16T20:33:16.103883"
+      "link": "https://finance.yahoo.com/news/circle-internet-crcl-faces-regulatory-134157938.html",
+      "published": "2026-02-15T13:41:57+00:00",
+      "fetched_at": "2026-02-17T03:11:46.878360"
     },
     {
       "source": "yahoo_finance",
-      "title": "Rithm Capital Corp. (RITM) Positioned for Growth on Strategic Investments",
+      "title": "H.C. Wainwright Boosts Intellia (NTLA) Price Target After MAGNITUDE-2 Hold Lifted",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/rithm-capital-corp-ritm-positioned-090942992.html",
-      "published": "2026-02-15T09:09:42+00:00",
-      "fetched_at": "2026-02-16T20:33:16.103914"
+      "link": "https://finance.yahoo.com/news/h-c-wainwright-boosts-intellia-134155460.html",
+      "published": "2026-02-15T13:41:55+00:00",
+      "fetched_at": "2026-02-17T03:11:46.878345"
     },
     {
       "source": "yahoo_finance",
-      "title": "KKR & Co. Inc. (KKR) Builds Scale Across Markets and Sectors",
+      "title": "Analysts Maintain Buy Ratings on The Trade Desk (TTD) Amid Lower EV/EBITDA Multiples",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/kkr-co-inc-kkr-builds-090941982.html",
-      "published": "2026-02-15T09:09:41+00:00",
-      "fetched_at": "2026-02-16T20:33:16.103967"
+      "link": "https://finance.yahoo.com/news/analysts-maintain-buy-ratings-trade-134154072.html",
+      "published": "2026-02-15T13:41:54+00:00",
+      "fetched_at": "2026-02-17T03:11:46.878299"
     },
     {
       "source": "yahoo_finance",
-      "title": "VinFast Auto (VFS) Signs MoU With Exposure SARL, Here\u2019s What You Need to Know",
+      "title": "JPMorgan Upgrades SoFi Technologies (SOFI) to Overweight After Q4 Results and 2026 Guidance",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/vinfast-auto-vfs-signs-mou-090822941.html",
-      "published": "2026-02-15T09:08:22+00:00",
-      "fetched_at": "2026-02-16T20:33:16.104278"
+      "link": "https://finance.yahoo.com/news/jpmorgan-upgrades-sofi-technologies-sofi-134152304.html",
+      "published": "2026-02-15T13:41:52+00:00",
+      "fetched_at": "2026-02-17T03:11:46.878508"
     },
     {
       "source": "yahoo_finance",
-      "title": "Here\u2019s What the Street Thinks About FuboTV (FUBO)",
+      "title": "Oppenheimer Upgrades Roku (ROKU) to Outperform After Stock Dip and Amazon DSP Collaboration",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/street-thinks-fubotv-fubo-090821366.html",
-      "published": "2026-02-15T09:08:21+00:00",
-      "fetched_at": "2026-02-16T20:33:16.104355"
+      "link": "https://finance.yahoo.com/news/oppenheimer-upgrades-roku-roku-outperform-134150370.html",
+      "published": "2026-02-15T13:41:50+00:00",
+      "fetched_at": "2026-02-17T03:11:46.878463"
     },
     {
       "source": "yahoo_finance",
-      "title": "Alvotech (ALVO) Announces Strong Results for Clinical Trial for AVT80",
+      "title": "Analysts Reaffirm Buy on CoreWeave (CRWV) Following Expanded NVIDIA Partnership and Growth Plans",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/alvotech-alvo-announces-strong-results-090819882.html",
-      "published": "2026-02-15T09:08:19+00:00",
-      "fetched_at": "2026-02-16T20:33:16.104096"
+      "link": "https://finance.yahoo.com/news/analysts-reaffirm-buy-coreweave-crwv-134149555.html",
+      "published": "2026-02-15T13:41:49+00:00",
+      "fetched_at": "2026-02-17T03:11:46.878478"
     },
     {
       "source": "yahoo_finance",
-      "title": "National Bank Downgrades Vizsla Silver (VZLA) To Hold, Keeps the PT",
+      "title": "Bernstein Maintains Outperform Rating on Robinhood (HOOD), Cites Attractive Valuation Zone",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/national-bank-downgrades-vizsla-silver-090818869.html",
-      "published": "2026-02-15T09:08:18+00:00",
-      "fetched_at": "2026-02-16T20:33:16.104149"
+      "link": "https://finance.yahoo.com/news/bernstein-maintains-outperform-rating-robinhood-134147316.html",
+      "published": "2026-02-15T13:41:47+00:00",
+      "fetched_at": "2026-02-17T03:11:46.878434"
     },
     {
       "source": "yahoo_finance",
-      "title": "Eve Holding (EVEX) is One of the Best Penny Stocks That Will Skyrocket",
+      "title": "Palantir Technologies (PLTR) Soars as AI Pure-Play, Truist Reaffirms Buy",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/eve-holding-evex-one-best-090816194.html",
-      "published": "2026-02-15T09:08:16+00:00",
-      "fetched_at": "2026-02-16T20:33:16.104045"
+      "link": "https://finance.yahoo.com/news/palantir-technologies-pltr-soars-ai-134146960.html",
+      "published": "2026-02-15T13:41:46+00:00",
+      "fetched_at": "2026-02-17T03:11:46.878419"
     },
     {
       "source": "yahoo_finance",
-      "title": "Wall Street Bullish on AtaiBeckley (ATAI), Here\u2019s Why",
+      "title": "BMO Highlights Roblox\u2019s (RBLX) International Growth, Outperform Rating Maintained",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/wall-street-bullish-ataibeckley-atai-090815049.html",
-      "published": "2026-02-15T09:08:15+00:00",
-      "fetched_at": "2026-02-16T20:33:16.104252"
+      "link": "https://finance.yahoo.com/news/bmo-highlights-roblox-rblx-international-134144549.html",
+      "published": "2026-02-15T13:41:44+00:00",
+      "fetched_at": "2026-02-17T03:11:46.878493"
     },
     {
       "source": "yahoo_finance",
-      "title": "\u200bBitfarms (BITF) To Form a New Entity in the US, Here\u2019s What You Should Know",
+      "title": "Shopify (SHOP) Shares Dip After Q4 Results, Analysts Cite Enterprise Growth and AI-Powered Commerce",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/bitfarms-bitf-form-entity-us-090813827.html",
-      "published": "2026-02-15T09:08:13+00:00",
-      "fetched_at": "2026-02-16T20:33:16.104226"
+      "link": "https://finance.yahoo.com/news/shopify-shop-shares-dip-q4-134142912.html",
+      "published": "2026-02-15T13:41:42+00:00",
+      "fetched_at": "2026-02-17T03:11:46.878537"
     },
     {
       "source": "yahoo_finance",
-      "title": "Wall Street Bullish on Playtika Holding (PLTK) As it Approaches FQ4 2025 Earnings",
+      "title": "Why the software stock crash is really starting to worry me",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/wall-street-bullish-playtika-holding-090812737.html",
-      "published": "2026-02-15T09:08:12+00:00",
-      "fetched_at": "2026-02-16T20:33:16.104174"
+      "link": "https://finance.yahoo.com/news/why-the-software-stock-crash-is-really-starting-to-worry-me-133100282.html",
+      "published": "2026-02-15T13:31:00+00:00",
+      "fetched_at": "2026-02-17T03:11:46.878284"
     },
     {
       "source": "yahoo_finance",
-      "title": "Oppenheimer Remains a Buy on \u200bAurora Innovation (AUR)",
+      "title": "Wealthy renters are customizing their spaces and landlords love it. Is investing in someone else's property worth it?",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/oppenheimer-remains-buy-aurora-innovation-090810131.html",
-      "published": "2026-02-15T09:08:10+00:00",
-      "fetched_at": "2026-02-16T20:33:16.103993"
+      "link": "https://finance.yahoo.com/news/wealthy-renters-customizing-spaces-landlords-133000457.html",
+      "published": "2026-02-15T13:30:00+00:00",
+      "fetched_at": "2026-02-17T03:11:46.878267"
     },
     {
       "source": "yahoo_finance",
-      "title": "Here\u2019s What the Street Has to Say About Snap Inc (SNAP) After its FQ4 2025 Results",
+      "title": "2 Top Dividend Stocks Energy Investors Can Buy in February for Long-Term Income",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/street-snap-inc-snap-fq4-090809183.html",
-      "published": "2026-02-15T09:08:09+00:00",
-      "fetched_at": "2026-02-16T20:33:16.104123"
+      "link": "https://finance.yahoo.com/news/2-top-dividend-stocks-energy-132500025.html",
+      "published": "2026-02-15T13:25:00+00:00",
+      "fetched_at": "2026-02-17T03:11:46.878670"
     },
     {
       "source": "yahoo_finance",
-      "title": "Bernstein Remains a Buy on Grab Holdings (GRAB) Despite Mixed FQ4 2025 Results",
+      "title": "3 Stocks to Buy and Hold Forever: A Long-Term Play for Your Portfolio",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/bernstein-remains-buy-grab-holdings-090807979.html",
-      "published": "2026-02-15T09:08:07+00:00",
-      "fetched_at": "2026-02-16T20:33:16.104019"
+      "link": "https://finance.yahoo.com/news/3-stocks-buy-hold-forever-132000724.html",
+      "published": "2026-02-15T13:20:00+00:00",
+      "fetched_at": "2026-02-17T03:11:46.878375"
     },
     {
       "source": "yahoo_finance",
-      "title": "Argus Research Downgrades \u200bPeloton Interactive (PTON) Due to Continued Challenges",
+      "title": "I\u2019m a Financial Advisor: 3 Ways To Save More Money Than You Ever Thought Possible",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/argus-research-downgrades-peloton-interactive-090733032.html",
-      "published": "2026-02-15T09:07:33+00:00",
-      "fetched_at": "2026-02-16T20:33:16.104304"
+      "link": "https://finance.yahoo.com/news/m-financial-advisor-3-ways-131107969.html",
+      "published": "2026-02-15T13:11:07+00:00",
+      "fetched_at": "2026-02-17T03:11:46.878228"
     },
     {
       "source": "yahoo_finance",
-      "title": "Amazon Stock Just Did Something Last Seen in 2006. It Signals a Big Move in the Next Year if History Repeats Itself.",
+      "title": "ARKK ETF Update",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/amazon-stock-just-did-something-085500593.html",
-      "published": "2026-02-15T08:55:00+00:00",
-      "fetched_at": "2026-02-16T20:33:16.104458"
+      "link": "https://finance.yahoo.com/news/arkk-etf-131016666.html",
+      "published": "2026-02-15T13:10:16+00:00",
+      "fetched_at": "2026-02-17T03:11:46.878315"
     },
     {
       "source": "yahoo_finance",
-      "title": "3 Hyper-Growth Tech Stocks to Buy in 2026",
+      "title": "3 Money Experts\u2019 Advice on What To Do With Your Tax Refund This Year",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/3-hyper-growth-tech-stocks-085000900.html",
-      "published": "2026-02-15T08:50:00+00:00",
-      "fetched_at": "2026-02-16T20:33:16.104717"
+      "link": "https://finance.yahoo.com/news/3-money-experts-advice-tax-131005411.html",
+      "published": "2026-02-15T13:10:05+00:00",
+      "fetched_at": "2026-02-17T03:11:46.878449"
     },
     {
       "source": "yahoo_finance",
-      "title": "Canaccord Analyst Initiates Coverage on Tilray Brands, Inc. (TLRY)",
+      "title": "Gen Z, Locked Out of Home Buying, Puts Its Money in the Market",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/canaccord-analyst-initiates-coverage-tilray-084001668.html",
-      "published": "2026-02-15T08:40:01+00:00",
-      "fetched_at": "2026-02-16T20:33:16.104381"
+      "link": "https://www.wsj.com/personal-finance/gen-z-investments-home-ownership-ec0bbe98?siteid=yhoof2&yptr=yahoo",
+      "published": "2026-02-15T13:09:00+00:00",
+      "fetched_at": "2026-02-17T03:11:46.878596"
     },
     {
       "source": "yahoo_finance",
-      "title": "Village Farms International, Inc. (VFF) Introduces Ten New Product Offerings in the Netherlands",
+      "title": "Forget AI Stocks: This Crypto Miner Is the Real Infrastructure Play of 2026",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/village-farms-international-inc-vff-083620019.html",
-      "published": "2026-02-15T08:36:20+00:00",
-      "fetched_at": "2026-02-16T20:33:16.104407"
+      "link": "https://finance.yahoo.com/news/forget-ai-stocks-crypto-miner-130800134.html",
+      "published": "2026-02-15T13:08:00+00:00",
+      "fetched_at": "2026-02-17T03:11:46.878523"
     },
     {
       "source": "yahoo_finance",
-      "title": "With Sales Climbing, Is Now the Time to Buy McDonald's Stock?",
+      "title": "Nucor\u2019s Latest Dividend: What Steel\u2019s Cycles Mean for Your Income",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/sales-climbing-now-time-buy-083500795.html",
-      "published": "2026-02-15T08:35:00+00:00",
-      "fetched_at": "2026-02-16T20:33:16.104845"
+      "link": "https://finance.yahoo.com/news/nucor-latest-dividend-steel-cycles-130640853.html",
+      "published": "2026-02-15T13:06:40+00:00",
+      "fetched_at": "2026-02-17T03:11:46.878743"
     },
     {
       "source": "yahoo_finance",
-      "title": "Canaccord is Bullish on Aurora Cannabis Inc. (ACB)",
+      "title": "Syndax Pharmaceuticals Highlights Revuforj, Niktimvo Sales Surge and 2026 Milestones at Guggenheim Conf",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/canaccord-bullish-aurora-cannabis-inc-082847060.html",
-      "published": "2026-02-15T08:28:47+00:00",
-      "fetched_at": "2026-02-16T20:33:16.104433"
+      "link": "https://finance.yahoo.com/news/syndax-pharmaceuticals-highlights-revuforj-niktimvo-130519421.html",
+      "published": "2026-02-15T13:05:19+00:00",
+      "fetched_at": "2026-02-17T03:11:46.878821"
     },
     {
       "source": "yahoo_finance",
-      "title": "Alliance Global Keeps a Neutral Rating on Canopy Growth Corporation (CGC)",
+      "title": "Why Is The Crypto Market Up Today?",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/alliance-global-keeps-neutral-rating-082518292.html",
-      "published": "2026-02-15T08:25:18+00:00",
-      "fetched_at": "2026-02-16T20:33:16.104484"
+      "link": "https://finance.yahoo.com/news/why-crypto-market-today-035345690.html",
+      "published": "2026-02-15T13:05:10+00:00",
+      "fetched_at": "2026-02-17T03:11:46.878894"
     },
     {
       "source": "yahoo_finance",
-      "title": "Is Advanced Flower Capital Inc. (AFCG) one of the Best Cannabis Stocks to Invest In Now?",
+      "title": "Suze Orman warns these money mistakes could cost you big \u2014 her tips on how to \u2018be extra strong\u2019 with your finances",
       "summary": "",
-      "link": "https://finance.yahoo.com/news/advanced-flower-capital-inc-afcg-082211486.html",
-      "published": "2026-02-15T08:22:11+00:00",
-      "fetched_at": "2026-02-16T20:33:16.104510"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Organigram Global Inc. (OGI) Reports Q1 Revenue of $97.3 Million, with a Consensus of $73.15 Million",
-      "summary": "",
-      "link": "https://finance.yahoo.com/news/organigram-global-inc-ogi-reports-081703206.html",
-      "published": "2026-02-15T08:17:03+00:00",
-      "fetched_at": "2026-02-16T20:33:16.104537"
+      "link": "https://finance.yahoo.com/news/suze-orman-warns-money-mistakes-130500013.html",
+      "published": "2026-02-15T13:05:00+00:00",
+      "fetched_at": "2026-02-17T03:11:46.878249"
     }
   ]
 }

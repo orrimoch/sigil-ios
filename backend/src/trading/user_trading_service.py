@@ -29,6 +29,8 @@ PORTFOLIO_SIZE_LIMITS = {
 
 def get_position_limit(portfolio_size: str = "medium") -> int:
     """Get max position count for portfolio size (REC-127)."""
+    limits = PORTFOLIO_SIZE_LIMITS.get(portfolio_size.lower(), PORTFOLIO_SIZE_LIMITS["medium"])
+    return limits["max"]
 
 
 def calculate_daily_pnl(holdings: list, current_total: float, cash: float) -> tuple:

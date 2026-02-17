@@ -148,9 +148,20 @@ class LearningLoop:
         memory: Optional[AgentMemory] = None,
         llm_factory: Optional[LLMFactory] = None,
     ):
-        self.memory = memory or get_agent_memory()
+        self._memory = memory  # May be None; lazy init via _ensure_memory()
         self.llm_factory = llm_factory or LLMFactory()
         self._lessons_generated: List[LessonLearned] = []
+    
+    @property
+    def memory(self) -> AgentMemory:
+        """Get memory instance (for backward compatibility)."""
+        return self._memory
+    
+    async def _ensure_memory(self) -> AgentMemory:
+        """Ensure memory is initialized (lazy init)."""
+        if self._memory is None:
+            self._memory = await get_agent_memory()
+        return self._memory
     
     async def run_weekly_update(self) -> Dict[str, Any]:
         """
@@ -219,7 +230,8 @@ class LearningLoop:
         cutoff_recent = datetime.utcnow() - timedelta(days=self.MIN_HOLDING_DAYS)
         cutoff_old = datetime.utcnow() - timedelta(days=60)
         
-        decisions = await self.memory.get_decisions_without_outcomes(
+        memory = await self._ensure_memory()
+        decisions = await memory.get_decisions_without_outcomes(
             after=cutoff_old,
             before=cutoff_recent,
             limit=self.OUTCOME_BATCH_SIZE,
@@ -355,13 +367,14 @@ Keep it to 1-2 sentences. Be specific and actionable."""
         lesson: LessonLearned,
     ):
         """Store outcome and lesson in memory."""
-        await self.memory.update_outcome(
+        memory = await self._ensure_memory()
+        await memory.update_outcome(
             decision_id=decision.id,
             outcome_pct=outcome.outcome_pct,
             outcome_date=outcome.exit_date,
         )
         
-        await self.memory.store_lesson(
+        await memory.store_lesson(
             decision_id=decision.id,
             lesson=lesson.lesson,
         )

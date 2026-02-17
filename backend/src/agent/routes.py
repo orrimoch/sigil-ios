@@ -105,33 +105,4 @@ async def agent_health():
         }
 
 
-# Phase 3 endpoints (stubs for now)
-
-@router.get("/status")
-async def get_agent_status():
-    """Get agent status (Phase 3)."""
-    return {
-        "status": "not_implemented",
-        "message": "Agent status endpoint - Phase 3",
-        "active": False,
-        "mode": "manual",
-        "pending_count": 0,
-    }
-
-
-@router.post("/pause")
-async def pause_agent():
-    """Pause the agent (Phase 3)."""
-    return {
-        "status": "not_implemented",
-        "message": "Agent pause endpoint - Phase 3",
-    }
-
-
-@router.post("/resume")
-async def resume_agent():
-    """Resume the agent (Phase 3)."""
-    return {
-        "status": "not_implemented",
-        "message": "Agent resume endpoint - Phase 3",
-    }
+# Phase 3 endpoints moved to routes_agent.py

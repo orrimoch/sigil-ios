@@ -280,14 +280,25 @@ class ContextAggregator:
         
         return data.get("scores", {})
     
-    async def _load_portfolio(self) -> PortfolioState:
+    async def _load_portfolio(self, user_id: str = "anonymous") -> PortfolioState:
         """
-        Load portfolio state.
+        Load portfolio state from Sigil database.
         
-        In production, this calls IBKR API.
-        For now, uses mock data or cached state.
+        Priority:
+        1. Sigil DB (the app's portfolio) - PRIMARY
+        2. IBKR (if connected)
+        3. Mock/cached data (fallback)
         """
-        # Try to load from IBKR if available
+        # Try to load from Sigil DB first (this is the app's real portfolio)
+        try:
+            portfolio = await self._load_sigil_portfolio(user_id)
+            if portfolio:
+                logger.info(f"Loaded portfolio from Sigil DB: ${portfolio.total_value:,.2f}")
+                return portfolio
+        except Exception as e:
+            logger.warning(f"Sigil DB not available: {e}")
+        
+        # Try IBKR if available
         try:
             from ibkr.ibkr_service import IBKRService
             ibkr = IBKRService()
@@ -300,6 +311,115 @@ class ContextAggregator:
         
         # Fallback to mock/cached portfolio
         return await self._load_mock_portfolio()
+    
+    async def _load_sigil_portfolio(self, user_id: str = "anonymous") -> Optional[PortfolioState]:
+        """Load portfolio from Sigil's SQLite database."""
+        import sqlite3
+        from pathlib import Path
+        
+        # Try multiple paths
+        possible_paths = [
+            Path(__file__).parent.parent.parent / "data" / "sigil.db",  # backend/data/sigil.db
+            Path(__file__).parent.parent / "data" / "sigil.db",  # src/data/sigil.db
+            Path("data/sigil.db"),  # relative to cwd
+        ]
+        
+        db_path = None
+        for p in possible_paths:
+            if p.exists():
+                db_path = p
+                break
+        
+        if db_path is None:
+            logger.warning("Sigil database not found")
+            return None
+        
+        conn = sqlite3.connect(str(db_path))
+        cursor = conn.cursor()
+        
+        try:
+            # Find the user's portfolio
+            # Priority: specific user first, otherwise portfolio with most positions (the active one)
+            if user_id and user_id != "anonymous":
+                # Specific user requested
+                cursor.execute("""
+                    SELECT p.id, p.cash_balance, p.user_id,
+                           (SELECT COUNT(*) FROM positions WHERE portfolio_id = p.id) as pos_count
+                    FROM portfolios p
+                    WHERE p.user_id = ?
+                    LIMIT 1
+                """, (user_id,))
+            else:
+                # No specific user - find the portfolio with most positions (the active one)
+                cursor.execute("""
+                    SELECT p.id, p.cash_balance, p.user_id,
+                           (SELECT COUNT(*) FROM positions WHERE portfolio_id = p.id) as pos_count
+                    FROM portfolios p
+                    ORDER BY pos_count DESC
+                    LIMIT 1
+                """)
+            
+            row = cursor.fetchone()
+            if not row:
+                return None
+            
+            portfolio_id, cash, portfolio_user_id, pos_count = row
+            logger.info(f"Using portfolio {portfolio_id} (user: {portfolio_user_id}, {pos_count} positions, ${cash:.2f} cash)")
+            
+            # Load positions
+            cursor.execute("""
+                SELECT ticker, quantity, avg_cost FROM positions
+                WHERE portfolio_id = ?
+            """, (portfolio_id,))
+            
+            positions = []
+            
+            # Load sectors from scores.db if available
+            scores_db_path = db_path.parent / "scores.db"
+            sector_map = {}
+            if scores_db_path.exists():
+                try:
+                    scores_conn = sqlite3.connect(str(scores_db_path))
+                    scores_cursor = scores_conn.cursor()
+                    scores_cursor.execute("SELECT ticker, sector FROM composite_scores")
+                    sector_map = {row[0]: row[1] for row in scores_cursor.fetchall()}
+                    scores_conn.close()
+                except Exception as e:
+                    logger.debug(f"Could not load sectors: {e}")
+            
+            for ticker, quantity, avg_cost in cursor.fetchall():
+                sector = sector_map.get(ticker, "Unknown")
+                
+                # Use avg_cost as current price estimate (will be updated with live prices)
+                current_price = avg_cost
+                market_value = quantity * current_price
+                unrealized_pnl = 0  # Would need live price to calculate
+                
+                positions.append(Position(
+                    ticker=ticker,
+                    shares=quantity,
+                    avg_cost=avg_cost,
+                    current_price=current_price,
+                    market_value=market_value,
+                    unrealized_pnl=unrealized_pnl,
+                    unrealized_pnl_pct=0,
+                    sector=sector,
+                ))
+            
+            total_positions = sum(p.market_value for p in positions)
+            total_value = cash + total_positions
+            
+            return PortfolioState(
+                cash=cash,
+                total_value=total_value,
+                positions=positions,
+                sector_exposure=self._calculate_sector_exposure(positions, total_value),
+                unrealized_pnl=sum(p.unrealized_pnl for p in positions),
+                realized_pnl_today=0,
+            )
+            
+        finally:
+            conn.close()
     
     async def _load_mock_portfolio(self) -> PortfolioState:
         """Load mock portfolio for development/testing."""

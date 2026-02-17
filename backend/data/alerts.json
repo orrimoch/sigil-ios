@@ -1,6 +1,213 @@
 {
   "alerts": [
     {
+      "id": "d5b05091",
+      "type": "signal_change",
+      "ticker": "ING",
+      "title": "Signal changed",
+      "subtitle": "HOLD \u2192 SELL",
+      "timestamp": "2026-02-17T03:11:56.844362",
+      "read": false
+    },
+    {
+      "id": "61417c12",
+      "type": "signal_change",
+      "ticker": "ARM",
+      "title": "Signal changed",
+      "subtitle": "SELL \u2192 HOLD",
+      "timestamp": "2026-02-17T03:11:56.843365",
+      "read": false
+    },
+    {
+      "id": "1a4354a6",
+      "type": "signal_change",
+      "ticker": "AVGO",
+      "title": "Signal changed",
+      "subtitle": "HOLD \u2192 SELL",
+      "timestamp": "2026-02-17T03:11:56.842371",
+      "read": false
+    },
+    {
+      "id": "7c562770",
+      "type": "score_change",
+      "ticker": "ING",
+      "title": "Score decreased +21 pts",
+      "subtitle": "Now rated SELL (29)",
+      "timestamp": "2026-02-17T03:11:56.841265",
+      "read": false
+    },
+    {
+      "id": "2151e310",
+      "type": "score_change",
+      "ticker": "ARM",
+      "title": "Score increased +23 pts",
+      "subtitle": "Now rated HOLD (43)",
+      "timestamp": "2026-02-17T03:11:56.840248",
+      "read": false
+    },
+    {
+      "id": "00e3fb35",
+      "type": "score_change",
+      "ticker": "NFLX",
+      "title": "Score decreased +24 pts",
+      "subtitle": "Now rated SELL (13)",
+      "timestamp": "2026-02-17T03:11:56.839246",
+      "read": false
+    },
+    {
+      "id": "96b5c676",
+      "type": "score_change",
+      "ticker": "AVGO",
+      "title": "Score decreased +25 pts",
+      "subtitle": "Now rated SELL (35)",
+      "timestamp": "2026-02-17T03:11:56.838187",
+      "read": false
+    },
+    {
+      "id": "09439f1b",
+      "type": "signal_change",
+      "ticker": "WTS",
+      "title": "Signal changed",
+      "subtitle": "HOLD \u2192 SELL",
+      "timestamp": "2026-02-17T03:03:36.385298",
+      "read": false
+    },
+    {
+      "id": "3f1ac7da",
+      "type": "signal_change",
+      "ticker": "FN",
+      "title": "Signal changed",
+      "subtitle": "HOLD \u2192 SELL",
+      "timestamp": "2026-02-17T03:03:36.384332",
+      "read": false
+    },
+    {
+      "id": "e98660f4",
+      "type": "signal_change",
+      "ticker": "CEG",
+      "title": "Signal changed",
+      "subtitle": "HOLD \u2192 BUY",
+      "timestamp": "2026-02-17T03:03:36.383339",
+      "read": false
+    },
+    {
+      "id": "265665c7",
+      "type": "score_change",
+      "ticker": "NFLX",
+      "title": "Score increased +25 pts",
+      "subtitle": "Now rated SELL (38)",
+      "timestamp": "2026-02-17T03:03:36.382140",
+      "read": false
+    },
+    {
+      "id": "87ff7d08",
+      "type": "signal_change",
+      "ticker": "PAG",
+      "title": "Signal changed",
+      "subtitle": "HOLD \u2192 SELL",
+      "timestamp": "2026-02-17T03:03:34.650810",
+      "read": false
+    },
+    {
+      "id": "95018310",
+      "type": "signal_change",
+      "ticker": "KT",
+      "title": "Signal changed",
+      "subtitle": "HOLD \u2192 SELL",
+      "timestamp": "2026-02-17T03:03:34.649925",
+      "read": false
+    },
+    {
+      "id": "d495669f",
+      "type": "signal_change",
+      "ticker": "AFRM",
+      "title": "Signal changed",
+      "subtitle": "HOLD \u2192 SELL",
+      "timestamp": "2026-02-17T03:03:34.649031",
+      "read": false
+    },
+    {
+      "id": "1691f7bc",
+      "type": "signal_change",
+      "ticker": "STLA",
+      "title": "Signal changed",
+      "subtitle": "SELL \u2192 HOLD",
+      "timestamp": "2026-02-17T03:03:34.648152",
+      "read": false
+    },
+    {
+      "id": "16c15781",
+      "type": "signal_change",
+      "ticker": "AMCR",
+      "title": "Signal changed",
+      "subtitle": "SELL \u2192 HOLD",
+      "timestamp": "2026-02-17T03:03:34.647305",
+      "read": false
+    },
+    {
+      "id": "5dde6ab0",
+      "type": "signal_change",
+      "ticker": "MSTR",
+      "title": "Signal changed",
+      "subtitle": "SELL \u2192 HOLD",
+      "timestamp": "2026-02-17T03:03:34.646422",
+      "read": false
+    },
+    {
+      "id": "56994d7b",
+      "type": "signal_change",
+      "ticker": "ARM",
+      "title": "Signal changed",
+      "subtitle": "SELL \u2192 HOLD",
+      "timestamp": "2026-02-17T03:03:34.645565",
+      "read": false
+    },
+    {
+      "id": "5a92a82f",
+      "type": "score_change",
+      "ticker": "STLA",
+      "title": "Score increased +10 pts",
+      "subtitle": "Now rated HOLD (47)",
+      "timestamp": "2026-02-17T03:03:34.644614",
+      "read": false
+    },
+    {
+      "id": "ee47ec11",
+      "type": "score_change",
+      "ticker": "AMCR",
+      "title": "Score increased +11 pts",
+      "subtitle": "Now rated HOLD (45)",
+      "timestamp": "2026-02-17T03:03:34.643764",
+      "read": false
+    },
+    {
+      "id": "61c9e30c",
+      "type": "score_change",
+      "ticker": "MSTR",
+      "title": "Score increased +17 pts",
+      "subtitle": "Now rated HOLD (45)",
+      "timestamp": "2026-02-17T03:03:34.642877",
+      "read": false
+    },
+    {
+      "id": "874718a5",
+      "type": "score_change",
+      "ticker": "ARM",
+      "title": "Score increased +23 pts",
+      "subtitle": "Now rated HOLD (43)",
+      "timestamp": "2026-02-17T03:03:34.641998",
+      "read": false
+    },
+    {
+      "id": "9945de01",
+      "type": "score_change",
+      "ticker": "NFLX",
+      "title": "Score decreased +25 pts",
+      "subtitle": "Now rated SELL (13)",
+      "timestamp": "2026-02-17T03:03:34.641104",
+      "read": false
+    },
+    {
       "id": "ca74fae8",
       "type": "signal_change",
       "ticker": "BALL",
@@ -649,5 +856,5 @@
       "read": false
     }
   ],
-  "updated_at": "2026-02-16T20:22:43.664580"
+  "updated_at": "2026-02-17T03:11:56.844941"
 }

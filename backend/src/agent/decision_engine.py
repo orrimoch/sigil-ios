@@ -141,12 +141,12 @@ class DecisionEngine:
             if self._client is None:
                 self._client = anthropic.AsyncAnthropic(api_key=self.api_key)
             
-            # Check if model supports extended thinking
-            use_thinking = "claude-3-5" in self.model or "claude-sonnet" in self.model
+            # Check if model supports extended thinking (only Sonnet, not Haiku)
+            use_thinking = ("sonnet" in self.model.lower()) and ("haiku" not in self.model.lower())
             
             kwargs = {
                 "model": self.model,
-                "max_tokens": 4000,
+                "max_tokens": 8000,  # Must be > thinking_budget
                 "system": SYSTEM_PROMPT,
                 "messages": [{"role": "user", "content": prompt}],
             }
@@ -155,8 +155,9 @@ class DecisionEngine:
             if use_thinking:
                 kwargs["thinking"] = {
                     "type": "enabled",
-                    "budget_tokens": self.thinking_budget
+                    "budget_tokens": self.thinking_budget  # Default 5000
                 }
+                kwargs["max_tokens"] = max(kwargs["max_tokens"], self.thinking_budget + 3000)
             
             response = await self._client.messages.create(**kwargs)
             

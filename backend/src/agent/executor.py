@@ -25,7 +25,7 @@ from uuid import uuid4
 
 # IBKR import with fallback for standalone testing
 try:
-    from ..ibkr.service import IBKRService, get_ibkr_service
+    from ..ibkr import IBKRService, get_ibkr_service
 except ImportError:
     # Stub for testing without full app context
     IBKRService = None
@@ -37,6 +37,14 @@ try:
     from ..auth.models import User
 except ImportError:
     User = None
+
+# Sigil database imports for recording trades
+try:
+    from ..auth.database import get_db_session
+    from ..trading.user_trading_service import UserTradingService
+    SIGIL_DB_AVAILABLE = True
+except ImportError:
+    SIGIL_DB_AVAILABLE = False
 
 logger = logging.getLogger(__name__)
 
@@ -176,17 +184,19 @@ class TradeExecutor:
         self._pending_trades: Dict[str, PendingTrade] = {}
         self._execution_history: List[ExecutionResult] = []
     
-    async def initialize(self):
+    async def initialize(self, user_id: str = "anonymous"):
         """Initialize services."""
         if self.ibkr is None:
             self.ibkr = get_ibkr_service()
         
         # Connect to IBKR if not connected
-        if not self.ibkr.connected:
+        if self.ibkr is not None and not self.ibkr.is_connected(user_id):
             try:
-                await asyncio.to_thread(self.ibkr.connect)
+                await asyncio.to_thread(self.ibkr.connect, user_id)
             except Exception as e:
                 logger.warning(f"IBKR connection failed: {e}")
+        elif self.ibkr is None:
+            logger.warning("IBKR service not available - will simulate trades")
     
     async def execute(
         self,
@@ -218,7 +228,7 @@ class TradeExecutor:
         Returns:
             ExecutionResult with success/failure details
         """
-        await self.initialize()
+        await self.initialize(user_id)
         
         # Get current price if not provided
         if estimated_price is None:
@@ -314,7 +324,7 @@ class TradeExecutor:
         
         try:
             # Place market order
-            order_result = await self._place_market_order(ticker, action, shares)
+            order_result = await self._place_market_order(ticker, action, shares, user_id)
             
             if not order_result["success"]:
                 return ExecutionResult(
@@ -338,6 +348,7 @@ class TradeExecutor:
                     fill_price=fill_price,
                     stop_type=settings.stop_loss_type,
                     stop_percent=settings.stop_loss_percent,
+                    user_id=user_id,
                 )
                 if stop_result["success"]:
                     stop_order_id = stop_result["order_id"]
@@ -370,6 +381,15 @@ class TradeExecutor:
             
             self._execution_history.append(result)
             logger.info(f"Executed {action} {shares} {ticker} @ ${fill_price:.2f}")
+            
+            # Record trade in Sigil's portfolio database
+            await self._record_trade_in_sigil(
+                ticker=ticker,
+                action=action,
+                shares=shares,
+                fill_price=fill_price,
+                user_id=user_id,
+            )
             
             return result
             
@@ -482,10 +502,11 @@ class TradeExecutor:
         ticker: str,
         action: str,
         shares: int,
+        user_id: str = "anonymous",
     ) -> Dict[str, Any]:
         """Place a market order via IBKR."""
         
-        if self.ibkr is None or not self.ibkr.connected:
+        if self.ibkr is None or not self.ibkr.is_connected(user_id):
             # Simulate for testing
             logger.warning("IBKR not connected, simulating order")
             price = await self._get_current_price(ticker)
@@ -498,16 +519,20 @@ class TradeExecutor:
         
         try:
             result = await asyncio.to_thread(
-                self.ibkr.place_order,
-                ticker=ticker,
-                action=action,
-                quantity=shares,
-                order_type=OrderType.MARKET.value,
+                self.ibkr.submit_order,
+                user_id,  # First parameter is user_id
+                ticker,
+                action,
+                shares,
+                "MARKET",  # order_type
             )
+            # result is an IBKROrder object with: order_id, status, filled_price
+            # Status is mapped to: FILLED, PENDING, CANCELLED, REJECTED
             return {
-                "success": True,
-                "order_id": result.get("order_id"),
-                "fill_price": result.get("fill_price"),
+                "success": result.status == "FILLED",
+                "order_id": str(result.order_id),
+                "fill_price": result.filled_price,
+                "status": result.status,
             }
         except Exception as e:
             logger.error(f"IBKR order failed: {e}")
@@ -523,17 +548,11 @@ class TradeExecutor:
         fill_price: float,
         stop_type: str,
         stop_percent: float,
+        user_id: str = "anonymous",
     ) -> Dict[str, Any]:
         """Attach a stop-loss order to a position."""
         
-        if stop_type == "trailing":
-            order_type = OrderType.TRAIL.value
-            aux_price = stop_percent  # Trail percentage
-        else:  # hard stop
-            order_type = OrderType.STOP.value
-            aux_price = fill_price * (1 - stop_percent / 100)  # Stop price
-        
-        if self.ibkr is None or not self.ibkr.connected:
+        if self.ibkr is None or not self.ibkr.is_connected(user_id):
             logger.warning("IBKR not connected, simulating stop order")
             return {
                 "success": True,
@@ -542,17 +561,33 @@ class TradeExecutor:
             }
         
         try:
-            result = await asyncio.to_thread(
-                self.ibkr.place_order,
-                ticker=ticker,
-                action="SELL",
-                quantity=shares,
-                order_type=order_type,
-                aux_price=aux_price,
-            )
+            if stop_type == "trailing":
+                # Submit trailing stop order
+                result = await asyncio.to_thread(
+                    self.ibkr.submit_order,
+                    user_id,
+                    ticker,
+                    "SELL",
+                    shares,
+                    "TRAIL",  # order_type
+                    None,     # limit_price
+                    stop_percent,  # trailing_percent
+                )
+            else:  # hard stop
+                stop_price = fill_price * (1 - stop_percent / 100)
+                result = await asyncio.to_thread(
+                    self.ibkr.submit_order,
+                    user_id,
+                    ticker,
+                    "SELL",
+                    shares,
+                    "STP",  # order_type
+                    stop_price,  # limit_price (used as stop price)
+                )
+            # Stop orders won't fill immediately, PENDING is success
             return {
-                "success": True,
-                "order_id": result.get("order_id"),
+                "success": result.status in ("PENDING", "FILLED"),
+                "order_id": str(result.order_id),
             }
         except Exception as e:
             logger.warning(f"Stop-loss order failed: {e}")
@@ -564,7 +599,7 @@ class TradeExecutor:
     async def _get_current_price(self, ticker: str) -> float:
         """Get current price for a ticker."""
         try:
-            if self.ibkr and self.ibkr.connected:
+            if self.ibkr and self.ibkr.is_connected():
                 quote = await asyncio.to_thread(
                     self.ibkr.get_quote,
                     ticker=ticker,
@@ -582,6 +617,88 @@ class TradeExecutor:
             logger.warning(f"Price fetch failed for {ticker}: {e}")
         
         return 100.0  # Fallback
+    
+    async def _record_trade_in_sigil(
+        self,
+        ticker: str,
+        action: str,
+        shares: int,
+        fill_price: float,
+        user_id: str,
+    ) -> bool:
+        """
+        Record the executed trade in Sigil's portfolio database.
+        
+        This ensures trades executed by the End Game agent appear in the Sigil app.
+        Uses HTTP API to avoid SQLite locking when backend is running.
+        """
+        import httpx
+        
+        api_url = "http://localhost:8000/api/v1/orders"
+        
+        payload = {
+            "ticker": ticker.upper(),
+            "side": "BUY" if action.upper() == "BUY" else "SELL",
+            "quantity": float(shares),
+            "order_type": "MARKET",
+            "is_paper": True,
+        }
+        
+        try:
+            async with httpx.AsyncClient(timeout=30.0) as client:
+                # Note: For now using anonymous endpoint; in production would add auth header
+                response = await client.post(
+                    api_url,
+                    json=payload,
+                    headers={"X-User-Id": user_id},  # Pass user_id in header
+                )
+                
+                if response.status_code in (200, 201):
+                    logger.info(f"Recorded trade in Sigil via API: {action} {shares} {ticker}")
+                    return True
+                else:
+                    # API failed (auth required, etc.) — try direct DB
+                    logger.warning(f"API returned {response.status_code}, falling back to direct DB")
+                    return await self._record_trade_direct_db(ticker, action, shares, fill_price, user_id)
+                    
+        except httpx.ConnectError:
+            logger.warning("Backend not running, trying direct DB access")
+            return await self._record_trade_direct_db(ticker, action, shares, fill_price, user_id)
+        except Exception as e:
+            logger.error(f"Failed to record trade in Sigil: {e}")
+            # Try direct DB as last resort
+            return await self._record_trade_direct_db(ticker, action, shares, fill_price, user_id)
+    
+    async def _record_trade_direct_db(
+        self,
+        ticker: str,
+        action: str,
+        shares: int,
+        fill_price: float,
+        user_id: str,
+    ) -> bool:
+        """Fallback: record trade directly in DB when backend is not running."""
+        if not SIGIL_DB_AVAILABLE:
+            logger.warning("Sigil DB not available, trade not recorded in app")
+            return False
+        
+        try:
+            async for db in get_db_session():
+                side = "BUY" if action.upper() == "BUY" else "SELL"
+                order = await UserTradingService.create_order(
+                    db=db,
+                    user_id=user_id,
+                    ticker=ticker,
+                    side=side,
+                    quantity=float(shares),
+                    order_type="MARKET",
+                    is_paper=True,
+                )
+                logger.info(f"Recorded trade in Sigil DB: {action} {shares} {ticker} @ ${fill_price:.2f}")
+                return True
+        except Exception as e:
+            logger.error(f"Failed to record trade in Sigil DB: {e}")
+            return False
     
     async def _send_approval_notification(
         self,

@@ -273,7 +273,9 @@ app.include_router(config_router)  # GET /api/v1/config/llm, /ibkr, /database, /
 
 # REC-278/279: Agent routes
 from agent.routes import router as agent_router
+from agent.routes_agent import router as agent_control_router
 app.include_router(agent_router)  # GET /api/v1/agent/context, /status, etc.
+app.include_router(agent_control_router)  # Phase 3: /run, /pending, /history, etc.
 
 
 # ========== Pydantic Models ==========
