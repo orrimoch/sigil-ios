@@ -95,6 +95,9 @@ from api.config_routes import config_router
 from trading.user_trading_service import UserTradingService
 from db.models import ANONYMOUS_USER_ID
 
+# Default user for unauthenticated requests (use AGENT_DEFAULT_USER_ID if set, else anonymous)
+DEFAULT_USER_ID = os.environ.get("AGENT_DEFAULT_USER_ID", ANONYMOUS_USER_ID)
+
 # Auth config — defaults to False so existing tests/endpoints keep working without tokens
 # REC-130: Auth is now REQUIRED by default for production.
 # Set AUTH_REQUIRED=false env var to disable for local development.
@@ -1458,7 +1461,7 @@ async def get_portfolio_endpoint(
     Get portfolio summary and holdings (per-user).
     """
     try:
-        user_id = user.id if user else ANONYMOUS_USER_ID
+        user_id = user.id if user else DEFAULT_USER_ID
         data = await UserTradingService.get_portfolio_data(db, user_id)
         
         return {
@@ -1479,7 +1482,7 @@ async def get_portfolio_summary(
     Get portfolio summary (total value, P&L) — per-user.
     """
     try:
-        user_id = user.id if user else ANONYMOUS_USER_ID
+        user_id = user.id if user else DEFAULT_USER_ID
         summary = await UserTradingService.get_portfolio_summary(db, user_id)
         
         return {
@@ -1500,7 +1503,7 @@ async def get_portfolio_holdings(
     Get all portfolio holdings with current values — per-user.
     """
     try:
-        user_id = user.id if user else ANONYMOUS_USER_ID
+        user_id = user.id if user else DEFAULT_USER_ID
         holdings = await UserTradingService.get_portfolio_holdings(db, user_id)
         
         return {
@@ -1525,7 +1528,7 @@ async def reset_portfolio_endpoint(
     Clears all positions and resets cash to starting amount.
     """
     try:
-        user_id = user.id if user else ANONYMOUS_USER_ID
+        user_id = user.id if user else DEFAULT_USER_ID
         portfolio = await UserTradingService.reset_portfolio(db, user_id, starting_cash)
         
         # DB is single source of truth — no in-memory reset needed (BUG-002 fix)
@@ -1560,7 +1563,7 @@ async def get_portfolio_history_endpoint(
     try:
         from db.portfolio_history_service import PortfolioHistoryService
         
-        user_id = user.id if user else ANONYMOUS_USER_ID
+        user_id = user.id if user else DEFAULT_USER_ID
         data = await PortfolioHistoryService.get_real_history(db, user_id, days)
         
         return {
@@ -1588,7 +1591,7 @@ async def get_portfolio_performance(
     try:
         from db.portfolio_history_service import PortfolioHistoryService
         
-        user_id = user.id if user else ANONYMOUS_USER_ID
+        user_id = user.id if user else DEFAULT_USER_ID
         performance = await PortfolioHistoryService.get_performance(db, user_id, days)
         
         return {
@@ -1612,7 +1615,7 @@ async def record_portfolio_snapshot(
     Uses in-memory history store (TODO: migrate to DB-backed history).
     """
     try:
-        user_id = user.id if user else ANONYMOUS_USER_ID
+        user_id = user.id if user else DEFAULT_USER_ID
         data = await UserTradingService.get_portfolio_data(db, user_id)
         summary = data["summary"]
         
@@ -1652,7 +1655,7 @@ async def get_portfolio_sectors(
     F7.3: Get portfolio sector allocation — per-user.
     """
     try:
-        user_id = user.id if user else ANONYMOUS_USER_ID
+        user_id = user.id if user else DEFAULT_USER_ID
         allocation = await UserTradingService.get_portfolio_sectors(db, user_id)
         
         return {
@@ -1691,7 +1694,7 @@ async def create_order(
     import json as json_module
     
     try:
-        user_id = user.id if user else ANONYMOUS_USER_ID
+        user_id = user.id if user else DEFAULT_USER_ID
         
         # REC-127: Get user's portfolio_size from settings
         portfolio_size = "medium"  # default
@@ -1738,7 +1741,7 @@ async def get_orders(
     Get orders with optional filters (per-user).
     """
     try:
-        user_id = user.id if user else ANONYMOUS_USER_ID
+        user_id = user.id if user else DEFAULT_USER_ID
         
         orders = await UserTradingService.get_orders(
             db=db,
@@ -1769,7 +1772,7 @@ async def get_todays_orders(
     Get today's orders (per-user).
     """
     try:
-        user_id = user.id if user else ANONYMOUS_USER_ID
+        user_id = user.id if user else DEFAULT_USER_ID
         orders = await UserTradingService.get_todays_orders(db, user_id)
         
         return {
@@ -1791,7 +1794,7 @@ async def get_pending_orders(
     Get all pending orders — per-user.
     """
     try:
-        user_id = user.id if user else ANONYMOUS_USER_ID
+        user_id = user.id if user else DEFAULT_USER_ID
         orders = await UserTradingService.get_pending_orders(db, user_id)
         
         return {
@@ -1814,7 +1817,7 @@ async def get_order_by_id(
     Get a specific order by ID — per-user.
     """
     try:
-        user_id = user.id if user else ANONYMOUS_USER_ID
+        user_id = user.id if user else DEFAULT_USER_ID
         order = await UserTradingService.get_order_by_id(db, user_id, order_id)
         
         if order is None:
@@ -1841,7 +1844,7 @@ async def cancel_order(
     Cancel a pending order (per-user).
     """
     try:
-        user_id = user.id if user else ANONYMOUS_USER_ID
+        user_id = user.id if user else DEFAULT_USER_ID
         order = await UserTradingService.cancel_order(db, user_id, order_id)
         
         return {
@@ -1991,7 +1994,7 @@ async def get_trading_performance(
     from trading.performance_stats import calculate_performance_metrics
     
     try:
-        user_id = user.id if user else ANONYMOUS_USER_ID
+        user_id = user.id if user else DEFAULT_USER_ID
         
         # Get filled orders for the period
         orders = await UserTradingService.get_orders(
@@ -2031,7 +2034,7 @@ async def get_slippage_analysis(
     from trading.performance_stats import analyze_slippage, calculate_performance_metrics
     
     try:
-        user_id = user.id if user else ANONYMOUS_USER_ID
+        user_id = user.id if user else DEFAULT_USER_ID
         
         # Get filled orders
         orders = await UserTradingService.get_orders(

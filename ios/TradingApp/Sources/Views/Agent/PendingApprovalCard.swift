@@ -173,13 +173,25 @@ struct PendingApprovalCard: View {
             return "Expired"
         }
         
+        // Try ISO8601 with fractional seconds first
         let formatter = ISO8601DateFormatter()
-        guard let expiresDate = formatter.date(from: trade.expiresAt) else {
-            return "Unknown"
+        formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        var expiresDate = formatter.date(from: trade.expiresAt)
+        
+        // Fallback to standard ISO8601 without fractional seconds
+        if expiresDate == nil {
+            formatter.formatOptions = [.withInternetDateTime]
+            expiresDate = formatter.date(from: trade.expiresAt)
         }
         
-        let remaining = expiresDate.timeIntervalSince(Date())
-        if remaining < 3600 {
+        guard let date = expiresDate else {
+            return "24h left" // Safe fallback
+        }
+        
+        let remaining = date.timeIntervalSince(Date())
+        if remaining <= 0 {
+            return "Expiring"
+        } else if remaining < 3600 {
             return "\(Int(remaining / 60))m left"
         } else {
             return "\(Int(remaining / 3600))h left"
@@ -194,14 +206,18 @@ struct PendingApprovalCard: View {
         PendingApprovalCard(
             trade: PendingTrade(
                 id: "1",
+                userId: nil,
                 ticker: "AAPL",
                 action: "BUY",
                 shares: 50,
                 estimatedPrice: 178.50,
                 estimatedValue: 8925,
+                weight: nil,
                 rationale: "Strong technical momentum with RSI crossing above 50. Recent earnings beat expectations by 15%. Institutional buying detected in the last 5 trading days.",
+                decisionId: nil,
                 createdAt: "2024-01-15T10:00:00Z",
                 expiresAt: "2024-01-16T10:00:00Z",
+                status: nil,
                 isExpired: false
             ),
             onApprove: {},
@@ -211,14 +227,18 @@ struct PendingApprovalCard: View {
         PendingApprovalCard(
             trade: PendingTrade(
                 id: "2",
+                userId: nil,
                 ticker: "TSLA",
                 action: "SELL",
                 shares: 25,
                 estimatedPrice: 245.00,
                 estimatedValue: 6125,
+                weight: nil,
                 rationale: "Breaking below key support level. Volume indicates distribution. Recommend taking profits.",
+                decisionId: nil,
                 createdAt: "2024-01-15T09:00:00Z",
                 expiresAt: "2024-01-15T09:30:00Z",
+                status: nil,
                 isExpired: true
             ),
             onApprove: {},

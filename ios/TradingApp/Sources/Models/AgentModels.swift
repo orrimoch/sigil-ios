@@ -96,26 +96,34 @@ struct AgentRunSummary: Codable {
 
 struct PendingTrade: Codable, Identifiable {
     let id: String
+    let userId: String?
     let ticker: String
     let action: String
     let shares: Int
     let estimatedPrice: Double
     let estimatedValue: Double
+    let weight: Double?
     let rationale: String
+    let decisionId: String?
     let createdAt: String
     let expiresAt: String
+    let status: String?
     let isExpired: Bool
     
     enum CodingKeys: String, CodingKey {
         case id
+        case userId = "user_id"
         case ticker
         case action
         case shares
         case estimatedPrice = "estimated_price"
         case estimatedValue = "estimated_value"
+        case weight
         case rationale
+        case decisionId = "decision_id"
         case createdAt = "created_at"
         case expiresAt = "expires_at"
+        case status
         case isExpired = "is_expired"
     }
     
@@ -271,7 +279,7 @@ struct DecisionsResponse: Codable {
 
 struct ExecutionsResponse: Codable {
     let executions: [AgentExecution]
-    let total: Int
+    let count: Int
 }
 
 // MARK: - AnyCodable Helper

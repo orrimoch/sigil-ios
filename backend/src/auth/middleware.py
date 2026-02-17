@@ -7,6 +7,7 @@ from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from sqlalchemy.ext.asyncio import AsyncSession
 
+import os
 from .database import get_db_session
 from .auth_service import AuthService
 from .models import User
@@ -85,3 +86,40 @@ async def get_required_user(
         return await get_current_user(credentials, db)
     else:
         return await get_optional_user(credentials, db)
+
+
+async def get_agent_user(
+    credentials: Optional[HTTPAuthorizationCredentials] = Depends(security),
+    db: AsyncSession = Depends(get_db_session),
+) -> User:
+    """
+    Get current user for agent operations.
+    
+    When authenticated: returns the authenticated user.
+    When not authenticated: returns the default agent user from AGENT_DEFAULT_USER_ID.
+    """
+    from api.main import AUTH_REQUIRED
+    
+    # Try authenticated user first
+    if credentials:
+        try:
+            user = await get_current_user(credentials, db)
+            if user:
+                return user
+        except HTTPException:
+            pass  # Fall through to default user
+    
+    # When auth not required, use default agent user
+    if not AUTH_REQUIRED:
+        default_user_id = os.getenv("AGENT_DEFAULT_USER_ID")
+        if default_user_id:
+            user = await AuthService.get_user_by_id(db, default_user_id)
+            if user:
+                return user
+    
+    # Final fallback - raise 401
+    raise HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Authentication required for agent operations",
+        headers={"WWW-Authenticate": "Bearer"},
+    )

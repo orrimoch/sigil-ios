@@ -26,35 +26,62 @@ DEFAULT_MODEL = "claude-3-5-haiku-20241022"
 
 SYSTEM_PROMPT = """You are an expert portfolio manager for Sigil, an AI-powered trading system.
 
-Your job is to review the current market context, portfolio state, and historical similar situations, then decide which trades to make this week.
+Your job is to review the current market context, portfolio state, constraints, and historical similar situations, then decide which trades to make this week.
 
-TRADING PHILOSOPHY:
-- You capture weekly trends, not intraday moves
+## TRADING PHILOSOPHY
+- Capture weekly trends, not intraday moves
 - Maximum 3-5 trades per week (quality over quantity)
-- Position trades held for 5-30 days
-- You are risk-aware: never exceed position/sector limits
+- Hold positions for 5-30 days
+- Risk-aware: respect ALL constraints provided
 - When in doubt, don't trade (preserve capital)
 
-DECISION RULES:
-- BUY when: score ≥75, regime is calm/normal, sector not overweight
-- SELL when: score <40, OR stop-loss triggered, OR regime is crisis + losing
+## STRATEGIC BIAS (OWNER PREFERENCE)
+AI and data infrastructure will dominate for the next decade. Apply these biases:
+
+**STRONGLY FAVOR (boost confidence +15%):**
+- Nano photonics / silicon photonics (LITE, COHR, II-VI, POET, Cisco optics)
+- Data center infrastructure (NVDA, AMD, AVGO, MRVL, ANET, VRT, EQIX)
+- AI semiconductors & accelerators (NVDA, AMD, INTC, QCOM, ARM, MCHP)
+- AI cloud & compute (GOOGL, MSFT, AMZN, META, ORCL)
+- AI networking (ANET, CSCO, JNPR)
+
+**MODERATELY FAVOR (boost confidence +10%):**
+- Semiconductor equipment (ASML, LRCX, AMAT, KLAC)
+- Memory for AI workloads (MU, WDC, STX)
+- Edge AI / robotics (ISRG, IONQ, quantum computing)
+
+**When choosing between similar-scored candidates, prefer the AI/data center play.**
+**A score of 72 in AI infrastructure > score of 78 in traditional sectors.**
+
+## DECISION RULES
+- BUY when: score ≥75, regime is calm/normal, sector not overweight, within cash budget
+- SELL when: score <40, OR stop-loss triggered, OR regime is crisis + position losing
 - HOLD when: 40 ≤ score < 75, wait for stronger signal
 
+## CONSTRAINT RULES (MUST FOLLOW)
+1. NEVER recommend total BUY value exceeding available cash
+2. NEVER recommend a single position exceeding max position size
+3. AVOID adding to sectors marked as OVERWEIGHT (>25% exposure)
+4. PREFER sectors marked as UNDERWEIGHT for diversification
+5. In CRISIS regime: only SELL or small defensive BUYs
+6. In ELEVATED VIX (>25): reduce position sizes mentally by 20%
+
+## OUTPUT FORMAT
 For each decision, provide:
-1. action: "BUY" or "SELL"
-2. ticker: Stock symbol
-3. rationale: Clear explanation (2-3 sentences)
-4. confidence: 0.0-1.0
+- action: "BUY" or "SELL"
+- ticker: Stock symbol
+- rationale: 2-3 sentences explaining WHY (reference score, regime, diversification, constraints)
+- confidence: 0.0-1.0
 
 IMPORTANT: Output ONLY a valid JSON array. No markdown, no explanation outside the JSON.
 
-Example output:
+Example:
 [
-  {"action": "BUY", "ticker": "CMI", "rationale": "Score 89.8 exceptional. Industrials adds diversification. Similar CAT trade returned +12%.", "confidence": 0.85},
-  {"action": "SELL", "ticker": "XYZ", "rationale": "Score dropped to 35. Stop-loss triggered. Cut losses early.", "confidence": 0.90}
+  {"action": "BUY", "ticker": "CMI", "rationale": "Score 89.8 exceptional. Industrials underweight at 8%, adds diversification. Within $15K position limit.", "confidence": 0.85},
+  {"action": "SELL", "ticker": "XYZ", "rationale": "Score dropped to 35. Position -12% underwater. Cut losses per risk rules.", "confidence": 0.90}
 ]
 
-If no trades recommended, return empty array: []
+If no trades fit constraints, return empty array: []
 """
 
 
@@ -222,22 +249,74 @@ class DecisionEngine:
         
         # Portfolio section
         portfolio = context.portfolio
+        
+        # Calculate constraints
+        max_position_pct = 0.10  # 10% max per position
+        max_position_dollars = portfolio.total_value * max_position_pct
+        max_sector_pct = 0.30  # 30% max per sector
+        
+        # Identify overweight/underweight sectors
+        overweight_sectors = []
+        underweight_sectors = []
+        for sector, weight in portfolio.sector_exposure.items():
+            if sector == "Cash":
+                continue
+            if weight > 0.25:
+                overweight_sectors.append(f"{sector} ({weight:.0%})")
+            elif weight < 0.10:
+                underweight_sectors.append(f"{sector} ({weight:.0%})")
+        
+        # Get current holdings list
+        current_holdings = []
+        if hasattr(portfolio, 'positions') and portfolio.positions:
+            current_holdings = [p.ticker for p in portfolio.positions]
+        
         sections.append(f"""## Current Portfolio
-- Cash: ${portfolio.cash:,.0f}
-- Total Value: ${portfolio.total_value:,.0f}
-- Positions: {portfolio.position_count}
+- Available Cash: ${portfolio.cash:,.0f}
+- Total Portfolio Value: ${portfolio.total_value:,.0f}
+- Number of Positions: {portfolio.position_count}
 - Unrealized P&L: ${portfolio.unrealized_pnl:+,.0f}
 
-Sector Exposure:
+### Current Holdings
+{', '.join(current_holdings) if current_holdings else 'None'}
+
+### Sector Exposure
 {self._format_sectors(portfolio.sector_exposure)}
+
+## CONSTRAINTS (MUST FOLLOW)
+- Max BUY budget: ${portfolio.cash:,.0f} (your available cash)
+- Max position size: ${max_position_dollars:,.0f} ({max_position_pct:.0%} of portfolio)
+- Max sector exposure: {max_sector_pct:.0%}
+- Overweight sectors (AVOID adding): {', '.join(overweight_sectors) if overweight_sectors else 'None'}
+- Underweight sectors (PREFER): {', '.join(underweight_sectors) if underweight_sectors else 'None'}
 """)
         
-        # Market section
+        # Market section with risk warnings
         market = context.market
+        
+        # Generate risk warnings based on conditions
+        risk_warnings = []
+        if market.regime == "crisis":
+            risk_warnings.append("⚠️ CRISIS REGIME: Only defensive actions recommended")
+        elif market.regime == "high_volatility":
+            risk_warnings.append("⚠️ HIGH VOLATILITY: Consider smaller position sizes")
+        
+        if market.vix > 30:
+            risk_warnings.append(f"⚠️ VIX ELEVATED ({market.vix:.0f}): Reduce position sizes by 30%")
+        elif market.vix > 25:
+            risk_warnings.append(f"⚠️ VIX ELEVATED ({market.vix:.0f}): Reduce position sizes by 20%")
+        elif market.vix > 20:
+            risk_warnings.append(f"⚠️ VIX ABOVE NORMAL ({market.vix:.0f}): Be cautious")
+        
+        risk_section = "\n".join(risk_warnings) if risk_warnings else "✅ No elevated risk warnings"
+        
         sections.append(f"""## Market State
 - Regime: {market.regime} (confidence: {market.regime_confidence:.0%})
 - VIX: {market.vix:.1f} ({market.vix_regime})
 - Trend: {market.trend}
+
+### Risk Warnings
+{risk_section}
 """)
         
         # Candidates section
@@ -256,11 +335,18 @@ Sector Exposure:
         else:
             sections.append("## Similar Past Situations\nNo similar situations found in memory.\n")
         
-        # Question
-        sections.append("""## Decision Required
+        # Question with constraint reminder
+        sections.append(f"""## Decision Required
 Based on all the above, what trades should I make this week?
-Consider risk limits, diversification, and market regime.
-Output your decisions as a JSON array.""")
+
+REMEMBER:
+1. Total BUY value must NOT exceed ${portfolio.cash:,.0f}
+2. Each position must NOT exceed ${max_position_dollars:,.0f}
+3. Respect sector limits — avoid overweight sectors
+4. Factor in market regime and VIX warnings
+5. Quality over quantity — 0-3 high-conviction trades is better than 5 mediocre ones
+
+Output your decisions as a JSON array. If no good trades, return [].""")
         
         return "\n".join(sections)
     

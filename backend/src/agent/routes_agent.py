@@ -51,12 +51,16 @@ from .decision_pairs import get_decision_pair_logger, DecisionPairLogger
 
 # Auth imports with fallback for testing
 try:
-    from ..auth.dependencies import get_current_user
+    from ..auth.middleware import get_agent_user
     from ..auth.models import User
+    get_current_user = get_agent_user  # Alias for compatibility
 except ImportError:
-    # Stubs for standalone testing
+    import os
+    # Stubs for standalone testing - use configured default user
+    default_user_id = os.getenv("AGENT_DEFAULT_USER_ID", "test_user")
     async def get_current_user():
-        return type('User', (), {'id': 'test_user'})()
+        return type('User', (), {'id': default_user_id})()
+    get_agent_user = get_current_user
     User = None
 
 logger = logging.getLogger(__name__)
@@ -128,11 +132,28 @@ async def get_agent_status(
     status = loop.get_status()
     pending = await executor.get_pending_trades(str(current_user.id))
     
+    # Get total runs from in-memory, fallback to DB execution count
+    total_runs = status["total_runs"]
+    if total_runs == 0:
+        try:
+            import aiosqlite
+            from pathlib import Path
+            db_path = Path(__file__).parent.parent.parent / "data" / "agent_memory.db"
+            async with aiosqlite.connect(db_path) as db:
+                cursor = await db.execute(
+                    "SELECT COUNT(*) FROM executions WHERE user_id = ?",
+                    (str(current_user.id),)
+                )
+                row = await cursor.fetchone()
+                total_runs = row[0] if row else 0
+        except Exception as e:
+            logger.warning(f"Failed to get execution count from DB: {e}")
+    
     return AgentStatusResponse(
         status=status["status"],
         settings=status["settings"],
         last_run=status["last_run"],
-        total_runs=status["total_runs"],
+        total_runs=total_runs,
         pending_approvals=len(pending),
     )
 
@@ -328,7 +349,7 @@ async def get_decision_history(
     current_user: User = Depends(get_current_user),
 ):
     """Get decision history with optional filters."""
-    memory = get_agent_memory()
+    memory = await get_agent_memory()
     
     decisions = await memory.get_recent_decisions(
         user_id=str(current_user.id),
@@ -354,6 +375,41 @@ async def get_execution_history(
         user_id=str(current_user.id),
         limit=limit,
     )
+    
+    # Fallback: read from persistent DB if in-memory is empty
+    if not executions:
+        try:
+            import aiosqlite
+            from pathlib import Path
+            db_path = Path(__file__).parent.parent.parent / "data" / "agent_memory.db"
+            async with aiosqlite.connect(db_path) as db:
+                db.row_factory = aiosqlite.Row
+                cursor = await db.execute(
+                    "SELECT * FROM executions WHERE user_id = ? ORDER BY created_at DESC LIMIT ?",
+                    (str(current_user.id), limit)
+                )
+                rows = await cursor.fetchall()
+                # Return as dicts directly
+                result = []
+                for row in rows:
+                    # Convert timestamp to ISO8601 format for iOS
+                    ts = row["timestamp"]
+                    if ts and " " in ts and "T" not in ts:
+                        ts = ts.replace(" ", "T")
+                    result.append({
+                        "ticker": row["ticker"],
+                        "action": row["action"],
+                        "shares": row["shares"],
+                        "fill_price": row["fill_price"],
+                        "fill_value": row["fill_value"],
+                        "order_id": row["order_id"],
+                        "success": bool(row["success"]),
+                        "message": row["message"],
+                        "executed_at": ts,
+                    })
+                return {"executions": result, "count": len(result)}
+        except Exception as e:
+            logger.warning(f"Failed to load executions from DB: {e}")
     
     return {
         "executions": [e.to_dict() for e in executions],
@@ -398,7 +454,7 @@ async def get_agent_stats(
     from datetime import timedelta
     
     learning = get_learning_loop()
-    memory = get_agent_memory()
+    memory = await get_agent_memory()
     executor = get_executor()
     
     # Get learning stats
@@ -411,11 +467,38 @@ async def get_agent_stats(
     )
     total_decisions = len(decisions)
     
-    # Get execution history
+    # Get execution history (in-memory first, then fallback to DB)
     executions = await executor.get_execution_history(
         user_id=str(current_user.id),
         limit=1000,
     )
+    
+    # Fallback: read from persistent DB if in-memory is empty
+    if not executions:
+        try:
+            import aiosqlite
+            from pathlib import Path
+            db_path = Path(__file__).parent.parent.parent / "data" / "agent_memory.db"
+            async with aiosqlite.connect(db_path) as db:
+                db.row_factory = aiosqlite.Row
+                cursor = await db.execute(
+                    "SELECT * FROM executions WHERE user_id = ? ORDER BY created_at DESC LIMIT 1000",
+                    (str(current_user.id),)
+                )
+                rows = await cursor.fetchall()
+                # Convert to simple objects
+                class Execution:
+                    def __init__(self, row):
+                        self.ticker = row['ticker']
+                        self.action = row['action']
+                        self.shares = row['shares']
+                        self.fill_price = row['fill_price']
+                        self.success = bool(row['success'])
+                        self.executed_at = row['timestamp']
+                executions = [Execution(r) for r in rows]
+        except Exception as e:
+            logger.warning(f"Failed to load executions from DB: {e}")
+    
     total_executions = len(executions)
     
     # Count successful executions
@@ -427,11 +510,14 @@ async def get_agent_stats(
     weekly_trades = 0
     for e in executions:
         try:
-            exec_time = datetime.fromisoformat(e.executed_at.replace('Z', '+00:00')) if e.executed_at else None
-            if exec_time and exec_time.replace(tzinfo=None) >= one_week_ago:
-                weekly_trades += 1
-        except (ValueError, AttributeError):
-            pass
+            exec_time_str = getattr(e, 'executed_at', None) or getattr(e, 'timestamp', None)
+            if exec_time_str:
+                exec_time = datetime.fromisoformat(exec_time_str.replace('Z', '+00:00').replace(' ', 'T'))
+                if exec_time.replace(tzinfo=None) >= one_week_ago:
+                    weekly_trades += 1
+        except (ValueError, AttributeError, TypeError):
+            # If can't parse date, count as this week (conservative)
+            weekly_trades += 1
     
     return {
         "total_decisions": total_decisions,

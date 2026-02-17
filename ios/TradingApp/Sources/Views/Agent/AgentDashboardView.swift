@@ -48,6 +48,14 @@ struct AgentDashboardView: View {
             .task {
                 await viewModel.loadData()
             }
+            .alert("Error", isPresented: .init(
+                get: { viewModel.errorMessage != nil },
+                set: { if !$0 { viewModel.errorMessage = nil } }
+            )) {
+                Button("OK") { viewModel.errorMessage = nil }
+            } message: {
+                Text(viewModel.errorMessage ?? "")
+            }
         }
     }
     
@@ -359,21 +367,63 @@ class AgentDashboardViewModel: ObservableObject {
         errorMessage = nil
         defer { isLoading = false }
         
-        // Direct API call for status only - keep it simple
-        guard let statusURL = URL(string: "http://127.0.0.1:8000/api/v1/agent/status") else { return }
-        
-        do {
-            let (data, _) = try await URLSession.shared.data(from: statusURL)
-            if let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
-                if let statusStr = json["status"] as? String {
-                    status = statusStr
+        // Load status
+        if let statusURL = URL(string: "http://127.0.0.1:8000/api/v1/agent/status") {
+            do {
+                let (data, _) = try await URLSession.shared.data(from: statusURL)
+                if let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
+                    if let statusStr = json["status"] as? String {
+                        status = statusStr
+                    }
+                    if let runs = json["total_runs"] as? Int {
+                        totalRuns = runs
+                    }
                 }
-                if let runs = json["total_runs"] as? Int {
-                    totalRuns = runs
-                }
+            } catch {
+                errorMessage = "Failed to load status"
             }
-        } catch {
-            errorMessage = "Failed to load: \(error.localizedDescription)"
+        }
+        
+        // Load pending trades
+        if let pendingURL = URL(string: "http://127.0.0.1:8000/api/v1/agent/pending") {
+            do {
+                let (data, _) = try await URLSession.shared.data(from: pendingURL)
+                // Don't use convertFromSnakeCase - PendingTrade has explicit CodingKeys
+                let decoder = JSONDecoder()
+                let response = try decoder.decode(PendingTradesResponse.self, from: data)
+                pendingTrades = response.pending
+                print("✅ Loaded \(response.pending.count) pending trades")
+            } catch {
+                print("❌ Failed to load pending trades: \(error)")
+            }
+        }
+        
+        // Load weekly stats
+        if let statsURL = URL(string: "http://127.0.0.1:8000/api/v1/agent/stats") {
+            do {
+                let (data, _) = try await URLSession.shared.data(from: statsURL)
+                // AgentStats has explicit CodingKeys, no strategy needed
+                let loadedStats = try JSONDecoder().decode(AgentStats.self, from: data)
+                stats = loadedStats
+                weeklyDecisions = loadedStats.totalDecisions
+                weeklyTrades = loadedStats.weeklyTrades
+                print("✅ Loaded stats: \(loadedStats.weeklyTrades) weekly trades")
+            } catch {
+                print("❌ Failed to load stats: \(error)")
+            }
+        }
+        
+        // Load recent executions
+        if let execURL = URL(string: "http://127.0.0.1:8000/api/v1/agent/executions?limit=10") {
+            do {
+                let (data, _) = try await URLSession.shared.data(from: execURL)
+                // AgentExecution has explicit CodingKeys, no strategy needed
+                let response = try JSONDecoder().decode(ExecutionsResponse.self, from: data)
+                recentExecutions = response.executions
+                print("✅ Loaded \(response.executions.count) recent executions")
+            } catch {
+                print("❌ Failed to load executions: \(error)")
+            }
         }
     }
     
@@ -405,8 +455,12 @@ class AgentDashboardViewModel: ObservableObject {
             if response.success {
                 pendingTrades.removeAll { $0.id == trade.id }
                 await loadData() // Refresh to get updated executions
+            } else {
+                // Show error message from backend
+                errorMessage = response.message
             }
         } catch {
+            errorMessage = "Failed to approve trade: \(error.localizedDescription)"
             print("Failed to approve trade: \(error)")
         }
     }

@@ -125,11 +125,22 @@ class PositionSizer:
         decisions: List[TradeDecision],
         context: 'TradingContext'
     ) -> List[SizedPosition]:
-        """Size BUY positions using Risk Parity."""
-        tickers = [d.ticker for d in decisions]
+        """Size BUY positions using Portfolio-Wide Risk Parity."""
+        new_tickers = [d.ticker for d in decisions]
         
-        # Step 1: Get Risk Parity weights
-        rp_weights = await self._risk_parity_weights(tickers)
+        # Get existing portfolio tickers
+        existing_tickers = [p.ticker for p in context.portfolio.positions]
+        existing_weights = {}
+        for p in context.portfolio.positions:
+            existing_weights[p.ticker] = p.market_value / context.portfolio.total_value
+        
+        # Step 1: Get Risk Parity weights considering FULL PORTFOLIO
+        rp_weights = await self._portfolio_risk_parity_weights(
+            new_tickers=new_tickers,
+            existing_tickers=existing_tickers,
+            existing_weights=existing_weights,
+            context=context
+        )
         
         # Step 2: Apply conviction and regime adjustments
         final_weights = {}
@@ -147,9 +158,13 @@ class PositionSizer:
             scale = self.TARGET_ALLOCATION / total
             final_weights = {k: v * scale for k, v in final_weights.items()}
         
-        # Step 3: Convert weights to shares
+        # Step 3: Convert weights to shares (respecting available cash)
         results = []
         portfolio_value = context.portfolio.total_value
+        available_cash = context.portfolio.cash
+        remaining_cash = available_cash
+        
+        logger.info(f"Position sizing: ${available_cash:,.2f} available cash, ${portfolio_value:,.2f} total value")
         
         for decision in decisions:
             weight = final_weights[decision.ticker]
@@ -169,6 +184,22 @@ class PositionSizer:
             if shares < self.MIN_SHARES:
                 logger.debug(f"Skipping {decision.ticker}: {shares} shares below minimum")
                 continue
+            
+            # Check if we have enough cash for this trade
+            trade_cost = shares * price
+            if trade_cost > remaining_cash:
+                # Try to reduce position to fit available cash
+                affordable_shares = int(remaining_cash / price)
+                if affordable_shares >= self.MIN_SHARES:
+                    logger.info(f"Reducing {decision.ticker}: {shares} → {affordable_shares} shares (cash limited)")
+                    shares = affordable_shares
+                    trade_cost = shares * price
+                else:
+                    logger.warning(f"Skipping {decision.ticker}: ${trade_cost:,.2f} exceeds available cash ${remaining_cash:,.2f}")
+                    continue
+            
+            # Deduct from remaining cash
+            remaining_cash -= trade_cost
             
             # Build rationale
             base_weight = rp_weights.get(decision.ticker, 0.05)
@@ -220,9 +251,170 @@ class PositionSizer:
             rationale="Full exit - SELL signal",
         )
     
+    async def _portfolio_risk_parity_weights(
+        self,
+        new_tickers: List[str],
+        existing_tickers: List[str],
+        existing_weights: Dict[str, float],
+        context: 'TradingContext'
+    ) -> Dict[str, float]:
+        """
+        Calculate Risk Parity weights considering the FULL PORTFOLIO.
+        
+        This includes:
+        1. Existing holdings (fixed weights)
+        2. New positions (optimized to balance total portfolio risk)
+        3. Correlations BETWEEN existing and new positions
+        
+        Goal: New positions should balance risk contribution across entire portfolio.
+        """
+        # Combine all tickers
+        all_tickers = list(set(existing_tickers + new_tickers))
+        n_total = len(all_tickers)
+        n_new = len(new_tickers)
+        n_existing = len(existing_tickers)
+        
+        if n_new == 0:
+            return {}
+        
+        logger.info(f"Portfolio Risk Parity: {n_existing} existing + {n_new} new positions")
+        
+        # Get full covariance matrix
+        cov_matrix = await self._get_covariance_matrix(all_tickers)
+        
+        if cov_matrix is None:
+            logger.warning("Could not calculate full covariance, falling back to simple weights")
+            return {ticker: self.TARGET_ALLOCATION / n_new for ticker in new_tickers}
+        
+        # Build index mapping
+        ticker_to_idx = {t: i for i, t in enumerate(all_tickers)}
+        
+        # Current portfolio weights (existing positions)
+        current_weights = np.zeros(n_total)
+        for ticker, weight in existing_weights.items():
+            if ticker in ticker_to_idx:
+                current_weights[ticker_to_idx[ticker]] = weight
+        
+        # Calculate current portfolio risk contribution
+        existing_vol = np.sqrt(current_weights @ cov_matrix @ current_weights) if current_weights.sum() > 0 else 0
+        logger.info(f"Existing portfolio volatility: {existing_vol:.1%}")
+        
+        # Calculate correlation of new stocks with existing portfolio
+        new_correlations = {}
+        for ticker in new_tickers:
+            idx = ticker_to_idx[ticker]
+            ticker_vol = np.sqrt(cov_matrix[idx, idx])
+            
+            if ticker_vol > 0 and existing_vol > 0:
+                # Correlation with existing portfolio
+                cov_with_portfolio = sum(
+                    cov_matrix[idx, ticker_to_idx[ex_ticker]] * existing_weights.get(ex_ticker, 0)
+                    for ex_ticker in existing_tickers if ex_ticker in ticker_to_idx
+                )
+                correlation = cov_with_portfolio / (ticker_vol * existing_vol) if existing_vol > 0 else 0
+            else:
+                correlation = 0
+            
+            new_correlations[ticker] = correlation
+            logger.debug(f"{ticker}: vol={ticker_vol:.1%}, corr_with_portfolio={correlation:.2f}")
+        
+        # Optimize new position weights
+        # Goal: Equal MARGINAL risk contribution from new positions
+        new_indices = [ticker_to_idx[t] for t in new_tickers]
+        
+        def objective(new_weights_arr):
+            """
+            Minimize variance of risk contribution among new positions,
+            while considering correlation with existing portfolio.
+            """
+            # Build full weight vector
+            full_weights = current_weights.copy()
+            for i, idx in enumerate(new_indices):
+                full_weights[idx] = new_weights_arr[i]
+            
+            portfolio_vol = np.sqrt(full_weights @ cov_matrix @ full_weights)
+            if portfolio_vol < 1e-8:
+                return 0
+            
+            # Calculate risk contribution of each new position
+            marginal_contrib = cov_matrix @ full_weights
+            risk_contribs = []
+            for i, idx in enumerate(new_indices):
+                rc = full_weights[idx] * marginal_contrib[idx] / portfolio_vol
+                risk_contribs.append(rc)
+            
+            risk_contribs = np.array(risk_contribs)
+            
+            # Minimize variance of risk contributions (equal risk)
+            return np.var(risk_contribs)
+        
+        # Constraints
+        constraints = [
+            # New positions sum to TARGET_ALLOCATION
+            {'type': 'eq', 'fun': lambda w: np.sum(w) - self.TARGET_ALLOCATION}
+        ]
+        
+        # Bounds for new positions
+        bounds = [(self.MIN_WEIGHT, self.MAX_WEIGHT) for _ in range(n_new)]
+        
+        # Initial guess: inverse volatility weighting (less volatile = higher weight)
+        initial_weights = []
+        for ticker in new_tickers:
+            idx = ticker_to_idx[ticker]
+            vol = np.sqrt(cov_matrix[idx, idx])
+            # Penalize high correlation with existing portfolio (diversification bonus)
+            corr_penalty = 1 - 0.3 * abs(new_correlations.get(ticker, 0))
+            initial_weights.append((1 / vol if vol > 0 else 1) * corr_penalty)
+        
+        # Normalize to TARGET_ALLOCATION
+        total_init = sum(initial_weights)
+        x0 = np.array([w * self.TARGET_ALLOCATION / total_init for w in initial_weights])
+        
+        try:
+            result = minimize(
+                objective,
+                x0,
+                method='SLSQP',
+                bounds=bounds,
+                constraints=constraints,
+                options={'ftol': 1e-8, 'maxiter': 200}
+            )
+            
+            if result.success:
+                optimal_weights = {
+                    ticker: weight 
+                    for ticker, weight in zip(new_tickers, result.x)
+                }
+                
+                # Log the results
+                for ticker, weight in optimal_weights.items():
+                    corr = new_correlations.get(ticker, 0)
+                    logger.info(f"  {ticker}: {weight:.1%} weight (corr={corr:.2f})")
+                
+                return optimal_weights
+            else:
+                logger.warning(f"Portfolio optimization failed: {result.message}")
+        except Exception as e:
+            logger.warning(f"Portfolio optimization error: {e}")
+        
+        # Fallback: inverse volatility with correlation penalty
+        logger.info("Using inverse-volatility fallback with correlation adjustment")
+        fallback = {}
+        for ticker in new_tickers:
+            idx = ticker_to_idx[ticker]
+            vol = np.sqrt(cov_matrix[idx, idx])
+            corr = new_correlations.get(ticker, 0)
+            # Lower weight if highly correlated with existing portfolio
+            weight = (1 / vol if vol > 0 else 1) * (1 - 0.3 * abs(corr))
+            fallback[ticker] = weight
+        
+        # Normalize
+        total = sum(fallback.values())
+        return {k: v * self.TARGET_ALLOCATION / total for k, v in fallback.items()}
+    
     async def _risk_parity_weights(self, tickers: List[str]) -> Dict[str, float]:
         """
-        Calculate Risk Parity weights.
+        Calculate Risk Parity weights (standalone, without existing portfolio).
         
         Each position contributes equal risk to the portfolio.
         Uses covariance matrix to measure risk contribution.
