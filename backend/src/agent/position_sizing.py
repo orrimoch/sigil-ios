@@ -350,15 +350,21 @@ class PositionSizer:
             if ticker in ticker_to_idx:
                 current_weights[ticker_to_idx[ticker]] = weight
         
-        # Calculate current portfolio risk contribution
-        existing_vol = np.sqrt(current_weights @ cov_matrix @ current_weights) if current_weights.sum() > 0 else 0
+        # Calculate current portfolio risk contribution (REC-303: ensure float for formatting)
+        if current_weights.sum() > 0:
+            portfolio_var = current_weights @ cov_matrix @ current_weights
+            existing_vol = float(np.sqrt(portfolio_var.item() if hasattr(portfolio_var, 'item') else portfolio_var))
+        else:
+            existing_vol = 0.0
         logger.info(f"Existing portfolio volatility: {existing_vol:.1%}")
         
         # Calculate correlation of new stocks with existing portfolio
         new_correlations = {}
         for ticker in new_tickers:
             idx = ticker_to_idx[ticker]
-            ticker_vol = np.sqrt(cov_matrix[idx, idx])
+            # Extract scalar value and convert to float (REC-303)
+            variance = cov_matrix[idx, idx]
+            ticker_vol = float(np.sqrt(variance.item() if hasattr(variance, 'item') else variance))
             
             if ticker_vol > 0 and existing_vol > 0:
                 # Correlation with existing portfolio
@@ -366,9 +372,9 @@ class PositionSizer:
                     cov_matrix[idx, ticker_to_idx[ex_ticker]] * existing_weights.get(ex_ticker, 0)
                     for ex_ticker in existing_tickers if ex_ticker in ticker_to_idx
                 )
-                correlation = cov_with_portfolio / (ticker_vol * existing_vol) if existing_vol > 0 else 0
+                correlation = float(cov_with_portfolio / (ticker_vol * existing_vol)) if existing_vol > 0 else 0.0
             else:
-                correlation = 0
+                correlation = 0.0
             
             new_correlations[ticker] = correlation
             logger.debug(f"{ticker}: vol={ticker_vol:.1%}, corr_with_portfolio={correlation:.2f}")
@@ -436,14 +442,15 @@ class PositionSizer:
             )
             
             if result.success:
+                # Convert numpy scalars to Python floats (REC-303)
                 optimal_weights = {
-                    ticker: weight 
+                    ticker: float(weight) 
                     for ticker, weight in zip(new_tickers, result.x)
                 }
                 
                 # Log the results
                 for ticker, weight in optimal_weights.items():
-                    corr = new_correlations.get(ticker, 0)
+                    corr = float(new_correlations.get(ticker, 0))
                     logger.info(f"  {ticker}: {weight:.1%} weight (corr={corr:.2f})")
                 
                 return optimal_weights
@@ -457,15 +464,16 @@ class PositionSizer:
         fallback = {}
         for ticker in new_tickers:
             idx = ticker_to_idx[ticker]
-            vol = np.sqrt(cov_matrix[idx, idx])
-            corr = new_correlations.get(ticker, 0)
+            # Extract scalar and convert to float (REC-303)
+            vol = float(np.sqrt(cov_matrix[idx, idx]).item() if hasattr(cov_matrix[idx, idx], 'item') else np.sqrt(cov_matrix[idx, idx]))
+            corr = float(new_correlations.get(ticker, 0))
             # Lower weight if highly correlated with existing portfolio
             weight = (1 / vol if vol > 0 else 1) * (1 - 0.3 * abs(corr))
-            fallback[ticker] = weight
+            fallback[ticker] = float(weight)
         
         # Normalize
         total = sum(fallback.values())
-        return {k: v * self.TARGET_ALLOCATION / total for k, v in fallback.items()}
+        return {k: float(v * self.TARGET_ALLOCATION / total) for k, v in fallback.items()}
     
     async def _risk_parity_weights(self, tickers: List[str]) -> Dict[str, float]:
         """

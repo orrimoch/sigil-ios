@@ -346,10 +346,10 @@ class TestPositionLimits:
     
     @pytest.mark.asyncio
     @patch.object(PositionSizer, '_get_price')
-    @patch.object(PositionSizer, '_risk_parity_weights')
+    @patch.object(PositionSizer, '_portfolio_risk_parity_weights')
     async def test_min_weight_skipped(self, mock_rp, mock_price, mock_context):
         """Test positions below MIN_WEIGHT are skipped."""
-        # Return a very low weight
+        # Return a very low weight (REC-303: fix mock target)
         mock_rp.return_value = {"AAPL": 0.005}  # 0.5%
         mock_price.return_value = 150.0
         
@@ -369,9 +369,9 @@ class TestRegimeAdjustments:
     
     @pytest.mark.asyncio
     @patch.object(PositionSizer, '_get_price')
-    @patch.object(PositionSizer, '_risk_parity_weights')
+    @patch.object(PositionSizer, '_portfolio_risk_parity_weights')
     async def test_crisis_reduces_position(self, mock_rp, mock_price, mock_portfolio, mock_market_crisis):
-        """Test crisis regime reduces position size."""
+        """Test crisis regime reduces position size (REC-303: fix mock target)."""
         mock_rp.return_value = {"AAPL": 0.10}
         mock_price.return_value = 150.0
         
