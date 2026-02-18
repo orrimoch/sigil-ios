@@ -217,7 +217,7 @@ struct AgentDashboardView: View {
             }
             
             Text(value)
-                .font(.title2.weight(.bold))
+                .font(.system(.title2, design: .monospaced).weight(.bold))  // REC-309: SF Mono for stats
                 .foregroundColor(.Text.primary)
             
             Text(title)
@@ -287,7 +287,7 @@ struct AgentDashboardView: View {
             
             if let price = execution.fillPrice {
                 Text("$\(price, specifier: "%.2f")")
-                    .font(.subheadline.weight(.medium))
+                    .font(.mono)  // REC-309: SF Mono for financial data
                     .foregroundColor(.Text.primary)
             }
             

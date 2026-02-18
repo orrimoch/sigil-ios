@@ -145,7 +145,7 @@ struct AgentHistoryView: View {
                 }
                 
                 Text(item.subtitle)
-                    .font(.caption)
+                    .font(.system(.caption, design: .monospaced))  // REC-309: SF Mono for prices
                     .foregroundColor(.Text.secondary)
             }
             
@@ -155,7 +155,7 @@ struct AgentHistoryView: View {
             VStack(alignment: .trailing, spacing: 4) {
                 if let outcome = item.outcome {
                     Text(outcome)
-                        .font(.subheadline.weight(.medium))
+                        .font(.system(.subheadline, design: .monospaced).weight(.medium))  // REC-309: SF Mono for %
                         .foregroundColor(item.outcomeColor)
                 }
                 

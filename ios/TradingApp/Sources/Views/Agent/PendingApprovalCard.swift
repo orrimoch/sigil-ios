@@ -61,7 +61,7 @@ struct PendingApprovalCard: View {
                         .foregroundColor(.Text.primary)
                     
                     Text("\(trade.shares) shares @ $\(trade.estimatedPrice, specifier: "%.2f")")
-                        .font(.caption)
+                        .font(.system(.caption, design: .monospaced))  // REC-309: SF Mono
                         .foregroundColor(.Text.secondary)
                 }
                 
@@ -70,7 +70,7 @@ struct PendingApprovalCard: View {
                 // Value
                 VStack(alignment: .trailing, spacing: 2) {
                     Text(trade.formattedValue)
-                        .font(.headline)
+                        .font(.system(.headline, design: .monospaced))  // REC-309: SF Mono for values
                         .foregroundColor(.Text.primary)
                     
                     Text(timeRemaining)
