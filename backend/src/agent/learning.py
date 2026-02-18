@@ -399,14 +399,72 @@ Keep it to 1-2 sentences. Be specific and actionable."""
         ticker: str,
         user_id: str,
     ) -> Dict[str, Any]:
-        """Check if position is still open."""
-        # In production, would query IBKR or trades table
-        # For now, assume open if no exit recorded
-        return {
-            "is_open": True,
-            "exit_price": None,
-            "exit_date": None,
-        }
+        """
+        Check if position is still open by querying the database (REC-319).
+        
+        Returns:
+            - is_open: True if position has shares > 0
+            - exit_price: Fill price of most recent SELL order if closed
+            - exit_date: Date of exit if closed
+        """
+        try:
+            from auth.database import async_session_factory
+            from db.models import UserPortfolio, UserPosition, UserOrder
+            from sqlalchemy import select, and_, desc
+            
+            async with async_session_factory() as db:
+                # Get user's portfolio
+                result = await db.execute(
+                    select(UserPortfolio).where(UserPortfolio.user_id == user_id)
+                )
+                portfolio = result.scalars().first()
+                
+                if not portfolio:
+                    # No portfolio = no position
+                    return {"is_open": False, "exit_price": None, "exit_date": None}
+                
+                # Check current position
+                result = await db.execute(
+                    select(UserPosition).where(
+                        and_(
+                            UserPosition.portfolio_id == portfolio.id,
+                            UserPosition.ticker == ticker.upper()
+                        )
+                    )
+                )
+                position = result.scalars().first()
+                
+                if position and position.quantity > 0:
+                    # Position still open
+                    return {"is_open": True, "exit_price": None, "exit_date": None}
+                
+                # Position closed (or never existed) - find most recent SELL order
+                result = await db.execute(
+                    select(UserOrder).where(
+                        and_(
+                            UserOrder.user_id == user_id,
+                            UserOrder.ticker == ticker.upper(),
+                            UserOrder.side == "SELL",
+                            UserOrder.status == "FILLED"
+                        )
+                    ).order_by(desc(UserOrder.filled_at)).limit(1)
+                )
+                sell_order = result.scalars().first()
+                
+                if sell_order:
+                    return {
+                        "is_open": False,
+                        "exit_price": sell_order.filled_price,
+                        "exit_date": sell_order.filled_at.isoformat() if sell_order.filled_at else None,
+                    }
+                
+                # No position and no sell order found
+                return {"is_open": False, "exit_price": None, "exit_date": None}
+                
+        except Exception as e:
+            logger.warning(f"Failed to get position status for {ticker}: {e}")
+            # Fallback: assume open to avoid premature outcome calculation
+            return {"is_open": True, "exit_price": None, "exit_date": None}
     
     async def _get_current_price(self, ticker: str) -> float:
         """Get current price for timeout calculations."""
