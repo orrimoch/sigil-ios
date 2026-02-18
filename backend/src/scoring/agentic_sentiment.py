@@ -427,11 +427,30 @@ class AgenticSentimentAnalyzer:
         # Prepare the prompt
         user_message = self._build_prompt(ticker, articles)
         
-        # Call Claude
-        response = self.client.analyze(
-            system_prompt=SENTIMENT_AGENT_SYSTEM_PROMPT,
-            user_message=user_message,
-        )
+        # Call Claude (async method, run synchronously)
+        import asyncio
+        try:
+            loop = asyncio.get_event_loop()
+            if loop.is_running():
+                # If already in async context, create new loop
+                import concurrent.futures
+                with concurrent.futures.ThreadPoolExecutor() as executor:
+                    future = executor.submit(asyncio.run, self.client.analyze(
+                        system_prompt=SENTIMENT_AGENT_SYSTEM_PROMPT,
+                        user_message=user_message,
+                    ))
+                    response = future.result()
+            else:
+                response = loop.run_until_complete(self.client.analyze(
+                    system_prompt=SENTIMENT_AGENT_SYSTEM_PROMPT,
+                    user_message=user_message,
+                ))
+        except RuntimeError:
+            # No event loop, create one
+            response = asyncio.run(self.client.analyze(
+                system_prompt=SENTIMENT_AGENT_SYSTEM_PROMPT,
+                user_message=user_message,
+            ))
         
         if response is None:
             raise RuntimeError(f"LLM returned no response for {ticker}")
