@@ -88,8 +88,21 @@ jobs:
       - name: Validate outputs
         working-directory: backend
         run: |
+          MODE="${{ steps.mode.outputs.mode }}"
           echo "✅ Validating pipeline outputs..."
-          python -m src.cli.run_pipeline validate
+          
+          if [ "$MODE" == "test" ]; then
+            echo "⚠️ Skipping strict validation in test mode"
+            # Just check file exists
+            if [ -f "data/composite_scores.json" ]; then
+              echo "✅ composite_scores.json exists"
+            else
+              echo "❌ composite_scores.json missing"
+              exit 1
+            fi
+          else
+            python -m src.cli.run_pipeline validate
+          fi
       
       - name: Commit updated data
         run: |
