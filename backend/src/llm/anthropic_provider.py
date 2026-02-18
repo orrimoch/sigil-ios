@@ -9,6 +9,15 @@ import asyncio
 import logging
 from typing import Optional, Dict, Any
 
+# REC-312: Retry logic for API resilience
+from tenacity import (
+    retry,
+    stop_after_attempt,
+    wait_exponential,
+    retry_if_exception_type,
+    before_sleep_log,
+)
+
 from .base import LLMProvider, LLMConfig, LLMResponse, TokenUsage, LLMProviderType
 
 logger = logging.getLogger(__name__)
@@ -66,6 +75,13 @@ class AnthropicProvider(LLMProvider):
     def default_model(self) -> str:
         return self.config.model or DEFAULT_MODEL
     
+    @retry(
+        stop=stop_after_attempt(3),
+        wait=wait_exponential(multiplier=1, min=2, max=30),
+        retry=retry_if_exception_type((Exception,)),
+        before_sleep=before_sleep_log(logger, logging.WARNING),
+        reraise=True,
+    )
     async def generate(
         self,
         prompt: str,

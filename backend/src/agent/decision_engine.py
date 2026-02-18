@@ -13,6 +13,15 @@ from datetime import datetime
 from pathlib import Path
 from loguru import logger
 
+# REC-312: Retry logic for API resilience
+from tenacity import (
+    retry,
+    stop_after_attempt,
+    wait_exponential,
+    retry_if_exception_type,
+    before_sleep_log,
+)
+
 # Add src to path for imports
 import sys
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -170,8 +179,15 @@ class DecisionEngine:
                 model=self.model,
             )
     
+    @retry(
+        stop=stop_after_attempt(3),
+        wait=wait_exponential(multiplier=1, min=2, max=30),
+        retry=retry_if_exception_type((Exception,)),  # Retry on any exception
+        before_sleep=before_sleep_log(logger, "WARNING"),
+        reraise=True,
+    )
     async def _call_claude(self, prompt: str) -> Dict[str, Any]:
-        """Call Claude API with extended thinking."""
+        """Call Claude API with extended thinking and retry logic (REC-312)."""
         try:
             import anthropic
             
