@@ -128,6 +128,10 @@ class ExecutionResult:
     stop_order_id: Optional[str] = None
     message: str = ""
     executed_at: Optional[datetime] = None
+    # REC-311: Partial fill tracking
+    requested_shares: Optional[int] = None  # Original requested quantity
+    remaining_shares: Optional[int] = None  # Unfilled quantity
+    is_partial_fill: bool = False
     
     def to_dict(self) -> Dict[str, Any]:
         return {
@@ -142,6 +146,9 @@ class ExecutionResult:
             "stop_order_id": self.stop_order_id,
             "message": self.message,
             "executed_at": self.executed_at.isoformat() if self.executed_at else None,
+            "requested_shares": self.requested_shares,
+            "remaining_shares": self.remaining_shares,
+            "is_partial_fill": self.is_partial_fill,
         }
 
 
@@ -336,8 +343,35 @@ class TradeExecutor:
                 )
             
             fill_price = order_result["fill_price"]
-            fill_value = fill_price * shares
             order_id = order_result["order_id"]
+            
+            # REC-311: Handle partial fills
+            original_shares = shares
+            filled_shares = order_result.get("filled_quantity", shares)
+            remaining_shares = order_result.get("remaining_quantity", 0)
+            is_partial = order_result.get("status") == "PARTIAL" or (filled_shares > 0 and remaining_shares > 0)
+            
+            if is_partial:
+                logger.warning(
+                    f"PARTIAL FILL: {ticker} {action} - filled {filled_shares}/{original_shares} shares, "
+                    f"{remaining_shares} remaining"
+                )
+                shares = int(filled_shares)  # Use actual filled quantity
+            
+            fill_value = fill_price * shares
+            
+            # Skip further processing if nothing was filled
+            if shares == 0:
+                return ExecutionResult(
+                    success=False,
+                    ticker=ticker,
+                    action=action,
+                    shares=0,
+                    order_id=order_id,
+                    message=f"Order not filled - {remaining_shares} shares unfilled",
+                    requested_shares=original_shares,
+                    remaining_shares=int(remaining_shares),
+                )
             
             # Attach stop-loss if BUY and configured
             stop_order_id = None
@@ -375,8 +409,12 @@ class TradeExecutor:
                 fill_price=fill_price,
                 fill_value=fill_value,
                 stop_order_id=stop_order_id,
-                message="Executed",
+                message="Partial fill" if is_partial else "Executed",
                 executed_at=datetime.utcnow(),
+                # REC-311: Partial fill info
+                requested_shares=original_shares if is_partial else None,
+                remaining_shares=int(remaining_shares) if is_partial else None,
+                is_partial_fill=is_partial,
             )
             
             self._execution_history.append(result)
@@ -544,12 +582,15 @@ class TradeExecutor:
                 "MARKET",  # order_type
             )
             # result is an IBKROrder object with: order_id, status, filled_price
-            # Status is mapped to: FILLED, PENDING, CANCELLED, REJECTED
+            # Status is mapped to: FILLED, PARTIAL, PENDING, CANCELLED, REJECTED
+            # REC-311: Include partial fill info
             return {
-                "success": result.status == "FILLED",
+                "success": result.status in ["FILLED", "PARTIAL"],
                 "order_id": str(result.order_id),
                 "fill_price": result.filled_price,
                 "status": result.status,
+                "filled_quantity": result.filled_quantity,
+                "remaining_quantity": result.remaining_quantity,
             }
         except Exception as e:
             logger.error(f"IBKR order failed: {e}")

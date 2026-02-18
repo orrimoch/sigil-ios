@@ -4,12 +4,36 @@ Sigil Auth — User SQLAlchemy model.
 
 import uuid
 from datetime import datetime, timezone
-from sqlalchemy import Column, String, Boolean, DateTime, Text
+from sqlalchemy import Column, String, Boolean, DateTime, Text, Integer
 from .database import Base
 
 
 def _utcnow():
     return datetime.now(timezone.utc)
+
+
+class LoginAttempt(Base):
+    """Track failed login attempts for brute force protection (REC-306)."""
+    __tablename__ = "login_attempts"
+
+    email = Column(String(255), primary_key=True, index=True)
+    failed_attempts = Column(Integer, default=0, nullable=False)
+    first_attempt_at = Column(DateTime(timezone=True), nullable=True)
+    locked_until = Column(DateTime(timezone=True), nullable=True)
+    updated_at = Column(DateTime(timezone=True), default=_utcnow, onupdate=_utcnow, nullable=False)
+
+
+class RefreshToken(Base):
+    """Track refresh tokens for rotation and revocation (REC-308)."""
+    __tablename__ = "refresh_tokens"
+
+    id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    user_id = Column(String(36), nullable=False, index=True)
+    token_hash = Column(String(64), nullable=False, unique=True, index=True)  # SHA-256 hash
+    expires_at = Column(DateTime(timezone=True), nullable=False)
+    created_at = Column(DateTime(timezone=True), default=_utcnow, nullable=False)
+    revoked = Column(Boolean, default=False, nullable=False)
+    replaced_by = Column(String(36), nullable=True)  # ID of token that replaced this one
 
 
 class User(Base):

@@ -3,66 +3,86 @@ Sigil Auth — API endpoints for authentication.
 """
 
 import json
-import time
-from collections import defaultdict
+from datetime import datetime, timezone, timedelta
 from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel, EmailStr, Field
-from typing import Optional, Dict, Tuple
+from typing import Optional
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from .database import get_db_session
 from .auth_service import AuthService
 from .middleware import get_current_user
-from .models import User
+from .models import User, LoginAttempt
 
 auth_router = APIRouter(prefix="/api/v1/auth", tags=["auth"])
 
-# AUTH-003: Brute force protection
-# Track failed login attempts: email -> (attempts, first_attempt_time)
-# HIGH NOTE SEC-004: In-memory tracking doesn't persist across restarts.
-# For production with multiple instances, use Redis or database-backed tracking.
-# Current implementation is acceptable for single-server deployment.
-_failed_logins: Dict[str, Tuple[int, float]] = defaultdict(lambda: (0, 0.0))
+# AUTH-003: Brute force protection (REC-306: now DB-backed, persists across restarts)
 _LOCKOUT_THRESHOLD = 5  # Lock after 5 failed attempts
-_LOCKOUT_DURATION = 15 * 60  # 15 minutes in seconds
+_LOCKOUT_DURATION = timedelta(minutes=15)
 
 
-def _check_brute_force(email: str) -> None:
+async def _check_brute_force(email: str, db: AsyncSession) -> None:
     """Check if account is locked due to too many failed attempts."""
     email = email.lower().strip()
-    attempts, first_time = _failed_logins[email]
     
-    if attempts >= _LOCKOUT_THRESHOLD:
-        elapsed = time.time() - first_time
-        if elapsed < _LOCKOUT_DURATION:
-            remaining = int(_LOCKOUT_DURATION - elapsed)
+    result = await db.execute(select(LoginAttempt).where(LoginAttempt.email == email))
+    attempt = result.scalar_one_or_none()
+    
+    if attempt and attempt.failed_attempts >= _LOCKOUT_THRESHOLD:
+        now = datetime.now(timezone.utc)
+        if attempt.locked_until and now < attempt.locked_until:
+            remaining = int((attempt.locked_until - now).total_seconds())
             raise HTTPException(
                 status_code=status.HTTP_429_TOO_MANY_REQUESTS,
                 detail=f"Account temporarily locked due to too many failed attempts. Try again in {remaining // 60} minutes."
             )
-        else:
+        elif attempt.locked_until and now >= attempt.locked_until:
             # Lockout expired, reset
-            _failed_logins[email] = (0, 0.0)
+            attempt.failed_attempts = 0
+            attempt.first_attempt_at = None
+            attempt.locked_until = None
+            await db.commit()
 
 
-def _record_failed_login(email: str) -> None:
+async def _record_failed_login(email: str, db: AsyncSession) -> None:
     """Record a failed login attempt."""
     email = email.lower().strip()
-    attempts, first_time = _failed_logins[email]
+    now = datetime.now(timezone.utc)
     
-    if attempts == 0:
-        # First failed attempt
-        _failed_logins[email] = (1, time.time())
+    result = await db.execute(select(LoginAttempt).where(LoginAttempt.email == email))
+    attempt = result.scalar_one_or_none()
+    
+    if attempt is None:
+        # First failed attempt for this email
+        attempt = LoginAttempt(
+            email=email,
+            failed_attempts=1,
+            first_attempt_at=now,
+        )
+        db.add(attempt)
     else:
-        # Subsequent failed attempt
-        _failed_logins[email] = (attempts + 1, first_time)
+        attempt.failed_attempts += 1
+        if attempt.first_attempt_at is None:
+            attempt.first_attempt_at = now
+        
+        # Set lockout time if threshold reached
+        if attempt.failed_attempts >= _LOCKOUT_THRESHOLD:
+            attempt.locked_until = now + _LOCKOUT_DURATION
+    
+    await db.commit()
 
 
-def _clear_failed_logins(email: str) -> None:
+async def _clear_failed_logins(email: str, db: AsyncSession) -> None:
     """Clear failed login attempts on successful login."""
     email = email.lower().strip()
-    if email in _failed_logins:
-        del _failed_logins[email]
+    
+    result = await db.execute(select(LoginAttempt).where(LoginAttempt.email == email))
+    attempt = result.scalar_one_or_none()
+    
+    if attempt:
+        await db.delete(attempt)
+        await db.commit()
 
 
 # ── Request / Response schemas ──────────────────────────────────────────
@@ -135,6 +155,7 @@ class AuthResponse(BaseModel):
 class TokenResponse(BaseModel):
     success: bool = True
     access_token: str
+    refresh_token: Optional[str] = None  # REC-308: Included on rotation
 
 
 class ProfileResponse(BaseModel):
@@ -176,8 +197,8 @@ async def login(
     db: AsyncSession = Depends(get_db_session),
 ):
     """Log in with email and password."""
-    # AUTH-003: Check brute force lockout before attempting login
-    _check_brute_force(request.email)
+    # AUTH-003: Check brute force lockout before attempting login (REC-306: DB-backed)
+    await _check_brute_force(request.email, db)
     
     try:
         user, access_token, refresh_token = await AuthService.login(
@@ -186,10 +207,10 @@ async def login(
             password=request.password,
         )
         # Clear failed attempts on successful login
-        _clear_failed_logins(request.email)
+        await _clear_failed_logins(request.email, db)
     except ValueError as e:
         # Record failed attempt
-        _record_failed_login(request.email)
+        await _record_failed_login(request.email, db)
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=str(e))
 
     return {
@@ -207,9 +228,9 @@ async def refresh(
     request: RefreshRequest,
     db: AsyncSession = Depends(get_db_session),
 ):
-    """Exchange a refresh token for a new access token."""
+    """Exchange a refresh token for new tokens (REC-308: rotation)."""
     try:
-        access_token = await AuthService.refresh_access_token(
+        access_token, new_refresh_token = await AuthService.refresh_access_token(
             db=db,
             refresh_token=request.refresh_token,
         )
@@ -222,6 +243,7 @@ async def refresh(
     return {
         "success": True,
         "access_token": access_token,
+        "refresh_token": new_refresh_token,  # REC-308: Return rotated token
     }
 
 

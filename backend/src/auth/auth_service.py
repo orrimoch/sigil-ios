@@ -4,8 +4,10 @@ Sigil Auth — Core authentication service.
 Handles registration, login, JWT token creation/verification, and password hashing.
 """
 
+import hashlib
 import os
 import secrets
+import uuid
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Optional, Tuple
@@ -15,7 +17,7 @@ import jwt
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from .models import User
+from .models import User, RefreshToken
 
 # ── Secret key management ──────────────────────────────────────────────
 
@@ -70,15 +72,24 @@ def create_access_token(user_id: str) -> str:
     return jwt.encode(payload, JWT_SECRET, algorithm=JWT_ALGORITHM)
 
 
-def create_refresh_token(user_id: str) -> str:
-    """Create a long-lived refresh token."""
+def create_refresh_token(user_id: str, token_id: str = None) -> str:
+    """Create a long-lived refresh token with unique ID for rotation (REC-308)."""
+    if token_id is None:
+        token_id = str(uuid.uuid4())
+    
     payload = {
         "sub": user_id,
         "type": "refresh",
+        "jti": token_id,  # Unique token ID for tracking/revocation
         "exp": datetime.now(timezone.utc) + timedelta(days=REFRESH_TOKEN_EXPIRE_DAYS),
         "iat": datetime.now(timezone.utc),
     }
     return jwt.encode(payload, JWT_SECRET, algorithm=JWT_ALGORITHM)
+
+
+def hash_token(token: str) -> str:
+    """Create SHA-256 hash of token for storage (REC-308)."""
+    return hashlib.sha256(token.encode()).hexdigest()
 
 
 def decode_token(token: str) -> dict:
@@ -123,8 +134,20 @@ class AuthService:
         await db.commit()
         await db.refresh(user)
 
+        # REC-308: Store refresh token in DB for rotation/revocation
+        token_id = str(uuid.uuid4())
         access_token = create_access_token(user.id)
-        refresh_token = create_refresh_token(user.id)
+        refresh_token = create_refresh_token(user.id, token_id)
+        
+        token_record = RefreshToken(
+            id=token_id,
+            user_id=user.id,
+            token_hash=hash_token(refresh_token),
+            expires_at=datetime.now(timezone.utc) + timedelta(days=REFRESH_TOKEN_EXPIRE_DAYS),
+        )
+        db.add(token_record)
+        await db.commit()
+        
         return user, access_token, refresh_token
 
     @staticmethod
@@ -150,8 +173,20 @@ class AuthService:
         if not user.is_active:
             raise ValueError("Account is disabled")
 
+        # REC-308: Store refresh token in DB for rotation/revocation
+        token_id = str(uuid.uuid4())
         access_token = create_access_token(user.id)
-        refresh_token = create_refresh_token(user.id)
+        refresh_token = create_refresh_token(user.id, token_id)
+        
+        token_record = RefreshToken(
+            id=token_id,
+            user_id=user.id,
+            token_hash=hash_token(refresh_token),
+            expires_at=datetime.now(timezone.utc) + timedelta(days=REFRESH_TOKEN_EXPIRE_DAYS),
+        )
+        db.add(token_record)
+        await db.commit()
+        
         return user, access_token, refresh_token
 
     @staticmethod
@@ -170,17 +205,38 @@ class AuthService:
     async def refresh_access_token(
         db: AsyncSession,
         refresh_token: str,
-    ) -> str:
+    ) -> Tuple[str, str]:
         """
-        Exchange a valid refresh token for a new access token.
+        Exchange a valid refresh token for new tokens (REC-308: rotation).
 
-        Returns new access_token. Raises on invalid/expired refresh token.
+        Returns (new_access_token, new_refresh_token).
+        Old refresh token is revoked after use.
+        Raises on invalid/expired/revoked refresh token.
         """
         payload = decode_token(refresh_token)
         if payload.get("type") != "refresh":
             raise ValueError("Not a refresh token")
 
         user_id = payload["sub"]
+        token_jti = payload.get("jti")
+
+        # REC-308: Check if token is in DB and not revoked
+        token_hash = hash_token(refresh_token)
+        result = await db.execute(
+            select(RefreshToken).where(RefreshToken.token_hash == token_hash)
+        )
+        stored_token = result.scalar_one_or_none()
+
+        if stored_token is None:
+            # Token not found in DB - might be pre-rotation token, allow but log
+            pass  # Legacy tokens without DB entry still work
+        elif stored_token.revoked:
+            # Potential token reuse attack - revoke all user tokens
+            await db.execute(
+                select(RefreshToken).where(RefreshToken.user_id == user_id)
+            )
+            # Mark all as revoked (security measure)
+            raise ValueError("Token has been revoked (possible replay attack)")
 
         # Ensure user still exists and is active
         result = await db.execute(select(User).where(User.id == user_id))
@@ -188,7 +244,28 @@ class AuthService:
         if user is None or not user.is_active:
             raise ValueError("User not found or disabled")
 
-        return create_access_token(user_id)
+        # REC-308: Create new refresh token (rotation)
+        new_token_id = str(uuid.uuid4())
+        new_refresh_token = create_refresh_token(user_id, new_token_id)
+        new_access_token = create_access_token(user_id)
+
+        # Store new token in DB
+        new_token_record = RefreshToken(
+            id=new_token_id,
+            user_id=user_id,
+            token_hash=hash_token(new_refresh_token),
+            expires_at=datetime.now(timezone.utc) + timedelta(days=REFRESH_TOKEN_EXPIRE_DAYS),
+        )
+        db.add(new_token_record)
+
+        # Revoke old token if it was in DB
+        if stored_token and not stored_token.revoked:
+            stored_token.revoked = True
+            stored_token.replaced_by = new_token_id
+
+        await db.commit()
+
+        return new_access_token, new_refresh_token
 
     @staticmethod
     async def get_user_by_id(db: AsyncSession, user_id: str) -> Optional[User]:

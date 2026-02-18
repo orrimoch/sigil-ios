@@ -95,9 +95,19 @@ class IBKROrder:
     filled_price: Optional[float] = None
     filled_at: Optional[str] = None
     is_paper: bool = False
+    # REC-311: Partial fill tracking
+    filled_quantity: Optional[float] = None
+    remaining_quantity: Optional[float] = None
 
     def to_dict(self) -> dict:
         return asdict(self)
+    
+    @property
+    def is_partial_fill(self) -> bool:
+        """Check if order was partially filled."""
+        if self.filled_quantity is None or self.remaining_quantity is None:
+            return False
+        return self.filled_quantity > 0 and self.remaining_quantity > 0
 
 
 @dataclass
@@ -489,12 +499,19 @@ class IBKRService:
 
         filled_price = None
         filled_at = None
-        if mapped_status == "FILLED":
+        filled_qty = trade.orderStatus.filled if trade.orderStatus else 0
+        remaining_qty = trade.orderStatus.remaining if trade.orderStatus else quantity
+        
+        if mapped_status == "FILLED" or filled_qty > 0:
             filled_price = trade.orderStatus.avgFillPrice
             if trade.fills:
                 filled_at = trade.fills[-1].time.isoformat() if trade.fills[-1].time else None
             if not filled_at:
                 filled_at = datetime.now().isoformat()
+
+        # REC-311: Detect partial fills
+        if filled_qty > 0 and remaining_qty > 0:
+            mapped_status = "PARTIAL"  # Custom status for partial fills
 
         order = IBKROrder(
             order_id=str(trade.order.orderId),
@@ -506,6 +523,8 @@ class IBKRService:
             filled_price=filled_price,
             filled_at=filled_at,
             is_paper=conn.is_paper,
+            filled_quantity=filled_qty,
+            remaining_quantity=remaining_qty,
         )
 
         logger.info(
