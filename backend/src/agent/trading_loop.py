@@ -274,7 +274,7 @@ class TradingLoop:
             
             # Log data freshness info
             df = context.data_freshness
-            logger.info(f"Data freshness OK - Scores: {df.scores_age_hours:.1f}h, Regime: {df.regime_age_hours:.1f}h")
+            logger.info(f"Data freshness OK - Scores: {df.scores_age_hours:.1f}h, Regime: {df.regime_age_hours or 0:.1f}h")
             
             # STEP 2: Memory Retrieval
             logger.info("Step 2: Retrieving similar situations...")

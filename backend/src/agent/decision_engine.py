@@ -129,7 +129,7 @@ class DecisionEngine:
         self,
         api_key: str = None,
         model: str = DEFAULT_MODEL,
-        thinking_budget: int = 5000
+        thinking_budget: int = 2000  # Haiku limit is 4096 total
     ):
         self.api_key = api_key or os.environ.get("ANTHROPIC_API_KEY")
         self.model = model
@@ -199,7 +199,7 @@ class DecisionEngine:
             
             kwargs = {
                 "model": self.model,
-                "max_tokens": 8000,  # Must be > thinking_budget
+                "max_tokens": 4096,  # Haiku limit
                 "system": SYSTEM_PROMPT,
                 "messages": [{"role": "user", "content": prompt}],
             }
@@ -327,18 +327,19 @@ class DecisionEngine:
         elif market.regime == "high_volatility":
             risk_warnings.append("⚠️ HIGH VOLATILITY: Consider smaller position sizes")
         
-        if market.vix > 30:
-            risk_warnings.append(f"⚠️ VIX ELEVATED ({market.vix:.0f}): Reduce position sizes by 30%")
-        elif market.vix > 25:
-            risk_warnings.append(f"⚠️ VIX ELEVATED ({market.vix:.0f}): Reduce position sizes by 20%")
-        elif market.vix > 20:
-            risk_warnings.append(f"⚠️ VIX ABOVE NORMAL ({market.vix:.0f}): Be cautious")
+        vix = market.vix or 0
+        if vix > 30:
+            risk_warnings.append(f"⚠️ VIX ELEVATED ({vix:.0f}): Reduce position sizes by 30%")
+        elif vix > 25:
+            risk_warnings.append(f"⚠️ VIX ELEVATED ({vix:.0f}): Reduce position sizes by 20%")
+        elif vix > 20:
+            risk_warnings.append(f"⚠️ VIX ABOVE NORMAL ({vix:.0f}): Be cautious")
         
         risk_section = "\n".join(risk_warnings) if risk_warnings else "✅ No elevated risk warnings"
         
         sections.append(f"""## Market State
-- Regime: {market.regime} (confidence: {market.regime_confidence:.0%})
-- VIX: {market.vix:.1f} ({market.vix_regime})
+- Regime: {market.regime} (confidence: {(market.regime_confidence or 0):.0%})
+- VIX: {(market.vix or 0):.1f} ({market.vix_regime or 'unknown'})
 - Trend: {market.trend}
 
 ### Risk Warnings

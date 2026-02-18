@@ -5,6 +5,8 @@ struct AgentDashboardView: View {
     @State private var showSettings = false
     @State private var showHistory = false
     @State private var showPerformance = false  // REC-318
+    @State private var showRunConfirmation = false
+    @AppStorage("agentLastRunDate") private var lastRunDateString: String = ""
     
     var body: some View {
         NavigationStack {
@@ -74,6 +76,16 @@ struct AgentDashboardView: View {
             .task {
                 await viewModel.loadData()
             }
+            .alert("Run Agent", isPresented: $showRunConfirmation) {
+                Button("Cancel", role: .cancel) { }
+                Button("Run Now") {
+                    Task {
+                        await runAgent()
+                    }
+                }
+            } message: {
+                Text("Run the AI agent to generate trading recommendations? This will analyze your portfolio and market conditions.")
+            }
             .alert("Error", isPresented: .init(
                 get: { viewModel.errorMessage != nil },
                 set: { if !$0 { viewModel.errorMessage = nil } }
@@ -83,6 +95,24 @@ struct AgentDashboardView: View {
                 Text(viewModel.errorMessage ?? "")
             }
         }
+    }
+    
+    // MARK: - Run Agent Logic
+    
+    private var hasRunToday: Bool {
+        guard !lastRunDateString.isEmpty else { return false }
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        guard let lastRun = formatter.date(from: lastRunDateString) else { return false }
+        return Calendar.current.isDateInToday(lastRun)
+    }
+    
+    private func runAgent() async {
+        await viewModel.runAgent()
+        // Mark as run today
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        lastRunDateString = formatter.string(from: Date())
     }
     
     // MARK: - Agent Status Card
@@ -100,6 +130,28 @@ struct AgentDashboardView: View {
                     .foregroundColor(.Text.primary)
                 
                 Spacer()
+                
+                // Run Agent button (only show if not run today)
+                if !hasRunToday && !viewModel.isPaused {
+                    Button {
+                        showRunConfirmation = true
+                    } label: {
+                        HStack(spacing: 4) {
+                            Image(systemName: "play.fill")
+                                .font(.caption)
+                            Text("Run")
+                        }
+                        .font(.subheadline.weight(.medium))
+                        .foregroundColor(.Brand.primary)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 6)
+                        .background(
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(Color.Brand.primary, lineWidth: 1)
+                        )
+                    }
+                    .disabled(viewModel.isRunning)
+                }
                 
                 // Pause/Resume button
                 Button {
@@ -338,6 +390,7 @@ class AgentDashboardViewModel: ObservableObject {
     @Published var weeklyTrades: Int = 0
     @Published var weeklyPnLValue: Double = 0
     @Published var isLoading = false
+    @Published var isRunning = false
     @Published var lastRunDate: Date?
     @Published var stats: AgentStats?
     @Published var errorMessage: String?
@@ -472,6 +525,43 @@ class AgentDashboardViewModel: ObservableObject {
             }
         } catch {
             errorMessage = "Network error: \(error.localizedDescription)"
+        }
+    }
+    
+    func runAgent() async {
+        isRunning = true
+        status = "running"
+        defer { isRunning = false }
+        
+        guard let url = URL(string: "http://127.0.0.1:8000/api/v1/agent/run?dry_run=false") else { return }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.timeoutInterval = 120  // 2 minute timeout for agent run
+        
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+            if let http = response as? HTTPURLResponse {
+                if http.statusCode == 200 {
+                    // Parse response to check success
+                    if let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+                       let success = json["success"] as? Bool {
+                        if success {
+                            print("✅ Agent run completed successfully")
+                        } else {
+                            let message = json["message"] as? String ?? "Unknown error"
+                            errorMessage = "Agent run failed: \(message)"
+                        }
+                    }
+                    // Reload data to show new decisions/pending trades
+                    await loadData()
+                } else {
+                    errorMessage = "Agent run failed (HTTP \(http.statusCode))"
+                }
+            }
+        } catch {
+            errorMessage = "Network error: \(error.localizedDescription)"
+            await loadData()  // Refresh anyway to get current status
         }
     }
     
