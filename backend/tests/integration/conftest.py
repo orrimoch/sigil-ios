@@ -9,6 +9,7 @@ Provides:
 
 import os
 import pytest
+import pytest_asyncio
 import sys
 from pathlib import Path
 from httpx import AsyncClient, ASGITransport
@@ -25,7 +26,7 @@ def anyio_backend():
     return "asyncio"
 
 
-@pytest.fixture
+@pytest_asyncio.fixture
 async def app():
     """Create test app instance with auth disabled."""
     # Ensure AUTH_REQUIRED is false
@@ -40,7 +41,7 @@ async def app():
     return app
 
 
-@pytest.fixture
+@pytest_asyncio.fixture
 async def client(app):
     """Create async test client."""
     transport = ASGITransport(app=app)
@@ -78,7 +79,7 @@ async def test_user_id():
 
 
 # Clean up after tests
-@pytest.fixture(autouse=True)
+@pytest_asyncio.fixture(autouse=True)
 async def cleanup():
     """Clean up test data after each test."""
     yield
