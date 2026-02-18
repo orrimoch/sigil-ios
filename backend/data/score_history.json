@@ -2,12 +2,12 @@
   "AAPL": [
     {
       "date": "2026-02-18",
-      "total_score": 39.14,
-      "signal": "SELL",
+      "total_score": 69.4,
+      "signal": "HOLD",
       "fundamental_score": 11.4,
-      "sentiment_score": 7.32,
-      "technical_score": 74.57,
-      "macro_score": 99.89
+      "sentiment_score": 75.0,
+      "technical_score": 50.0,
+      "macro_score": 100.0
     },
     {
       "date": "2026-02-17",
@@ -85,12 +85,12 @@
   "MSFT": [
     {
       "date": "2026-02-18",
-      "total_score": 50.35,
+      "total_score": 42.74,
       "signal": "HOLD",
       "fundamental_score": 4.04,
-      "sentiment_score": 100.0,
-      "technical_score": 15.88,
-      "macro_score": 99.79
+      "sentiment_score": 50.0,
+      "technical_score": 0.0,
+      "macro_score": 75.0
     },
     {
       "date": "2026-02-17",
@@ -1280,12 +1280,12 @@
   "NVDA": [
     {
       "date": "2026-02-18",
-      "total_score": 24.58,
-      "signal": "SELL",
+      "total_score": 66.24,
+      "signal": "HOLD",
       "fundamental_score": 0.0,
-      "sentiment_score": 1.69,
-      "technical_score": 39.38,
-      "macro_score": 100.0
+      "sentiment_score": 100.0,
+      "technical_score": 75.0,
+      "macro_score": 50.0
     },
     {
       "date": "2026-02-17",
@@ -1410,12 +1410,12 @@
   "GOOGL": [
     {
       "date": "2026-02-18",
-      "total_score": 19.81,
+      "total_score": 39.61,
       "signal": "SELL",
       "fundamental_score": 5.49,
-      "sentiment_score": 6.76,
-      "technical_score": 59.87,
-      "macro_score": 43.24
+      "sentiment_score": 0.0,
+      "technical_score": 100.0,
+      "macro_score": 25.0
     },
     {
       "date": "2026-02-17",
@@ -1475,12 +1475,12 @@
   "AMZN": [
     {
       "date": "2026-02-18",
-      "total_score": 24.21,
+      "total_score": 32.0,
       "signal": "SELL",
       "fundamental_score": 25.91,
-      "sentiment_score": 6.48,
-      "technical_score": 48.71,
-      "macro_score": 37.77
+      "sentiment_score": 25.0,
+      "technical_score": 25.0,
+      "macro_score": 0.0
     },
     {
       "date": "2026-02-17",
