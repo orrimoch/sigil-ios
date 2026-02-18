@@ -74,7 +74,7 @@ def _get_user_id(user) -> str:
 @ibkr_router.post("/connect")
 async def connect_ibkr(
     request: IBKRConnectRequest,
-    user=Depends(get_optional_user),
+    user=Depends(get_required_user),  # REC-305: require auth for brokerage connection
 ):
     """
     Connect to IBKR via mock OAuth flow.
@@ -116,7 +116,7 @@ async def get_ibkr_status(user=Depends(get_optional_user)):
 
 
 @ibkr_router.post("/disconnect")
-async def disconnect_ibkr(user=Depends(get_optional_user)):
+async def disconnect_ibkr(user=Depends(get_required_user)):  # REC-305: require auth
     """Disconnect from IBKR."""
     try:
         service = get_ibkr_service()
@@ -237,7 +237,7 @@ async def get_ibkr_account_summary(user=Depends(get_required_user)):
 
 
 @ibkr_router.get("/orders/open")
-async def get_ibkr_open_orders(user=Depends(get_optional_user)):
+async def get_ibkr_open_orders(user=Depends(get_required_user)):  # REC-305: require auth for order data
     """Get all open (pending) IBKR orders."""
     try:
         service = get_ibkr_service()
@@ -256,7 +256,7 @@ async def get_ibkr_open_orders(user=Depends(get_optional_user)):
 
 
 @ibkr_router.get("/margin")
-async def get_ibkr_margin(user=Depends(get_optional_user)):
+async def get_ibkr_margin(user=Depends(get_required_user)):  # REC-305: require auth for account data
     """
     Get margin status from IB Gateway (REC-153).
     
@@ -400,7 +400,7 @@ async def get_historical_bars(
 @ibkr_router.post("/bracket")
 async def submit_bracket_order(
     request: IBKRBracketOrderRequest,
-    user=Depends(get_optional_user),
+    user=Depends(get_required_user),  # REC-305: CRITICAL - require auth for order submission
 ):
     """
     Submit a bracket order (entry + take-profit + stop-loss) to IB Gateway (REC-161).
@@ -487,7 +487,7 @@ async def get_scanner_results(
 @ibkr_router.post("/whatif")
 async def what_if_order(
     request: IBKRWhatIfRequest,
-    user=Depends(get_optional_user),
+    user=Depends(get_required_user),  # REC-305: require auth for margin simulation
 ):
     """
     Simulate an order to preview margin impact (REC-162).
@@ -522,7 +522,7 @@ async def what_if_order(
 # ═══════════════════════════════════════════════════════════════════════
 
 @ibkr_router.get("/history")
-async def get_trade_history(user=Depends(get_optional_user)):
+async def get_trade_history(user=Depends(get_required_user)):  # REC-305: require auth for trade history
     """
     Get trade execution history from IB Gateway (REC-154).
     
@@ -553,7 +553,7 @@ class DailyLossLimitRequest(BaseModel):
 
 
 @ibkr_router.get("/daily-pnl")
-async def get_daily_pnl(user=Depends(get_optional_user)):
+async def get_daily_pnl(user=Depends(get_required_user)):  # REC-305: require auth for P&L data
     """
     Get today's PnL and check if trading is halted (REC-152).
     
@@ -577,7 +577,7 @@ async def get_daily_pnl(user=Depends(get_optional_user)):
 @ibkr_router.post("/daily-loss-limit")
 async def set_daily_loss_limit(
     request: DailyLossLimitRequest,
-    user=Depends(get_optional_user),
+    user=Depends(get_required_user),  # REC-305: require auth for setting limits
 ):
     """
     Set user's daily loss limit percentage (REC-152).
@@ -603,7 +603,7 @@ async def set_daily_loss_limit(
 
 
 @ibkr_router.get("/trading-status")
-async def get_trading_status(user=Depends(get_optional_user)):
+async def get_trading_status(user=Depends(get_required_user)):  # REC-305: require auth
     """
     Check if trading is currently halted due to daily loss limit.
     """
@@ -667,7 +667,7 @@ class VolumeWatchlistRequest(BaseModel):
 @ibkr_router.post("/volume/watchlist")
 async def check_watchlist_volumes(
     request: VolumeWatchlistRequest,
-    user=Depends(get_optional_user),
+    user=Depends(get_required_user),  # REC-305: require auth for watchlist operations
 ):
     """
     Check multiple tickers for volume spikes (REC-159).
@@ -707,7 +707,7 @@ class PriceAlertRequest(BaseModel):
 @ibkr_router.post("/alerts")
 async def create_ibkr_price_alert(
     request: PriceAlertRequest,
-    user=Depends(get_optional_user),
+    user=Depends(get_required_user),  # REC-305: require auth for creating alerts
 ):
     """Create a server-side price alert (REC-158)."""
     try:
@@ -731,7 +731,7 @@ async def create_ibkr_price_alert(
 
 
 @ibkr_router.get("/alerts")
-async def get_ibkr_price_alerts(user=Depends(get_optional_user)):
+async def get_ibkr_price_alerts(user=Depends(get_required_user)):  # REC-305: require auth for user alerts
     """Get all price alerts for the current user."""
     try:
         alerts = get_user_alerts(user_id=_get_user_id(user))
@@ -747,7 +747,7 @@ async def get_ibkr_price_alerts(user=Depends(get_optional_user)):
 
 
 @ibkr_router.delete("/alerts/{alert_id}")
-async def delete_ibkr_price_alert(alert_id: str, user=Depends(get_optional_user)):
+async def delete_ibkr_price_alert(alert_id: str, user=Depends(get_required_user)):  # REC-305: require auth
     """Delete a price alert."""
     try:
         deleted = delete_alert(alert_id=alert_id, user_id=_get_user_id(user))
