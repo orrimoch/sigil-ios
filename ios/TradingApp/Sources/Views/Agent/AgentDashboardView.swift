@@ -131,27 +131,25 @@ struct AgentDashboardView: View {
                 
                 Spacer()
                 
-                // Run Agent button (only show if not run today)
-                if !hasRunToday && !viewModel.isPaused {
-                    Button {
-                        showRunConfirmation = true
-                    } label: {
-                        HStack(spacing: 4) {
-                            Image(systemName: "play.fill")
-                                .font(.caption)
-                            Text("Run")
-                        }
-                        .font(.subheadline.weight(.medium))
-                        .foregroundColor(.Brand.primary)
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 6)
-                        .background(
-                            RoundedRectangle(cornerRadius: 8)
-                                .stroke(Color.Brand.primary, lineWidth: 1)
-                        )
+                // Run Agent button (always visible, disabled when paused or running)
+                Button {
+                    showRunConfirmation = true
+                } label: {
+                    HStack(spacing: 4) {
+                        Image(systemName: "play.fill")
+                            .font(.caption)
+                        Text(hasRunToday ? "Run Again" : "Run")
                     }
-                    .disabled(viewModel.isRunning)
+                    .font(.subheadline.weight(.medium))
+                    .foregroundColor(viewModel.isPaused ? .Text.tertiary : .Brand.primary)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 6)
+                    .background(
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(viewModel.isPaused ? Color.Text.tertiary : Color.Brand.primary, lineWidth: 1)
+                    )
                 }
+                .disabled(viewModel.isRunning || viewModel.isPaused)
                 
                 // Pause/Resume button
                 Button {
