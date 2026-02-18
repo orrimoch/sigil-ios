@@ -23,16 +23,18 @@ except ImportError:
 
 
 # Model pricing (per 1M tokens, as of Feb 2026)
+# REC-304: Updated from deprecated claude-3-5-haiku-20241022 (EOL Feb 19, 2026)
 ANTHROPIC_PRICING = {
     "claude-sonnet-4-20250514": {"input": 3.0, "output": 15.0},
     "claude-3-5-sonnet-20241022": {"input": 3.0, "output": 15.0},
-    "claude-3-5-haiku-20241022": {"input": 1.0, "output": 5.0},
+    "claude-3-5-haiku-latest": {"input": 1.0, "output": 5.0},
+    "claude-3-5-haiku-20241022": {"input": 1.0, "output": 5.0},  # Deprecated
     "claude-3-haiku-20240307": {"input": 0.25, "output": 1.25},
     "claude-opus-4-20250514": {"input": 15.0, "output": 75.0},
 }
 
-DEFAULT_MODEL = "claude-3-5-haiku-20241022"
-FALLBACK_MODEL = "claude-3-5-haiku-20241022"
+DEFAULT_MODEL = "claude-3-haiku-20240307"  # REC-304: using older Haiku (not deprecated, 4x cheaper)
+FALLBACK_MODEL = "claude-3-haiku-20240307"
 
 
 class AnthropicProvider(LLMProvider):

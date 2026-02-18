@@ -22,7 +22,7 @@ from .memory import Memory
 
 
 # Default model (Haiku for cost efficiency)
-DEFAULT_MODEL = "claude-3-5-haiku-20241022"
+DEFAULT_MODEL = "claude-3-haiku-20240307"  # REC-304: updated from deprecated 20241022
 
 SYSTEM_PROMPT = """You are an expert portfolio manager for Sigil, an AI-powered trading system.
 

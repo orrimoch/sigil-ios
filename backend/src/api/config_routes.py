@@ -91,7 +91,7 @@ async def get_llm_config():
                 "success": True,
                 "data": {
                     "provider": provider,
-                    "model": os.environ.get("LLM_MODEL", "claude-3-5-haiku-20241022"),
+                    "model": os.environ.get("LLM_MODEL", "claude-3-haiku-20240307"),
                     "available": os.environ.get("ANTHROPIC_API_KEY") is not None,
                     "note": "LLM abstraction layer not loaded",
                 },
@@ -113,8 +113,8 @@ async def get_available_providers():
         providers.append({
             "provider": "anthropic",
             "name": "Anthropic (Claude)",
-            "models": ["claude-3-5-haiku-20241022", "claude-sonnet-4-20250514", "claude-opus-4-20250514"],
-            "default_model": "claude-3-5-haiku-20241022",
+            "models": ["claude-3-haiku-20240307", "claude-sonnet-4-20250514", "claude-opus-4-20250514"],
+            "default_model": "claude-3-haiku-20240307",
             "configured": anthropic_key is not None,
             "env_var": "ANTHROPIC_API_KEY",
         })

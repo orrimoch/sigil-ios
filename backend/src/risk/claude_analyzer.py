@@ -47,7 +47,7 @@ except ImportError:
     logger.warning("LLM abstraction layer not available, using direct Anthropic")
 
 # Fallback model for direct Anthropic (backward compatibility)
-CLAUDE_MODEL = "claude-3-5-haiku-20241022"
+CLAUDE_MODEL = "claude-3-haiku-20240307"  # REC-304: updated from deprecated 20241022
 
 # Cache configuration
 MEMORY_CACHE_TTL_SECONDS = 3600      # 1 hour

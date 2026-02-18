@@ -26,15 +26,15 @@ class LLMProviderType(str, Enum):
     GOOGLE = "google"
 
 
-# Default models per provider
+# Default models per provider (REC-304: updated from deprecated claude-3-5-haiku-20241022)
 DEFAULT_MODELS = {
-    LLMProviderType.ANTHROPIC: "claude-3-5-haiku-20241022",
+    LLMProviderType.ANTHROPIC: "claude-3-haiku-20240307",
     LLMProviderType.OPENAI: "gpt-4o",
     LLMProviderType.GOOGLE: "gemini-2.0-flash",
 }
 
 FALLBACK_MODELS = {
-    LLMProviderType.ANTHROPIC: "claude-3-5-haiku-20241022",
+    LLMProviderType.ANTHROPIC: "claude-3-haiku-20240307",
     LLMProviderType.OPENAI: "gpt-4o-mini",
     LLMProviderType.GOOGLE: "gemini-1.5-flash",
 }
