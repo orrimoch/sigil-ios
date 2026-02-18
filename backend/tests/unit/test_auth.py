@@ -531,15 +531,16 @@ class TestAuthServicePasswordReset:
         )
 
     def test_request_reset_returns_code(self, db_session, event_loop):
-        """Reset request for existing user should return 6-digit code."""
+        """Reset request for existing user should return secure token (REC-307)."""
         from auth.auth_service import AuthService
         self._create_user(db_session, event_loop)
         code = event_loop.run_until_complete(
             AuthService.request_password_reset(db=db_session, email="reset@test.com")
         )
         assert code is not None
-        assert len(code) == 6
-        assert code.isdigit()
+        # REC-307: Changed from 6-digit to 22-char alphanumeric token
+        assert len(code) == 22  # secrets.token_urlsafe(16) produces 22 chars
+        assert code.replace('-', '').replace('_', '').isalnum()  # URL-safe chars
 
     def test_request_reset_nonexistent_returns_none(self, db_session, event_loop):
         """Reset request for non-existent email should return None."""

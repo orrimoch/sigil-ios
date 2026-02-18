@@ -199,9 +199,12 @@ class AuthService:
     @staticmethod
     async def request_password_reset(db: AsyncSession, email: str) -> Optional[str]:
         """
-        Generate a 6-digit reset code for the given email.
-        Returns the code, or None if user not found (don't reveal this to caller).
-        Code expires in 15 minutes.
+        Generate a secure reset token for the given email.
+        Returns the token, or None if user not found (don't reveal this to caller).
+        Token expires in 15 minutes.
+        
+        REC-307: Changed from 6-digit numeric (1M possibilities) to 
+        22-char alphanumeric token (10^39 possibilities) for security.
         """
         # AUTH-001: Use cryptographically secure random number generator
         email = email.lower().strip()
@@ -211,7 +214,8 @@ class AuthService:
         if user is None or not user.is_active:
             return None
 
-        code = f"{secrets.randbelow(1000000):06d}"
+        # REC-307: Use secure token instead of weak 6-digit code
+        code = secrets.token_urlsafe(16)  # 22 chars, ~128 bits entropy
         user.reset_code = code
         user.reset_code_expires = datetime.now(timezone.utc) + timedelta(minutes=15)
         db.add(user)
