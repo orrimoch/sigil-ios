@@ -7,23 +7,37 @@ struct AgentDashboardView: View {
     
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(spacing: 20) {
-                    // Status Card
-                    agentStatusCard
-                    
-                    // Pending Approvals
-                    if !viewModel.pendingTrades.isEmpty {
-                        pendingApprovalsSection
+            Group {
+                if viewModel.isLoading && viewModel.status == "paused" && viewModel.recentExecutions.isEmpty {
+                    // REC-310: Show loading state on initial load
+                    VStack(spacing: 16) {
+                        ProgressView()
+                            .scaleEffect(1.2)
+                        Text("Loading agent status...")
+                            .font(.subheadline)
+                            .foregroundColor(.Text.secondary)
                     }
-                    
-                    // Stats Overview
-                    statsOverview
-                    
-                    // Recent Activity
-                    recentActivitySection
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                } else {
+                    ScrollView {
+                        VStack(spacing: 20) {
+                            // Status Card
+                            agentStatusCard
+                            
+                            // Pending Approvals
+                            if !viewModel.pendingTrades.isEmpty {
+                                pendingApprovalsSection
+                            }
+                            
+                            // Stats Overview
+                            statsOverview
+                            
+                            // Recent Activity
+                            recentActivitySection
+                        }
+                        .padding()
+                    }
                 }
-                .padding()
             }
             .background(Color.Background.primary)
             .navigationTitle("AI Agent")
@@ -83,12 +97,12 @@ struct AgentDashboardView: View {
                 } label: {
                     Text(viewModel.isPaused ? "Resume" : "Pause")
                         .font(.subheadline.weight(.medium))
-                        .foregroundColor(viewModel.isPaused ? .green : .orange)
+                        .foregroundColor(viewModel.isPaused ? .green : .Signal.paused)  // REC-315: WCAG contrast
                         .padding(.horizontal, 12)
                         .padding(.vertical, 6)
                         .background(
                             RoundedRectangle(cornerRadius: 8)
-                                .stroke(viewModel.isPaused ? Color.green : Color.orange, lineWidth: 1)
+                                .stroke(viewModel.isPaused ? Color.green : Color.Signal.paused, lineWidth: 1)
                         )
                 }
             }
@@ -157,7 +171,7 @@ struct AgentDashboardView: View {
                     .foregroundColor(.white)
                     .padding(.horizontal, 8)
                     .padding(.vertical, 4)
-                    .background(Color.orange)
+                    .background(Color.Signal.paused)  // REC-315: WCAG contrast
                     .cornerRadius(8)
             }
             
@@ -332,7 +346,7 @@ class AgentDashboardViewModel: ObservableObject {
         switch status {
         case "active": return .green
         case "running": return .blue
-        case "paused": return .orange
+        case "paused": return .Signal.paused  // REC-315: WCAG contrast
         case "error": return .red
         default: return .gray
         }

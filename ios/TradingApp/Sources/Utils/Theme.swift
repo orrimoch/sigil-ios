@@ -68,6 +68,9 @@ extension Color {
         /// Warning signal - orange (between hold and sell)
         static let warning = Color(hex: "FF9800")
         
+        /// Paused/inactive - WCAG AA compliant orange (REC-315)
+        static let paused = Color(hex: "FFB74D")
+        
         /// Positive change
         static let positive = Color(hex: "00C853")
         

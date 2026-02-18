@@ -61,7 +61,7 @@ struct AgentHistoryView: View {
                 .font(.subheadline.weight(.medium))
                 .foregroundColor(viewModel.selectedFilter == filter ? .white : .Text.primary)
                 .padding(.horizontal, 16)
-                .padding(.vertical, 8)
+                .padding(.vertical, 12)  // REC-316: 44pt minimum touch target
                 .background(
                     RoundedRectangle(cornerRadius: 20)
                         .fill(viewModel.selectedFilter == filter ? Color.Brand.primary : Color.Background.tertiary)
