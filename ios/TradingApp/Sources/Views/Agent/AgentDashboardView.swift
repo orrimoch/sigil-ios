@@ -4,6 +4,7 @@ struct AgentDashboardView: View {
     @StateObject private var viewModel = AgentDashboardViewModel()
     @State private var showSettings = false
     @State private var showHistory = false
+    @State private var showPerformance = false  // REC-318
     
     var body: some View {
         NavigationStack {
@@ -42,6 +43,14 @@ struct AgentDashboardView: View {
             .background(Color.Background.primary)
             .navigationTitle("AI Agent")
             .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    // REC-318: Performance view access
+                    Button {
+                        showPerformance = true
+                    } label: {
+                        Image(systemName: "chart.bar.fill")
+                    }
+                }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         showSettings = true
@@ -55,6 +64,9 @@ struct AgentDashboardView: View {
             }
             .sheet(isPresented: $showHistory) {
                 AgentHistoryView()
+            }
+            .sheet(isPresented: $showPerformance) {
+                AgentPerformanceView()
             }
             .refreshable {
                 await viewModel.refresh()

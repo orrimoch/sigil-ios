@@ -3,6 +3,8 @@ import SwiftUI
 struct AgentSettingsView: View {
     @StateObject private var viewModel = AgentSettingsViewModel()
     @Environment(\.dismiss) private var dismiss
+    @AppStorage("agentOnboardingCompleted") private var onboardingCompleted = false
+    @State private var showOnboarding = false
     
     var body: some View {
         NavigationStack {
@@ -44,6 +46,19 @@ struct AgentSettingsView: View {
             }
             .task {
                 await viewModel.loadSettings()
+            }
+            // REC-317: Show onboarding when first enabling agent
+            .sheet(isPresented: $showOnboarding) {
+                AgentOnboardingView {
+                    onboardingCompleted = true
+                }
+                .interactiveDismissDisabled()
+            }
+            .onChange(of: viewModel.mode) { oldValue, newValue in
+                // Show onboarding when switching from manual to supervised/autonomous for first time
+                if !onboardingCompleted && oldValue == "manual" && (newValue == "supervised" || newValue == "autonomous") {
+                    showOnboarding = true
+                }
             }
         }
     }
