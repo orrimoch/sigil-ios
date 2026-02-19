@@ -1,23 +1,113 @@
 {
   "ticker": "AAPL",
-  "overall_score": 50.0,
-  "overall_sentiment": "neutral",
-  "confidence": 0.3,
-  "rationale": "The provided article is completely unrelated to AAPL, concerning SUPERNUS PHARMACEUTICALS instead. This SEC filing provides no information or sentiment signals relevant to Apple stock.",
+  "overall_score": 35.0,
+  "overall_sentiment": "slightly_bearish",
+  "confidence": 0.7,
+  "rationale": "The recent news articles indicate some negative sentiment around Apple, with Berkshire Hathaway trimming its stake, a portfolio manager selling Apple, and concerns about the impact of AI disruption on the stock. However, the company's new video podcast push also shows potential growth opportunities.",
   "article_analyses": [
     {
-      "headline": "8-K - SUPERNUS PHARMACEUTICALS, INC. (0001356576) (Filer)",
+      "headline": "Berkshire Hathaway trims Apple stake, buys NYTimes stock in Buffett's last moves as CEO",
+      "sentiment": "slightly_bearish",
+      "score": 40.0,
+      "key_factors": [
+        "stake reduction",
+        "portfolio changes"
+      ],
+      "relevance": 0.8
+    },
+    {
+      "headline": "Trade Tracker: Joe Terranova sells Apple",
+      "sentiment": "bearish",
+      "score": 25.0,
+      "key_factors": [
+        "portfolio manager selling"
+      ],
+      "relevance": 0.7
+    },
+    {
+      "headline": "Jesse Jackson dies, Hyatt's Epstein fallout, Apple's podcast push and more in Morning Squawk",
       "sentiment": "neutral",
       "score": 50.0,
       "key_factors": [
-        "Unrelated to AAPL",
-        "SEC filing for different company"
+        "podcast push"
       ],
-      "relevance": 0.0
+      "relevance": 0.5
+    },
+    {
+      "headline": "Apple takes on YouTube and Spotify with new video podcasting push",
+      "sentiment": "bullish",
+      "score": 70.0,
+      "key_factors": [
+        "new product initiative",
+        "growth opportunity"
+      ],
+      "relevance": 0.8
+    },
+    {
+      "headline": "Apple coming off worst day since April Liberation Day tariffs",
+      "sentiment": "bearish",
+      "score": 30.0,
+      "key_factors": [
+        "stock price decline"
+      ],
+      "relevance": 0.8
+    },
+    {
+      "headline": "Apple sees $200 billion market-cap wipeout as stock slides on AI fears",
+      "sentiment": "very_bearish",
+      "score": 15.0,
+      "key_factors": [
+        "significant market cap loss",
+        "AI disruption concerns"
+      ],
+      "relevance": 0.9
+    },
+    {
+      "headline": "Why Apple saw its worst trading day since April",
+      "sentiment": "bearish",
+      "score": 25.0,
+      "key_factors": [
+        "stock price decline"
+      ],
+      "relevance": 0.8
+    },
+    {
+      "headline": "Wednesday's big stock stories: What's likely to move the market in the next trading session",
+      "sentiment": "neutral",
+      "score": 50.0,
+      "key_factors": [
+        "broader market commentary"
+      ],
+      "relevance": 0.4
+    },
+    {
+      "headline": "Figma partners with Anthropic to turn AI-generated code into editable designs",
+      "sentiment": "slightly_bearish",
+      "score": 40.0,
+      "key_factors": [
+        "AI disruption concerns"
+      ],
+      "relevance": 0.5
+    },
+    {
+      "headline": "The Club's top 10 things to watch in the stock market Tuesday",
+      "sentiment": "slightly_bearish",
+      "score": 40.0,
+      "key_factors": [
+        "AI disruption fears"
+      ],
+      "relevance": 0.6
     }
   ],
-  "bullish_factors": [],
-  "bearish_factors": [],
-  "analyzed_at": "2026-02-13T12:21:22.660478",
-  "model_used": "claude-sonnet-4-20250514"
+  "bullish_factors": [
+    "new video podcast initiative",
+    "growth opportunity"
+  ],
+  "bearish_factors": [
+    "stake reduction by Berkshire Hathaway",
+    "portfolio manager selling",
+    "significant market cap loss"
+  ],
+  "analyzed_at": "2026-02-18T19:41:02.229593",
+  "model_used": "claude-3-haiku-20240307"
 }

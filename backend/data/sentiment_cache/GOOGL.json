@@ -1,24 +1,119 @@
 {
   "ticker": "GOOGL",
-  "overall_score": 50.0,
+  "overall_score": 48.0,
   "overall_sentiment": "neutral",
-  "confidence": 0.3,
-  "rationale": "The 8-K filing indicates some corporate event or disclosure but lacks specific details about the nature or impact. Without knowing the content of the 'Other Events' disclosure, this is purely procedural regulatory filing information with no clear directional signal.",
+  "confidence": 0.6,
+  "rationale": "The news articles cover a range of topics related to the technology industry, but do not contain any direct information about Google's performance or outlook. The mixed signals and lack of company-specific news result in a neutral sentiment assessment.",
   "article_analyses": [
     {
-      "headline": "8-K - Alphabet Inc. (0001652044) (Filer)",
+      "headline": "Snap to launch creator subscriptions in push to diversify revenue",
       "sentiment": "neutral",
       "score": 50.0,
       "key_factors": [
-        "Regulatory filing disclosure",
-        "No specific content details",
-        "Standard 8-K procedure"
+        "industry news",
+        "unrelated to Google"
       ],
-      "relevance": 0.4
+      "relevance": 0.2
+    },
+    {
+      "headline": "Amazon has lost $450 billion in value during this historic losing streak. Here's what's dragging it down",
+      "sentiment": "neutral",
+      "score": 50.0,
+      "key_factors": [
+        "industry news",
+        "unrelated to Google"
+      ],
+      "relevance": 0.2
+    },
+    {
+      "headline": "Cloud startup Render raises funding at $1.5 billion valuation as AI-built apps boom",
+      "sentiment": "bullish",
+      "score": 70.0,
+      "key_factors": [
+        "industry growth",
+        "AI trends"
+      ],
+      "relevance": 0.3
+    },
+    {
+      "headline": "Figma partners with Anthropic to turn AI-generated code into editable designs",
+      "sentiment": "slightly_bearish",
+      "score": 40.0,
+      "key_factors": [
+        "software stock selloff",
+        "unrelated to Google"
+      ],
+      "relevance": 0.2
+    },
+    {
+      "headline": "India discussing age-based restrictions with social media firms, top minister says",
+      "sentiment": "neutral",
+      "score": 50.0,
+      "key_factors": [
+        "industry regulation",
+        "unrelated to Google"
+      ],
+      "relevance": 0.1
+    },
+    {
+      "headline": "India's Adani to invest $100 billion in AI data centers over the next decade",
+      "sentiment": "bullish",
+      "score": 75.0,
+      "key_factors": [
+        "industry growth",
+        "AI trends"
+      ],
+      "relevance": 0.3
+    },
+    {
+      "headline": "S&P 500 is little changed to start shortened week, software shares slide: Live updates",
+      "sentiment": "slightly_bearish",
+      "score": 40.0,
+      "key_factors": [
+        "market conditions",
+        "unrelated to Google"
+      ],
+      "relevance": 0.2
+    },
+    {
+      "headline": "AI chatbot firms face stricter regulation in online safety laws protecting children in the UK",
+      "sentiment": "slightly_bearish",
+      "score": 40.0,
+      "key_factors": [
+        "industry regulation",
+        "unrelated to Google"
+      ],
+      "relevance": 0.2
+    },
+    {
+      "headline": "S&P 500 finds itself once again unable to surmount the 7,000 threshold",
+      "sentiment": "slightly_bearish",
+      "score": 40.0,
+      "key_factors": [
+        "market conditions",
+        "unrelated to Google"
+      ],
+      "relevance": 0.2
+    },
+    {
+      "headline": "OpenClaw creator Peter Steinberger joining OpenAI, Altman says",
+      "sentiment": "bullish",
+      "score": 75.0,
+      "key_factors": [
+        "industry growth",
+        "AI trends"
+      ],
+      "relevance": 0.3
     }
   ],
-  "bullish_factors": [],
-  "bearish_factors": [],
-  "analyzed_at": "2026-02-14T10:28:39.611413",
-  "model_used": "claude-sonnet-4-20250514"
+  "bullish_factors": [
+    "industry growth",
+    "AI trends"
+  ],
+  "bearish_factors": [
+    "software stock selloff",
+    "market conditions"
+  ],
+  "analyzed_at": "2026-02-18T19:20:10.289187",
+  "model_used": "claude-3-haiku-20240307"
 }

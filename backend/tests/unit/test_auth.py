@@ -502,10 +502,13 @@ class TestAuthServiceRefresh:
             AuthService.register(db=db_session, email="refresh@test.com",
                                  password="password123", full_name="Refresh")
         )
-        new_access = event_loop.run_until_complete(
+        result = event_loop.run_until_complete(
             AuthService.refresh_access_token(db=db_session, refresh_token=refresh)
         )
+        # refresh_access_token returns (new_access_token, new_refresh_token) for token rotation
+        new_access, new_refresh = result
         assert isinstance(new_access, str) and len(new_access) > 50
+        assert isinstance(new_refresh, str) and len(new_refresh) > 50
 
     def test_refresh_with_access_token_raises(self, db_session, event_loop):
         """Using an access token for refresh should fail."""
