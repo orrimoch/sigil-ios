@@ -85,6 +85,7 @@ struct DailyPnLIndicator: View {
         }
     }
     
+    @MainActor
     private func loadDailyPnL() async {
         guard IBKRService.shared.isConnected else { return }
         isLoading = true

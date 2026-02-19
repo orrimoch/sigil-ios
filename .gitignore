@@ -25,3 +25,6 @@ IB_paper_account.txt
 kaggle_sentiment/
 backend/data/agent_memory.db
 backend/backups/
+analysis/sigil_analysis/
+# Jupyter checkpoints
+analysis/.ipynb_checkpoints/
