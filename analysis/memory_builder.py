@@ -43,7 +43,7 @@ MEMORY_DB_PATH = ANALYSIS_DATA_DIR / "memory.db"
 
 @dataclass
 class MemoryEntry:
-    """A decision stored in memory with embedding."""
+    """A decision stored in memory with multi-horizon returns."""
     id: Optional[int]
     ticker: str
     week_start: str
@@ -52,13 +52,25 @@ class MemoryEntry:
     sector: str
     regime: str  # low_vol, normal, high_vol, crisis
     rationale: str
-    outcome_pct: Optional[float]
+    # Multi-horizon returns
+    return_1w: Optional[float]   # 1 week
+    return_1m: Optional[float]   # 1 month (4 weeks)
+    return_3m: Optional[float]   # 3 months (12 weeks)
     lesson_learned: Optional[str]
     embedding: np.ndarray
     
     def to_text(self) -> str:
         """Convert to text for embedding."""
-        outcome_str = f"{self.outcome_pct:+.1f}%" if self.outcome_pct is not None else "unknown"
+        # Build outcome string with all available horizons
+        outcomes = []
+        if self.return_1w is not None:
+            outcomes.append(f"1W: {self.return_1w:+.1f}%")
+        if self.return_1m is not None:
+            outcomes.append(f"1M: {self.return_1m:+.1f}%")
+        if self.return_3m is not None:
+            outcomes.append(f"3M: {self.return_3m:+.1f}%")
+        outcome_str = ", ".join(outcomes) if outcomes else "unknown"
+        
         return f"""
 Ticker: {self.ticker}
 Sector: {self.sector}
@@ -66,7 +78,7 @@ Action: {self.action}
 Score: {self.score:.1f}
 Regime: {self.regime}
 Rationale: {self.rationale}
-Outcome: {outcome_str}
+Returns: {outcome_str}
 Lesson: {self.lesson_learned or 'N/A'}
         """.strip()
 
@@ -109,23 +121,50 @@ def generate_rationale(ticker: str, score: float, sector: str, action: str) -> s
             return f"Sell signal: {ticker} ({sector}) at score {score:.1f}, below sell threshold"
 
 
-def generate_lesson(ticker: str, sector: str, regime: str, score: float, outcome_pct: float) -> str:
-    """Generate a lesson learned from the outcome."""
-    if outcome_pct is None:
+def generate_lesson(
+    ticker: str, sector: str, regime: str, score: float,
+    return_1w: Optional[float], return_1m: Optional[float], return_3m: Optional[float]
+) -> str:
+    """Generate a lesson learned from multi-horizon outcomes."""
+    # Use 1M as primary, fallback to 3M, then 1W
+    primary_return = return_1m if return_1m is not None else (return_3m if return_3m is not None else return_1w)
+    
+    if primary_return is None:
         return "Outcome pending"
     
-    if outcome_pct > 10:
-        return f"Strong winner: {sector} stocks with score {score:.0f}+ in {regime} regime can yield {outcome_pct:.1f}%+"
-    elif outcome_pct > 5:
-        return f"Solid gain: {sector} in {regime} conditions with high score performed well (+{outcome_pct:.1f}%)"
-    elif outcome_pct > 0:
-        return f"Modest gain: {ticker} returned +{outcome_pct:.1f}% in {regime} regime"
-    elif outcome_pct > -5:
-        return f"Small loss: {sector} in {regime} regime had limited downside ({outcome_pct:.1f}%)"
-    elif outcome_pct > -10:
-        return f"Loss: {sector} underperformed in {regime} regime, down {abs(outcome_pct):.1f}%"
+    # Build horizon-specific insights
+    insights = []
+    
+    # Analyze trajectory (1W → 1M → 3M)
+    if return_1w is not None and return_1m is not None:
+        if return_1w < 0 and return_1m > 0:
+            insights.append("recovered from initial dip")
+        elif return_1w > 0 and return_1m < return_1w:
+            insights.append("early gains faded")
+        elif return_1w > 0 and return_1m > return_1w:
+            insights.append("momentum continued")
+    
+    if return_1m is not None and return_3m is not None:
+        if return_3m > return_1m * 1.5:
+            insights.append("strong long-term trend")
+        elif return_3m < return_1m * 0.5:
+            insights.append("trend reversed")
+    
+    trajectory = f" ({', '.join(insights)})" if insights else ""
+    
+    # Generate lesson based on primary return
+    if primary_return > 10:
+        return f"Strong winner: {sector} with score {score:.0f}+ in {regime} regime{trajectory}"
+    elif primary_return > 5:
+        return f"Solid gain: {sector} in {regime} conditions performed well{trajectory}"
+    elif primary_return > 0:
+        return f"Modest gain: {ticker} in {regime} regime{trajectory}"
+    elif primary_return > -5:
+        return f"Small loss: {sector} in {regime} regime had limited downside{trajectory}"
+    elif primary_return > -10:
+        return f"Loss: {sector} underperformed in {regime} regime{trajectory}"
     else:
-        return f"Significant loss: Avoid {sector} in {regime} regime even with high scores (lost {abs(outcome_pct):.1f}%)"
+        return f"Significant loss: Avoid {sector} in {regime} regime{trajectory}"
 
 
 class MemoryBuilder:
@@ -154,7 +193,7 @@ class MemoryBuilder:
         conn = sqlite3.connect(self.evaluation_db)
         conn.row_factory = sqlite3.Row
         
-        # Load scores with outcomes
+        # Load scores with multi-horizon outcomes
         query = """
             SELECT 
                 s.ticker,
@@ -167,8 +206,9 @@ class MemoryBuilder:
                 s.signal,
                 s.price,
                 s.sector,
-                o.return_pct,
-                o.holding_weeks
+                o.return_1w,
+                o.return_1m,
+                o.return_3m
             FROM weekly_scores s
             LEFT JOIN trade_outcomes o 
                 ON s.ticker = o.ticker AND s.week_start = o.entry_week
@@ -183,9 +223,15 @@ class MemoryBuilder:
         logger.info(f"Loaded {len(rows)} training records")
         return rows
     
-    def build_memories(self, training_data: List[Dict]) -> List[MemoryEntry]:
-        """Convert training data to memory entries with embeddings."""
+    def build_memories(self, training_data: List[Dict], require_real_sentiment: bool = True) -> List[MemoryEntry]:
+        """Convert training data to memory entries with embeddings.
+        
+        Args:
+            training_data: List of score records with outcomes
+            require_real_sentiment: If True, skip records with fallback sentiment (50.0)
+        """
         memories = []
+        skipped_sentiment = 0
         
         for i, row in enumerate(training_data):
             if i % 100 == 0:
@@ -195,8 +241,17 @@ class MemoryBuilder:
             if row["signal"] != "BUY":
                 continue
             
-            # Skip if no outcome yet
-            if row["return_pct"] is None:
+            # Skip if no outcome at any horizon
+            has_outcome = (row.get("return_1w") is not None or 
+                          row.get("return_1m") is not None or 
+                          row.get("return_3m") is not None)
+            if not has_outcome:
+                continue
+            
+            # Skip fallback sentiment (50.0) - these have no real sentiment data
+            # Real sentiment from Kaggle/Claude has much higher signal quality
+            if require_real_sentiment and row.get("sentiment_score") == 50.0:
+                skipped_sentiment += 1
                 continue
             
             # Infer regime
@@ -210,16 +265,18 @@ class MemoryBuilder:
                 row["signal"],
             )
             
-            # Generate lesson
+            # Generate lesson with multi-horizon returns
             lesson = generate_lesson(
                 row["ticker"],
                 row["sector"],
                 regime,
                 row["composite_score"],
-                row["return_pct"],
+                row.get("return_1w"),
+                row.get("return_1m"),
+                row.get("return_3m"),
             )
             
-            # Create memory entry
+            # Create memory entry with multi-horizon returns
             entry = MemoryEntry(
                 id=None,
                 ticker=row["ticker"],
@@ -229,7 +286,9 @@ class MemoryBuilder:
                 sector=row["sector"],
                 regime=regime,
                 rationale=rationale,
-                outcome_pct=row["return_pct"],
+                return_1w=row.get("return_1w"),
+                return_1m=row.get("return_1m"),
+                return_3m=row.get("return_3m"),
                 lesson_learned=lesson,
                 embedding=np.zeros(EMBEDDING_DIM),  # Placeholder
             )
@@ -239,6 +298,8 @@ class MemoryBuilder:
             
             memories.append(entry)
         
+        if require_real_sentiment:
+            logger.info(f"Skipped {skipped_sentiment} records with fallback sentiment (50.0)")
         logger.info(f"Built {len(memories)} memory entries")
         return memories
     
@@ -246,7 +307,7 @@ class MemoryBuilder:
         """Save memories to SQLite database."""
         conn = sqlite3.connect(self.memory_db)
         
-        # Create table
+        # Create table with multi-horizon returns
         conn.execute("""
             CREATE TABLE IF NOT EXISTS memories (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -257,7 +318,9 @@ class MemoryBuilder:
                 sector TEXT,
                 regime TEXT,
                 rationale TEXT,
-                outcome_pct REAL,
+                return_1w REAL,
+                return_1m REAL,
+                return_3m REAL,
                 lesson_learned TEXT,
                 embedding BLOB,
                 UNIQUE(ticker, week_start)
@@ -280,11 +343,12 @@ class MemoryBuilder:
             conn.execute("""
                 INSERT OR REPLACE INTO memories
                 (ticker, week_start, action, score, sector, regime, 
-                 rationale, outcome_pct, lesson_learned, embedding)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                 rationale, return_1w, return_1m, return_3m, lesson_learned, embedding)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """, (
                 mem.ticker, mem.week_start, mem.action, mem.score,
-                mem.sector, mem.regime, mem.rationale, mem.outcome_pct,
+                mem.sector, mem.regime, mem.rationale, 
+                mem.return_1w, mem.return_1m, mem.return_3m,
                 mem.lesson_learned, embedding_blob,
             ))
         
@@ -292,15 +356,20 @@ class MemoryBuilder:
         conn.close()
         logger.info(f"Saved {len(memories)} memories to {self.memory_db}")
     
-    def run(self) -> List[MemoryEntry]:
-        """Run the full memory building pipeline."""
+    def run(self, require_real_sentiment: bool = True) -> List[MemoryEntry]:
+        """Run the full memory building pipeline.
+        
+        Args:
+            require_real_sentiment: If True, only use records with real sentiment data
+        """
         logger.info("Starting memory builder...")
+        logger.info(f"Sentiment filter: {'real only' if require_real_sentiment else 'all (including fallback)'}")
         
         # Load training data
         training_data = self.load_training_data()
         
         # Build memories
-        memories = self.build_memories(training_data)
+        memories = self.build_memories(training_data, require_real_sentiment=require_real_sentiment)
         
         # Save to DB
         self.save_memories(memories)
@@ -341,7 +410,9 @@ class MemoryRetriever:
                 sector=row["sector"],
                 regime=row["regime"],
                 rationale=row["rationale"],
-                outcome_pct=row["outcome_pct"],
+                return_1w=row["return_1w"],
+                return_1m=row["return_1m"],
+                return_3m=row["return_3m"],
                 lesson_learned=row["lesson_learned"],
                 embedding=embedding,
             ))
@@ -400,17 +471,96 @@ class MemoryRetriever:
         
         lines = []
         for i, (mem, sim) in enumerate(memories, 1):
+            # Build multi-horizon outcome string
+            outcomes = []
+            if mem.return_1w is not None:
+                outcomes.append(f"1W: {mem.return_1w:+.1f}%")
+            if mem.return_1m is not None:
+                outcomes.append(f"1M: {mem.return_1m:+.1f}%")
+            if mem.return_3m is not None:
+                outcomes.append(f"3M: {mem.return_3m:+.1f}%")
+            outcome_str = ", ".join(outcomes) if outcomes else "N/A"
+            
             lines.append(f"""
 Memory {i} (similarity: {sim:.2f}):
 - Ticker: {mem.ticker} ({mem.sector})
 - Date: {mem.week_start}
 - Action: {mem.action} at score {mem.score:.1f}
 - Regime: {mem.regime}
-- Outcome: {mem.outcome_pct:+.1f}%
+- Returns: {outcome_str}
 - Lesson: {mem.lesson_learned}
 """.strip())
         
         return "\n\n".join(lines)
+
+
+def export_for_production(memory_db: Path = MEMORY_DB_PATH, output_path: Path = None) -> Path:
+    """
+    Export memories as JSON for production import (no embeddings).
+    
+    Format aligns with production AgentMemory.import_memories() expectations.
+    Embeddings are generated server-side with OpenAI on import.
+    Includes multi-horizon returns (1W, 1M, 3M).
+    """
+    if output_path is None:
+        output_path = ANALYSIS_DATA_DIR / "memory_export.json"
+    
+    conn = sqlite3.connect(memory_db)
+    conn.row_factory = sqlite3.Row
+    
+    cursor = conn.execute("""
+        SELECT ticker, week_start, action, score, sector, regime,
+               rationale, return_1w, return_1m, return_3m, lesson_learned
+        FROM memories
+        WHERE return_1w IS NOT NULL OR return_1m IS NOT NULL OR return_3m IS NOT NULL
+    """)
+    
+    memories = []
+    for row in cursor.fetchall():
+        # Use 1M as primary outcome, fallback to others
+        primary_return = row["return_1m"] if row["return_1m"] is not None else (
+            row["return_3m"] if row["return_3m"] is not None else row["return_1w"]
+        )
+        
+        memories.append({
+            "ticker": row["ticker"],
+            "timestamp": row["week_start"] + "T09:30:00Z",  # Market open
+            "action": row["action"],
+            "score": row["score"],
+            "sector": row["sector"],
+            "regime": row["regime"],
+            "rationale": row["rationale"],
+            # Multi-horizon returns
+            "return_1w": row["return_1w"],
+            "return_1m": row["return_1m"],
+            "return_3m": row["return_3m"],
+            "outcome_pct": primary_return,  # Primary for backward compat
+            "lesson_learned": row["lesson_learned"],
+            # Production-specific fields
+            "shares": 0,  # Unknown from historical
+            "price": 0.0,  # Not stored in evaluation
+            "confidence": 0.8 if (primary_return or 0) > 0 else 0.6,
+        })
+    
+    conn.close()
+    
+    # Sort by date for deterministic output
+    memories.sort(key=lambda m: m["timestamp"])
+    
+    export_data = {
+        "version": "1.0",
+        "exported_at": datetime.utcnow().isoformat() + "Z",
+        "source": "memory_evaluation_experiment",
+        "train_period": "2019-2021",
+        "memory_count": len(memories),
+        "memories": memories,
+    }
+    
+    with open(output_path, 'w') as f:
+        json.dump(export_data, f, indent=2)
+    
+    logger.info(f"Exported {len(memories)} memories to {output_path}")
+    return output_path
 
 
 def main():
@@ -421,14 +571,24 @@ def main():
     parser.add_argument("--train-end", default="2021-12-31", help="Training period end date")
     parser.add_argument("--eval-db", type=Path, default=EVALUATION_DB_PATH)
     parser.add_argument("--memory-db", type=Path, default=MEMORY_DB_PATH)
+    parser.add_argument("--export", action="store_true", help="Export for production import")
+    parser.add_argument("--export-path", type=Path, help="Output path for export")
+    parser.add_argument("--include-fallback-sentiment", action="store_true", 
+                        help="Include records with fallback sentiment (50.0). Default: only real sentiment")
     args = parser.parse_args()
+    
+    if args.export:
+        # Export existing memory DB for production
+        output = export_for_production(args.memory_db, args.export_path)
+        print(f"Exported memories to: {output}")
+        return
     
     builder = MemoryBuilder(
         evaluation_db=args.eval_db,
         memory_db=args.memory_db,
         train_end_date=args.train_end,
     )
-    memories = builder.run()
+    memories = builder.run(require_real_sentiment=not args.include_fallback_sentiment)
     
     print(f"\nMemory builder complete:")
     print(f"  Memories: {len(memories)}")
@@ -443,6 +603,11 @@ def main():
     print(f"Results: {len(results)}")
     for mem, sim in results:
         print(f"  - {mem.ticker} ({mem.sector}): {sim:.3f}")
+    
+    # Also export for production
+    print("\nExporting for production...")
+    export_path = export_for_production(args.memory_db)
+    print(f"Exported to: {export_path}")
 
 
 if __name__ == "__main__":

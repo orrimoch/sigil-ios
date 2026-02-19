@@ -39,7 +39,7 @@ memory:
   db_path: "data/memory.db"
 
 agent:
-  model: "claude-3-5-haiku-20241022"  # Use Haiku for iteration
+  model: "claude-3-haiku-20240307"  # Exact same as production decision_engine.py
   temperature: 0.3
   max_tokens: 2000
 

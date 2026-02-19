@@ -52,14 +52,18 @@ class WeeklyScore:
 
 @dataclass
 class TradeOutcome:
-    """Trade outcome measured N weeks after entry."""
+    """Trade outcome with multi-horizon returns (1W, 1M, 3M)."""
     ticker: str
     entry_week: str
     entry_price: float
-    exit_week: str
-    exit_price: float
-    return_pct: float
-    holding_weeks: int
+    # Multi-horizon returns
+    return_1w: Optional[float] = None   # 1 week return
+    return_1m: Optional[float] = None   # 4 week (1 month) return  
+    return_3m: Optional[float] = None   # 12 week (3 month) return
+    # Exit prices for each horizon
+    price_1w: Optional[float] = None
+    price_1m: Optional[float] = None
+    price_3m: Optional[float] = None
 
 
 class DataPipelineV2:
@@ -79,6 +83,97 @@ class DataPipelineV2:
         
         # Ensure output directory exists
         self.output_db.parent.mkdir(parents=True, exist_ok=True)
+    
+    def backfill_prices_yfinance(
+        self,
+        tickers: List[str],
+        start_date: str = "2018-01-01",
+        end_date: str = "2022-12-31",
+        batch_size: int = 20,
+    ) -> int:
+        """
+        Backfill historical prices from yfinance.
+        
+        Efficient batch fetching: one yfinance call per ticker gets all weekly prices.
+        Maps daily prices to weekly (Friday) buckets.
+        """
+        import time
+        
+        logger.info(f"Backfilling prices for {len(tickers)} tickers from {start_date} to {end_date}")
+        
+        # Get all week_starts from DB for mapping
+        conn = sqlite3.connect(self.output_db)
+        week_starts = set(row[0] for row in conn.execute(
+            "SELECT DISTINCT week_start FROM weekly_scores WHERE week_start BETWEEN ? AND ?",
+            (start_date, end_date)
+        ).fetchall())
+        conn.close()
+        
+        # Convert to dates and sort
+        week_dates = sorted([datetime.strptime(w, "%Y-%m-%d").date() for w in week_starts])
+        logger.info(f"Found {len(week_dates)} distinct weeks to fill")
+        
+        updated = 0
+        conn = sqlite3.connect(self.output_db)
+        
+        for i, ticker in enumerate(tickers):
+            if (i + 1) % 50 == 0:
+                logger.info(f"Progress: {i + 1}/{len(tickers)} tickers ({updated} prices updated)")
+            
+            try:
+                # Fetch full history for ticker
+                stock = yf.Ticker(ticker)
+                hist = stock.history(start=start_date, end=end_date, interval="1d")
+                
+                if hist.empty:
+                    continue
+                
+                # Create date -> price mapping
+                prices_by_date = {}
+                for idx, row in hist.iterrows():
+                    d = idx.date() if hasattr(idx, 'date') else idx
+                    prices_by_date[d] = float(row["Close"])
+                
+                # For each week, find the Friday price (or closest trading day before)
+                for week_date in week_dates:
+                    # Try week date first, then look backwards for closest trading day
+                    price = None
+                    for delta in range(0, 7):  # Look back up to 7 days
+                        check_date = week_date - timedelta(days=delta)
+                        if check_date in prices_by_date:
+                            price = prices_by_date[check_date]
+                            break
+                    
+                    if price is None:
+                        continue
+                    
+                    week_str = week_date.strftime("%Y-%m-%d")
+                    
+                    # Update if price is currently 0
+                    result = conn.execute("""
+                        UPDATE weekly_scores 
+                        SET price = ?
+                        WHERE ticker = ? 
+                          AND week_start = ?
+                          AND (price IS NULL OR price = 0)
+                    """, (price, ticker, week_str))
+                    
+                    if result.rowcount > 0:
+                        updated += result.rowcount
+                
+                conn.commit()
+                
+                # Rate limit
+                if (i + 1) % batch_size == 0:
+                    time.sleep(1)
+                    
+            except Exception as e:
+                logger.warning(f"Failed to fetch {ticker}: {e}")
+                continue
+        
+        conn.close()
+        logger.info(f"Backfilled {updated} prices")
+        return updated
     
     def load_historical_scores(self) -> Dict:
         """Load pre-computed historical scores."""
@@ -181,10 +276,16 @@ class DataPipelineV2:
     def calculate_outcomes(
         self,
         scores: List[WeeklyScore],
-        holding_weeks: int = 4,
     ) -> List[TradeOutcome]:
-        """Calculate trade outcomes for BUY signals."""
+        """Calculate multi-horizon trade outcomes (1W, 1M, 3M) for BUY signals."""
         outcomes = []
+        
+        # Horizon definitions (in weeks)
+        HORIZONS = {
+            '1w': 1,   # 1 week
+            '1m': 4,   # 4 weeks (~1 month)
+            '3m': 12,  # 12 weeks (~3 months)
+        }
         
         # Group scores by ticker and week
         by_ticker_week = {}
@@ -196,36 +297,55 @@ class DataPipelineV2:
         week_index = {w: i for i, w in enumerate(weeks)}
         
         buy_signals = [s for s in scores if s.signal == 'BUY' and s.price > 0]
-        logger.info(f"Processing {len(buy_signals)} BUY signals...")
+        logger.info(f"Processing {len(buy_signals)} BUY signals for multi-horizon returns...")
         
         for s in buy_signals:
             entry_idx = week_index.get(s.week_start)
             if entry_idx is None:
                 continue
             
-            exit_idx = entry_idx + holding_weeks
-            if exit_idx >= len(weeks):
+            # Calculate returns for each horizon
+            returns = {}
+            prices = {}
+            has_any_return = False
+            
+            for horizon_name, horizon_weeks in HORIZONS.items():
+                exit_idx = entry_idx + horizon_weeks
+                if exit_idx >= len(weeks):
+                    continue
+                
+                exit_week = weeks[exit_idx]
+                exit_score = by_ticker_week.get((s.ticker, exit_week))
+                
+                if exit_score is None or exit_score.price <= 0:
+                    continue
+                
+                return_pct = (exit_score.price / s.price - 1) * 100
+                returns[horizon_name] = return_pct
+                prices[horizon_name] = exit_score.price
+                has_any_return = True
+            
+            # Only include if we have at least one return horizon
+            if not has_any_return:
                 continue
-            
-            exit_week = weeks[exit_idx]
-            exit_score = by_ticker_week.get((s.ticker, exit_week))
-            
-            if exit_score is None or exit_score.price <= 0:
-                continue
-            
-            return_pct = (exit_score.price / s.price - 1) * 100
             
             outcomes.append(TradeOutcome(
                 ticker=s.ticker,
                 entry_week=s.week_start,
                 entry_price=s.price,
-                exit_week=exit_week,
-                exit_price=exit_score.price,
-                return_pct=return_pct,
-                holding_weeks=holding_weeks,
+                return_1w=returns.get('1w'),
+                return_1m=returns.get('1m'),
+                return_3m=returns.get('3m'),
+                price_1w=prices.get('1w'),
+                price_1m=prices.get('1m'),
+                price_3m=prices.get('3m'),
             ))
         
-        logger.info(f"Calculated {len(outcomes)} outcomes")
+        # Log statistics
+        has_1w = sum(1 for o in outcomes if o.return_1w is not None)
+        has_1m = sum(1 for o in outcomes if o.return_1m is not None)
+        has_3m = sum(1 for o in outcomes if o.return_3m is not None)
+        logger.info(f"Calculated {len(outcomes)} outcomes: 1W={has_1w}, 1M={has_1m}, 3M={has_3m}")
         return outcomes
     
     def save_to_db(
@@ -260,10 +380,12 @@ class DataPipelineV2:
                 ticker TEXT,
                 entry_week TEXT,
                 entry_price REAL,
-                exit_week TEXT,
-                exit_price REAL,
-                return_pct REAL,
-                holding_weeks INTEGER,
+                return_1w REAL,
+                return_1m REAL,
+                return_3m REAL,
+                price_1w REAL,
+                price_1m REAL,
+                price_3m REAL,
                 UNIQUE(ticker, entry_week)
             )
         """)
@@ -287,12 +409,13 @@ class DataPipelineV2:
         for o in outcomes:
             conn.execute("""
                 INSERT OR REPLACE INTO trade_outcomes
-                (ticker, entry_week, entry_price, exit_week, exit_price,
-                 return_pct, holding_weeks)
-                VALUES (?, ?, ?, ?, ?, ?, ?)
+                (ticker, entry_week, entry_price, return_1w, return_1m, return_3m,
+                 price_1w, price_1m, price_3m)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
             """, (
-                o.ticker, o.entry_week, o.entry_price, o.exit_week,
-                o.exit_price, o.return_pct, o.holding_weeks,
+                o.ticker, o.entry_week, o.entry_price, 
+                o.return_1w, o.return_1m, o.return_3m,
+                o.price_1w, o.price_1m, o.price_3m,
             ))
         
         conn.commit()
@@ -303,16 +426,15 @@ class DataPipelineV2:
         self,
         start_date: Optional[str] = None,
         end_date: Optional[str] = None,
-        holding_weeks: int = 4,
     ) -> Tuple[List[WeeklyScore], List[TradeOutcome]]:
-        """Run the full data pipeline."""
+        """Run the full data pipeline with multi-horizon returns."""
         logger.info("Starting data pipeline V2...")
         
         # Convert scores
         scores = self.convert_to_weekly_scores(start_date, end_date)
         
-        # Calculate outcomes
-        outcomes = self.calculate_outcomes(scores, holding_weeks)
+        # Calculate multi-horizon outcomes (1W, 1M, 3M)
+        outcomes = self.calculate_outcomes(scores)
         
         # Save to DB
         self.save_to_db(scores, outcomes)
@@ -334,15 +456,75 @@ def main():
     parser = argparse.ArgumentParser(description="Memory Evaluation Data Pipeline V2")
     parser.add_argument("--start", help="Start date (YYYY-MM-DD)")
     parser.add_argument("--end", help="End date (YYYY-MM-DD)")
-    parser.add_argument("--holding-weeks", type=int, default=4, help="Weeks to hold trades")
     parser.add_argument("--output", type=Path, default=OUTPUT_DB_PATH, help="Output DB path")
+    parser.add_argument("--backfill-prices", action="store_true", help="Backfill historical prices from yfinance")
+    parser.add_argument("--backfill-start", default="2018-01-01", help="Backfill start date")
+    parser.add_argument("--backfill-end", default="2022-12-31", help="Backfill end date")
+    parser.add_argument("--recalc-outcomes", action="store_true", help="Recalculate outcomes after backfill")
     args = parser.parse_args()
     
     pipeline = DataPipelineV2(output_db=args.output)
+    
+    if args.backfill_prices:
+        # Get unique tickers from DB
+        conn = sqlite3.connect(args.output)
+        tickers = [row[0] for row in conn.execute("SELECT DISTINCT ticker FROM weekly_scores WHERE price = 0 OR price IS NULL").fetchall()]
+        conn.close()
+        
+        print(f"Backfilling prices for {len(tickers)} tickers...")
+        updated = pipeline.backfill_prices_yfinance(
+            tickers=tickers,
+            start_date=args.backfill_start,
+            end_date=args.backfill_end,
+        )
+        print(f"Updated {updated} prices")
+        
+        if args.recalc_outcomes:
+            print("Recalculating multi-horizon outcomes...")
+            # Reload scores from DB with updated prices
+            conn = sqlite3.connect(args.output)
+            conn.row_factory = sqlite3.Row
+            rows = conn.execute("SELECT * FROM weekly_scores ORDER BY week_start, ticker").fetchall()
+            conn.close()
+            
+            scores = []
+            for row in rows:
+                scores.append(WeeklyScore(
+                    ticker=row["ticker"],
+                    week_start=row["week_start"],
+                    fundamental_score=row["fundamental_score"],
+                    sentiment_score=row["sentiment_score"],
+                    technical_score=row["technical_score"],
+                    macro_score=row["macro_score"],
+                    composite_score=row["composite_score"],
+                    signal=row["signal"],
+                    price=row["price"],
+                    sector=row["sector"],
+                ))
+            
+            outcomes = pipeline.calculate_outcomes(scores)
+            
+            # Save outcomes with multi-horizon returns
+            conn = sqlite3.connect(args.output)
+            conn.execute("DELETE FROM trade_outcomes")
+            for o in outcomes:
+                conn.execute("""
+                    INSERT INTO trade_outcomes
+                    (ticker, entry_week, entry_price, return_1w, return_1m, return_3m,
+                     price_1w, price_1m, price_3m)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """, (o.ticker, o.entry_week, o.entry_price, 
+                      o.return_1w, o.return_1m, o.return_3m,
+                      o.price_1w, o.price_1m, o.price_3m))
+            conn.commit()
+            conn.close()
+            print(f"Saved {len(outcomes)} outcomes")
+        
+        return
+    
     scores, outcomes = pipeline.run(
         start_date=args.start,
         end_date=args.end,
-        holding_weeks=args.holding_weeks,
     )
     
     print(f"\nPipeline complete:")
