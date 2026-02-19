@@ -1,0 +1,58 @@
+# Memory Evaluation Experiment Configuration
+
+experiment:
+  name: "memory_impact_evaluation"
+  version: "1.0.0"
+  random_seed: 42
+
+data:
+  # Date ranges
+  training_start: "2019-01-01"
+  training_end: "2021-12-31"
+  validation_start: "2022-01-01"
+  validation_end: "2022-06-30"
+  test_start: "2022-07-01"
+  test_end: "2023-12-31"
+  
+  # Outcome measurement
+  outcome_weeks: 4  # Measure outcome N weeks after entry
+
+scoring:
+  buy_threshold: 70
+  sell_threshold: 40
+  weights:
+    fundamental: 0.35
+    sentiment: 0.25
+    technical: 0.20
+    macro: 0.20
+
+memory:
+  # Embedding model
+  embedding_model: "all-MiniLM-L6-v2"  # Local model for dev
+  embedding_dim: 384  # MiniLM dimension
+  
+  # Retrieval settings
+  top_k: 5  # Number of memories to retrieve
+  similarity_threshold: 0.5  # Minimum similarity to include
+  
+  # Storage
+  db_path: "data/memory.db"
+
+agent:
+  model: "claude-3-5-haiku-20241022"  # Use Haiku for iteration
+  temperature: 0.3
+  max_tokens: 2000
+
+metrics:
+  # Primary metrics to compare
+  primary:
+    - win_rate
+    - sharpe_ratio
+    - alpha
+    - max_drawdown
+  
+  # Secondary metrics
+  secondary:
+    - memory_hit_rate
+    - avg_similarity
+    - regime_conditional_alpha
