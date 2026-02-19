@@ -118,6 +118,7 @@ struct UndoToast: View {
 
 // MARK: - Trading Mode Indicator
 
+@MainActor
 struct TradingModeIndicator: View {
     let isPaper: Bool
     

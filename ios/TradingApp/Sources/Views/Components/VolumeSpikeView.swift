@@ -107,6 +107,7 @@ struct VolumeAnalysisCard: View {
         }
     }
     
+    @MainActor
     private func loadAnalysis() async {
         guard IBKRService.shared.isConnected else {
             error = "Not connected to IB Gateway"
@@ -254,6 +255,7 @@ struct VolumeSpikeAlertsView: View {
         }
     }
     
+    @MainActor
     private func loadSpikes() async {
         guard IBKRService.shared.isConnected, !tickers.isEmpty else {
             error = tickers.isEmpty ? "No tickers in watchlist" : "Not connected to IB Gateway"

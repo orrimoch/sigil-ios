@@ -214,6 +214,7 @@ struct DailyLossLimitSettingsSection: View {
         }
     }
     
+    @MainActor
     private func loadCurrentLimit() async {
         isLoading = true
         loadError = nil
@@ -236,6 +237,7 @@ struct DailyLossLimitSettingsSection: View {
         }
     }
     
+    @MainActor
     private func saveLossLimit() async {
         guard IBKRService.shared.isConnected else {
             saveError = "Not connected to IB Gateway"

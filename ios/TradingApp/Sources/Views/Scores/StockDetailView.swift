@@ -1051,6 +1051,7 @@ struct TradeEntrySheet: View {
         }
     }
     
+    @MainActor
     private func executeTrade() async {
         guard let qty = Double(quantity), qty > 0 else { return }
         isSubmitting = true
