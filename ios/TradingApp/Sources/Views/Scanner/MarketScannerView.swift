@@ -87,6 +87,7 @@ struct MarketScannerView: View {
         }
     }
     
+    @MainActor
     private func loadScanner() async {
         guard IBKRService.shared.isConnected else {
             error = "Not connected to IB Gateway"

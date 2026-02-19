@@ -886,6 +886,7 @@ private struct TradeHistoryContent: View {
         }
     }
     
+    @MainActor
     private func loadHistory() async {
         guard IBKRService.shared.isConnected else {
             error = "Not connected to IB Gateway"
