@@ -73,8 +73,12 @@ final class MarketHoursService: ObservableObject {
     
     private func startTimer() {
         // Update every minute
-        updateTimer = Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { [weak self] _ in
-            Task { @MainActor in
+        updateTimer = Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { [weak self] timer in
+            guard let self = self else {
+                timer.invalidate()
+                return
+            }
+            Task { @MainActor [weak self] in
                 self?.updateStatus()
             }
         }

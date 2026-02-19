@@ -131,6 +131,7 @@ struct IBKRChartView: View {
         }
     }
     
+    @MainActor
     private func loadBars() async {
         isLoading = true
         error = nil
@@ -338,7 +339,8 @@ private struct ChartContent: View {
                     .gesture(
                         DragGesture(minimumDistance: 0)
                             .onChanged { value in
-                                let x = value.location.x - geometry[proxy.plotAreaFrame].origin.x
+                                guard let frame = proxy.plotFrame else { return }
+                                let x = value.location.x - geometry[frame].origin.x
                                 if let index: Int = proxy.value(atX: x) {
                                     if index >= 0 && index < bars.count {
                                         selectedBar = bars[index]
