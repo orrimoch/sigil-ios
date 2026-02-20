@@ -213,7 +213,7 @@ class TestDecisionEngineInit:
         engine = DecisionEngine()
         
         assert engine.model == DEFAULT_MODEL
-        assert engine.thinking_budget == 5000
+        assert engine.thinking_budget == 2000  # Haiku limit
         assert engine._client is None
     
     def test_custom_model(self):

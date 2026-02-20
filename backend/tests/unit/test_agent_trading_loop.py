@@ -102,6 +102,10 @@ class TestTradingLoopPipeline:
     """Test trading loop pipeline stages."""
     
     @pytest.mark.asyncio
+    @pytest.mark.skipif(
+        not __import__('os').environ.get('DATABASE_URL'),
+        reason="Requires PostgreSQL (DATABASE_URL not set)"
+    )
     async def test_initialize(self, trading_loop):
         """Test loop initialization."""
         await trading_loop.initialize()

@@ -940,9 +940,8 @@ class TestIBKRErrorHandling:
     def test_connection_refused_graceful(self):
         """Connection refused doesn't crash — returns ERROR state."""
         svc = IBKRService(host="127.0.0.1", port=9999)
-        with patch.object(
-            _IBConnection,
-            "connect",
+        with patch(
+            "ibkr.ibkr_service._IBConnection.connect",
             side_effect=ConnectionError("Connection refused"),
         ):
             conn = svc.connect("user1")

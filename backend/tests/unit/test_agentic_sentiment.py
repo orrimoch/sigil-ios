@@ -5,7 +5,7 @@ Tests for Agentic Sentiment Analyzer (REC-172)
 import os
 import json
 import pytest
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch, MagicMock, AsyncMock
 from pathlib import Path
 from datetime import datetime, timedelta
 import tempfile
@@ -327,6 +327,8 @@ class TestAgenticSentimentAnalyzer:
         """Create a mock Claude client."""
         client = MagicMock()
         client.is_available = True
+        # analyze() must be AsyncMock since the code awaits it
+        client.analyze = AsyncMock()
         return client
     
     @pytest.fixture
