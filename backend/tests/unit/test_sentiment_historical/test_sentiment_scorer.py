@@ -224,13 +224,9 @@ class TestHistoricalSentimentScorer:
         assert score == 100.0  # Clamped
     
     def test_score_articles(self, mock_client, sample_articles):
-        """Test scoring multiple articles."""
-        # Return different scores for each call
-        mock_client.analyze.side_effect = [
-            {"score": 75},
-            {"score": 68},
-            {"score": 82},
-        ]
+        """Test scoring multiple articles using batch API."""
+        # score_articles uses score_headlines_batch which expects batch response
+        mock_client.analyze.return_value = {"scores": [75, 68, 82]}
         
         with tempfile.TemporaryDirectory() as tmpdir:
             scorer = HistoricalSentimentScorer(
@@ -239,7 +235,7 @@ class TestHistoricalSentimentScorer:
                 checkpoint_interval=10,
             )
             
-            scored = scorer.score_articles(sample_articles, resume=False)
+            scored = scorer.score_articles(sample_articles, resume=False, batch_size=20)
         
         assert len(scored) == 3
         assert scored[0].score == 75.0

@@ -226,7 +226,7 @@ class TestSourceTiers:
     def test_tier_2_sources_weight_2(self):
         """Tier 2 sources should have weight 2."""
         from data.news_fetcher import SOURCE_TIERS
-        tier_2 = ["reuters", "finnhub", "alpha_vantage"]
+        tier_2 = ["bloomberg", "finnhub", "alpha_vantage"]
         for source in tier_2:
             assert SOURCE_TIERS.get(source) == 2
     

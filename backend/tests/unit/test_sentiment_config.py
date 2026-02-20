@@ -39,7 +39,8 @@ class TestSentimentConfig:
         config = SentimentConfig()
         assert config.model == SentimentModel.KEYWORD
         assert config.anthropic_api_key is None
-        assert config.claude_model == "claude-sonnet-4-20250514"
+        # REC-304: Default changed to haiku after claude-3-5-haiku-20241022 EOL
+        assert config.claude_model == "claude-3-haiku-20240307"
         assert config.cache_ttl_hours == 24
         assert config.rate_limit_rpm == 50
     

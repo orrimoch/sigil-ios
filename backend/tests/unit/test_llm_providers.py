@@ -111,14 +111,14 @@ class TestAnthropicProvider:
     """Tests for Anthropic provider."""
     
     def test_default_model(self):
-        """Default model should be Claude Sonnet."""
+        """Default model should be Claude Haiku (REC-304: changed from Sonnet for cost)."""
         from llm.anthropic_provider import AnthropicProvider
         from llm.base import LLMConfig, LLMProviderType
         
         config = LLMConfig(provider=LLMProviderType.ANTHROPIC)
         provider = AnthropicProvider(config)
         
-        assert "sonnet" in provider.default_model.lower()
+        assert "haiku" in provider.default_model.lower()
     
     def test_estimate_cost(self):
         """Cost estimation should work correctly."""
@@ -128,12 +128,12 @@ class TestAnthropicProvider:
         config = LLMConfig(provider=LLMProviderType.ANTHROPIC)
         provider = AnthropicProvider(config)
         
-        # 1M input tokens + 1M output tokens on Sonnet
+        # 1M input tokens + 1M output tokens on Haiku
         usage = TokenUsage(input_tokens=1_000_000, output_tokens=1_000_000)
         cost = provider.estimate_cost(usage)
         
-        # Sonnet: $3/1M input + $15/1M output = $18
-        assert cost == pytest.approx(18.0, rel=0.1)
+        # Haiku (claude-3-haiku-20240307): $0.25/1M input + $1.25/1M output = $1.50
+        assert cost == pytest.approx(1.5, rel=0.1)
     
     def test_is_available_without_key(self):
         """Provider should not be available without API key."""

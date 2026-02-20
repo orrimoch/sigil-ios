@@ -9,6 +9,7 @@ slowapi>=0.1.9
 
 # Data
 pandas>=2.1.0
+lxml>=5.0.0  # Required for pandas.read_html (stock universe fetching)
 yfinance>=0.2.36
 requests>=2.31.0
 feedparser>=6.0.0

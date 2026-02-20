@@ -481,6 +481,173 @@ class AgentMemory:
             },
         }
     
+    # Import/Export methods
+    
+    async def import_memories(
+        self,
+        import_path: str,
+        skip_existing: bool = True,
+        batch_size: int = 50,
+    ) -> Dict[str, Any]:
+        """
+        Import pre-built memories from JSON file (cold start solution).
+        
+        Accepts memories exported from the evaluation experiment.
+        Generates OpenAI embeddings for each memory on import.
+        
+        Args:
+            import_path: Path to JSON export file
+            skip_existing: Skip memories with same ticker+timestamp
+            batch_size: Batch size for embedding generation
+            
+        Returns:
+            Stats dict with imported, skipped, failed counts
+        """
+        import json
+        from pathlib import Path
+        
+        logger.info(f"Importing memories from {import_path}")
+        
+        with open(import_path) as f:
+            data = json.load(f)
+        
+        if data.get("version") != "1.0":
+            raise ValueError(f"Unknown export format version: {data.get('version')}")
+        
+        memories = data.get("memories", [])
+        logger.info(f"Found {len(memories)} memories to import")
+        
+        stats = {"imported": 0, "skipped": 0, "failed": 0}
+        
+        async with self._pool.acquire() as conn:
+            for i, mem in enumerate(memories):
+                try:
+                    # Check if exists
+                    if skip_existing:
+                        existing = await conn.fetchval("""
+                            SELECT id FROM agent_decisions
+                            WHERE ticker = $1 AND timestamp = $2
+                        """, mem["ticker"], mem["timestamp"])
+                        
+                        if existing:
+                            stats["skipped"] += 1
+                            continue
+                    
+                    # Create Decision for embedding
+                    decision = Decision(
+                        timestamp=datetime.fromisoformat(mem["timestamp"].replace("Z", "+00:00")),
+                        ticker=mem["ticker"],
+                        action=mem["action"],
+                        shares=mem.get("shares", 0),
+                        price=mem.get("price", 0.0),
+                        score=mem["score"],
+                        regime=mem["regime"],
+                        sector=mem["sector"],
+                        rationale=mem["rationale"],
+                        confidence=mem.get("confidence", 0.7),
+                        outcome_pct=mem.get("outcome_pct"),
+                        lesson_learned=mem.get("lesson_learned"),
+                    )
+                    
+                    # Generate embedding
+                    embedding = await self._generate_embedding(decision, None)
+                    
+                    # Insert
+                    await conn.execute("""
+                        INSERT INTO agent_decisions
+                        (timestamp, ticker, action, shares, price, score, regime,
+                         sector, rationale, confidence, outcome_pct, lesson_learned,
+                         embedding, context_json)
+                        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
+                    """,
+                        decision.timestamp,
+                        decision.ticker,
+                        decision.action,
+                        decision.shares,
+                        decision.price,
+                        decision.score,
+                        decision.regime,
+                        decision.sector,
+                        decision.rationale,
+                        decision.confidence,
+                        decision.outcome_pct,
+                        decision.lesson_learned,
+                        embedding,
+                        json.dumps({"source": "imported", "train_period": data.get("train_period")}),
+                    )
+                    
+                    stats["imported"] += 1
+                    
+                    if (i + 1) % 50 == 0:
+                        logger.info(f"Progress: {i + 1}/{len(memories)}")
+                        
+                except Exception as e:
+                    logger.error(f"Failed to import memory {mem.get('ticker')}: {e}")
+                    stats["failed"] += 1
+        
+        logger.info(f"Import complete: {stats}")
+        return stats
+    
+    async def export_memories(
+        self,
+        output_path: str,
+        only_with_outcomes: bool = True,
+    ) -> Dict[str, Any]:
+        """
+        Export memories to JSON for backup or transfer.
+        
+        Args:
+            output_path: Path for output JSON file
+            only_with_outcomes: Only export decisions with known outcomes
+            
+        Returns:
+            Stats dict with export count
+        """
+        import json
+        
+        query = """
+            SELECT timestamp, ticker, action, shares, price, score, regime,
+                   sector, rationale, confidence, outcome_pct, lesson_learned
+            FROM agent_decisions
+        """
+        if only_with_outcomes:
+            query += " WHERE outcome_pct IS NOT NULL"
+        query += " ORDER BY timestamp"
+        
+        async with self._pool.acquire() as conn:
+            rows = await conn.fetch(query)
+        
+        memories = []
+        for row in rows:
+            memories.append({
+                "timestamp": row["timestamp"].isoformat(),
+                "ticker": row["ticker"],
+                "action": row["action"],
+                "shares": row["shares"],
+                "price": float(row["price"]),
+                "score": float(row["score"]),
+                "regime": row["regime"],
+                "sector": row["sector"],
+                "rationale": row["rationale"],
+                "confidence": float(row["confidence"]) if row["confidence"] else 0.7,
+                "outcome_pct": float(row["outcome_pct"]) if row["outcome_pct"] else None,
+                "lesson_learned": row["lesson_learned"],
+            })
+        
+        export_data = {
+            "version": "1.0",
+            "exported_at": datetime.now(timezone.utc).isoformat(),
+            "source": "sigil_agent_production",
+            "memory_count": len(memories),
+            "memories": memories,
+        }
+        
+        with open(output_path, 'w') as f:
+            json.dump(export_data, f, indent=2)
+        
+        logger.info(f"Exported {len(memories)} memories to {output_path}")
+        return {"exported": len(memories)}
+    
     # Embedding generation
     
     async def _generate_embedding(
@@ -616,6 +783,8 @@ if __name__ == "__main__":
     parser.add_argument("--recent", type=int, default=0, help="Show N recent decisions")
     parser.add_argument("--pending", action="store_true", help="Show pending outcomes")
     parser.add_argument("--test", action="store_true", help="Run a test store/retrieve")
+    parser.add_argument("--import-file", type=str, help="Import memories from JSON file (cold start)")
+    parser.add_argument("--export-file", type=str, help="Export memories to JSON file")
     
     args = parser.parse_args()
     
@@ -644,6 +813,18 @@ if __name__ == "__main__":
                 print(f"\n=== Pending Outcomes ({len(pending)}) ===")
                 for p in pending:
                     print(f"ID {p['id']}: {p['action']} {p['ticker']} ({p['timestamp'].strftime('%Y-%m-%d')})")
+            
+            elif args.import_file:
+                print(f"\n=== Importing Memories from {args.import_file} ===")
+                stats = await memory.import_memories(args.import_file)
+                print(f"✅ Imported: {stats['imported']}")
+                print(f"⏭️ Skipped: {stats['skipped']}")
+                print(f"❌ Failed: {stats['failed']}")
+            
+            elif args.export_file:
+                print(f"\n=== Exporting Memories to {args.export_file} ===")
+                stats = await memory.export_memories(args.export_file)
+                print(f"✅ Exported: {stats['exported']} memories")
             
             elif args.test:
                 print("\n=== Testing pgvector Memory ===")

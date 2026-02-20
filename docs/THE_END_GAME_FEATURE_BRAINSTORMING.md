@@ -48,14 +48,15 @@ CURRENT STATE:                    END STATE:
 
 **We don't predict prices. We reason about refined signals.**
 
-| Traditional | Sigil Agent |
-|-------------|-------------|
-| "Will AAPL go up?" | "Given score 89, calm regime, insider buys — is this a good trade?" |
-| Prediction (hard, ~50% accuracy) | Reasoning (tractable, high quality) |
+| Traditional                      | Sigil Agent                                                         |
+| -------------------------------- | ------------------------------------------------------------------- |
+| "Will AAPL go up?"               | "Given score 89, calm regime, insider buys — is this a good trade?" |
+| Prediction (hard, ~50% accuracy) | Reasoning (tractable, high quality)                                 |
 
 ### Target User
 
 From PRD — "The Busy Builder":
+
 - 5-10 min/week oversight
 - Set preferences once
 - Agent explains every decision
@@ -149,33 +150,33 @@ From PRD — "The Busy Builder":
 ```python
 async def run_weekly_trading_loop():
     """Main entry point — runs after Sunday pipeline."""
-    
+
     # STEP 1: Signal Generation (already done by pipeline)
     scores = load_composite_scores()  # 850 stocks with scores
-    
+
     # STEP 2: Context Aggregation
     context = await aggregate_context(scores)
-    
+
     # STEP 3: Memory Retrieval
     similar_situations = await memory.retrieve_similar(context, k=10)
-    
+
     # STEP 4: Decision Engine
     decisions = await claude.decide(context, similar_situations)
-    
+
     # STEP 5 & 6: Position Sizing + Risk Validation
     validated_trades = []
     for decision in decisions:
         sized = await size_position(decision, context)
         if await validate_risk(sized, context):
             validated_trades.append(sized)
-    
+
     # STEP 7: Execution
     if agent_mode == "supervised":
         await send_for_approval(validated_trades)  # User approves via app
     else:
         for trade in validated_trades:
             await execute_trade(trade)
-    
+
     # STEP 8: Learning Loop
     await memory.store_decisions(validated_trades)
     await update_past_outcomes()  # Check outcomes of old trades
@@ -297,36 +298,36 @@ class TradingContext:
 async def aggregate_context() -> TradingContext:
     """
     Gather all context needed for trading decision.
-    
+
     Called after pipeline runs (Sunday) or on-demand.
     """
     # Load scores
     scores = await load_composite_scores()
-    
+
     # Load portfolio
     portfolio = await ibkr.get_portfolio()
     holdings = {p.ticker for p in portfolio.positions}
-    
+
     # Get market state
     regime = await get_hmm_regime()
     vix = await get_vix()
-    
+
     # Build candidates
     buy_candidates = [
         StockCandidate(**s) 
         for s in scores 
         if s["signal"] == "BUY" and s["ticker"] not in holdings
     ][:20]  # Top 20
-    
+
     sell_candidates = [
         StockCandidate(**s)
         for s in scores
         if s["ticker"] in holdings and s["signal"] == "SELL"
     ]
-    
+
     # Check data freshness
     freshness = await check_data_freshness()
-    
+
     return TradingContext(
         timestamp=datetime.now(),
         portfolio=portfolio,
@@ -416,17 +417,17 @@ class AgentMemory:
     """
     Three-tier memory system with pgvector for semantic search.
     """
-    
+
     def __init__(self, db_url: str, embedding_model: str = "text-embedding-3-small"):
         self.db_url = db_url
         self.embedding_model = embedding_model
-    
+
     async def store_decision(self, decision: Decision, context: TradingContext):
         """Store a decision in short-term memory."""
         # Create embedding from decision context
         text = self._decision_to_text(decision, context)
         embedding = await self._embed(text)
-        
+
         async with asyncpg.connect(self.db_url) as conn:
             await conn.execute("""
                 INSERT INTO agent_decisions 
@@ -437,17 +438,17 @@ class AgentMemory:
                 decision.shares, decision.price, decision.score,
                 context.market.regime, decision.rationale,
                 context.to_json(), embedding)
-    
+
     async def retrieve_similar(self, context: TradingContext, k: int = 10) -> List[Memory]:
         """
         Find similar past situations using vector similarity.
-        
+
         Returns decisions with known outcomes for in-context learning.
         """
         # Embed current context
         text = self._context_to_text(context)
         embedding = await self._embed(text)
-        
+
         async with asyncpg.connect(self.db_url) as conn:
             rows = await conn.fetch("""
                 SELECT ticker, action, score, regime, outcome_pct, 
@@ -458,9 +459,9 @@ class AgentMemory:
                 ORDER BY embedding <=> $1
                 LIMIT $2
             """, embedding, k)
-        
+
         return [Memory(**row) for row in rows]
-    
+
     async def update_outcome(self, decision_id: int, outcome_pct: float):
         """Record the outcome of a past decision."""
         async with asyncpg.connect(self.db_url) as conn:
@@ -469,7 +470,7 @@ class AgentMemory:
                 SET outcome_pct = $1, outcome_date = NOW()
                 WHERE id = $2
             """, outcome_pct, decision_id)
-    
+
     async def store_lesson(self, decision_id: int, lesson: str):
         """Store a lesson learned from a decision."""
         async with asyncpg.connect(self.db_url) as conn:
@@ -478,7 +479,7 @@ class AgentMemory:
                 SET lesson_learned = $1
                 WHERE id = $2
             """, lesson, decision_id)
-    
+
     def _decision_to_text(self, decision: Decision, context: TradingContext) -> str:
         """Convert decision + context to text for embedding."""
         return f"""
@@ -501,30 +502,30 @@ CREATE EXTENSION IF NOT EXISTS vector;
 CREATE TABLE agent_decisions (
     id SERIAL PRIMARY KEY,
     timestamp TIMESTAMPTZ NOT NULL,
-    
+
     -- Decision
     ticker VARCHAR(10) NOT NULL,
     action VARCHAR(10) NOT NULL,  -- BUY, SELL
     shares INTEGER NOT NULL,
     price DECIMAL(10, 2) NOT NULL,
-    
+
     -- Context at decision time
     score DECIMAL(5, 2) NOT NULL,
     regime VARCHAR(20) NOT NULL,
     vix DECIMAL(5, 2),
     sector VARCHAR(50),
     context_json JSONB,
-    
+
     -- Rationale
     rationale TEXT NOT NULL,
     confidence DECIMAL(3, 2),
-    
+
     -- Outcome (filled 1-4 weeks AFTER decision, by Learning Loop)
     -- NULL until position closes or 14-day timeout
     outcome_pct DECIMAL(6, 2),      -- e.g., +12.5 or -3.2
     outcome_date TIMESTAMPTZ,       -- When outcome was recorded
     lesson_learned TEXT,            -- Claude's reflection on what worked/failed
-    
+
     -- Embedding for similarity search
     embedding vector(1536)  -- OpenAI embedding size
 );
@@ -593,7 +594,7 @@ Output as JSON array.
 class DecisionEngine:
     def __init__(self, api_key: str):
         self.client = anthropic.Anthropic(api_key=api_key)
-    
+
     async def decide(
         self, 
         context: TradingContext, 
@@ -601,13 +602,13 @@ class DecisionEngine:
     ) -> List[TradeDecision]:
         """
         Main decision function.
-        
+
         Uses Claude with extended thinking to synthesize all inputs
         and produce trading decisions.
         """
         # Build prompt
         prompt = self._build_prompt(context, memories)
-        
+
         # Call Claude with extended thinking
         response = await self.client.messages.create(
             model="claude-sonnet-4-20250514",
@@ -619,15 +620,15 @@ class DecisionEngine:
             system=SYSTEM_PROMPT,
             messages=[{"role": "user", "content": prompt}]
         )
-        
+
         # Parse response
         decisions = self._parse_response(response)
-        
+
         return decisions
-    
+
     def _build_prompt(self, context: TradingContext, memories: List[Memory]) -> str:
         """Build the prompt with all context and memories."""
-        
+
         # Portfolio section
         portfolio_text = f"""
 ## Current Portfolio
@@ -641,7 +642,7 @@ Holdings:
 Sector Exposure:
 {self._format_sectors(context.portfolio.sector_exposure)}
 """
-        
+
         # Market section
         market_text = f"""
 ## Market State
@@ -649,7 +650,7 @@ Sector Exposure:
 - VIX: {context.market.vix:.1f} ({context.market.vix_percentile:.0f}th percentile)
 - Trend: {context.market.trend}
 """
-        
+
         # Candidates section
         candidates_text = f"""
 ## BUY Candidates (Top 10)
@@ -658,13 +659,13 @@ Sector Exposure:
 ## SELL Candidates (Current Holdings)
 {self._format_candidates(context.sell_candidates)}
 """
-        
+
         # Memory section
         memory_text = f"""
 ## Similar Past Situations
 {self._format_memories(memories)}
 """
-        
+
         # Final prompt
         return f"""
 {portfolio_text}
@@ -676,7 +677,7 @@ Based on all the above, what trades should I make this week?
 Consider risk limits, diversification, and market regime.
 Output your decisions as a JSON array.
 """
-    
+
     def _format_candidates(self, candidates: List[StockCandidate]) -> str:
         lines = []
         for c in candidates:
@@ -685,7 +686,7 @@ Output your decisions as a JSON array.
                 f"Sector: {c.sector} | Vol: {c.volatility:.1%}"
             )
         return "\n".join(lines) or "None"
-    
+
     def _format_memories(self, memories: List[Memory]) -> str:
         lines = []
         for m in memories:
@@ -702,6 +703,7 @@ Output your decisions as a JSON array.
 ### Example Claude Interaction
 
 **Input to Claude:**
+
 ```
 ## Current Portfolio
 - Cash: $45,000
@@ -728,6 +730,7 @@ What trades should I make this week?
 ```
 
 **Claude's Thinking:**
+
 ```
 <thinking>
 Portfolio analysis:
@@ -756,6 +759,7 @@ Decision: BUY both CMI and UPS
 ```
 
 **Claude's Output:**
+
 ```json
 [
   {
@@ -842,10 +846,10 @@ class PositionSizer:
     """
     Position sizing using Risk Parity + conviction + regime adjustments.
     """
-    
+
     def __init__(self, lookback_days: int = 60):
         self.lookback_days = lookback_days
-    
+
     async def size_positions(
         self,
         decisions: List[TradeDecision],
@@ -856,13 +860,13 @@ class PositionSizer:
         """
         if not decisions:
             return []
-        
+
         buy_tickers = [d.ticker for d in decisions if d.action == "BUY"]
-        
+
         if buy_tickers:
             # Get risk parity weights
             rp_weights = await self._risk_parity_weights(buy_tickers)
-            
+
             # Apply conviction and regime adjustments
             final_weights = {}
             for decision in decisions:
@@ -871,18 +875,18 @@ class PositionSizer:
                     conviction = self._conviction_multiplier(decision.score)
                     regime = self._regime_multiplier(context.market.regime)
                     final_weights[decision.ticker] = base * conviction * regime
-        
+
         # Convert weights to shares
         results = []
         portfolio_value = context.portfolio.total_value
-        
+
         for decision in decisions:
             if decision.action == "BUY":
                 weight = min(final_weights[decision.ticker], 0.10)  # Cap at 10%
                 dollars = portfolio_value * weight
                 price = await self._get_price(decision.ticker)
                 shares = int(dollars / price)
-                
+
                 results.append(SizedPosition(
                     ticker=decision.ticker,
                     action="BUY",
@@ -892,7 +896,7 @@ class PositionSizer:
                     rationale=f"Risk parity {rp_weights[decision.ticker]:.1%} × "
                               f"conviction {conviction:.2f} × regime {regime:.2f}"
                 ))
-            
+
             elif decision.action == "SELL":
                 # Sell entire position
                 position = next(
@@ -907,9 +911,9 @@ class PositionSizer:
                     weight=0,
                     rationale="Full exit"
                 ))
-        
+
         return results
-    
+
     async def _risk_parity_weights(self, tickers: List[str]) -> Dict[str, float]:
         """Calculate Risk Parity weights."""
         n = len(tickers)
@@ -917,33 +921,33 @@ class PositionSizer:
             return {}
         if n == 1:
             return {tickers[0]: 0.05}  # Default 5%
-        
+
         # Fetch returns and calculate covariance
         cov_matrix = await self._get_covariance_matrix(tickers)
-        
+
         # Target: equal risk contribution
         target_risk = np.ones(n) / n
-        
+
         def objective(weights):
             portfolio_vol = np.sqrt(weights @ cov_matrix @ weights)
             marginal_contrib = cov_matrix @ weights
             risk_contrib = weights * marginal_contrib / portfolio_vol
             return np.sum((risk_contrib - target_risk) ** 2)
-        
+
         # Optimize
         constraints = [{'type': 'eq', 'fun': lambda w: np.sum(w) - 0.40}]  # 40% total
         bounds = [(0.02, 0.12) for _ in range(n)]  # 2-12% each
         x0 = np.ones(n) * 0.40 / n
-        
+
         result = minimize(objective, x0, bounds=bounds, constraints=constraints)
-        
+
         return {ticker: weight for ticker, weight in zip(tickers, result.x)}
-    
+
     def _conviction_multiplier(self, score: float) -> float:
         """Higher score = larger position."""
         # Score 70 → 0.85, Score 85 → 1.0, Score 100 → 1.15
         return 0.85 + (score - 70) / 100
-    
+
     def _regime_multiplier(self, regime: str) -> float:
         """Crisis = smaller positions."""
         return {
@@ -952,7 +956,7 @@ class PositionSizer:
             "high_vol": 0.7,
             "crisis": 0.5
         }.get(regime, 1.0)
-    
+
     async def _get_covariance_matrix(self, tickers: List[str]) -> np.ndarray:
         """Fetch price history and compute covariance matrix."""
         data = yf.download(tickers, period=f"{self.lookback_days}d", progress=False)
@@ -991,14 +995,14 @@ class RiskValidator:
     Validates trades against risk constraints.
     Can reduce or block trades that exceed limits.
     """
-    
+
     # Risk Limits
     MAX_POSITION_PCT = 0.10      # 10% max per position
     MAX_SECTOR_PCT = 0.30        # 30% max per sector
     MAX_PORTFOLIO_VAR = 0.02    # 2% daily VaR limit
     MAX_CORRELATION = 0.80       # Reduce if correlated with existing
     DAILY_LOSS_LIMIT = 0.03     # 3% pause threshold
-    
+
     async def validate(
         self,
         trade: SizedPosition,
@@ -1010,36 +1014,36 @@ class RiskValidator:
         violations = []
         warnings = []
         adjusted_shares = trade.shares
-        
+
         # Check 1: Position limit
         position_check = self._check_position_limit(trade, context)
         if not position_check[0]:
             violations.append(position_check[1])
             adjusted_shares = position_check[2]
-        
+
         # Check 2: Sector limit
         sector_check = await self._check_sector_limit(trade, context)
         if not sector_check[0]:
             violations.append(sector_check[1])
             adjusted_shares = min(adjusted_shares, sector_check[2])
-        
+
         # Check 3: Portfolio VaR
         var_check = await self._check_portfolio_var(trade, context)
         if not var_check[0]:
             violations.append(var_check[1])
             adjusted_shares = min(adjusted_shares, var_check[2])
-        
+
         # Check 4: Correlation with existing
         corr_check = await self._check_correlation(trade, context)
         if not corr_check[0]:
             warnings.append(corr_check[1])
             adjusted_shares = min(adjusted_shares, corr_check[2])
-        
+
         # Check 5: Daily loss limit (halt all trading)
         if self._check_daily_loss(context):
             violations.append("Daily loss limit exceeded - trading halted")
             adjusted_shares = 0
-        
+
         return RiskValidation(
             passed=len(violations) == 0 and adjusted_shares > 0,
             original_shares=trade.shares,
@@ -1047,7 +1051,7 @@ class RiskValidator:
             violations=violations,
             warnings=warnings
         )
-    
+
     def _check_position_limit(
         self, trade: SizedPosition, context: TradingContext
     ) -> Tuple[bool, str, int]:
@@ -1055,7 +1059,7 @@ class RiskValidator:
         max_dollars = context.portfolio.total_value * self.MAX_POSITION_PCT
         price = trade.dollars / trade.shares
         max_shares = int(max_dollars / price)
-        
+
         if trade.shares > max_shares:
             return (
                 False,
@@ -1063,7 +1067,7 @@ class RiskValidator:
                 max_shares
             )
         return (True, "", trade.shares)
-    
+
     async def _check_sector_limit(
         self, trade: SizedPosition, context: TradingContext
     ) -> Tuple[bool, str, int]:
@@ -1071,7 +1075,7 @@ class RiskValidator:
         sector = await get_stock_sector(trade.ticker)
         current_exposure = context.portfolio.sector_exposure.get(sector, 0)
         new_exposure = current_exposure + trade.weight
-        
+
         if new_exposure > self.MAX_SECTOR_PCT:
             allowed_weight = self.MAX_SECTOR_PCT - current_exposure
             allowed_shares = int(
@@ -1084,7 +1088,7 @@ class RiskValidator:
                 max(0, allowed_shares)
             )
         return (True, "", trade.shares)
-    
+
     async def _check_portfolio_var(
         self, trade: SizedPosition, context: TradingContext
     ) -> Tuple[bool, str, int]:
@@ -1094,7 +1098,7 @@ class RiskValidator:
         new_var = await calculate_portfolio_var_with_trade(
             context.portfolio, trade
         )
-        
+
         if new_var > self.MAX_PORTFOLIO_VAR:
             # Binary search for acceptable size
             acceptable_shares = self._find_acceptable_shares(
@@ -1106,20 +1110,20 @@ class RiskValidator:
                 acceptable_shares
             )
         return (True, "", trade.shares)
-    
+
     async def _check_correlation(
         self, trade: SizedPosition, context: TradingContext
     ) -> Tuple[bool, str, int]:
         """Warn/reduce if highly correlated with existing holdings."""
         max_corr = 0
         correlated_with = ""
-        
+
         for position in context.portfolio.positions:
             corr = await get_correlation(trade.ticker, position["ticker"])
             if corr > max_corr:
                 max_corr = corr
                 correlated_with = position["ticker"]
-        
+
         if max_corr > self.MAX_CORRELATION:
             # Reduce position by correlation factor
             reduction = 1 - (max_corr - self.MAX_CORRELATION)
@@ -1130,7 +1134,7 @@ class RiskValidator:
                 adjusted
             )
         return (True, "", trade.shares)
-    
+
     def _check_daily_loss(self, context: TradingContext) -> bool:
         """Check if daily loss limit exceeded."""
         daily_pnl = context.portfolio.realized_pnl_today
@@ -1140,13 +1144,13 @@ class RiskValidator:
 
 ### Risk Constraints Summary
 
-| Constraint | Limit | Action if Violated |
-|------------|-------|-------------------|
-| Position size | 10% max | Reduce to 10% |
-| Sector exposure | 30% max | Reduce or skip |
-| Portfolio VaR | 2% daily | Reduce position |
-| Correlation | 80% max | Reduce 20-50% |
-| Daily loss | 3% | Halt all trading |
+| Constraint      | Limit    | Action if Violated |
+| --------------- | -------- | ------------------ |
+| Position size   | 10% max  | Reduce to 10%      |
+| Sector exposure | 30% max  | Reduce or skip     |
+| Portfolio VaR   | 2% daily | Reduce position    |
+| Correlation     | 80% max  | Reduce 20-50%      |
+| Daily loss      | 3%       | Halt all trading   |
 
 ---
 
@@ -1213,11 +1217,11 @@ class TradeExecutor:
     Executes trades via IBKR.
     Supports supervised (user approval) and autonomous modes.
     """
-    
+
     def __init__(self, ibkr_service, notification_service):
         self.ibkr = ibkr_service
         self.notifications = notification_service
-    
+
     async def execute(
         self,
         trade: SizedPosition,
@@ -1226,7 +1230,7 @@ class TradeExecutor:
     ) -> ExecutionResult:
         """
         Execute a trade.
-        
+
         In supervised mode, queues for approval.
         In autonomous mode, executes immediately.
         """
@@ -1234,14 +1238,14 @@ class TradeExecutor:
             return await self._supervised_execution(trade, user_id)
         else:
             return await self._autonomous_execution(trade, user_id)
-    
+
     async def _supervised_execution(
         self, trade: SizedPosition, user_id: str
     ) -> ExecutionResult:
         """Queue trade for user approval."""
         # Store pending trade
         pending_id = await self._store_pending(trade, user_id)
-        
+
         # Send push notification
         await self.notifications.send_push(
             user_id=user_id,
@@ -1249,14 +1253,14 @@ class TradeExecutor:
             body=f"{trade.shares} shares (${trade.dollars:,.0f}) — Tap to review",
             data={"pending_id": pending_id}
         )
-        
+
         return ExecutionResult(
             success=True,
             order_id=None,
             fill_price=None,
             message=f"Pending approval: {pending_id}"
         )
-    
+
     async def _autonomous_execution(
         self, trade: SizedPosition, user_id: str
     ) -> ExecutionResult:
@@ -1269,11 +1273,11 @@ class TradeExecutor:
                 quantity=trade.shares,
                 order_type="MARKET"
             )
-            
+
             # Attach stop-loss if BUY
             if trade.action == "BUY":
                 await self._attach_stop_loss(trade, order.fill_price)
-            
+
             # Notify user
             await self.notifications.send_push(
                 user_id=user_id,
@@ -1281,14 +1285,14 @@ class TradeExecutor:
                 body=f"{trade.shares} shares @ ${order.fill_price:.2f}",
                 data={"order_id": order.id}
             )
-            
+
             return ExecutionResult(
                 success=True,
                 order_id=order.id,
                 fill_price=order.fill_price,
                 message="Executed"
             )
-        
+
         except Exception as e:
             return ExecutionResult(
                 success=False,
@@ -1296,11 +1300,11 @@ class TradeExecutor:
                 fill_price=None,
                 message=str(e)
             )
-    
+
     async def _attach_stop_loss(self, trade: SizedPosition, fill_price: float):
         """Attach trailing stop-loss to new position."""
         stop_price = fill_price * 0.92  # 8% trailing stop
-        
+
         await self.ibkr.place_order(
             ticker=trade.ticker,
             action="SELL",
@@ -1308,19 +1312,19 @@ class TradeExecutor:
             order_type="TRAIL",
             trail_percent=8.0
         )
-    
+
     async def approve_pending(self, pending_id: str) -> ExecutionResult:
         """User approved a pending trade."""
         trade = await self._get_pending(pending_id)
-        
+
         # Execute
         result = await self._autonomous_execution(trade, trade.user_id)
-        
+
         # Mark as executed
         await self._mark_executed(pending_id, result)
-        
+
         return result
-    
+
     async def reject_pending(self, pending_id: str, reason: str):
         """User rejected a pending trade."""
         await self._mark_rejected(pending_id, reason)
@@ -1375,14 +1379,14 @@ outcome_pct = (exit_price - entry_price) / entry_price * 100
 
 **Outcome tags (derived from percentage):**
 
-| Outcome % | Tag | Meaning | Memory Usage |
-|-----------|-----|---------|--------------|
-| > +10% | 🏆 **Strong Win** | Excellent trade | High-priority retrieval |
-| +5% to +10% | ✅ **Win** | Good trade | Positive example |
-| +1% to +5% | ✅ **Small Win** | Modest gain | Positive example |
-| -1% to +1% | ➖ **Neutral** | Breakeven | Low value |
-| -1% to -5% | ❌ **Loss** | Bad trade | Learn from mistake |
-| < -5% | 💀 **Strong Loss** | Significant loss | Critical lesson |
+| Outcome %   | Tag                | Meaning          | Memory Usage            |
+| ----------- | ------------------ | ---------------- | ----------------------- |
+| > +10%      | 🏆 **Strong Win**  | Excellent trade  | High-priority retrieval |
+| +5% to +10% | ✅ **Win**          | Good trade       | Positive example        |
+| +1% to +5%  | ✅ **Small Win**    | Modest gain      | Positive example        |
+| -1% to +1%  | ➖ **Neutral**      | Breakeven        | Low value               |
+| -1% to -5%  | ❌ **Loss**         | Bad trade        | Learn from mistake      |
+| < -5%       | 💀 **Strong Loss** | Significant loss | Critical lesson         |
 
 **When outcomes are recorded:**
 
@@ -1416,11 +1420,11 @@ class LearningLoop:
     """
     Tracks outcomes and generates lessons from past decisions.
     """
-    
+
     def __init__(self, memory: AgentMemory, claude: DecisionEngine):
         self.memory = memory
         self.claude = claude
-    
+
     async def run_weekly_update(self):
         """
         Update outcomes for recent decisions.
@@ -1428,22 +1432,22 @@ class LearningLoop:
         """
         # Get decisions needing outcome update
         pending_outcomes = await self.memory.get_pending_outcomes()
-        
+
         for decision in pending_outcomes:
             # Check if position is closed
             position = await self._get_position_status(decision)
-            
+
             if position.closed or decision.age_days > 14:
                 # Calculate outcome
                 outcome_pct = self._calculate_outcome(decision, position)
-                
+
                 # Have Claude reflect
                 lesson = await self._generate_lesson(decision, outcome_pct)
-                
+
                 # Update memory
                 await self.memory.update_outcome(decision.id, outcome_pct)
                 await self.memory.store_lesson(decision.id, lesson)
-    
+
     async def _generate_lesson(self, decision, outcome_pct: float) -> str:
         """Use Claude to generate a lesson from this decision."""
         prompt = f"""
@@ -1452,29 +1456,29 @@ class LearningLoop:
         - Score at time: {decision.score}
         - Regime at time: {decision.regime}
         - Rationale: {decision.rationale}
-        
+
         Outcome: {outcome_pct:+.1f}%
-        
+
         What lesson should I remember for similar future situations?
         Keep it to 1-2 sentences.
         """
-        
+
         response = await self.claude.client.messages.create(
             model="claude-3-5-haiku-20241022",
             max_tokens=100,
             messages=[{"role": "user", "content": prompt}]
         )
-        
+
         return response.content[0].text
 ```
 
 ### Example Lessons
 
-| Decision | Outcome | Lesson Learned |
-|----------|---------|----------------|
-| BUY CMI, score 89, regime normal | +12% | "High-conviction Industrials in normal regime tend to follow through" |
-| BUY TSLA, score 75, regime high_vol | -8% | "Avoid high-beta stocks when regime is elevated, even with decent scores" |
-| SELL JNJ, score 38 | +2% (avoided -5%) | "Trust SELL signals on defensive stocks; they often precede sector rotation" |
+| Decision                            | Outcome           | Lesson Learned                                                               |
+| ----------------------------------- | ----------------- | ---------------------------------------------------------------------------- |
+| BUY CMI, score 89, regime normal    | +12%              | "High-conviction Industrials in normal regime tend to follow through"        |
+| BUY TSLA, score 75, regime high_vol | -8%               | "Avoid high-beta stocks when regime is elevated, even with decent scores"    |
+| SELL JNJ, score 38                  | +2% (avoided -5%) | "Trust SELL signals on defensive stocks; they often precede sector rotation" |
 
 ---
 
@@ -1482,26 +1486,29 @@ class LearningLoop:
 
 ### User Modes
 
-| Mode | Description | Best For |
-|------|-------------|----------|
-| **Manual** | Agent suggests, user decides everything | Learning phase |
-| **Supervised** | Agent proposes, user approves via push | Default mode |
-| **Autonomous** | Agent acts, user monitors | Trusted agent |
+| Mode           | Description                             | Best For       |
+| -------------- | --------------------------------------- | -------------- |
+| **Manual**     | Agent suggests, user decides everything | Learning phase |
+| **Supervised** | Agent proposes, user approves via push  | Default mode   |
+| **Autonomous** | Agent acts, user monitors               | Trusted agent  |
 
 ### New Views
 
 1. **Agent Dashboard**
+   
    - Status: Active / Paused
    - Pending approvals count
    - This week's actions
    - P&L from agent trades
 
 2. **Agent History**
+   
    - All decisions with rationale
    - Outcomes when known
    - Filter by: BUY/SELL, date, ticker
 
 3. **Agent Settings**
+   
    - Mode: Manual / Supervised / Autonomous
    - Risk profile: Conservative / Moderate / Aggressive
    - Pause / Resume button
@@ -1555,79 +1562,86 @@ GET  /api/v1/agent/context          # Current aggregated context
 
 ### Success Metrics
 
-| Category | Metric | Target |
-|----------|--------|--------|
-| **Returns** | Alpha | > 0% |
-| | Sharpe Ratio | > 1.5 |
-| | Win Rate | > 55% |
-| **Risk** | Max Drawdown | < 20% |
-| | Daily VaR | < 2% |
-| | Largest Loss | < 5% |
-| **Trust** | Approval Rate (supervised) | > 80% |
-| | Override Rate | < 10% |
+| Category    | Metric                     | Target |
+| ----------- | -------------------------- | ------ |
+| **Returns** | Alpha                      | > 0%   |
+|             | Sharpe Ratio               | > 1.5  |
+|             | Win Rate                   | > 55%  |
+| **Risk**    | Max Drawdown               | < 20%  |
+|             | Daily VaR                  | < 2%   |
+|             | Largest Loss               | < 5%   |
+| **Trust**   | Approval Rate (supervised) | > 80%  |
+|             | Override Rate              | < 10%  |
 
 ### Existing Backtest Results
 
-| Metric | Sigil (Jun-Nov 2019) | SPY | Alpha |
-|--------|----------------------|-----|-------|
-| Return | +20.85% | +15.56% | **+5.29%** |
-| Sharpe | 4.42 | — | — |
-| Max DD | -6.26% | — | — |
+| Metric | Sigil (Jun-Nov 2019) | SPY     | Alpha      |
+| ------ | -------------------- | ------- | ---------- |
+| Return | +20.85%              | +15.56% | **+5.29%** |
+| Sharpe | 4.42                 | —       | —          |
+| Max DD | -6.26%               | —       | —          |
 
 ---
 
 ## 13. Implementation Plan
 
 ### Phase 0: Context Builder (Week 1)
+
 - [ ] `src/agent/context.py` — Unified context aggregator
 - [ ] `GET /api/v1/agent/context` endpoint
 - [ ] CLI: `python -m src.agent.context --ticker CMI`
 
 ### Phase 1: Memory + Position Sizing (Weeks 2-3)
+
 - [ ] pgvector setup in PostgreSQL
 - [ ] `src/agent/memory.py` — Three-tier memory
 - [ ] `src/agent/position_sizing.py` — Risk Parity optimizer
 - [ ] Unit tests for both
 
 ### Phase 2: Decision Engine (Weeks 4-5)
+
 - [ ] `src/agent/decision_engine.py` — Claude integration
 - [ ] Anthropic SDK with extended thinking
 - [ ] `src/agent/risk_validator.py` — Risk checks
 - [ ] Integration tests
 
 ### Phase 3: Execution + Loop (Weeks 6-7)
+
 - [ ] `src/agent/executor.py` — IBKR execution
 - [ ] Supervised mode with push notifications
 - [ ] `src/agent/learning.py` — Outcome tracking
 - [ ] **🎯 FIRST PAPER TRADE**
 
 ### Phase 4: Data Collection (Months 2-6)
+
 - [ ] Run weekly, collect 500+ decisions
 - [ ] Monitor performance metrics
 - [ ] **Month 6: Evaluate — Claude-only sufficient?**
 
 ### Phase 5-6: Pattern Model (OPTIONAL)
+
 - [ ] Only if Phase 4 evaluation shows need
 - [ ] DPO fine-tuning on decision pairs
 - [ ] Two-model pipeline
 
 ### Phase 7: Live Trading
+
 - [ ] Start with 10% capital, supervised
 - [ ] Scale based on performance
 - [ ] Can start Month 4 if Claude-only is sufficient
 
 ### Timeline
 
-| Phase | Duration | Cumulative |
-|-------|----------|------------|
-| **0** Context Builder | 1 week | Week 1 |
-| **1** Memory + Sizing | 2 weeks | Week 3 |
-| **2** Decision Engine | 2 weeks | Week 5 |
-| **3** Execution | 2 weeks | Week 7 |
-| | 🎯 **First Paper Trade** | **Week 7** |
-| **4** Data Collection | 5 months | Month 6 |
-| **5-6** Pattern Model | Optional | Month 7 |
-| **7** Live Trading | Month 4-8 | Ongoing |
+| Phase                 | Duration                 | Cumulative |
+| --------------------- | ------------------------ | ---------- |
+| **0** Context Builder | 1 week                   | Week 1     |
+| **1** Memory + Sizing | 2 weeks                  | Week 3     |
+| **2** Decision Engine | 2 weeks                  | Week 5     |
+| **3** Execution       | 2 weeks                  | Week 7     |
+|                       | 🎯 **First Paper Trade** | **Week 7** |
+| **4** Data Collection | 5 months                 | Month 6    |
+| **5-6** Pattern Model | Optional                 | Month 7    |
+| **7** Live Trading    | Month 4-8                | Ongoing    |
 
 ### Two Paths
 

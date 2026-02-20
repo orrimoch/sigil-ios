@@ -4,6 +4,7 @@ Tests script existence, permissions, and basic functionality.
 """
 
 import os
+import sys
 import subprocess
 import pytest
 from pathlib import Path
@@ -45,6 +46,7 @@ class TestScriptExistence:
         assert first_line.startswith("#!/bin/bash"), f"Script {script_name} missing bash shebang"
 
 
+@pytest.mark.skipif(sys.platform != "darwin", reason="LaunchAgent is macOS-only")
 class TestLaunchAgent:
     """Verify LaunchAgent configuration."""
     

@@ -1,14 +1,504 @@
 {
-  "updated_at": "2026-02-19T03:08:18.948677",
+  "updated_at": "2026-02-20T03:07:47.960319",
   "count": 152,
   "articles": [
+    {
+      "source": "finnhub_MarketWatch",
+      "title": "United Airlines\u2019 best loyalty perks will soon be reserved for its cardholders. Is the card worth it?",
+      "summary": "Frequent flyers who hold a United Airlines co-branded credit or debit card can soon earn up to twice as many miles as noncardholders, effectively rewarding the airline\u2019s biggest spenders.",
+      "link": "https://www.marketwatch.com/story/united-airlines-best-loyalty-perks-will-soon-be-reserved-for-its-cardholders-is-the-card-worth-it-39675942",
+      "published": "2026-02-20T00:54:00",
+      "fetched_at": "2026-02-20T03:07:47.959546",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "marketwatch",
+      "title": "\u2018She spent over $1,000 a month on weight-loss drugs\u2019: My son wrecked his finances after meeting his girlfriend. Who\u2019s to blame?",
+      "summary": "\u201cMy son is smart \u2014 he really is \u2014 but he was in love.\u201d",
+      "link": "https://www.marketwatch.com/story/his-credit-rating-is-wrecked-my-son-and-his-girlfriend-mingled-their-finances-big-mistake-b5273119?mod=mw_rss_topstories",
+      "published": "2026-02-20T00:29:00",
+      "fetched_at": "2026-02-20T03:07:47.509683"
+    },
+    {
+      "source": "marketwatch",
+      "title": "\u2018This is stressful for my parents\u2019: My siblings harass our mother and father for money. Should they be cut out of their will?",
+      "summary": "\u201cMy parents have asked me to help them secure their assets when they pass on.\u201d",
+      "link": "https://www.marketwatch.com/story/this-is-stressful-my-two-siblings-are-financial-horrors-how-can-i-make-sure-their-estate-goes-to-the-right-people-4842a5a7?mod=mw_rss_topstories",
+      "published": "2026-02-20T00:29:00",
+      "fetched_at": "2026-02-20T03:07:47.509699"
+    },
+    {
+      "source": "marketwatch",
+      "title": "\u2018I won\u2019t take out a loan\u2019: I need $18K in house repairs. Do I take it from my Roth, 401(k) or IRA?",
+      "summary": "\u201cI plan to be debt-free in less than two years.\u201d",
+      "link": "https://www.marketwatch.com/story/i-wont-take-out-a-loan-i-need-18k-in-house-repairs-do-i-take-it-from-my-roth-401-k-or-ira-651f80f1?mod=mw_rss_topstories",
+      "published": "2026-02-20T00:22:00",
+      "fetched_at": "2026-02-20T03:07:47.509712"
+    },
+    {
+      "source": "marketwatch",
+      "title": "My ex-wife took out a $100K Parent PLUS loan for our son. Am I morally or legally obliged to pay it off?",
+      "summary": "\u201cOur son makes $45,000 a year and has no immediate prospects for significantly increasing his income.\u201d",
+      "link": "https://www.marketwatch.com/story/my-ex-wife-took-out-a-100k-parent-plus-loan-for-our-son-am-i-morally-or-legally-obliged-to-pay-it-off-30510e58?mod=mw_rss_topstories",
+      "published": "2026-02-20T00:21:00",
+      "fetched_at": "2026-02-20T03:07:47.509723"
+    },
+    {
+      "source": "finnhub_MarketWatch",
+      "title": "People still want to see BTS and Harry Styles concerts, lifting Live Nation\u2019s sales",
+      "summary": "Ticketmaster parent Live Nation Entertainment on Thursday reported fourth-quarter sales that topped Wall Street\u2019s expectations, helped by bigger shows, international expansion and more upsells at concerts.",
+      "link": "https://www.marketwatch.com/story/people-still-want-to-see-bts-and-harry-styles-concerts-lifting-live-nations-sales-eee12233",
+      "published": "2026-02-20T00:21:00",
+      "fetched_at": "2026-02-20T03:07:47.959549",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_MarketWatch",
+      "title": "This is the sobering way most Americans plan to use their tax refunds this year",
+      "summary": "Tax refunds are projected to be larger this year, on average \u2014 and Americans are thinking hard about how to spend them.",
+      "link": "https://www.marketwatch.com/story/this-is-the-sobering-way-most-americans-plan-to-use-their-tax-refunds-this-year-cd7c585d",
+      "published": "2026-02-19T23:52:00",
+      "fetched_at": "2026-02-20T03:07:47.959551",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_MarketWatch",
+      "title": "Nvidia options are priced for a perfect earnings outlook. These are your smarter trades.",
+      "summary": "Earnings reports will flood the market next week. Could this be the juice the S&P 500 needs?",
+      "link": "https://www.marketwatch.com/story/nvidia-options-are-priced-for-a-perfect-earnings-outlook-these-are-your-smarter-trades-4cac5291",
+      "published": "2026-02-19T23:52:00",
+      "fetched_at": "2026-02-20T03:07:47.959553",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_MarketWatch",
+      "title": "What investors can do about seller\u2019s remorse \u2014 and how to decide when to buy a stock back",
+      "summary": "Regret selling a stock or asset too early? That\u2019s something that happens to billionaires, too.",
+      "link": "https://www.marketwatch.com/story/what-investors-can-do-about-sellers-remorse-and-how-to-decide-when-to-buy-a-stock-back-dcd740b1",
+      "published": "2026-02-19T23:25:00",
+      "fetched_at": "2026-02-20T03:07:47.959555",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "marketwatch",
+      "title": "Wayfair\u2019s stock sinks, as investors worry expansion plans will hurt profits",
+      "summary": "Wayfair\u2019s stock suffered its worst postearnings reaction in nearly four years, after the company unexpectedly swung to a net loss for the latest quarter and warned that profit margins may narrow.",
+      "link": "https://www.marketwatch.com/story/wayfairs-stock-sinks-as-investors-worry-expansion-plans-will-hurt-profits-6c362879?mod=mw_rss_topstories",
+      "published": "2026-02-19T23:20:00",
+      "fetched_at": "2026-02-20T03:07:47.509736"
+    },
+    {
+      "source": "finnhub_MarketWatch",
+      "title": "The S&P 500 is undergoing a historic shift that could reshape the stock market",
+      "summary": "After years of record highs on Wall Street powered by a narrow group of megacap tech leaders, 2026 begins with that base starting to crack.",
+      "link": "https://www.marketwatch.com/story/the-s-p-500-is-undergoing-a-historic-shift-that-could-reshape-the-stock-market-66436b65",
+      "published": "2026-02-19T23:12:00",
+      "fetched_at": "2026-02-20T03:07:47.959556",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_MarketWatch",
+      "title": "This is the biggest weakness in most people\u2019s budgets. Here\u2019s how to fix it.",
+      "summary": "\u201cMost people don\u2019t blow up their budget because they\u2019re careless,\u201d one financial planner said. It happens because they neglect this critical detail.",
+      "link": "https://www.marketwatch.com/story/this-is-the-biggest-weakness-in-most-peoples-budgets-heres-how-to-fix-it-9290b3f0",
+      "published": "2026-02-19T22:59:00",
+      "fetched_at": "2026-02-20T03:07:47.959566",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "marketwatch",
+      "title": "United Airlines\u2019 best loyalty perks will soon be reserved for its cardholders. Is the card worth it?",
+      "summary": "Frequent flyers who hold a United Airlines co-branded credit or debit card can soon earn up to twice as many miles as noncardholders, effectively rewarding the airline\u2019s biggest spenders.",
+      "link": "https://www.marketwatch.com/story/united-airlines-best-loyalty-perks-will-soon-be-reserved-for-its-cardholders-is-the-card-worth-it-39675942?mod=mw_rss_topstories",
+      "published": "2026-02-19T22:54:00",
+      "fetched_at": "2026-02-20T03:07:47.509747"
+    },
+    {
+      "source": "marketwatch",
+      "title": "Why your portfolio may face one last rate-hike surprise before May",
+      "summary": "Interest rates typically go up when a Fed chair steps down.",
+      "link": "https://www.marketwatch.com/story/why-the-fed-could-deliver-one-final-sting-to-your-portfolio-before-powells-exit-in-may-de2e8f28?mod=mw_rss_topstories",
+      "published": "2026-02-19T22:48:00",
+      "fetched_at": "2026-02-20T03:07:47.509758"
+    },
+    {
+      "source": "marketwatch",
+      "title": "\u2018Many politicians work well into their 80s\u2019: I\u2019m 71 and earn $300K for a Fortune 200 company. Do I work until I\u2019m 75?",
+      "summary": "\u201cMy company is eager to retain me because of the 45 years of knowledge and experience I bring.\u201d",
+      "link": "https://www.marketwatch.com/story/many-politicians-work-well-into-their-80s-im-71-and-earn-300k-for-a-fortune-200-company-do-i-work-until-im-75-6b5e6baf?mod=mw_rss_topstories",
+      "published": "2026-02-19T22:43:00",
+      "fetched_at": "2026-02-20T03:07:47.509769"
+    },
+    {
+      "source": "finnhub_MarketWatch",
+      "title": "The U.S. economy has grown faster than anyone predicted. Here\u2019s why.",
+      "summary": "The final report card for the U.S. economy in 2025 is likely show pretty good marks \u2014 and set the stage for even stronger performance this year.",
+      "link": "https://www.marketwatch.com/story/the-u-s-economy-has-grown-faster-than-anyone-predicted-heres-why-16ed905b",
+      "published": "2026-02-19T22:37:00",
+      "fetched_at": "2026-02-20T03:07:47.959568",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "marketwatch",
+      "title": "People still want to see BTS and Harry Styles concerts, lifting Live Nation\u2019s sales",
+      "summary": "Ticketmaster parent Live Nation Entertainment on Thursday reported fourth-quarter sales that topped Wall Street\u2019s expectations, helped by bigger shows, international expansion and more upsells at concerts.",
+      "link": "https://www.marketwatch.com/story/people-still-want-to-see-bts-and-harry-styles-concerts-lifting-live-nations-sales-eee12233?mod=mw_rss_topstories",
+      "published": "2026-02-19T22:21:00",
+      "fetched_at": "2026-02-20T03:07:47.509780"
+    },
+    {
+      "source": "marketwatch",
+      "title": "4 reasons cybersecurity stocks are primed for a breakout",
+      "summary": "Shares of most of the cybersecurity companies Jefferies covers are trading at the lowest valuations seen over the past five years.",
+      "link": "https://www.marketwatch.com/story/4-reasons-why-cybersecurity-stocks-are-primed-for-a-turnaround-d9b17f85?mod=mw_rss_topstories",
+      "published": "2026-02-19T21:54:00",
+      "fetched_at": "2026-02-20T03:07:47.509790"
+    },
+    {
+      "source": "finnhub_CNBC",
+      "title": "Healthy Returns: FDA chief Marty Makary on compounded GLP-1s, vaccines and China",
+      "summary": "Makary helms the FDA in the midst of a contentious stretch for the agency, defined by massive staff and budget cuts and sweeping changes to vaccine policy.",
+      "link": "https://www.cnbc.com/2026/02/19/healthy-returns-fda-chief-marty-makary-on-glp-1-copies-vaccines-china.html",
+      "published": "2026-02-19T21:52:04",
+      "fetched_at": "2026-02-20T03:07:47.959569",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_CNBC",
+      "title": "Some crazy post-earnings stock swings cast a spotlight on the dangers of trading",
+      "summary": "We are seeing some of the most stupid moves during this earnings season, and the last 24 hours were among the dumbest.",
+      "link": "https://www.cnbc.com/2026/02/19/cramer-crazy-post-earnings-stock-swings-highlight-the-dangers-of-trading.html",
+      "published": "2026-02-19T21:15:33",
+      "fetched_at": "2026-02-20T03:07:47.959571",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_MarketWatch",
+      "title": "4 reasons cybersecurity stocks are primed for a turnaround",
+      "summary": "Shares of most of the cybersecurity companies Jefferies covers are trading at the lowest valuations seen over the past five years.",
+      "link": "https://www.marketwatch.com/story/4-reasons-why-cybersecurity-stocks-are-primed-for-a-turnaround-d9b17f85",
+      "published": "2026-02-19T21:15:00",
+      "fetched_at": "2026-02-20T03:07:47.959572",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_MarketWatch",
+      "title": "\u2018Many politicians work well into their 80s\u2019: I\u2019m 71 and earn $300K for a Fortune 200 company. Do I work until I\u2019m 75?",
+      "summary": "\u201cMy company is eager to retain me because of the 45 years of knowledge and experience I bring.\u201d",
+      "link": "https://www.marketwatch.com/story/many-politicians-work-well-into-their-80s-im-71-and-earn-300k-for-a-fortune-200-company-do-i-work-until-im-75-6b5e6baf",
+      "published": "2026-02-19T21:15:00",
+      "fetched_at": "2026-02-20T03:07:47.959574",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_MarketWatch",
+      "title": "Microsoft\u2019s stock is trading at a rare discount to Alphabet\u2019s, as the \u2018Magnificent Seven\u2019 reshuffle intensifies",
+      "summary": "The artificial-intelligence trade is upending the long-standing pecking order of Big Tech valuations as investors hunt for the next big winners and losers.",
+      "link": "https://www.marketwatch.com/story/microsofts-stock-is-trading-at-a-rare-discount-to-alphabets-as-the-magnificent-seven-reshuffle-intensifies-9c897c65",
+      "published": "2026-02-19T20:18:00",
+      "fetched_at": "2026-02-20T03:07:47.959575",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_MarketWatch",
+      "title": "Here\u2019s what\u2019s driving the U.S. dollar to its strongest position in almost a month \u2014 and it\u2019s not just Iran tensions",
+      "summary": "The dollar was heading on Thursday toward its strongest position against major rivals in the past month, helped by support from investors this week that boiled down to more than just one simple catalyst.",
+      "link": "https://www.marketwatch.com/story/heres-whats-driving-the-u-s-dollar-to-its-strongest-position-in-almost-a-month-and-its-not-just-iran-tensions-f43ad39c",
+      "published": "2026-02-19T19:56:00",
+      "fetched_at": "2026-02-20T03:07:47.959577",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_CNBC",
+      "title": "Jim Cramer says this stock is 'the one to buy' because AI makes its business stronger",
+      "summary": "The Investing Club holds its \"Morning Meeting\" every weekday at 10:20 a.m. ET.",
+      "link": "https://www.cnbc.com/2026/02/19/jim-cramer-buy-this-tech-stock-because-ai-makes-its-business-stronger.html",
+      "published": "2026-02-19T18:57:15",
+      "fetched_at": "2026-02-20T03:07:47.959579",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_MarketWatch",
+      "title": "A $10K credit to be voluntarily bumped from your cruise? Passengers are scoring lucrative deals as trips get overbooked.",
+      "summary": "Just like airlines, cruise lines are sometimes booking too many passengers as sailing trips become more popular.",
+      "link": "https://www.marketwatch.com/story/a-10k-credit-to-be-voluntarily-bumped-from-your-cruise-passengers-are-scoring-lucrative-deals-as-trips-get-overbooked-452a808f",
+      "published": "2026-02-19T18:38:00",
+      "fetched_at": "2026-02-20T03:07:47.959580",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_MarketWatch",
+      "title": "Wayfair\u2019s stock sinks, as investors worry expansion plans will hurt profits",
+      "summary": "Wayfair\u2019s stock was suffering its worst postearnings reaction in nearly four years, after the company unexpectedly swung to a net loss for the latest quarter and warned that profit margins may narrow.",
+      "link": "https://www.marketwatch.com/story/wayfairs-stock-sinks-as-investors-worry-expansion-plans-will-hurt-profits-6c362879",
+      "published": "2026-02-19T18:25:00",
+      "fetched_at": "2026-02-20T03:07:47.959582",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_CNBC",
+      "title": "Figma shares climb on earnings beat, but analysts note that AI risk remains",
+      "summary": "Figma's revenue grew 40% year over year to $303.8 million during the period.",
+      "link": "https://www.cnbc.com/2026/02/19/figma-stock-earnings-ai-risk.html",
+      "published": "2026-02-19T18:12:15",
+      "fetched_at": "2026-02-20T03:07:47.959583",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_CNBC",
+      "title": "Ultra-rich families spend more on their private investment firms as their fortunes rise",
+      "summary": "Family offices with at least $1 billion in assets reported spending $6.6 million in annual operating costs on average, according to J.P. Morgan Private Bank.",
+      "link": "https://www.cnbc.com/2026/02/19/ultra-rich-families-private-investment-firms-costs-rise.html",
+      "published": "2026-02-19T17:00:01",
+      "fetched_at": "2026-02-20T03:07:47.959585",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_MarketWatch",
+      "title": "Swapping homes could save you hundreds of dollars on your summer vacation \u2014 especially if you live in a World Cup host city",
+      "summary": "Millions of international visitors are expected to flock to the U.S. this summer to experience the 2026 FIFA World Cup. And with hotel prices on the rise due to increased demand, tourists are seeking alternative lodging options.",
+      "link": "https://www.marketwatch.com/story/swapping-homes-could-save-you-hundreds-of-dollars-on-your-summer-vacation-especially-if-you-live-in-a-world-cup-host-city-be455ea4",
+      "published": "2026-02-19T17:00:00",
+      "fetched_at": "2026-02-20T03:07:47.959588",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_MarketWatch",
+      "title": "U.S. trade deficit might be tariff proof \u2014 imports jump to record high in 2025",
+      "summary": "High tariffs were supposed to slash large and chronic U.S. trade deficits. Turns out they really didn\u2019t. The trade deficit in 2025 was the third largest ever.",
+      "link": "https://www.marketwatch.com/story/u-s-trade-deficit-might-be-tariff-proof-imports-jump-to-record-high-in-2025-a518d1bc",
+      "published": "2026-02-19T16:15:00",
+      "fetched_at": "2026-02-20T03:07:47.959589",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_MarketWatch",
+      "title": "Jobless claims fall to lowest level of the year, signaling a more stable labor market",
+      "summary": "The sizable drop in claims mirrors the stronger-than-expected jobs report in January, with the unemployment rate dipping to 4.3%. But other labor-market data has been weaker, and economists remain split on the outlook for the year.",
+      "link": "https://www.marketwatch.com/story/jobless-claims-fall-to-lowest-level-of-the-year-signaling-a-more-stable-labor-market-8c619fef",
+      "published": "2026-02-19T16:12:00",
+      "fetched_at": "2026-02-20T03:07:47.959591",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_MarketWatch",
+      "title": "Deere\u2019s stock jumps toward another record. The construction business is booming again.",
+      "summary": "Deere\u2019s stock surges further into record territory after a big earnings beat and a full-year outlook for sales outperformance.",
+      "link": "https://www.marketwatch.com/story/deeres-stock-jumps-toward-another-record-the-construction-business-is-booming-again-7eb69e6d",
+      "published": "2026-02-19T15:55:00",
+      "fetched_at": "2026-02-20T03:07:47.959592",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_MarketWatch",
+      "title": "This stock-market strategy combines value, quality and momentum for stellar performance",
+      "summary": "This fund has an unusual approach for setting its portfolio of stocks once a year and letting it ride.",
+      "link": "https://www.marketwatch.com/story/this-stock-market-strategy-combines-value-quality-and-momentum-for-stellar-performance-64ea93b2",
+      "published": "2026-02-19T15:14:00",
+      "fetched_at": "2026-02-20T03:07:47.959594",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_MarketWatch",
+      "title": "Hims & Hers is spending more than $1 billion in a push to expand globally",
+      "summary": "Hims & Hers\u2019 stock surges as a $1.2 billion deal to buy an Australia-based telehealth company affirms the health-and-wellness company\u2019s global ambitions.",
+      "link": "https://www.marketwatch.com/story/hims-hers-is-spending-more-than-1-billion-in-a-push-to-expand-globally-8a271a6e",
+      "published": "2026-02-19T15:08:00",
+      "fetched_at": "2026-02-20T03:07:47.959595",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_MarketWatch",
+      "title": "Why America\u2019s small businesses still pay even if the Supreme Court strikes down Trump\u2019s tariffs",
+      "summary": "A tariff reckoning won\u2019t rescue Main Street from the damage it has suffered.",
+      "link": "https://www.marketwatch.com/story/why-americas-small-businesses-still-pay-even-if-the-supreme-court-strikes-down-trumps-tariffs-5c0bb1d6",
+      "published": "2026-02-19T15:05:00",
+      "fetched_at": "2026-02-20T03:07:47.959596",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_CNBC",
+      "title": "United Airlines is paring back rewards for travelers who don't have its credit card in MileagePlus overhaul",
+      "summary": "United Airlines is overhauling its MileagePlus loyalty program to reward customers who have the carrier's credit card over those without it.",
+      "link": "https://www.cnbc.com/2026/02/19/united-airlines-frequent-flyer-mileage-plus-program-credit-card.html",
+      "published": "2026-02-19T14:55:53",
+      "fetched_at": "2026-02-20T03:07:47.959598",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_MarketWatch",
+      "title": "Say goodbye to the 4 p.m. closing bell: Your stocks are becoming 24/7 digital cash",
+      "summary": "Tokenized equities \u2014 real shares of stock wrapped or reissued as blockchain tokens \u2014 threaten traditional brokerages.",
+      "link": "https://www.marketwatch.com/story/say-goodbye-to-the-4-p-m-closing-bell-your-stocks-are-becoming-24-7-digital-cash-c78721df",
+      "published": "2026-02-19T14:55:00",
+      "fetched_at": "2026-02-20T03:07:47.959599",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_MarketWatch",
+      "title": "Why the Fed could deliver one final sting to your portfolio before Powell\u2019s exit in May",
+      "summary": "Interest rates typically go up when a Fed chair steps down.",
+      "link": "https://www.marketwatch.com/story/why-the-fed-could-deliver-one-final-sting-to-your-portfolio-before-powells-exit-in-may-de2e8f28",
+      "published": "2026-02-19T14:46:00",
+      "fetched_at": "2026-02-20T03:07:47.959601",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_MarketWatch",
+      "title": "As OpenClaw\u2019s popularity has surged, so too has this computer-maker\u2019s stock",
+      "summary": "The advent of a popular open-source project that lets users create personal AI agents is lifting shares of the company making hobbyist computers.",
+      "link": "https://www.marketwatch.com/story/as-openclaws-popularity-has-surged-so-too-has-this-computer-makers-stock-821160e4",
+      "published": "2026-02-19T14:44:00",
+      "fetched_at": "2026-02-20T03:07:47.959602",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_MarketWatch",
+      "title": "Walmart\u2019s stock falls as the outlook for future profits wasn\u2019t good enough",
+      "summary": "Walmart\u2019s stock drops after quarterly revenue from its U.S. stores and the outlook for profits this year were below Wall Street\u2019s projections.",
+      "link": "https://www.marketwatch.com/story/walmarts-stock-falls-as-the-outlook-for-future-profits-wasnt-good-enough-10d2c334",
+      "published": "2026-02-19T14:42:00",
+      "fetched_at": "2026-02-20T03:07:47.959604",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_MarketWatch",
+      "title": "While Wall Street is betting against software, retail investors have poured in \u2014 and done well",
+      "summary": "Retail investors have been a mighty force to start 2026 and they\u2019ve not shying away from battered software stocks.",
+      "link": "https://www.marketwatch.com/story/while-wall-street-is-betting-against-software-retail-investors-have-poured-in-and-done-well-f91b9b58",
+      "published": "2026-02-19T14:14:00",
+      "fetched_at": "2026-02-20T03:07:47.959605",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_MarketWatch",
+      "title": "Global oil benchmark hits 6-month high amid fears of U.S.-Iran conflict",
+      "summary": "Brent crude futures, the global oil benchmark, on Thursday rose above $71 a barrel for the first time since late July, amid fears supplies could be compromised by a U.S. attack on Iran.",
+      "link": "https://www.marketwatch.com/story/global-oil-benchmark-hits-6-month-high-amid-fears-of-u-s-iran-conflict-0f1e00d5",
+      "published": "2026-02-19T13:56:00",
+      "fetched_at": "2026-02-20T03:07:47.959609",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_MarketWatch",
+      "title": "Palantir\u2019s stock has dropped a third from its peak. Michael Burry has a new line of attack.",
+      "summary": "Michael Burry, the former hedge-fund manager chronicled in \u201cThe Big Short\u201d for his bets against the housing market during the subprime-mortgage crisis, went through Palantir\u2019s 10-K.",
+      "link": "https://www.marketwatch.com/story/palantirs-stock-has-dropped-a-third-from-its-peak-michael-burry-has-a-new-line-of-attack-bbf1c047",
+      "published": "2026-02-19T13:39:00",
+      "fetched_at": "2026-02-20T03:07:47.959610",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_CNBC",
+      "title": "This market\u2019s big problem: nobody knows the right price for stocks",
+      "summary": "In a column for Investing Club members, Jim Cramer writes that the dramatic multiple compression across the market is making investors' lives difficult.",
+      "link": "https://www.cnbc.com/2026/02/19/jim-cramer-on-the-software-sell-off-and-multiple-compression.html",
+      "published": "2026-02-19T13:17:29",
+      "fetched_at": "2026-02-20T03:07:47.959612",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_MarketWatch",
+      "title": "This fund that now says it\u2019ll never open up for withdrawals has El-Erian making Bear Stearns parallels",
+      "summary": "A $1.6 billion fund at the center of concerns over private debt is now abandoning plans to let investors withdraw their money.",
+      "link": "https://www.marketwatch.com/story/fund-that-has-frozen-withdrawals-since-november-now-says-itll-never-open-up-75466c1f",
+      "published": "2026-02-19T13:15:00",
+      "fetched_at": "2026-02-20T03:07:47.959613",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_MarketWatch",
+      "title": "Airbus can\u2019t get enough engines. The stock is falling.",
+      "summary": "Plane maker Airbus on Thursday said it\u2019s having trouble sourcing enough engines as it outlined guidance that disappointed investors.",
+      "link": "https://www.marketwatch.com/story/airbus-cant-get-enough-engines-the-stock-is-falling-b3a3d608",
+      "published": "2026-02-19T13:05:00",
+      "fetched_at": "2026-02-20T03:07:47.959615",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_MarketWatch",
+      "title": "My ex-wife took out a $100K Parent PLUS loan for our son. Am I morally or legally obliged to pay it off?",
+      "summary": "\u201cOur son makes $45,000 a year and has no immediate prospects for significantly increasing his income.\u201d",
+      "link": "https://www.marketwatch.com/story/my-ex-wife-took-out-a-100k-parent-plus-loan-for-our-son-am-i-morally-or-legally-obliged-to-pay-it-off-30510e58",
+      "published": "2026-02-19T13:00:00",
+      "fetched_at": "2026-02-20T03:07:47.959616",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_MarketWatch",
+      "title": "\u2018I won\u2019t take out a loan\u2019: I need $18K in house repairs. Do I take it from my Roth, 401(k) or IRA?",
+      "summary": "\u201cI plan to be debt-free in less than two years.\u201d",
+      "link": "https://www.marketwatch.com/story/i-wont-take-out-a-loan-i-need-18k-in-house-repairs-do-i-take-it-from-my-roth-401-k-or-ira-651f80f1",
+      "published": "2026-02-19T12:30:00",
+      "fetched_at": "2026-02-20T03:07:47.959618",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_MarketWatch",
+      "title": "Christian Bale\u2019s $22 million California foster care village is taking shape",
+      "summary": "Actor Christian Bale\u2019s $22 million foster care village is on track to be completed this year, bringing to fruition the on-screen star\u2019s 17-year dream to provide siblings in foster care with a safe space to live together.",
+      "link": "https://www.marketwatch.com/story/christian-bales-22-million-california-foster-care-village-is-taking-shape-93b4af56",
+      "published": "2026-02-19T12:03:00",
+      "fetched_at": "2026-02-20T03:07:47.959620",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_MarketWatch",
+      "title": "Will Microsoft\u2019s stock finally rebound? A board member just bet $2 million on a turnaround.",
+      "summary": "There have been a few instances of insider purchases in the wake of the recent software selloff, with the latest coming from Microsoft director John Stanton.",
+      "link": "https://www.marketwatch.com/story/will-microsofts-stock-finally-rebound-a-board-member-just-bet-2-million-on-a-turnaround-5aa41ff8",
+      "published": "2026-02-19T04:17:00",
+      "fetched_at": "2026-02-20T03:07:47.959621",
+      "ticker": null,
+      "tier": 2
+    },
     {
       "source": "finnhub_MarketWatch",
       "title": "Etsy is selling Depop to eBay at a markdown, in latest move to focus on basics. Both stocks are rallying.",
       "summary": "Etsy on Wednesday said it was selling the online secondhand-clothing site Depop to eBay for around $1.2 billion, in an effort to focus more deeply on its main marketplace business.",
       "link": "https://www.marketwatch.com/story/etsy-is-selling-depop-to-ebay-at-a-markdown-in-latest-move-to-focus-on-basics-both-stocks-are-rallying-d866740d",
       "published": "2026-02-19T01:23:00",
-      "fetched_at": "2026-02-19T03:08:18.948058",
+      "fetched_at": "2026-02-20T03:07:47.959622",
       "ticker": null,
       "tier": 2
     },
@@ -18,7 +508,7 @@
       "summary": "A violent rotation away from Big Tech stocks this year could hobble the S&P 500.",
       "link": "https://www.marketwatch.com/story/magnificent-seven-stocks-rise-but-hardly-enough-to-reverse-a-brutal-february-ddc78b51",
       "published": "2026-02-19T00:21:00",
-      "fetched_at": "2026-02-19T03:08:18.948060",
+      "fetched_at": "2026-02-20T03:07:47.959624",
       "ticker": null,
       "tier": 2
     },
@@ -28,25 +518,9 @@
       "summary": "Shares of Carvana tumbled some 20% after hours on Wednesday, after the online used-car retailer\u2019s outlook for the year ahead offered few specifics, following a year in which sales growth surged.",
       "link": "https://www.marketwatch.com/story/after-record-sales-murky-forecast-sinks-carvanas-stock-a292ad88",
       "published": "2026-02-19T00:16:00",
-      "fetched_at": "2026-02-19T03:08:18.948062",
+      "fetched_at": "2026-02-20T03:07:47.959626",
       "ticker": null,
       "tier": 2
-    },
-    {
-      "source": "marketwatch",
-      "title": "\u2018The world feels unpredictable\u2019: I\u2019m 56. My husband is 64. Our mortgage costs $17K a month. Do we pay it off?",
-      "summary": "\u201cWe paid $3.1 million for the house and owe $1.3 million on the loan.\u201d",
-      "link": "https://www.marketwatch.com/story/the-world-feels-unpredictable-im-56-my-husband-is-64-our-mortgage-costs-17-000-a-month-do-we-pay-it-off-c8a454d8?mod=mw_rss_topstories",
-      "published": "2026-02-19T00:00:00",
-      "fetched_at": "2026-02-19T03:08:18.479173"
-    },
-    {
-      "source": "marketwatch",
-      "title": "Palo Alto Networks\u2019 stock falls after earnings. These analysts see a good chance to buy.",
-      "summary": "Some analysts encourage investors to look past a muddy outlook and focus on the company\u2019s recent momentum and AI opportunity.",
-      "link": "https://www.marketwatch.com/story/palo-alto-networks-stock-falls-after-earnings-these-analysts-see-a-good-chance-to-buy-8094364d?mod=mw_rss_topstories",
-      "published": "2026-02-18T23:52:00",
-      "fetched_at": "2026-02-19T03:08:18.479187"
     },
     {
       "source": "finnhub_MarketWatch",
@@ -54,17 +528,9 @@
       "summary": "Figma\u2019s revenue grew 40% in the fourth quarter as net dollar retention rate increased to 136%",
       "link": "https://www.marketwatch.com/story/figmas-stock-soars-as-ai-earnings-momentum-helps-ease-investors-doubts-9f31e005",
       "published": "2026-02-18T23:31:00",
-      "fetched_at": "2026-02-19T03:08:18.948064",
+      "fetched_at": "2026-02-20T03:07:47.959627",
       "ticker": null,
       "tier": 2
-    },
-    {
-      "source": "marketwatch",
-      "title": "\u2018I have a moral and ethical conundrum\u2019: My husband was killed by a careless driver. I received $2 million. What do I owe my stepdaughter?",
-      "summary": "\u201cAs the children grew, life became more complicated.\u201d",
-      "link": "https://www.marketwatch.com/story/i-have-a-moral-and-ethical-conundrum-my-husband-was-killed-by-a-careless-driver-i-received-2-million-what-do-i-owe-my-stepdaughter-2c3250e8?mod=mw_rss_topstories",
-      "published": "2026-02-18T23:30:00",
-      "fetched_at": "2026-02-19T03:08:18.479199"
     },
     {
       "source": "finnhub_MarketWatch",
@@ -72,7 +538,7 @@
       "summary": "DoorDash reported quarterly earnings on Wednesday, with profit beating expectations but sales missing the mark.",
       "link": "https://www.marketwatch.com/story/doordash-users-want-more-complex-deliveries-and-thats-hitting-profits-60fa6b2d",
       "published": "2026-02-18T23:30:00",
-      "fetched_at": "2026-02-19T03:08:18.948065",
+      "fetched_at": "2026-02-20T03:07:47.959629",
       "ticker": null,
       "tier": 2
     },
@@ -82,41 +548,9 @@
       "summary": "Investors have raised concerns over the company ambitious investing plans as it ramps up its artificial intelligence and autonomous tech",
       "link": "https://www.cnbc.com/2026/02/18/doordash-dash-q4-2025-earnings.html",
       "published": "2026-02-18T23:28:54",
-      "fetched_at": "2026-02-19T03:08:18.948067",
+      "fetched_at": "2026-02-20T03:07:47.959630",
       "ticker": null,
       "tier": 2
-    },
-    {
-      "source": "marketwatch",
-      "title": "Etsy is selling Depop to eBay at a markdown, in latest move to focus on basics. Both stocks are rallying.",
-      "summary": "Etsy on Wednesday said it was selling the online secondhand-clothing site Depop to eBay for around $1.2 billion, in an effort to focus more deeply on its main marketplace business.",
-      "link": "https://www.marketwatch.com/story/etsy-is-selling-depop-to-ebay-at-a-markdown-in-latest-move-to-focus-on-basics-both-stocks-are-rallying-d866740d?mod=mw_rss_topstories",
-      "published": "2026-02-18T23:23:00",
-      "fetched_at": "2026-02-19T03:08:18.479210"
-    },
-    {
-      "source": "marketwatch",
-      "title": "How Amazon\u2019s \u2018underappreciated\u2019 AI potential could drive the stock 50% higher",
-      "summary": "Both AWS and the Amazon retail business have big opportunities to reap the financial benefits of AI.",
-      "link": "https://www.marketwatch.com/story/how-amazons-underappreciated-ai-potential-could-drive-the-stock-50-higher-1a4aa628?mod=mw_rss_topstories",
-      "published": "2026-02-18T23:15:00",
-      "fetched_at": "2026-02-19T03:08:18.479220"
-    },
-    {
-      "source": "marketwatch",
-      "title": "\u2018She spent over $1,000 a month on weight-loss drugs\u2019: My son wrecked his finances after meeting his girlfriend. Who\u2019s to blame?",
-      "summary": "\u201cMy son is smart \u2014 he really is \u2014 but he was in love.\u201d",
-      "link": "https://www.marketwatch.com/story/his-credit-rating-is-wrecked-my-son-and-his-girlfriend-mingled-their-finances-big-mistake-b5273119?mod=mw_rss_topstories",
-      "published": "2026-02-18T23:09:00",
-      "fetched_at": "2026-02-19T03:08:18.479231"
-    },
-    {
-      "source": "marketwatch",
-      "title": "\u2018This is stressful for my parents\u2019: My siblings harass our mother and father for money. Should they be cut out of their will?",
-      "summary": "\u201cMy parents have asked me to help them secure their assets when they pass on.\u201d",
-      "link": "https://www.marketwatch.com/story/this-is-stressful-my-two-siblings-are-financial-horrors-how-can-i-make-sure-their-estate-goes-to-the-right-people-4842a5a7?mod=mw_rss_topstories",
-      "published": "2026-02-18T23:08:00",
-      "fetched_at": "2026-02-19T03:08:18.479242"
     },
     {
       "source": "finnhub_MarketWatch",
@@ -124,7 +558,7 @@
       "summary": "With U.S. housing starts perking up, investors may be looking at an early entry point for a broad recovery for home builders and their stocks.",
       "link": "https://www.marketwatch.com/story/the-bullish-breakout-in-these-stocks-suggests-the-housing-market-has-turned-a-corner-af670c8d",
       "published": "2026-02-18T23:02:00",
-      "fetched_at": "2026-02-19T03:08:18.948068",
+      "fetched_at": "2026-02-20T03:07:47.959632",
       "ticker": null,
       "tier": 2
     },
@@ -134,7 +568,7 @@
       "summary": "International markets have been outperforming their American rivals recently. Investors could still be in the early innings of a years-long trend.",
       "link": "https://www.marketwatch.com/story/u-s-stocks-are-falling-behind-it-could-be-the-beginning-of-an-epic-shift-toward-global-markets-832e2785",
       "published": "2026-02-18T22:48:00",
-      "fetched_at": "2026-02-19T03:08:18.948070",
+      "fetched_at": "2026-02-20T03:07:47.959633",
       "ticker": null,
       "tier": 2
     },
@@ -144,7 +578,7 @@
       "summary": "New research says targeted immigration policies can address workforce shortages and support the U.S. population as it ages.",
       "link": "https://www.marketwatch.com/story/americas-anti-immigration-policies-could-be-putting-your-aging-parents-and-grandparents-lives-in-danger-cd4a8e7e",
       "published": "2026-02-18T22:44:00",
-      "fetched_at": "2026-02-19T03:08:18.948071",
+      "fetched_at": "2026-02-20T03:07:47.959634",
       "ticker": null,
       "tier": 2
     },
@@ -154,7 +588,7 @@
       "summary": "President Donald Trump asserted that the federal government will not be responsible for any cost overruns associated with the $16 billion tunnel project.",
       "link": "https://www.cnbc.com/2026/02/18/gateway-trump-funding-new-york-jersey-tunnel-hochul.html",
       "published": "2026-02-18T22:43:09",
-      "fetched_at": "2026-02-19T03:08:18.948073",
+      "fetched_at": "2026-02-20T03:07:47.959636",
       "ticker": null,
       "tier": 2
     },
@@ -164,25 +598,9 @@
       "summary": "It looks unlikely that the U.S. would try destroying Iranian oil infrastructure because the Trump administration has talked about bringing energy prices down, says strategist",
       "link": "https://www.marketwatch.com/story/what-oil-hitting-70-a-barrel-would-signal-about-iran-and-u-s-tensions-cc026155",
       "published": "2026-02-18T22:34:00",
-      "fetched_at": "2026-02-19T03:08:18.948074",
+      "fetched_at": "2026-02-20T03:07:47.959637",
       "ticker": null,
       "tier": 2
-    },
-    {
-      "source": "marketwatch",
-      "title": "\u2018Magnificent Seven\u2019 stocks rise \u2014 but hardly enough to reverse a brutal February",
-      "summary": "A violent rotation away from Big Tech stocks this year could hobble the S&amp;P 500.",
-      "link": "https://www.marketwatch.com/story/magnificent-seven-stocks-rise-but-hardly-enough-to-reverse-a-brutal-february-ddc78b51?mod=mw_rss_topstories",
-      "published": "2026-02-18T22:21:00",
-      "fetched_at": "2026-02-19T03:08:18.479259"
-    },
-    {
-      "source": "marketwatch",
-      "title": "After record sales, murky forecast sinks Carvana\u2019s stock",
-      "summary": "Shares of Carvana tumbled some 20% after hours on Wednesday, after the online used-car retailer\u2019s outlook for the year ahead offered few specifics, following a year in which sales growth surged.",
-      "link": "https://www.marketwatch.com/story/after-record-sales-murky-forecast-sinks-carvanas-stock-a292ad88?mod=mw_rss_topstories",
-      "published": "2026-02-18T22:16:00",
-      "fetched_at": "2026-02-19T03:08:18.479269"
     },
     {
       "source": "finnhub_CNBC",
@@ -190,17 +608,9 @@
       "summary": "Every weekday, the Investing Club releases the Homestretch, an actionable afternoon update just in time for the last hour of trading.",
       "link": "https://www.cnbc.com/2026/02/18/alphabets-new-ai-music-model-could-lure-more-content-creators-from-rivals.html",
       "published": "2026-02-18T22:11:14",
-      "fetched_at": "2026-02-19T03:08:18.948076",
+      "fetched_at": "2026-02-20T03:07:47.959639",
       "ticker": null,
       "tier": 2
-    },
-    {
-      "source": "marketwatch",
-      "title": "Figma\u2019s stock soars as AI earnings momentum helps ease investors\u2019 doubts",
-      "summary": "Figma\u2019s revenue grew 40% in the fourth quarter as net dollar retention rate increased to 136%",
-      "link": "https://www.marketwatch.com/story/figmas-stock-soars-as-ai-earnings-momentum-helps-ease-investors-doubts-9f31e005?mod=mw_rss_topstories",
-      "published": "2026-02-18T21:31:00",
-      "fetched_at": "2026-02-19T03:08:18.479280"
     },
     {
       "source": "finnhub_CNBC",
@@ -208,7 +618,7 @@
       "summary": "The Seattle Seahawks are beginning a sale process in what could be one of the largest NFL sales in history.",
       "link": "https://www.cnbc.com/2026/02/18/seattle-seahawks-sale-super-bowl.html",
       "published": "2026-02-18T21:22:09",
-      "fetched_at": "2026-02-19T03:08:18.948077",
+      "fetched_at": "2026-02-20T03:07:47.959640",
       "ticker": null,
       "tier": 2
     },
@@ -218,7 +628,7 @@
       "summary": "Several officials would have supported a statement by the Fed indicating rates could rise if inflation remained high.",
       "link": "https://www.marketwatch.com/story/fed-minutes-reveal-discussion-of-a-possible-rate-hike-if-inflation-doesnt-cool-6b0580bd",
       "published": "2026-02-18T21:06:00",
-      "fetched_at": "2026-02-19T03:08:18.948078",
+      "fetched_at": "2026-02-20T03:07:47.959642",
       "ticker": null,
       "tier": 2
     },
@@ -228,7 +638,7 @@
       "summary": "Some analysts encourage investors to look past a muddy outlook and focus on the company\u2019s recent momentum and AI opportunity.",
       "link": "https://www.marketwatch.com/story/palo-alto-networks-stock-falls-after-earnings-these-analysts-see-a-good-chance-to-buy-8094364d",
       "published": "2026-02-18T20:47:00",
-      "fetched_at": "2026-02-19T03:08:18.948080",
+      "fetched_at": "2026-02-20T03:07:47.959643",
       "ticker": null,
       "tier": 2
     },
@@ -238,7 +648,7 @@
       "summary": "What Wall Street doesn\u2019t tell you about the long-term return on your investments.",
       "link": "https://www.marketwatch.com/story/this-chart-shows-why-stocks-arent-all-theyre-cracked-up-to-be-64b98603",
       "published": "2026-02-18T20:29:00",
-      "fetched_at": "2026-02-19T03:08:18.948081",
+      "fetched_at": "2026-02-20T03:07:47.959644",
       "ticker": null,
       "tier": 2
     },
@@ -248,7 +658,7 @@
       "summary": "The use of Nvidia CPUs could signal a significant shift toward Arm-based chips in the data center.",
       "link": "https://www.marketwatch.com/story/why-nvidias-deal-with-meta-is-an-intel-killer-according-to-this-analyst-a531f80d",
       "published": "2026-02-18T20:19:00",
-      "fetched_at": "2026-02-19T03:08:18.948083",
+      "fetched_at": "2026-02-20T03:07:47.959646",
       "ticker": null,
       "tier": 2
     },
@@ -258,7 +668,7 @@
       "summary": "Both AWS and the Amazon retail business have big opportunities to reap the financial benefits of AI.",
       "link": "https://www.marketwatch.com/story/how-amazons-underappreciated-ai-potential-could-drive-the-stock-50-higher-1a4aa628",
       "published": "2026-02-18T20:07:00",
-      "fetched_at": "2026-02-19T03:08:18.948084",
+      "fetched_at": "2026-02-20T03:07:47.959647",
       "ticker": null,
       "tier": 2
     },
@@ -268,7 +678,7 @@
       "summary": "We are making a handful of trades on Wednesday.",
       "link": "https://www.cnbc.com/2026/02/18/1-buy-and-2-sales-how-were-using-recent-stock-market-swings-to-advantage.html",
       "published": "2026-02-18T19:10:12",
-      "fetched_at": "2026-02-19T03:08:18.948086",
+      "fetched_at": "2026-02-20T03:07:47.959649",
       "ticker": null,
       "tier": 2
     },
@@ -278,7 +688,7 @@
       "summary": "Various funds promise exposure to SpaceX and other hot private companies, but investors should be aware of the risks and nuances.",
       "link": "https://www.marketwatch.com/story/you-can-invest-in-spacex-before-its-ipo-but-should-you-19bc618b",
       "published": "2026-02-18T19:06:00",
-      "fetched_at": "2026-02-19T03:08:18.948087",
+      "fetched_at": "2026-02-20T03:07:47.959650",
       "ticker": null,
       "tier": 2
     },
@@ -288,7 +698,7 @@
       "summary": "Trump economist\u2019s criticism comes ahead of possible Supreme Court ruling on tariffs this week.",
       "link": "https://www.marketwatch.com/story/hassett-says-new-york-fed-staff-should-be-disciplined-over-study-finding-americans-paid-for-trumps-tariffs-6fec90ca",
       "published": "2026-02-18T18:54:00",
-      "fetched_at": "2026-02-19T03:08:18.948089",
+      "fetched_at": "2026-02-20T03:07:47.959652",
       "ticker": null,
       "tier": 2
     },
@@ -298,7 +708,7 @@
       "summary": "Moderna\u2019s stock was surging after the FDA said it would review the biotech\u2019s flu-vaccine candidate, a week after it had refused to do so.",
       "link": "https://www.marketwatch.com/story/moderna-got-the-fda-to-change-its-mind-and-review-its-flu-vaccine-after-some-concessions-04c3f38e",
       "published": "2026-02-18T17:22:00",
-      "fetched_at": "2026-02-19T03:08:18.948090",
+      "fetched_at": "2026-02-20T03:07:47.959653",
       "ticker": null,
       "tier": 2
     },
@@ -308,7 +718,7 @@
       "summary": "Investing for an entity other than yourself can be tricky, especially if you\u2019re doing it as a group.",
       "link": "https://www.marketwatch.com/story/my-small-church-wants-to-sell-some-property-but-the-trustees-cant-agree-on-what-to-do-with-the-money-eb09b083",
       "published": "2026-02-18T17:00:00",
-      "fetched_at": "2026-02-19T03:08:18.948091",
+      "fetched_at": "2026-02-20T03:07:47.959655",
       "ticker": null,
       "tier": 2
     },
@@ -318,7 +728,7 @@
       "summary": "New housing construction rebounded in the final two months of last year, a sign there could be gradual improvement in the beaten-down sector in 2026.",
       "link": "https://www.marketwatch.com/story/housing-starts-jump-to-highest-level-in-five-months-showing-surprising-momentum-into-the-new-year-79b407cb",
       "published": "2026-02-18T16:55:00",
-      "fetched_at": "2026-02-19T03:08:18.948093",
+      "fetched_at": "2026-02-20T03:07:47.959656",
       "ticker": null,
       "tier": 2
     },
@@ -328,7 +738,7 @@
       "summary": "A recent \u201cunjustifiable\u201d selloff has led analysts to take a second look at Palantir\u2019s business and AI advantage.",
       "link": "https://www.marketwatch.com/story/palantirs-stock-is-winning-over-wall-street-another-analyst-just-turned-bullish-4fc7c071",
       "published": "2026-02-18T16:25:00",
-      "fetched_at": "2026-02-19T03:08:18.948094",
+      "fetched_at": "2026-02-20T03:07:47.959658",
       "ticker": null,
       "tier": 2
     },
@@ -338,7 +748,7 @@
       "summary": "\u201cMy son is smart \u2014 he really is \u2014 but he was in love.\u201d",
       "link": "https://www.marketwatch.com/story/his-credit-rating-is-wrecked-my-son-and-his-girlfriend-mingled-their-finances-big-mistake-b5273119",
       "published": "2026-02-18T16:23:00",
-      "fetched_at": "2026-02-19T03:08:18.948096",
+      "fetched_at": "2026-02-20T03:07:47.959659",
       "ticker": null,
       "tier": 2
     },
@@ -348,7 +758,7 @@
       "summary": "Business investment emerges from 2-year slump as artificial-intelligence boom spreads",
       "link": "https://www.marketwatch.com/story/the-u-s-economy-is-growing-surprisingly-fast-and-heres-the-surprising-reason-why-8b2698a9",
       "published": "2026-02-18T16:21:00",
-      "fetched_at": "2026-02-19T03:08:18.948097",
+      "fetched_at": "2026-02-20T03:07:47.959661",
       "ticker": null,
       "tier": 2
     },
@@ -358,7 +768,7 @@
       "summary": "The Social Security Administration requires 40 credits to qualify for benefits and calculates your benefit using your highest 35 years of earnings.",
       "link": "https://www.marketwatch.com/story/im-72-and-started-claiming-social-security-at-69-will-i-get-more-money-if-i-work-part-time-71288018",
       "published": "2026-02-18T16:16:00",
-      "fetched_at": "2026-02-19T03:08:18.948098",
+      "fetched_at": "2026-02-20T03:07:47.959662",
       "ticker": null,
       "tier": 2
     },
@@ -368,7 +778,7 @@
       "summary": "Makary said the FDA is looking at prescription drugs like nausea medications and vaginal estrogen, and hopes to make changes this year.",
       "link": "https://www.cnbc.com/2026/02/18/fda-chief-marty-makary-more-drugs-should-be-over-the-counter.html",
       "published": "2026-02-18T15:56:49",
-      "fetched_at": "2026-02-19T03:08:18.948100",
+      "fetched_at": "2026-02-20T03:07:47.959663",
       "ticker": null,
       "tier": 2
     },
@@ -378,7 +788,7 @@
       "summary": "Oil traders are worried that war between the U.S. and Iran could lead to a major disruption of crude supplies in the Middle East.",
       "link": "https://www.cnbc.com/2026/02/18/oil-prices-today-iran-trump-nuclear-talks.html",
       "published": "2026-02-18T15:53:58",
-      "fetched_at": "2026-02-19T03:08:18.948101",
+      "fetched_at": "2026-02-20T03:07:47.959665",
       "ticker": null,
       "tier": 2
     },
@@ -388,7 +798,7 @@
       "summary": "Meta commits to buying millions of Nvidia chips, and Palo Alto's guidance cut drives the stock lower.",
       "link": "https://www.cnbc.com/2026/02/18/jim-cramers-top-10-things-to-watch-in-the-stock-market-wednesday.html",
       "published": "2026-02-18T15:37:09",
-      "fetched_at": "2026-02-19T03:08:18.948103",
+      "fetched_at": "2026-02-20T03:07:47.959666",
       "ticker": null,
       "tier": 2
     },
@@ -398,7 +808,7 @@
       "summary": "Economist finds residential investment, equipment and durable goods are best signals of an economic contraction.",
       "link": "https://www.marketwatch.com/story/these-are-the-only-recession-signals-that-matter-to-investors-now-6e9a5761",
       "published": "2026-02-18T15:35:00",
-      "fetched_at": "2026-02-19T03:08:18.948104",
+      "fetched_at": "2026-02-20T03:07:47.959668",
       "ticker": null,
       "tier": 2
     },
@@ -408,7 +818,7 @@
       "summary": "Andy Constan says the rest of the world now offers more opportunities.",
       "link": "https://www.marketwatch.com/story/why-a-40-year-wall-street-veteran-is-telling-clients-to-sell-everything-american-77e50ae5",
       "published": "2026-02-18T14:40:00",
-      "fetched_at": "2026-02-19T03:08:18.948105",
+      "fetched_at": "2026-02-20T03:07:47.959670",
       "ticker": null,
       "tier": 2
     },
@@ -418,7 +828,7 @@
       "summary": "Traders are assessing the possibility that the U.S. would attack Iran, and are considering the disruption that could cause to markets.",
       "link": "https://www.marketwatch.com/story/crude-futures-rise-on-u-s-iran-tensions-e59f7dc5",
       "published": "2026-02-18T14:39:00",
-      "fetched_at": "2026-02-19T03:08:18.948107",
+      "fetched_at": "2026-02-20T03:07:47.959671",
       "ticker": null,
       "tier": 2
     },
@@ -428,9 +838,177 @@
       "summary": "Expenses that made sense during your peak earning years can drain your resources once you stop working.",
       "link": "https://www.marketwatch.com/story/8-ways-to-keep-from-blowing-through-your-money-in-retirement-a9177a18",
       "published": "2026-02-18T14:00:00",
-      "fetched_at": "2026-02-19T03:08:18.948108",
+      "fetched_at": "2026-02-20T03:07:47.959673",
       "ticker": null,
       "tier": 2
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Celanese Corporation Q4 2025 Earnings Call Summary",
+      "summary": "",
+      "link": "https://finance.yahoo.com/news/celanese-corporation-q4-2025-earnings-133000054.html",
+      "published": "2026-02-18T13:30:00+00:00",
+      "fetched_at": "2026-02-20T03:07:47.783867"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Expand Energy Corporation Q4 2025 Earnings Call Summary",
+      "summary": "",
+      "link": "https://finance.yahoo.com/news/expand-energy-corporation-q4-2025-133000539.html",
+      "published": "2026-02-18T13:30:00+00:00",
+      "fetched_at": "2026-02-20T03:07:47.783878"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Rush Street Interactive, Inc. Q4 2025 Earnings Call Summary",
+      "summary": "",
+      "link": "https://finance.yahoo.com/news/rush-street-interactive-inc-q4-133000200.html",
+      "published": "2026-02-18T13:30:00+00:00",
+      "fetched_at": "2026-02-20T03:07:47.783890"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "cbdMD, Inc. Q1 2026 Earnings Call Summary",
+      "summary": "",
+      "link": "https://finance.yahoo.com/news/cbdmd-inc-q1-2026-earnings-133000361.html",
+      "published": "2026-02-18T13:30:00+00:00",
+      "fetched_at": "2026-02-20T03:07:47.783913"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Tactile Systems Technology, Inc. Q4 2025 Earnings Call Summary",
+      "summary": "",
+      "link": "https://finance.yahoo.com/news/tactile-systems-technology-inc-q4-133000007.html",
+      "published": "2026-02-18T13:30:00+00:00",
+      "fetched_at": "2026-02-20T03:07:47.783926"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Beta Bionics, Inc. Q4 2025 Earnings Call Summary",
+      "summary": "",
+      "link": "https://finance.yahoo.com/news/beta-bionics-inc-q4-2025-133000355.html",
+      "published": "2026-02-18T13:30:00+00:00",
+      "fetched_at": "2026-02-20T03:07:47.783936"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Similarweb Ltd. Q4 2025 Earnings Call Summary",
+      "summary": "",
+      "link": "https://finance.yahoo.com/news/similarweb-ltd-q4-2025-earnings-133000802.html",
+      "published": "2026-02-18T13:30:00+00:00",
+      "fetched_at": "2026-02-20T03:07:47.783947"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Axcelis Technologies, Inc. Q4 2025 Earnings Call Summary",
+      "summary": "",
+      "link": "https://finance.yahoo.com/news/axcelis-technologies-inc-q4-2025-133000320.html",
+      "published": "2026-02-18T13:30:00+00:00",
+      "fetched_at": "2026-02-20T03:07:47.783969"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Halozyme Therapeutics, Inc. Q4 2025 Earnings Call Summary",
+      "summary": "",
+      "link": "https://finance.yahoo.com/news/halozyme-therapeutics-inc-q4-2025-133000123.html",
+      "published": "2026-02-18T13:30:00+00:00",
+      "fetched_at": "2026-02-20T03:07:47.783980"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "SSR Mining Inc. Q4 2025 Earnings Call Summary",
+      "summary": "",
+      "link": "https://finance.yahoo.com/news/ssr-mining-inc-q4-2025-133000723.html",
+      "published": "2026-02-18T13:30:00+00:00",
+      "fetched_at": "2026-02-20T03:07:47.783991"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Huntsman Corporation Q4 2025 Earnings Call Summary",
+      "summary": "",
+      "link": "https://finance.yahoo.com/news/huntsman-corporation-q4-2025-earnings-133000580.html",
+      "published": "2026-02-18T13:30:00+00:00",
+      "fetched_at": "2026-02-20T03:07:47.784003"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Beneficient Q3 2026 Earnings Call Summary",
+      "summary": "",
+      "link": "https://finance.yahoo.com/news/beneficient-q3-2026-earnings-call-133000592.html",
+      "published": "2026-02-18T13:30:00+00:00",
+      "fetched_at": "2026-02-20T03:07:47.784026"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "FirstEnergy Corp. Q4 2025 Earnings Call Summary",
+      "summary": "",
+      "link": "https://finance.yahoo.com/news/firstenergy-corp-q4-2025-earnings-133000226.html",
+      "published": "2026-02-18T13:30:00+00:00",
+      "fetched_at": "2026-02-20T03:07:47.784037"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "La-Z-Boy Incorporated Q3 2026 Earnings Call Summary",
+      "summary": "",
+      "link": "https://finance.yahoo.com/news/la-z-boy-incorporated-q3-133000435.html",
+      "published": "2026-02-18T13:30:00+00:00",
+      "fetched_at": "2026-02-20T03:07:47.784048"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "The Hackett Group, Inc. Q4 2025 Earnings Call Summary",
+      "summary": "",
+      "link": "https://finance.yahoo.com/news/hackett-group-inc-q4-2025-133000651.html",
+      "published": "2026-02-18T13:30:00+00:00",
+      "fetched_at": "2026-02-20T03:07:47.784060"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Hecla Mining Company Q4 2025 Earnings Call Summary",
+      "summary": "",
+      "link": "https://finance.yahoo.com/news/hecla-mining-company-q4-2025-133000438.html",
+      "published": "2026-02-18T13:30:00+00:00",
+      "fetched_at": "2026-02-20T03:07:47.784083"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Cineverse Corp. Q3 2026 Earnings Call Summary",
+      "summary": "",
+      "link": "https://finance.yahoo.com/news/cineverse-corp-q3-2026-earnings-133000171.html",
+      "published": "2026-02-18T13:30:00+00:00",
+      "fetched_at": "2026-02-20T03:07:47.784098"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "RB Global, Inc. Q4 2025 Earnings Call Summary",
+      "summary": "",
+      "link": "https://finance.yahoo.com/news/rb-global-inc-q4-2025-133000447.html",
+      "published": "2026-02-18T13:30:00+00:00",
+      "fetched_at": "2026-02-20T03:07:47.784110"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Palo Alto Networks, Inc. Q2 2026 Earnings Call Summary",
+      "summary": "",
+      "link": "https://finance.yahoo.com/news/palo-alto-networks-inc-q2-133000967.html",
+      "published": "2026-02-18T13:30:00+00:00",
+      "fetched_at": "2026-02-20T03:07:47.784121"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Nano Nuclear Energy Inc Q1 2026 Earnings Call Summary",
+      "summary": "",
+      "link": "https://finance.yahoo.com/news/nano-nuclear-energy-inc-q1-133000586.html",
+      "published": "2026-02-18T13:30:00+00:00",
+      "fetched_at": "2026-02-20T03:07:47.784144"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "EQT Corporation Q4 2025 Earnings Call Summary",
+      "summary": "",
+      "link": "https://finance.yahoo.com/news/eqt-corporation-q4-2025-earnings-133000846.html",
+      "published": "2026-02-18T13:30:00+00:00",
+      "fetched_at": "2026-02-20T03:07:47.784155"
     },
     {
       "source": "finnhub_MarketWatch",
@@ -438,9 +1016,81 @@
       "summary": "\u201cMy siblings have led lifestyles that have required them to depend heavily on my parents financially.\u201d",
       "link": "https://www.marketwatch.com/story/this-is-stressful-my-two-siblings-are-financial-horrors-how-can-i-make-sure-their-estate-goes-to-the-right-people-4842a5a7",
       "published": "2026-02-18T13:30:00",
-      "fetched_at": "2026-02-19T03:08:18.948110",
+      "fetched_at": "2026-02-20T03:07:47.959674",
       "ticker": null,
       "tier": 2
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Corn Starting Wednesday Trade with Slight Gains",
+      "summary": "",
+      "link": "https://finance.yahoo.com/news/corn-starting-wednesday-trade-slight-132624911.html",
+      "published": "2026-02-18T13:26:24+00:00",
+      "fetched_at": "2026-02-20T03:07:47.783832"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Soybeans Extending Gains Early on Wednesday",
+      "summary": "",
+      "link": "https://finance.yahoo.com/news/soybeans-extending-gains-early-wednesday-132624257.html",
+      "published": "2026-02-18T13:26:24+00:00",
+      "fetched_at": "2026-02-20T03:07:47.783855"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "What Makes Snowflake (SNOW) a Lucrative Investment?",
+      "summary": "",
+      "link": "https://finance.yahoo.com/news/makes-snowflake-snow-lucrative-investment-132332324.html",
+      "published": "2026-02-18T13:23:32+00:00",
+      "fetched_at": "2026-02-20T03:07:47.783821"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "J.B. Hunt Transport Services Stock Outlook: Is Wall Street Bullish or Bearish?",
+      "summary": "",
+      "link": "https://finance.yahoo.com/news/j-b-hunt-transport-services-131215680.html",
+      "published": "2026-02-18T13:12:15+00:00",
+      "fetched_at": "2026-02-20T03:07:47.783809"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Kenvue Surges as Earnings Beat, Kimberly-Clark Merger Gains Steam",
+      "summary": "",
+      "link": "https://finance.yahoo.com/news/kenvue-surges-earnings-beat-kimberly-131023108.html",
+      "published": "2026-02-18T13:10:23+00:00",
+      "fetched_at": "2026-02-20T03:07:47.784133"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Arla sales to face pressure from lower milk prices in 2026",
+      "summary": "",
+      "link": "https://finance.yahoo.com/news/arla-record-2025-sales-face-130900429.html",
+      "published": "2026-02-18T13:09:00+00:00",
+      "fetched_at": "2026-02-20T03:07:47.784071"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Will Coherent Corp. (COHR) Benefit from Transition?",
+      "summary": "",
+      "link": "https://finance.yahoo.com/news/coherent-corp-cohr-benefit-transition-130541733.html",
+      "published": "2026-02-18T13:05:41+00:00",
+      "fetched_at": "2026-02-20T03:07:47.783798"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Rivian Stock: The EV Recovery Play to Watch\u200b",
+      "summary": "",
+      "link": "https://finance.yahoo.com/news/rivian-stock-ev-recovery-play-130500398.html",
+      "published": "2026-02-18T13:05:00+00:00",
+      "fetched_at": "2026-02-20T03:07:47.784014"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Is Your Age Group the Top Saver for 401(k) Plans? See How You Stack Up",
+      "summary": "",
+      "link": "https://finance.yahoo.com/news/age-group-top-saver-401-130200801.html",
+      "published": "2026-02-18T13:02:00+00:00",
+      "fetched_at": "2026-02-20T03:07:47.783957"
     },
     {
       "source": "finnhub_MarketWatch",
@@ -448,7 +1098,193 @@
       "summary": "Bayer stock slumped on Wednesday as the German giant set a preliminary accord to cap litigation over its weedkiller Roundup.",
       "link": "https://www.marketwatch.com/story/bayer-shares-make-this-surprising-move-after-7-25-billion-roundup-settlement-accord-d4882f92",
       "published": "2026-02-18T13:02:00",
-      "fetched_at": "2026-02-19T03:08:18.948111",
+      "fetched_at": "2026-02-20T03:07:47.959676",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Do You Think Hims & Hers Health (HIMS) is Positioned for Long-Term Growth?",
+      "summary": "",
+      "link": "https://finance.yahoo.com/news/think-hims-hers-health-hims-130146616.html",
+      "published": "2026-02-18T13:01:46+00:00",
+      "fetched_at": "2026-02-20T03:07:47.783775"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Bill Gates Trimming Real Estate Holdings, Lists Secondary Home For $4.8M",
+      "summary": "",
+      "link": "https://finance.yahoo.com/news/bill-gates-trimming-real-estate-130103208.html",
+      "published": "2026-02-18T13:01:03+00:00",
+      "fetched_at": "2026-02-20T03:07:47.783901"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Storage Technology: How To Find & Own America's Greatest Opportunities",
+      "summary": "",
+      "link": "https://www.investors.com/how-to-invest/tech-stock-storage-technology-americas-greatest-opportunities/?src=A00220&yptr=yahoo",
+      "published": "2026-02-18T13:00:43+00:00",
+      "fetched_at": "2026-02-20T03:07:47.783751"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Investors Turn Record Bearish On The Dollar \u2013 Is This The Final Flush?",
+      "summary": "",
+      "link": "https://finance.yahoo.com/news/investors-turn-record-bearish-dollar-130025197.html",
+      "published": "2026-02-18T13:00:25+00:00",
+      "fetched_at": "2026-02-20T03:07:47.783844"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Your pets may feel like family, but can you claim them as dependents on your tax return?",
+      "summary": "",
+      "link": "https://finance.yahoo.com/news/pets-may-feel-family-claim-130000936.html",
+      "published": "2026-02-18T13:00:00+00:00",
+      "fetched_at": "2026-02-20T03:07:47.783739"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "From Pakistan Floods to California Drought: Climate Risks Shake the Cotton Industry",
+      "summary": "",
+      "link": "https://finance.yahoo.com/news/pakistan-floods-california-drought-climate-130000859.html",
+      "published": "2026-02-18T13:00:00+00:00",
+      "fetched_at": "2026-02-20T03:07:47.783786"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Dow Jones Futures Rise; Nvidia Gains On Meta AI Deal, Rivals Fall",
+      "summary": "",
+      "link": "https://www.investors.com/market-trend/stock-market-today/dow-jones-futures-meta-deal-nvidia-ai-rivals/?src=A00220&yptr=yahoo",
+      "published": "2026-02-18T12:59:59+00:00",
+      "fetched_at": "2026-02-20T03:07:47.783763"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Citi\u2019s new CFO is the latest sign the \u2018operator\u2019 era has arrived",
+      "summary": "",
+      "link": "https://finance.yahoo.com/news/citi-cfo-latest-sign-operator-125941217.html",
+      "published": "2026-02-18T12:59:41+00:00",
+      "fetched_at": "2026-02-20T03:07:47.783727"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Should You Hold Varonis Systems (VRNS)?",
+      "summary": "",
+      "link": "https://finance.yahoo.com/news/hold-varonis-systems-vrns-125733652.html",
+      "published": "2026-02-18T12:57:33+00:00",
+      "fetched_at": "2026-02-20T03:07:47.783715"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Verisk downplays AI disruption fears as quarterly profit beats estimates",
+      "summary": "",
+      "link": "https://finance.yahoo.com/news/verisk-quarterly-profit-beats-estimates-125647738.html",
+      "published": "2026-02-18T12:56:47+00:00",
+      "fetched_at": "2026-02-20T03:07:47.783702"
+    },
+    {
+      "source": "finnhub_Bloomberg",
+      "title": "From auction data to algorithms: AI reshapes art buying and selling",
+      "summary": "AI-powered valuation tools are bringing fresh transparency to the opaque art market, using data-driven insights to help collectors price, buy and even borrow against their artworks with greater confidence.",
+      "link": "https://www.bloomberg.com/news/articles/2026-02-18/ai-is-helping-buyers-know-how-much-art-should-cost",
+      "published": "2026-02-18T12:04:09",
+      "fetched_at": "2026-02-20T03:07:47.959677",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Bloomberg",
+      "title": "SBI Funds Management plans $1.5 billion IPO in March",
+      "summary": "The planned share sale comes as India\u2019s market for first-time public offerings slows after two consecutive years of record fundraising",
+      "link": "https://www.bloomberg.com/news/articles/2026-02-18/india-s-top-asset-manager-said-to-file-1-5-billion-ipo-in-march",
+      "published": "2026-02-18T11:40:50",
+      "fetched_at": "2026-02-20T03:07:47.959679",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Mortgage and refinance interest rates today, February 18, 2026: Lowest in years, and well below 6%",
+      "summary": "",
+      "link": "https://finance.yahoo.com/personal-finance/mortgages/article/mortgage-refinance-interest-rates-today-wednesday-february-18-2026-110022851.html",
+      "published": "2026-02-18T11:00:22+00:00",
+      "fetched_at": "2026-02-20T03:07:47.783673"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "HELOC and home equity loan rates today, February 18, 2026: Expected to remain mostly unchanged",
+      "summary": "",
+      "link": "https://finance.yahoo.com/personal-finance/mortgages/article/heloc-home-equity-loan-interest-rates-today-wednesday-february-18-2025-110022713.html",
+      "published": "2026-02-18T11:00:22+00:00",
+      "fetched_at": "2026-02-20T03:07:47.783689"
+    },
+    {
+      "source": "finnhub_Bloomberg",
+      "title": "Nuclear fusion start-up claims major advance\u00a0in New Zealand trial",
+      "summary": "OpenStar Chief Executive Officer and founder Ratu Mataira is betting the simplicity of the company\u2019s reactor design gives it the edge in the global race to turn fusion from theory into an effective power source",
+      "link": "https://www.bloomberg.com/news/articles/2026-02-17/nuclear-fusion-startup-claims-major-advance-in-new-zealand-trial",
+      "published": "2026-02-18T06:40:14",
+      "fetched_at": "2026-02-20T03:07:47.959680",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Bloomberg",
+      "title": "Fed officials say AI productivity boost could raise neutral rate",
+      "summary": "AI and productivity are likely to take on increasing importance this year in debates over interest rates as President Donald Trump continues to put pressure on the Fed to reduce borrowing costs",
+      "link": "https://www.bloomberg.com/news/articles/2026-02-17/fed-officials-say-ai-productivity-boost-could-raise-neutral-rate",
+      "published": "2026-02-18T05:57:13",
+      "fetched_at": "2026-02-20T03:07:47.959682",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Bloomberg",
+      "title": "Buffett cuts Amazon stake, makes bet on New York Times",
+      "summary": "Also in the fourth quarter, Berkshire continued trimming its stakes in Bank of America Corp. and Apple, Inc., bringing them to 7.1% and 1.5%, respectively",
+      "link": "https://www.bloomberg.com/news/articles/2026-02-17/buffett-slashes-amazon-stake-makes-new-bet-on-new-york-times",
+      "published": "2026-02-18T05:50:38",
+      "fetched_at": "2026-02-20T03:07:47.959683",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Bloomberg",
+      "title": "Bitcoin declines as geopolitical tension adds to risk-off mood",
+      "summary": "Bitcoin, which has traded like a high-beta tech proxy in recent months, mirrored an earlier move lower in US equities but failed to keep pace when stocks edged higher",
+      "link": "https://www.bloomberg.com/news/articles/2026-02-17/bitcoin-declines-as-geopolitical-tension-adds-to-risk-off-mood",
+      "published": "2026-02-18T05:44:36",
+      "fetched_at": "2026-02-20T03:07:47.959685",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Bloomberg",
+      "title": "Gold steadies after 2 day drop in thin lunar new year trading",
+      "summary": "Bullion was near $4,880 an ounce in early trading, having lost more than 3% over the previous two sessions, when the US dollar strengthened",
+      "link": "https://www.bloomberg.com/news/articles/2026-02-17/gold-steadies-after-two-day-drop-in-thin-lunar-new-year-trading",
+      "published": "2026-02-18T05:35:02",
+      "fetched_at": "2026-02-20T03:07:47.959688",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Bloomberg",
+      "title": "Oil holds drop as US and Iran signal progress in nuclear talks",
+      "summary": "Crude has pushed higher this year as geopolitical concerns, including the tensions over Iran, outweighed warnings that the global market faces a glut that\u2019ll drag down prices",
+      "link": "https://www.bloomberg.com/news/articles/2026-02-17/oil-holds-drop-as-us-and-iran-signal-progress-in-nuclear-talks",
+      "published": "2026-02-18T05:28:41",
+      "fetched_at": "2026-02-20T03:07:47.959690",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Bloomberg",
+      "title": "US renews threat to withdraw from IEA over climate advocacy",
+      "summary": "A latest flagship report published in November tempered the IEA\u2019s forecasts on an imminent peak in oil demand, and reintroduced a \u201cCurrent Policies Scenario\u201d after a five-year hiatus, which bases forecasts on existing conditions",
+      "link": "https://www.bloomberg.com/news/articles/2026-02-18/us-renews-threat-to-withdraw-from-iea-over-climate-advocacy",
+      "published": "2026-02-18T05:22:38",
+      "fetched_at": "2026-02-20T03:07:47.959691",
       "ticker": null,
       "tier": 2
     },
@@ -458,7 +1294,7 @@
       "summary": "Shares of Broadcom, AMD and Arista fell after Nvidia and Meta announced an expansion of their partnership.",
       "link": "https://www.marketwatch.com/story/nvidias-new-meta-deal-may-not-be-great-news-for-these-other-tech-stocks-82b6e4d1",
       "published": "2026-02-18T03:01:00",
-      "fetched_at": "2026-02-19T03:08:18.948113",
+      "fetched_at": "2026-02-20T03:07:47.959693",
       "ticker": null,
       "tier": 2
     },
@@ -468,7 +1304,7 @@
       "summary": "The cybersecurity company says it\u2019s poised to benefit as AI creates \u201cnew classes of risks.\u201d",
       "link": "https://www.marketwatch.com/story/palo-alto-networks-stock-slides-as-underwhelming-outlook-overshadows-ai-messaging-7bb6ad12",
       "published": "2026-02-18T02:38:00",
-      "fetched_at": "2026-02-19T03:08:18.948114",
+      "fetched_at": "2026-02-20T03:07:47.959694",
       "ticker": null,
       "tier": 2
     },
@@ -478,7 +1314,7 @@
       "summary": "The move, while not unexpected, will allow Western Digital to bolster its balance sheet and reduce debt.",
       "link": "https://www.marketwatch.com/story/sandisks-stock-falls-as-western-digital-plans-to-sell-shares-what-investors-need-to-know-5f4c8d48",
       "published": "2026-02-18T01:27:00",
-      "fetched_at": "2026-02-19T03:08:18.948115",
+      "fetched_at": "2026-02-20T03:07:47.959696",
       "ticker": null,
       "tier": 2
     },
@@ -488,7 +1324,7 @@
       "summary": "The S&P 500 on Tuesday finished only 1.9% away from its record finish in January, but that\u2019s masking a lot of AI turbulence",
       "link": "https://www.marketwatch.com/story/what-the-10-year-treasurys-move-toward-4-says-about-ai-anxiety-in-markets-6aff8a1c",
       "published": "2026-02-18T00:45:00",
-      "fetched_at": "2026-02-19T03:08:18.948117",
+      "fetched_at": "2026-02-20T03:07:47.959697",
       "ticker": null,
       "tier": 2
     },
@@ -498,7 +1334,7 @@
       "summary": "Appaloosa Management boosted its stake in American Airlines and Big Tech names during the fourth quarter, while selling off positions in several financial names.",
       "link": "https://www.marketwatch.com/story/appaloosa-upped-its-bet-on-this-airline-during-the-fourth-quarter-while-adding-to-tech-and-selling-off-financials-c2cee856",
       "published": "2026-02-18T00:26:00",
-      "fetched_at": "2026-02-19T03:08:18.948118",
+      "fetched_at": "2026-02-20T03:07:47.959699",
       "ticker": null,
       "tier": 2
     },
@@ -508,7 +1344,7 @@
       "summary": "Berkshire\u2019s fresh bet on the publisher of the New York Times marks a return to newspapers for the conglomerate after exiting the business six years ago.",
       "link": "https://www.marketwatch.com/story/berkshire-returns-to-the-newspaper-business-takes-bigger-bite-of-dominos-pizza-5c4dc5d8",
       "published": "2026-02-18T00:20:00",
-      "fetched_at": "2026-02-19T03:08:18.948120",
+      "fetched_at": "2026-02-20T03:07:47.959700",
       "ticker": null,
       "tier": 2
     },
@@ -518,7 +1354,7 @@
       "summary": "Port of Los Angeles, the nation's biggest trade hub, has seen a decline in import and export container volume during what is usually a busy shipping time.",
       "link": "https://www.cnbc.com/2026/02/17/china-freight-container-trade-volume-port-los-angeles.html",
       "published": "2026-02-17T23:59:33",
-      "fetched_at": "2026-02-19T03:08:18.948121",
+      "fetched_at": "2026-02-20T03:07:47.959702",
       "ticker": null,
       "tier": 2
     },
@@ -528,7 +1364,7 @@
       "summary": "The connection between weight loss drugs, jet fuel and the software sell-off explained.",
       "link": "https://www.cnbc.com/2026/02/17/cramer-what-the-frenzy-over-glp-1-drugs-teaches-us-about-current-market.html",
       "published": "2026-02-17T23:22:26",
-      "fetched_at": "2026-02-19T03:08:18.948123",
+      "fetched_at": "2026-02-20T03:07:47.959703",
       "ticker": null,
       "tier": 2
     },
@@ -538,7 +1374,7 @@
       "summary": "Some experts say Florida\u2019s more business-friendly policies are helping the state attract more corporations.",
       "link": "https://www.marketwatch.com/story/palantir-joins-the-wave-of-businesses-and-billionaires-moving-to-florida-79f0134b",
       "published": "2026-02-17T23:03:00",
-      "fetched_at": "2026-02-19T03:08:18.948124",
+      "fetched_at": "2026-02-20T03:07:47.959705",
       "ticker": null,
       "tier": 2
     },
@@ -548,7 +1384,7 @@
       "summary": "U.S. Capitol Police Chief Michael Sullivan commended his officers, saying this is why they conduct monthly active-shooter exercises.",
       "link": "https://www.cnbc.com/2026/02/17/capitol-shotgun-vest-police-chief.html",
       "published": "2026-02-17T22:21:52",
-      "fetched_at": "2026-02-19T03:08:18.948126",
+      "fetched_at": "2026-02-20T03:07:47.959706",
       "ticker": null,
       "tier": 2
     },
@@ -558,7 +1394,7 @@
       "summary": "We're making our first trim of this stock since initiating the position last October, locking in a gain of roughly 55% in the process.",
       "link": "https://www.cnbc.com/2026/02/17/were-trimming-a-parabolic-mover-adhering-to-one-of-our-core-investment-rules.html",
       "published": "2026-02-17T22:11:09",
-      "fetched_at": "2026-02-19T03:08:18.948127",
+      "fetched_at": "2026-02-20T03:07:47.959708",
       "ticker": null,
       "tier": 2
     },
@@ -568,7 +1404,7 @@
       "summary": "Every weekday, the Investing Club releases the Homestretch; an actionable afternoon update just in time for the last hour of trading.",
       "link": "https://www.cnbc.com/2026/02/17/big-investor-gets-into-blackrock-stock-but-not-for-its-traditional-area-of-dominance.html",
       "published": "2026-02-17T21:41:18",
-      "fetched_at": "2026-02-19T03:08:18.948129",
+      "fetched_at": "2026-02-20T03:07:47.959709",
       "ticker": null,
       "tier": 2
     },
@@ -578,843 +1414,7 @@
       "summary": "CrowdStrike, C.H. Robinson and Compass are among stocks that have been unfairly punished by fears of AI disruption, analysts say.",
       "link": "https://www.marketwatch.com/story/here-are-some-attractive-stocks-that-can-withstand-ai-disruption-according-to-j-p-morgan-d4e35ab5",
       "published": "2026-02-17T21:28:00",
-      "fetched_at": "2026-02-19T03:08:18.948130",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_MarketWatch",
-      "title": "Has inflation really slowed? Not according to this new Fed study.",
-      "summary": "An apparent slowdown in inflation since last fall has eased worries on Wall Street, but skeptics are yet to be convinced price pressures have largely evaporated. A new Federal Reserve study might add to the doubts.",
-      "link": "https://www.marketwatch.com/story/has-inflation-really-slowed-not-according-to-this-new-fed-study-a1456c57",
-      "published": "2026-02-17T21:08:00",
-      "fetched_at": "2026-02-19T03:08:18.948132",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_MarketWatch",
-      "title": "This auto-parts maker is jumping on the breakup bandwagon. Here\u2019s why the stock is tanking.",
-      "summary": "Genuine Parts shares tumbled Tuesday after a big earnings miss overshadowed breakup plans.",
-      "link": "https://www.marketwatch.com/story/this-auto-parts-maker-is-jumping-on-the-breakup-bandwagon-heres-why-the-stock-is-tanking-8d7da703",
-      "published": "2026-02-17T20:26:00",
-      "fetched_at": "2026-02-19T03:08:18.948134",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_CNBC",
-      "title": "We're scooping up more shares of this recently banged-up megacap AI leader",
-      "summary": "We're stepping in again as the stock continued to pull back from their February highs.",
-      "link": "https://www.cnbc.com/2026/02/17/were-scooping-up-more-shares-of-this-recently-banged-up-megacap-ai-leader.html",
-      "published": "2026-02-17T20:07:39",
-      "fetched_at": "2026-02-19T03:08:18.948135",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_CNBC",
-      "title": "Anthropic releases Claude Sonnet 4.6, continuing breakneck pace of AI model releases",
-      "summary": "Claude Sonnet 4.6 is more consistent with coding and is better at following coding instructions, Anthropic said.",
-      "link": "https://www.cnbc.com/2026/02/17/anthropic-ai-claude-sonnet-4-6-default-free-pro.html",
-      "published": "2026-02-17T19:55:15",
-      "fetched_at": "2026-02-19T03:08:18.948137",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_MarketWatch",
-      "title": "OpenAI, SpaceX and other IPOs could break the S&P 500, Jeremy Grantham says",
-      "summary": "How an overheated IPO market this year could derail U.S. stocks.",
-      "link": "https://www.marketwatch.com/story/openai-spacex-and-other-ipos-could-break-the-s-p-500-jeremy-grantham-says-0f420c86",
-      "published": "2026-02-17T19:46:00",
-      "fetched_at": "2026-02-19T03:08:18.948138",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_MarketWatch",
-      "title": "ServiceNow CEO looks to call a bottom on software stocks with this $3 million move",
-      "summary": "As the software selloff deepens, ServiceNow\u2019s CEO is buying the dip and joining others at his company in ending automated stock-selling plans.",
-      "link": "https://www.marketwatch.com/story/servicenow-ceo-looks-to-call-a-bottom-on-software-stocks-with-this-3-million-move-2a7a46eb",
-      "published": "2026-02-17T19:08:00",
-      "fetched_at": "2026-02-19T03:08:18.948139",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_MarketWatch",
-      "title": "Can Nvidia\u2019s stock approach $400? Here\u2019s why earnings may mark the start of a big rally.",
-      "summary": "Nvidia shares have gone nowhere this year, but a Cantor Fitzgerald analyst sees next Wednesday\u2019s earnings report as the first of a few notable catalysts.",
-      "link": "https://www.marketwatch.com/story/can-nvidias-stock-approach-400-heres-why-earnings-may-mark-the-start-of-a-big-rally-4e955707",
-      "published": "2026-02-17T18:57:00",
-      "fetched_at": "2026-02-19T03:08:18.948141",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_MarketWatch",
-      "title": "Rivian\u2019s stock just had its best day ever \u2014 and now this analyst says to sell",
-      "summary": "D.A. Davidson worries that Rivian\u2019s guidance would require the company to see an unusually strong debut of its R2 EV.",
-      "link": "https://www.marketwatch.com/story/rivians-stock-just-had-its-best-day-ever-and-now-this-analyst-says-to-sell-33051b6f",
-      "published": "2026-02-17T18:42:00",
-      "fetched_at": "2026-02-19T03:08:18.948142",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_CNBC",
-      "title": "From oil empire to global impact: How John D. Rockefeller Sr. reinvested his fortune in America",
-      "summary": "John D. Rockefeller Sr. didn't just amass wealth, he helped invent modern philanthropy, using science and strategy to expand opportunity.",
-      "link": "https://www.cnbc.com/2026/02/17/how-john-d-rockefeller-sr-reinvested-his-fortune-in-america.html",
-      "published": "2026-02-17T17:58:41",
-      "fetched_at": "2026-02-19T03:08:18.948144",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_CNBC",
-      "title": "CFTC defends its right to prediction market enforcement as states challenge platforms",
-      "summary": "CFTC Chairman Michael Selig said the agency is filing an amicus brief to assert its authority over prediction market enforcement and regulation.",
-      "link": "https://www.cnbc.com/2026/02/17/cftc-defends-prediction-market-enforcement-states-challenge.html",
-      "published": "2026-02-17T17:56:11",
-      "fetched_at": "2026-02-19T03:08:18.948145",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_MarketWatch",
-      "title": "\u2018I have a moral and ethical conundrum\u2019: My husband was killed by a careless driver. I received $2 million. What do I owe my stepdaughter?",
-      "summary": "\u201cMy will states that my daughter will receive a fairly large portion of my estate.\u201d",
-      "link": "https://www.marketwatch.com/story/i-have-a-moral-and-ethical-conundrum-my-husband-was-killed-by-a-careless-driver-i-received-2-million-what-do-i-owe-my-stepdaughter-2c3250e8",
-      "published": "2026-02-17T17:20:00",
-      "fetched_at": "2026-02-19T03:08:18.948147",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_CNBC",
-      "title": "Lakers governor Jeanie Buss talks year of transition, says father would have supported sale to Mark Walter",
-      "summary": "Los Angeles Lakers governor Jeanie Buss said new majority owner Mark Walter's access to capital will help the team best compete with the NBA's top franchises.",
-      "link": "https://www.cnbc.com/2026/02/17/lakers-jeanie-buss-sale-mark-walter.html",
-      "published": "2026-02-17T17:00:02",
-      "fetched_at": "2026-02-19T03:08:18.948148",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_MarketWatch",
-      "title": "The smart way to use AI to do your taxes",
-      "summary": "Plus: the truth behind how the \u2018G-Wagon write off\u2019 really works",
-      "link": "https://www.marketwatch.com/story/the-smart-way-to-use-ai-to-do-your-taxes-3079e955",
-      "published": "2026-02-17T16:53:00",
-      "fetched_at": "2026-02-19T03:08:18.948149",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_MarketWatch",
-      "title": "\u2018The world feels unpredictable\u2019: I\u2019m 56. My husband is 64. Our mortgage costs $17,000 a month. Do we pay it off?",
-      "summary": "\u201cWe paid $3.1 million for the house and owe $1.3 million on the loan.\u201d",
-      "link": "https://www.marketwatch.com/story/the-world-feels-unpredictable-im-56-my-husband-is-64-our-mortgage-costs-17-000-a-month-do-we-pay-it-off-c8a454d8",
-      "published": "2026-02-17T16:40:00",
-      "fetched_at": "2026-02-19T03:08:18.948151",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_MarketWatch",
-      "title": "Palo Alto Networks\u2019 earnings are on deck. Here\u2019s what could get the stock going again.",
-      "summary": "Palo Alto Networks shares have been caught up in the software selloff, but analysts are upbeat about recent momentum for its firewall business and the future impact of acquisitions.",
-      "link": "https://www.marketwatch.com/story/palo-alto-networks-earnings-are-on-deck-heres-what-could-get-the-stock-going-again-176371a4",
-      "published": "2026-02-17T16:31:00",
-      "fetched_at": "2026-02-19T03:08:18.948152",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_MarketWatch",
-      "title": "How Paramount brought its failing bid for Warner Bros. back from the brink",
-      "summary": "Paramount Skydance convinced Warner Bros. to reopen negotiations after signaling it was finally ready to raise its price.",
-      "link": "https://www.marketwatch.com/story/how-paramount-pulled-its-failing-bid-for-warner-bros-back-from-the-brink-ec3a1847",
-      "published": "2026-02-17T15:54:00",
-      "fetched_at": "2026-02-19T03:08:18.948154",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_MarketWatch",
-      "title": "General Mills cut its sales outlook to mark the fifth birthday of its \u2018growth\u2019 strategy",
-      "summary": "General Mills\u2019s stock was set to fall after the full-year profit and sales outlook were lowered, as the consumer recovery has been slower and has cost more than expected.",
-      "link": "https://www.marketwatch.com/story/general-mills-cut-its-sales-outlook-to-mark-the-fifth-birthday-of-its-growth-strategy-936f3e9e",
-      "published": "2026-02-17T15:38:00",
-      "fetched_at": "2026-02-19T03:08:18.948155",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_MarketWatch",
-      "title": "Stop watching gold\u2019s daily swings and get ready for a $10,000 supercycle",
-      "summary": "Investors seeking a portfolio hedge will have two choices: gold or the U.S. dollar.",
-      "link": "https://www.marketwatch.com/story/stop-watching-golds-daily-swings-and-get-ready-for-a-10-000-supercycle-f54cf911",
-      "published": "2026-02-17T15:13:00",
-      "fetched_at": "2026-02-19T03:08:18.948156",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_CNBC",
-      "title": "Silver miners fall in premarket trading as silver drops 2%",
-      "summary": "Silver mining companies including Hecla Mining, Endeavor Silver, and First Majestic Silver were down before the market opened.",
-      "link": "https://www.cnbc.com/2026/02/17/silver-prices-hecla-mining-endeavour-silver.html",
-      "published": "2026-02-17T15:08:48",
-      "fetched_at": "2026-02-19T03:08:18.948158",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_MarketWatch",
-      "title": "Infosys joins forces with the AI company that triggered a sharp selloff in its stock",
-      "summary": "Infosys shares looked set to rally after collaboration with Anthropic, just after the AI company had helped trigger a sharp selloff in the IT-consultant sector.",
-      "link": "https://www.marketwatch.com/story/infosys-joins-forces-with-the-ai-company-that-triggered-a-sharp-selloff-in-its-stock-6d8e7e4e",
-      "published": "2026-02-17T14:53:00",
-      "fetched_at": "2026-02-19T03:08:18.948159",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_MarketWatch",
-      "title": "Europe\u2019s military buildup could create a bond market powerhouse that threatens U.S. Treasurys",
-      "summary": "Financing for defense spending could bring Europe more integrated capital markets.",
-      "link": "https://www.marketwatch.com/story/europes-military-buildup-could-create-a-bond-market-powerhouse-that-threatens-u-s-treasurys-30c001ed",
-      "published": "2026-02-17T14:45:00",
-      "fetched_at": "2026-02-19T03:08:18.948160",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_MarketWatch",
-      "title": "Here are the executives who have departed in wake of the Epstein files. Hyatt\u2019s Pritzker is the latest.",
-      "summary": "Thomas Pritzker, the 75-year old executive chairman of Hyatt Hotels, expressed deep \u201cregret\u201d over his contacts with the late Epstein",
-      "link": "https://www.marketwatch.com/story/here-are-the-executives-who-have-departed-in-wake-of-the-epstein-files-hyatts-pritzker-is-the-latest-3242eda6",
-      "published": "2026-02-17T14:16:00",
-      "fetched_at": "2026-02-19T03:08:18.948162",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_MarketWatch",
-      "title": "Fund managers alarmed over corporate spending even as optimism at five-year high",
-      "summary": "Fund managers are \u201cuber-bullish\u201d but behind the confident outlook, the crowded long position in gold and an uptick in cash levels betray some doubts.",
-      "link": "https://www.marketwatch.com/story/fund-managers-alarmed-over-corporate-spending-even-as-optimism-at-five-year-high-053dd1b7",
-      "published": "2026-02-17T14:05:00",
-      "fetched_at": "2026-02-19T03:08:18.948163",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_MarketWatch",
-      "title": "Why the \u2018HALO\u2019 trade boosting hard assets is no fluke, according to Morgan Stanley",
-      "summary": "The boost for non-digital sectors should last through the year, says Morgan Stanley\u2019s Wilson",
-      "link": "https://www.marketwatch.com/story/why-the-halo-trade-boosting-hard-assets-is-no-fluke-according-to-morgan-stanley-068a35de",
-      "published": "2026-02-17T13:49:00",
-      "fetched_at": "2026-02-19T03:08:18.948165",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "What Are Wall Street Analysts' Target Price for Parker-Hannifin Stock?",
-      "summary": "",
-      "link": "https://finance.yahoo.com/news/wall-street-analysts-target-price-134411868.html",
-      "published": "2026-02-17T13:44:11+00:00",
-      "fetched_at": "2026-02-19T03:08:18.766897"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Palo Alto Networks (PANW) Expands Cloud-Delivered Security Platform to Address Hybrid Complexity",
-      "summary": "",
-      "link": "https://finance.yahoo.com/news/palo-alto-networks-panw-expands-134320267.html",
-      "published": "2026-02-17T13:43:20+00:00",
-      "fetched_at": "2026-02-19T03:08:18.766885"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Are Wall Street Analysts Predicting HCA Stock Will Climb or Sink?",
-      "summary": "",
-      "link": "https://finance.yahoo.com/news/wall-street-analysts-predicting-hca-133843843.html",
-      "published": "2026-02-17T13:38:43+00:00",
-      "fetched_at": "2026-02-19T03:08:18.766874"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Quanta Services (PWR) Positioned to Benefit From Rising Power Infrastructure Investment",
-      "summary": "",
-      "link": "https://finance.yahoo.com/news/quanta-services-pwr-positioned-benefit-133201471.html",
-      "published": "2026-02-17T13:32:01+00:00",
-      "fetched_at": "2026-02-19T03:08:18.766755"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "National Energy Services Reunited Corp. Q4 2025 Earnings Call Summary",
-      "summary": "",
-      "link": "https://finance.yahoo.com/news/national-energy-services-reunited-corp-133000950.html",
-      "published": "2026-02-17T13:30:00+00:00",
-      "fetched_at": "2026-02-19T03:08:18.766666"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Otter Tail Corporation Q4 2025 Earnings Call Summary",
-      "summary": "",
-      "link": "https://finance.yahoo.com/news/otter-tail-corporation-q4-2025-133000643.html",
-      "published": "2026-02-17T13:30:00+00:00",
-      "fetched_at": "2026-02-19T03:08:18.766687"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Grupo Aerom\u00e9xico, S.A.B. de C.V. Q4 2025 Earnings Call Summary",
-      "summary": "",
-      "link": "https://finance.yahoo.com/news/grupo-aerom-xico-b-c-133000108.html",
-      "published": "2026-02-17T13:30:00+00:00",
-      "fetched_at": "2026-02-19T03:08:18.766699"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Valentino Appoints New Chief Marketing Officer",
-      "summary": "",
-      "link": "https://finance.yahoo.com/news/valentino-appoints-chief-marketing-officer-133000644.html",
-      "published": "2026-02-17T13:30:00+00:00",
-      "fetched_at": "2026-02-19T03:08:18.766846"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Humana\u2019s CenterWell buys primary care provider MaxHealth",
-      "summary": "",
-      "link": "https://finance.yahoo.com/news/humana-centerwell-buys-primary-care-132911787.html",
-      "published": "2026-02-17T13:29:11+00:00",
-      "fetched_at": "2026-02-19T03:08:18.766624"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Merrill Accuses Dynasty of Reneging on Arbitrating $129B OpenArc Dispute",
-      "summary": "",
-      "link": "https://finance.yahoo.com/news/merrill-accuses-dynasty-reneging-arbitrating-132657037.html",
-      "published": "2026-02-17T13:26:57+00:00",
-      "fetched_at": "2026-02-19T03:08:18.766486"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Are Wall Street Analysts Bullish on Lam Research Stock?",
-      "summary": "",
-      "link": "https://finance.yahoo.com/news/wall-street-analysts-bullish-lam-132639491.html",
-      "published": "2026-02-17T13:26:39+00:00",
-      "fetched_at": "2026-02-19T03:08:18.766420"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Cotton Resumes Selling on Tuesday Morning",
-      "summary": "",
-      "link": "https://finance.yahoo.com/news/cotton-resumes-selling-tuesday-morning-132622601.html",
-      "published": "2026-02-17T13:26:22+00:00",
-      "fetched_at": "2026-02-19T03:08:18.766436"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Wheat Falling to Kick Off Tuesday",
-      "summary": "",
-      "link": "https://finance.yahoo.com/news/wheat-falling-kick-off-tuesday-132622805.html",
-      "published": "2026-02-17T13:26:22+00:00",
-      "fetched_at": "2026-02-19T03:08:18.766449"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Corn Falling Out of the Three-Day Weekend",
-      "summary": "",
-      "link": "https://finance.yahoo.com/news/corn-falling-three-day-weekend-132622711.html",
-      "published": "2026-02-17T13:26:22+00:00",
-      "fetched_at": "2026-02-19T03:08:18.766461"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Soybeans Easing Back on Tuesday AM Trade",
-      "summary": "",
-      "link": "https://finance.yahoo.com/news/soybeans-easing-back-tuesday-am-132622577.html",
-      "published": "2026-02-17T13:26:22+00:00",
-      "fetched_at": "2026-02-19T03:08:18.766473"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Paychex (PAYX) Directors Buy 2,000 Shares in February Insider Trades",
-      "summary": "",
-      "link": "https://finance.yahoo.com/news/paychex-payx-directors-buy-2-132452144.html",
-      "published": "2026-02-17T13:24:52+00:00",
-      "fetched_at": "2026-02-19T03:08:18.766509"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Kinder Morgan (KMI) Director Buys 3,000 Shares in Insider Transaction",
-      "summary": "",
-      "link": "https://finance.yahoo.com/news/kinder-morgan-kmi-director-buys-132423387.html",
-      "published": "2026-02-17T13:24:23+00:00",
-      "fetched_at": "2026-02-19T03:08:18.766498"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Evercore Raises Price Target on Molson Coors (TAP), Maintains Outperform Rating",
-      "summary": "",
-      "link": "https://finance.yahoo.com/news/evercore-raises-price-target-molson-132353819.html",
-      "published": "2026-02-17T13:23:53+00:00",
-      "fetched_at": "2026-02-19T03:08:18.766533"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Alphabet (GOOGL) AI, Cloud, and Waymo Provide Multi-Layered Growth Optionality",
-      "summary": "",
-      "link": "https://finance.yahoo.com/news/alphabet-googl-ai-cloud-waymo-132348690.html",
-      "published": "2026-02-17T13:23:48+00:00",
-      "fetched_at": "2026-02-19T03:08:18.766521"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Blue Owl (OTF) President Significantly Raises His Stakes in the Company",
-      "summary": "",
-      "link": "https://finance.yahoo.com/news/blue-owl-otf-president-significantly-132342031.html",
-      "published": "2026-02-17T13:23:42+00:00",
-      "fetched_at": "2026-02-19T03:08:18.766544"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Sonoco\u2019s \u2018transformation is complete,\u2019 CEO says. What\u2019s next?",
-      "summary": "",
-      "link": "https://finance.yahoo.com/news/sonoco-transformation-complete-ceo-says-132300023.html",
-      "published": "2026-02-17T13:23:00+00:00",
-      "fetched_at": "2026-02-19T03:08:18.766568"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "JP Morgan Downgrades MSC Industrial Direct (MSM), Cuts Price Target",
-      "summary": "",
-      "link": "https://finance.yahoo.com/news/jp-morgan-downgrades-msc-industrial-132258858.html",
-      "published": "2026-02-17T13:22:58+00:00",
-      "fetched_at": "2026-02-19T03:08:18.766556"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Piper Sandler Reiterates Hold on Black Stone Minerals (BSM) Shares",
-      "summary": "",
-      "link": "https://finance.yahoo.com/news/piper-sandler-reiterates-hold-black-132227768.html",
-      "published": "2026-02-17T13:22:27+00:00",
-      "fetched_at": "2026-02-19T03:08:18.766579"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Jefferies Downgrades Kinetik Holdings (KNTK) to Hold After Rally Shares",
-      "summary": "",
-      "link": "https://finance.yahoo.com/news/jefferies-downgrades-kinetik-holdings-kntk-132156763.html",
-      "published": "2026-02-17T13:21:56+00:00",
-      "fetched_at": "2026-02-19T03:08:18.766590"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Wells Fargo Maintains Hold on Enterprise Products Partners (EPD) Shares",
-      "summary": "",
-      "link": "https://finance.yahoo.com/news/wells-fargo-maintains-hold-enterprise-132133899.html",
-      "published": "2026-02-17T13:21:33+00:00",
-      "fetched_at": "2026-02-19T03:08:18.766613"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Scotiabank Maintains Hold on Lineage (LINE) as Analysts Stay Cautious",
-      "summary": "",
-      "link": "https://finance.yahoo.com/news/scotiabank-maintains-hold-lineage-line-132116163.html",
-      "published": "2026-02-17T13:21:16+00:00",
-      "fetched_at": "2026-02-19T03:08:18.766635"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Evercore Reiterates Sell on Franklin Resources (BEN) Amid Mixed Ratings",
-      "summary": "",
-      "link": "https://finance.yahoo.com/news/evercore-reiterates-sell-franklin-resources-132057640.html",
-      "published": "2026-02-17T13:20:57+00:00",
-      "fetched_at": "2026-02-19T03:08:18.766602"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Better Fintech Stock: PayPal vs. SoFi",
-      "summary": "",
-      "link": "https://finance.yahoo.com/news/better-fintech-stock-paypal-vs-132000676.html",
-      "published": "2026-02-17T13:20:00+00:00",
-      "fetched_at": "2026-02-19T03:08:18.766676"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Grab Q4 Earnings Call Highlights",
-      "summary": "",
-      "link": "https://finance.yahoo.com/news/grab-q4-earnings-call-highlights-131945313.html",
-      "published": "2026-02-17T13:19:45+00:00",
-      "fetched_at": "2026-02-19T03:08:18.766733"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "RBC Cuts Target on Reynolds Consumer Products (REYN) Post Q4 Results",
-      "summary": "",
-      "link": "https://finance.yahoo.com/news/rbc-cuts-target-reynolds-consumer-131915195.html",
-      "published": "2026-02-17T13:19:15+00:00",
-      "fetched_at": "2026-02-19T03:08:18.766645"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "MCD and TXRH: 2 Low-Risk Restaurant Stocks With Upside",
-      "summary": "",
-      "link": "https://finance.yahoo.com/news/mcd-txrh-2-low-risk-131900545.html",
-      "published": "2026-02-17T13:19:00+00:00",
-      "fetched_at": "2026-02-19T03:08:18.766789"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "KeyBanc Downgrades Mach Natural Resources (MNR) to Sector Weight Rating",
-      "summary": "",
-      "link": "https://finance.yahoo.com/news/keybanc-downgrades-mach-natural-resources-131845347.html",
-      "published": "2026-02-17T13:18:45+00:00",
-      "fetched_at": "2026-02-19T03:08:18.766655"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Apple (AAPL) Underweight Position Weighs on Relative Performance of Sands Capital Technology Innovators Fund",
-      "summary": "",
-      "link": "https://finance.yahoo.com/news/apple-aapl-underweight-position-weighs-131820901.html",
-      "published": "2026-02-17T13:18:20+00:00",
-      "fetched_at": "2026-02-19T03:08:18.766710"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "What Are Wall Street Analysts' Target Price for BXP Stock?",
-      "summary": "",
-      "link": "https://finance.yahoo.com/news/wall-street-analysts-target-price-131641449.html",
-      "published": "2026-02-17T13:16:41+00:00",
-      "fetched_at": "2026-02-19T03:08:18.766721"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "\u2018You\u2019re gonna get there\u2019: Dave Ramsey tells Arkansas mom, 51, with no savings she can retire comfortably. How it works",
-      "summary": "",
-      "link": "https://finance.yahoo.com/news/gonna-dave-ramsey-tells-arkansas-131500312.html",
-      "published": "2026-02-17T13:15:00+00:00",
-      "fetched_at": "2026-02-19T03:08:18.766744"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "WBD Lets Paramount Add $1 and Then Takes It Off Read",
-      "summary": "",
-      "link": "https://finance.yahoo.com/news/wbd-lets-paramount-add-1-130203437.html",
-      "published": "2026-02-17T13:02:03+00:00",
-      "fetched_at": "2026-02-19T03:08:18.766766"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "AI Stocks Reset In 2026 Amid Software Reckoning, Hyperscaler Capex Boom",
-      "summary": "",
-      "link": "https://www.investors.com/news/technology/ai-stocks-artificial-intelligence-stocks-2026-disruption-openclaw-feb17/?src=A00220&yptr=yahoo",
-      "published": "2026-02-17T13:00:52+00:00",
-      "fetched_at": "2026-02-19T03:08:18.766778"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Labcorp forecasts upbeat annual profit on strong demand for diagnostic products",
-      "summary": "",
-      "link": "https://finance.yahoo.com/news/labcorp-forecasts-upbeat-annual-profit-125941128.html",
-      "published": "2026-02-17T13:00:39+00:00",
-      "fetched_at": "2026-02-19T03:08:18.766801"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Planning to borrow to fund your kid's college? A $100K Parent PLUS loan payment could soon surge to $770/month",
-      "summary": "",
-      "link": "https://finance.yahoo.com/news/planning-borrow-fund-kids-college-130000404.html",
-      "published": "2026-02-17T13:00:00+00:00",
-      "fetched_at": "2026-02-19T03:08:18.766812"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Morgan Stanley Lifts TC Energy Corporation (TRP) Target to C$93 on Favorable Backdrop",
-      "summary": "",
-      "link": "https://finance.yahoo.com/news/morgan-stanley-lifts-tc-energy-125907166.html",
-      "published": "2026-02-17T12:59:07+00:00",
-      "fetched_at": "2026-02-19T03:08:18.766823"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Barclays Raises Celestica Inc. (CLS) Price Target to $391, Reiterates Overweight",
-      "summary": "",
-      "link": "https://finance.yahoo.com/news/barclays-raises-celestica-inc-cls-125742559.html",
-      "published": "2026-02-17T12:57:42+00:00",
-      "fetched_at": "2026-02-19T03:08:18.766835"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Cenovus Energy Inc. (CVE) Target Cut to C$25 on Supply-Side Risk Concerns",
-      "summary": "",
-      "link": "https://finance.yahoo.com/news/cenovus-energy-inc-cve-target-125716930.html",
-      "published": "2026-02-17T12:57:16+00:00",
-      "fetched_at": "2026-02-19T03:08:18.766862"
-    },
-    {
-      "source": "finnhub_Bloomberg",
-      "title": "Macron courts Modi as India nears $40 billion Rafale fighter jet deal",
-      "summary": "Macron visits India to deepen defence ties as New Delhi advances a $40 billion deal for 114 Rafale jets and expands AI and technology cooperation.",
-      "link": "https://www.bloomberg.com/news/articles/2026-02-17/macron-pushes-for-fighter-jet-deal-on-high-profile-india-trip",
-      "published": "2026-02-17T12:45:05",
-      "fetched_at": "2026-02-19T03:08:18.948166",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_MarketWatch",
-      "title": "Norwegian Cruise Line stock is rising. A big activist reportedly has taken a stake.",
-      "summary": "Norwegian Cruise Line shares rose on Tuesday after a report an activist investor has taken a stake and plans to shake up the struggling company.",
-      "link": "https://www.marketwatch.com/story/norwegian-cruise-line-stock-is-rising-a-big-activist-reportedly-has-taken-a-stake-2b59dce7",
-      "published": "2026-02-17T12:16:00",
-      "fetched_at": "2026-02-19T03:08:18.948168",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_MarketWatch",
-      "title": "The math is getting challenging: economic realities start to bite as UBS downgrades U.S. tech stocks",
-      "summary": "UBS global head of equities  thinks the question of how to turn capex into profits is becoming more challenging  for AI developers to answer as funding commitments boom and funding gets more difficult.",
-      "link": "https://www.marketwatch.com/story/the-math-is-getting-challenging-economic-realities-start-to-bite-as-ubs-downgrades-u-s-tech-stocks-e40a2adb",
-      "published": "2026-02-17T12:12:00",
-      "fetched_at": "2026-02-19T03:08:18.948169",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_CNBC",
-      "title": "Rev. Jesse Jackson, civil rights leader and former presidential candidate, dies at 84",
-      "summary": "The Rev. Jesse Jackson was a civil rights icon, Baptist minister and two-time Democratic presidential candidate.",
-      "link": "https://www.cnbc.com/2026/02/17/jesse-jackson-dead.html",
-      "published": "2026-02-17T12:10:07",
-      "fetched_at": "2026-02-19T03:08:18.948170",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_MarketWatch",
-      "title": "Why has Kris Jenner\u2019s $13.5 million \u2018Keeping Up With the Kardashians\u2019 house sat on the market for over a year?",
-      "summary": "Kris Jenner listed the Hidden Hills home with much fanfare, but none of the hoopla appears to have moved the needle on the sale of the property.",
-      "link": "https://www.marketwatch.com/story/why-has-kris-jenners-13-5-million-keeping-up-with-the-kardashians-house-sat-on-the-market-for-over-a-year-de80b7cf",
-      "published": "2026-02-17T12:02:00",
-      "fetched_at": "2026-02-19T03:08:18.948172",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_MarketWatch",
-      "title": "Mark Zuckerberg may be the latest California tycoon to buy in Miami\u2019s \u2018Billionaire Bunker\u2019",
-      "summary": "Facebook\u00a0billionaire\u00a0Mark Zuckerberg has reportedly snapped up an extraordinary waterfront mansion on\u00a0Miami\u2019s infamous Billionaire Bunker.",
-      "link": "https://www.marketwatch.com/story/mark-zuckerberg-may-be-the-latest-california-tycoon-to-buy-in-miamis-billionaire-bunker-d39db705",
-      "published": "2026-02-17T11:58:00",
-      "fetched_at": "2026-02-19T03:08:18.948173",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Bloomberg",
-      "title": "India\u2019s solar manufacturing boom turns into a structural glut",
-      "summary": "A push to expand local production \u2014 encouraged by pandemic disruptions and strained relations with China \u2014 has resulted in a 13-fold jump in capacity since 2020",
-      "link": "https://www.bloomberg.com/news/articles/2026-02-17/india-s-solar-manufacturing-excesses-turn-a-boom-into-a-glut",
-      "published": "2026-02-17T10:43:40",
-      "fetched_at": "2026-02-19T03:08:18.948175",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_MarketWatch",
-      "title": "Gold prices tumble below $5,000  as China holidays dent support",
-      "summary": "Gold\u2019s fragile hold on $5,000 an ounce gave way to selling on Tuesday.",
-      "link": "https://www.marketwatch.com/story/gold-prices-tumble-below-5-000-as-china-holidays-dent-support-d093e677",
-      "published": "2026-02-17T09:58:00",
-      "fetched_at": "2026-02-19T03:08:18.948176",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_MarketWatch",
-      "title": "U.S. stock futures flat as investors digest ongoing tech selloff",
-      "summary": "U.S. stock futures were little changed late Monday, following another brutal week for tech stocks.",
-      "link": "https://www.marketwatch.com/story/u-s-stock-futures-flat-as-investors-digest-ongoing-tech-selloff-over-holiday-weekend-765f3c5c",
-      "published": "2026-02-17T01:20:00",
-      "fetched_at": "2026-02-19T03:08:18.948178",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_CNBC",
-      "title": "Here are the 3 big things we're watching in the stock market this week",
-      "summary": "We're awaiting earnings from Palo Alto Networks and Texas Roadhouse.",
-      "link": "https://www.cnbc.com/2026/02/16/here-are-the-3-big-things-were-watching-in-the-stock-market-this-week.html",
-      "published": "2026-02-17T00:02:03",
-      "fetched_at": "2026-02-19T03:08:18.948179",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_MarketWatch",
-      "title": "\u2018It\u2019s a life-changing sum\u2019: Can I stop my kids from using their inheritance to support political causes I vehemently oppose?",
-      "summary": "\u201dI would hate for our money to end up in the hands of organizations that oppose everything we have supported throughout our lives.\u201d",
-      "link": "https://www.marketwatch.com/story/its-a-life-changing-sum-can-i-stop-my-kids-from-using-their-inheritance-to-support-political-causes-i-vehemently-oppose-90809fd7",
-      "published": "2026-02-16T17:57:00",
-      "fetched_at": "2026-02-19T03:08:18.948181",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_MarketWatch",
-      "title": "Shipping industry set to consolidate as Hapag-Lloyd to buy Israeli firm for 58% premium",
-      "summary": "Shipping giant Hapag-Lloyd agreed to buy Israel\u2019s ZIM Integrated Shipping Services for $4.2 billion.",
-      "link": "https://www.marketwatch.com/story/shipping-industry-set-to-consolidate-as-hapag-lloyd-to-buy-israeli-firm-for-58-premium-35839cf0",
-      "published": "2026-02-16T17:02:00",
-      "fetched_at": "2026-02-19T03:08:18.948182",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_CNBC",
-      "title": "Highly successful people 'demand more respect' when they use these phrases, says career expert",
-      "summary": "\"The language you use could be standing between you and what you want,\" writes career expert Erin McGoff. These small changes can make a big difference.",
-      "link": "https://www.cnbc.com/2026/02/16/people-who-are-confident-and-demand-more-respect-use-these-phrases-career-expert.html",
-      "published": "2026-02-16T17:00:01",
-      "fetched_at": "2026-02-19T03:08:18.948183",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_CNBC",
-      "title": "Long-term unemployment is becoming 'a status quo' in today's job market: It's a 'mental war,' job seeker says",
-      "summary": "Long-term job seekers say they're lowering their expectations, taking on gig work and reconsidering what to do with their careers.",
-      "link": "https://www.cnbc.com/2026/02/16/long-term-unemployment-becoming-a-status-quo-in-todays-job-market.html",
-      "published": "2026-02-16T16:30:01",
-      "fetched_at": "2026-02-19T03:08:18.948185",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_MarketWatch",
-      "title": "These might be the winners from the latest round of Chinese new year AI launches",
-      "summary": "The holiday period is crucial for the launch of new procuts and Chinese AI plays are trying to prove they are as good as, or close enough to, global frontier moelds like OpenAI and Google.",
-      "link": "https://www.marketwatch.com/story/these-might-be-the-winners-from-the-latest-round-of-chinese-new-year-ai-launches-06779445",
-      "published": "2026-02-16T16:27:00",
-      "fetched_at": "2026-02-19T03:08:18.948186",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_MarketWatch",
-      "title": "Hegseth reportedly considering severe penalty on Anthropic as negotiations stall",
-      "summary": "Defense Sec. Pete Hegseth reportedly is close to putting Claude maker Anthropic on a \u201csupply chain risk\u201d list that would be a devastating blow to its finances.",
-      "link": "https://www.marketwatch.com/story/hegseth-reportedly-considering-severe-penalty-on-anthropic-as-negotiations-stall-16dae92f",
-      "published": "2026-02-16T15:58:00",
-      "fetched_at": "2026-02-19T03:08:18.948188",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_MarketWatch",
-      "title": "Buying stocks everyone admires is a recipe for underperformance \u2014 but Apple breaks the rule",
-      "summary": "Unloved companies with rock-bottom expectations are the real engines of your portfolio.",
-      "link": "https://www.marketwatch.com/story/buying-stocks-everyone-admires-is-a-recipe-for-underperformance-but-apple-breaks-the-rule-26de6e2f",
-      "published": "2026-02-16T15:51:00",
-      "fetched_at": "2026-02-19T03:08:18.948189",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_MarketWatch",
-      "title": "The shale boom that made the U.S. the world\u2019s top oil producer is nearing a crucial turning point",
-      "summary": "The shale-oil revolution that transformed the U.S. into the world\u2019s top oil producer is entering a new phase \u2014 one that could see America\u2019s hard-fought lead in energy erode in fewer than five years as oil production growth peters out.",
-      "link": "https://www.marketwatch.com/story/the-shale-boom-that-made-the-u-s-the-worlds-top-oil-producer-is-nearing-a-crucial-turning-point-a7bf72f8",
-      "published": "2026-02-16T15:07:00",
-      "fetched_at": "2026-02-19T03:08:18.948190",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_MarketWatch",
-      "title": "These Asian markets have been \u2018bangers\u2019 this year. Here\u2019s why they have further to rally, says Goldman Sachs",
-      "summary": "South Korea and Japan have left Wall Street in the dust in 2026",
-      "link": "https://www.marketwatch.com/story/these-asian-markets-have-been-bangers-this-year-heres-why-they-have-further-to-rally-says-goldman-sachs-3467c694",
-      "published": "2026-02-16T14:49:00",
-      "fetched_at": "2026-02-19T03:08:18.948192",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_MarketWatch",
-      "title": "The seeds of the dramatic sell-off in AI losers were planted as far back as 2022, says Deutsche Bank",
-      "summary": "Deutsche Bank says angst behind the selloff of over stocks vulnerable to AI disruption has been simmering awhile.",
-      "link": "https://www.marketwatch.com/story/the-seeds-of-the-dramatic-sell-off-in-ai-losers-were-planted-as-far-back-as-2022-says-deutsche-bank-f144f47b",
-      "published": "2026-02-16T14:37:00",
-      "fetched_at": "2026-02-19T03:08:18.948193",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_MarketWatch",
-      "title": "Here\u2019s the only group in New York City having children at a rate high enough to maintain the population",
-      "summary": "An innovative use of tax data shows just how tough it is for New Yorkers to grow a family.",
-      "link": "https://www.marketwatch.com/story/heres-the-only-group-in-new-york-city-having-children-at-a-rate-high-enough-to-maintain-the-population-2815d103",
-      "published": "2026-02-16T14:32:00",
-      "fetched_at": "2026-02-19T03:08:18.948195",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Bloomberg",
-      "title": "Rich World\u2019s growing civil unrest has an insurance sting",
-      "summary": "Rising civil unrest is significantly increasing SRCC insurance losses, prompting insurers to adapt policies and raise premiums.",
-      "link": "https://www.bloomberg.com/news/articles/2026-02-15/rich-world-s-growing-civil-unrest-comes-with-an-insurance-sting",
-      "published": "2026-02-16T13:16:57",
-      "fetched_at": "2026-02-19T03:08:18.948196",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_MarketWatch",
-      "title": "The Munich conference ended the post-war order, says Ray Dalio. How to invest if great powers collide.",
-      "summary": "Protecting wealth in times of war is difficult as normal economic activity is curtailed and governments print money and borrow heavily to fund its military needs.",
-      "link": "https://www.marketwatch.com/story/the-munich-conference-ended-the-post-war-order-says-ray-dalio-how-to-invest-if-great-powers-collide-2a1133cc",
-      "published": "2026-02-16T12:45:00",
-      "fetched_at": "2026-02-19T03:08:18.948198",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Bloomberg",
-      "title": "Brokers forced to rethink funding playbook as India curbs loans",
-      "summary": "Industry watchers expect securities firms to lean more on shadow lenders and internal capital to fund their own books as well as client positions",
-      "link": "https://www.bloomberg.com/news/articles/2026-02-16/brokers-forced-to-rethink-funding-playbook-as-india-curbs-loans",
-      "published": "2026-02-16T12:35:57",
-      "fetched_at": "2026-02-19T03:08:18.948199",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Bloomberg",
-      "title": "India records lowest-ever price of \u20b9279/kg for green hydrogen in tender",
-      "summary": "The bid of \u20b9279 per kilogram was to supply 10,000 tonnes of green hydrogen a year to Numaligarh Refinery Ltd., majority owned by state-run Oil India Ltd., in Assam",
-      "link": "https://www.bloomberg.com/news/articles/2026-02-16/india-records-lowest-ever-price-for-green-hydrogen-in-tender",
-      "published": "2026-02-16T12:18:53",
-      "fetched_at": "2026-02-19T03:08:18.948200",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Bloomberg",
-      "title": "Anthropic boosts India AI push via flag airline, Cognizant pacts",
-      "summary": "Anthropic PBC is embedding its marquee AI coding agent within prominent Indian firms including its flag carrier and an outsourcing giant, aiming to quicken artificial intelligence adoption across the world\u2019s most populous nation.",
-      "link": "https://www.bloomberg.com/news/articles/2026-02-16/anthropic-boosts-india-ai-push-via-flag-airline-cognizant-pacts",
-      "published": "2026-02-16T12:02:52",
-      "fetched_at": "2026-02-19T03:08:18.948202",
+      "fetched_at": "2026-02-20T03:07:47.959711",
       "ticker": null,
       "tier": 2
     }
