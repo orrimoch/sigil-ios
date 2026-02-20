@@ -52,6 +52,16 @@ def _mock_ib_insync_module():
     return mock_mod
 
 
+def _make_mock_order_status(status="Filled", avg_price=185.50, filled=10, remaining=0):
+    """Create a properly mocked OrderStatus with all required numeric attributes."""
+    mock_status = MagicMock()
+    mock_status.status = status
+    mock_status.avgFillPrice = avg_price
+    mock_status.filled = filled  # Must be int, not MagicMock
+    mock_status.remaining = remaining  # Must be int, not MagicMock
+    return mock_status
+
+
 def _patch_ibc_connect(service, user_id, mock_ib, account_id="DUP526287"):
     """
     Manually wire a mock _IBConnection into the service to simulate
@@ -92,7 +102,7 @@ class TestIBKRConnection:
         assert conn.account_id is None
         assert conn.is_paper is False
 
-    @patch.object(_IBConnection, "connect", return_value=["DUP526287"])
+    @patch("ibkr.ibkr_service._IBConnection.connect", return_value=["DUP526287"])
     def test_connect_success(self, mock_connect, service):
         """Successful connection sets state to CONNECTED."""
         conn = service.connect("user1", account_id="DUP526287")
@@ -103,7 +113,7 @@ class TestIBKRConnection:
         assert conn.connected_at is not None
         assert conn.error_message is None
 
-    @patch.object(_IBConnection, "connect", return_value=["DUP526287"])
+    @patch("ibkr.ibkr_service._IBConnection.connect", return_value=["DUP526287"])
     def test_connect_default_account(self, mock_connect, service):
         """Connection without explicit account uses default."""
         conn = service.connect("user1")
@@ -111,7 +121,7 @@ class TestIBKRConnection:
         assert conn.state == IBKRConnectionState.CONNECTED
         assert conn.account_id == "DUP526287"
 
-    @patch.object(_IBConnection, "connect", return_value=["DUP526287"])
+    @patch("ibkr.ibkr_service._IBConnection.connect", return_value=["DUP526287"])
     def test_connect_wrong_account(self, mock_connect, service):
         """Connection with non-existent account should fail."""
         conn = service.connect("user1", account_id="NONEXISTENT")
@@ -119,8 +129,8 @@ class TestIBKRConnection:
         assert conn.state == IBKRConnectionState.ERROR
         assert "not found" in conn.error_message
 
-    @patch.object(
-        _IBConnection, "connect",
+    @patch(
+        "ibkr.ibkr_service._IBConnection.connect",
         side_effect=ConnectionError("IB Gateway connection failed: Connection refused"),
     )
     def test_connect_gateway_down(self, mock_connect, service):
@@ -130,13 +140,13 @@ class TestIBKRConnection:
         assert conn.state == IBKRConnectionState.ERROR
         assert "Connection refused" in conn.error_message
 
-    @patch.object(_IBConnection, "connect", return_value=["DUP526287"])
+    @patch("ibkr.ibkr_service._IBConnection.connect", return_value=["DUP526287"])
     def test_connect_paper_detection(self, mock_connect, service):
         """DU-prefixed accounts detected as paper."""
         conn = service.connect("user1", account_id="DUP526287")
         assert conn.is_paper is True
 
-    @patch.object(_IBConnection, "connect", return_value=["U1234567"])
+    @patch("ibkr.ibkr_service._IBConnection.connect", return_value=["U1234567"])
     def test_connect_live_detection(self, mock_connect):
         """Non-DU accounts detected as live."""
         svc = IBKRService(default_account="U1234567")
@@ -181,7 +191,7 @@ class TestIBKRConnection:
         assert status.state == IBKRConnectionState.DISCONNECTED
         assert status.error_message == "Connection lost"
 
-    @patch.object(_IBConnection, "connect", return_value=["DUP526287"])
+    @patch("ibkr.ibkr_service._IBConnection.connect", return_value=["DUP526287"])
     def test_reconnect_disconnects_old(self, mock_connect, service):
         """Reconnecting should disconnect the old connection first."""
         mock_ib = _make_mock_ib()
@@ -191,7 +201,7 @@ class TestIBKRConnection:
         assert conn.state == IBKRConnectionState.CONNECTED
         old_ibc.disconnect.assert_called_once()
 
-    @patch.object(_IBConnection, "connect", return_value=["DUP526287"])
+    @patch("ibkr.ibkr_service._IBConnection.connect", return_value=["DUP526287"])
     def test_per_user_isolation(self, mock_connect, service):
         """Different users have independent connections."""
         service.connect("user1")
@@ -227,9 +237,7 @@ class TestIBKROrders:
         mock_ib = _make_mock_ib()
 
         # Set up a mock trade response
-        mock_order_status = MagicMock()
-        mock_order_status.status = "Filled"
-        mock_order_status.avgFillPrice = 185.50
+        mock_order_status = _make_mock_order_status(status="Filled", avg_price=185.50, filled=10, remaining=0)
 
         mock_order_obj = MagicMock()
         mock_order_obj.orderId = 42
@@ -253,7 +261,7 @@ class TestIBKROrders:
 
     def test_submit_market_buy(self, service):
         """Market buy should place order and return fill data."""
-        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+        with patch("ibkr.ibkr_service._IBConnection._import_ib_insync", return_value=_mock_ib_insync_module()):
             order = service.submit_order(
                 user_id="user1",
                 ticker="AAPL",
@@ -273,7 +281,7 @@ class TestIBKROrders:
 
     def test_submit_market_sell(self, service):
         """Market sell should work."""
-        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+        with patch("ibkr.ibkr_service._IBConnection._import_ib_insync", return_value=_mock_ib_insync_module()):
             order = service.submit_order(
                 user_id="user1",
                 ticker="TSLA",
@@ -287,7 +295,7 @@ class TestIBKROrders:
     def test_submit_limit_order(self, service):
         """Limit order should use LimitOrder."""
         mock_mod = _mock_ib_insync_module()
-        with patch.object(_IBConnection, "_import_ib_insync", return_value=mock_mod):
+        with patch("ibkr.ibkr_service._IBConnection._import_ib_insync", return_value=mock_mod):
             order = service.submit_order(
                 user_id="user1",
                 ticker="MSFT",
@@ -331,7 +339,7 @@ class TestIBKROrders:
 
     def test_order_to_dict(self, service):
         """Order serialization includes all fields."""
-        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+        with patch("ibkr.ibkr_service._IBConnection._import_ib_insync", return_value=_mock_ib_insync_module()):
             order = service.submit_order("user1", "GOOG", "BUY", 3)
 
         data = order.to_dict()
@@ -344,7 +352,7 @@ class TestIBKROrders:
 
     def test_ticker_uppercase(self, service):
         """Ticker should be uppercased."""
-        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+        with patch("ibkr.ibkr_service._IBConnection._import_ib_insync", return_value=_mock_ib_insync_module()):
             order = service.submit_order("user1", "aapl", "BUY", 1)
 
         assert order.ticker == "AAPL"
@@ -354,9 +362,7 @@ class TestIBKROrders:
         svc = IBKRService()
         mock_ib = _make_mock_ib()
 
-        mock_order_status = MagicMock()
-        mock_order_status.status = "Submitted"
-        mock_order_status.avgFillPrice = 0.0
+        mock_order_status = _make_mock_order_status(status="Submitted", avg_price=0.0, filled=0, remaining=5)
 
         mock_order_obj = MagicMock()
         mock_order_obj.orderId = 99
@@ -369,7 +375,7 @@ class TestIBKROrders:
         mock_ib.placeOrder.return_value = mock_trade
         _patch_ibc_connect(svc, "user1", mock_ib)
 
-        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+        with patch("ibkr.ibkr_service._IBConnection._import_ib_insync", return_value=_mock_ib_insync_module()):
             order = svc.submit_order("user1", "AAPL", "BUY", 10)
 
         assert order.status == "SUBMITTED"
@@ -382,7 +388,7 @@ class TestIBKROrders:
         mock_ib.placeOrder.side_effect = Exception("Insufficient funds")
         _patch_ibc_connect(svc, "user1", mock_ib)
 
-        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+        with patch("ibkr.ibkr_service._IBConnection._import_ib_insync", return_value=_mock_ib_insync_module()):
             with pytest.raises(ValueError, match="Order placement failed"):
                 svc.submit_order("user1", "AAPL", "BUY", 10)
 
@@ -399,9 +405,7 @@ class TestIBKRStopOrders:
         svc = IBKRService()
         mock_ib = _make_mock_ib()
 
-        mock_order_status = MagicMock()
-        mock_order_status.status = "Submitted"
-        mock_order_status.avgFillPrice = 0.0
+        mock_order_status = _make_mock_order_status(status="Submitted", avg_price=0.0, filled=0, remaining=10)
 
         mock_order_obj = MagicMock()
         mock_order_obj.orderId = 999
@@ -418,7 +422,7 @@ class TestIBKRStopOrders:
 
     def test_submit_stop_order(self, service):
         """Stop order should be accepted with stop price."""
-        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+        with patch("ibkr.ibkr_service._IBConnection._import_ib_insync", return_value=_mock_ib_insync_module()):
             order = service.submit_order(
                 "user1", "AAPL", "SELL", 10,
                 order_type="STP", limit_price=140.0
@@ -428,7 +432,7 @@ class TestIBKRStopOrders:
 
     def test_submit_stop_order_alternate_name(self, service):
         """'STOP' should normalize to 'STP'."""
-        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+        with patch("ibkr.ibkr_service._IBConnection._import_ib_insync", return_value=_mock_ib_insync_module()):
             order = service.submit_order(
                 "user1", "AAPL", "SELL", 10,
                 order_type="STOP", limit_price=140.0
@@ -442,7 +446,7 @@ class TestIBKRStopOrders:
 
     def test_submit_stop_limit_order(self, service):
         """Stop-limit order should be accepted."""
-        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+        with patch("ibkr.ibkr_service._IBConnection._import_ib_insync", return_value=_mock_ib_insync_module()):
             order = service.submit_order(
                 "user1", "AAPL", "SELL", 10,
                 order_type="STP_LMT", limit_price=140.0
@@ -451,7 +455,7 @@ class TestIBKRStopOrders:
 
     def test_stop_limit_alternate_name(self, service):
         """'STOP_LIMIT' should normalize to 'STP_LMT'."""
-        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+        with patch("ibkr.ibkr_service._IBConnection._import_ib_insync", return_value=_mock_ib_insync_module()):
             order = service.submit_order(
                 "user1", "AAPL", "SELL", 10,
                 order_type="STOP_LIMIT", limit_price=140.0
@@ -471,9 +475,7 @@ class TestIBKRTrailingStop:
         svc = IBKRService()
         mock_ib = _make_mock_ib()
 
-        mock_order_status = MagicMock()
-        mock_order_status.status = "Submitted"
-        mock_order_status.avgFillPrice = 0.0
+        mock_order_status = _make_mock_order_status(status="Submitted", avg_price=0.0, filled=0, remaining=10)
 
         mock_order_obj = MagicMock()
         mock_order_obj.orderId = 999
@@ -490,7 +492,7 @@ class TestIBKRTrailingStop:
 
     def test_trailing_stop_with_percent(self, service):
         """Trailing stop with percent should be accepted."""
-        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+        with patch("ibkr.ibkr_service._IBConnection._import_ib_insync", return_value=_mock_ib_insync_module()):
             order = service.submit_order(
                 "user1", "AAPL", "SELL", 10,
                 order_type="TRAIL", trailing_percent=5.0
@@ -499,7 +501,7 @@ class TestIBKRTrailingStop:
 
     def test_trailing_stop_with_amount(self, service):
         """Trailing stop with amount should be accepted."""
-        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+        with patch("ibkr.ibkr_service._IBConnection._import_ib_insync", return_value=_mock_ib_insync_module()):
             order = service.submit_order(
                 "user1", "AAPL", "SELL", 10,
                 order_type="TRAIL", trailing_amount=5.0
@@ -524,9 +526,7 @@ class TestIBKROrderOptions:
         svc = IBKRService()
         mock_ib = _make_mock_ib()
 
-        mock_order_status = MagicMock()
-        mock_order_status.status = "Submitted"
-        mock_order_status.avgFillPrice = 0.0
+        mock_order_status = _make_mock_order_status(status="Submitted", avg_price=0.0, filled=0, remaining=10)
 
         mock_order_obj = MagicMock()
         mock_order_obj.orderId = 999
@@ -543,7 +543,7 @@ class TestIBKROrderOptions:
 
     def test_gtc_order(self, service):
         """GTC (Good Till Canceled) order should be accepted."""
-        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+        with patch("ibkr.ibkr_service._IBConnection._import_ib_insync", return_value=_mock_ib_insync_module()):
             order = service.submit_order(
                 "user1", "AAPL", "BUY", 10,
                 order_type="LIMIT", limit_price=150.0, tif="GTC"
@@ -560,7 +560,7 @@ class TestIBKROrderOptions:
 
     def test_gtd_with_date(self, service):
         """GTD order with date should be accepted."""
-        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+        with patch("ibkr.ibkr_service._IBConnection._import_ib_insync", return_value=_mock_ib_insync_module()):
             order = service.submit_order(
                 "user1", "AAPL", "BUY", 10,
                 order_type="LIMIT", limit_price=150.0,
@@ -578,7 +578,7 @@ class TestIBKROrderOptions:
 
     def test_outside_rth_accepted(self, service):
         """Extended hours order should be accepted."""
-        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+        with patch("ibkr.ibkr_service._IBConnection._import_ib_insync", return_value=_mock_ib_insync_module()):
             order = service.submit_order(
                 "user1", "AAPL", "BUY", 10,
                 order_type="LIMIT", limit_price=150.0, outside_rth=True
@@ -700,7 +700,7 @@ class TestIBKRQuotes:
         service._mock_ib.qualifyContracts.return_value = None
         service._mock_ib.cancelMktData.return_value = None
 
-        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+        with patch("ibkr.ibkr_service._IBConnection._import_ib_insync", return_value=_mock_ib_insync_module()):
             quote = service.get_quote("user1", "AAPL")
 
         assert quote["ticker"] == "AAPL"
@@ -730,7 +730,7 @@ class TestIBKRQuotes:
 
         service._mock_ib.reqMktData.return_value = mock_ticker
 
-        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+        with patch("ibkr.ibkr_service._IBConnection._import_ib_insync", return_value=_mock_ib_insync_module()):
             quote = service.get_quote("user1", "aapl")
 
         assert quote["ticker"] == "AAPL"
@@ -957,7 +957,7 @@ class TestIBKRErrorHandling:
         mock_ib.placeOrder.side_effect = Exception("No security definition found")
         _patch_ibc_connect(svc, "user1", mock_ib)
 
-        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+        with patch("ibkr.ibkr_service._IBConnection._import_ib_insync", return_value=_mock_ib_insync_module()):
             with pytest.raises(ValueError, match="Order placement failed"):
                 svc.submit_order("user1", "XXXXXX", "BUY", 1)
 
@@ -1061,7 +1061,7 @@ class TestIBKRHistoricalBars:
 
         _patch_ibc_connect(svc, "user1", mock_ib)
 
-        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+        with patch("ibkr.ibkr_service._IBConnection._import_ib_insync", return_value=_mock_ib_insync_module()):
             bars = svc.get_historical_bars("user1", "AAPL", duration="1 D", bar_size="5 mins")
 
         assert len(bars) == 1
@@ -1084,7 +1084,7 @@ class TestIBKRHistoricalBars:
 
         _patch_ibc_connect(svc, "user1", mock_ib)
 
-        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+        with patch("ibkr.ibkr_service._IBConnection._import_ib_insync", return_value=_mock_ib_insync_module()):
             svc.get_historical_bars(
                 "user1", "AAPL",
                 duration="1 W",
@@ -1126,7 +1126,7 @@ class TestIBKRBracketOrders:
 
         _patch_ibc_connect(svc, "user1", mock_ib)
 
-        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+        with patch("ibkr.ibkr_service._IBConnection._import_ib_insync", return_value=_mock_ib_insync_module()):
             result = svc.submit_bracket_order(
                 "user1", "AAPL",
                 side="BUY", quantity=100,
@@ -1231,7 +1231,7 @@ class TestIBKRScanner:
         mock_ibi = _mock_ib_insync_module()
         mock_ibi.ScannerSubscription.return_value = MagicMock()
 
-        with patch.object(_IBConnection, "_import_ib_insync", return_value=mock_ibi):
+        with patch("ibkr.ibkr_service._IBConnection._import_ib_insync", return_value=mock_ibi):
             results = svc.get_scanner_results("user1", scan_code="TOP_PERC_GAIN")
 
         assert len(results) == 1
@@ -1257,7 +1257,7 @@ class TestIBKRScanner:
         mock_subscription = MagicMock()
         mock_ibi.ScannerSubscription.return_value = mock_subscription
 
-        with patch.object(_IBConnection, "_import_ib_insync", return_value=mock_ibi):
+        with patch("ibkr.ibkr_service._IBConnection._import_ib_insync", return_value=mock_ibi):
             svc.get_scanner_results(
                 "user1",
                 scan_code="MOST_ACTIVE",
@@ -1307,7 +1307,7 @@ class TestIBKRWhatIf:
 
         _patch_ibc_connect(svc, "user1", mock_ib)
 
-        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+        with patch("ibkr.ibkr_service._IBConnection._import_ib_insync", return_value=_mock_ib_insync_module()):
             result = svc.what_if_order(
                 "user1", "AAPL",
                 side="BUY", quantity=100,
@@ -1352,7 +1352,7 @@ class TestIBKRWhatIf:
 
         _patch_ibc_connect(svc, "user1", mock_ib)
 
-        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+        with patch("ibkr.ibkr_service._IBConnection._import_ib_insync", return_value=_mock_ib_insync_module()):
             result = svc.what_if_order(
                 "user1", "AAPL",
                 side="BUY", quantity=50,
@@ -1570,7 +1570,7 @@ class TestIBKRVolumeSpike:
 
         _patch_ibc_connect(svc, "user1", mock_ib)
 
-        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+        with patch("ibkr.ibkr_service._IBConnection._import_ib_insync", return_value=_mock_ib_insync_module()):
             analysis = svc.get_volume_analysis("user1", "AAPL")
 
         assert analysis["ticker"] == "AAPL"
@@ -1598,7 +1598,7 @@ class TestIBKRVolumeSpike:
 
         _patch_ibc_connect(svc, "user1", mock_ib)
 
-        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+        with patch("ibkr.ibkr_service._IBConnection._import_ib_insync", return_value=_mock_ib_insync_module()):
             analysis = svc.get_volume_analysis("user1", "AAPL")
 
         assert analysis["is_spike"] is False
@@ -1628,7 +1628,7 @@ class TestIBKRVolumeSpike:
 
         _patch_ibc_connect(svc, "user1", mock_ib)
 
-        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+        with patch("ibkr.ibkr_service._IBConnection._import_ib_insync", return_value=_mock_ib_insync_module()):
             spikes = svc.check_watchlist_volume_spikes("user1", ["AAPL", "NVDA"])
 
         # Both should be spikes with our mock

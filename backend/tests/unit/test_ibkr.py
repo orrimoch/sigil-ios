@@ -47,6 +47,16 @@ def _mock_ib_insync_module():
     return mock_mod
 
 
+def _make_mock_order_status(status="Filled", avg_price=185.50, filled=10, remaining=0):
+    """Create a properly mocked OrderStatus with all required numeric attributes."""
+    mock_status = MagicMock()
+    mock_status.status = status
+    mock_status.avgFillPrice = avg_price
+    mock_status.filled = filled  # Must be int, not MagicMock
+    mock_status.remaining = remaining  # Must be int, not MagicMock
+    return mock_status
+
+
 def _patch_ibc_connect(service, user_id, mock_ib, account_id="DUP526287"):
     """Wire a mock _IBConnection into the service."""
     ibc = MagicMock(spec=_IBConnection)
@@ -65,11 +75,9 @@ def _patch_ibc_connect(service, user_id, mock_ib, account_id="DUP526287"):
     return ibc
 
 
-def _make_filled_trade():
+def _make_filled_trade(quantity=10):
     """Create a mock trade that fills immediately."""
-    mock_order_status = MagicMock()
-    mock_order_status.status = "Filled"
-    mock_order_status.avgFillPrice = 185.50
+    mock_order_status = _make_mock_order_status(status="Filled", avg_price=185.50, filled=quantity, remaining=0)
 
     mock_order_obj = MagicMock()
     mock_order_obj.orderId = 42
@@ -101,7 +109,7 @@ class TestIBKRConnection:
         assert conn.account_id is None
         assert conn.is_paper is False
 
-    @patch.object(_IBConnection, "connect", return_value=["DUP526287"])
+    @patch("ibkr.ibkr_service._IBConnection.connect", return_value=["DUP526287"])
     def test_connect_with_default_account(self, mock_connect, service):
         """Connection with explicit account should succeed (REC-272: no hardcoded default)."""
         # REC-272: Must provide account_id explicitly since default was removed
@@ -112,7 +120,7 @@ class TestIBKRConnection:
         assert conn.is_paper is True  # DU prefix = paper
         assert conn.connected_at is not None
 
-    @patch.object(_IBConnection, "connect", return_value=["U9876543"])
+    @patch("ibkr.ibkr_service._IBConnection.connect", return_value=["U9876543"])
     def test_connect_with_custom_account(self, mock_connect):
         """Connection with a custom account ID."""
         svc = IBKRService(default_account="U9876543")
@@ -122,14 +130,14 @@ class TestIBKRConnection:
         assert conn.account_id == "U9876543"
         assert conn.is_paper is False  # U prefix = live
 
-    @patch.object(_IBConnection, "connect", return_value=["DU9999999"])
+    @patch("ibkr.ibkr_service._IBConnection.connect", return_value=["DU9999999"])
     def test_connect_paper_account_detection(self, mock_connect):
         """DU-prefixed accounts should be detected as paper."""
         svc = IBKRService(default_account="DU9999999")
         conn = svc.connect("user1", account_id="DU9999999")
         assert conn.is_paper is True
 
-    @patch.object(_IBConnection, "connect", return_value=["U1111111"])
+    @patch("ibkr.ibkr_service._IBConnection.connect", return_value=["U1111111"])
     def test_connect_live_account_detection(self, mock_connect):
         svc = IBKRService(default_account="U1111111")
         conn = svc.connect("user1", account_id="U1111111")
@@ -161,7 +169,7 @@ class TestIBKRConnection:
         status = service.get_status("user1")
         assert status.state == IBKRConnectionState.CONNECTED
 
-    @patch.object(_IBConnection, "connect", return_value=["DUP526287"])
+    @patch("ibkr.ibkr_service._IBConnection.connect", return_value=["DUP526287"])
     def test_per_user_isolation(self, mock_connect, service):
         """Different users should have independent connection state."""
         # REC-272: Must provide account_id explicitly
@@ -186,7 +194,7 @@ class TestIBKRConnection:
         assert "connected_at" in data
         assert data["state"] == "connected"
 
-    @patch.object(_IBConnection, "connect", return_value=["DUP526287"])
+    @patch("ibkr.ibkr_service._IBConnection.connect", return_value=["DUP526287"])
     def test_reconnect_updates_state(self, mock_connect, service):
         """Reconnecting should update the connection state."""
         # REC-272: Must provide account_id explicitly
@@ -210,7 +218,7 @@ class TestIBKROrders:
 
     def test_submit_market_buy(self, service):
         """Market buy order should fill."""
-        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+        with patch("ibkr.ibkr_service._IBConnection._import_ib_insync", return_value=_mock_ib_insync_module()):
             order = service.submit_order(
                 user_id="user1",
                 ticker="AAPL",
@@ -229,7 +237,7 @@ class TestIBKROrders:
 
     def test_submit_market_sell(self, service):
         """Market sell order should fill."""
-        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+        with patch("ibkr.ibkr_service._IBConnection._import_ib_insync", return_value=_mock_ib_insync_module()):
             order = service.submit_order(
                 user_id="user1",
                 ticker="TSLA",
@@ -242,7 +250,7 @@ class TestIBKROrders:
 
     def test_submit_limit_order(self, service):
         """Limit order should use specified price."""
-        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+        with patch("ibkr.ibkr_service._IBConnection._import_ib_insync", return_value=_mock_ib_insync_module()):
             order = service.submit_order(
                 user_id="user1",
                 ticker="MSFT",
@@ -291,13 +299,13 @@ class TestIBKROrders:
 
     def test_order_is_paper(self, service):
         """Orders should reflect account paper/live status."""
-        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+        with patch("ibkr.ibkr_service._IBConnection._import_ib_insync", return_value=_mock_ib_insync_module()):
             order = service.submit_order("user1", "AAPL", "BUY", 10)
         assert order.is_paper is True  # DU account
 
     def test_order_to_dict(self, service):
         """Order serialization should include all fields."""
-        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+        with patch("ibkr.ibkr_service._IBConnection._import_ib_insync", return_value=_mock_ib_insync_module()):
             order = service.submit_order("user1", "GOOG", "BUY", 3)
         data = order.to_dict()
 
@@ -310,7 +318,7 @@ class TestIBKROrders:
 
     def test_ticker_uppercase(self, service):
         """Ticker should be uppercased."""
-        with patch.object(_IBConnection, "_import_ib_insync", return_value=_mock_ib_insync_module()):
+        with patch("ibkr.ibkr_service._IBConnection._import_ib_insync", return_value=_mock_ib_insync_module()):
             order = service.submit_order("user1", "aapl", "BUY", 1)
         assert order.ticker == "AAPL"
 
