@@ -6,13 +6,14 @@ experiment:
   random_seed: 42
 
 data:
-  # Date ranges
-  training_start: "2019-01-01"
-  training_end: "2021-12-31"
-  validation_start: "2022-01-01"
-  validation_end: "2022-06-30"
-  test_start: "2022-07-01"
-  test_end: "2023-12-31"
+  # Date ranges (aligned with available outcome data in evaluation_data.db)
+  # Only 2018-06 to 2019-11 has non-null return outcomes
+  training_start: "2018-06-01"
+  training_end: "2019-03-31"
+  validation_start: "2019-04-01"
+  validation_end: "2019-06-30"
+  test_start: "2019-07-01"
+  test_end: "2019-11-08"
   
   # Outcome measurement
   outcome_weeks: 4  # Measure outcome N weeks after entry

@@ -1,0 +1,842 @@
+{
+  "experiment": {
+    "name": "memory_impact_evaluation",
+    "version": "1.0.0",
+    "date": "2026-02-21T13:00:41.596831",
+    "model": "claude-3-haiku-20240307",
+    "test_weeks": 19,
+    "memory_count": 2188
+  },
+  "metrics": {
+    "baseline": {
+      "trades": 39,
+      "win_rate": 80.0,
+      "avg_return_1m": 6.978481165088165,
+      "total_return": 139.5696233017633,
+      "sharpe": 3.8260079711721153,
+      "max_gain": 39.382242446923634,
+      "max_loss": -16.26376154186825,
+      "avg_return_1w": 2.487277357928756,
+      "avg_return_3m": 3.1250073745099565
+    },
+    "memory": {
+      "trades": 41,
+      "win_rate": 75.0,
+      "avg_return_1m": 5.750337024111566,
+      "total_return": 138.0080885786776,
+      "sharpe": 3.306570918026351,
+      "max_gain": 39.382242446923634,
+      "max_loss": -16.26376154186825,
+      "avg_return_1w": 2.8165651744827307,
+      "avg_return_3m": 2.088663279293913
+    }
+  },
+  "decisions": {
+    "baseline": [
+      {
+        "week": "2019-07-05",
+        "ticker": "MRVL",
+        "action": "BUY",
+        "confidence": 0.9,
+        "return_1w": -0.5356176244397326,
+        "return_1m": 12.671495692552837,
+        "return_3m": NaN
+      },
+      {
+        "week": "2019-07-05",
+        "ticker": "INCY",
+        "action": "BUY",
+        "confidence": 0.85,
+        "return_1w": NaN,
+        "return_1m": -6.04073535860924,
+        "return_3m": NaN
+      },
+      {
+        "week": "2019-07-12",
+        "ticker": "MRVL",
+        "action": "BUY",
+        "confidence": 0.9,
+        "return_1w": 8.004634072025185,
+        "return_1m": NaN,
+        "return_3m": NaN
+      },
+      {
+        "week": "2019-07-12",
+        "ticker": "MPWR",
+        "action": "BUY",
+        "confidence": 0.8,
+        "return_1w": 5.734922260980069,
+        "return_1m": NaN,
+        "return_3m": NaN
+      },
+      {
+        "week": "2019-07-19",
+        "ticker": "MPWR",
+        "action": "BUY",
+        "confidence": 0.85,
+        "return_1w": 1.0430514743756447,
+        "return_1m": 1.091728324753749,
+        "return_3m": NaN
+      },
+      {
+        "week": "2019-07-19",
+        "ticker": "EXEL",
+        "action": "BUY",
+        "confidence": 0.8,
+        "return_1w": -2.20969069387853,
+        "return_1m": 2.115650427391347,
+        "return_3m": -22.331922415479887
+      },
+      {
+        "week": "2019-07-26",
+        "ticker": "TSM",
+        "action": "BUY",
+        "confidence": 0.9,
+        "return_1w": -1.4798446919450092,
+        "return_1m": NaN,
+        "return_3m": 12.711660781423317
+      },
+      {
+        "week": "2019-07-26",
+        "ticker": "MPWR",
+        "action": "BUY",
+        "confidence": 0.85,
+        "return_1w": 3.6198413511949967,
+        "return_1m": NaN,
+        "return_3m": NaN
+      },
+      {
+        "week": "2019-08-02",
+        "ticker": "HMY",
+        "action": "BUY",
+        "confidence": 0.95,
+        "return_1w": 10.03860678474775,
+        "return_1m": 39.382242446923634,
+        "return_3m": 20.46331081524042
+      },
+      {
+        "week": "2019-08-02",
+        "ticker": "KGC",
+        "action": "BUY",
+        "confidence": 0.9,
+        "return_1w": 12.20655655639209,
+        "return_1m": 17.136129261903953,
+        "return_3m": 6.338006992415157
+      },
+      {
+        "week": "2019-08-09",
+        "ticker": "AU",
+        "action": "BUY",
+        "confidence": 0.9,
+        "return_1w": 3.9525660808922725,
+        "return_1m": 2.8655930412189834,
+        "return_3m": 6.768781353634701
+      },
+      {
+        "week": "2019-08-09",
+        "ticker": "HMY",
+        "action": "BUY",
+        "confidence": 0.88,
+        "return_1w": 4.210536721093461,
+        "return_1m": 28.77193710514947,
+        "return_3m": NaN
+      },
+      {
+        "week": "2019-08-16",
+        "ticker": "PINS",
+        "action": "BUY",
+        "confidence": 0.85,
+        "return_1w": NaN,
+        "return_1m": NaN,
+        "return_3m": NaN
+      },
+      {
+        "week": "2019-08-16",
+        "ticker": "LDOS",
+        "action": "BUY",
+        "confidence": 0.8,
+        "return_1w": 2.44429105152848,
+        "return_1m": NaN,
+        "return_3m": NaN
+      },
+      {
+        "week": "2019-08-23",
+        "ticker": "PINS",
+        "action": "BUY",
+        "confidence": 0.85,
+        "return_1w": NaN,
+        "return_1m": NaN,
+        "return_3m": NaN
+      },
+      {
+        "week": "2019-08-23",
+        "ticker": "UTHR",
+        "action": "BUY",
+        "confidence": 0.8,
+        "return_1w": -0.391102048420644,
+        "return_1m": 2.0899524454298213,
+        "return_3m": 11.170862165410899
+      },
+      {
+        "week": "2019-08-30",
+        "ticker": "AU",
+        "action": "BUY",
+        "confidence": 0.9,
+        "return_1w": -8.48353752527975,
+        "return_1m": -16.26376154186825,
+        "return_3m": -15.824172491961953
+      },
+      {
+        "week": "2019-08-30",
+        "ticker": "HMY",
+        "action": "BUY",
+        "confidence": 0.85,
+        "return_1w": 1.6620503678556053,
+        "return_1m": NaN,
+        "return_3m": -6.925207522528187
+      },
+      {
+        "week": "2019-09-06",
+        "ticker": "NTES",
+        "action": "BUY",
+        "confidence": 0.9,
+        "return_1w": 8.47813163481954,
+        "return_1m": NaN,
+        "return_3m": 17.86170566101195
+      },
+      {
+        "week": "2019-09-06",
+        "ticker": "BCE",
+        "action": "BUY",
+        "confidence": 0.85,
+        "return_1w": 0.6387339021248772,
+        "return_1m": 2.1938227306056213,
+        "return_3m": 1.017048405933152
+      },
+      {
+        "week": "2019-09-06",
+        "ticker": "RMBS",
+        "action": "BUY",
+        "confidence": 0.8,
+        "return_1w": -0.2386613659469239,
+        "return_1m": NaN,
+        "return_3m": NaN
+      },
+      {
+        "week": "2019-09-13",
+        "ticker": "MPWR",
+        "action": "BUY",
+        "confidence": 0.85,
+        "return_1w": 4.212703079133195,
+        "return_1m": NaN,
+        "return_3m": NaN
+      },
+      {
+        "week": "2019-09-13",
+        "ticker": "PEG",
+        "action": "BUY",
+        "confidence": 0.8,
+        "return_1w": 0.6955739447377596,
+        "return_1m": NaN,
+        "return_3m": NaN
+      },
+      {
+        "week": "2019-09-20",
+        "ticker": "OKE",
+        "action": "BUY",
+        "confidence": 0.9,
+        "return_1w": -1.3451363707125075,
+        "return_1m": NaN,
+        "return_3m": NaN
+      },
+      {
+        "week": "2019-09-20",
+        "ticker": "EQT",
+        "action": "BUY",
+        "confidence": 0.85,
+        "return_1w": -2.007004148622138,
+        "return_1m": -15.270508047172903,
+        "return_3m": NaN
+      },
+      {
+        "week": "2019-09-27",
+        "ticker": "RMBS",
+        "action": "BUY",
+        "confidence": 0.8,
+        "return_1w": NaN,
+        "return_1m": NaN,
+        "return_3m": NaN
+      },
+      {
+        "week": "2019-09-27",
+        "ticker": "NVMI",
+        "action": "BUY",
+        "confidence": 0.8,
+        "return_1w": 0.6654023934566489,
+        "return_1m": NaN,
+        "return_3m": NaN
+      },
+      {
+        "week": "2019-10-04",
+        "ticker": "TSM",
+        "action": "BUY",
+        "confidence": 0.8,
+        "return_1w": 3.1626426264393714,
+        "return_1m": 10.391558511416665,
+        "return_3m": NaN
+      },
+      {
+        "week": "2019-10-04",
+        "ticker": "ORCL",
+        "action": "BUY",
+        "confidence": 0.75,
+        "return_1w": NaN,
+        "return_1m": NaN,
+        "return_3m": NaN
+      },
+      {
+        "week": "2019-10-11",
+        "ticker": "INCY",
+        "action": "BUY",
+        "confidence": 0.85,
+        "return_1w": 3.6115527970720818,
+        "return_1m": 12.934721632731193,
+        "return_3m": NaN
+      },
+      {
+        "week": "2019-10-11",
+        "ticker": "BCE",
+        "action": "BUY",
+        "confidence": 0.8,
+        "return_1w": -0.02047092815353757,
+        "return_1m": -2.2095203038197453,
+        "return_3m": NaN
+      },
+      {
+        "week": "2019-10-18",
+        "ticker": "INCY",
+        "action": "BUY",
+        "confidence": 0.9,
+        "return_1w": 1.458813925605229,
+        "return_1m": 9.553319924273374,
+        "return_3m": NaN
+      },
+      {
+        "week": "2019-10-18",
+        "ticker": "NTES",
+        "action": "BUY",
+        "confidence": 0.85,
+        "return_1w": 1.731820146635199,
+        "return_1m": NaN,
+        "return_3m": NaN
+      },
+      {
+        "week": "2019-10-25",
+        "ticker": "PTC",
+        "action": "BUY",
+        "confidence": 0.9,
+        "return_1w": NaN,
+        "return_1m": NaN,
+        "return_3m": NaN
+      },
+      {
+        "week": "2019-10-25",
+        "ticker": "INCY",
+        "action": "BUY",
+        "confidence": 0.85,
+        "return_1w": 1.615987188751955,
+        "return_1m": 11.324598473849212,
+        "return_3m": NaN
+      },
+      {
+        "week": "2019-11-01",
+        "ticker": "NTES",
+        "action": "BUY",
+        "confidence": 0.85,
+        "return_1w": 8.478188179734225,
+        "return_1m": 7.374771865921326,
+        "return_3m": NaN
+      },
+      {
+        "week": "2019-11-01",
+        "ticker": "INCY",
+        "action": "BUY",
+        "confidence": 0.8,
+        "return_1w": 5.722513974326038,
+        "return_1m": 17.705984574980825,
+        "return_3m": NaN
+      },
+      {
+        "week": "2019-11-08",
+        "ticker": "PTC",
+        "action": "BUY",
+        "confidence": 0.9,
+        "return_1w": 3.4200086148757025,
+        "return_1m": NaN,
+        "return_3m": NaN
+      },
+      {
+        "week": "2019-11-08",
+        "ticker": "ASR",
+        "action": "BUY",
+        "confidence": 0.85,
+        "return_1w": 1.9820890802503488,
+        "return_1m": 1.7506420941314271,
+        "return_3m": NaN
+      }
+    ],
+    "memory": [
+      {
+        "week": "2019-07-05",
+        "ticker": "MRVL",
+        "action": "BUY",
+        "confidence": 0.85,
+        "return_1w": -0.5356176244397326,
+        "return_1m": 12.671495692552837,
+        "return_3m": NaN,
+        "memories_count": 0,
+        "avg_similarity": 0
+      },
+      {
+        "week": "2019-07-05",
+        "ticker": "INCY",
+        "action": "BUY",
+        "confidence": 0.9,
+        "return_1w": NaN,
+        "return_1m": -6.04073535860924,
+        "return_3m": NaN,
+        "memories_count": 0,
+        "avg_similarity": 0
+      },
+      {
+        "week": "2019-07-12",
+        "ticker": "MRVL",
+        "action": "BUY",
+        "confidence": 0.85,
+        "return_1w": 8.004634072025185,
+        "return_1m": NaN,
+        "return_3m": NaN,
+        "memories_count": 0,
+        "avg_similarity": 0
+      },
+      {
+        "week": "2019-07-12",
+        "ticker": "MPWR",
+        "action": "BUY",
+        "confidence": 0.8,
+        "return_1w": 5.734922260980069,
+        "return_1m": NaN,
+        "return_3m": NaN,
+        "memories_count": 0,
+        "avg_similarity": 0
+      },
+      {
+        "week": "2019-07-19",
+        "ticker": "MPWR",
+        "action": "BUY",
+        "confidence": 0.85,
+        "return_1w": 1.0430514743756447,
+        "return_1m": 1.091728324753749,
+        "return_3m": NaN,
+        "memories_count": 0,
+        "avg_similarity": 0
+      },
+      {
+        "week": "2019-07-19",
+        "ticker": "EXEL",
+        "action": "BUY",
+        "confidence": 0.75,
+        "return_1w": -2.20969069387853,
+        "return_1m": 2.115650427391347,
+        "return_3m": -22.331922415479887,
+        "memories_count": 0,
+        "avg_similarity": 0
+      },
+      {
+        "week": "2019-07-26",
+        "ticker": "TSM",
+        "action": "BUY",
+        "confidence": 0.85,
+        "return_1w": -1.4798446919450092,
+        "return_1m": NaN,
+        "return_3m": 12.711660781423317,
+        "memories_count": 0,
+        "avg_similarity": 0
+      },
+      {
+        "week": "2019-07-26",
+        "ticker": "MPWR",
+        "action": "BUY",
+        "confidence": 0.8,
+        "return_1w": 3.6198413511949967,
+        "return_1m": NaN,
+        "return_3m": NaN,
+        "memories_count": 0,
+        "avg_similarity": 0
+      },
+      {
+        "week": "2019-08-02",
+        "ticker": "HMY",
+        "action": "BUY",
+        "confidence": 0.9,
+        "return_1w": 10.03860678474775,
+        "return_1m": 39.382242446923634,
+        "return_3m": 20.46331081524042,
+        "memories_count": 0,
+        "avg_similarity": 0
+      },
+      {
+        "week": "2019-08-02",
+        "ticker": "KGC",
+        "action": "BUY",
+        "confidence": 0.85,
+        "return_1w": 12.20655655639209,
+        "return_1m": 17.136129261903953,
+        "return_3m": 6.338006992415157,
+        "memories_count": 0,
+        "avg_similarity": 0
+      },
+      {
+        "week": "2019-08-09",
+        "ticker": "AU",
+        "action": "BUY",
+        "confidence": 0.9,
+        "return_1w": 3.9525660808922725,
+        "return_1m": 2.8655930412189834,
+        "return_3m": 6.768781353634701,
+        "memories_count": 0,
+        "avg_similarity": 0
+      },
+      {
+        "week": "2019-08-09",
+        "ticker": "HMY",
+        "action": "BUY",
+        "confidence": 0.88,
+        "return_1w": 4.210536721093461,
+        "return_1m": 28.77193710514947,
+        "return_3m": NaN,
+        "memories_count": 0,
+        "avg_similarity": 0
+      },
+      {
+        "week": "2019-08-16",
+        "ticker": "PINS",
+        "action": "BUY",
+        "confidence": 0.85,
+        "return_1w": NaN,
+        "return_1m": NaN,
+        "return_3m": NaN,
+        "memories_count": 0,
+        "avg_similarity": 0
+      },
+      {
+        "week": "2019-08-16",
+        "ticker": "EW",
+        "action": "BUY",
+        "confidence": 0.8,
+        "return_1w": -3.3281676482720512,
+        "return_1m": 0.07294082266187107,
+        "return_3m": 6.756626318948,
+        "memories_count": 0,
+        "avg_similarity": 0
+      },
+      {
+        "week": "2019-08-23",
+        "ticker": "HMY",
+        "action": "BUY",
+        "confidence": 0.9,
+        "return_1w": 22.78909943769243,
+        "return_1m": NaN,
+        "return_3m": 4.081624724958255,
+        "memories_count": 0,
+        "avg_similarity": 0
+      },
+      {
+        "week": "2019-08-23",
+        "ticker": "AU",
+        "action": "BUY",
+        "confidence": 0.85,
+        "return_1w": 0.9764809086076021,
+        "return_1m": -10.25300078361866,
+        "return_3m": -13.182433758089228,
+        "memories_count": 0,
+        "avg_similarity": 0
+      },
+      {
+        "week": "2019-08-30",
+        "ticker": "AU",
+        "action": "BUY",
+        "confidence": 0.9,
+        "return_1w": -8.48353752527975,
+        "return_1m": -16.26376154186825,
+        "return_3m": -15.824172491961953,
+        "memories_count": 0,
+        "avg_similarity": 0
+      },
+      {
+        "week": "2019-08-30",
+        "ticker": "HMY",
+        "action": "BUY",
+        "confidence": 0.85,
+        "return_1w": 1.6620503678556053,
+        "return_1m": NaN,
+        "return_3m": -6.925207522528187,
+        "memories_count": 0,
+        "avg_similarity": 0
+      },
+      {
+        "week": "2019-09-06",
+        "ticker": "NTES",
+        "action": "BUY",
+        "confidence": 0.9,
+        "return_1w": 8.47813163481954,
+        "return_1m": NaN,
+        "return_3m": 17.86170566101195,
+        "memories_count": 0,
+        "avg_similarity": 0
+      },
+      {
+        "week": "2019-09-06",
+        "ticker": "BCE",
+        "action": "BUY",
+        "confidence": 0.85,
+        "return_1w": 0.6387339021248772,
+        "return_1m": 2.1938227306056213,
+        "return_3m": 1.017048405933152,
+        "memories_count": 0,
+        "avg_similarity": 0
+      },
+      {
+        "week": "2019-09-13",
+        "ticker": "MPWR",
+        "action": "BUY",
+        "confidence": 0.85,
+        "return_1w": 4.212703079133195,
+        "return_1m": NaN,
+        "return_3m": NaN,
+        "memories_count": 0,
+        "avg_similarity": 0
+      },
+      {
+        "week": "2019-09-13",
+        "ticker": "AER",
+        "action": "BUY",
+        "confidence": 0.8,
+        "return_1w": -2.4252070688935534,
+        "return_1m": -3.965296861908685,
+        "return_3m": 9.417593765315168,
+        "memories_count": 0,
+        "avg_similarity": 0
+      },
+      {
+        "week": "2019-09-20",
+        "ticker": "KGC",
+        "action": "BUY",
+        "confidence": 0.9,
+        "return_1w": NaN,
+        "return_1m": NaN,
+        "return_3m": NaN,
+        "memories_count": 0,
+        "avg_similarity": 0
+      },
+      {
+        "week": "2019-09-20",
+        "ticker": "OKE",
+        "action": "BUY",
+        "confidence": 0.85,
+        "return_1w": -1.3451363707125075,
+        "return_1m": NaN,
+        "return_3m": NaN,
+        "memories_count": 0,
+        "avg_similarity": 0
+      },
+      {
+        "week": "2019-09-27",
+        "ticker": "RMBS",
+        "action": "BUY",
+        "confidence": 0.8,
+        "return_1w": NaN,
+        "return_1m": NaN,
+        "return_3m": NaN,
+        "memories_count": 0,
+        "avg_similarity": 0
+      },
+      {
+        "week": "2019-09-27",
+        "ticker": "NVMI",
+        "action": "BUY",
+        "confidence": 0.75,
+        "return_1w": 0.6654023934566489,
+        "return_1m": NaN,
+        "return_3m": NaN,
+        "memories_count": 0,
+        "avg_similarity": 0
+      },
+      {
+        "week": "2019-10-04",
+        "ticker": "TSM",
+        "action": "BUY",
+        "confidence": 0.85,
+        "return_1w": 3.1626426264393714,
+        "return_1m": 10.391558511416665,
+        "return_3m": NaN,
+        "memories_count": 0,
+        "avg_similarity": 0
+      },
+      {
+        "week": "2019-10-04",
+        "ticker": "ORCL",
+        "action": "BUY",
+        "confidence": 0.8,
+        "return_1w": NaN,
+        "return_1m": NaN,
+        "return_3m": NaN,
+        "memories_count": 0,
+        "avg_similarity": 0
+      },
+      {
+        "week": "2019-10-11",
+        "ticker": "ASR",
+        "action": "BUY",
+        "confidence": 0.9,
+        "return_1w": 1.105416083788091,
+        "return_1m": 7.05166416504488,
+        "return_3m": NaN,
+        "memories_count": 0,
+        "avg_similarity": 0
+      },
+      {
+        "week": "2019-10-11",
+        "ticker": "INCY",
+        "action": "BUY",
+        "confidence": 0.85,
+        "return_1w": 3.6115527970720818,
+        "return_1m": 12.934721632731193,
+        "return_3m": NaN,
+        "memories_count": 0,
+        "avg_similarity": 0
+      },
+      {
+        "week": "2019-10-11",
+        "ticker": "BCE",
+        "action": "BUY",
+        "confidence": 0.8,
+        "return_1w": -0.02047092815353757,
+        "return_1m": -2.2095203038197453,
+        "return_3m": NaN,
+        "memories_count": 0,
+        "avg_similarity": 0
+      },
+      {
+        "week": "2019-10-18",
+        "ticker": "INCY",
+        "action": "BUY",
+        "confidence": 0.9,
+        "return_1w": 1.458813925605229,
+        "return_1m": 9.553319924273374,
+        "return_3m": NaN,
+        "memories_count": 0,
+        "avg_similarity": 0
+      },
+      {
+        "week": "2019-10-18",
+        "ticker": "NTES",
+        "action": "BUY",
+        "confidence": 0.85,
+        "return_1w": 1.731820146635199,
+        "return_1m": NaN,
+        "return_3m": NaN,
+        "memories_count": 0,
+        "avg_similarity": 0
+      },
+      {
+        "week": "2019-10-25",
+        "ticker": "GFI",
+        "action": "BUY",
+        "confidence": 0.9,
+        "return_1w": 4.735887333499922,
+        "return_1m": NaN,
+        "return_3m": NaN,
+        "memories_count": 0,
+        "avg_similarity": 0
+      },
+      {
+        "week": "2019-10-25",
+        "ticker": "AU",
+        "action": "BUY",
+        "confidence": 0.9,
+        "return_1w": -2.39385433172129,
+        "return_1m": -13.504964340263115,
+        "return_3m": NaN,
+        "memories_count": 0,
+        "avg_similarity": 0
+      },
+      {
+        "week": "2019-10-25",
+        "ticker": "ASR",
+        "action": "BUY",
+        "confidence": 0.88,
+        "return_1w": -0.5336746255744984,
+        "return_1m": 5.846331959572382,
+        "return_3m": NaN,
+        "memories_count": 0,
+        "avg_similarity": 0
+      },
+      {
+        "week": "2019-11-01",
+        "ticker": "NTES",
+        "action": "BUY",
+        "confidence": 0.8,
+        "return_1w": 8.478188179734225,
+        "return_1m": 7.374771865921326,
+        "return_3m": NaN,
+        "memories_count": 0,
+        "avg_similarity": 0
+      },
+      {
+        "week": "2019-11-01",
+        "ticker": "INCY",
+        "action": "BUY",
+        "confidence": 0.75,
+        "return_1w": 5.722513974326038,
+        "return_1m": 17.705984574980825,
+        "return_3m": NaN,
+        "memories_count": 0,
+        "avg_similarity": 0
+      },
+      {
+        "week": "2019-11-08",
+        "ticker": "PTC",
+        "action": "BUY",
+        "confidence": 0.85,
+        "return_1w": 3.4200086148757025,
+        "return_1m": NaN,
+        "return_3m": NaN,
+        "memories_count": 0,
+        "avg_similarity": 0
+      },
+      {
+        "week": "2019-11-08",
+        "ticker": "ASR",
+        "action": "BUY",
+        "confidence": 0.8,
+        "return_1w": 1.9820890802503488,
+        "return_1m": 1.7506420941314271,
+        "return_3m": NaN,
+        "memories_count": 0,
+        "avg_similarity": 0
+      },
+      {
+        "week": "2019-11-08",
+        "ticker": "INCY",
+        "action": "BUY",
+        "confidence": 0.75,
+        "return_1w": 0.5092980026311977,
+        "return_1m": 11.334833187531746,
+        "return_3m": NaN,
+        "memories_count": 0,
+        "avg_similarity": 0
+      }
+    ]
+  }
+}

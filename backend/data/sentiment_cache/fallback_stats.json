@@ -1,10 +1,10 @@
 {
-  "date": "2026-02-20",
+  "date": "2026-02-21",
   "llm_calls": 0,
   "cache_hits": 0,
   "keyword_fallbacks": 0,
-  "neutral_fallbacks": 366,
-  "total_requests": 366,
+  "neutral_fallbacks": 86,
+  "total_requests": 86,
   "cache_hit_rate": 0.0,
   "llm_rate": 0.0
 }
