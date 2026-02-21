@@ -1,0 +1,57 @@
+{
+  "run_id": "20260221_130021",
+  "started_at": "2026-02-21T13:00:21.574183",
+  "completed_at": "2026-02-21T13:17:09.651987",
+  "status": "success",
+  "total_duration_seconds": 1008.077804,
+  "steps": [
+    {
+      "name": "stock_universe",
+      "status": "success",
+      "duration_seconds": 136.949769,
+      "records_processed": 937,
+      "error": null,
+      "retries": 0
+    },
+    {
+      "name": "price_data",
+      "status": "success",
+      "duration_seconds": 663.692545,
+      "records_processed": 937,
+      "error": null,
+      "retries": 0
+    },
+    {
+      "name": "fundamental_data",
+      "status": "success",
+      "duration_seconds": 1.255529,
+      "records_processed": 968,
+      "error": null,
+      "retries": 0
+    },
+    {
+      "name": "news_data",
+      "status": "success",
+      "duration_seconds": 0.295834,
+      "records_processed": 158,
+      "error": null,
+      "retries": 0
+    },
+    {
+      "name": "macro_data",
+      "status": "success",
+      "duration_seconds": 4.607835,
+      "records_processed": 17,
+      "error": null,
+      "retries": 0
+    },
+    {
+      "name": "scoring",
+      "status": "success",
+      "duration_seconds": 201.260299,
+      "records_processed": 1,
+      "error": null,
+      "retries": 0
+    }
+  ]
+}
