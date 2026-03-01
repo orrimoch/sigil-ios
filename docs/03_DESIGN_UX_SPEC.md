@@ -30,6 +30,7 @@
 Our ideal user is a high-tech professional, 30-40 years old, navigating the demands of a hectic career while wanting their wealth to grow intelligently in the background. They're sophisticated enough to understand markets but too busy (and too smart) to day-trade. They appreciate elegant design, data-driven decisions, and tools that respect their time.
 
 **Key Characteristics:**
+
 - High-tech professional (engineer, PM, founder)
 - Age 30-40
 - Investable assets: $25K-$500K
@@ -37,6 +38,7 @@ Our ideal user is a high-tech professional, 30-40 years old, navigating the dema
 - Sophistication: Understands markets, P/E ratios, basic technicals
 
 **What They Want:**
+
 - Set intelligent parameters, let money work for them
 - No babysitting required
 - Respect for their intelligence
@@ -57,6 +59,7 @@ Every pixel serves the time-constrained professional. The app should feel like a
 Each app launch displays a rotating motivational quote:
 
 **Example Quotes:**
+
 - *"The stock market is a device for transferring money from the impatient to the patient."* — Warren Buffett
 - *"The best move is the one you want to make."* — Bobby Fischer
 - *"Simplicity is the ultimate sophistication."* — Leonardo da Vinci
@@ -82,25 +85,26 @@ The Sigil brand identity centers on a hexagonal mark featuring:
 
 ### Logo Usage
 
-| Context | Asset | Description |
-|---------|-------|-------------|
-| **App Icon** | Hexagon mark only | Standalone hex on dark background (#0D0D0F) |
-| **Splash Screen** | Full logo | Hexagon + "Sigil" wordmark, centered on dark background |
-| **In-App Header** | Full logo or mark | Scaled proportionally, minimum 24pt height |
-| **Documentation** | Full logo | With adequate clear space around mark |
+| Context           | Asset             | Description                                             |
+| ----------------- | ----------------- | ------------------------------------------------------- |
+| **App Icon**      | Hexagon mark only | Standalone hex on dark background (#0D0D0F)             |
+| **Splash Screen** | Full logo         | Hexagon + "Sigil" wordmark, centered on dark background |
+| **In-App Header** | Full logo or mark | Scaled proportionally, minimum 24pt height              |
+| **Documentation** | Full logo         | With adequate clear space around mark                   |
 
 ### Color System
 
-| Token | Hex | Usage |
-|-------|-----|-------|
-| `background-primary` | `#0D0D0F` | App background, icon background |
-| `brand-blue` | `#1E3A5F` | Hexagon fill, circuit traces |
-| `brand-accent` | `#3A7AFF` | Arrow, highlights, interactive elements |
-| `text-primary` | `#FFFFFF` | Primary text on dark backgrounds |
+| Token                | Hex       | Usage                                   |
+| -------------------- | --------- | --------------------------------------- |
+| `background-primary` | `#0D0D0F` | App background, icon background         |
+| `brand-blue`         | `#1E3A5F` | Hexagon fill, circuit traces            |
+| `brand-accent`       | `#3A7AFF` | Arrow, highlights, interactive elements |
+| `text-primary`       | `#FFFFFF` | Primary text on dark backgrounds        |
 
 ### Launch Screen
 
 The app launches with a 2-second splash screen:
+
 1. Dark background (#0D0D0F) fades in
 2. Full Sigil logo (mark + wordmark) scales up with easeOut animation
 3. After 2s, fades out and transitions to the main app
@@ -112,15 +116,15 @@ The app launches with a 2-second splash screen:
 
 *Every principle flows from serving the Busy Builder.*
 
-| # | Principle | Description |
-|---|-----------|-------------|
-| 1 | **Respect Their Time** | Glanceable dashboards, instant insights. 30 seconds, not 30 minutes. |
-| 2 | **Accuracy First** | Numbers are sacred. Right-aligned, monospaced, properly formatted. |
-| 3 | **Sophisticated Simplicity** | High information density without cognitive overload. |
-| 4 | **Zero Learning Curve** | Intuitive from first launch. They'll delete before watching a tutorial. |
-| 5 | **Dark Mode** | Non-negotiable. Reduces eye strain, signals professionalism. |
-| 6 | **Confidence-Building** | Solid, responsive, trustworthy. Subtle haptics, instant feedback. |
-| 7 | **Let Them Forget** | Set up once, check weekly. Push insights to them. |
+| #   | Principle                    | Description                                                             |
+| --- | ---------------------------- | ----------------------------------------------------------------------- |
+| 1   | **Respect Their Time**       | Glanceable dashboards, instant insights. 30 seconds, not 30 minutes.    |
+| 2   | **Accuracy First**           | Numbers are sacred. Right-aligned, monospaced, properly formatted.      |
+| 3   | **Sophisticated Simplicity** | High information density without cognitive overload.                    |
+| 4   | **Zero Learning Curve**      | Intuitive from first launch. They'll delete before watching a tutorial. |
+| 5   | **Dark Mode**                | Non-negotiable. Reduces eye strain, signals professionalism.            |
+| 6   | **Confidence-Building**      | Solid, responsive, trustworthy. Subtle haptics, instant feedback.       |
+| 7   | **Let Them Forget**          | Set up once, check weekly. Push insights to them.                       |
 
 > 📋 **Validation Checkpoint:** For every design decision, ask: *"Does this respect the Busy Builder's time and intelligence?"*
 
@@ -130,74 +134,81 @@ The app launches with a 2-second splash screen:
 
 ### Design References
 
-| Reference | What to Learn |
-|-----------|---------------|
-| **Bloomberg Terminal** | Information density, color coding, typography |
-| **Interactive Brokers TWS** | Data tables, order entry, professional charts |
-| **Apple Stocks** | Native iOS patterns, clean dark mode |
-| **Fidelity Active Trader Pro** | Clean layouts, watchlists |
+| Reference                      | What to Learn                                 |
+| ------------------------------ | --------------------------------------------- |
+| **Bloomberg Terminal**         | Information density, color coding, typography |
+| **Interactive Brokers TWS**    | Data tables, order entry, professional charts |
+| **Apple Stocks**               | Native iOS patterns, clean dark mode          |
+| **Fidelity Active Trader Pro** | Clean layouts, watchlists                     |
 
 ---
 
 ### Color Palette — "Institutional Dark"
 
 #### Core Colors
-| Role | Hex | Usage |
-|------|-----|-------|
-| Background | `#000000` | Main background |
-| Surface | `#0D0D0D` | Cards, elevated surfaces |
-| Surface 2 | `#161616` | Modals, input fields |
-| Border | `#222222` | Dividers, table borders |
-| Border Active | `#333333` | Focus states |
+
+| Role          | Hex       | Usage                    |
+| ------------- | --------- | ------------------------ |
+| Background    | `#000000` | Main background          |
+| Surface       | `#0D0D0D` | Cards, elevated surfaces |
+| Surface 2     | `#161616` | Modals, input fields     |
+| Border        | `#222222` | Dividers, table borders  |
+| Border Active | `#333333` | Focus states             |
 
 #### Semantic Colors
-| Role | Hex | Usage |
-|------|-----|-------|
-| Gain/Positive | `#00C853` | Price up, profits, buy signals |
-| Loss/Negative | `#FF1744` | Price down, losses, sell signals |
-| Neutral | `#9E9E9E` | Unchanged, hold |
-| Primary Action | `#2196F3` | Buttons, links, CTAs |
-| Warning | `#FFC107` | Alerts, caution |
-| Info | `#03A9F4` | Informational |
+
+| Role           | Hex       | Usage                            |
+| -------------- | --------- | -------------------------------- |
+| Gain/Positive  | `#00C853` | Price up, profits, buy signals   |
+| Loss/Negative  | `#FF1744` | Price down, losses, sell signals |
+| Neutral        | `#9E9E9E` | Unchanged, hold                  |
+| Primary Action | `#2196F3` | Buttons, links, CTAs             |
+| Warning        | `#FFC107` | Alerts, caution                  |
+| Info           | `#03A9F4` | Informational                    |
 
 #### Text Colors
-| Role | Hex | Usage |
-|------|-----|-------|
-| Text Primary | `#FFFFFF` | Headlines, prices |
+
+| Role           | Hex       | Usage                |
+| -------------- | --------- | -------------------- |
+| Text Primary   | `#FFFFFF` | Headlines, prices    |
 | Text Secondary | `#B0B0B0` | Labels, descriptions |
-| Text Muted | `#707070` | Timestamps, hints |
-| Text Disabled | `#404040` | Disabled states |
+| Text Muted     | `#707070` | Timestamps, hints    |
+| Text Disabled  | `#404040` | Disabled states      |
 
 #### Score Colors
-| Range | Color | Signal |
-|-------|-------|--------|
-| 70-100 | `#00C853` | BUY |
-| 40-69 | `#9E9E9E` | HOLD |
-| 0-39 | `#FF1744` | SELL |
+
+| Range  | Color     | Signal |
+| ------ | --------- | ------ |
+| 70-100 | `#00C853` | BUY    |
+| 40-69  | `#9E9E9E` | HOLD   |
+| 0-39   | `#FF1744` | SELL   |
 
 ---
 
 ### Typography
 
 #### Font Stack
-| Purpose | Font | Fallback |
-|---------|------|----------|
-| UI Text | SF Pro Text | -apple-system |
-| Numbers/Data | SF Mono | Menlo, Monaco |
-| Headlines | SF Pro Display | -apple-system |
+
+| Purpose      | Font           | Fallback      |
+| ------------ | -------------- | ------------- |
+| UI Text      | SF Pro Text    | -apple-system |
+| Numbers/Data | SF Mono        | Menlo, Monaco |
+| Headlines    | SF Pro Display | -apple-system |
 
 #### Type Scale
-| Style | Font | Size | Weight | Usage |
-|-------|------|------|--------|-------|
-| Large Value | SF Mono | 32pt | Semibold | Portfolio total |
-| Price | SF Mono | 18pt | Medium | Stock prices |
-| Table Header | SF Pro | 12pt | Semibold | Column headers |
-| Table Data | SF Mono | 14pt | Regular | Table cells |
-| Title | SF Pro Display | 20pt | Semibold | Screen titles |
-| Body | SF Pro | 15pt | Regular | Descriptions |
-| Caption | SF Pro | 12pt | Regular | Timestamps |
+
+| Style        | Font           | Size | Weight   | Usage           |
+| ------------ | -------------- | ---- | -------- | --------------- |
+| Large Value  | SF Mono        | 32pt | Semibold | Portfolio total |
+| Price        | SF Mono        | 18pt | Medium   | Stock prices    |
+| Table Header | SF Pro         | 12pt | Semibold | Column headers  |
+| Table Data   | SF Mono        | 14pt | Regular  | Table cells     |
+| Title        | SF Pro Display | 20pt | Semibold | Screen titles   |
+| Body         | SF Pro         | 15pt | Regular  | Descriptions    |
+| Caption      | SF Pro         | 12pt | Regular  | Timestamps      |
 
 #### Number Formatting
+
 ```
 Prices:      $185.42      (2 decimals, right-aligned)
 Large:       $1,234,567   (comma separators)
@@ -212,6 +223,7 @@ Times:       09:30 ET     (with timezone)
 ### Data Tables
 
 #### Watchlist Style
+
 ```
 ┌──────────────────────────────────────────────────────────────────┐
 │ SYMBOL │    LAST │   CHG │    CHG% │    VOL   │
@@ -223,12 +235,14 @@ Times:       09:30 ET     (with timezone)
 ```
 
 **Specs:**
+
 - Headers: `#707070`, 12pt, uppercase
 - Numbers: SF Mono, 14pt, right-aligned
 - Row hover: `#161616`
 - Alternating rows: `#0D0D0D` / `#000000`
 
 #### Score Table
+
 ```
 ┌────────────────────────────────────────────────────────────────┐
 │ SYMBOL │ SCORE │ SIGNAL │ FUND │ SENT │ MACRO │ TECH │
@@ -244,6 +258,7 @@ Times:       09:30 ET     (with timezone)
 ### Charts
 
 #### Candlestick Chart
+
 - Background: `#000000`
 - Grid: `#1A1A1A` (subtle)
 - Axis labels: `#707070`, SF Mono 11pt
@@ -252,6 +267,7 @@ Times:       09:30 ET     (with timezone)
 - Volume bars: `#2196F3` at 50% opacity
 
 #### Score Gauge
+
 ```
         ┌─────────────────┐
         │       85        │   ← Large SF Mono
@@ -259,6 +275,7 @@ Times:       09:30 ET     (with timezone)
         │      BUY        │   ← Signal in green
         └─────────────────┘
 ```
+
 - Track: `#222222`
 - Fill: Gradient red → amber → green
 - No circular gauges — horizontal bar is cleaner
@@ -268,11 +285,13 @@ Times:       09:30 ET     (with timezone)
 ## Key Screens
 
 > 📱 **Screen Design Principle:** Every screen answers one question.
+> 
 > - Home = "How's my portfolio?"
 > - Scores = "What should I buy/sell?"
 > - Trade = "Execute."
 
 ### Home Dashboard
+
 ```
 ┌────────────────────────────────────────────────────────────────┐
 │  Portfolio                                           9:41 AM   │
@@ -306,6 +325,7 @@ Times:       09:30 ET     (with timezone)
 ```
 
 ### Stock Detail
+
 ```
 ┌────────────────────────────────────────────────────────────────┐
 │  ←  AAPL                                             ★    ⋮   │
@@ -338,6 +358,7 @@ Times:       09:30 ET     (with timezone)
 ```
 
 ### Score Breakdown (Explainability)
+
 ```
 ┌────────────────────────────────────────────────────────────────┐
 │  AAPL Score: 85                                                │
@@ -376,6 +397,7 @@ Times:       09:30 ET     (with timezone)
 > **Goal:** Productive within 60 seconds. Respect their intelligence.
 
 ### Design Philosophy
+
 - Skip button always visible
 - No forced carousels
 - Get them to value fast
@@ -384,6 +406,7 @@ Times:       09:30 ET     (with timezone)
 ### Flow (4 Screens)
 
 **Screen 1: Welcome**
+
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │                                                     [ Skip → ]  │
@@ -400,6 +423,7 @@ Times:       09:30 ET     (with timezone)
 ```
 
 **Screen 2: Score System**
+
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │  THE SCORE SYSTEM                                  [ Skip → ]  │
@@ -418,6 +442,7 @@ Times:       09:30 ET     (with timezone)
 ```
 
 **Screen 3: Portfolio Size**
+
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │  PORTFOLIO SIZE                                    [ Skip → ]  │
@@ -436,6 +461,7 @@ Times:       09:30 ET     (with timezone)
 ```
 
 **Screen 4: Ready**
+
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │  YOU'RE SET                                                     │
@@ -452,31 +478,34 @@ Times:       09:30 ET     (with timezone)
 
 ### First-Time Tooltips
 
-| Screen | Tooltip |
-|--------|---------|
-| Score List | "Tap any stock to see details" |
+| Screen       | Tooltip                                       |
+| ------------ | --------------------------------------------- |
+| Score List   | "Tap any stock to see details"                |
 | Score Detail | "Scroll down to see what's driving the score" |
-| Trade Button | "Start with paper trading to practice" |
-| Portfolio | "This shows your positions and P&L" |
+| Trade Button | "Start with paper trading to practice"        |
+| Portfolio    | "This shows your positions and P&L"           |
 
 ---
 
 ## Interaction Patterns
 
 ### Haptics
-| Action | Feedback |
-|--------|----------|
-| Tap button | Light impact |
-| Pull to refresh | Medium impact |
-| Trade executed | Success notification |
-| Error | Error notification |
+
+| Action          | Feedback             |
+| --------------- | -------------------- |
+| Tap button      | Light impact         |
+| Pull to refresh | Medium impact        |
+| Trade executed  | Success notification |
+| Error           | Error notification   |
 
 ### Transitions
+
 - Screen push: 300ms ease-out
 - Modal present: 250ms spring
 - Pull to refresh: Native iOS behavior
 
 ### Loading States
+
 - Skeleton screens for data loading
 - Shimmer animation on placeholders
 - Never show empty screens
@@ -486,6 +515,7 @@ Times:       09:30 ET     (with timezone)
 ## Accessibility
 
 ### Requirements
+
 - VoiceOver full support
 - Dynamic Type support (up to xxxLarge)
 - Minimum touch target: 44×44pt
@@ -493,6 +523,7 @@ Times:       09:30 ET     (with timezone)
 - Reduce Motion support
 
 ### Color Independence
+
 - Never rely on color alone
 - Use icons + color for signals
 - BUY = 🟢 + "BUY" text
@@ -503,16 +534,19 @@ Times:       09:30 ET     (with timezone)
 ## Design Standards
 
 ### Apple HIG Compliance
+
 - Native iOS navigation patterns
 - SF Symbols for icons
 - Standard gestures (swipe, pull-to-refresh)
 
 ### Financial Industry Standards
+
 - Green = positive, Red = negative
 - Right-aligned numbers
 - Monospace for financial data
 
 ### Disclosures
+
 - "Not financial advice" visible at trade confirmation
 - Risk acknowledgment in onboarding
 - Clear paper vs live mode indicator
@@ -520,6 +554,7 @@ Times:       09:30 ET     (with timezone)
 ---
 
 **Related Docs:**
+
 - `01_PRD.md` — Product requirements, vision, user flows
 - `02_TECHNICAL_SPEC.md` — Architecture, APIs, data models
 - `04_ANALYTICS_PLAN.md` — Metrics, events, dashboards
