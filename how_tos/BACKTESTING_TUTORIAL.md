@@ -15,12 +15,12 @@ Backtesting answers one question:
 
 It's a **time-machine simulation** that validates whether the scoring model works before you risk real capital.
 
-| Backtesting | Your Real Portfolio |
-|-------------|---------------------|
+| Backtesting                            | Your Real Portfolio        |
+| -------------------------------------- | -------------------------- |
 | Starts with $100,000 hypothetical cash | Your actual IBKR positions |
-| Goes back 1.5 years | Starts today |
-| Simulated trades | Real trades |
-| Purpose: Validate the model | Purpose: Make money |
+| Goes back 1.5 years                    | Starts today               |
+| Simulated trades                       | Real trades                |
+| Purpose: Validate the model            | Purpose: Make money        |
 
 ---
 
@@ -56,15 +56,16 @@ python3 -m src.backtest report <backtest_id> --format html
 python3 -m src.backtest generate [OPTIONS]
 ```
 
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `--start` | DATE | 18 months ago | Start date (YYYY-MM-DD) |
-| `--end` | DATE | Today | End date (YYYY-MM-DD) |
-| `--frequency` | STRING | weekly | Score frequency: `daily` or `weekly` |
-| `--tickers` | STRING | All (677) | Comma-separated tickers to process |
-| `--force` | FLAG | false | Force regenerate, ignore cached scores |
+| Parameter     | Type   | Default       | Description                            |
+| ------------- | ------ | ------------- | -------------------------------------- |
+| `--start`     | DATE   | 18 months ago | Start date (YYYY-MM-DD)                |
+| `--end`       | DATE   | Today         | End date (YYYY-MM-DD)                  |
+| `--frequency` | STRING | weekly        | Score frequency: `daily` or `weekly`   |
+| `--tickers`   | STRING | All (677)     | Comma-separated tickers to process     |
+| `--force`     | FLAG   | false         | Force regenerate, ignore cached scores |
 
 **Data sources used:**
+
 - **Prices:** yfinance (5+ years available)
 - **Fundamentals:** FMP API with 60-day lag (simulates earnings delay)
 - **Macro:** FRED economic data
@@ -73,6 +74,7 @@ python3 -m src.backtest generate [OPTIONS]
 **⚡ Smart Caching:**
 
 The generator caches scores by date. On subsequent runs:
+
 - Dates with existing scores are **skipped automatically**
 - Only missing dates are generated
 - Use `--force` to regenerate everything
@@ -108,6 +110,7 @@ python3 -m src.backtest generate --force
 ```
 
 **Time estimate:** 
+
 - First run: ~5-10 minutes for 677 stocks × 78 weeks
 - Subsequent runs: ~instant (cached)
 
@@ -121,17 +124,18 @@ Executes a trading simulation over historical data.
 python3 -m src.backtest run [OPTIONS]
 ```
 
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `--start` | DATE | 18 months ago | Start date (YYYY-MM-DD) |
-| `--end` | DATE | Today | End date (YYYY-MM-DD) |
-| `--capital` | NUMBER | 100000 | Initial capital in USD |
-| `--entry` | NUMBER | 70 | Entry threshold (buy when score ≥ this) |
-| `--exit` | NUMBER | 50 | Exit threshold (sell when score < this) |
-| `--positions` | NUMBER | 10 | Maximum positions to hold |
-| `--rebalance` | STRING | weekly | Rebalance frequency: `daily`, `weekly`, `biweekly` |
+| Parameter     | Type   | Default       | Description                                        |
+| ------------- | ------ | ------------- | -------------------------------------------------- |
+| `--start`     | DATE   | 18 months ago | Start date (YYYY-MM-DD)                            |
+| `--end`       | DATE   | Today         | End date (YYYY-MM-DD)                              |
+| `--capital`   | NUMBER | 100000        | Initial capital in USD                             |
+| `--entry`     | NUMBER | 70            | Entry threshold (buy when score ≥ this)            |
+| `--exit`      | NUMBER | 50            | Exit threshold (sell when score < this)            |
+| `--positions` | NUMBER | 10            | Maximum positions to hold                          |
+| `--rebalance` | STRING | weekly        | Rebalance frequency: `daily`, `weekly`, `biweekly` |
 
 **Entry/Exit Logic:**
+
 ```
 Score ≥ 70 (entry)  →  BUY signal
 Score < 50 (exit)   →  SELL signal
@@ -164,11 +168,12 @@ Shows detailed metrics for a completed backtest.
 python3 -m src.backtest results <backtest_id>
 ```
 
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `backtest_id` | STRING | ✅ | The backtest ID (e.g., `bt_20260206_123456_abc123`) |
+| Parameter     | Type   | Required | Description                                         |
+| ------------- | ------ | -------- | --------------------------------------------------- |
+| `backtest_id` | STRING | ✅        | The backtest ID (e.g., `bt_20260206_123456_abc123`) |
 
 **Output includes:**
+
 - Total Return, CAGR, Sharpe Ratio
 - Max Drawdown, Win Rate
 - Score IC, Hit Rate
@@ -184,9 +189,9 @@ Shows history of all backtests run.
 python3 -m src.backtest list [OPTIONS]
 ```
 
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `--limit` | NUMBER | 20 | Maximum results to show |
+| Parameter | Type   | Default | Description             |
+| --------- | ------ | ------- | ----------------------- |
+| `--limit` | NUMBER | 20      | Maximum results to show |
 
 ---
 
@@ -198,10 +203,10 @@ Shows all simulated trades from a backtest.
 python3 -m src.backtest trades <backtest_id> [OPTIONS]
 ```
 
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `backtest_id` | STRING | ✅ | The backtest ID |
-| `--limit` | NUMBER | 100 | Maximum trades to show |
+| Parameter     | Type   | Required | Description            |
+| ------------- | ------ | -------- | ---------------------- |
+| `backtest_id` | STRING | ✅        | The backtest ID        |
+| `--limit`     | NUMBER | 100      | Maximum trades to show |
 
 ---
 
@@ -213,14 +218,14 @@ Creates a shareable HTML or PDF report.
 python3 -m src.backtest report <backtest_id> [OPTIONS]
 ```
 
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `backtest_id` | STRING | ✅ | The backtest ID |
-| `--format` | STRING | html | Output format: `html` or `pdf` |
-| `--output`, `-o` | PATH | Auto-generated | Output file path |
-| `--title` | STRING | Auto | Custom report title |
-| `--no-trades` | FLAG | false | Exclude trade log from report |
-| `--no-charts` | FLAG | false | Exclude charts from report |
+| Parameter        | Type   | Default        | Description                    |
+| ---------------- | ------ | -------------- | ------------------------------ |
+| `backtest_id`    | STRING | ✅              | The backtest ID                |
+| `--format`       | STRING | html           | Output format: `html` or `pdf` |
+| `--output`, `-o` | PATH   | Auto-generated | Output file path               |
+| `--title`        | STRING | Auto           | Custom report title            |
+| `--no-trades`    | FLAG   | false          | Exclude trade log from report  |
+| `--no-charts`    | FLAG   | false          | Exclude charts from report     |
 
 **Examples:**
 
@@ -245,16 +250,17 @@ Uses Optuna to find optimal strategy parameters via Bayesian optimization.
 python3 -m src.backtest optimize [OPTIONS]
 ```
 
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `--start` | DATE | 18 months ago | Start date |
-| `--end` | DATE | Today | End date |
-| `--trials` | NUMBER | 50 | Number of optimization trials |
-| `--timeout` | NUMBER | 3600 | Timeout in seconds (1 hour default) |
-| `--train-months` | NUMBER | 9 | Training period in months |
-| `--test-months` | NUMBER | 3 | Test period in months |
+| Parameter        | Type   | Default       | Description                         |
+| ---------------- | ------ | ------------- | ----------------------------------- |
+| `--start`        | DATE   | 18 months ago | Start date                          |
+| `--end`          | DATE   | Today         | End date                            |
+| `--trials`       | NUMBER | 50            | Number of optimization trials       |
+| `--timeout`      | NUMBER | 3600          | Timeout in seconds (1 hour default) |
+| `--train-months` | NUMBER | 9             | Training period in months           |
+| `--test-months`  | NUMBER | 3             | Test period in months               |
 
 **What it optimizes:**
+
 - Entry threshold (60-85)
 - Exit threshold (35-60)
 - Max positions (5-20)
@@ -280,10 +286,10 @@ Measures how quickly score predictive power decays over time.
 python3 -m src.backtest ic-decay [OPTIONS]
 ```
 
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `--start` | DATE | 18 months ago | Start date |
-| `--end` | DATE | Today | End date |
+| Parameter | Type | Default       | Description |
+| --------- | ---- | ------------- | ----------- |
+| `--start` | DATE | 18 months ago | Start date  |
+| `--end`   | DATE | Today         | End date    |
 
 **Output example:**
 
@@ -308,12 +314,12 @@ Prevents overfitting by using rolling train/test periods.
 python3 -m src.backtest walk-forward [OPTIONS]
 ```
 
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `--start` | DATE | 18 months ago | Start date |
-| `--end` | DATE | Today | End date |
-| `--train-months` | NUMBER | 9 | Training period in months |
-| `--test-months` | NUMBER | 3 | Test period (out-of-sample) in months |
+| Parameter        | Type   | Default       | Description                           |
+| ---------------- | ------ | ------------- | ------------------------------------- |
+| `--start`        | DATE   | 18 months ago | Start date                            |
+| `--end`          | DATE   | Today         | End date                              |
+| `--train-months` | NUMBER | 9             | Training period in months             |
+| `--test-months`  | NUMBER | 3             | Test period (out-of-sample) in months |
 
 **How it works:**
 
@@ -335,14 +341,15 @@ Randomizes trade order to estimate outcome uncertainty and confidence intervals.
 python3 -m src.backtest monte-carlo <backtest_id> [OPTIONS]
 ```
 
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `backtest_id` | STRING | ✅ | Backtest ID to analyze |
-| `--sims` | NUMBER | 1000 | Number of simulations (100-10000) |
-| `--seed` | NUMBER | Random | Random seed for reproducibility |
-| `--no-save` | FLAG | false | Don't save results to file |
+| Parameter     | Type   | Default | Description                       |
+| ------------- | ------ | ------- | --------------------------------- |
+| `backtest_id` | STRING | ✅       | Backtest ID to analyze            |
+| `--sims`      | NUMBER | 1000    | Number of simulations (100-10000) |
+| `--seed`      | NUMBER | Random  | Random seed for reproducibility   |
+| `--no-save`   | FLAG   | false   | Don't save results to file        |
 
 **Output:**
+
 - Median CAGR with 5th/95th percentile confidence bands
 - Probability of positive returns
 - Worst-case and best-case scenarios
@@ -370,6 +377,7 @@ python3 -m src.backtest stats
 ```
 
 **Output:**
+
 - Number of stored historical scores
 - Number of backtests run
 - Date range of available data
@@ -381,21 +389,21 @@ python3 -m src.backtest stats
 
 ### Performance Metrics
 
-| Metric | What It Means | Target |
-|--------|---------------|--------|
-| **Total Return** | Overall gain/loss | — |
-| **CAGR** | Annualized return | > SPY + 2% |
-| **Sharpe Ratio** | Risk-adjusted return | > 1.0 |
-| **Max Drawdown** | Largest peak-to-trough drop | < 25% |
-| **Win Rate** | % of profitable trades | > 55% |
+| Metric           | What It Means               | Target     |
+| ---------------- | --------------------------- | ---------- |
+| **Total Return** | Overall gain/loss           | —          |
+| **CAGR**         | Annualized return           | > SPY + 2% |
+| **Sharpe Ratio** | Risk-adjusted return        | > 1.0      |
+| **Max Drawdown** | Largest peak-to-trough drop | < 25%      |
+| **Win Rate**     | % of profitable trades      | > 55%      |
 
 ### Score Validation Metrics
 
-| Metric | What It Means | Target |
-|--------|---------------|--------|
-| **IC (Information Coefficient)** | Correlation between score and future return | > 0.05 |
-| **Hit Rate** | % of BUY signals that beat SPY | > 55% |
-| **Quintile Spread** | Top 20% return minus Bottom 20% return | > 10%/yr |
+| Metric                           | What It Means                               | Target   |
+| -------------------------------- | ------------------------------------------- | -------- |
+| **IC (Information Coefficient)** | Correlation between score and future return | > 0.05   |
+| **Hit Rate**                     | % of BUY signals that beat SPY              | > 55%    |
+| **Quintile Spread**              | Top 20% return minus Bottom 20% return      | > 10%/yr |
 
 ---
 
@@ -472,12 +480,12 @@ python3 -m src.backtest report <id> --format html
 
 ## Related Files
 
-| Path | Description |
-|------|-------------|
-| `backend/src/backtest/` | Module source code |
-| `backend/data/backtest/` | Stored backtest results |
+| Path                          | Description                  |
+| ----------------------------- | ---------------------------- |
+| `backend/src/backtest/`       | Module source code           |
+| `backend/data/backtest/`      | Stored backtest results      |
 | `docs/06_BACKTESTING_SPEC.md` | Full technical specification |
-| `reports/` | Generated HTML/PDF reports |
+| `reports/`                    | Generated HTML/PDF reports   |
 
 ---
 
