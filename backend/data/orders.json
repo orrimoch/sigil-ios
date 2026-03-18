@@ -1,6 +1,102 @@
 {
   "orders": [
     {
+      "order_id": "274d48d1",
+      "ticker": "AAPL",
+      "side": "BUY",
+      "order_type": "LIMIT",
+      "quantity": 10,
+      "limit_price": 100.0,
+      "status": "CANCELLED",
+      "filled_quantity": 0.0,
+      "filled_price": null,
+      "created_at": "2026-03-18T03:13:29.462875",
+      "updated_at": "2026-03-18T03:13:29.729399",
+      "filled_at": null,
+      "reject_reason": null,
+      "is_paper": true
+    },
+    {
+      "order_id": "ef180c26",
+      "ticker": "AAPL",
+      "side": "SELL",
+      "order_type": "MARKET",
+      "quantity": 10,
+      "limit_price": null,
+      "status": "REJECTED",
+      "filled_quantity": 0.0,
+      "filled_price": null,
+      "created_at": "2026-03-18T03:13:29.449459",
+      "updated_at": "2026-03-18T03:13:29.449463",
+      "filled_at": null,
+      "reject_reason": "Insufficient shares to sell",
+      "is_paper": true
+    },
+    {
+      "order_id": "dfe95ee0",
+      "ticker": "AAPL",
+      "side": "BUY",
+      "order_type": "MARKET",
+      "quantity": 1,
+      "limit_price": null,
+      "status": "FILLED",
+      "filled_quantity": 1,
+      "filled_price": 254.22999572753906,
+      "created_at": "2026-03-18T03:13:28.114289",
+      "updated_at": "2026-03-18T03:13:29.436436",
+      "filled_at": "2026-03-18T03:13:29.436433",
+      "reject_reason": null,
+      "is_paper": true
+    },
+    {
+      "order_id": "d8d6dabf",
+      "ticker": "AAPL",
+      "side": "BUY",
+      "order_type": "LIMIT",
+      "quantity": 10,
+      "limit_price": 100.0,
+      "status": "CANCELLED",
+      "filled_quantity": 0.0,
+      "filled_price": null,
+      "created_at": "2026-03-18T03:12:58.759655",
+      "updated_at": "2026-03-18T03:12:59.023348",
+      "filled_at": null,
+      "reject_reason": null,
+      "is_paper": true
+    },
+    {
+      "order_id": "79d416bc",
+      "ticker": "AAPL",
+      "side": "SELL",
+      "order_type": "MARKET",
+      "quantity": 10,
+      "limit_price": null,
+      "status": "REJECTED",
+      "filled_quantity": 0.0,
+      "filled_price": null,
+      "created_at": "2026-03-18T03:12:58.747732",
+      "updated_at": "2026-03-18T03:12:58.747736",
+      "filled_at": null,
+      "reject_reason": "Insufficient shares to sell",
+      "is_paper": true
+    },
+    {
+      "order_id": "b007c489",
+      "ticker": "AAPL",
+      "side": "BUY",
+      "order_type": "MARKET",
+      "quantity": 1,
+      "limit_price": null,
+      "status": "FILLED",
+      "filled_quantity": 1,
+      "filled_price": 254.22999572753906,
+      "created_at": "2026-03-18T03:12:57.405881",
+      "updated_at": "2026-03-18T03:12:58.736580",
+      "filled_at": "2026-03-18T03:12:58.736578",
+      "reject_reason": null,
+      "is_paper": true
+    },
+    {
       "order_id": "be98b0a8",
       "ticker": "AAPL",
       "side": "BUY",
@@ -1841,5 +1937,5 @@
       "is_paper": true
     }
   ],
-  "updated_at": "2026-03-17T03:18:08.376831"
+  "updated_at": "2026-03-18T03:13:29.733618"
 }
