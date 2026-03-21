@@ -1,0 +1,80 @@
+project:
+  name: "emata-episodic-memory-trading"
+  mode: "full-auto"
+
+research:
+  topic: >
+    Episodic Memory-Augmented Trading Agents (EMATA): Design and evaluate an
+    embedding-based episodic memory retrieval system that augments LLM trading
+    agent decisions. The system stores complete decision episodes (context,
+    action, outcome, lesson) and retrieves relevant past experiences using
+    multi-dimensional similarity (embedding distance + regime match + sector
+    overlap + outcome quality). Compare against naive similarity baselines
+    and no-memory baselines using simulated trading scenarios with composite
+    scoring data. Measure decision quality, retrieval precision, and learning
+    convergence. Ground implementation in an existing three-tier memory
+    architecture (working/short-term/long-term) with pgvector embeddings.
+  domains:
+    - "machine-learning"
+    - "reinforcement-learning"
+    - "quantitative-finance"
+  daily_paper_count: 15
+  quality_threshold: 3.5
+
+runtime:
+  timezone: "Asia/Jerusalem"
+  max_parallel_tasks: 2
+  approval_timeout_hours: 24
+  retry_limit: 3
+
+notifications:
+  channel: "console"
+  target: ""
+  on_stage_start: true
+  on_stage_fail: true
+  on_gate_required: true
+
+knowledge_base:
+  backend: "markdown"
+  root: "output/kb"
+
+openclaw_bridge:
+  use_cron: false
+  use_message: false
+  use_memory: false
+  use_sessions_spawn: false
+  use_web_fetch: false
+  use_browser: false
+
+llm:
+  provider: "anthropic"
+  base_url: ""
+  api_key_env: "ANTHROPIC_API_KEY"
+  api_key: ""
+  primary_model: "claude-sonnet-4-20250514"
+  fallback_models:
+    - "claude-3-5-haiku-20241022"
+
+security:
+  hitl_required_stages: [5, 9, 15, 20]
+  allow_publish_without_approval: false
+  redact_sensitive_logs: true
+
+experiment:
+  mode: "sandbox"
+  time_budget_sec: 600
+  max_iterations: 15
+  metric_key: "retrieval_precision"
+  metric_direction: "maximize"
+  sandbox:
+    python_path: ".venv/bin/python3"
+    gpu_required: false
+    max_memory_mb: 4096
+  opencode:
+    enabled: false
+
+prompts:
+  custom_file: ""
+
+metaclaw_bridge:
+  enabled: false

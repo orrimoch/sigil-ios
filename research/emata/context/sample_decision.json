@@ -1,0 +1,29 @@
+{
+  "id": 42,
+  "timestamp": "2026-03-20T14:35:00Z",
+  "ticker": "AAPL",
+  "action": "BUY",
+  "shares": 15,
+  "price": 178.50,
+  "score": 72.5,
+  "regime": "normal",
+  "sector": "Technology",
+  "rationale": "Strong fundamentals (78.2), improving sentiment (65.0), bullish technical signals (70.1). Macro environment stable (68.3). Sector not overweight. Score trending up (+2.1).",
+  "confidence": 0.78,
+  "context": {
+    "portfolio": {
+      "cash": 45000.0,
+      "total_value": 125000.0,
+      "position_count": 8
+    },
+    "market": {
+      "regime": "normal",
+      "regime_confidence": 0.85,
+      "vix": 16.2,
+      "vix_regime": "calm"
+    }
+  },
+  "outcome_pct": null,
+  "outcome_date": null,
+  "lesson_learned": null
+}

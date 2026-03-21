@@ -113,5 +113,26 @@ class UserOrder(Base):
         }
 
 
+class PortfolioSnapshot(Base):
+    """Daily portfolio value snapshot for fast history retrieval."""
+    __tablename__ = "portfolio_snapshots"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    user_id = Column(String(36), nullable=False, index=True)
+    portfolio_id = Column(String(36), nullable=False)
+    date = Column(String(10), nullable=False)  # YYYY-MM-DD
+    total_value = Column(Float, nullable=False)
+    cash = Column(Float, nullable=False)
+    positions_value = Column(Float, nullable=False)
+    total_pnl = Column(Float, nullable=False)
+    total_pnl_percent = Column(Float, nullable=False)
+    created_at = Column(String(30), nullable=False, default=lambda: datetime.now(timezone.utc).isoformat())
+
+    __table_args__ = (
+        # Unique constraint on portfolio_id + date
+        {"sqlite_autoincrement": True},
+    )
+
+
 # Default anonymous user ID for when auth is disabled
 ANONYMOUS_USER_ID = "anonymous"

@@ -438,10 +438,16 @@ class TestPortfolioHistory:
     
     def test_get_performance(self, history):
         """Test performance calculation."""
+        from datetime import datetime, timedelta
+        # Use dynamic timestamps within the 30-day window
+        now = datetime.now()
+        ts1 = (now - timedelta(days=2)).isoformat()
+        ts2 = (now - timedelta(days=1)).isoformat()
+        
         # Create snapshots with different values
         history.snapshots = [
             PortfolioSnapshot(
-                timestamp="2026-02-01T12:00:00",
+                timestamp=ts1,
                 total_value=100000.0,
                 cash=100000.0,
                 positions_value=0.0,
@@ -449,7 +455,7 @@ class TestPortfolioHistory:
                 total_pnl_percent=0.0,
             ),
             PortfolioSnapshot(
-                timestamp="2026-02-03T12:00:00",
+                timestamp=ts2,
                 total_value=105000.0,
                 cash=50000.0,
                 positions_value=55000.0,

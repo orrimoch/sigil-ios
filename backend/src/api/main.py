@@ -1611,35 +1611,76 @@ async def record_portfolio_snapshot(
     """
     Record a portfolio snapshot for history tracking.
     
-    Call this periodically (e.g., daily) to build history.
-    Uses in-memory history store (TODO: migrate to DB-backed history).
+    Writes to portfolio_snapshots table (DB-backed).
+    Also maintains legacy file-based history for backward compat.
     """
     try:
         user_id = user.id if user else DEFAULT_USER_ID
-        data = await UserTradingService.get_portfolio_data(db, user_id)
-        summary = data["summary"]
         
-        # Record into file-based history (backward compat — DB history TBD)
-        from trading.portfolio import PortfolioSnapshot
-        history = get_portfolio_history()
-        snapshot = PortfolioSnapshot(
-            timestamp=datetime.now().isoformat(),
-            total_value=summary["total_value"],
-            cash=summary["cash"],
-            positions_value=summary["invested"],
-            total_pnl=summary["total_pnl"],
-            total_pnl_percent=summary["total_pnl_percent"],
-        )
-        history.snapshots.append(snapshot)
-        history.snapshots = history.snapshots[-365:]
-        history._save()
+        # Write to DB-backed snapshot table
+        from db.portfolio_history_service import PortfolioHistoryService
+        db_snapshot = await PortfolioHistoryService.take_snapshot(db, user_id)
+        
+        # Legacy file-based history (backward compat)
+        try:
+            data = await UserTradingService.get_portfolio_data(db, user_id)
+            summary = data["summary"]
+            from trading.portfolio import PortfolioSnapshot
+            history = get_portfolio_history()
+            snapshot = PortfolioSnapshot(
+                timestamp=datetime.now().isoformat(),
+                total_value=summary["total_value"],
+                cash=summary["cash"],
+                positions_value=summary["invested"],
+                total_pnl=summary["total_pnl"],
+                total_pnl_percent=summary["total_pnl_percent"],
+            )
+            history.snapshots.append(snapshot)
+            history.snapshots = history.snapshots[-365:]
+            history._save()
+        except Exception:
+            pass  # Legacy failure is non-critical
         
         return {
             "success": True,
             "message": "Snapshot recorded",
-            "total_snapshots": len(history.snapshots),
+            "snapshot": db_snapshot,
         }
         
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/api/v1/portfolio/snapshot/daily")
+async def take_daily_snapshots(
+    db: AsyncSession = Depends(get_db_session),
+):
+    """
+    Take daily snapshots for ALL users with portfolios.
+    Called by cron job (e.g., 11 PM after market close).
+    No auth required — internal use.
+    """
+    try:
+        from db.portfolio_history_service import PortfolioHistoryService
+        from db.models import UserPortfolio
+        
+        result = await db.execute(select(UserPortfolio))
+        portfolios = list(result.scalars().all())
+        
+        results = []
+        for portfolio in portfolios:
+            try:
+                snapshot = await PortfolioHistoryService.take_snapshot(db, portfolio.user_id)
+                if snapshot:
+                    results.append({"user_id": portfolio.user_id, "snapshot": snapshot})
+            except Exception as e:
+                results.append({"user_id": portfolio.user_id, "error": str(e)})
+        
+        return {
+            "success": True,
+            "message": f"Snapshots taken for {len(results)} portfolios",
+            "results": results,
+        }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

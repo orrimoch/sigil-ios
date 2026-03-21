@@ -16,7 +16,7 @@ class PortfolioViewModel: ObservableObject {
     // F7.2: History & Performance
     @Published var history: [PortfolioSnapshot] = []
     @Published var performance: PortfolioPerformance?
-    @Published var selectedPeriod: PerformancePeriod = .oneWeek
+    @Published var selectedPeriod: PerformancePeriod = .all
     @Published var portfolioAgeDays: Int = 0  // Days since first trade/snapshot
     
     // F7.3: Sector Allocation
@@ -107,10 +107,8 @@ class PortfolioViewModel: ObservableObject {
                 }() {
                     portfolioAgeDays = max(1, Calendar.current.dateComponents([.day], from: firstDate, to: Date()).day ?? 1)
                     
-                    // Auto-select appropriate period on first load
-                    if selectedPeriod.days > portfolioAgeDays * 2 {
-                        selectedPeriod = appropriatePeriod
-                    }
+                    // Don't auto-override user's period selection
+                    // The "All" period should always show full history
                 }
             }
             
@@ -127,11 +125,8 @@ class PortfolioViewModel: ObservableObject {
     
     /// Returns periods that make sense for the portfolio's age
     var availablePeriods: [PerformancePeriod] {
-        PerformancePeriod.allCases.filter { period in
-            // Show period if portfolio is at least 50% of that period's duration
-            // (e.g., show 1W if portfolio is at least 3-4 days old)
-            period.days <= portfolioAgeDays * 2 || period == .all
-        }
+        // Always show all period options
+        PerformancePeriod.allCases
     }
     
     /// Best period to show based on portfolio age

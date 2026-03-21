@@ -39,10 +39,15 @@ class TestPortfolioHistoryService:
         mock_portfolio = MagicMock()
         mock_portfolio.starting_cash = 100000.0
         mock_portfolio.cash_balance = 100000.0
+        mock_portfolio.id = "test-portfolio"
         
-        # First call returns portfolio, second returns empty orders
+        # Calls: 1) portfolio lookup, 2) snapshots query (empty), 3) orders query (empty)
+        empty_snapshot_result = MagicMock()
+        empty_snapshot_result.fetchall.return_value = []
+        
         results = [
             MagicMock(scalar_one_or_none=MagicMock(return_value=mock_portfolio)),
+            empty_snapshot_result,  # snapshots query returns empty
             MagicMock(scalars=MagicMock(return_value=MagicMock(all=MagicMock(return_value=[])))),
         ]
         mock_db.execute = AsyncMock(side_effect=results)
@@ -130,6 +135,13 @@ class TestPortfolioHistoryService:
             ]
             
             mock_db = AsyncMock()
+            # get_performance now does a portfolio lookup for starting_cash
+            mock_portfolio = MagicMock()
+            mock_portfolio.starting_cash = 100000.0
+            portfolio_result = MagicMock()
+            portfolio_result.scalar_one_or_none.return_value = mock_portfolio
+            mock_db.execute = AsyncMock(return_value=portfolio_result)
+            
             result = await PortfolioHistoryService.get_performance(mock_db, "test-user", 7)
             
             assert result["period_days"] == 7

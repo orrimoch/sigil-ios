@@ -428,10 +428,17 @@ class PortfolioHistory:
         for snapshot in self.snapshots:
             # Parse ISO timestamp
             try:
-                ts = datetime.fromisoformat(snapshot.timestamp.replace("Z", "+00:00"))
-                if ts.timestamp() >= cutoff:
+                # Handle both naive and timezone-aware ISO timestamps
+                ts_str = snapshot.timestamp.replace("Z", "+00:00")
+                try:
+                    ts = datetime.fromisoformat(ts_str)
+                except ValueError:
+                    # Fallback for edge cases
+                    ts = datetime.strptime(ts_str[:19], "%Y-%m-%dT%H:%M:%S")
+                # Compare as naive timestamps to avoid tz issues
+                if ts.replace(tzinfo=None).timestamp() >= cutoff:
                     result.append(snapshot.to_dict())
-            except:
+            except Exception:
                 result.append(snapshot.to_dict())
         
         return result

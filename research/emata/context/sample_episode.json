@@ -1,0 +1,34 @@
+{
+  "_description": "Example of an EMATA episode — a complete decision with context + outcome + lesson",
+  "decision": {
+    "ticker": "NVDA",
+    "action": "BUY",
+    "shares": 10,
+    "price": 890.0,
+    "score": 81.3,
+    "regime": "normal",
+    "sector": "Technology",
+    "rationale": "AI spending accelerating. Strong fundamentals (85.1), positive sentiment (77.4). Technical breakout above 880 resistance.",
+    "confidence": 0.85
+  },
+  "context_snapshot": {
+    "portfolio_cash_pct": 0.35,
+    "sector_exposure_tech": 0.28,
+    "regime": "normal",
+    "vix": 14.8,
+    "score_components": {
+      "fundamental": 85.1,
+      "sentiment": 77.4,
+      "technical": 79.2,
+      "macro": 71.5
+    }
+  },
+  "outcome": {
+    "pct_return": 12.5,
+    "holding_days": 21,
+    "exit_price": 1001.25,
+    "tag": "strong_win"
+  },
+  "lesson_learned": "High-conviction tech buys with score >80 and bullish technicals during normal regime tend to outperform. The AI spending thesis was validated by subsequent earnings.",
+  "embedding_text": "BUY NVDA score=81.3 regime=normal sector=Technology vix=14.8 fundamental=85.1 sentiment=77.4 technical=79.2 macro=71.5 cash_pct=0.35 tech_exposure=0.28"
+}

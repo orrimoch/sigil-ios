@@ -1,0 +1,73 @@
+{
+  "no_memory": {
+    "strategy_name": "no_memory",
+    "retrieval_precision": 0.0,
+    "retrieval_recall": 0.0,
+    "avg_similarity": 0.0,
+    "regime_diversity": 0.0,
+    "sector_diversity": 0.0,
+    "outcome_balance": 0.0,
+    "avg_return": 0.9206123101526632,
+    "win_rate": 0.16,
+    "sharpe_ratio": 1.4052159758305132,
+    "max_drawdown": -30.0,
+    "utility_improvement": 0.0,
+    "convergence_epoch": 0,
+    "avg_retrieval_time_ms": 0.0
+  },
+  "naive_similarity": {
+    "strategy_name": "naive_similarity",
+    "retrieval_precision": 0.25,
+    "retrieval_recall": 0.0,
+    "avg_similarity": NaN,
+    "regime_diversity": -1.4426951601859516e-10,
+    "sector_diversity": -1.4426951601859516e-10,
+    "outcome_balance": 0.0,
+    "avg_return": 0.22667667942254766,
+    "win_rate": 0.54,
+    "sharpe_ratio": 0.22092916283398056,
+    "max_drawdown": -50.67465522076857,
+    "utility_improvement": 0.0,
+    "convergence_epoch": 0,
+    "avg_retrieval_time_ms": 0.0
+  },
+  "emata_base": {
+    "strategy_name": "emata_base",
+    "retrieval_precision": 0.3620000000000001,
+    "retrieval_recall": 0.0,
+    "avg_similarity": 0.0,
+    "regime_diversity": 0.5674985609926136,
+    "sector_diversity": 2.3389477201632802,
+    "outcome_balance": 0.6666666666666666,
+    "avg_return": 0.2143988090306786,
+    "win_rate": 0.54,
+    "sharpe_ratio": 0.27393721267531007,
+    "max_drawdown": -36.54786588498319,
+    "utility_improvement": 0.0,
+    "convergence_epoch": 0,
+    "avg_retrieval_time_ms": 0.0
+  },
+  "emata_meta": {
+    "strategy_name": "emata_meta",
+    "retrieval_precision": 0.35700000000000004,
+    "retrieval_recall": 0.0,
+    "avg_similarity": 0.0,
+    "regime_diversity": 0.5951780692660728,
+    "sector_diversity": 2.336747989227389,
+    "outcome_balance": 0.6666666666666666,
+    "avg_return": 0.27453510681977633,
+    "win_rate": 0.54,
+    "sharpe_ratio": 0.34459703758842747,
+    "max_drawdown": -36.54786588498318,
+    "utility_improvement": -0.20081953781336925,
+    "convergence_epoch": 0,
+    "avg_retrieval_time_ms": 0.0
+  },
+  "metadata": {
+    "timestamp": "2026-03-20T22:31:03.573590",
+    "num_episodes": 500,
+    "num_scenarios": 100,
+    "sigil_scores_used": true,
+    "k": 10
+  }
+}

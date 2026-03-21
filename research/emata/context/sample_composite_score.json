@@ -1,0 +1,16 @@
+{
+  "ticker": "AAPL",
+  "company_name": "Apple Inc.",
+  "score": 72.5,
+  "signal": "BUY",
+  "sector": "Technology",
+  "rank": 3,
+  "fundamental_score": 78.2,
+  "sentiment_score": 65.0,
+  "technical_score": 70.1,
+  "macro_score": 68.3,
+  "insider_score": null,
+  "volatility": 0.23,
+  "score_change": 2.1,
+  "timestamp": "2026-03-20T14:30:00Z"
+}
