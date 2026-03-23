@@ -1,6 +1,96 @@
 {
   "alerts": [
     {
+      "id": "ef23998d",
+      "type": "signal_change",
+      "ticker": "CSX",
+      "title": "Signal changed",
+      "subtitle": "HOLD \u2192 SELL",
+      "timestamp": "2026-03-23T03:13:25.171356",
+      "read": false
+    },
+    {
+      "id": "e14c11ec",
+      "type": "signal_change",
+      "ticker": "PLD",
+      "title": "Signal changed",
+      "subtitle": "BUY \u2192 HOLD",
+      "timestamp": "2026-03-23T03:13:25.170011",
+      "read": false
+    },
+    {
+      "id": "12e605a2",
+      "type": "score_change",
+      "ticker": "CSX",
+      "title": "Score decreased +12 pts",
+      "subtitle": "Now rated SELL (32)",
+      "timestamp": "2026-03-23T03:13:25.168759",
+      "read": false
+    },
+    {
+      "id": "fb4297aa",
+      "type": "score_change",
+      "ticker": "SO",
+      "title": "Score increased +22 pts",
+      "subtitle": "Now rated HOLD (69)",
+      "timestamp": "2026-03-23T03:13:25.167574",
+      "read": false
+    },
+    {
+      "id": "59d92677",
+      "type": "score_change",
+      "ticker": "AAPL",
+      "title": "Score decreased +12 pts",
+      "subtitle": "Now rated SELL (25)",
+      "timestamp": "2026-03-23T03:13:00.995750",
+      "read": false
+    },
+    {
+      "id": "7f96c7ea",
+      "type": "score_change",
+      "ticker": "AAPL",
+      "title": "Score increased +12 pts",
+      "subtitle": "Now rated SELL (37)",
+      "timestamp": "2026-03-23T03:12:48.831739",
+      "read": false
+    },
+    {
+      "id": "e70ab3e0",
+      "type": "score_change",
+      "ticker": "AAPL",
+      "title": "Score decreased +12 pts",
+      "subtitle": "Now rated SELL (25)",
+      "timestamp": "2026-03-23T03:08:19.320915",
+      "read": false
+    },
+    {
+      "id": "03fac221",
+      "type": "score_change",
+      "ticker": "AAPL",
+      "title": "Score increased +11 pts",
+      "subtitle": "Now rated SELL (37)",
+      "timestamp": "2026-03-23T03:08:16.705018",
+      "read": false
+    },
+    {
+      "id": "fea88f5f",
+      "type": "score_change",
+      "ticker": "AAPL",
+      "title": "Score decreased +11 pts",
+      "subtitle": "Now rated SELL (26)",
+      "timestamp": "2026-03-23T03:03:17.535804",
+      "read": false
+    },
+    {
+      "id": "da2e7fbf",
+      "type": "score_change",
+      "ticker": "AAPL",
+      "title": "Score increased +10 pts",
+      "subtitle": "Now rated SELL (37)",
+      "timestamp": "2026-03-23T03:03:15.005580",
+      "read": false
+    },
+    {
       "id": "1fd0b3ff",
       "type": "score_change",
       "ticker": "AAPL",
@@ -809,97 +899,7 @@
       "subtitle": "Now rated HOLD (49)",
       "timestamp": "2026-03-21T15:10:12.763427",
       "read": false
-    },
-    {
-      "id": "215eaa4d",
-      "type": "score_change",
-      "ticker": "AS",
-      "title": "Score decreased +26 pts",
-      "subtitle": "Now rated SELL (20)",
-      "timestamp": "2026-03-21T15:10:12.762310",
-      "read": false
-    },
-    {
-      "id": "c258297d",
-      "type": "score_change",
-      "ticker": "TEAM",
-      "title": "Score decreased +25 pts",
-      "subtitle": "Now rated SELL (37)",
-      "timestamp": "2026-03-21T15:10:12.761209",
-      "read": false
-    },
-    {
-      "id": "692c0f06",
-      "type": "score_change",
-      "ticker": "DOW",
-      "title": "Score decreased +26 pts",
-      "subtitle": "Now rated HOLD (59)",
-      "timestamp": "2026-03-21T15:10:12.760108",
-      "read": false
-    },
-    {
-      "id": "18414b14",
-      "type": "score_change",
-      "ticker": "ON",
-      "title": "Score decreased +27 pts",
-      "subtitle": "Now rated HOLD (53)",
-      "timestamp": "2026-03-21T15:10:12.758969",
-      "read": false
-    },
-    {
-      "id": "6214d189",
-      "type": "score_change",
-      "ticker": "A",
-      "title": "Score decreased +26 pts",
-      "subtitle": "Now rated SELL (33)",
-      "timestamp": "2026-03-21T15:10:12.757851",
-      "read": false
-    },
-    {
-      "id": "c0df89c6",
-      "type": "score_change",
-      "ticker": "BE",
-      "title": "Score decreased +26 pts",
-      "subtitle": "Now rated HOLD (53)",
-      "timestamp": "2026-03-21T15:10:12.756719",
-      "read": false
-    },
-    {
-      "id": "85acbd04",
-      "type": "score_change",
-      "ticker": "FIX",
-      "title": "Score decreased +24 pts",
-      "subtitle": "Now rated SELL (19)",
-      "timestamp": "2026-03-21T15:10:12.755578",
-      "read": false
-    },
-    {
-      "id": "c92abe86",
-      "type": "score_change",
-      "ticker": "LNG",
-      "title": "Score decreased +25 pts",
-      "subtitle": "Now rated SELL (9)",
-      "timestamp": "2026-03-21T15:10:12.754493",
-      "read": false
-    },
-    {
-      "id": "6d3b4406",
-      "type": "score_change",
-      "ticker": "CNI",
-      "title": "Score decreased +24 pts",
-      "subtitle": "Now rated SELL (23)",
-      "timestamp": "2026-03-21T15:10:12.753372",
-      "read": false
-    },
-    {
-      "id": "310e77b4",
-      "type": "score_change",
-      "ticker": "WBD",
-      "title": "Score decreased +25 pts",
-      "subtitle": "Now rated HOLD (69)",
-      "timestamp": "2026-03-21T15:10:12.752295",
-      "read": false
     }
   ],
-  "updated_at": "2026-03-22T03:14:31.556110"
+  "updated_at": "2026-03-23T03:13:25.171968"
 }
