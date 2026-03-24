@@ -1,16 +1,16 @@
 {
-  "cash": 99752.01,
+  "cash": 99748.50999450684,
   "starting_cash": 100000.0,
   "is_paper": true,
   "positions": {
     "AAPL": {
       "ticker": "AAPL",
       "shares": 1,
-      "avg_cost": 247.99,
-      "opened_at": "2026-03-23T03:18:14.302999"
+      "avg_cost": 251.49000549316406,
+      "opened_at": "2026-03-24T03:27:31.141599"
     }
   },
   "realized_pnl": 0.0,
-  "created_at": "2026-03-23T03:18:13.050329",
-  "updated_at": "2026-03-23T03:18:14.303013"
+  "created_at": "2026-03-24T03:27:30.271546",
+  "updated_at": "2026-03-24T03:27:31.141601"
 }
