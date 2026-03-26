@@ -3,11 +3,13 @@ import SwiftUI
 /// F5.x: Scores Tab
 /// Sortable list of all stocks with scores and signals
 struct ScoresView: View {
+    @EnvironmentObject var appState: AppState
     @StateObject private var viewModel = ScoresViewModel()
     @State private var showSectorPicker = false
+    @State private var deepLinkNavigationPath = NavigationPath()
     
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $deepLinkNavigationPath) {
             VStack(spacing: 0) {
                 // Filter bar
                 FilterBar(viewModel: viewModel, showSectorPicker: $showSectorPicker)
@@ -124,6 +126,22 @@ struct ScoresView: View {
                 }
             }
             .background(Color.Background.primary)
+            .navigationDestination(for: String.self) { ticker in
+                StockDetailView(ticker: ticker)
+            }
+            .onChange(of: appState.deepLinkTicker) { _, ticker in
+                if let ticker {
+                    deepLinkNavigationPath.append(ticker)
+                    appState.deepLinkTicker = nil
+                }
+            }
+            .onAppear {
+                // Handle deep link if set before view appeared
+                if let ticker = appState.deepLinkTicker {
+                    deepLinkNavigationPath.append(ticker)
+                    appState.deepLinkTicker = nil
+                }
+            }
             .navigationTitle("Scores")
             .navigationBarTitleDisplayMode(.large)
             .toolbarBackground(Color.Background.primary, for: .navigationBar)

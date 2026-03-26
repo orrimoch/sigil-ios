@@ -18,11 +18,11 @@ Sector Analysis answers these key questions:
 
 It aggregates individual stock scores by sector and industry, revealing market-level trends that aren't visible when looking at single stocks.
 
-| Individual Stock Scores | Sector Analysis |
-|------------------------|-----------------|
-| "NVDA: 80 (BUY)" | "Technology: 49.2 avg, 28.6% SELL signals" |
-| "AAPL: 65 (HOLD)" | "Energy: 59.2 avg, strongest sector" |
-| One stock at a time | Market-wide view |
+| Individual Stock Scores | Sector Analysis                            |
+| ----------------------- | ------------------------------------------ |
+| "NVDA: 80 (BUY)"        | "Technology: 49.2 avg, 28.6% SELL signals" |
+| "AAPL: 65 (HOLD)"       | "Energy: 59.2 avg, strongest sector"       |
+| One stock at a time     | Market-wide view                           |
 
 ---
 
@@ -58,6 +58,7 @@ python3 -m src.analytics list-sectors
 ```
 
 **Output:**
+
 ```
 📊 AVAILABLE SECTORS & INDUSTRIES
 ============================================================
@@ -88,14 +89,14 @@ Calculates aggregated scores for each sector.
 python3 -m src.analytics sector-scores [OPTIONS]
 ```
 
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `--date` | DATE | Latest | Date to analyze (YYYY-MM-DD) |
-| `--sector` | STRING | All | Filter by sector name |
-| `--industry` | STRING | All | Filter by industry name |
-| `--top-n` | INT | All | Limit to top N stocks by market cap |
-| `--output` | PATH | stdout | Output file path |
-| `--format` | STRING | table | Output format: `table`, `json`, `csv` |
+| Parameter    | Type   | Default | Description                           |
+| ------------ | ------ | ------- | ------------------------------------- |
+| `--date`     | DATE   | Latest  | Date to analyze (YYYY-MM-DD)          |
+| `--sector`   | STRING | All     | Filter by sector name                 |
+| `--industry` | STRING | All     | Filter by industry name               |
+| `--top-n`    | INT    | All     | Limit to top N stocks by market cap   |
+| `--output`   | PATH   | stdout  | Output file path                      |
+| `--format`   | STRING | table   | Output format: `table`, `json`, `csv` |
 
 **Examples:**
 
@@ -120,6 +121,7 @@ python3 -m src.analytics sector-scores --output sector_scores.json --format json
 ```
 
 **Sample Output (table format):**
+
 ```
 📊 SECTOR SCORES for 2026-02-14
 ================================================================================
@@ -134,6 +136,7 @@ Financial Services           43.7        🟡     2.2%    65.7%    32.1%     134
 ```
 
 **Understanding the Output:**
+
 - **Score**: Mean score across all stocks in the sector (0-100)
 - **Signal**: Sector-level signal based on mean score (🟢 BUY ≥70, 🟡 HOLD 40-69, 🔴 SELL <40)
 - **BUY/HOLD/SELL %**: Distribution of individual stock signals within the sector
@@ -149,25 +152,25 @@ Generates publication-quality charts showing sector performance over time.
 python3 -m src.analytics sector-trends [OPTIONS]
 ```
 
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `--start` | DATE | 30 days ago | Start date (YYYY-MM-DD) |
-| `--end` | DATE | Today | End date (YYYY-MM-DD) |
-| `--sectors` | STRING | All | Comma-separated sector names |
-| `--top-n` | INT | All | Limit to top N stocks by market cap |
-| `--chart-type` | STRING | line | Chart type (see below) |
-| `--output` | PATH | **Required** | Output file path (PNG or HTML) |
-| `--width` | INT | 1200 | Chart width in pixels |
-| `--height` | INT | 700 | Chart height in pixels |
+| Parameter      | Type   | Default      | Description                         |
+| -------------- | ------ | ------------ | ----------------------------------- |
+| `--start`      | DATE   | 30 days ago  | Start date (YYYY-MM-DD)             |
+| `--end`        | DATE   | Today        | End date (YYYY-MM-DD)               |
+| `--sectors`    | STRING | All          | Comma-separated sector names        |
+| `--top-n`      | INT    | All          | Limit to top N stocks by market cap |
+| `--chart-type` | STRING | line         | Chart type (see below)              |
+| `--output`     | PATH   | **Required** | Output file path (PNG or HTML)      |
+| `--width`      | INT    | 1200         | Chart width in pixels               |
+| `--height`     | INT    | 700          | Chart height in pixels              |
 
 **Chart Types:**
 
-| Type | Description | Best For |
-|------|-------------|----------|
-| `line` | Line chart of mean scores | Trend comparison |
-| `heatmap` | Sector × Date heatmap | Quick visual scan |
-| `distribution` | Boxplots per sector | Score spread analysis |
-| `stacked` | Stacked area of signals | Signal distribution over time |
+| Type           | Description               | Best For                      |
+| -------------- | ------------------------- | ----------------------------- |
+| `line`         | Line chart of mean scores | Trend comparison              |
+| `heatmap`      | Sector × Date heatmap     | Quick visual scan             |
+| `distribution` | Boxplots per sector       | Score spread analysis         |
+| `stacked`      | Stacked area of signals   | Signal distribution over time |
 
 **Examples:**
 
@@ -219,12 +222,12 @@ Generates a complete sector analysis report with all chart types and summary dat
 python3 -m src.analytics sector-report [OPTIONS]
 ```
 
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `--start` | DATE | 30 days ago | Start date |
-| `--end` | DATE | Today | End date |
-| `--top-n` | INT | All | Limit to top N stocks |
-| `--output` | PATH | **Required** | Output directory |
+| Parameter  | Type | Default      | Description           |
+| ---------- | ---- | ------------ | --------------------- |
+| `--start`  | DATE | 30 days ago  | Start date            |
+| `--end`    | DATE | Today        | End date              |
+| `--top-n`  | INT  | All          | Limit to top N stocks |
+| `--output` | PATH | **Required** | Output directory      |
 
 **Example:**
 
@@ -240,6 +243,7 @@ python3 -m src.analytics sector-report \
 ```
 
 **Generated Files:**
+
 ```
 ./reports/sector_analysis/
 ├── sector_trends.png         # Line chart of sector scores
@@ -268,6 +272,7 @@ python3 -m src.analytics sector-trends --output ~/Desktop/weekly_sectors.png
 ```
 
 **What to look for:**
+
 - Which sectors have the highest average scores?
 - Any sectors with high % of BUY signals?
 - Any sectors with high % of SELL signals (potential shorts or avoid)?
@@ -285,6 +290,7 @@ python3 -m src.analytics sector-trends \
 ```
 
 **What to look for:**
+
 - Color transitions from red→green = improving sentiment
 - Color transitions from green→red = deteriorating sentiment
 - Compare against economic cycles (e.g., Energy often leads in inflation)
@@ -320,11 +326,13 @@ python3 -m src.analytics sector-trends --top-n 50 --output mega_caps.png
 ### Line Chart (`--chart-type line`)
 
 Shows mean sector scores over time:
+
 - **Y-axis**: Score (0-100)
 - **Lines**: One per sector
 - **Dashed lines**: BUY threshold (70) and SELL threshold (40)
 
 **Interpretation:**
+
 - Lines above 70 = bullish sectors
 - Lines below 40 = bearish sectors
 - Crossing thresholds = potential rotation signals
@@ -332,11 +340,13 @@ Shows mean sector scores over time:
 ### Heatmap (`--chart-type heatmap`)
 
 Color-coded matrix of sectors × dates:
+
 - **Rows**: Sectors (sorted by current score)
 - **Columns**: Dates
 - **Colors**: Red (low) → Yellow (neutral) → Green (high)
 
 **Interpretation:**
+
 - Green rows = consistently bullish
 - Red rows = consistently bearish
 - Color changes = sentiment shifts
@@ -344,11 +354,13 @@ Color-coded matrix of sectors × dates:
 ### Distribution (`--chart-type distribution`)
 
 Boxplots showing score spread within each sector:
+
 - **Box**: 25th-75th percentile
 - **Line in box**: Median
 - **Whiskers**: Min-max range
 
 **Interpretation:**
+
 - Tight boxes = consistent sentiment
 - Wide boxes = mixed signals, higher uncertainty
 - Outliers = individual stock divergence
@@ -356,11 +368,13 @@ Boxplots showing score spread within each sector:
 ### Stacked Area (`--chart-type stacked`)
 
 Shows BUY/HOLD/SELL distribution over time:
+
 - **Green area**: % of stocks with BUY signal
 - **Yellow area**: % of stocks with HOLD signal
 - **Red area**: % of stocks with SELL signal
 
 **Interpretation:**
+
 - Growing green = more bullish momentum
 - Growing red = more bearish momentum
 - Large yellow = market uncertainty
@@ -372,20 +386,23 @@ Shows BUY/HOLD/SELL distribution over time:
 If a stock is missing a score for a particular date (e.g., new listing, data gap), the system automatically **imputes** with the sector average.
 
 This ensures:
+
 - No gaps in sector calculations
 - Consistent stock counts across dates
 - Transparent tracking (imputation count is shown)
 
 **Imputation is noted in output:**
+
 ```
 Coverage: 126 stocks (3 imputed)
 ```
 
 **Confidence levels:**
+
 - ≤5% imputed = HIGH confidence
 - 6-15% imputed = MEDIUM confidence
 - 16-30% imputed = LOW confidence
-- >30% imputed = VERY LOW confidence (⚠️ warning shown)
+- > 30% imputed = VERY LOW confidence (⚠️ warning shown)
 
 ---
 
@@ -393,18 +410,20 @@ Coverage: 126 stocks (3 imputed)
 
 The sector analysis uses existing Sigil data:
 
-| Data | File | Updated |
-|------|------|---------|
+| Data           | File                               | Updated      |
+| -------------- | ---------------------------------- | ------------ |
 | Stock Universe | `backend/data/stock_universe.json` | Pipeline run |
-| Score History | `backend/data/score_history.json` | Pipeline run |
+| Score History  | `backend/data/score_history.json`  | Pipeline run |
 
 **Stock Universe includes:**
+
 - 850 stocks (NASDAQ + NYSE, market cap > $10B)
 - 12 sectors
 - 131 industries
 - Market cap for ranking
 
 **Score History includes:**
+
 - Up to 90 days of historical scores
 - Per-stock daily scores
 - All score components (fundamental, sentiment, technical, macro)
@@ -418,6 +437,7 @@ The sector analysis uses existing Sigil data:
 The score history may not have data for your requested date range.
 
 **Fix:** Check available dates:
+
 ```bash
 python3 -c "
 from src.analytics import SectorAnalyzer
@@ -432,11 +452,13 @@ print('Available dates:', dates[:5], '...', dates[-5:])
 Charts require matplotlib to be installed.
 
 **Fix:**
+
 ```bash
 pip install matplotlib
 ```
 
 For interactive HTML charts:
+
 ```bash
 pip install plotly
 ```
@@ -446,6 +468,7 @@ pip install plotly
 If you see "⚠️ X% of scores were imputed", it means significant data is missing.
 
 **Possible causes:**
+
 - Recent date range (not enough pipeline runs)
 - Filtering to a small subset
 - New stocks without history

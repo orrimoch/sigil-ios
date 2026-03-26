@@ -305,6 +305,13 @@ struct SigilApp: App {
         case "trade": appState.selectedTab = .trade
         case "portfolio": appState.selectedTab = .portfolio
         case "settings": appState.selectedTab = .settings
+        case "stock":
+            // sigil://stock/LITE → navigate to Scores tab and open StockDetailView
+            let ticker = url.pathComponents.dropFirst().first ?? ""
+            if !ticker.isEmpty {
+                appState.deepLinkTicker = ticker.uppercased()
+                appState.selectedTab = .scores
+            }
         default: break
         }
     }
@@ -344,6 +351,9 @@ class AppState: ObservableObject {
         }
     }
     @Published var isPaperTrading: Bool = true
+    /// Deep link ticker — when set, navigates to StockDetailView for this ticker
+    @Published var deepLinkTicker: String?
+    
     @Published var selectedTab: Tab = {
         if let raw = UserDefaults.standard.string(forKey: "initialTab"),
            let tab = Tab(rawValue: raw) {

@@ -15,7 +15,9 @@
 - [ ] Register `sigil.app` or `sigil.io` or alternative
 
 - **Options:** Namecheap, Cloudflare, Google Domains
+
 - **Cost:** ~$15-40/year
+
 - **Action:** Or to decide domain and register
 
 ### 2. Backend Hosting
@@ -23,11 +25,14 @@
 - [ ] Choose hosting provider
 
 - **Options:**
+  
   - Railway (~$5-20/month) - Easy deploy
   - Render (~$7/month) - Good free tier
   - Fly.io (~$5-15/month) - Edge deployment
   - DigitalOcean ($6/month) - VPS with more control
+
 - **Requirements:** Python 3.9+, SQLite/PostgreSQL, 512MB+ RAM
+
 - **Action:** Or to choose provider and create account
 
 ### 3. APNs Push Certificate
@@ -35,7 +40,9 @@
 - [ ] Generate APNs .p8 key from Apple Developer Portal
 
 - **Location:** Certificates, Identifiers & Profiles → Keys → Create Key
+
 - **Required for:** Push notifications (trade alerts, score updates)
+
 - **Action:** Or to generate from Apple Developer account
 
 ### 4. Email Service (Optional for MVP)
@@ -43,9 +50,11 @@
 - [ ] SendGrid or SMTP for password reset emails
 
 - **Options:**
+  
   - SendGrid (100 emails/day free)
   - Mailgun (5,000 emails/month free)
   - AWS SES (~$0.10/1000 emails)
+
 - **Action:** Or to create account if needed
 
 ---
