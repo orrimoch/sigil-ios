@@ -1,905 +1,905 @@
 {
   "alerts": [
     {
-      "id": "57610642",
-      "type": "signal_change",
-      "ticker": "SAP",
-      "title": "Signal changed",
-      "subtitle": "HOLD \u2192 SELL",
-      "timestamp": "2026-03-29T08:03:55.252490",
-      "read": false
-    },
-    {
-      "id": "fd9da53a",
-      "type": "score_change",
-      "ticker": "SAP",
-      "title": "Score decreased +23 pts",
-      "subtitle": "Now rated SELL (20)",
-      "timestamp": "2026-03-29T08:03:55.251094",
-      "read": false
-    },
-    {
-      "id": "e265bc5f",
-      "type": "signal_change",
-      "ticker": "SAP",
-      "title": "Signal changed",
-      "subtitle": "SELL \u2192 HOLD",
-      "timestamp": "2026-03-29T08:03:52.978795",
-      "read": false
-    },
-    {
-      "id": "023ec49e",
-      "type": "score_change",
-      "ticker": "SAP",
-      "title": "Score increased +23 pts",
-      "subtitle": "Now rated HOLD (43)",
-      "timestamp": "2026-03-29T08:03:52.977438",
-      "read": false
-    },
-    {
-      "id": "25204021",
+      "id": "52991bd3",
       "type": "score_change",
       "ticker": "AAPL",
-      "title": "Score decreased +12 pts",
+      "title": "Score decreased +11 pts",
       "subtitle": "Now rated SELL (25)",
-      "timestamp": "2026-03-29T08:03:50.631541",
+      "timestamp": "2026-03-30T03:13:10.536160",
       "read": false
     },
     {
-      "id": "8dc3b61d",
+      "id": "80fad0fa",
       "type": "score_change",
       "ticker": "AAPL",
       "title": "Score increased +12 pts",
       "subtitle": "Now rated SELL (37)",
-      "timestamp": "2026-03-29T08:03:48.232463",
+      "timestamp": "2026-03-30T03:13:08.164075",
       "read": false
     },
     {
-      "id": "82441e05",
+      "id": "ab422ab6",
+      "type": "signal_change",
+      "ticker": "WTFC",
+      "title": "Signal changed",
+      "subtitle": "HOLD \u2192 SELL",
+      "timestamp": "2026-03-30T03:08:39.538179",
+      "read": false
+    },
+    {
+      "id": "3c00cf20",
+      "type": "signal_change",
+      "ticker": "XP",
+      "title": "Signal changed",
+      "subtitle": "HOLD \u2192 SELL",
+      "timestamp": "2026-03-30T03:08:39.537097",
+      "read": false
+    },
+    {
+      "id": "288690d1",
+      "type": "signal_change",
+      "ticker": "COKE",
+      "title": "Signal changed",
+      "subtitle": "SELL \u2192 HOLD",
+      "timestamp": "2026-03-30T03:08:39.536055",
+      "read": false
+    },
+    {
+      "id": "41e4ad09",
+      "type": "signal_change",
+      "ticker": "AIZ",
+      "title": "Signal changed",
+      "subtitle": "HOLD \u2192 SELL",
+      "timestamp": "2026-03-30T03:08:39.535012",
+      "read": false
+    },
+    {
+      "id": "5a3325fc",
+      "type": "signal_change",
+      "ticker": "MOD",
+      "title": "Signal changed",
+      "subtitle": "HOLD \u2192 SELL",
+      "timestamp": "2026-03-30T03:08:39.533968",
+      "read": false
+    },
+    {
+      "id": "78708f87",
+      "type": "signal_change",
+      "ticker": "AEG",
+      "title": "Signal changed",
+      "subtitle": "HOLD \u2192 SELL",
+      "timestamp": "2026-03-30T03:08:39.532926",
+      "read": false
+    },
+    {
+      "id": "49af59f2",
+      "type": "signal_change",
+      "ticker": "IVZ",
+      "title": "Signal changed",
+      "subtitle": "HOLD \u2192 SELL",
+      "timestamp": "2026-03-30T03:08:39.531894",
+      "read": false
+    },
+    {
+      "id": "7a6222eb",
+      "type": "signal_change",
+      "ticker": "GMED",
+      "title": "Signal changed",
+      "subtitle": "HOLD \u2192 SELL",
+      "timestamp": "2026-03-30T03:08:39.530860",
+      "read": false
+    },
+    {
+      "id": "5d1b3bad",
+      "type": "signal_change",
+      "ticker": "FHN",
+      "title": "Signal changed",
+      "subtitle": "HOLD \u2192 SELL",
+      "timestamp": "2026-03-30T03:08:39.529827",
+      "read": false
+    },
+    {
+      "id": "03431b81",
+      "type": "signal_change",
+      "ticker": "SF",
+      "title": "Signal changed",
+      "subtitle": "HOLD \u2192 SELL",
+      "timestamp": "2026-03-30T03:08:39.528789",
+      "read": false
+    },
+    {
+      "id": "0ea7449e",
+      "type": "signal_change",
+      "ticker": "EQX",
+      "title": "Signal changed",
+      "subtitle": "HOLD \u2192 SELL",
+      "timestamp": "2026-03-30T03:08:39.527758",
+      "read": false
+    },
+    {
+      "id": "358c04a7",
+      "type": "signal_change",
+      "ticker": "ELAN",
+      "title": "Signal changed",
+      "subtitle": "BUY \u2192 HOLD",
+      "timestamp": "2026-03-30T03:08:39.526719",
+      "read": false
+    },
+    {
+      "id": "195fa093",
+      "type": "signal_change",
+      "ticker": "IAG",
+      "title": "Signal changed",
+      "subtitle": "HOLD \u2192 SELL",
+      "timestamp": "2026-03-30T03:08:39.525679",
+      "read": false
+    },
+    {
+      "id": "678f4350",
+      "type": "signal_change",
+      "ticker": "BNT",
+      "title": "Signal changed",
+      "subtitle": "HOLD \u2192 SELL",
+      "timestamp": "2026-03-30T03:08:39.524640",
+      "read": false
+    },
+    {
+      "id": "0a095351",
+      "type": "signal_change",
+      "ticker": "CNA",
+      "title": "Signal changed",
+      "subtitle": "HOLD \u2192 SELL",
+      "timestamp": "2026-03-30T03:08:39.523609",
+      "read": false
+    },
+    {
+      "id": "8273862a",
+      "type": "signal_change",
+      "ticker": "PNFP",
+      "title": "Signal changed",
+      "subtitle": "HOLD \u2192 SELL",
+      "timestamp": "2026-03-30T03:08:39.522560",
+      "read": false
+    },
+    {
+      "id": "b631deaa",
+      "type": "signal_change",
+      "ticker": "CDW",
+      "title": "Signal changed",
+      "subtitle": "HOLD \u2192 SELL",
+      "timestamp": "2026-03-30T03:08:39.521512",
+      "read": false
+    },
+    {
+      "id": "0b6f2082",
+      "type": "signal_change",
+      "ticker": "BSAC",
+      "title": "Signal changed",
+      "subtitle": "BUY \u2192 HOLD",
+      "timestamp": "2026-03-30T03:08:39.520470",
+      "read": false
+    },
+    {
+      "id": "e33afb1e",
+      "type": "signal_change",
+      "ticker": "ILMN",
+      "title": "Signal changed",
+      "subtitle": "BUY \u2192 HOLD",
+      "timestamp": "2026-03-30T03:08:39.519430",
+      "read": false
+    },
+    {
+      "id": "41d12441",
+      "type": "signal_change",
+      "ticker": "SN",
+      "title": "Signal changed",
+      "subtitle": "HOLD \u2192 SELL",
+      "timestamp": "2026-03-30T03:08:39.518355",
+      "read": false
+    },
+    {
+      "id": "ceb227fa",
+      "type": "signal_change",
+      "ticker": "RVMD",
+      "title": "Signal changed",
+      "subtitle": "BUY \u2192 HOLD",
+      "timestamp": "2026-03-30T03:08:39.517321",
+      "read": false
+    },
+    {
+      "id": "f0fd29a2",
       "type": "signal_change",
       "ticker": "APG",
       "title": "Signal changed",
       "subtitle": "HOLD \u2192 SELL",
-      "timestamp": "2026-03-29T08:02:43.950689",
+      "timestamp": "2026-03-30T03:08:39.516287",
       "read": false
     },
     {
-      "id": "70b3497a",
+      "id": "bfca4453",
+      "type": "signal_change",
+      "ticker": "OWL",
+      "title": "Signal changed",
+      "subtitle": "HOLD \u2192 SELL",
+      "timestamp": "2026-03-30T03:08:39.515252",
+      "read": false
+    },
+    {
+      "id": "981a49a2",
+      "type": "signal_change",
+      "ticker": "CG",
+      "title": "Signal changed",
+      "subtitle": "BUY \u2192 HOLD",
+      "timestamp": "2026-03-30T03:08:39.514212",
+      "read": false
+    },
+    {
+      "id": "55f48d51",
+      "type": "signal_change",
+      "ticker": "CNC",
+      "title": "Signal changed",
+      "subtitle": "BUY \u2192 HOLD",
+      "timestamp": "2026-03-30T03:08:39.513179",
+      "read": false
+    },
+    {
+      "id": "b51a4af7",
+      "type": "signal_change",
+      "ticker": "TROW",
+      "title": "Signal changed",
+      "subtitle": "HOLD \u2192 SELL",
+      "timestamp": "2026-03-30T03:08:39.512147",
+      "read": false
+    },
+    {
+      "id": "6ab9937b",
+      "type": "signal_change",
+      "ticker": "BCH",
+      "title": "Signal changed",
+      "subtitle": "BUY \u2192 HOLD",
+      "timestamp": "2026-03-30T03:08:39.511104",
+      "read": false
+    },
+    {
+      "id": "635e712c",
+      "type": "signal_change",
+      "ticker": "JBL",
+      "title": "Signal changed",
+      "subtitle": "HOLD \u2192 SELL",
+      "timestamp": "2026-03-30T03:08:39.510044",
+      "read": false
+    },
+    {
+      "id": "5cf888c9",
+      "type": "signal_change",
+      "ticker": "XYZ",
+      "title": "Signal changed",
+      "subtitle": "HOLD \u2192 SELL",
+      "timestamp": "2026-03-30T03:08:39.509003",
+      "read": false
+    },
+    {
+      "id": "9d874e76",
+      "type": "signal_change",
+      "ticker": "FISV",
+      "title": "Signal changed",
+      "subtitle": "SELL \u2192 HOLD",
+      "timestamp": "2026-03-30T03:08:39.507968",
+      "read": false
+    },
+    {
+      "id": "d8baee1b",
+      "type": "signal_change",
+      "ticker": "ROP",
+      "title": "Signal changed",
+      "subtitle": "HOLD \u2192 SELL",
+      "timestamp": "2026-03-30T03:08:39.506931",
+      "read": false
+    },
+    {
+      "id": "fd6f10a6",
+      "type": "signal_change",
+      "ticker": "MCHP",
+      "title": "Signal changed",
+      "subtitle": "BUY \u2192 HOLD",
+      "timestamp": "2026-03-30T03:08:39.505885",
+      "read": false
+    },
+    {
+      "id": "9f926369",
+      "type": "signal_change",
+      "ticker": "ROK",
+      "title": "Signal changed",
+      "subtitle": "SELL \u2192 HOLD",
+      "timestamp": "2026-03-30T03:08:39.504847",
+      "read": false
+    },
+    {
+      "id": "844ee211",
+      "type": "signal_change",
+      "ticker": "HEI",
+      "title": "Signal changed",
+      "subtitle": "HOLD \u2192 SELL",
+      "timestamp": "2026-03-30T03:08:39.503812",
+      "read": false
+    },
+    {
+      "id": "a6eb6005",
+      "type": "signal_change",
+      "ticker": "MT",
+      "title": "Signal changed",
+      "subtitle": "HOLD \u2192 BUY",
+      "timestamp": "2026-03-30T03:08:39.502779",
+      "read": false
+    },
+    {
+      "id": "b60113bd",
+      "type": "signal_change",
+      "ticker": "TER",
+      "title": "Signal changed",
+      "subtitle": "SELL \u2192 HOLD",
+      "timestamp": "2026-03-30T03:08:39.501743",
+      "read": false
+    },
+    {
+      "id": "49677048",
+      "type": "signal_change",
+      "ticker": "MET",
+      "title": "Signal changed",
+      "subtitle": "HOLD \u2192 BUY",
+      "timestamp": "2026-03-30T03:08:39.500704",
+      "read": false
+    },
+    {
+      "id": "70e1fb42",
+      "type": "signal_change",
+      "ticker": "ASX",
+      "title": "Signal changed",
+      "subtitle": "BUY \u2192 HOLD",
+      "timestamp": "2026-03-30T03:08:39.499633",
+      "read": false
+    },
+    {
+      "id": "4b73d199",
+      "type": "signal_change",
+      "ticker": "RKT",
+      "title": "Signal changed",
+      "subtitle": "HOLD \u2192 BUY",
+      "timestamp": "2026-03-30T03:08:39.498583",
+      "read": false
+    },
+    {
+      "id": "f12cb4c9",
+      "type": "signal_change",
+      "ticker": "GWW",
+      "title": "Signal changed",
+      "subtitle": "HOLD \u2192 SELL",
+      "timestamp": "2026-03-30T03:08:39.497544",
+      "read": false
+    },
+    {
+      "id": "c578c9dc",
+      "type": "signal_change",
+      "ticker": "HOOD",
+      "title": "Signal changed",
+      "subtitle": "SELL \u2192 HOLD",
+      "timestamp": "2026-03-30T03:08:39.496497",
+      "read": false
+    },
+    {
+      "id": "b5ce0dea",
+      "type": "signal_change",
+      "ticker": "NET",
+      "title": "Signal changed",
+      "subtitle": "SELL \u2192 HOLD",
+      "timestamp": "2026-03-30T03:08:39.495460",
+      "read": false
+    },
+    {
+      "id": "bb274216",
+      "type": "signal_change",
+      "ticker": "COR",
+      "title": "Signal changed",
+      "subtitle": "BUY \u2192 HOLD",
+      "timestamp": "2026-03-30T03:08:39.494419",
+      "read": false
+    },
+    {
+      "id": "de9f7055",
+      "type": "signal_change",
+      "ticker": "AEP",
+      "title": "Signal changed",
+      "subtitle": "BUY \u2192 HOLD",
+      "timestamp": "2026-03-30T03:08:39.493383",
+      "read": false
+    },
+    {
+      "id": "83a8ce57",
+      "type": "signal_change",
+      "ticker": "MCO",
+      "title": "Signal changed",
+      "subtitle": "SELL \u2192 HOLD",
+      "timestamp": "2026-03-30T03:08:39.492345",
+      "read": false
+    },
+    {
+      "id": "590beea5",
+      "type": "signal_change",
+      "ticker": "NU",
+      "title": "Signal changed",
+      "subtitle": "HOLD \u2192 SELL",
+      "timestamp": "2026-03-30T03:08:39.491303",
+      "read": false
+    },
+    {
+      "id": "ce11f847",
       "type": "signal_change",
       "ticker": "ADP",
       "title": "Signal changed",
       "subtitle": "HOLD \u2192 SELL",
-      "timestamp": "2026-03-29T08:02:43.949543",
+      "timestamp": "2026-03-30T03:08:39.490253",
       "read": false
     },
     {
-      "id": "e978d271",
+      "id": "b52b75e9",
       "type": "signal_change",
-      "ticker": "BX",
+      "ticker": "ICE",
       "title": "Signal changed",
       "subtitle": "SELL \u2192 HOLD",
-      "timestamp": "2026-03-29T08:02:43.948462",
+      "timestamp": "2026-03-30T03:08:39.489219",
       "read": false
     },
     {
-      "id": "91094fb0",
-      "type": "score_change",
-      "ticker": "BX",
-      "title": "Score increased +22 pts",
-      "subtitle": "Now rated HOLD (41)",
-      "timestamp": "2026-03-29T08:02:43.947051",
-      "read": false
-    },
-    {
-      "id": "bc331a10",
-      "type": "score_change",
-      "ticker": "AAPL",
-      "title": "Score decreased +12 pts",
-      "subtitle": "Now rated SELL (25)",
-      "timestamp": "2026-03-29T08:02:41.582893",
-      "read": false
-    },
-    {
-      "id": "14465d3d",
-      "type": "score_change",
-      "ticker": "AAPL",
-      "title": "Score increased +12 pts",
-      "subtitle": "Now rated SELL (37)",
-      "timestamp": "2026-03-29T08:02:39.079813",
-      "read": false
-    },
-    {
-      "id": "8843a1ca",
-      "type": "score_change",
-      "ticker": "AAPL",
-      "title": "Score decreased +12 pts",
-      "subtitle": "Now rated SELL (24)",
-      "timestamp": "2026-03-29T03:12:33.282044",
-      "read": false
-    },
-    {
-      "id": "1cf85f42",
-      "type": "score_change",
-      "ticker": "AAPL",
-      "title": "Score increased +12 pts",
-      "subtitle": "Now rated SELL (37)",
-      "timestamp": "2026-03-29T03:12:30.851150",
-      "read": false
-    },
-    {
-      "id": "c39514eb",
+      "id": "cca104f7",
       "type": "signal_change",
-      "ticker": "MICC",
-      "title": "Signal changed",
-      "subtitle": "SELL \u2192 HOLD",
-      "timestamp": "2026-03-29T03:08:15.686445",
-      "read": false
-    },
-    {
-      "id": "1aea381d",
-      "type": "signal_change",
-      "ticker": "COKE",
-      "title": "Signal changed",
-      "subtitle": "SELL \u2192 HOLD",
-      "timestamp": "2026-03-29T03:08:15.685427",
-      "read": false
-    },
-    {
-      "id": "c03d6825",
-      "type": "signal_change",
-      "ticker": "BXP",
-      "title": "Signal changed",
-      "subtitle": "HOLD \u2192 SELL",
-      "timestamp": "2026-03-29T03:08:15.684411",
-      "read": false
-    },
-    {
-      "id": "c344c3a1",
-      "type": "signal_change",
-      "ticker": "MOD",
-      "title": "Signal changed",
-      "subtitle": "HOLD \u2192 SELL",
-      "timestamp": "2026-03-29T03:08:15.683382",
-      "read": false
-    },
-    {
-      "id": "e0862828",
-      "type": "signal_change",
-      "ticker": "EQX",
-      "title": "Signal changed",
-      "subtitle": "HOLD \u2192 SELL",
-      "timestamp": "2026-03-29T03:08:15.682352",
-      "read": false
-    },
-    {
-      "id": "50ac541f",
-      "type": "signal_change",
-      "ticker": "IAG",
-      "title": "Signal changed",
-      "subtitle": "HOLD \u2192 SELL",
-      "timestamp": "2026-03-29T03:08:15.681332",
-      "read": false
-    },
-    {
-      "id": "0102f319",
-      "type": "signal_change",
-      "ticker": "PFGC",
-      "title": "Signal changed",
-      "subtitle": "SELL \u2192 HOLD",
-      "timestamp": "2026-03-29T03:08:15.680293",
-      "read": false
-    },
-    {
-      "id": "dd507aad",
-      "type": "signal_change",
-      "ticker": "EXE",
-      "title": "Signal changed",
-      "subtitle": "SELL \u2192 HOLD",
-      "timestamp": "2026-03-29T03:08:15.679221",
-      "read": false
-    },
-    {
-      "id": "57a8cc16",
-      "type": "signal_change",
-      "ticker": "MT",
+      "ticker": "BCS",
       "title": "Signal changed",
       "subtitle": "HOLD \u2192 BUY",
-      "timestamp": "2026-03-29T03:08:15.678094",
+      "timestamp": "2026-03-30T03:08:39.488188",
       "read": false
     },
     {
-      "id": "7988ffd2",
+      "id": "60a0ce09",
       "type": "signal_change",
-      "ticker": "CME",
+      "ticker": "GD",
       "title": "Signal changed",
       "subtitle": "HOLD \u2192 SELL",
-      "timestamp": "2026-03-29T03:08:15.677022",
+      "timestamp": "2026-03-30T03:08:39.487150",
       "read": false
     },
     {
-      "id": "6ada8cc0",
+      "id": "d3c898fe",
       "type": "signal_change",
-      "ticker": "MO",
+      "ticker": "KKR",
       "title": "Signal changed",
-      "subtitle": "BUY \u2192 HOLD",
-      "timestamp": "2026-03-29T03:08:15.675979",
+      "subtitle": "SELL \u2192 HOLD",
+      "timestamp": "2026-03-30T03:08:39.486109",
       "read": false
     },
     {
-      "id": "5c539adf",
+      "id": "e6072ee6",
+      "type": "signal_change",
+      "ticker": "BNS",
+      "title": "Signal changed",
+      "subtitle": "HOLD \u2192 BUY",
+      "timestamp": "2026-03-30T03:08:39.485082",
+      "read": false
+    },
+    {
+      "id": "062483b7",
+      "type": "signal_change",
+      "ticker": "ITUB",
+      "title": "Signal changed",
+      "subtitle": "HOLD \u2192 BUY",
+      "timestamp": "2026-03-30T03:08:39.484053",
+      "read": false
+    },
+    {
+      "id": "ae52cf40",
+      "type": "signal_change",
+      "ticker": "INTU",
+      "title": "Signal changed",
+      "subtitle": "SELL \u2192 HOLD",
+      "timestamp": "2026-03-30T03:08:39.483003",
+      "read": false
+    },
+    {
+      "id": "c825508c",
+      "type": "signal_change",
+      "ticker": "PGR",
+      "title": "Signal changed",
+      "subtitle": "SELL \u2192 HOLD",
+      "timestamp": "2026-03-30T03:08:39.481982",
+      "read": false
+    },
+    {
+      "id": "4e1d1875",
       "type": "signal_change",
       "ticker": "BMY",
       "title": "Signal changed",
-      "subtitle": "SELL \u2192 HOLD",
-      "timestamp": "2026-03-29T03:08:15.674951",
-      "read": false
-    },
-    {
-      "id": "816200f1",
-      "type": "signal_change",
-      "ticker": "BTI",
-      "title": "Signal changed",
-      "subtitle": "BUY \u2192 HOLD",
-      "timestamp": "2026-03-29T03:08:15.673911",
-      "read": false
-    },
-    {
-      "id": "172f7b72",
-      "type": "signal_change",
-      "ticker": "ETN",
-      "title": "Signal changed",
       "subtitle": "HOLD \u2192 SELL",
-      "timestamp": "2026-03-29T03:08:15.672868",
+      "timestamp": "2026-03-30T03:08:39.480955",
       "read": false
     },
     {
-      "id": "13bb5e77",
+      "id": "cc6753d8",
       "type": "signal_change",
-      "ticker": "UNP",
+      "ticker": "COF",
       "title": "Signal changed",
       "subtitle": "SELL \u2192 HOLD",
-      "timestamp": "2026-03-29T03:08:15.671830",
+      "timestamp": "2026-03-30T03:08:39.479657",
       "read": false
     },
     {
-      "id": "481d0af7",
+      "id": "f79ff645",
       "type": "signal_change",
-      "ticker": "BUD",
-      "title": "Signal changed",
-      "subtitle": "BUY \u2192 HOLD",
-      "timestamp": "2026-03-29T03:08:15.670788",
-      "read": false
-    },
-    {
-      "id": "da05b7aa",
-      "type": "signal_change",
-      "ticker": "PFE",
-      "title": "Signal changed",
-      "subtitle": "BUY \u2192 HOLD",
-      "timestamp": "2026-03-29T03:08:15.669752",
-      "read": false
-    },
-    {
-      "id": "098f7ee0",
-      "type": "signal_change",
-      "ticker": "TD",
-      "title": "Signal changed",
-      "subtitle": "HOLD \u2192 BUY",
-      "timestamp": "2026-03-29T03:08:15.668718",
-      "read": false
-    },
-    {
-      "id": "cf5ba6dc",
-      "type": "signal_change",
-      "ticker": "UL",
-      "title": "Signal changed",
-      "subtitle": "BUY \u2192 HOLD",
-      "timestamp": "2026-03-29T03:08:15.667672",
-      "read": false
-    },
-    {
-      "id": "4b55f870",
-      "type": "signal_change",
-      "ticker": "BLK",
+      "ticker": "APP",
       "title": "Signal changed",
       "subtitle": "SELL \u2192 HOLD",
-      "timestamp": "2026-03-29T03:08:15.666599",
+      "timestamp": "2026-03-30T03:08:39.478647",
       "read": false
     },
     {
-      "id": "89cd34b0",
+      "id": "b61da624",
+      "type": "signal_change",
+      "ticker": "SHOP",
+      "title": "Signal changed",
+      "subtitle": "SELL \u2192 HOLD",
+      "timestamp": "2026-03-30T03:08:39.477606",
+      "read": false
+    },
+    {
+      "id": "141db1b4",
+      "type": "signal_change",
+      "ticker": "BX",
+      "title": "Signal changed",
+      "subtitle": "SELL \u2192 HOLD",
+      "timestamp": "2026-03-30T03:08:39.476586",
+      "read": false
+    },
+    {
+      "id": "6bfb6ba8",
+      "type": "signal_change",
+      "ticker": "DE",
+      "title": "Signal changed",
+      "subtitle": "SELL \u2192 HOLD",
+      "timestamp": "2026-03-30T03:08:39.475564",
+      "read": false
+    },
+    {
+      "id": "642fec23",
+      "type": "signal_change",
+      "ticker": "ISRG",
+      "title": "Signal changed",
+      "subtitle": "SELL \u2192 HOLD",
+      "timestamp": "2026-03-30T03:08:39.474543",
+      "read": false
+    },
+    {
+      "id": "d46101ec",
       "type": "signal_change",
       "ticker": "BHP",
       "title": "Signal changed",
       "subtitle": "HOLD \u2192 BUY",
-      "timestamp": "2026-03-29T03:08:15.665544",
+      "timestamp": "2026-03-30T03:08:39.473508",
       "read": false
     },
     {
-      "id": "649211d7",
+      "id": "56994638",
       "type": "signal_change",
       "ticker": "RIO",
       "title": "Signal changed",
       "subtitle": "HOLD \u2192 BUY",
-      "timestamp": "2026-03-29T03:08:15.664496",
+      "timestamp": "2026-03-30T03:08:39.472485",
       "read": false
     },
     {
-      "id": "eabe32e3",
+      "id": "c69f27af",
       "type": "signal_change",
-      "ticker": "PEP",
+      "ticker": "C",
       "title": "Signal changed",
-      "subtitle": "BUY \u2192 HOLD",
-      "timestamp": "2026-03-29T03:08:15.663454",
+      "subtitle": "HOLD \u2192 BUY",
+      "timestamp": "2026-03-30T03:08:39.471466",
       "read": false
     },
     {
-      "id": "0ae0156b",
+      "id": "74e3d184",
+      "type": "signal_change",
+      "ticker": "MUFG",
+      "title": "Signal changed",
+      "subtitle": "HOLD \u2192 BUY",
+      "timestamp": "2026-03-30T03:08:39.470437",
+      "read": false
+    },
+    {
+      "id": "b88ba043",
       "type": "signal_change",
       "ticker": "INTC",
       "title": "Signal changed",
-      "subtitle": "BUY \u2192 HOLD",
-      "timestamp": "2026-03-29T03:08:15.662409",
+      "subtitle": "HOLD \u2192 BUY",
+      "timestamp": "2026-03-30T03:08:39.469419",
       "read": false
     },
     {
-      "id": "c0bf6913",
+      "id": "7369a95e",
       "type": "signal_change",
-      "ticker": "MCD",
+      "ticker": "WFC",
       "title": "Signal changed",
       "subtitle": "HOLD \u2192 BUY",
-      "timestamp": "2026-03-29T03:08:15.661366",
+      "timestamp": "2026-03-30T03:08:39.468391",
       "read": false
     },
     {
-      "id": "44be9216",
+      "id": "436ae879",
       "type": "signal_change",
-      "ticker": "SAP",
-      "title": "Signal changed",
-      "subtitle": "HOLD \u2192 SELL",
-      "timestamp": "2026-03-29T03:08:15.660325",
-      "read": false
-    },
-    {
-      "id": "9f81d3eb",
-      "type": "signal_change",
-      "ticker": "UNH",
+      "ticker": "HSBC",
       "title": "Signal changed",
       "subtitle": "HOLD \u2192 BUY",
-      "timestamp": "2026-03-29T03:08:15.659300",
+      "timestamp": "2026-03-30T03:08:39.467388",
       "read": false
     },
     {
-      "id": "1717757c",
+      "id": "93651986",
       "type": "signal_change",
-      "ticker": "GS",
-      "title": "Signal changed",
-      "subtitle": "HOLD \u2192 SELL",
-      "timestamp": "2026-03-29T03:08:15.658269",
-      "read": false
-    },
-    {
-      "id": "ebe0321d",
-      "type": "signal_change",
-      "ticker": "KO",
+      "ticker": "AMD",
       "title": "Signal changed",
       "subtitle": "SELL \u2192 HOLD",
-      "timestamp": "2026-03-29T03:08:15.657230",
+      "timestamp": "2026-03-30T03:08:39.466379",
       "read": false
     },
     {
-      "id": "5bde2f96",
+      "id": "074db10d",
       "type": "signal_change",
-      "ticker": "HD",
+      "ticker": "MA",
+      "title": "Signal changed",
+      "subtitle": "SELL \u2192 HOLD",
+      "timestamp": "2026-03-30T03:08:39.465365",
+      "read": false
+    },
+    {
+      "id": "001e0013",
+      "type": "signal_change",
+      "ticker": "V",
+      "title": "Signal changed",
+      "subtitle": "SELL \u2192 HOLD",
+      "timestamp": "2026-03-30T03:08:39.464359",
+      "read": false
+    },
+    {
+      "id": "1b6ee62e",
+      "type": "signal_change",
+      "ticker": "BRK-B",
       "title": "Signal changed",
       "subtitle": "HOLD \u2192 BUY",
-      "timestamp": "2026-03-29T03:08:15.656192",
+      "timestamp": "2026-03-30T03:08:39.463356",
       "read": false
     },
     {
-      "id": "6312f597",
+      "id": "64c90017",
       "type": "signal_change",
-      "ticker": "LLY",
+      "ticker": "AVGO",
       "title": "Signal changed",
-      "subtitle": "HOLD \u2192 SELL",
-      "timestamp": "2026-03-29T03:08:15.655148",
+      "subtitle": "SELL \u2192 HOLD",
+      "timestamp": "2026-03-30T03:08:39.462345",
       "read": false
     },
     {
-      "id": "c6c60bcd",
+      "id": "09befd92",
       "type": "signal_change",
-      "ticker": "WMT",
+      "ticker": "TSLA",
       "title": "Signal changed",
-      "subtitle": "BUY \u2192 HOLD",
-      "timestamp": "2026-03-29T03:08:15.654103",
+      "subtitle": "HOLD \u2192 BUY",
+      "timestamp": "2026-03-30T03:08:39.461339",
       "read": false
     },
     {
-      "id": "9d2ac2f2",
+      "id": "102b1305",
+      "type": "signal_change",
+      "ticker": "AMZN",
+      "title": "Signal changed",
+      "subtitle": "SELL \u2192 HOLD",
+      "timestamp": "2026-03-30T03:08:39.460284",
+      "read": false
+    },
+    {
+      "id": "0ffc14a9",
+      "type": "signal_change",
+      "ticker": "GOOGL",
+      "title": "Signal changed",
+      "subtitle": "SELL \u2192 HOLD",
+      "timestamp": "2026-03-30T03:08:39.459122",
+      "read": false
+    },
+    {
+      "id": "78516641",
+      "type": "signal_change",
+      "ticker": "GOOG",
+      "title": "Signal changed",
+      "subtitle": "SELL \u2192 HOLD",
+      "timestamp": "2026-03-30T03:08:39.458104",
+      "read": false
+    },
+    {
+      "id": "1ce0a5af",
+      "type": "score_change",
+      "ticker": "RYAN",
+      "title": "Score decreased +10 pts",
+      "subtitle": "Now rated SELL (12)",
+      "timestamp": "2026-03-30T03:08:39.457088",
+      "read": false
+    },
+    {
+      "id": "1ac90092",
+      "type": "score_change",
+      "ticker": "WAL",
+      "title": "Score decreased +11 pts",
+      "subtitle": "Now rated SELL (25)",
+      "timestamp": "2026-03-30T03:08:39.456061",
+      "read": false
+    },
+    {
+      "id": "75574d13",
       "type": "score_change",
       "ticker": "MP",
-      "title": "Score decreased +11 pts",
-      "subtitle": "Now rated HOLD (49)",
-      "timestamp": "2026-03-29T03:08:15.653055",
+      "title": "Score decreased +12 pts",
+      "subtitle": "Now rated HOLD (48)",
+      "timestamp": "2026-03-30T03:08:39.455000",
       "read": false
     },
     {
-      "id": "78fbf633",
+      "id": "677dab50",
       "type": "score_change",
-      "ticker": "PPC",
-      "title": "Score increased +11 pts",
-      "subtitle": "Now rated HOLD (55)",
-      "timestamp": "2026-03-29T03:08:15.652016",
+      "ticker": "WTFC",
+      "title": "Score decreased +11 pts",
+      "subtitle": "Now rated SELL (39)",
+      "timestamp": "2026-03-30T03:08:39.453737",
       "read": false
     },
     {
-      "id": "e2db13b1",
+      "id": "f0af29d7",
+      "type": "score_change",
+      "ticker": "XP",
+      "title": "Score decreased +11 pts",
+      "subtitle": "Now rated SELL (29)",
+      "timestamp": "2026-03-30T03:08:39.452712",
+      "read": false
+    },
+    {
+      "id": "a019bfad",
       "type": "score_change",
       "ticker": "HBM",
       "title": "Score decreased +11 pts",
-      "subtitle": "Now rated HOLD (45)",
-      "timestamp": "2026-03-29T03:08:15.650980",
+      "subtitle": "Now rated HOLD (44)",
+      "timestamp": "2026-03-30T03:08:39.451713",
       "read": false
     },
     {
-      "id": "d200820b",
+      "id": "dffc1fd3",
       "type": "score_change",
-      "ticker": "MICC",
-      "title": "Score increased +10 pts",
-      "subtitle": "Now rated HOLD (41)",
-      "timestamp": "2026-03-29T03:08:15.649939",
+      "ticker": "SSB",
+      "title": "Score decreased +10 pts",
+      "subtitle": "Now rated SELL (22)",
+      "timestamp": "2026-03-30T03:08:39.450446",
       "read": false
     },
     {
-      "id": "26c7468d",
+      "id": "84f05a17",
       "type": "score_change",
-      "ticker": "TAP",
-      "title": "Score increased +10 pts",
-      "subtitle": "Now rated HOLD (57)",
-      "timestamp": "2026-03-29T03:08:15.648897",
+      "ticker": "ORI",
+      "title": "Score decreased +10 pts",
+      "subtitle": "Now rated SELL (25)",
+      "timestamp": "2026-03-30T03:08:39.449430",
       "read": false
     },
     {
-      "id": "5ec10bdc",
+      "id": "a02b2367",
       "type": "score_change",
-      "ticker": "COKE",
-      "title": "Score increased +10 pts",
-      "subtitle": "Now rated HOLD (40)",
-      "timestamp": "2026-03-29T03:08:15.647853",
+      "ticker": "AFG",
+      "title": "Score decreased +10 pts",
+      "subtitle": "Now rated SELL (29)",
+      "timestamp": "2026-03-30T03:08:39.448414",
       "read": false
     },
     {
-      "id": "4990891b",
+      "id": "408716a4",
       "type": "score_change",
-      "ticker": "BXP",
-      "title": "Score decreased +12 pts",
-      "subtitle": "Now rated SELL (39)",
-      "timestamp": "2026-03-29T03:08:15.646789",
+      "ticker": "AIZ",
+      "title": "Score decreased +10 pts",
+      "subtitle": "Now rated SELL (36)",
+      "timestamp": "2026-03-30T03:08:39.447222",
       "read": false
     },
     {
-      "id": "b114f65a",
+      "id": "149a921a",
       "type": "score_change",
-      "ticker": "EXE",
-      "title": "Score increased +12 pts",
-      "subtitle": "Now rated HOLD (47)",
-      "timestamp": "2026-03-29T03:08:15.645658",
+      "ticker": "JEF",
+      "title": "Score decreased +11 pts",
+      "subtitle": "Now rated HOLD (54)",
+      "timestamp": "2026-03-30T03:08:39.446234",
       "read": false
     },
     {
-      "id": "7b2c5cb5",
+      "id": "b559032f",
       "type": "score_change",
-      "ticker": "RDDT",
-      "title": "Score increased +12 pts",
-      "subtitle": "Now rated SELL (34)",
-      "timestamp": "2026-03-29T03:08:15.644624",
-      "read": false
-    },
-    {
-      "id": "0bee12a4",
-      "type": "score_change",
-      "ticker": "DG",
-      "title": "Score increased +12 pts",
-      "subtitle": "Now rated HOLD (67)",
-      "timestamp": "2026-03-29T03:08:15.643324",
-      "read": false
-    },
-    {
-      "id": "13b1afa7",
-      "type": "score_change",
-      "ticker": "PAYX",
-      "title": "Score increased +14 pts",
-      "subtitle": "Now rated SELL (28)",
-      "timestamp": "2026-03-29T03:08:15.642291",
-      "read": false
-    },
-    {
-      "id": "2ddb2900",
-      "type": "score_change",
-      "ticker": "LITE",
-      "title": "Score decreased +16 pts",
+      "ticker": "AG",
+      "title": "Score decreased +10 pts",
       "subtitle": "Now rated HOLD (46)",
-      "timestamp": "2026-03-29T03:08:15.641239",
+      "timestamp": "2026-03-30T03:08:39.444950",
       "read": false
     },
     {
-      "id": "5a4ad2aa",
+      "id": "c8270172",
       "type": "score_change",
-      "ticker": "CTVA",
-      "title": "Score decreased +12 pts",
-      "subtitle": "Now rated HOLD (40)",
-      "timestamp": "2026-03-29T03:08:15.640177",
+      "ticker": "RVMD",
+      "title": "Score decreased +10 pts",
+      "subtitle": "Now rated HOLD (62)",
+      "timestamp": "2026-03-30T03:08:39.443856",
       "read": false
     },
     {
-      "id": "7d24b531",
+      "id": "f1386167",
+      "type": "score_change",
+      "ticker": "OWL",
+      "title": "Score decreased +12 pts",
+      "subtitle": "Now rated SELL (34)",
+      "timestamp": "2026-03-30T03:08:39.442824",
+      "read": false
+    },
+    {
+      "id": "dfd4210c",
+      "type": "score_change",
+      "ticker": "SYM",
+      "title": "Score increased +14 pts",
+      "subtitle": "Now rated HOLD (58)",
+      "timestamp": "2026-03-30T03:08:39.441734",
+      "read": false
+    },
+    {
+      "id": "53026877",
+      "type": "score_change",
+      "ticker": "MCHP",
+      "title": "Score decreased +18 pts",
+      "subtitle": "Now rated HOLD (59)",
+      "timestamp": "2026-03-30T03:08:39.440691",
+      "read": false
+    },
+    {
+      "id": "eb8397c2",
+      "type": "score_change",
+      "ticker": "ROK",
+      "title": "Score increased +17 pts",
+      "subtitle": "Now rated HOLD (54)",
+      "timestamp": "2026-03-30T03:08:39.439636",
+      "read": false
+    },
+    {
+      "id": "b56af5a9",
+      "type": "score_change",
+      "ticker": "TER",
+      "title": "Score increased +17 pts",
+      "subtitle": "Now rated HOLD (55)",
+      "timestamp": "2026-03-30T03:08:39.438620",
+      "read": false
+    },
+    {
+      "id": "9501b552",
+      "type": "score_change",
+      "ticker": "ASX",
+      "title": "Score decreased +19 pts",
+      "subtitle": "Now rated HOLD (52)",
+      "timestamp": "2026-03-30T03:08:39.437258",
+      "read": false
+    },
+    {
+      "id": "a7dfb052",
       "type": "score_change",
       "ticker": "FAST",
       "title": "Score increased +18 pts",
-      "subtitle": "Now rated SELL (31)",
-      "timestamp": "2026-03-29T03:08:15.639129",
-      "read": false
-    },
-    {
-      "id": "1870056a",
-      "type": "score_change",
-      "ticker": "SLB",
-      "title": "Score decreased +12 pts",
-      "subtitle": "Now rated HOLD (54)",
-      "timestamp": "2026-03-29T03:08:15.638069",
-      "read": false
-    },
-    {
-      "id": "c83248bf",
-      "type": "score_change",
-      "ticker": "CME",
-      "title": "Score decreased +21 pts",
-      "subtitle": "Now rated SELL (40)",
-      "timestamp": "2026-03-29T03:08:15.637001",
-      "read": false
-    },
-    {
-      "id": "fcf1d559",
-      "type": "score_change",
-      "ticker": "BMY",
-      "title": "Score increased +22 pts",
-      "subtitle": "Now rated HOLD (62)",
-      "timestamp": "2026-03-29T03:08:15.635954",
-      "read": false
-    },
-    {
-      "id": "ed88e8d4",
-      "type": "score_change",
-      "ticker": "MDT",
-      "title": "Score increased +22 pts",
-      "subtitle": "Now rated HOLD (66)",
-      "timestamp": "2026-03-29T03:08:15.634914",
-      "read": false
-    },
-    {
-      "id": "14e7adea",
-      "type": "score_change",
-      "ticker": "BTI",
-      "title": "Score decreased +10 pts",
-      "subtitle": "Now rated HOLD (63)",
-      "timestamp": "2026-03-29T03:08:15.633884",
-      "read": false
-    },
-    {
-      "id": "237c4a9c",
-      "type": "score_change",
-      "ticker": "NEM",
-      "title": "Score increased +10 pts",
-      "subtitle": "Now rated HOLD (56)",
-      "timestamp": "2026-03-29T03:08:15.632838",
-      "read": false
-    },
-    {
-      "id": "657a4cf8",
-      "type": "score_change",
-      "ticker": "ETN",
-      "title": "Score decreased +22 pts",
-      "subtitle": "Now rated SELL (19)",
-      "timestamp": "2026-03-29T03:08:15.631815",
-      "read": false
-    },
-    {
-      "id": "8fe9b127",
-      "type": "score_change",
-      "ticker": "UNP",
-      "title": "Score increased +22 pts",
-      "subtitle": "Now rated HOLD (58)",
-      "timestamp": "2026-03-29T03:08:15.630787",
-      "read": false
-    },
-    {
-      "id": "6892ff9b",
-      "type": "score_change",
-      "ticker": "BUD",
-      "title": "Score decreased +11 pts",
-      "subtitle": "Now rated HOLD (68)",
-      "timestamp": "2026-03-29T03:08:15.629746",
-      "read": false
-    },
-    {
-      "id": "ccef8ae8",
-      "type": "score_change",
-      "ticker": "PFE",
-      "title": "Score decreased +23 pts",
-      "subtitle": "Now rated HOLD (63)",
-      "timestamp": "2026-03-29T03:08:15.628720",
-      "read": false
-    },
-    {
-      "id": "36fe8dae",
-      "type": "score_change",
-      "ticker": "TD",
-      "title": "Score increased +22 pts",
-      "subtitle": "Now rated BUY (88)",
-      "timestamp": "2026-03-29T03:08:15.627683",
-      "read": false
-    },
-    {
-      "id": "3e4e4bd7",
-      "type": "score_change",
-      "ticker": "UL",
-      "title": "Score decreased +11 pts",
-      "subtitle": "Now rated HOLD (63)",
-      "timestamp": "2026-03-29T03:08:15.626606",
-      "read": false
-    },
-    {
-      "id": "33fe7e3b",
-      "type": "score_change",
-      "ticker": "SCCO",
-      "title": "Score increased +11 pts",
-      "subtitle": "Now rated HOLD (58)",
-      "timestamp": "2026-03-29T03:08:15.625562",
-      "read": false
-    },
-    {
-      "id": "15998b06",
-      "type": "score_change",
-      "ticker": "BLK",
-      "title": "Score increased +23 pts",
-      "subtitle": "Now rated HOLD (59)",
-      "timestamp": "2026-03-29T03:08:15.624521",
-      "read": false
-    },
-    {
-      "id": "3fb70544",
-      "type": "score_change",
-      "ticker": "BHP",
-      "title": "Score increased +11 pts",
-      "subtitle": "Now rated BUY (79)",
-      "timestamp": "2026-03-29T03:08:15.623477",
-      "read": false
-    },
-    {
-      "id": "d7c80b11",
-      "type": "score_change",
-      "ticker": "RIO",
-      "title": "Score increased +11 pts",
-      "subtitle": "Now rated BUY (81)",
-      "timestamp": "2026-03-29T03:08:15.622447",
-      "read": false
-    },
-    {
-      "id": "883791b1",
-      "type": "score_change",
-      "ticker": "LIN",
-      "title": "Score increased +12 pts",
-      "subtitle": "Now rated HOLD (57)",
-      "timestamp": "2026-03-29T03:08:15.621407",
-      "read": false
-    },
-    {
-      "id": "a6b5fdc5",
-      "type": "score_change",
-      "ticker": "PEP",
-      "title": "Score decreased +12 pts",
-      "subtitle": "Now rated HOLD (61)",
-      "timestamp": "2026-03-29T03:08:15.620378",
-      "read": false
-    },
-    {
-      "id": "920ede39",
-      "type": "score_change",
-      "ticker": "INTC",
-      "title": "Score decreased +24 pts",
-      "subtitle": "Now rated HOLD (53)",
-      "timestamp": "2026-03-29T03:08:15.619338",
-      "read": false
-    },
-    {
-      "id": "300b34fd",
-      "type": "score_change",
-      "ticker": "MCD",
-      "title": "Score increased +23 pts",
-      "subtitle": "Now rated BUY (72)",
-      "timestamp": "2026-03-29T03:08:15.618301",
-      "read": false
-    },
-    {
-      "id": "e82d82f2",
-      "type": "score_change",
-      "ticker": "SAP",
-      "title": "Score decreased +23 pts",
-      "subtitle": "Now rated SELL (20)",
-      "timestamp": "2026-03-29T03:08:15.617262",
-      "read": false
-    },
-    {
-      "id": "294385c7",
-      "type": "score_change",
-      "ticker": "UNH",
-      "title": "Score increased +24 pts",
-      "subtitle": "Now rated BUY (79)",
-      "timestamp": "2026-03-29T03:08:15.616218",
-      "read": false
-    },
-    {
-      "id": "99adee7a",
-      "type": "score_change",
-      "ticker": "GS",
-      "title": "Score decreased +24 pts",
-      "subtitle": "Now rated SELL (38)",
-      "timestamp": "2026-03-29T03:08:15.615176",
-      "read": false
-    },
-    {
-      "id": "038f1e0c",
-      "type": "score_change",
-      "ticker": "PM",
-      "title": "Score decreased +12 pts",
-      "subtitle": "Now rated HOLD (50)",
-      "timestamp": "2026-03-29T03:08:15.614143",
-      "read": false
-    },
-    {
-      "id": "35bf01ee",
-      "type": "score_change",
-      "ticker": "KO",
-      "title": "Score increased +11 pts",
-      "subtitle": "Now rated HOLD (43)",
-      "timestamp": "2026-03-29T03:08:15.613108",
-      "read": false
-    },
-    {
-      "id": "63e716dd",
-      "type": "score_change",
-      "ticker": "PG",
-      "title": "Score increased +11 pts",
-      "subtitle": "Now rated HOLD (55)",
-      "timestamp": "2026-03-29T03:08:15.612083",
-      "read": false
-    },
-    {
-      "id": "fd7076cd",
-      "type": "score_change",
-      "ticker": "HD",
-      "title": "Score increased +24 pts",
-      "subtitle": "Now rated BUY (78)",
-      "timestamp": "2026-03-29T03:08:15.611063",
-      "read": false
-    },
-    {
-      "id": "6e8afd92",
-      "type": "score_change",
-      "ticker": "LLY",
-      "title": "Score decreased +24 pts",
       "subtitle": "Now rated SELL (30)",
-      "timestamp": "2026-03-29T03:08:15.610027",
-      "read": false
-    },
-    {
-      "id": "072ceb96",
-      "type": "score_change",
-      "ticker": "WMT",
-      "title": "Score decreased +13 pts",
-      "subtitle": "Now rated HOLD (68)",
-      "timestamp": "2026-03-29T03:08:15.609004",
-      "read": false
-    },
-    {
-      "id": "83a77ec4",
-      "type": "score_change",
-      "ticker": "MSFT",
-      "title": "Score decreased +24 pts",
-      "subtitle": "Now rated SELL (11)",
-      "timestamp": "2026-03-29T03:08:15.607870",
-      "read": false
-    },
-    {
-      "id": "ced02397",
-      "type": "signal_change",
-      "ticker": "MICC",
-      "title": "Signal changed",
-      "subtitle": "HOLD \u2192 SELL",
-      "timestamp": "2026-03-29T03:08:13.330990",
-      "read": false
-    },
-    {
-      "id": "11d0e4af",
-      "type": "signal_change",
-      "ticker": "COKE",
-      "title": "Signal changed",
-      "subtitle": "HOLD \u2192 SELL",
-      "timestamp": "2026-03-29T03:08:13.329989",
-      "read": false
-    },
-    {
-      "id": "5d87aad7",
-      "type": "signal_change",
-      "ticker": "BXP",
-      "title": "Signal changed",
-      "subtitle": "SELL \u2192 HOLD",
-      "timestamp": "2026-03-29T03:08:13.328976",
-      "read": false
-    },
-    {
-      "id": "9025f997",
-      "type": "signal_change",
-      "ticker": "MOD",
-      "title": "Signal changed",
-      "subtitle": "SELL \u2192 HOLD",
-      "timestamp": "2026-03-29T03:08:13.327954",
-      "read": false
-    },
-    {
-      "id": "851ee1d1",
-      "type": "signal_change",
-      "ticker": "EQX",
-      "title": "Signal changed",
-      "subtitle": "SELL \u2192 HOLD",
-      "timestamp": "2026-03-29T03:08:13.326934",
-      "read": false
-    },
-    {
-      "id": "9026bee9",
-      "type": "signal_change",
-      "ticker": "IAG",
-      "title": "Signal changed",
-      "subtitle": "SELL \u2192 HOLD",
-      "timestamp": "2026-03-29T03:08:13.325906",
-      "read": false
-    },
-    {
-      "id": "2cf27a79",
-      "type": "signal_change",
-      "ticker": "PFGC",
-      "title": "Signal changed",
-      "subtitle": "HOLD \u2192 SELL",
-      "timestamp": "2026-03-29T03:08:13.324801",
-      "read": false
-    },
-    {
-      "id": "da972664",
-      "type": "signal_change",
-      "ticker": "EXE",
-      "title": "Signal changed",
-      "subtitle": "HOLD \u2192 SELL",
-      "timestamp": "2026-03-29T03:08:13.323735",
-      "read": false
-    },
-    {
-      "id": "d24a2090",
-      "type": "signal_change",
-      "ticker": "MT",
-      "title": "Signal changed",
-      "subtitle": "BUY \u2192 HOLD",
-      "timestamp": "2026-03-29T03:08:13.322670",
-      "read": false
-    },
-    {
-      "id": "58850d2a",
-      "type": "signal_change",
-      "ticker": "CME",
-      "title": "Signal changed",
-      "subtitle": "SELL \u2192 HOLD",
-      "timestamp": "2026-03-29T03:08:13.321597",
+      "timestamp": "2026-03-30T03:08:39.436233",
       "read": false
     }
   ],
-  "updated_at": "2026-03-29T08:03:55.253126"
+  "updated_at": "2026-03-30T03:13:10.536826"
 }
