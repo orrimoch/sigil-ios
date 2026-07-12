@@ -1,1470 +1,1374 @@
 {
-  "updated_at": "2026-07-05T00:08:03.745494",
-  "count": 158,
+  "updated_at": "2026-07-12T00:00:55.138845",
+  "count": 146,
   "articles": [
     {
       "source": "yahoo_finance",
-      "title": "Berkshire Hathaway Is Really a Financial Powerhouse in Disguise. Here's What That Means for Investors.",
+      "title": "Cathie Wood buys $22.8 million of surging tech stock",
       "summary": "",
-      "link": "https://finance.yahoo.com/markets/stocks/articles/berkshire-hathaway-really-financial-powerhouse-233500135.html",
-      "published": "2026-07-04T23:35:00+00:00",
-      "fetched_at": "2026-07-05T00:08:03.592096"
+      "link": "https://finance.yahoo.com/markets/stocks/articles/cathie-wood-buys-22-8-233000571.html",
+      "published": "2026-07-11T23:30:00+00:00",
+      "fetched_at": "2026-07-12T00:00:54.873232"
     },
     {
       "source": "yahoo_finance",
-      "title": "My parents didn\u2019t plan for retirement, but I\u2019ve got millions: what\u2019s the best way to help them?",
+      "title": "Warren Buffett Swears By This 1 Low-Cost Investment. History Proves He's Been Right Every Time.",
       "summary": "",
-      "link": "https://finance.yahoo.com/markets/options/articles/parents-didn-t-plan-retirement-141713265.html",
-      "published": "2026-07-04T23:31:52+00:00",
-      "fetched_at": "2026-07-05T00:08:03.592251"
+      "link": "https://finance.yahoo.com/markets/stocks/articles/warren-buffett-swears-1-low-232000382.html",
+      "published": "2026-07-11T23:20:00+00:00",
+      "fetched_at": "2026-07-12T00:00:54.873360"
     },
     {
       "source": "yahoo_finance",
-      "title": "Chevron vs. Exxon Mobil: Which Energy Stock Is a Better Buy in 2026?",
+      "title": "Your RV Qualifies for the Same Mortgage Interest Deduction as a House, but Most Owners Never Claim It",
       "summary": "",
-      "link": "https://finance.yahoo.com/energy/articles/chevron-vs-exxon-mobil-energy-232101335.html",
-      "published": "2026-07-04T23:21:01+00:00",
-      "fetched_at": "2026-07-05T00:08:03.592383"
+      "link": "https://finance.yahoo.com/real-estate/articles/rv-qualifies-same-mortgage-interest-230542108.html",
+      "published": "2026-07-11T23:05:42+00:00",
+      "fetched_at": "2026-07-12T00:00:54.873488"
     },
     {
       "source": "yahoo_finance",
-      "title": "Rivian Just Raised Its 2026 Outlook While Tesla Stock Stumbled. Is the Electric Vehicle Underdog Finally a Buy?",
+      "title": "The Next Bull Market Could Be Built on Inventory Replenishment",
       "summary": "",
-      "link": "https://finance.yahoo.com/markets/stocks/articles/rivian-just-raised-2026-outlook-231000012.html",
-      "published": "2026-07-04T23:10:00+00:00",
-      "fetched_at": "2026-07-05T00:08:03.592508"
+      "link": "https://finance.yahoo.com/energy/articles/next-bull-market-could-built-230000199.html",
+      "published": "2026-07-11T23:00:00+00:00",
+      "fetched_at": "2026-07-12T00:00:54.872964"
     },
     {
       "source": "yahoo_finance",
-      "title": "Jim Cramer says it's time to buy one surging space stock",
+      "title": "The Vanguard ETF Warren Buffett Endorsed in 2014 Would Have Turned $5,000 Into $20,465 Today",
       "summary": "",
-      "link": "https://finance.yahoo.com/markets/stocks/articles/jim-cramer-says-time-buy-230000385.html",
-      "published": "2026-07-04T23:00:00+00:00",
-      "fetched_at": "2026-07-05T00:08:03.592657"
+      "link": "https://finance.yahoo.com/markets/stocks/articles/vanguard-etf-warren-buffett-endorsed-225800895.html",
+      "published": "2026-07-11T22:58:00+00:00",
+      "fetched_at": "2026-07-12T00:00:54.873610"
     },
     {
       "source": "yahoo_finance",
-      "title": "Strategy Just Announced a Major Shake-Up to Its Bitcoin Plan. Here's What It Means for MSTR Stock.",
+      "title": "OpenAI loses another C-suite executive ahead of IPO",
       "summary": "",
-      "link": "https://finance.yahoo.com/markets/crypto/articles/strategy-just-announced-major-shake-225500473.html",
-      "published": "2026-07-04T22:55:00+00:00",
-      "fetched_at": "2026-07-05T00:08:03.592761"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Micron Stock Has Soared Nearly 700% in a Year. Is a Stock Split Imminent?",
-      "summary": "",
-      "link": "https://finance.yahoo.com/markets/stocks/articles/micron-stock-soared-nearly-700-224300289.html",
-      "published": "2026-07-04T22:43:00+00:00",
-      "fetched_at": "2026-07-05T00:08:03.592786"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "What This Nearly $1 Million Ambarella Insider Sale Means With Shares Up 18% in a Year",
-      "summary": "",
-      "link": "https://finance.yahoo.com/markets/stocks/articles/nearly-1-million-ambarella-insider-223915125.html",
-      "published": "2026-07-04T22:39:15+00:00",
-      "fetched_at": "2026-07-05T00:08:03.592811"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Palantir CEO Alex Karp Says AI Labs Are Chasing 'Tokens' While Enterprises Fear for Their IP: 'Something Has Gone Completely Wrong'",
-      "summary": "",
-      "link": "https://finance.yahoo.com/technology/ai/articles/palantir-ceo-alex-karp-says-223226928.html",
-      "published": "2026-07-04T22:32:26+00:00",
-      "fetched_at": "2026-07-05T00:08:03.592837"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "What This $905,000 Insider Sale at McGrath RentCorp Signals for Investors",
-      "summary": "",
-      "link": "https://finance.yahoo.com/markets/stocks/articles/905-000-insider-sale-mcgrath-222901583.html",
-      "published": "2026-07-04T22:29:01+00:00",
-      "fetched_at": "2026-07-05T00:08:03.592862"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "ChatGPT-Maker OpenAI Is Headed for a $1 Trillion IPO. The Biggest Winner Could Be Microsoft Stock.",
-      "summary": "",
-      "link": "https://finance.yahoo.com/markets/stocks/articles/chatgpt-maker-openai-headed-1-221000694.html",
-      "published": "2026-07-04T22:10:00+00:00",
-      "fetched_at": "2026-07-05T00:08:03.592886"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Could Canopy Growth Stock Deliver a 4X Gain? 1 Analyst Thinks So.",
-      "summary": "",
-      "link": "https://finance.yahoo.com/markets/stocks/articles/could-canopy-growth-stock-deliver-220200985.html",
-      "published": "2026-07-04T22:02:00+00:00",
-      "fetched_at": "2026-07-05T00:08:03.592910"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Which Banking ETF Is Better, State Street's KBE or iShares' U.S. Regional Bank-Focused IAT?",
-      "summary": "",
-      "link": "https://finance.yahoo.com/markets/stocks/articles/banking-etf-better-state-streets-215801395.html",
-      "published": "2026-07-04T21:58:01+00:00",
-      "fetched_at": "2026-07-05T00:08:03.592934"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "The Smartest Dividend Stock to Buy With $1,000 Right Now",
-      "summary": "",
-      "link": "https://finance.yahoo.com/markets/stocks/articles/smartest-dividend-stock-buy-1-215500625.html",
-      "published": "2026-07-04T21:55:00+00:00",
-      "fetched_at": "2026-07-05T00:08:03.592960"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Meta\u2019s next AI bet has one major catch for investors",
-      "summary": "",
-      "link": "https://finance.yahoo.com/technology/ai/articles/meta-next-ai-bet-one-214700848.html",
-      "published": "2026-07-04T21:47:00+00:00",
-      "fetched_at": "2026-07-05T00:08:03.592985"
-    },
-    {
-      "source": "marketwatch",
-      "title": "Gamer trades in $1,000 of physical discs at GameStop, days after Sony announces end of disc era",
-      "summary": "While some collectors may plan to hoard their physical media, one Columbus gamer decided to liquidate his collection",
-      "link": "https://www.marketwatch.com/story/gamer-trades-in-1-000-of-physical-discs-at-gamestop-days-after-sony-announces-end-of-disc-era-bf8383b7?mod=mw_rss_topstories",
-      "published": "2026-07-04T21:40:00",
-      "fetched_at": "2026-07-05T00:08:03.559413"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "JPMorgan Chase Just Authorized a $50 Billion Buyback and Raised Its Dividend. Is the Stock a Buy Near Record Highs?",
-      "summary": "",
-      "link": "https://finance.yahoo.com/markets/stocks/articles/jpmorgan-chase-just-authorized-50-213500718.html",
-      "published": "2026-07-04T21:35:00+00:00",
-      "fetched_at": "2026-07-05T00:08:03.593010"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Elon Musk Calls Report on SpaceX AI Handheld Device \u2018Utterly False\u2019 After Claims of an iPhone Rival Sparks Online Buzz",
-      "summary": "",
-      "link": "https://finance.yahoo.com/technology/ai/articles/elon-musk-calls-report-spacex-213349921.html",
-      "published": "2026-07-04T21:33:49+00:00",
-      "fetched_at": "2026-07-05T00:08:03.593035"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Which Is the Better High Dividend ETF, iShares' HDV or Fidelity's FDVV?",
-      "summary": "",
-      "link": "https://finance.yahoo.com/markets/stocks/articles/better-high-dividend-etf-ishares-212501924.html",
-      "published": "2026-07-04T21:25:01+00:00",
-      "fetched_at": "2026-07-05T00:08:03.593059"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "1 Reason to Buy This Wide-Moat Stock Right Now",
-      "summary": "",
-      "link": "https://finance.yahoo.com/markets/stocks/articles/1-reason-buy-wide-moat-212000234.html",
-      "published": "2026-07-04T21:20:00+00:00",
-      "fetched_at": "2026-07-05T00:08:03.593085"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "If You'd Put $10,000 Into Intel Stock at the Start of 2026, Here's How Much You'd Have Today",
-      "summary": "",
-      "link": "https://finance.yahoo.com/markets/stocks/articles/youd-put-10-000-intel-211000235.html",
-      "published": "2026-07-04T21:10:00+00:00",
-      "fetched_at": "2026-07-05T00:08:03.593109"
+      "link": "https://finance.yahoo.com/technology/ai/articles/openai-loses-another-c-suite-223300424.html",
+      "published": "2026-07-11T22:33:00+00:00",
+      "fetched_at": "2026-07-12T00:00:54.873792"
     },
     {
       "source": "finnhub_Reuters",
-      "title": "Mass grief in Iran at Khamenei funeral after US, Israel war killing - Reuters",
-      "summary": "Mass grief in Iran at Khamenei funeral after US, Israel war killing\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNS1NHb181V19lQUxyWlFMQnU5WjNucmZBZHl3NlQtUzZTRFN6aVgweE4tdVJrNVlOYVQzQTExdllpN3NHaWlHcXZTSENOa3hWeEpycTBHdGJLRVhzYlhRdEs1UVk4VE1pR3ZnTzEyb0Z3YmxBUUV5cHJEV2VLMjAzUXp1Q1FfVWY1aWNmYVo3TUgxOXdEdExNenNKT1RyQlRFVWlrakprSWV0Zw?oc=5",
-      "published": "2026-07-04T21:09:11",
-      "fetched_at": "2026-07-05T00:08:03.744116",
+      "title": "Iran's IRGC navy says Strait of Hormuz closed until further notice, state media reports - Reuters",
+      "summary": "Iran's IRGC navy says Strait of Hormuz closed until further notice, state media reports\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMixwFBVV95cUxPSmZVRzVlODludmRUd2hpVXBuRFY1Z0wwMTNNdGJBUEc1b01YcUtzVVRMVUxvMVg1dTROcEVOdWVfRUlOYWNvTkY4b2REM0QzRDVfVnp5MUJIcVhoeXVPb3l4RVI3MnVtWUpZUk9QRHkzUjFvcDR1UFpXeVZWOG5sSWJGSGtvTlRYeEhHYVhScE1RUWQyRUR2aUROMG9BckEtbG04QmxMSmcyMzRLMkFCZUFlWkM1cHN3UFQ5Z3IxbFpMNVVIdUw4?oc=5",
+      "published": "2026-07-11T22:32:09",
+      "fetched_at": "2026-07-12T00:00:55.136981",
       "ticker": null,
       "tier": 2
     },
     {
       "source": "yahoo_finance",
-      "title": "How Retirement Savings by Age Reveal Shifts in Americans' Financial Planning",
+      "title": "AppLovin vs. Fastly: A Look at Recent Revenue Trends for These Tech Companies",
       "summary": "",
-      "link": "https://finance.yahoo.com/markets/articles/retirement-savings-age-reveal-shifts-210500462.html",
-      "published": "2026-07-04T21:05:00+00:00",
-      "fetched_at": "2026-07-05T00:08:03.593133"
+      "link": "https://finance.yahoo.com/markets/stocks/articles/applovin-vs-fastly-look-recent-223101229.html",
+      "published": "2026-07-11T22:31:01+00:00",
+      "fetched_at": "2026-07-12T00:00:54.873952"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "CrowdStrike Just Completed a Stock Split. Is the Stock a Buy Now?",
+      "summary": "",
+      "link": "https://finance.yahoo.com/markets/stocks/articles/crowdstrike-just-completed-stock-split-223000167.html",
+      "published": "2026-07-11T22:30:00+00:00",
+      "fetched_at": "2026-07-12T00:00:54.874049"
     },
     {
       "source": "marketwatch",
-      "title": "\u2018She wants him gone\u2019: My friend took in a homeless man as a caretaker. After 10 years, how can she evict him?",
-      "summary": "\u201cHe lived rent-free, helping her with health-related issues and other tasks.\u201d",
-      "link": "https://www.marketwatch.com/story/she-wants-him-gone-my-friend-took-in-a-homeless-man-as-a-caretaker-after-10-years-how-can-she-evict-him-01672de2?mod=mw_rss_topstories",
-      "published": "2026-07-04T20:56:00",
-      "fetched_at": "2026-07-05T00:08:03.559476"
+      "title": "My insurance company said my roof lost a few tiles. Loss adjusters found $10,000 in storm damage. How could this happen?",
+      "summary": "\u201cMy house shook violently from the wind.\u201d",
+      "link": "https://www.marketwatch.com/story/my-insurance-company-said-my-roof-lost-a-few-tiles-loss-adjusters-found-10-000-in-storm-damage-how-could-this-happen-8e1cb8bf?mod=mw_rss_topstories",
+      "published": "2026-07-11T21:45:00",
+      "fetched_at": "2026-07-12T00:00:54.880768"
     },
     {
       "source": "yahoo_finance",
-      "title": "Nvidia Stock Is Nearly Flat for 2026. Time to Cash Out, or Load Up on Shares?",
+      "title": "Florida man paid off his house 2 months before Hurricane Milton tore off his roof \u2014 and he had no home insurance",
       "summary": "",
-      "link": "https://finance.yahoo.com/markets/stocks/articles/nvidia-stock-nearly-flat-2026-205000376.html",
-      "published": "2026-07-04T20:50:00+00:00",
-      "fetched_at": "2026-07-05T00:08:03.593157"
+      "link": "https://finance.yahoo.com/real-estate/articles/florida-man-paid-off-house-214000740.html",
+      "published": "2026-07-11T21:40:00+00:00",
+      "fetched_at": "2026-07-12T00:00:54.873000"
     },
     {
       "source": "yahoo_finance",
-      "title": "Taylor Swift Could Soon Be Writing a Bigger Check As Rhode Island's New Luxury Home Tax Officially Kicks In",
+      "title": "TTM Technologies (TTMI): Best Large Cap Stocks to Buy According to Analysts",
       "summary": "",
-      "link": "https://finance.yahoo.com/real-estate/articles/taylor-swift-could-soon-writing-204624900.html",
-      "published": "2026-07-04T20:46:24+00:00",
-      "fetched_at": "2026-07-05T00:08:03.593181"
+      "link": "https://finance.yahoo.com/markets/stocks/articles/ttm-technologies-ttmi-best-large-142324571.html",
+      "published": "2026-07-11T21:23:24+00:00",
+      "fetched_at": "2026-07-12T00:00:54.873030"
     },
     {
       "source": "yahoo_finance",
-      "title": "MicroStrategy CEO Calls Bitcoin \u2018United States of Money\u2019",
+      "title": "Here is Why Salesforce (CRM) is One of the Best Large Cap Stocks to Buy According to Analysts",
       "summary": "",
-      "link": "https://finance.yahoo.com/markets/crypto/articles/microstrategy-ceo-calls-bitcoin-united-204529285.html",
-      "published": "2026-07-04T20:45:29+00:00",
-      "fetched_at": "2026-07-05T00:08:03.593204"
+      "link": "https://finance.yahoo.com/markets/stocks/articles/why-salesforce-crm-one-best-142338375.html",
+      "published": "2026-07-11T21:20:38+00:00",
+      "fetched_at": "2026-07-12T00:00:54.873059"
     },
     {
       "source": "yahoo_finance",
-      "title": "Apple Is Reportedly Planning 5 New iPhones -- Including a $2,500 Foldable. Here's What It Means for the Stock.",
+      "title": "Baker Hughes (BKR) Secures Long-Term Service Agreement for ANOH Gas Plant",
       "summary": "",
-      "link": "https://finance.yahoo.com/markets/stocks/articles/apple-reportedly-planning-5-iphones-203700373.html",
-      "published": "2026-07-04T20:37:00+00:00",
-      "fetched_at": "2026-07-05T00:08:03.593229"
+      "link": "https://finance.yahoo.com/energy/articles/baker-hughes-bkr-secures-long-155952946.html",
+      "published": "2026-07-11T21:15:52+00:00",
+      "fetched_at": "2026-07-12T00:00:54.873118"
     },
     {
       "source": "yahoo_finance",
-      "title": "Which Pharmaceutical ETF Is Better, VanEck's PPH or Invesco's PJP?",
+      "title": "Super Micro Computer (SMCI) Introduces DCBBS Blueprint for HPC",
       "summary": "",
-      "link": "https://finance.yahoo.com/healthcare/articles/pharmaceutical-etf-better-vanecks-pph-203101885.html",
-      "published": "2026-07-04T20:31:01+00:00",
-      "fetched_at": "2026-07-05T00:08:03.593253"
+      "link": "https://finance.yahoo.com/markets/stocks/articles/super-micro-computer-smci-introduces-160002387.html",
+      "published": "2026-07-11T21:12:02+00:00",
+      "fetched_at": "2026-07-12T00:00:54.873148"
     },
     {
       "source": "yahoo_finance",
-      "title": "Is SpaceX Stock a Buy Before Its First Earnings Report as a Public Company?",
+      "title": "Carrier Global (CARR) Completes $440M Sale of Riello Business",
       "summary": "",
-      "link": "https://finance.yahoo.com/markets/stocks/articles/spacex-stock-buy-first-earnings-202500618.html",
-      "published": "2026-07-04T20:25:00+00:00",
-      "fetched_at": "2026-07-05T00:08:03.593277"
+      "link": "https://finance.yahoo.com/markets/stocks/articles/carrier-global-carr-completes-440m-160008643.html",
+      "published": "2026-07-11T21:11:08+00:00",
+      "fetched_at": "2026-07-12T00:00:54.873176"
     },
     {
       "source": "yahoo_finance",
-      "title": "Here's the Next Major Trillion-Dollar Blockbuster IPO Now That SpaceX's Is Complete",
+      "title": "Fifth Third (FITB) Launches AI-Powered Mobile App Interface",
       "summary": "",
-      "link": "https://finance.yahoo.com/markets/stocks/articles/heres-next-major-trillion-dollar-202000709.html",
-      "published": "2026-07-04T20:20:00+00:00",
-      "fetched_at": "2026-07-05T00:08:03.593301"
+      "link": "https://finance.yahoo.com/technology/ai/articles/fifth-third-fitb-launches-ai-160016030.html",
+      "published": "2026-07-11T21:09:16+00:00",
+      "fetched_at": "2026-07-12T00:00:54.873204"
     },
     {
       "source": "yahoo_finance",
-      "title": "Why July Could Be a Big Month for AMD Stock Investors",
+      "title": "Upstart Holdings (UPST) Renews $600M Forward-Flow Agreement",
       "summary": "",
-      "link": "https://finance.yahoo.com/markets/stocks/articles/why-july-could-big-month-201900322.html",
-      "published": "2026-07-04T20:19:00+00:00",
-      "fetched_at": "2026-07-05T00:08:03.593325"
+      "link": "https://finance.yahoo.com/markets/stocks/articles/upstart-holdings-upst-renews-600m-160024046.html",
+      "published": "2026-07-11T21:08:24+00:00",
+      "fetched_at": "2026-07-12T00:00:54.873259"
     },
     {
       "source": "yahoo_finance",
-      "title": "Bitcoin Miner IREN Falls After $700 Million CEO Stock Award",
+      "title": "Here is Why Hertz (HTZ) is One of the Best Stocks to Invest in Under $100",
       "summary": "",
-      "link": "https://finance.yahoo.com/markets/crypto/articles/bitcoin-miner-iren-falls-700-201450607.html",
-      "published": "2026-07-04T20:14:50+00:00",
-      "fetched_at": "2026-07-05T00:08:03.593349"
+      "link": "https://finance.yahoo.com/markets/stocks/articles/why-hertz-htz-one-best-160030688.html",
+      "published": "2026-07-11T21:07:30+00:00",
+      "fetched_at": "2026-07-12T00:00:54.873285"
     },
     {
       "source": "yahoo_finance",
-      "title": "The Monthly Income Trap: How JEPQ Investors Gave Up $18,000 Per $10,000 Invested Since Inception",
+      "title": "Is Realty Income (O) One of the Best Stocks to Invest in Under $100?",
       "summary": "",
-      "link": "https://finance.yahoo.com/markets/options/articles/monthly-income-trap-jepq-investors-201444391.html",
-      "published": "2026-07-04T20:14:44+00:00",
-      "fetched_at": "2026-07-05T00:08:03.593372"
+      "link": "https://finance.yahoo.com/markets/stocks/articles/realty-income-o-one-best-160036472.html",
+      "published": "2026-07-11T21:04:36+00:00",
+      "fetched_at": "2026-07-12T00:00:54.873310"
     },
     {
       "source": "yahoo_finance",
-      "title": "Why Did General Motors (GM) Just Partner With Micron?",
+      "title": "BHP Group (BHP) Secures Environmental Permit for $1.3B Escondida Expansion",
       "summary": "",
-      "link": "https://finance.yahoo.com/technology/articles/why-did-general-motors-gm-191731528.html",
-      "published": "2026-07-04T19:17:31+00:00",
-      "fetched_at": "2026-07-05T00:08:03.592137"
+      "link": "https://finance.yahoo.com/markets/stocks/articles/bhp-group-bhp-secures-environmental-160047683.html",
+      "published": "2026-07-11T21:03:47+00:00",
+      "fetched_at": "2026-07-12T00:00:54.873335"
     },
     {
       "source": "yahoo_finance",
-      "title": "Comcast (CMCSA) Stock Has Fallen 50%, Why Are Analysts Suddenly Turning Bullish On The Stock?",
+      "title": "First Majestic Silver (AG) Agrees to Sell San Martin Mine for $90 Million",
       "summary": "",
-      "link": "https://finance.yahoo.com/markets/stocks/articles/comcast-cmcsa-stock-fallen-50-191550222.html",
-      "published": "2026-07-04T19:15:50+00:00",
-      "fetched_at": "2026-07-05T00:08:03.592169"
+      "link": "https://finance.yahoo.com/markets/stocks/articles/first-majestic-silver-ag-agrees-160053660.html",
+      "published": "2026-07-11T21:02:53+00:00",
+      "fetched_at": "2026-07-12T00:00:54.873384"
     },
     {
       "source": "yahoo_finance",
-      "title": "Travel Headwinds Result In Attractive Valuation For Global Payments (GPN) Stocks",
+      "title": "ArcelorMittal (MT): Best Stocks to Invest in Under $100",
       "summary": "",
-      "link": "https://finance.yahoo.com/markets/stocks/articles/travel-headwinds-result-attractive-valuation-191542312.html",
-      "published": "2026-07-04T19:15:42+00:00",
-      "fetched_at": "2026-07-05T00:08:03.592197"
+      "link": "https://finance.yahoo.com/markets/stocks/articles/arcelormittal-mt-best-stocks-invest-160101118.html",
+      "published": "2026-07-11T21:01:01+00:00",
+      "fetched_at": "2026-07-12T00:00:54.873411"
     },
     {
       "source": "yahoo_finance",
-      "title": "Here\u2019s Why Analysts Are Still Bullish On Alcoa Corp (AA) Stock Despite The Selloff",
+      "title": "Why Seagate Technology (STX) Is Strengthening Its AI Storage Growth Outlook Through Cloud Demand and Higher-Capacity HDDs",
       "summary": "",
-      "link": "https://finance.yahoo.com/markets/stocks/articles/why-analysts-still-bullish-alcoa-191533264.html",
-      "published": "2026-07-04T19:15:33+00:00",
-      "fetched_at": "2026-07-05T00:08:03.592225"
+      "link": "https://finance.yahoo.com/technology/ai/articles/why-seagate-technology-stx-strengthening-202429436.html",
+      "published": "2026-07-11T20:24:29+00:00",
+      "fetched_at": "2026-07-12T00:00:54.873436"
     },
     {
       "source": "yahoo_finance",
-      "title": "Wall Street Is Losing Confidence In PVH Corp (PVH), Is The Stock A Buy?",
+      "title": "Why Applied Optoelectronics (AAOI) Is Well Positioned to Capitalize on Hyperscale AI Networking Demand With Its Expanding Optical Order Backlog",
       "summary": "",
-      "link": "https://finance.yahoo.com/markets/stocks/articles/wall-street-losing-confidence-pvh-191514572.html",
-      "published": "2026-07-04T19:15:14+00:00",
-      "fetched_at": "2026-07-05T00:08:03.592278"
+      "link": "https://finance.yahoo.com/technology/ai/articles/why-applied-optoelectronics-aaoi-well-201727325.html",
+      "published": "2026-07-11T20:17:27+00:00",
+      "fetched_at": "2026-07-12T00:00:54.873461"
     },
     {
       "source": "yahoo_finance",
-      "title": "Lincoln National Corporation (LNC) Is One Of The Top Extreme Value Stocks To Buy Now",
+      "title": "Why Lumentum (LITE) Could Benefit From AI Optical Networking Demand as Co-Packaged Optics Adoption Accelerates",
       "summary": "",
-      "link": "https://finance.yahoo.com/markets/stocks/articles/lincoln-national-corporation-lnc-one-191506722.html",
-      "published": "2026-07-04T19:15:06+00:00",
-      "fetched_at": "2026-07-05T00:08:03.592305"
+      "link": "https://finance.yahoo.com/technology/ai/articles/why-lumentum-lite-could-benefit-201023391.html",
+      "published": "2026-07-11T20:10:23+00:00",
+      "fetched_at": "2026-07-12T00:00:54.873513"
     },
     {
       "source": "yahoo_finance",
-      "title": "Wall Street Pessimism Has Made Universal Health Services (UHS) Stock A Top Extreme Value Stock To Buy Now",
+      "title": "Dow Jones Futures: Market Ready To Go? Nvidia, Micron, Sandisk Near Buy Points With Big Earnings Due",
       "summary": "",
-      "link": "https://finance.yahoo.com/healthcare/articles/wall-street-pessimism-made-universal-191457323.html",
-      "published": "2026-07-04T19:14:57+00:00",
-      "fetched_at": "2026-07-05T00:08:03.592332"
+      "link": "https://www.investors.com/market-trend/stock-market-today/dow-jones-futures-big-earnings-market-sets-up-nvidia-micron-sandisk-robinhood-spacex/?src=A00220&yptr=yahoo",
+      "published": "2026-07-11T20:05:42+00:00",
+      "fetched_at": "2026-07-12T00:00:54.873537"
     },
     {
       "source": "yahoo_finance",
-      "title": "Equinox Gold (EQX) Just Cleared A Major Roadblock, Is The Stock Ready To Skyrocket?",
+      "title": "How Vertiv (VRT) Is Expanding Its AI Data Center Cooling Platform Through the ThermoKey Acquisition",
       "summary": "",
-      "link": "https://finance.yahoo.com/markets/stocks/articles/equinox-gold-eqx-just-cleared-191444301.html",
-      "published": "2026-07-04T19:14:44+00:00",
-      "fetched_at": "2026-07-05T00:08:03.592357"
+      "link": "https://finance.yahoo.com/technology/ai/articles/vertiv-vrt-expanding-ai-data-195901778.html",
+      "published": "2026-07-11T19:59:01+00:00",
+      "fetched_at": "2026-07-12T00:00:54.873562"
     },
     {
       "source": "yahoo_finance",
-      "title": "Is Equitable Holdings (EQH) A Top Extreme Value Stock To Buy Now?",
+      "title": "Why Ciena (CIEN) Is Positioned to Benefit From Multi-Year AI Networking Demand Despite Elevated Expectations",
       "summary": "",
-      "link": "https://finance.yahoo.com/markets/stocks/articles/equitable-holdings-eqh-top-extreme-191425576.html",
-      "published": "2026-07-04T19:14:25+00:00",
-      "fetched_at": "2026-07-05T00:08:03.592408"
+      "link": "https://finance.yahoo.com/technology/ai/articles/why-ciena-cien-positioned-benefit-195239343.html",
+      "published": "2026-07-11T19:52:39+00:00",
+      "fetched_at": "2026-07-12T00:00:54.873586"
     },
     {
       "source": "marketwatch",
-      "title": "Here\u2019s what\u2019s worth streaming in July 2026 on Netflix, Hulu, HBO Max and more",
-      "summary": "Why it\u2019s a good month to save on streaming, despite the return of \u2018Enola Holmes\u2019 to Netflix and \u2018Silo\u2019 to Apple",
-      "link": "https://www.marketwatch.com/story/heres-whats-worth-streaming-in-july-2026-on-netflix-hulu-hbo-max-and-more-58d07528?mod=mw_rss_topstories",
-      "published": "2026-07-04T19:01:00",
-      "fetched_at": "2026-07-05T00:08:03.559519"
+      "title": "\u2018I get $1,460 in Social Security\u2019: My millionaire ex-husband, 74, refuses to pay alimony. What can I do?",
+      "summary": "\u201cI have very little money, while my ex\u2019s financial statements show assets in the millions.\u201d",
+      "link": "https://www.marketwatch.com/story/i-get-1-460-in-social-security-my-millionaire-ex-husband-74-refuses-to-pay-alimony-what-can-i-do-c5e60824?mod=mw_rss_topstories",
+      "published": "2026-07-11T19:00:00",
+      "fetched_at": "2026-07-12T00:00:54.880799"
     },
     {
       "source": "marketwatch",
-      "title": "Why a founder at age 50 is twice as likely to find success as one at age 30",
-      "summary": "Older workers are fighting ageism by starting their own businesses \u2014 and they\u2019re outperforming younger entrepreneurs",
-      "link": "https://www.marketwatch.com/story/older-workers-are-fighting-ageism-by-starting-their-own-businesses-and-theyre-outperforming-younger-entrepreneurs-5fc701fc?mod=mw_rss_topstories",
-      "published": "2026-07-04T18:56:00",
-      "fetched_at": "2026-07-05T00:08:03.559619"
+      "title": "\u2018It\u2019s heartbreaking\u2019: My brother claimed Social Security at 70. He died from cancer after one payment. Why wait to claim?",
+      "summary": "\u201cI\u2019ve always been a little skeptical of the government\u2019s encouragement to delay claiming benefits.\u201d",
+      "link": "https://www.marketwatch.com/story/its-heartbreaking-my-brother-claimed-social-security-at-70-he-died-from-cancer-after-one-payment-why-wait-to-claim-491669b6?mod=mw_rss_topstories",
+      "published": "2026-07-11T18:46:00",
+      "fetched_at": "2026-07-12T00:00:54.880826"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Bitcoin dropped 2% then rebounded after Trump said he's 'a big crypto guy' \u2014 here are experts takes on buying the dip",
+      "summary": "",
+      "link": "https://finance.yahoo.com/markets/crypto/articles/bitcoin-dropped-2-then-rebounded-180000405.html",
+      "published": "2026-07-11T18:00:00+00:00",
+      "fetched_at": "2026-07-12T00:00:54.873635"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Broadcom Lands $30 Billion Chip Deal With Apple. Why It\u2019s a Win-Win for AAPL and AVGO.",
+      "summary": "",
+      "link": "https://finance.yahoo.com/technology/ai/articles/broadcom-lands-30-billion-chip-173002657.html",
+      "published": "2026-07-11T17:30:02+00:00",
+      "fetched_at": "2026-07-12T00:00:54.873660"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Can Colombia\u2019s New Government Reverse the Nation\u2019s Oil and Gas Decline?",
+      "summary": "",
+      "link": "https://finance.yahoo.com/energy/articles/colombia-government-reverse-nation-oil-170000737.html",
+      "published": "2026-07-11T17:00:00+00:00",
+      "fetched_at": "2026-07-12T00:00:54.873686"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "'Just crying' for lower rates: Homebuying and selling have picked up this year \u2014 barely",
+      "summary": "",
+      "link": "https://finance.yahoo.com/real-estate/article/just-crying-for-lower-rates-homebuying-and-selling-have-picked-up-this-year--barely-165136773.html",
+      "published": "2026-07-11T16:51:36+00:00",
+      "fetched_at": "2026-07-12T00:00:54.873712"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Big fast-food burger chain franchisee files Chapter 11 bankruptcy",
+      "summary": "",
+      "link": "https://finance.yahoo.com/small-business/articles/big-fast-food-burger-chain-164700124.html",
+      "published": "2026-07-11T16:47:00+00:00",
+      "fetched_at": "2026-07-12T00:00:54.872917"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Amazon Is Spending So Much on AI That Even Its Cash Isn\u2019t Enough. Why Investors Shouldn\u2019t Be Worried.",
+      "summary": "",
+      "link": "https://finance.yahoo.com/technology/ai/articles/amazon-spending-much-ai-even-164502983.html",
+      "published": "2026-07-11T16:45:02+00:00",
+      "fetched_at": "2026-07-12T00:00:54.873824"
     },
     {
       "source": "marketwatch",
-      "title": "Why June\u2019s jobs and inflation data are bullish for bonds",
-      "summary": "The new jobs report is worse than many people realize.",
-      "link": "https://www.marketwatch.com/story/why-the-jobs-and-inflation-data-are-bullish-for-bonds-fcedffd2?mod=mw_rss_topstories",
-      "published": "2026-07-04T18:37:00",
-      "fetched_at": "2026-07-05T00:08:03.559668"
+      "title": "Is it better to spend my savings now so I can delay taking Social Security? How do I choose?",
+      "summary": "\u201cBy claiming earlier, I could preserve more of my portfolio and allow those assets to continue compounding.\u201d",
+      "link": "https://www.marketwatch.com/story/my-retirement-savings-will-suffer-if-i-delay-social-security-how-do-i-choose-between-the-two-a85273e3?mod=mw_rss_topstories",
+      "published": "2026-07-11T16:44:00",
+      "fetched_at": "2026-07-12T00:00:54.880849"
+    },
+    {
+      "source": "marketwatch",
+      "title": "Your data built the AI boom \u2014 but Big Tech is pocketing 100% of the equity",
+      "summary": "Your share of the AI wealth is a right \u2014 not a handout. Here is how we claw back our money.",
+      "link": "https://www.marketwatch.com/story/your-share-of-the-ai-wealth-is-a-right-not-a-handout-here-is-how-we-claw-back-our-money-7454b0e0?mod=mw_rss_topstories",
+      "published": "2026-07-11T16:01:00",
+      "fetched_at": "2026-07-12T00:00:54.880898"
+    },
+    {
+      "source": "marketwatch",
+      "title": "Only 5% of U.S. adults can ace this 8-question financial-literacy test. Can you?",
+      "summary": "Financial literacy just hit a 10-year low \u2014 and it is devastating bank accounts.",
+      "link": "https://www.marketwatch.com/story/only-5-of-u-s-adults-can-ace-this-8-question-financial-literacy-test-can-you-93a57cc6?mod=mw_rss_topstories",
+      "published": "2026-07-11T16:00:00",
+      "fetched_at": "2026-07-12T00:00:54.880923"
+    },
+    {
+      "source": "marketwatch",
+      "title": "You want a portfolio that matches your morals. Your retirement plan might disagree.",
+      "summary": "More investors want their money to reflect their values. It feels righteous \u2014 but the reality is a lot messier.",
+      "link": "https://www.marketwatch.com/story/you-want-a-portfolio-that-matches-your-morals-but-that-could-sink-your-retirement-plans-0b6fb5bf?mod=mw_rss_topstories",
+      "published": "2026-07-11T16:00:00",
+      "fetched_at": "2026-07-12T00:00:54.880947"
+    },
+    {
+      "source": "marketwatch",
+      "title": "The dot-com crash was a $5 trillion blip. Why the next financial crisis could hit 4 times harder.",
+      "summary": "The next global financial crisis is already under way. Here is how it will unfold.",
+      "link": "https://www.marketwatch.com/story/the-dot-com-crash-was-a-5-trillion-blip-why-the-next-financial-crisis-could-hit-4-times-harder-29f4aa57?mod=mw_rss_topstories",
+      "published": "2026-07-11T16:00:00",
+      "fetched_at": "2026-07-12T00:00:54.881196"
+    },
+    {
+      "source": "marketwatch",
+      "title": "Stocks rally when Congress goes on summer break. Here\u2019s why.",
+      "summary": "Stock prices face greater volatility when lawmakers are active, driven entirely by the regulatory uncertainty they create.",
+      "link": "https://www.marketwatch.com/story/stocks-rally-when-congress-goes-on-summer-break-here-is-the-hidden-reason-e70a6be3?mod=mw_rss_topstories",
+      "published": "2026-07-11T16:00:00",
+      "fetched_at": "2026-07-12T00:00:54.881253"
+    },
+    {
+      "source": "marketwatch",
+      "title": "Your investing expectations are more than double the reality. Here is the tough truth.",
+      "summary": "Long-term real returns above 10% annualized are exceedingly rare.",
+      "link": "https://www.marketwatch.com/story/your-investing-expectations-are-more-than-double-the-reality-here-is-the-tough-truth-dea61820?mod=mw_rss_topstories",
+      "published": "2026-07-11T16:00:00",
+      "fetched_at": "2026-07-12T00:00:54.881294"
+    },
+    {
+      "source": "finnhub_Reuters",
+      "title": "Iran's supreme leader pledges revenge for slain father and predecessor - Reuters",
+      "summary": "Iran's supreme leader pledges revenge for slain father and predecessor\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxOVFJ6QzJlMkc1VWtrWHlLcms2NkZhSWZ5VnhDazNkY04zS0RMN01UUjhUOGZUajRWVGRqREUtbWRDUjlLakFZaFByZDgySm9mcFNGQi1rLWJFd3RHS09iUVZRZHZGTHFfM1BlTXVYdmhZczl2bFBkZVZDRHE5T0phT2NDd2dTb1F0aS1vRW12SlFCbEFrMGJhRGdSY3FCRHhhd21vbVg5QVNKMl82c1VQd1NaaEp2dw?oc=5",
+      "published": "2026-07-11T13:08:36",
+      "fetched_at": "2026-07-12T00:00:55.136987",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_CNBC",
+      "title": "From booksmaxxing to looksmaxxing: Why the viral trends concern some mental health experts",
+      "summary": "People are self-optimizing everything \u2014 protein, skincare, fitness \u2014 to such a degree that \"maxxing\" is one of social media's most popular suffixes.",
+      "link": "https://www.cnbc.com/2026/07/11/why-viral-maxxing-trends-concern-some-mental-health-experts.html",
+      "published": "2026-07-11T13:05:01",
+      "fetched_at": "2026-07-12T00:00:55.136992",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Reuters",
+      "title": "Turkey still evaluating participation in Canada's global defence bank, sources say - Reuters",
+      "summary": "Turkey still evaluating participation in Canada's global defence bank, sources say\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMiywFBVV95cUxQcEhFYkJqV0dPUVJhMjZQYUhpUkZFb3FtVEpoLS1MamtKU1lTdWFSVjNmcXYyUkZha21zTmtMVEZZa0hxMnlTM0ZjUEZxWmotRXBOQmZxQk8wVVpiODZTV00zeUY2N3FQWC1FTkNoeEJ5cDBJTHlDRElDTzFEdGMzT2JyZG9VNFYxUEUyUUN2YUZMV0tHSFYxWkpKdUt4RzBTUGNBaWptVDJtNGo2Y2g3SHZacURUdVczY0dVdVRaNWJZanhEbXJNQnpDaw?oc=5",
+      "published": "2026-07-11T12:53:43",
+      "fetched_at": "2026-07-12T00:00:55.136996",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Best CD rates today, Saturday, July 11, 2026: Best account provides 4.10% APY",
+      "summary": "",
+      "link": "https://finance.yahoo.com/personal-finance/banking/article/best-cd-rates-today-saturday-july-11-2026-best-account-provides-410-apy-100000806.html",
+      "published": "2026-07-11T10:00:00+00:00",
+      "fetched_at": "2026-07-12T00:00:54.873851"
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Mortgage and refinance interest rates today, Saturday, July 11: Rates moving lower today",
+      "summary": "",
+      "link": "https://finance.yahoo.com/personal-finance/mortgages/article/mortgage-and-refinance-interest-rates-today-saturday-july-11-rates-moving-lower-today-100000637.html",
+      "published": "2026-07-11T10:00:00+00:00",
+      "fetched_at": "2026-07-12T00:00:54.873903"
+    },
+    {
+      "source": "finnhub_Reuters",
+      "title": "Iran state media says explosion in eastern Tehran province was controlled ammunition disposal - Reuters",
+      "summary": "Iran state media says explosion in eastern Tehran province was controlled ammunition disposal\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxPbGRvNDdmbk9mNGV2TllCay1BUFRiMmE4MEdHaXVicUgwNklydEx4WHR1d0F4NmJHVDJKaExxNVpLTjVBUkZkaFV5NlZxWXQta0JUWmtvUGtTNHpGQ0prQUpkQ050cHRCNU8ybW5rclMtVXNOS0VBbl9ac242OVZjcWxRTnA2enBvQTMweWpEWFR5OG0yeTFHYXpiS3UwQlVLeFYyeWdrNGszXzBiUWEzNHFscE4yZFdrank5M1EyQ212eFV1UlJneQ?oc=5",
+      "published": "2026-07-11T06:43:00",
+      "fetched_at": "2026-07-12T00:00:55.137000",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Reuters",
+      "title": "US seeks free Hormuz access from Iran as talks focus on strait - Reuters",
+      "summary": "US seeks free Hormuz access from Iran as talks focus on strait\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOdDY4WWlhcGlFTE0zWE9HdXJlWnFJNXRhLWthUlFCZVdiVV91elpLUlh3Ni1UQUU2OXg2RXV0MUVWVHk0SE9CSFA4RjdOV05hTFRUX3ZEb3Z0OEJWNkYtdGR2ajRDR0FWS2xXaEhQeFNuLTZ0NXVKLS1mbklIQnpPT2VINnQ1ZmF5eDFHNXQtY01aSVVMYXkwTEh4RnlmRUthcjlGOG1LYndabUJ6NWc?oc=5",
+      "published": "2026-07-11T04:46:00",
+      "fetched_at": "2026-07-12T00:00:55.137004",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Reuters",
+      "title": "Trump says missiles aimed at Iran if Tehran targets US president - Reuters",
+      "summary": "Trump says missiles aimed at Iran if Tehran targets US president\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNTzc3RWxTLVZuRllmY19VQ244ZjcxcjY2TVRNWnh1WkI1ck5qUkFyMzBZNTZTYUZqbTVRSmc4V3BqMl9zY21GdnJmSGU0OTNRd0Q4ekxDMnlGQ0I1UEJScFZhUGZoZ1A1aEdZTWRYZ0FGazJ3aXpJd2Zad044SzhMWXFETXRmQnBvTnMxSjhzdXVjZnp1YmRkNWJlVWdqWWdFdnRKeHlrOFQtdjZqRk9mMFhMbFFHUQ?oc=5",
+      "published": "2026-07-11T03:35:00",
+      "fetched_at": "2026-07-12T00:00:55.137007",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Reuters",
+      "title": "Trump says US agreed to Iran's request to continue talks, but ceasefire is over - Reuters",
+      "summary": "Trump says US agreed to Iran's request to continue talks, but ceasefire is over\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxNWU8weHNqWU10dDFxUGpMR3Z5LW0xVVVnTlNuU2ZBaWpXS0ZnbHQ4c3BENmZ2QVZMZ0VLWmIyUnU0NVM2Tkp4T0lONVM2NnF5cHluZWRxR3FkOXdsNEJoQ3I1VmV3a3hOcExFWll0Vkp2VUJKN2xpcU13US1lOEkxWE1CcEY2dWZGbUZ4TzZ3V0lYRUhLdC1CZjJNTDVJZVM2TDZpSUU0V0lQdkZn?oc=5",
+      "published": "2026-07-10T22:25:15",
+      "fetched_at": "2026-07-12T00:00:55.137015",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Reuters",
+      "title": "US insists Iran commit to stopping attacks in Hormuz strait, say US officials - Reuters",
+      "summary": "US insists Iran commit to stopping attacks in Hormuz strait, say US officials\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOTDI4WnJQY1UzQVd1QjZQMXRFUkM2SHdzNV9EYmd2cTQ2a1h3cTN0NTlza0JSMWFlbFhibmY0SnVRSHU0U2ZsRGpoMEhMamd5RXNZUXZRVUJRQnVzVGhtajFJbHdXSUtjNy1iOGpTODU3dG5YLUphaGlYRDRXLUZSdXF2U3laZDhaeTVvalFJbjlGOGJYaTFFdnRuMUJmZXE3U1Z0LTRxaUtiNTNnQnQ2bGdDZEVhUzV4OHdBVlBTSVVBdw?oc=5",
+      "published": "2026-07-10T21:36:03",
+      "fetched_at": "2026-07-12T00:00:55.137020",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Reuters",
+      "title": "Fire at western Iranian mini-refinery contained, Iran media says - Reuters",
+      "summary": "Fire at western Iranian mini-refinery contained, Iran media says\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNLUtrSnZONHozaUJIOU5LOVhpTGo4MEViVEJQQTNiZ0lLaC1ERV80cjNySFJEYk84WmJGeDZWYWoyM1lYYmtuUXRrOXo4NG0yaVZXY0hpWEVIZFgyZ214dWgwcGdITmlYNld4bnFVYlVPZGFwRmE0dmJ2bHNtZ2d0NW1oZ0NvOTV1V1pNcW1mNGVITDFvdFpUSXFUTlE?oc=5",
+      "published": "2026-07-10T21:14:43",
+      "fetched_at": "2026-07-12T00:00:55.137024",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Reuters",
+      "title": "Occidental's quarterly realized oil prices jump amid Iran war disruption - Reuters",
+      "summary": "Occidental's quarterly realized oil prices jump amid Iran war disruption\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxONkw5TDZlRDh6aWdqR1hyTHAwQUx5aXFjLXJQdlVoTXRJc19DYXVNMmJ4c0ZVQkpmOXFUMHkxal9RelBqSmkwQ3A1bWpDdTlCQ1ZFUDhKV2lSckpXbm5GYVI3Mk1ZZ0QwZy13dnI1WEduZDRWT25QNVFUc3hnX3dHTE5sRVE3eV9Gd0FXUFdLZ01KZTBfNmpXU2NDXzhaaHpjbFFadUYzWW5EMklzNlhIVXJrWFB5NGRCb1Q0S19FNkU?oc=5",
+      "published": "2026-07-10T21:09:03",
+      "fetched_at": "2026-07-12T00:00:55.137027",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Reuters",
+      "title": "US pain at the pump worsens after more US-Iran fighting lifts oil prices - Reuters",
+      "summary": "US pain at the pump worsens after more US-Iran fighting lifts oil prices\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNNmRTRTU1SVQyc05BT2JHSGRkZ0JQaFI5WjVraUplNlJaQVUzUk1jeHp2eE9WQ191SkRkSDRZZjJiVWtBZHg2VXdCWW9jV0xNLXR4QzhQak5NSDd6QVp5dWtFbl95TGVwVDhBRGV3V05CWGV0U2JVeU52OW1XSHhkVENveUdMSEF4Um8yc1B0cVphckZzd0dOZ0l5VHlVdHdEYXRrem4tNzlmSEJKZUNkRDJCMjhBSG5x?oc=5",
+      "published": "2026-07-10T20:42:04",
+      "fetched_at": "2026-07-12T00:00:55.137031",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Reuters",
+      "title": "Wall St Week Ahead Investors to grapple with packed week of earnings, CPI, Iran headlines - Reuters",
+      "summary": "Wall St Week Ahead Investors to grapple with packed week of earnings, CPI, Iran headlines\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxNMjJOeUlsWVliM0doZUlfUDdXVjA5OXpjUDdPNjlFXzFzRGZKcDhhaDVGZFNDc3RRM3QwLVdWdTdaaXJZN0NfRUhjQWkxSzBVZlBMd1l1dlZpVVVOOEFfbWVmUzVYMFlZZGpCWENSR3FRVGNPZjhXcU96VTY3b1hjTk45ZWMwRnR3RVRsRG5UR1ZqdU5RLWhhWWtnWVBjeGk4YTg3c294YjdUVkVqWS1WY3dNWnpCalBERVZQbkRIdw?oc=5",
+      "published": "2026-07-10T20:22:32",
+      "fetched_at": "2026-07-12T00:00:55.137035",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Reuters",
+      "title": "US makes it easier to export Nvidia AI chips and military equipment to the UAE - Reuters",
+      "summary": "US makes it easier to export Nvidia AI chips and military equipment to the UAE\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxPd0RpM0tkVDY3RXZ5NzBYZnZKR1hkME1NSVE2TVdNYUJCSjY5VWk1LUhfUFd3NTlMdktER1MtOHhEUjVVOHRhSHcxTGh2TFlFMTNsZmt2dzk0WTdFbHUxZm5SNExFX3JyNldDWHpYcHg1dFRGWGdoX2Y5QU1UUGR1TmpodmktT3lXenhad3JqOTMtUERoZmpFX0dMTFh1VEtQdEp5ZERMRGJYNjloTG94X05Ka2pYQWFlU1NENjFTd0tTN002dFBOb3g0d0QxUQ?oc=5",
+      "published": "2026-07-10T19:39:42",
+      "fetched_at": "2026-07-12T00:00:55.137038",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Reuters",
+      "title": "Iran oil stuck at sea surges as China's teapots turn to rival Middle East supplies, traders say - Reuters",
+      "summary": "Iran oil stuck at sea surges as China's teapots turn to rival Middle East supplies, traders say\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMizAFBVV95cUxPOWxpczA5UVItb3hGWndrQnBSdU1yckMyQWV0WDQ2ZzhLb3BBcmF5NU9oYmdmbW1MOWFtU2p5MmlqQnYtUWxISDZUNjRMTjVYdmtSdmJFVERuNUczVU9VSlRBUzA2OEZRV0FmV0g2RzBNbzhENTMwV3o2WkJscWxRLXFOaXdzaDVkQmxjdlJ6eDB3RzNHaXQ1bE1vX0tzM2xYWFprZGdRODk3ajgyWjVmUmtPSGQwSEt1dWhXdGNxU2FFYnEta2NYeVZ2V08?oc=5",
+      "published": "2026-07-10T19:33:18",
+      "fetched_at": "2026-07-12T00:00:55.137042",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_CNBC",
+      "title": "Stocks rise as investors await the start of earnings season \u2014 here's what to expect",
+      "summary": "Every weekday, the Investing Club releases the Homestretch; an actionable afternoon update just in time for the last hour of trading.",
+      "link": "https://www.cnbc.com/2026/07/10/stocks-rise-as-investors-await-the-start-of-earnings-what-to-expect.html",
+      "published": "2026-07-10T19:04:06",
+      "fetched_at": "2026-07-12T00:00:55.137045",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Reuters",
+      "title": "US issues fresh Iran-related sanctions as conflict flares - Reuters",
+      "summary": "US issues fresh Iran-related sanctions as conflict flares\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxQM3VkRHJQX280dm52aTMzUkNlOHJKNVNFQ2g2d19JWVc4dkVCMzBiSUhyR01LaTJkalhNQnMybnNrTk9QVWZwSng1TXZGalh6QnVsekV5bVVKN3kwcE02X19TT2ZuZzFfeHQ4RDlHSG84eHFjaEsxRUtlSDlVanpfb2lSVE0zVnhVZlpWd0JuR1VEeU9BQ2stcVpmMll5SjcxUWdTWVk1cmIzUQ?oc=5",
+      "published": "2026-07-10T18:49:00",
+      "fetched_at": "2026-07-12T00:00:55.137048",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "yahoo_finance",
+      "title": "Elon Musk SEC settlement raises 'red flags,' judge says",
+      "summary": "",
+      "link": "https://finance.yahoo.com/markets/stocks/articles/elon-musk-sec-settlement-raises-164700167.html",
+      "published": "2026-07-10T16:47:00+00:00",
+      "fetched_at": "2026-07-12T00:00:54.873087"
+    },
+    {
+      "source": "finnhub_Reuters",
+      "title": "Fed report cites 'stepped-up' inflation due to tariffs, Iran war, AI buildout - Reuters",
+      "summary": "Fed report cites 'stepped-up' inflation due to tariffs, Iran war, AI buildout\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPWmpCaExTSktkWXFGQjlDZ2pzOHlSNm0xcXJqcWJGUkdNaWRlSnJldzhzSUZaT2drZy1RZVM5TmVJbGltTHhUU3hzeFpvbGZjbmlJWkxjejUwZVY0UTFscU45ekt2LWlBZUM3c1dtc2R1VE05OXA3NmxCVUxBVVFUQ0ZuSm0zejV6ZlE?oc=5",
+      "published": "2026-07-10T16:30:28",
+      "fetched_at": "2026-07-12T00:00:55.137052",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_CNBC",
+      "title": "We're looking to buy more of this chip stock as the once-hot group cools",
+      "summary": "The Investing Club holds its \"Morning Meeting\" every weekday at 10:20 a.m. ET.",
+      "link": "https://www.cnbc.com/2026/07/10/were-looking-to-buy-more-of-this-chip-stock-as-the-once-hot-group-cools.html",
+      "published": "2026-07-10T16:27:42",
+      "fetched_at": "2026-07-12T00:00:55.137056",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Reuters",
+      "title": "Delta expects fare gains to hold as fuel volatility pressures airlines - Reuters",
+      "summary": "Delta expects fare gains to hold as fuel volatility pressures airlines\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxOUlNEeTZaemlEQWx5bHlfOFRfMlF2QVJCcTNpUVZLWUdNd0pjNmN4NDBaaWRYUkNoUjJjNjlESTRCNWNPcmZCaWg5Xzh5MUdyRzVJRTVES1gtdll3MGJENWZvY1F1Y3hSM09sa1dxZXdySGZCbUMzSFNEeGxuVTlfT29sb3U3Nmg3YzNubU5OdmVJSDh6ejZZa1JqaVBtVUp4ZEhzYlpBbm1kbzQ3MWxULXdvcGNoRVQ0LXQySFQ3eWNWemp5RmJjQjViX2VoTFV4TG1QTg?oc=5",
+      "published": "2026-07-10T16:21:23",
+      "fetched_at": "2026-07-12T00:00:55.137059",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Reuters",
+      "title": "Turkey says it hopes to achieve result on lifting U.S. sanctions soon - Reuters",
+      "summary": "Turkey says it hopes to achieve result on lifting U.S. sanctions soon\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxOTXY0ckRMNUlWWXNNNzhPVnZlamdNRTFHajk3bjFqeHg4VkU1Q25KNWUzaXRjVDhXTTFYcmR3VXR0VjNoRDBCbERpQnk3V2NUZF9XV0Y0c2NuclEyZzVqTndOTUJpWEFfMmpUQnpQSzhudmpBN2RmblBrUEJBNkJSRVdJV0h0bjJUNkNJc2diVnljQXJZWDhmNkdKdWNPREpjQjhsalZ6TEVEdmtYYkJnOXY5V1BTZw?oc=5",
+      "published": "2026-07-10T15:19:43",
+      "fetched_at": "2026-07-12T00:00:55.137063",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Reuters",
+      "title": "Iran has asked to continue talks and the US agreed, Trump says - Reuters",
+      "summary": "Iran has asked to continue talks and the US agreed, Trump says\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxQcUtqQnRSYkhpd2ZXamR3RVhpdVVWaWIwVFc4RGRNT2xzaUpaNEdkOENLbHN0SUU3Yzd3ZXZsT3k3WFhEcEpOZWZFbEhYSXFJbGpiYlpsRnp2MTAwc09DLThKOU1meXJBS0l1SXhyUHhGZmhUR0R4VFBjeG9lVUVGN1Jnd2RaQllDTC1EQnlNTEZEQzdqNFhkSE1CYTNYZk5KVTdlSm9iUQ?oc=5",
+      "published": "2026-07-10T14:46:28",
+      "fetched_at": "2026-07-12T00:00:55.137066",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Reuters",
+      "title": "How the absence of Iran's Mojtaba Khamenei is becoming a liability for the Islamic Republic - Reuters",
+      "summary": "How the absence of Iran's Mojtaba Khamenei is becoming a liability for the Islamic Republic\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNUTNPR0g0ZVgwQjFWR1R4WERMR215bmNZQ0l5YVVFMWN1V1FrZ3F5SWRIQmhwc2g3ZHBFcnhjVEdHOGJTSXdNdDdMR3l5Q3JtdWxWbHlkTkJXa1FaUDVxRGdWMVBFcDNOaXZILWd3Y2RmOXhwSWtNS0ZaclhCRl9IZ1RpVnBXS2RBaldpbzNxYS1GeUVrWFh0RWo0MnRqNl8tcUVRR194akZfeTZ4SXJkU1VybG5jMmVU?oc=5",
+      "published": "2026-07-10T14:16:00",
+      "fetched_at": "2026-07-12T00:00:55.137069",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Reuters",
+      "title": "Qatari delegation is in Iran, aims to boost mediation role, Tasnim news agency says - Reuters",
+      "summary": "Qatari delegation is in Iran, aims to boost mediation role, Tasnim news agency says\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxNSTBfYXo1d1V2WkQtcUh0N2pYOXFMamZHWTVUNllCOEcwZHFObEZuT0Fxc1FIMmJNaEwxQkJ2cFp6OXpOMDRKN0daOVplMlNkMUIyU3dyaFZ1bjZCM2pSNTZuZllodGMxb1ZIQUhjNmp4QzdQQ255dEJMZElRX0l1VkhYRkQ1bHlIclZ3SUowUk91MG52RnFsNC1EWVFQNDJHTGQ1RDBTZ2xqVzdCLVl2aEQzQUlZV0xtVnljX3hBZGNrT0ZYdUZuMQ?oc=5",
+      "published": "2026-07-10T14:04:10",
+      "fetched_at": "2026-07-12T00:00:55.137073",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_CNBC",
+      "title": "48-year-old worked at a garden center for $17/hour to make ends meet: 'It's one of the best jobs I've ever had'",
+      "summary": "\"Without a job, I felt invisible. With a job, I felt seen, useful, and purposeful again,\" says Leslie Friday, who sold plants and flowers while job searching after a layoff. \"I loved every minute.\"",
+      "link": "https://www.cnbc.com/2026/07/10/48-year-old-worked-at-a-garden-center-to-make-ends-meet-one-of-best-jobs-ever-had.html",
+      "published": "2026-07-10T13:42:01",
+      "fetched_at": "2026-07-12T00:00:55.137077",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_CNBC",
+      "title": "The Club's top 10 things to watch in the stock market Friday",
+      "summary": "Stocks futures are flat after Thursday's rally, while SK Hynix is set to debut on the Nasdaq.",
+      "link": "https://www.cnbc.com/2026/07/10/the-clubs-top-10-things-to-watch-in-the-stock-market-friday.html",
+      "published": "2026-07-10T13:30:28",
+      "fetched_at": "2026-07-12T00:00:55.137080",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Reuters",
+      "title": "Countries must reject Iran efforts to control Hormuz, UN agency document says - Reuters",
+      "summary": "Countries must reject Iran efforts to control Hormuz, UN agency document says\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxQSHB0c25vOUxTSEZDb19qaXdPQlNhSVdaTTJRWHlhb1pUcUF5T2NGVldrdU90ZTdzVFZCQzhjdHNqNERUWDF2STVlbzdSZ1Mza3o5OG9xYlFhdDJ5b28ydkF1S0xEdXZ0MXJZQnR4YnVmRkZRc0Y3UjJBcVRHcGVSQW9lRF9XeWFZczNsQS1ERXpNMlRpYmtMZVRoRWlMRWJRa0tfV3RfaGpQZExtMkpTbnhudGpZajV2NWpIQVhFZDBlZEpIcnc?oc=5",
+      "published": "2026-07-10T13:10:25",
+      "fetched_at": "2026-07-12T00:00:55.137084",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Reuters",
+      "title": "Traffic slows through Strait of Hormuz as Iran tensions flare - Reuters",
+      "summary": "Traffic slows through Strait of Hormuz as Iran tensions flare\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxQdzU4SVRwMVVlZ2pOM2Z2YWdjVGhfR01qSU5GbXB5R0JlT2JuLTRaTWMyRzZsOUdOeDV2OVM3SEpteHFrajBWUHdVdXdmZTREbXh3MFFvSEFNNXNyMGZXbThNRXVWazhhQklGcHZNWDREcjVIclUyVDduRWpQaV9pWlphcVJVbUViMFN1Q0NiZ1dLczdqZzh5VzRYakk3WUJyMnVUOWRiVUpYaTlPc2luNFVzeTRQMkVHQ3lfdjVrRHhFT3NESXAwWQ?oc=5",
+      "published": "2026-07-10T11:42:32",
+      "fetched_at": "2026-07-12T00:00:55.137087",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Bloomberg",
+      "title": "Milky Mist eyes \u20b92,035-crore IPO by July-end",
+      "summary": "The proposed offering comprises a fresh issue of shares worth as much as \u20b91,785 crore and an offer for sale of up to \u20b9250 crore by founders, according to the draft prospectus.",
+      "link": "https://www.bloomberg.com/news/articles/2026-07-10/milky-mist-said-to-launch-213-million-india-ipo-this-month",
+      "published": "2026-07-10T10:58:25",
+      "fetched_at": "2026-07-12T00:00:55.137091",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Reuters",
+      "title": "Morning Bid: Lather, rinse, retaliate - Reuters",
+      "summary": "Morning Bid: Lather, rinse, retaliate\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxOLTBOODY2b2RMWGZ6T1c3Y2tXQ016VkpBc29Wa1dFenF6YnpCUGZsZ2hHZkdqSDVhcVhxaW1BaTRZTnh4SEpYSVVwUXlWRVA1RzkyeXR6RXNTVS1BeVVOdDNERXczN3psWkZ6aXUxNVNvdE1EaDVWenRzcWIxTmNmYzRHYjRCTDJWV2Zpam81Zm9pS1dxNmVF?oc=5",
+      "published": "2026-07-10T10:40:50",
+      "fetched_at": "2026-07-12T00:00:55.137094",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Reuters",
+      "title": "US-Iran escalation could threaten 2027 oil market surplus, IEA says - Reuters",
+      "summary": "US-Iran escalation could threaten 2027 oil market surplus, IEA says\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPcS1IS0o0Q2RIbVZsMWFQc3hWY2lheW5Zb09jdVlENDBxeFVOYk0xRUozaTI4NFVUUzlGem1tLUdnVURUYXcySHVNdk5kd185ZTAzOHFkUjV2MHYxQkNOejZSbTl3VlQyb3c5NWM4ejhFZUlNN3FUYnA3SW1uWGtzaFVXTDFYY2MzRHRBZzh3N2tfeUw0ZnlELXRNX2JKb1dsalpzVkppVmZjMTVTZ2ZWcnZCRUNGMzByaFE?oc=5",
+      "published": "2026-07-10T10:04:10",
+      "fetched_at": "2026-07-12T00:00:55.137097",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Reuters",
+      "title": "China temporarily bans helium exports as US-Iran tensions flare again - Reuters",
+      "summary": "China temporarily bans helium exports as US-Iran tensions flare again\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNc3JNM3pfZEJxTV9oX1JMNXdpSzJ5a2NvTFBNZXBHUWpLMnEyM3BqYjNEcDg0WGZsZGhSaktsODR1di1NbU56SzJRZ2NmcXloY3p1MURESl8xS3NFTDRaYkFLZ3VLQU40X0Rwb0V1amJPRE1BVmdLZmJEc29YVjB0d1FQTFgzZWFSekwxRzE0aDFaeDlUZWlsNkpUcUNuNWM?oc=5",
+      "published": "2026-07-10T09:12:00",
+      "fetched_at": "2026-07-12T00:00:55.137101",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Bloomberg",
+      "title": "Singapore\u2019s Helios bets on Adani Enterprises, buys 770,000 shares in second quarter",
+      "summary": "Helios Capital bets on Adani Enterprises, acquiring 770,000 shares, while diversifying its portfolio with other promising stocks.",
+      "link": "https://www.bloomberg.com/news/articles/2026-07-10/adani-flagship-is-the-next-big-india-pick-for-singapore-s-helios",
+      "published": "2026-07-10T08:27:52",
+      "fetched_at": "2026-07-12T00:00:55.137104",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Reuters",
+      "title": "ECB is back to square one as US-Iran war resumes - Reuters",
+      "summary": "ECB is back to square one as US-Iran war resumes\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQRm9WbnV4OVNNRTE2NmgybmlMZUxEM2xyOHJjUkdvVW50aHk5LVhxOUZTcDk1Q1hGcTBOZWg0NFlkTTE4bk0xMEFEcTFkS1VHeDROempXQ0JjcWx2TFJGQmp1dW5yeTlNQllpT3lxMUNCTlZaRzlfcjlCRV8ybHpLZ3RkUlE4WFZiYjZ3alh3X3hGb1F3ZmRjOERrTQ?oc=5",
+      "published": "2026-07-10T07:29:44",
+      "fetched_at": "2026-07-12T00:00:55.137108",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Bloomberg",
+      "title": "AI could affect millions in Asean, though ILO data shows there have been no big job cuts",
+      "summary": "Employment in jobs with the greatest potential for AI to automate or augment tasks has continued to grow since 2017, an ILO report said",
+      "link": "https://www.bloomberg.com/news/articles/2026-07-10/ai-could-affect-millions-in-asean-as-ilo-sees-no-big-job-cuts",
+      "published": "2026-07-10T05:14:26",
+      "fetched_at": "2026-07-12T00:00:55.137112",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Bloomberg",
+      "title": "ONGC approves project to expand strategic crude reserves",
+      "summary": "ONGC's board approves expanding India's strategic crude reserves by 1.75 million tonnes in Mangaluru, enhancing energy resilience.",
+      "link": "https://www.bloomberg.com/news/articles/2026-07-10/india-s-ongc-approves-project-to-expand-strategic-crude-reserves",
+      "published": "2026-07-10T04:36:03",
+      "fetched_at": "2026-07-12T00:00:55.137115",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Bloomberg",
+      "title": "AI, Iran war risks weigh on Indian IT firms\u2019 earnings outlook",
+      "summary": "Earnings at Taiwan Semiconductor Manufacturing Co. will serve as a key reality check for Taiwan\u2019s stock market, which remains in the grip of the AI boom",
+      "link": "https://www.bloomberg.com/news/articles/2026-07-10/indian-it-firms-earnings-face-ai-middle-east-war-risks",
+      "published": "2026-07-10T03:51:03",
+      "fetched_at": "2026-07-12T00:00:55.137118",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Bloomberg",
+      "title": "Shapoorji Pallonji Group kicks off \u20b925,500 crore refinancing with rupee bond sale",
+      "summary": "The fundraising provides the infrastructure-to-real-estate conglomerate much-needed liquidity after it twice extended the maturity of debt owed by Goswami",
+      "link": "https://www.bloomberg.com/news/articles/2026-07-09/india-s-shapoorji-starts-2-7-billion-refinancing-to-tackle-debt",
+      "published": "2026-07-10T03:15:35",
+      "fetched_at": "2026-07-12T00:00:55.137122",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Reuters",
+      "title": "Gold under pressure as Middle East tensions lift rate-hike bets - Reuters",
+      "summary": "Gold under pressure as Middle East tensions lift rate-hike bets\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxQY0V5Q0tTaFY3eWtUQUwydFZrcHA4dzI1blE1ZHNzRGRmcV9TVXNoVWxNQ2pXTHpvenpyYUM4X2tnZXcxT1JIUG1lWGQwS1kxWVJ3aHAweGl2Z1FEa1VaYjlLUi1BQ3RoRXBSUU1aWWpwTFRfbWJQbk5lUExMd2lBdDNWZC1COVpRTkhEWURwR3JJTUU1MDE1Q2NLaHVxaXpOMmR6SU5Kck1Pdnoz?oc=5",
+      "published": "2026-07-10T03:13:00",
+      "fetched_at": "2026-07-12T00:00:55.137125",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Reuters",
+      "title": "Oil prices settle lower on hopes for smoother shipping in Strait of Hormuz - Reuters",
+      "summary": "Oil prices settle lower on hopes for smoother shipping in Strait of Hormuz\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxOdU1pbkMwaXhwRm5RZ000RGVzRzA0b0hTa24wcF9ZWG8wcThYNnRmSTlDdDBsdFhBZEk3OWg5Uzl1WHlvZ3hNSUlZVUtfSFp2Y1RqYmx0bGpfNlRNT05jY2JrUXQxSkR5bWY4UUtjUjl4VWROSnZoeEpIaGtYTkJfZjdET2I0eDk0ZzlNek9QZ1JJYXRIcEhvaWJNWGlZbV9SN2hRSlZwQmJpZFN1ajNSYzBZNmFYR2ZIMlE?oc=5",
+      "published": "2026-07-10T01:33:00",
+      "fetched_at": "2026-07-12T00:00:55.137129",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Reuters",
+      "title": "Trading Day: What war? Chip-led rally helps markets ignore on-again, off-again US-Iran truce - Reuters",
+      "summary": "Trading Day: What war? Chip-led rally helps markets ignore on-again, off-again US-Iran truce\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMimwFBVV95cUxNX1N2Ukoyd25SczJJNXFaTF9XcEVlSUU0dlpNdVhmRG5vQ1RFd09WVzVKYUdxaE9hYU9hMU9yYS1kblEzeUt2bGlWOG5QaDZPdjBxTk9pYnNrRVk2M2pPSTdNdmpHRk9aQUlWRGExS2lvVXliUkZRajhrcFZwanhSZFEtTy1DcEZuZ245U1Q3aGxFV2o0QlBfZ2c4RQ?oc=5",
+      "published": "2026-07-09T23:44:34",
+      "fetched_at": "2026-07-12T00:00:55.137132",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Reuters",
+      "title": "Nasdaq ends sharply higher; chip surge offsets Iran worries - Reuters",
+      "summary": "Nasdaq ends sharply higher; chip surge offsets Iran worries\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxOWlJrcUhGNjUtY2dOX1RQcWxqNW1KNGtrZU9uYU5KSjZiaDdZM3ozU1BZUjR4WmJyLVJjLW9yYjJGRHdSSEo4T0NNVUQ1T2VHN19keUtvRklORURPYUhtS0hUR2NJWnRIcnd3VFRLdGpDTmcwSnA0WHcxSUJ2RHhrNG1hOWUycm5kUjl6OHhoTjhSNVZXRmFUVnRMclJYMW9FdXRJZ1VLSkFrbmxRWVg5N3Z5c3M?oc=5",
+      "published": "2026-07-09T23:36:06",
+      "fetched_at": "2026-07-12T00:00:55.137136",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Reuters",
+      "title": "Dollar slips as labor market remains stable, US-Iran tensions flare - Reuters",
+      "summary": "Dollar slips as labor market remains stable, US-Iran tensions flare\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPcEtZMUh4bWpMRVNDRm42NVlyN2dsWExFZGsyNnlFa3FRelRxT1RlcVJGRkRYODBsa3JfbkxoTWhoUHVpWWxHUWx4dW1ERDlwMlc1b0pzSE9rS3J4OU9yeUx1cHNIUm9kcW9xNjhFTl9oaXdJSFVqWHpWVkpOM3VHTnphOHo1WXBmNXFodHZ5TVVhXzE4ZFFsN2JKQmNGbE93ejhjY2VRM0JwNkNaOE1oUkdtYXZZYUZ4M3JUMFpRdw?oc=5",
+      "published": "2026-07-09T22:47:34",
+      "fetched_at": "2026-07-12T00:00:55.137139",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Reuters",
+      "title": "Skeptical US Democrats in Congress urge debate on Israel plans - Reuters",
+      "summary": "Skeptical US Democrats in Congress urge debate on Israel plans\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQeHpmRDVrNkNFZWppa2tqcTVNRFhXdzZQYV9JaGFjZjlCd2FDbk1aSWpVVHQ4MkVBOGNreHlBSVNXUVdtanZzRnVCb0ZySURxcnFpa1I0OGd0Y1h5cmYwSWZkQnR3akFDZFNnTC1YLUhwMWZnS2FoaVRka3FDbEdFcFd5aUVkb19yUkY3RlFMZGhwYU95VjJKeUVDUmVjWUJiWmN2b1FCdklnSDlQOFE?oc=5",
+      "published": "2026-07-09T21:11:22",
+      "fetched_at": "2026-07-12T00:00:55.137143",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_CNBC",
+      "title": "A huge trade just happened on the Nasdaq 100. Bulls are taking notice",
+      "summary": "Tech bulls may not have to wait much longer for fresh highs, if the single-biggest trade in the Invesco QQQ Trust ETF on Thursday is any indication.",
+      "link": "https://www.cnbc.com/2026/07/09/a-huge-trade-just-happened-on-the-nasdaq-100-bulls-are-taking-notice.html",
+      "published": "2026-07-09T19:26:44",
+      "fetched_at": "2026-07-12T00:00:55.137146",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Reuters",
+      "title": "Oil prices settle 2% lower as economic worries outweigh supply risks - Reuters",
+      "summary": "Oil prices settle 2% lower as economic worries outweigh supply risks\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOdklGcG9tdzh1UWdoWldFbWpRaXJELXpXclBKYzlJbzBpaXNJMWJBTnRYUFh1WndvTmNVN2x3ZHBlQm94ZVI0M24zdnVHSVZtR0dNVDMxdmM0SmJUTGZLUWZTWGdwcWlQM0JfcHlBVVB6V2lZOEo1bzFHMUZ1ZkM4b2ZCdnFWOGhOZmVkSXVIODdhUWxDYU9mNlMxdnRoRkZBUV9iNEVMakdpZw?oc=5",
+      "published": "2026-07-09T19:25:52",
+      "fetched_at": "2026-07-12T00:00:55.137150",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_CNBC",
+      "title": "It's a jam-packed afternoon of developments impacting 7 portfolio stocks",
+      "summary": "Every weekday, the Investing Club releases the Homestretch; an actionable afternoon update just in time for the last hour of trading.",
+      "link": "https://www.cnbc.com/2026/07/09/its-a-jam-packed-afternoon-of-developments-impacting-7-portfolio-stocks.html",
+      "published": "2026-07-09T19:16:06",
+      "fetched_at": "2026-07-12T00:00:55.137153",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Reuters",
+      "title": "NEWSLETTER: Trump tackles FIFA, NATO and Iran - Reuters",
+      "summary": "NEWSLETTER: Trump tackles FIFA, NATO and Iran\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMifkFVX3lxTE5td3VtcUFkX2JOV0JtOW9EeTJVcUU0dUlKSVpQSWlKYnNNdngxRVFHSTkzeGd3SWNnemo1R3RpTXc2LWFMcjJKWEFzUWtYdE41NDVvNXNqZW9XaVpIMjFieWtCSS1JZmg0bFk1S2dfcWVvZ0YwRGF0R29XeDZWdw?oc=5",
+      "published": "2026-07-09T19:10:00",
+      "fetched_at": "2026-07-12T00:00:55.137156",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Reuters",
+      "title": "BP CEO says company must sharpen financial discipline - Reuters",
+      "summary": "BP CEO says company must sharpen financial discipline\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxOZGJmSENUeG41TjJkN1FoX3hBUXdabzFOdU9YdGE5MndJLUQzak5DXzBGR0lVNGcyaTdsNUNpWlBhMGJ5QXdFQmlsYkRYUUZVTk9OX2FRQzdJazFEN3dQaXBqcmJYRWF5cmJWbUl5RDhzNGJWcXdURjBERThMbUxhY2h1S1BpZXBCMmZ0amR3eEI2NkJRZEpkMHVNQVcyRzBvWUNOT3BTOVpONllXTlVwUXVpalZReHpjY1lsLWlkTzRtNHdR?oc=5",
+      "published": "2026-07-09T18:52:41",
+      "fetched_at": "2026-07-12T00:00:55.137160",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_CNBC",
+      "title": "Why Salesforce is staying in the portfolio despite a harsh analyst downgrade",
+      "summary": "Jim Cramer isn't ready to give up on Salesforce after KeyBanc downgraded the stock",
+      "link": "https://www.cnbc.com/2026/07/09/why-salesforce-is-staying-in-the-portfolio-despite-a-harsh-analyst-downgrade-.html",
+      "published": "2026-07-09T18:39:25",
+      "fetched_at": "2026-07-12T00:00:55.137163",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_CNBC",
+      "title": "Kalshi traders think gas prices will stay higher for longer as U.S.-Iran tensions heat back up",
+      "summary": "Odds that gas prices are above $3.50 on Election Day in November have jumped to 75% on the platform.",
+      "link": "https://www.cnbc.com/2026/07/09/kalshi-traders-see-higher-gas-prices-lasting-through-election-day.html",
+      "published": "2026-07-09T18:11:22",
+      "fetched_at": "2026-07-12T00:00:55.137167",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_CNBC",
+      "title": "Action-starved traders look to small-cap stocks for the next big move",
+      "summary": "One of the biggest options trades in the entire market Thursday seems to suggest small caps might lead the next move up or down.",
+      "link": "https://www.cnbc.com/2026/07/09/action-starved-traders-look-to-small-cap-stocks-for-the-next-big-move.html",
+      "published": "2026-07-09T17:58:07",
+      "fetched_at": "2026-07-12T00:00:55.137171",
+      "ticker": null,
+      "tier": 2
     },
     {
       "source": "finnhub_Reuters",
       "title": "Photos of the week - Reuters",
       "summary": "Photos of the week\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE13ZXp6OWxrX0JSQnVYQU5YVVdiRlFqUUlPdkg1X3oxMHVXdVMtS0FSMTZQQ0dJM2hwV2tUaU1nU1pzeFhOekhnV3RhcHM5dENaaEVnbjdGdXExOWs1bUZCaGN1b19YMEE?oc=5",
-      "published": "2026-07-04T18:35:36",
-      "fetched_at": "2026-07-05T00:08:03.744122",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "marketwatch",
-      "title": "Insurers shifted roof-replacement costs onto homeowners thanks to a new federal rule \u2014 just in time for hail and hurricane season",
-      "summary": "Those who find extensive damage to their roofs might be stuck between two options: File an insurance claim, which could trigger a premium increase, or cough up the cash for the necessary repairs or replacement.",
-      "link": "https://www.marketwatch.com/story/insurers-shifted-roof-replacement-costs-onto-homeowners-thanks-to-a-new-federal-rule-just-in-time-for-hail-and-hurricane-season-e86068df?mod=mw_rss_topstories",
-      "published": "2026-07-04T18:19:00",
-      "fetched_at": "2026-07-05T00:08:03.559711"
-    },
-    {
-      "source": "marketwatch",
-      "title": "Where can I invest my kid\u2019s \u2018Trump account\u2019 money? The Treasury Department just answered that question.",
-      "summary": "The money in \u201cTrump accounts\u201d has to be invested in low-cost index funds \u2014 and now parents and investors are learning which funds they can actually use.",
-      "link": "https://www.marketwatch.com/story/where-can-i-invest-my-kids-trump-account-money-the-treasury-department-just-answered-that-question-4f656574?mod=mw_rss_topstories",
-      "published": "2026-07-04T17:59:00",
-      "fetched_at": "2026-07-05T00:08:03.559754"
-    },
-    {
-      "source": "marketwatch",
-      "title": "Jelly Roll\u2019s ex-wife Bunnie Xo says he gave her their $6 million Tennessee estate in divorce",
-      "summary": "Country singer Jelly Roll\u2019s ex-wife, Bunnie Xo, has revealed that she will take full ownership of the former couple\u2019s Tennessee compound as part of their divorce settlement.",
-      "link": "https://www.marketwatch.com/story/jelly-rolls-ex-wife-bunnie-xo-says-he-gave-her-their-6-million-tennessee-estate-in-divorce-97a6c910?mod=mw_rss_topstories",
-      "published": "2026-07-04T17:57:00",
-      "fetched_at": "2026-07-05T00:08:03.559791"
-    },
-    {
-      "source": "marketwatch",
-      "title": "Want to live longer in retirement? This one money move could add years to your life.",
-      "summary": "A secure retirement portfolio acts like a health shield, calming market anxiety that can actually shorten  life expectancy.",
-      "link": "https://www.marketwatch.com/story/want-to-live-longer-in-retirement-this-one-money-move-could-add-years-to-your-life-e8f2b4ba?mod=mw_rss_topstories",
-      "published": "2026-07-04T17:38:00",
-      "fetched_at": "2026-07-05T00:08:03.559826"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "FedEx Is Abandoning Its Supply Chain Business. FDX Stock Investors Need the Logistics Giant to Protect Its Core Network.",
-      "summary": "",
-      "link": "https://finance.yahoo.com/markets/stocks/articles/fedex-abandoning-supply-chain-business-173002024.html",
-      "published": "2026-07-04T17:30:02+00:00",
-      "fetched_at": "2026-07-05T00:08:03.592434"
-    },
-    {
-      "source": "marketwatch",
-      "title": "I have no kids. Will I cause family drama by leaving different amounts to my nieces and nephews?",
-      "summary": "\u201cPart of me would prefer to leave more to those for whom the money could make a meaningful difference.\u201d",
-      "link": "https://www.marketwatch.com/story/i-have-no-kids-will-i-cause-family-drama-by-leaving-different-amounts-to-my-nieces-and-nephews-14c0fdda?mod=mw_rss_topstories",
-      "published": "2026-07-04T17:30:00",
-      "fetched_at": "2026-07-05T00:08:03.559869"
-    },
-    {
-      "source": "finnhub_Reuters",
-      "title": "Turkey's Erdogan says Israel must not scupper US-Iran deal - Reuters",
-      "summary": "Turkey's Erdogan says Israel must not scupper US-Iran deal\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxPa0ViRlNyVWgyNWhQRFFuQ3A3SHhQV3VyRmxDQlBEQnVZVU1jdk5ZdEhMVHhSeHZZR2FYTk94cFM5THdSRHV5c25EQjJ4cFJaZHhFVTNWaG1IUEQxTDBGYU5Ca2syUE5oQUM5UUJ6bm1IeEdBS0phcjl1MUVhd1VFV3k5VDN5MG9Ea0lQNzZvSTY0MHlzTVMycWJpSWgwNGZjUGlVVVhRSjQ0VHo2bG5tYm93?oc=5",
-      "published": "2026-07-04T15:19:25",
-      "fetched_at": "2026-07-05T00:08:03.744126",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Reuters",
-      "title": "U.S. turns 250, Taylor-Travis wed and Iran mourns Khamenei - Reuters",
-      "summary": "U.S. turns 250, Taylor-Travis wed and Iran mourns Khamenei\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOSDlEcEtGRENYaVljVGVCbVNxSjd5UW1nOTFsUWhkRTFGb2g2T2ZoaDY3WnJrOEwydVlmQ0dNZ2IzMHNmZlpfdE9meG5HZ3FWUXlnLWtNRURqZ1IyRklkVHJ2QkRUblFPOWpyUlRZQjVlbWxjNEJYVjJ0cjgzcXNtM3lzbjFzaEJzeUdnYVpjTzluUnFUN19vMG5iZDg?oc=5",
-      "published": "2026-07-04T14:56:10",
-      "fetched_at": "2026-07-05T00:08:03.744129",
+      "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5jTUZtSXdUdUFWMVlWTzkxZldXb3JDR1RJRkpaOHA0RUY3YWUxazZ2elFmZVg0MV9QZFVxSU5kbHBtLWczQnlXalNta2xkSVNlRHVYWTZSTG1TbmV4TThMNFE2ak1ZRmM?oc=5",
+      "published": "2026-07-09T17:28:00",
+      "fetched_at": "2026-07-12T00:00:55.137174",
       "ticker": null,
       "tier": 2
     },
     {
       "source": "finnhub_CNBC",
-      "title": "The World Cup sends prediction market volumes soaring to record highs",
-      "summary": "Trading volumes on Kalshi and Polymarket both hit record highs in June. Rothera, a new prediction market platform, was also able to manage $2 billion in volume.",
-      "link": "https://www.cnbc.com/2026/07/04/2026-fifa-world-cup-boosts-prediction-market-volumes.html",
-      "published": "2026-07-04T12:54:04",
-      "fetched_at": "2026-07-05T00:08:03.744133",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Reuters",
-      "title": "Ukraine says Russia damaged more than 200 railway locomotives in 2026 - Reuters",
-      "summary": "Ukraine says Russia damaged more than 200 railway locomotives in 2026\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPeFQwdlh0cWRleHdwbVpJQ2E3cnNvUzE0TGE3RHZiVlZ3SlhDemlsLWlfOG81a1dWX0Iwc0Z4NEk1cmxxc3pCMFh3TDA3X3pVWTcyN0ZQMGRXazFiNlZiblRtblllT2hHUkhxa0VCNTlYWnh2aDZSQUQtY1NjWlRkVFlWbVROZjBjNzRzaGtMMTBwa0g2VDFneU5sc2h6MVlrZkJGcHhmUFdXaGtP?oc=5",
-      "published": "2026-07-04T11:12:08",
-      "fetched_at": "2026-07-05T00:08:03.744136",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Mortgage and refinance interest rates today, Saturday, July 4: Rates are mixed this July 4 holiday",
-      "summary": "",
-      "link": "https://finance.yahoo.com/personal-finance/mortgages/article/mortgage-and-refinance-interest-rates-today-saturday-july-4-rates-are-mixed-this-july-4-holiday-100000596.html",
-      "published": "2026-07-04T10:00:00+00:00",
-      "fetched_at": "2026-07-05T00:08:03.592459"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Best CD rates today, Saturday, July 4, 2026: Best account provides 4.10% APY",
-      "summary": "",
-      "link": "https://finance.yahoo.com/personal-finance/banking/article/best-cd-rates-today-saturday-july-4-2026-best-account-provides-410-apy-100000802.html",
-      "published": "2026-07-04T10:00:00+00:00",
-      "fetched_at": "2026-07-05T00:08:03.592484"
-    },
-    {
-      "source": "finnhub_Reuters",
-      "title": "Russian defence ministry says its forces captured Kostiantynivka in eastern Ukraine - Reuters",
-      "summary": "Russian defence ministry says its forces captured Kostiantynivka in eastern Ukraine\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxNQ0RBRmlpN2UtbDdMQUpmZDNuaXozSW1uMm1qWTBoT3lWc25yamFFUklpYW81bFk4ZHY4cVVqdGtIU0o2bGlpeldFcjJ4b1d4aGxxQTlzS1R0T2JxRXplR1M0MGphWnpTdVFzcFJQUGFPVWhmNUFISVNHSURvYnpOMnBUVVhHWlpOekJNUkxKS3N3cEZlYUlJZzhScllvc29yVFV6UmFNa2Q0cGRqQ2dkSUhERHoyS1dxelBGVS1NM0lwOE5iN1VZSWlxaXUwZzdtQmFGenJHaVVKalE?oc=5",
-      "published": "2026-07-03T22:08:00",
-      "fetched_at": "2026-07-05T00:08:03.744139",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Reuters",
-      "title": "EXCLUSIVE: Iran exploring oil sales to Japan, buyers seek longer sanctions waiver, sources say - Reuters",
-      "summary": "EXCLUSIVE: Iran exploring oil sales to Japan, buyers seek longer sanctions waiver, sources say\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxONlpxZVF6RnlianRMXzVTT05hLXpuT3FCY3pCRzMweXJjUDF5N2pJa3hYOXJzdTFpMTJpWUhKckZZWlllM2pVbzRFcGQ3SUlKZWRyNmRNaW9hNWdBNEU1d2JLYnp2YWJxU2doQXl2bVdZTDlMaWJFbHJiR19VZFVwTHAydHZudzdEN0xJWTdsczNkSmQtZVNUb0FJcjVhV0NSWWJDNEVvcFE1M0RTM2VnSFFPRm1tNGpwTklqSXdUYklQZWIy?oc=5",
-      "published": "2026-07-03T16:59:44",
-      "fetched_at": "2026-07-05T00:08:03.744146",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Reuters",
-      "title": "Two Romanian men jailed for stabbing Iranian journalist in London - Reuters",
-      "summary": "Two Romanian men jailed for stabbing Iranian journalist in London\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxQR1BOQ05pVXg1MV9IYmUzeWxsSmFYWXItdmpnY0R3NlBnZmVRUDducmo2YThYMjlIRS1ndVVGN3dVQ1Y2TVZOQUF4V1BzWWRRZXdLUlpOc1U2Vl9kVDl4SUYyUTc5akEzSEF3VzBscmJ6RjNSeTNjWnBqd1pwemh0Z29oeW1RU0NJcnJaMUFfeTI2TFhyazVIVUFwNTlEU3djWUEwejlzeE85R1VKeVBDUGZQTkhkNHVz?oc=5",
-      "published": "2026-07-03T16:37:09",
-      "fetched_at": "2026-07-05T00:08:03.744150",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Reuters",
-      "title": "CMA CGM ship hit by missile in Hormuz strait may go for scrapping, CEO says - Reuters",
-      "summary": "CMA CGM ship hit by missile in Hormuz strait may go for scrapping, CEO says\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQdmxkRkQxOC1JcHFKNFBwMkM4V2VNZWJYdUJkRy1yaXJVMkQwaERSd21ER21rYlFyeGxreV9Zc0xhTlFtVEJHTjJOVGpNb3c0OHdHdWVWejg4bWsxTTVLMkptNlVheGcyQnkyZC1XQnItbzk4UWctR0VwSnpQbjdTNmUwRmtRcjNoa1loc3E0LVVHRFVaQzNrbUFPdDJ4R0xoREhDel9pNkpZaWhTNG0ycWhR?oc=5",
-      "published": "2026-07-03T15:07:44",
-      "fetched_at": "2026-07-05T00:08:03.744154",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Reuters",
-      "title": "NATO leaders to gather in Ankara, aiming to smooth over tensions with Trump - Reuters",
-      "summary": "NATO leaders to gather in Ankara, aiming to smooth over tensions with Trump\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMixwFBVV95cUxQTkJLWS1Wbnk4WEdvWjVXR01zVmJmVlBYLXpnT2g5OVlxSG15bF9QbWEzMS1Ca2EtcjFJaUt2dlNlLUhRZzAxa2tVS2Y3WWFNWDBpN0JIdkpoN1JINTUyZ1Q5dGZMaUFkWmJtaGVGeEFLWHdSZkd3VTkxUWdHR1VIM2F1a0RCVTMwUkQ2OHlEckNIUFlTdjJlTVF5YU1pWW1kMTM2Rm1tVUNaNGYyQUZSSmYwa3MwQ3UtNVgyTjgyLXpBdUs4SVpJ?oc=5",
-      "published": "2026-07-03T14:23:58",
-      "fetched_at": "2026-07-05T00:08:03.744157",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Reuters",
-      "title": "NATO leaders including Trump to affirm 'ironclad commitment' to collective defence in Ankara, summit text says - Reuters",
-      "summary": "NATO leaders including Trump to affirm 'ironclad commitment' to collective defence in Ankara, summit text says\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxNR21mS1FvbzMzXzlxSUFEVVV5ZENiRktERHRtQ1hycW16UmphZF9RdUEybTVmYjNkOWY4dTFvZ3MyVlZPSnVaLVU2dS1DRjBkempBVkRvd2NROFBkRjlTajI5cjVLSjBxSzlaWmp2Z1RxQVlPaFBJMjQzNUd0VUdFejN1OVItOEhTQUtQU1Zzc2VfU0xQUFgxdWlvZEJfYUROWG9ZMlBhZUNsaTNLWDVzcTc0b2pLc0pRWDBkUGVSbTljVjNudFhGcU84amZSb1dPTzN2TDN0TQ?oc=5",
-      "published": "2026-07-03T14:22:58",
-      "fetched_at": "2026-07-05T00:08:03.744160",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Reuters",
-      "title": "How does the Iran crisis compare with the 1979 oil shock? - Reuters",
-      "summary": "How does the Iran crisis compare with the 1979 oil shock?\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNMG9oa3VPLW5oa2dhSDc5NXA3czBNYlVLR3lrdGprX2FpQ1VYOGxtNngweEJVVm52d0F0RmVuQXhfc0xWcWxjck9oUWN6S0NLRjhoSEkyTVN4R3Rod05JeWRPS1M0LUZtamZ6NlFDUGRmSnBxTTgxYUlZdkRjb2NaNmV3d2tKZkZ0ZEd4MmU3X19EZzhQdVlzTDM2ZDVfSjU1ZmFJZWF2QllXNkU?oc=5",
-      "published": "2026-07-03T13:44:00",
-      "fetched_at": "2026-07-05T00:08:03.744164",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Reuters",
-      "title": "Gulf oil exports jump in June on record UAE flows - Reuters",
-      "summary": "Gulf oil exports jump in June on record UAE flows\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMimwFBVV95cUxPNlJ4X25oUTd4MXkzQlcwOEFnYm5SLXM0NDVldUlDS3F1aXowdWlGRm1DZEZkdDVTazNLWm00Y3lDV19qU1ppMmdWcVAweVIzMkExVDljamFWbDg1Y3pRTjd4aURpcVdTamFnTDNPRjlTTm9hSzViZDEzQnZHdE1zdlNRS0xzaTd6b1NtZjh3eHRvT2JreHdsV1d2Zw?oc=5",
-      "published": "2026-07-03T13:22:42",
-      "fetched_at": "2026-07-05T00:08:03.744167",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Bitcoin and ethereum prices today, Friday, July 3, 2026: 'Green' July off to a solid start",
-      "summary": "",
-      "link": "https://finance.yahoo.com/personal-finance/investing/article/bitcoin-and-ethereum-prices-today-friday-july-3-2026-green-july-off-to-a-solid-start-131639758.html",
-      "published": "2026-07-03T13:16:39+00:00",
-      "fetched_at": "2026-07-05T00:08:03.592532"
-    },
-    {
-      "source": "finnhub_Reuters",
-      "title": "In riposte to Trump, Merz says Germany can defend its military spending push - Reuters",
-      "summary": "In riposte to Trump, Merz says Germany can defend its military spending push\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxPLTV6SzJqdGtOTmRfYkJQdUx4MW40T0x2Q0V2dlZvWUZTSkNCQ3UxNTAwOVBaamxpMm91UGxHMUM0OXREcU90TUtwMWhTWUFYd2pZSEExd0tTWDd1QVFjTENVUHB3U094VWlUUUwwUmtyRGxTTDNsX1lVM2R3NzJYTndfZkNuWjZpVUpZVFhGWC1teFAxU3phRXI4cFBzM2R5TGl5OERYQ0k4UVFLS0thTw?oc=5",
-      "published": "2026-07-03T12:49:44",
-      "fetched_at": "2026-07-05T00:08:03.744170",
+      "title": "Anthropic appoints former Fed Chair Ben Bernanke to its independent trust",
+      "summary": "Members of the trust advise Anthropic leadership and do not hold any equity in the company.",
+      "link": "https://www.cnbc.com/2026/07/09/anthropic-fed-chair-bernanke-independent-trust.html",
+      "published": "2026-07-09T17:23:40",
+      "fetched_at": "2026-07-12T00:00:55.137178",
       "ticker": null,
       "tier": 2
     },
     {
       "source": "finnhub_CNBC",
-      "title": "American Express and Chase move luxury lounge wars beyond the airport",
-      "summary": "Credit card companies are increasingly offering access to lounges and perks at festivals and sporting events, often exclusively for premium cardholders.",
-      "link": "https://www.cnbc.com/2026/07/03/amex-chase-credit-card-lounges.html",
-      "published": "2026-07-03T12:00:01",
-      "fetched_at": "2026-07-05T00:08:03.744172",
+      "title": "Palo Alto CEO Arora says AI pricing needs to fall 90% as token costs skyrocket",
+      "summary": "Palo Alto Networks CEO Nikesh Arora said high token costs could prevent businesses from adopting artificial intelligence at scale.",
+      "link": "https://www.cnbc.com/2026/07/09/palo-alto-ceo-arora-ai-pricing.html",
+      "published": "2026-07-09T17:10:24",
+      "fetched_at": "2026-07-12T00:00:55.137181",
       "ticker": null,
       "tier": 2
     },
     {
       "source": "finnhub_Reuters",
-      "title": "US oil companies see big profit jump, gird for clash over pump prices with Trump - Reuters",
-      "summary": "US oil companies see big profit jump, gird for clash over pump prices with Trump\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxPYkJORzdZX3BXLVNLSE5DWEFMNkUybVc5U3B1TU1XclIxbEd1YXA4bnNLTkZHQ0c4OUZmOFVSUGtXcHdtMTNSYmkwT3VLZ2VlNWdKM0Q2R0Z2Q1RxZGcxRV82NnpRTzhoR1plNFFNZXhlOGdEVHRKX09vM2FJZ3ZYbFYtYU5iNTE3S3pQV3ZqNThuTFZSdHhjMlFhbkhra2Z5aVI1WU1jYXIxdmZGbUIxUk5oV21uX2NjQWVjSG5GRmNlUUxLUWc?oc=5",
-      "published": "2026-07-03T11:12:39",
-      "fetched_at": "2026-07-05T00:08:03.744175",
+      "title": "Fed's Williams expects energy prices to abate even as Iran war flares - Reuters",
+      "summary": "Fed's Williams expects energy prices to abate even as Iran war flares\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxPbHJKaC12UWdzSzFSRjJWZFYwZ1RQMENmbENTV0dHcW1ablp1d3lEU0FKbThLOExCWnlRVWQ3OVM1OUtJZmtTQjlXRzV5c2I1U2NvcHFwT2dGT25zQ0NMNjJzQUJ4NFhKak1Nc1JNSWlwNUVOSVJiZ0JlVUlGMjVzN2JDRjVNLXJkR0YzMGI4bllUOEN4YmR6T0VjWHlMZU5rajFTaVlUZlg4U3ZlWkE?oc=5",
+      "published": "2026-07-09T16:51:45",
+      "fetched_at": "2026-07-12T00:00:55.137185",
       "ticker": null,
       "tier": 2
     },
     {
       "source": "finnhub_Reuters",
-      "title": "Chinese independent refiners snap up discounted Mideast oil as supplies rise - Reuters",
-      "summary": "Chinese independent refiners snap up discounted Mideast oil as supplies rise\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxPQUpYc0E0Mm9LMFk5dGpzdXJLVDFuSmRwUjhkMmNkWUlzcUxNREdUOG1PNV9NMnFlckdoaGJlMDctcDl4S2h0VlN5d2pwbkpXajVYQmluSzVOb2FlR013WUZrNVhDQTRiS2txc2hOeXJrbTNfZDBrdnVDM2Q1U0l0OTRWbmhzNHdsQV9sRWFrTDl4VmtNVGM4NDFHUGNmWDg5UG1EUU9SV2xQUUpNVC1nUzdaeDlOdmNWUFJCUGU5UlRraG8?oc=5",
-      "published": "2026-07-03T11:11:56",
-      "fetched_at": "2026-07-05T00:08:03.744179",
+      "title": "Fuel markets flash supply crunch despite calmer oil prices - Reuters",
+      "summary": "Fuel markets flash supply crunch despite calmer oil prices\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxNNDZ1NldKak53VnZLd1p1SUtzd0htUnB0QTV6akdPUEphWFBDb09Xcm04NnVMZXp1bUtIRlgwd3J6b1VKbjZIMWZfbXNyLWlMc2ZETTktRExibFdEMWFuRjZOYUttS0FXd0k5eDdmcV9pTmVxUlJ6eUk0R2RqVXg3bEZwc3I0cVFYUEFvVHlMRmRUc3JxODk3LWRtdm4xN3AyS2xHZjRZZkdrLXR0YjRz?oc=5",
+      "published": "2026-07-09T16:33:00",
+      "fetched_at": "2026-07-12T00:00:55.137188",
       "ticker": null,
       "tier": 2
     },
     {
       "source": "finnhub_Reuters",
-      "title": "What are the key challenges facing NATO? - Reuters",
-      "summary": "What are the key challenges facing NATO?\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNV3NLaE9ydjRIa0doaXh1VjVmN1czQ2hMcUdUU1k5alNBVkJFWGZDamFNN0JzdjRBeUVxSGo4UXlySllSeFluQmN4c2J4OHYxTzdpelZUN3JqWmFXXzlQeHNfNF93N1Zad1BucDhMd3dSRUc0UXZ5T0RWWnJqSi15SXZUcXlrM1ZKeWVtaUxZWVRDUi1aeFA4VUpqNGsyNXc?oc=5",
-      "published": "2026-07-03T11:04:47",
-      "fetched_at": "2026-07-05T00:08:03.744182",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Reuters",
-      "title": "Added time, added drama: Why more goals are coming later than ever - Reuters",
-      "summary": "Added time, added drama: Why more goals are coming later than ever\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMiekFVX3lxTE5NM2N2UkJQSDBpaVVrb04tMkwyNEF0U0pBTTctUkZBWFc1a00zSTZDVmVTLTNNbm5EX283VkhQUG5iSkpzV3lwdlVhS1FnSnA5a1poY1BVVEw1UFVSS19ZdExxR2s4S1BSM0RsOUZWMll6Zk92aGRWSXln?oc=5",
-      "published": "2026-07-03T10:30:00",
-      "fetched_at": "2026-07-05T00:08:03.744185",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Reuters",
-      "title": "A weekend like no other: Khamenei's funeral, America's birthday and Taylor's wedding bash - Reuters",
-      "summary": "A weekend like no other: Khamenei's funeral, America's birthday and Taylor's wedding bash\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxPcWJ3SUVfck9LekNsY0NmWHNLbWZmRTJFSDd5ZFRtRlV5czRWOUNuMnhIOWZPRVoxUWd1QWdJS1hGNi0wNEVtTjZ0TjU0em4xRS1ZZnlYd05uNVFXSzJPSkNnMnlnU1ZoZ1R4bXdCVGQwT1hzLS1wakJfaHBQRzdLZHJ4QVRacTYybVdTLVNVSXFPLWpSZ2diemZoTWVNcnRGNkZFT2xNS1l2N1ZQeXBnN1pQLVNkUDJlQWVhdzBqbWY?oc=5",
-      "published": "2026-07-03T10:11:00",
-      "fetched_at": "2026-07-05T00:08:03.744188",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Mortgage and refinance interest rates today, Friday, July 3: Rates mostly higher again today",
-      "summary": "",
-      "link": "https://finance.yahoo.com/personal-finance/mortgages/article/mortgage-and-refinance-interest-rates-today-friday-july-3-rates-mostly-higher-again-today-100000290.html",
-      "published": "2026-07-03T10:00:00+00:00",
-      "fetched_at": "2026-07-05T00:08:03.592611"
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Best CD rates today, Friday, July 3, 2026: Up to 4.10% APY return",
-      "summary": "",
-      "link": "https://finance.yahoo.com/personal-finance/banking/article/best-cd-rates-today-friday-july-3-2026-up-to-410-apy-return-100000627.html",
-      "published": "2026-07-03T10:00:00+00:00",
-      "fetched_at": "2026-07-05T00:08:03.592734"
-    },
-    {
-      "source": "finnhub_Reuters",
-      "title": "Khamenei lies in state in Tehran as Iran begins week of funeral ceremonies - Reuters",
-      "summary": "Khamenei lies in state in Tehran as Iran begins week of funeral ceremonies\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxORXpMemJHeWdSem1ZSTR1aFZMQjgzNzZna1VrRmFIQVVkUkQzVUp4QzV1LXBhUjdOVHRWWkF0dHJyc0ZIZDhmUXNMYjVOZWs5dFNONVEwUGJmQlFNYXpLalM2Y25NMjI5UXVMNzhaMmhDaHVQb1VvMzJGZEFSMUxJN3JhWllBVzE5RFZiVzRhUks0MlBuXzZBaTNUM2QybVlyNUlabG9jekdSN3hTR3ZQZGxheTJ4ZXVGRW9lMG9VX3JOQQ?oc=5",
-      "published": "2026-07-03T09:20:00",
-      "fetched_at": "2026-07-05T00:08:03.744191",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Reuters",
-      "title": "In the West Bank, Israeli settlers take over Palestinian's dream home - Reuters",
-      "summary": "In the West Bank, Israeli settlers take over Palestinian's dream home\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxOdTVXLXIyN0poOG0tZUhzUFUySmtfdVdDRlNUREExRjZnbUZzTk1PMlZhMXNNOFlDdTlMaDR3UmZQNV93LWRHQlB2cFl2V1cxNHNHX2NvTFEwdGNwSF9SemJqNHRGMkZLeV83MzUxM0RZbXBWM1FhbnpGZXlZMnY1S3J4SFdOaWwxc25Oc0h1STUtRG5zU1EzWGZOUTluS2xEdWN4UWFEeGU4dWFoYjhXaEc5MUg?oc=5",
-      "published": "2026-07-03T08:36:00",
-      "fetched_at": "2026-07-05T00:08:03.744195",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Reuters",
-      "title": "Britain's services sector contracts sharply under strain of Iran war, PMI shows - Reuters",
-      "summary": "Britain's services sector contracts sharply under strain of Iran war, PMI shows\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxPN1BqejllaTE4cXA4STVfQk9NSHFCOTZ2T192RERuY1R0cDE3TjR0XzJxaU0yOWIyQ1kwSm1MZHg4R1RHNXJSalFvTDdsZ2JKa1hSRy1DTFRHUHVWblVITUttaW5xX3lLa3N4dmluUnZJYnVKX2x1YnVodEFLNS1tNDJfQWgtdmhKc1BPTlF6dV9wajZEdnJwUHVDS0pkMTd1OHBxVWZsWkw2d0dJOWpTV3cyY001OHYwZnV3?oc=5",
-      "published": "2026-07-03T08:35:43",
-      "fetched_at": "2026-07-05T00:08:03.744198",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Bloomberg",
-      "title": "The AI trade is losing one of its key signals",
-      "summary": "AI trade signals weaken as pricing power declines, raising concerns over future profitability and market sustainability.",
-      "link": "https://www.bloomberg.com/news/articles/2026-07-03/the-ai-trade-is-losing-one-of-its-key-signals-taking-stock",
-      "published": "2026-07-03T07:16:42",
-      "fetched_at": "2026-07-05T00:08:03.744201",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Reuters",
-      "title": "Japan keeps yen intervention threat alive, says in close touch with US - Reuters",
-      "summary": "Japan keeps yen intervention threat alive, says in close touch with US\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMixwFBVV95cUxNcVhiUUQyaGhjb0puS3R1UEJ6Unk3bzlCaFF3YnRwdkVFSHJtR1hCU2VvdjNRVDdCOXRYTXQ1VFctT1FwRU5FWF84SUFhTW52bTBuWnR5WUc4MnVZSDNmQVRpV1BHcjhzTUtINHNUcjd0LVZWVi1TUWJ4T3FZV2R2eEFQc3FTZFJtZ081OEJ6VDBNTVkzLUtUOXhJQ1lET2tRMkZmYm9OX2RCSS1HR2lobUhYQVczSkQzU09WakszTmpfcUtpMXFr?oc=5",
-      "published": "2026-07-03T07:15:09",
-      "fetched_at": "2026-07-05T00:08:03.744204",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Bloomberg",
-      "title": "ICICI Bank mulls first benchmark dollar bond sale since 2017",
-      "summary": "ICICI Bank Ltd is in talks to raise at least $500 million in offshore bonds as it seeks to capitalise on a recent Reserve Bank of India concession for overseas borrowings",
-      "link": "https://www.bloomberg.com/news/articles/2026-07-03/icici-bank-mulls-first-benchmark-dollar-bond-sale-since-2017",
-      "published": "2026-07-03T06:54:24",
-      "fetched_at": "2026-07-05T00:08:03.744207",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Reuters",
-      "title": "US, Iran talks conclude in Doha, focused on Strait of Hormuz - Reuters",
-      "summary": "US, Iran talks conclude in Doha, focused on Strait of Hormuz\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxNR2I3cUEydmhlWVB5bmFRM1JuTXZVRHdDVFV6MTFjWHc0V3NFeDBCNFR0ZEJ0U2NjR213NWJwYlQwb0pNQjZmbU1tdlJjRlF2ZUZKZjBBRmpteTM1SUthZV9ESXZpaVRvSVhUaUYxb1lFenoxLUU2MklQd0I1OC1XR1NGSVo4b29CdVZ5ZzQ0QXp4MFdlMnoyRS1Rak0tTVNvYVU1RVhtb29hdENLeldfakJsMHNNaWNkQ0Uw?oc=5",
-      "published": "2026-07-03T05:18:46",
-      "fetched_at": "2026-07-05T00:08:03.744210",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Reuters",
-      "title": "Dutch military invests millions in drone software platform - Reuters",
-      "summary": "Dutch military invests millions in drone software platform\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxQQjFmX1BzclVIZm5YbkZqV0F2WHJobEhsMkF1Y0hvNGlsbWEwTFFRSXdEQzNTa3RzZjl6a201dWttUmVuYzZiQlhua2FpT0p1amlsZXRlT1pVLUpPR3Jzb1BlaFRPVWI4dDVya1ZrbXBnUl9HeUdkLVRSZXdJMTEzMkFucjl5bUpBUEVuN1VSVElqdU9Db1B6bHEteW9rNlFQbFlNYkdQXzZTRUxON0cwN0FDTlJqT1NfY0E?oc=5",
-      "published": "2026-07-03T04:03:00",
-      "fetched_at": "2026-07-05T00:08:03.744213",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Bloomberg",
-      "title": "Microsoft forms 6,000-person unit to help businesses adopt AI",
-      "summary": "The new division will support companies with technical and strategic implementation of artificial intelligence across industries, including banking, retail, energy, and life sciences",
-      "link": "https://www.bloomberg.com/news/articles/2026-07-02/microsoft-mobilizes-6-000-workers-to-help-customers-adopt-ai",
-      "published": "2026-07-03T02:50:04",
-      "fetched_at": "2026-07-05T00:08:03.744216",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Reuters",
-      "title": "Rupee falls on-week as merchant, NDF-linked flows blunt dollar retreat - Reuters",
-      "summary": "Rupee falls on-week as merchant, NDF-linked flows blunt dollar retreat\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxNTU5aN0dBODZRLUNObXNYUUpEX3gwUmduNnNPQnpJcFdST0duYkRCMHBENXQ0UUVQcFVRc0tQamxyLWZONFJlSy1BMTZpcWdIZFV1dXFQNDZwUnJnSXJkRmpFVk9RdXkwMW03MUR5LTZ4U3BfUjA2MkRST3VJS0NrRTdnZ3Q2ZER6VmVFblRpTzhDZlh0cU5fdGI0QjB6MU9UZk9GVEZfUi02WTVlSzBjWVNzNHdodGc?oc=5",
-      "published": "2026-07-03T02:41:00",
-      "fetched_at": "2026-07-05T00:08:03.744219",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Reuters",
-      "title": "Oil prices little changed as US-Iran peace efforts hold - Reuters",
-      "summary": "Oil prices little changed as US-Iran peace efforts hold\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxNQ0NjRDBBT1J0ZC1KY0c5R1huTjYyNzk4NTg4VU1aa2dmMDVGeHNQcl92Tm1vY3FnQks5ZmE4bWU0YUpwdlFBZjYybVgwQ2FlU1U4TkFBWG9SbHZ6ejZiT0lYdTdVM21VR1JOVk05Qm0yb19pcjk2WEhyZUxjbmV2RklXcGNDVmF2ZURTWkQxNERESHBFcE1LN082a1lYc0MwNDJFUEQzM0J3WkNH?oc=5",
-      "published": "2026-07-03T02:05:00",
-      "fetched_at": "2026-07-05T00:08:03.744222",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Reuters",
-      "title": "Global stocks head for best week since May; US jobs data shifts rate outlook - Reuters",
-      "summary": "Global stocks head for best week since May; US jobs data shifts rate outlook\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMie0FVX3lxTE5xc1Y1VGpFS1BhTUVYMUhUTm9aQVMwSGZnRlgwUjRVNlJubTc1MVZKRkllNG12SFBnd01JeVpwRjNhV0oxOHN1SGx2M1VYaWRaZ2hRWE05TGRjSFNic0dUVUxPNWdUa2NDQ1dKdF9Ga2xXQ2FyT2VKaVRhSQ?oc=5",
-      "published": "2026-07-03T01:11:09",
-      "fetched_at": "2026-07-05T00:08:03.744226",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Reuters",
-      "title": "Dollar slides after jobs data, chipmakers weigh on stocks - Reuters",
-      "summary": "Dollar slides after jobs data, chipmakers weigh on stocks\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMie0FVX3lxTE9hNUdGZ1o0UkVpa1k0SDE5eG1CUlhJZGhIaklZMjV1VVEtekJxazZHMV8xT2lrU25mWlJuSVJxQ3ZtWF9iNEVsQk9tQjRqazRPUTRLYk9VWHVaRjM0a2FVa29SSUJfakV3MXU5Z0ZLTS1Gc0NhQmlQOEZZOA?oc=5",
-      "published": "2026-07-03T00:01:57",
-      "fetched_at": "2026-07-05T00:08:03.744229",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Reuters",
-      "title": "Bank of England's Mann suggests reduced rate hike bets boost case for action - Reuters",
-      "summary": "Bank of England's Mann suggests reduced rate hike bets boost case for action\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxQUzJWVEdGU01SYXg2dEoxZU1OTzhjbDZfaHVFSnlfUDhzTV9UeDVoelBJNVhkQVp6dThyVVgtS0o3XzIybW1jMUVKYnlfV2dYSG9WZkJwbngtR2hDaG9ybThhOXR5ZWpJWTFkbFZadkx2NVluMXdMYTY1OXFWY19sdVV2UTFlLTBUZmRHSjFfb1h4UXo3TUxTbkJ3VVJQNE1SOXpUdG5SbU1FVFBVQldKMG5QYVVscU1hV2lwV29BZw?oc=5",
-      "published": "2026-07-02T21:49:44",
-      "fetched_at": "2026-07-05T00:08:03.744232",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Reuters",
-      "title": "Blast at Damascus cafe kills nine, wounds 20, Syrian interior ministry says - Reuters",
-      "summary": "Blast at Damascus cafe kills nine, wounds 20, Syrian interior ministry says\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNQ1FuZFNuTEZTUUhkZmNuOFJ1VXBOR3JCNTJSeWE1bzlGUm5LSGZ4aGVWREdueU9uckxILVUzMzlyZWprdDc0cXBzQnVBR3h0YXJta2hBdG0yS3IyS3cwYWozN3UzNV9xTUpySFVkQW5FR2sxUmIxbmRabml3RTh1eGduZDF5RmtaZkZKT2hRQXNZYXBvc1UtbUhvT25rSHRMY0RkSHRYOHp1cUtOempvQWZ1WQ?oc=5",
-      "published": "2026-07-02T21:26:41",
-      "fetched_at": "2026-07-05T00:08:03.744235",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Reuters",
-      "title": "Trading Day: Chips are down, and so are payrolls - Reuters",
-      "summary": "Trading Day: Chips are down, and so are payrolls\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQLXd6N2hYVEtXSklabi1QdDBWMEU0ZW1OUExWR1hhSDNJNGFrMkNKalRHcXlOdnFVLVVYTldrVlBOTXNzWml6MEY2RHVxcGI4Wl9NRlM3R2U1ZkJFbGQ4RVJFQkU4MXQzbG5UVDlVSTBleEpYQUdvaWFJSG9ydHFtRlBhM0ZwT3kxOGEteGxlQVJ4Q0p6RmdGYVBIUQ?oc=5",
-      "published": "2026-07-02T21:11:28",
-      "fetched_at": "2026-07-05T00:08:03.744238",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Reuters",
-      "title": "Oil gains on short-covering buys ahead of US holiday - Reuters",
-      "summary": "Oil gains on short-covering buys ahead of US holiday\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMimwFBVV95cUxPQjJuTlNEejJjWHZfckJtT3BHcWVLbXpJQUZzOVEzaDJCMThGUmJaU1pXRXdKYV9RUG9Nc09WaVRaVHhYUXh5LW43QzNzU3dzNDd5dGVQaFpmQzNhenJRcW1HMVVOQ3pnNVptVHpCSk9mUC1BWl9xTUJyQmttcHdRWF9jdkZiS3dZMkQ2ekY5aWpPX284MnFMOVVBaw?oc=5",
-      "published": "2026-07-02T19:28:26",
-      "fetched_at": "2026-07-05T00:08:03.744241",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Reuters",
-      "title": "Amazon to start initial Leo internet service this year as network nears 400 satellites - Reuters",
-      "summary": "Amazon to start initial Leo internet service this year as network nears 400 satellites\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxQMXBabjNzR3lMMnlJcEhWbUpxNGtLMUVqcmJRcW1Ubno0elRZUXBtQ1gwblhoOFVzZEN6dUJGdmlJeEtWVFhnY3NpSmpXTGZ4MFRmS0hQTVVFTVJ6bGVJNFRoQjVtZWkzVklubVN2STZZZHhVUWp2amFjTjNMQjZqQVoxSEJ2bFpVdzVXWEN6ZTlkVjg5azlWbmVZYTgtUk5rTmZUX25KNndNZVFDb3R2VVBERTRER3lvOGRSTVFoZkVraU5kUlQ5cjJjRU5XWXROUmVIUXp0NmxlN2M?oc=5",
-      "published": "2026-07-02T19:08:34",
-      "fetched_at": "2026-07-05T00:08:03.744244",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Reuters",
-      "title": "Iran warns US, Israel against attacks ahead of funeral processions for Khamenei - Reuters",
-      "summary": "Iran warns US, Israel against attacks ahead of funeral processions for Khamenei\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxQVjd1X1pITDBSckd0dXdzYzdCbTZ2T3o2UmFUWG5yaHRuZFZWR1pMclo4Z3BLNGYzeS1WREhPZ291WFlJcmZGOGNHclp0dEp4cVhaQTdweUx5Rl90U2tnRGdJOEtjZHNnbC05aUJRMXZJbHl3aUtKMzlxRl94SUl5N251SENtMVBqVVFHdldIcDJCTnpaamphc2VVWUlReGZCMkZpOEJYMlBxcGlOaVktWUdIR2RseW94clhPenQzVlVhOWM?oc=5",
-      "published": "2026-07-02T17:56:56",
-      "fetched_at": "2026-07-05T00:08:03.744246",
+      "title": "Strategic oil reserve buying set to support crude demand through 2028 - Reuters",
+      "summary": "Strategic oil reserve buying set to support crude demand through 2028\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxOTThDZktfZ3RwZ3M2NmVnMlhmNFdrZkxOYlZrd2RhdGtuUHJmMnA2bm1nVDhBV2JtcjZZZTA4SUNXLXV6TWtYdl9JeFlmVzBZbXl1Tlc4MGlCaEZ6WjlTRjFDT21PM3l4YXBGSENuNjdLSjQ3NGI0ZDdvLTMwMGc5b2xKT3o5MkozbnY1YXdDUUw2WUVvQjdzZ0tsamdCcnVPemM1LWNscHpQcjd4WXV1d256TG5KV0RaTGc?oc=5",
+      "published": "2026-07-09T16:05:21",
+      "fetched_at": "2026-07-12T00:00:55.137192",
       "ticker": null,
       "tier": 2
     },
     {
       "source": "finnhub_CNBC",
-      "title": "GE Vernova's gas turbines aren't the only way it's winning from the AI boom",
-      "summary": "Electrification secured $2.4 billion in data center equipment orders during the first quarter of 2026, beating the segment's total for all of 2025.",
-      "link": "https://www.cnbc.com/2026/07/02/ge-vernovas-gas-turbines-arent-the-only-way-its-winning-from-the-ai-boom.html",
-      "published": "2026-07-02T17:44:06",
-      "fetched_at": "2026-07-05T00:08:03.744249",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Reuters",
-      "title": "EXCLUSIVE: Kuwait sharply boosts crude production in June after US-Iran deal, source says - Reuters",
-      "summary": "EXCLUSIVE: Kuwait sharply boosts crude production in June after US-Iran deal, source says\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxPcFJaLUh1S0VjTXZqZWRsa1JRVU1nektQQmFQd2IzNllGR3NEd25LT002dk5QREF2djg2VlZqNnU0MDROQ1NOSVowTlRwbDFzYnRIVzFOak9WREZiUXhldVUxNUFCUlFaR1VwZXd5WlZGdkZvaThFcWNGUHZNWmFoYmRseUI0ZVkxZ2p3UHByeWJTeTRacmtTTmVrRzkxY3hGazhMbWRVcVZYSnF1QjdQRA?oc=5",
-      "published": "2026-07-02T16:35:16",
-      "fetched_at": "2026-07-05T00:08:03.744252",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_CNBC",
-      "title": "Married Americans tend to be wealthier and happier. Gen Z is forgoing the institution anyway",
-      "summary": "Gen Z defines the American Dream as having financial stability and being happy. Marriage could help them reach both of those goals, but many aren't sold on it.",
-      "link": "https://www.cnbc.com/2026/07/02/gen-z-marriage-rates-american-dream.html",
-      "published": "2026-07-02T16:34:27",
-      "fetched_at": "2026-07-05T00:08:03.744255",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_CNBC",
-      "title": "Premier Lacrosse League plans to bring in team owners by 2028 'or soon thereafter,' co-founder says",
-      "summary": "Paul Rabil told CNBC he's banking on the 2028 Los Angeles Summer Games, where lacrosse will return as an Olympic sport, to shine a spotlight on PLL.",
-      "link": "https://www.cnbc.com/2026/07/02/premier-lacrosse-league-team-ownership.html",
-      "published": "2026-07-02T16:23:31",
-      "fetched_at": "2026-07-05T00:08:03.744258",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_CNBC",
-      "title": "Why Jim Cramer says investors should 'want to own' this industrial stock",
+      "title": "Cramer defends a struggling tech giant and says another stock could soon be a buy",
       "summary": "The Investing Club holds its \"Morning Meeting\" every weekday at 10:20 a.m. ET.",
-      "link": "https://www.cnbc.com/2026/07/02/why-jim-cramer-says-investors-should-want-to-own-this-industrial-stock.html",
-      "published": "2026-07-02T16:22:49",
-      "fetched_at": "2026-07-05T00:08:03.744261",
+      "link": "https://www.cnbc.com/2026/07/09/cramer-defends-a-tech-giant-says-another-stock-could-be-a-buy-soon.html",
+      "published": "2026-07-09T15:52:05",
+      "fetched_at": "2026-07-12T00:00:55.137195",
       "ticker": null,
       "tier": 2
     },
     {
       "source": "finnhub_Reuters",
-      "title": "US factory orders fall in May, weighed down by weak demand for commercial aircraft - Reuters",
-      "summary": "US factory orders fall in May, weighed down by weak demand for commercial aircraft\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxOUklzQTBrQURiMGxlbTM2QzJ0RjJwR1BUbWYwMGFxM1BIeGNYOWZHQWNyM25XR01mQ1lGc2RxamxRNUV2Skk1dzdXWUg4NlNUcHlkU2wtTUtkejRjQzBma2NVdjA3QXBpaU1SNzRpNm52MnhJcVF6V1YtTVh3eVN1NmpnQW9mRDRjdDNWdFJLUjJKRW9lbi1MTVB0ODU0SjEzQktlTnFWRzM1NWR5ZFZCYUhraHh0TXdRc3NQbmpBRFhfN3VaM05hZTMtZnFWd1dod1E0?oc=5",
-      "published": "2026-07-02T14:31:43",
-      "fetched_at": "2026-07-05T00:08:03.744264",
+      "title": "Aluminium supply shock revives long-idled Western smelters - Reuters",
+      "summary": "Aluminium supply shock revives long-idled Western smelters\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxOR2R2cTBFeWtPa0Y3SGJQZjEyUncxUkZsUUJuNHFQVVREZDAzSTNvNnhBVmpraEgwOE1hNkhCQjdjZ2lkYW9LQjRsaklaZjg5R2lkcWQzMXROTGcwTXRwU05oVjF5emtVS0UzTlJBNTU3eGRRNG1QaEV6N0tSd0Jia2JpZDJwclJYNWpRSlRFZ3RZZWNBb3U3dHVEVGtoT0lOenNwQWw2R1Y5Zm0ybmtMVEdXbjhOa1N5M2lfYUhON3Jva0E2clE?oc=5",
+      "published": "2026-07-09T14:28:00",
+      "fetched_at": "2026-07-12T00:00:55.137199",
       "ticker": null,
       "tier": 2
     },
     {
       "source": "finnhub_CNBC",
-      "title": "Stock market gains minted nearly 1 million new millionaires in 2025, new UBS report says",
-      "summary": "Global personal wealth surged by 10.8% in 2025, the biggest jump since 2017, per UBS.",
-      "link": "https://www.cnbc.com/2026/07/02/stock-market-gains-new-millionaires-ubs.html",
-      "published": "2026-07-02T14:00:01",
-      "fetched_at": "2026-07-05T00:08:03.744267",
+      "title": "Goldman Sachs wins $70 billion in asset management deals with Verizon, Lockheed Martin",
+      "summary": "Competition in the multitrillion-dollar market for retirement assets is fierce among managers like Goldman Sachs, BlackRock, Russell Investments and Mercer.",
+      "link": "https://www.cnbc.com/2026/07/09/goldman-sachs-asset-management-deals-verizon-lockheed-martin.html",
+      "published": "2026-07-09T14:11:19",
+      "fetched_at": "2026-07-12T00:00:55.137203",
       "ticker": null,
       "tier": 2
     },
     {
       "source": "finnhub_CNBC",
-      "title": "Trump says 'everybody's profiting' from recent market rallies \u2014 but it\u2019s mostly the 1%",
-      "summary": "A large share of U.S. households have no exposure to equities and have not benefited from the bull market.",
-      "link": "https://www.cnbc.com/2026/07/02/trump-says-everybodys-profiting-from-market-gains-but-mostly-the-1percent.html",
-      "published": "2026-07-02T13:56:27",
-      "fetched_at": "2026-07-05T00:08:03.744270",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_CNBC",
-      "title": "How high hopes for Biden\u2019s student-loan forgiveness plans cost borrowers",
-      "summary": "The Biden White House's lofty expectations for its loan forgiveness efforts inadvertently  damaged the financial situation of many student loan borrowers.",
-      "link": "https://www.cnbc.com/2026/07/02/trump-biden-student-loan-debt-forgiveness.html",
-      "published": "2026-07-02T13:53:18",
-      "fetched_at": "2026-07-05T00:08:03.744273",
+      "title": "June home sales disappoint as prices reach an all-time high",
+      "summary": "Home sales dropped in June month over month as mortgage rates remain stubbornly high. Prices hit an all-time high.",
+      "link": "https://www.cnbc.com/2026/07/09/june-home-sales-prices.html",
+      "published": "2026-07-09T14:00:01",
+      "fetched_at": "2026-07-12T00:00:55.137207",
       "ticker": null,
       "tier": 2
     },
     {
       "source": "finnhub_Reuters",
-      "title": "Iran prepares to bury slain supreme leader with week of mass mourning - Reuters",
-      "summary": "Iran prepares to bury slain supreme leader with week of mass mourning\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNZDFZb2Q4bXdRa0pnRGtueDdUd3ZWQ1VyMHFsVlp5WGx6aGdtM2dxRW5YWDhLQVhSNV9CUFBNLWMwTnp4NTZ5NHN1UmxCR1RBYW12V0NEcE40NUZTNWI5NjhlNkx0TmFHV2NfTk5YWmtuczdEUGdEU1lpQlg3YmJmNkJ1OUthT0E3V2pKNGVmSmF2QTdnR2hhVzV3Q3pqTkhQdlBjc1hrZS1fdDE0UHVJNzkyOWVBNVpP?oc=5",
-      "published": "2026-07-02T13:39:00",
-      "fetched_at": "2026-07-05T00:08:03.744276",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Reuters",
-      "title": "Most Gulf markets in red as US-Iran negotiations show little headway - Reuters",
-      "summary": "Most Gulf markets in red as US-Iran negotiations show little headway\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNVXVRbEsycW1kbXBRRkRNSkViSjZDT2QtcFNURHFrMzczbEtpUmdmN0xlVUZHUjE0dUcwR2xYM210OFZsVVhQYVl2VU41RHQ0QlQ1ZS1hcmdWdlY0NXVJQmhLc0w0MnRKSTlQbzNyak9sdnVCWWZ2bTNVeUxFeEEtR2N1OEt6bzhtclBlQ3hHX2hsS3VqM3pHNmJ1cGZCbGJCNkg2U1dONDZBLUJaSnFtUVFLeWRCSjRCRkE?oc=5",
-      "published": "2026-07-02T13:23:44",
-      "fetched_at": "2026-07-05T00:08:03.744280",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Reuters",
-      "title": "South African rand strengthens as dollar tumbles after weak US jobs data - Reuters",
-      "summary": "South African rand strengthens as dollar tumbles after weak US jobs data\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxONTNLS1JPbkh0eXExX1VxUm5neTJsUGxlUDFJV0FLV0luUndzM05lVnViS1M0VkZzdjBhT3NoOUF5Mi1Wb1JwRC1nUzNlQWtXcEdCeno1dnJvT3FoeEM3N3ZGRjNDZjU0N0tqeWN2WUM0Y3NNTkRaVG5ZU0R2enN1dkUyQzZGQ3B4V3kxZVJaWXpMTnA2bk1pZFRtYXpNZ0Myd1JPRk0yanF2U3lhQ05HTWxB?oc=5",
-      "published": "2026-07-02T13:17:49",
-      "fetched_at": "2026-07-05T00:08:03.744282",
+      "title": "Iran fired ten ballistic missiles on Jordan's Azraq military base - Reuters",
+      "summary": "Iran fired ten ballistic missiles on Jordan's Azraq military base\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQaEw3T3U5RHNmcmVFb2VhWGdmRExEb1VHVFYwbFBsX1UxWGlJRW5pM0R0NGwtQVVlUHAwckdpcHIyaXZ3dkFTR2ZvV3JKams0TzhvQ0NYVnRkOFlFa1EtR19nVHFDcTJYQVYtaG9wYWxoRjlaX3kxeW9tdTNkZ0d0MGpVNjljem9DRTJaN2pSTmtoMEhJd3ZFTzlMTmtQOHF2WWYxSVpWNmwteWZBVG5iY2F4ZUtHZw?oc=5",
+      "published": "2026-07-09T13:31:37",
+      "fetched_at": "2026-07-12T00:00:55.137210",
       "ticker": null,
       "tier": 2
     },
     {
       "source": "finnhub_CNBC",
       "title": "Jim Cramer's top 10 things to watch in the stock market Thursday",
-      "summary": "The June jobs report came in weak, and Palantir landed a big upgrade.",
-      "link": "https://www.cnbc.com/2026/07/02/jim-cramers-top-10-things-to-watch-in-the-stock-market-thursday.html",
-      "published": "2026-07-02T13:05:23",
-      "fetched_at": "2026-07-05T00:08:03.744285",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_CNBC",
-      "title": "High-end camping and a capital raise: AutoCamp is banking on summer travel to fuel growth",
-      "summary": "AutoCamp offers Airstream suites, polished cabins, fire pits, design-forward amenities and access to iconic outdoor destinations.",
-      "link": "https://www.cnbc.com/2026/07/02/autocamp-high-end-camping-summer-travel-capital-raise.html",
-      "published": "2026-07-02T12:45:01",
-      "fetched_at": "2026-07-05T00:08:03.744289",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_CNBC",
-      "title": "Jeff Bezos' family office backed five AI startups in June",
-      "summary": "Bezos Expeditions is now the most active family office investor thus far this year, per data from Fintrx.",
-      "link": "https://www.cnbc.com/2026/07/02/jeff-bezos-family-office-backed-five-ai-startups-in-june.html",
-      "published": "2026-07-02T12:30:01",
-      "fetched_at": "2026-07-05T00:08:03.744292",
+      "summary": "Chip stocks are jumping again, and Pepsi reported a mixed quarter.",
+      "link": "https://www.cnbc.com/2026/07/09/jim-cramers-top-10-things-to-watch-in-the-stock-market-thursday.html",
+      "published": "2026-07-09T13:06:47",
+      "fetched_at": "2026-07-12T00:00:55.137214",
       "ticker": null,
       "tier": 2
     },
     {
       "source": "finnhub_Reuters",
-      "title": "Iran's Revolutionary Guards say they killed Kurdish militants in northwest Iran - Reuters",
-      "summary": "Iran's Revolutionary Guards say they killed Kurdish militants in northwest Iran\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMizwFBVV95cUxNS0JnV1Rxc1p1a0NNYXNXTzM4UEZVdU5TVlMwdzZhNGVnVFY5NzU0WEhOQUFNMkFJdjI5V19UQWRHa3VjSHhSTG9oMGc2dFZ2SE1ra1B6UWptdGtsallUdUF4M3JUYzg1TTZVYzJZRkpLZm9iZzNVZ2dLUTV4T2NQU1RlN01qZUowTVdJM1d3cUFMMnctUTdSWnVXWVlubzZVQkVQMkNMblZ3NzBaVmw3OFFIc2JYbHlPdmJkajVYYmRweTV0TFRfZ1RZY2FvSE0?oc=5",
-      "published": "2026-07-02T11:56:46",
-      "fetched_at": "2026-07-05T00:08:03.744295",
+      "title": "Oil tanker traffic through Hormuz at near standstill as attacks strain Iran truce - Reuters",
+      "summary": "Oil tanker traffic through Hormuz at near standstill as attacks strain Iran truce\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxPYWUtOFlPYmpMTHRWUjQ5ZTNjOFRaaVNCV0Z1aWZJY2E1UkcxV0t5M1dUYjExWWljV0lEbTd2ZE9semxVZjZQXzlYQnlQWjY0dWx0YUMyTXUtWnJsa3hYUlJGY3MxSWpuQmRUNmJxU19YZU41S0l5WDBLWlY1aTZHQVROdzNIcE1GYjlfTXJka3NNbGNTV2hvRFlxRllZd1AzOHlYRVJwSUtFUURha0NtbWdtWXBxb0MwaEEwNkFpaW9sQzlfajAwSQ?oc=5",
+      "published": "2026-07-09T12:45:45",
+      "fetched_at": "2026-07-12T00:00:55.137218",
       "ticker": null,
       "tier": 2
     },
     {
       "source": "finnhub_Reuters",
-      "title": "Syrian foreign minister says Syria open to meeting Hezbollah, Lebanese state media reports - Reuters",
-      "summary": "Syrian foreign minister says Syria open to meeting Hezbollah, Lebanese state media reports\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxQRVNxNDVMMkRzdkNlVldYOWhBQW1kaWs0U0pIdkdPUTRvb2g1bzZTUEJMX29RU3I4Y2hmU0hiMnk5ZVJmN2ZoN2NiNXpZbUwybjA0NHFxclJvdFRlcG40VTRxbkdpUXpsZjlyS19jeEhsTzllclpGLTg5VzNTWDhFLXBnTzl2bER3TUJiQTBkTndvRnQxSTB4SHlFdFV4N0h1a3VHMnhfTzNybVhZNVRaMmRmd1U3bnZXOTV5TFhzVjlUOW8?oc=5",
-      "published": "2026-07-02T11:37:23",
-      "fetched_at": "2026-07-05T00:08:03.744297",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_CNBC",
-      "title": "Americans are paying record prices for steak. Here's why demand isn't cracking",
-      "summary": "Despite record beef prices, Americans aren't giving up steak. Consumers are treating beef as an affordable luxury and prioritizing it for special occasions.",
-      "link": "https://www.cnbc.com/2026/07/02/beef-prices-demand-for-steak-isnt-falling.html",
-      "published": "2026-07-02T11:00:01",
-      "fetched_at": "2026-07-05T00:08:03.744300",
+      "title": "EU drafts 'electrification' plan to curb oil and gas use, after Iran war disruption - Reuters",
+      "summary": "EU drafts 'electrification' plan to curb oil and gas use, after Iran war disruption\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNelR4YllUUlFCN1lSUzNsWGloUUowNDJ2c1J4TldYRkhEZVR6U29OUVZOWVlDSzlkdlJRT215c1RGOGtIOVNGZ3FjUVo4d0FqdWxNRGtPbjh0UGZoT2Z1SXNiOFVWNmxPdWVXcTU0Nll0LXZrYjJYMDh0UkJtRDU5TDlUczk0SFIzNjlXNmNubWo1RzVkTldBUmUtV1prc0htQzg5MUZvREtWSlk4SVhuWGlXQm1zck9TblMtVTFaakxjWHc?oc=5",
+      "published": "2026-07-09T11:31:52",
+      "fetched_at": "2026-07-12T00:00:55.137221",
       "ticker": null,
       "tier": 2
     },
     {
       "source": "finnhub_Reuters",
-      "title": "India to send minister, governor to Ali Khamenei funeral - Reuters",
-      "summary": "India to send minister, governor to Ali Khamenei funeral\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxONnhnenpnSUczNUEzNDN1S25EM240ZGRVbzJVSzZVVDRxeVYzZFo3NmdrQWI1TkVFVUktTDdSNzV5cjEyTUFsOVp4TkxyVzBpbEpXajBVMklOZWphRFFDaWQwaWxHUmNZV1lqU0UyVTBBMXlKUU9hY3Z1b0pWREJBdU1DWWZ0R1pVUTlPTG84d0FkeUQ1MGVCb090N1REYmMyejdPZGFn?oc=5",
-      "published": "2026-07-02T10:53:33",
-      "fetched_at": "2026-07-05T00:08:03.744304",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "HELOC and home equity loan rates, Friday, July 3: With rates rising, understand how HELOC/HEL rates work",
-      "summary": "",
-      "link": "https://finance.yahoo.com/personal-finance/mortgages/article/heloc-and-home-equity-loan-rates-friday-july-3-with-rates-rising-understand-how-helochel-rates-work-100000756.html",
-      "published": "2026-07-02T10:00:00+00:00",
-      "fetched_at": "2026-07-05T00:08:03.592709"
-    },
-    {
-      "source": "finnhub_Reuters",
-      "title": "UBS lowers 2026-2027 oil price forecasts as Hormuz flows recover - Reuters",
-      "summary": "UBS lowers 2026-2027 oil price forecasts as Hormuz flows recover\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQYVFlNXZlbm9Ra2JUYlhQeDgzbU5HZUpxaUpBczlyRENZODRURlBYY0hwbUJPTmh0SnJZMENjUGhDTUk3WFVydklVWC1qNFo4OEVET29mdUVMTDJzVUx4QXV0N3dxZUtneUd6NGVXbmQxZDlmQzlpSkpZa2FWQ1NadVFsNXZIZ3QtUE5CR3oxdXlDUF9CbElqenFLSXVpMlBNYzE4WV81WDlkUWRNQ2hMdkZ3NA?oc=5",
-      "published": "2026-07-02T09:45:43",
-      "fetched_at": "2026-07-05T00:08:03.744306",
+      "title": "Platner out, US-Iran strikes, Air Force One and quantum leap - Reuters",
+      "summary": "Platner out, US-Iran strikes, Air Force One and quantum leap\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPUk9sQ090UFlNaG1sdS1tRVlKbTVXNnJORGtIb0czLU9rbi1aam9CY2NEODNfMFNMVGRVM2dYZUtoTDh2TFkxT1VKdG9sU3d6c0dZYjFCZFc5VGJrZktXemV4THZkQV8tM01yMU0wNnliTUhtazF4QldUYTFlM3M0Y3FOSGpBLU9raTR0dlN4em94SENWQlB3SHNNU2M0elhL?oc=5",
+      "published": "2026-07-09T10:27:31",
+      "fetched_at": "2026-07-12T00:00:55.137225",
       "ticker": null,
       "tier": 2
     },
     {
       "source": "finnhub_Reuters",
-      "title": "EXCLUSIVE: China's Hengli scraps West African, Mideast oil purchases and cuts output, sources say - Reuters",
-      "summary": "EXCLUSIVE: China's Hengli scraps West African, Mideast oil purchases and cuts output, sources say\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMiywFBVV95cUxPWkVfNDloUVJMRG92cGpBNmJIZTQ0V1VsM21mb1Raa1dyMEZwS3JweFF4LW9pM3dwSDlzbUszNkoxekN3TjU1bnRjTDhuakNzc203YUZZSVB6NDhFb1BCcFJoMmFsOFB0YU5mMFlFM2xBVnUyV1g4YWNGb3p3TV9TOXBVMUdTV3lQWTVCLWhGM1dDY0JRNEppSnR2b3dwQkZaTzJTNHBWZDkzTzFVUG11R0ZWQW8xT1FnX3phMHJERGd6ODFPd1BBbk53cw?oc=5",
-      "published": "2026-07-02T09:39:46",
-      "fetched_at": "2026-07-05T00:08:03.744309",
+      "title": "Iran says it hits U.S. military targets in Gulf, buries slain leader Khamenei - Reuters",
+      "summary": "Iran says it hits U.S. military targets in Gulf, buries slain leader Khamenei\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxOU0l1cEJNcjlUQjVYcXFjUVViTThKdnVqSGJMTUpEM2Jqem5HUGJyN1VvcEtyQUdrUnFBYWFhNXB3aEFUX2RmRHhCbXJxQ1JhX1Y1RXVyZUp3TXFlY1RFRXpLMWxHQnlQa3Q2OU1wekRWOEY4dGVzNVhQMnhYd1gyVEM0c080bUdGY01KNGJ2RW05MnlQMER1Q21EeUNfME1TVTh2aFk3TFZqMnpnOFowUzhmMWpXdUVHTmJtaXE1VkU?oc=5",
+      "published": "2026-07-09T10:13:00",
+      "fetched_at": "2026-07-12T00:00:55.137229",
       "ticker": null,
       "tier": 2
     },
     {
       "source": "finnhub_Reuters",
-      "title": "UBS cuts Brent crude price forecasts on improved Hormuz oil flows - Reuters",
-      "summary": "UBS cuts Brent crude price forecasts on improved Hormuz oil flows\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPNjVLbnY0TlctSzF6R1FUamhkeW40YnJkWHRpYzZEV1YwWC1rTTdkelozbWVwWk5abHJKamc0Q3NvZzllQ1hOckpWbnNaVFpUUWgwTjdsY0pEOVczT3EyWmJ1Z2h0MUR6ODJ5YVE4d1JxZ0wyZVhNWmhscFplX0xvV3BWUHlvRXQ2M3NtSjJjSWF5NkJieEt3WmQzT0RndVhtbUJhUms2dFBQTDNiVE5HZER2Zmc?oc=5",
-      "published": "2026-07-02T09:31:43",
-      "fetched_at": "2026-07-05T00:08:03.744312",
+      "title": "The Iran War threatened a food crisis. The next Gulf conflict could do the same. - Reuters",
+      "summary": "The Iran War threatened a food crisis. The next Gulf conflict could do the same.\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMic0FVX3lxTFA1dEx6ekdtMWswNHBjUEhfbURVWTUwRnk4WS0xYVR1YVk4cEliZjl0NnpuazF2YnMyYXBKMzIweUkyV05XWjlncXFwQVFIa2h4Y1dMd1Frb0tYendTRGFVRzRXWGlidFJ2eUJWTDRSWnU4SG8?oc=5",
+      "published": "2026-07-09T10:00:00",
+      "fetched_at": "2026-07-12T00:00:55.137232",
       "ticker": null,
       "tier": 2
     },
     {
       "source": "finnhub_Reuters",
-      "title": "Oil prices fall 1% to 4-month lows as progress in US-Iran talks cools supply concerns - Reuters",
-      "summary": "Oil prices fall 1% to 4-month lows as progress in US-Iran talks cools supply concerns\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxOMHJEenFKWkIxQUo3U2hMR2RKY0h3MldHWmhUSlFrbUloR195NWh0cE41c3BGc25aRlk5RlR5bEVVTHN0Qk95d3dfTHZUQnRxdVdmOERFRUlrQzRBYlB5d1dSM3RtdUJsRUV0WkxIVnpGZFg5TnRYQXR3TEVDUV9tUC12dWcyTW94WDVkbUZYUE95Y1ZXRkRRX1ByYXJ0c0xxTmhrTXQwaFM3eXJkMWp1ZVBmRy0tSklWMWc?oc=5",
-      "published": "2026-07-02T09:20:41",
-      "fetched_at": "2026-07-05T00:08:03.744315",
+      "title": "As Iran war rolls on, some executives say the 'worst is behind us' - Reuters",
+      "summary": "As Iran war rolls on, some executives say the 'worst is behind us'\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNbFJOOWw1ZkV2VmM1SkoteXkwS1lnNXhnU2VFMzJMcG1SOUE0eUo4bkc1dTA1c25SYUlOWldOWkdaU2NaTk5qZmY1X1FPRlNGSkFTaFcwajRva0R0NGliUDBLSHBBaS1vZVFNWkkxaUJMWXZ2Y2MwLXFmS0V5M1pWVkFhZVlacnVrSjZlSnQyUzhJWmNocHB6VGRXX3NNSHRjUE9mRzNJX1A?oc=5",
+      "published": "2026-07-09T09:02:06",
+      "fetched_at": "2026-07-12T00:00:55.137236",
       "ticker": null,
       "tier": 2
     },
     {
       "source": "finnhub_Reuters",
-      "title": "Senior Chinese lawmaker to attend Khamenei's funeral - Reuters",
-      "summary": "Senior Chinese lawmaker to attend Khamenei's funeral\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxPWm9jVFN2eXJDQ19Oal9VTW1SMlFmcUVOWEtGN2p0VFEwVDJJSzI4NG5MSFozM1k3Q2RWQ3Z6N2czM1JOY2JvRGRCcHFUNWw3bWk0N2VXcFM3c3FKYTFhS21wUVN3ZnBiNlNaZUNMMi03Q2ExOTJPVUItY3YxQngyaFhtT283dzQ4ZHJ6LVEtTzMtQ3FwUk9JeGQ4ckI?oc=5",
-      "published": "2026-07-02T07:59:43",
-      "fetched_at": "2026-07-05T00:08:03.744318",
+      "title": "Slain Iranian leader buried as successor remains out of sight - Reuters",
+      "summary": "Slain Iranian leader buried as successor remains out of sight\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNTHpfT3hyLXNRcDVsVDNZdk9uSDJsbU1KQXBqdWlaMVhXdGdHay0wN2k3bEthNlpHaHlVX2dKTEpIWHdncE5Ka0lIOGVsR04zLXNUVzB2M2VSNWJxVjVxRlRHYlUtcHUxUFJvVEZGTHUzMnJXeE1JanhjUHpDMGgzOWFZNUh0RHUxT2ViMHlyOWJ6d3YzdVBiT1cxeVRKbF9MbGRrQ0F0M3pJLUN5QXc?oc=5",
+      "published": "2026-07-09T08:40:00",
+      "fetched_at": "2026-07-12T00:00:55.137239",
       "ticker": null,
       "tier": 2
     },
     {
       "source": "finnhub_Reuters",
-      "title": "UK business morale slumps as Iran war pushes up costs, survey shows - Reuters",
-      "summary": "UK business morale slumps as Iran war pushes up costs, survey shows\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxOM1dMdC1RYnVFWEdZVnZlQlMxVkprVHd0aWR3V1h1ZC1MWV9Fb28zSThmVHF6U1NJRkhLT2dPT2U2aElBekNVaFR2ZzFPbGVKczVRMUstNjdNUllJRmV3RmtpTGJNQUN5NnNaTHZzZWEtVXdkcXBiWllULW9ldUpGN3dFZGcwMU5QV3BkRUc0bkZ0YkdOZzdmLXFLam5oc1gwMmVQNFpXa0JVRkxB?oc=5",
-      "published": "2026-07-02T07:05:43",
-      "fetched_at": "2026-07-05T00:08:03.744321",
+      "title": "Forget TACO. Trump's best Mexican food acronym is TAMALES - Reuters",
+      "summary": "Forget TACO. Trump's best Mexican food acronym is TAMALES\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxPUVlCTE1xSndQd2lBWjRreFBZa1JLTGliSWlweWprR2xYMS1OeE5pc2ZCLUE5VzJadUIwUWRhdXpya3dFYkFGMmY1eDB1cDV6ZkFXZnNOZFVGSGlvNmRMSEtTVC1PRmx5TWoxU1dkRDVtLWc5SWdOb0RvTENKR3N1a2FETVlUY3ZTS0ZQa0lNb0VtMnE1VEdUa1lzOVBfMXR4ZzI1VVhCQUtIbTRCX1lpZjJIMDREcm02WmR2M2ppSjdKUQ?oc=5",
+      "published": "2026-07-09T05:25:56",
+      "fetched_at": "2026-07-12T00:00:55.137243",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Reuters",
+      "title": "Bank of Japan sees growing inflation pressures from Iran war - Reuters",
+      "summary": "Bank of Japan sees growing inflation pressures from Iran war\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxOSjhGY1RXd3JYMmRZN1hsYW45YlpIeVZEZTl2ekQtdlUzWU9XVmliUC1LVG9hY1NYZk92YjlwOThzam9XdGN1MjRlbDFMTV9fcTk1Q1psVVUyT04yUWRxcVN5S05XLTYwLXN0ZnBxSkZwMXl1NGtHLWlQYzNnZzFTVlVucGZ3NFJveUNOVzdUSzVPdlZvaEUyS1BGX2RLTjJMUXJFelZpd0I5TDUwNG1naDM0UFJIeWJ3NUpmUnhn?oc=5",
+      "published": "2026-07-09T05:14:00",
+      "fetched_at": "2026-07-12T00:00:55.137246",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Reuters",
+      "title": "Gulf companies are set to reveal the unequal toll of Iran war - Reuters",
+      "summary": "Gulf companies are set to reveal the unequal toll of Iran war\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNeUlETmVrbERuN1NFblIwZmpYZmYzaUtwN0o3Y3huQ0pqNmNncHhqb1RPbUJqb1dtUDhWQ2JFemNYYjczQWVlak0zT0VqM3k3MC1qdWxoYVE1U3Q1QWJZVFBsa0NUNWdCNThGNVExVGFQbHlLSy1haGMzTnp1YTM3cGF0UTl4ems3UUthY29tUmF0UUNhY2RvZi1FU0lIdGVUMUs2M2hSSEs?oc=5",
+      "published": "2026-07-09T04:44:15",
+      "fetched_at": "2026-07-12T00:00:55.137250",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Reuters",
+      "title": "Morning Bid: Chip euphoria vies with war weariness - Reuters",
+      "summary": "Morning Bid: Chip euphoria vies with war weariness\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTE51OTFhbF9Sc2hjZ0lSNEg3elhONXp6YVdGdlE1RVowSHlXcVJsWW1IYzZDbW5FeXVZR1lCRXNoS1lfUDlwLTVXYVBINzFDeGU5T1FMY0xTSmp5dWtMOXRRcUtXOGhVQVd3VXVsNGRZYWJzeGI0ZGMtdlNGaDgxalU?oc=5",
+      "published": "2026-07-09T04:32:00",
+      "fetched_at": "2026-07-12T00:00:55.137253",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Reuters",
+      "title": "US military carries out fresh strikes on Iran, prompting Iran attacks on Kuwait and Bahrain - Reuters",
+      "summary": "US military carries out fresh strikes on Iran, prompting Iran attacks on Kuwait and Bahrain\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQeXVzMnQ5aVh0S2MxNlBNWXBLcWZ0TFNrUWJuVFRRWjhKSmFVb2UtcGVWNWNVajcwb2dGVERnc3E5QVZseV9qN3RqdFBueUtRUUp3WTA0UVlSREdxOHN4UmV1QUdxSDh1cHVjNFZCWkRqVGpudXpHRnNiOWlMamoyaXY3Tl9ZT0pua1lDTHFNR3hUY1BxWWxHWktDSmpSNEVSOTVTQVZLb1VXaHg0dHc?oc=5",
+      "published": "2026-07-09T03:36:05",
+      "fetched_at": "2026-07-12T00:00:55.137257",
       "ticker": null,
       "tier": 2
     },
     {
       "source": "finnhub_Bloomberg",
-      "title": "FSSAI cracks down on energy drink brands for misleading claims; Red Bull, Monster Energy served notices",
-      "summary": "Pepsico India Holdings Pvt\u2019s Adrenaline Rush, Reliance Industries Ltd\u2019s Campa Energy Drink and Hell Energy Pvt\u2019s Hell Drink also served notices",
-      "link": "https://www.bloomberg.com/news/articles/2026-07-02/india-food-watchdog-targets-energy-drinks-including-red-bull-for-misbranding",
-      "published": "2026-07-02T06:58:55",
-      "fetched_at": "2026-07-05T00:08:03.744325",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Bloomberg",
-      "title": "Carlsberg reported to have filed draft papers for IPO to raise $700 million",
-      "summary": "Carlsberg is said to be working with Kotak Mahindra Capital and the Indian units of JPMorgan Chase & Co. and Citigroup Inc. on the proposed offering",
-      "link": "https://www.bloomberg.com/news/articles/2026-07-02/carlsberg-said-to-file-for-india-ipo-to-raise-700-million",
-      "published": "2026-07-02T06:36:57",
-      "fetched_at": "2026-07-05T00:08:03.744328",
+      "title": "JioStar taps AI for shopping, TV movie night ideas",
+      "summary": "Turning JioHotstar app as a commerce platform may strengthen Reliance\u2019s broader consumer ecosystem in India, where the e-commerce market is set to reach $250 billion by 2030",
+      "link": "https://www.bloomberg.com/news/articles/2026-07-08/india-s-jiostar-taps-ai-for-shopping-tv-movie-night-ideas",
+      "published": "2026-07-09T03:00:14",
+      "fetched_at": "2026-07-12T00:00:55.137260",
       "ticker": null,
       "tier": 2
     },
     {
       "source": "finnhub_Reuters",
-      "title": "US resumes dollar transfers to Iraq, NYT reports - Reuters",
-      "summary": "US resumes dollar transfers to Iraq, NYT reports\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQYnpiS3BTblJ3cFJEcjd6aFI2TDNvT3lxSWk0YU5zRlowdGxLTjd1N041RVdSbDBFUTBWb2FKWXRYSzJOYmxPMXVTV3A1ZU5FbVo0bm00RGlCTENnV1FCU05CdE5SaWlzekJseXJoVmZpYkZTTVJuSmlmdWhNZXdROW1tZ0w3a0FLdXpKSjF0RDR6dWFDYUZOTE1MUXFyLUE?oc=5",
-      "published": "2026-07-02T05:21:00",
-      "fetched_at": "2026-07-05T00:08:03.744331",
+      "title": "Stocks edge up as tech rebound offsets Middle East jitters - Reuters",
+      "summary": "Stocks edge up as tech rebound offsets Middle East jitters\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNU2dFb1NsRUVjbDhlRWp1VHVuZk9ud2JqcXdJbUxTOGhXLUpvcmJ1UzI4Zk45YmREYzlpVnRHS1dzMkxJemEtZmJRUHFHRm0tcTdqZlZxQXlvM2JKZE5Ed1VZT215aUxERjVGUk5reGZVamdYWXFLV3hfMnBuWXFYNVg3TQ?oc=5",
+      "published": "2026-07-09T01:49:00",
+      "fetched_at": "2026-07-12T00:00:55.137264",
       "ticker": null,
       "tier": 2
     },
     {
       "source": "finnhub_Reuters",
-      "title": "Polish military ends air operation, reports no airspace violations, armed forces say - Reuters",
-      "summary": "Polish military ends air operation, reports no airspace violations, armed forces say\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxQbk1iXzBDNUlFWWRPMHg4LUZFcFQyYjlxZnhaZnhnLXQwYy1jbzZtNWRBZ1dFMkNWUWFVMkNmVXpWLUhuOC1PVjNNQWZLWl96SjU3ekRYZlhYMU9pa1F4bFcwM0dmVHdqTmVWN2RUanJFNFVGX0RGMjRETEFaT1hsMUtSYk1FMFVBUmhXRzBHQmxyMlpJalRha0hoNm1kRmFYRnlOSlJzNzBrS0c2R1IxN2VqYkZ4djhBN19naQ?oc=5",
-      "published": "2026-07-02T05:11:00",
-      "fetched_at": "2026-07-05T00:08:03.744334",
+      "title": "Gold gains over 1%; focus turns to Middle East tensions - Reuters",
+      "summary": "Gold gains over 1%; focus turns to Middle East tensions\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQX196NlhHT096R1N6VDR0SmJaSUhvb0tnWDFoTmEydEFHTl9QRHNPSVBTejM2eFhfLXFRa1ZHcWhnLWlVdVd1SGdmMHhTZ0FCTUpocm5WOW1NRVBHMWo0MzFIVkE2eXZJd2xvWGxGUTB1RFRIUFh2dWRlbFhtV3J1SklFOGUyYkk1RnlWSUJSQTlrX2N2dUZYV3pjTk1URlZMWmF4Y2lB?oc=5",
+      "published": "2026-07-09T01:34:55",
+      "fetched_at": "2026-07-12T00:00:55.137268",
       "ticker": null,
       "tier": 2
     },
     {
       "source": "finnhub_Reuters",
-      "title": "Indian shares rise as crude prices drop, IT stocks rebound - Reuters",
-      "summary": "Indian shares rise as crude prices drop, IT stocks rebound\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxQRDNoZTBnRzZhWmFDQ1doOElqaWRBeXoxQzREblB3S2ZYb255Zms3eVNkMi1maXE0RFFqbWdBNVFjX1NRTDZZRmhydG8zaGZvWGFvOWFDOGJ4V09jRUFfd09VdGdmVUN2ZjMwb1oyUm5MeS03NFlpRWZoNXg3TG5SVHZtWjFBRHVhRDloWmxFN1FTYmlHZzc0eEF0TXZXaW9FUDJ1ZWQ3UmVvN2owRGFR?oc=5",
-      "published": "2026-07-02T02:18:00",
-      "fetched_at": "2026-07-05T00:08:03.744337",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Bloomberg",
-      "title": "ShareChat eyes $400 million IPO next year after turning operationally profitable",
-      "summary": "Backed by Lightspeed and Tiger Global, Mohalla Tech aims to go public after achieving operational profitability in Q1 FY27.",
-      "link": "https://www.bloomberg.com/news/articles/2026-07-02/sharechat-india-s-meta-rival-plans-400-million-ipo-next-year",
-      "published": "2026-07-02T02:11:20",
-      "fetched_at": "2026-07-05T00:08:03.744340",
+      "title": "Gold drifts lower after Trump says deal with Iran is 'over' - Reuters",
+      "summary": "Gold drifts lower after Trump says deal with Iran is 'over'\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxPS1hzdnRhSUFjNm5yb3RRTUlITEtOd1NMOFJJNlc0VVczR0s1S295WjY5b0YyaEhIMjZxZWEtdk5WUjlPcC05dUtFaThpNGo3QVl4REZiMzIxZ252bHE4a2VRRjFUYXlfR3Myb0Y3aUlSVnplSEp5eW9YQjBvNXU1UmwySVFjaXhuXzNLMFBXNE5Rdk5IcWxqUXJZR3FvNGRjc2p2b3hoa2x3U2ZvOE5XYU1n?oc=5",
+      "published": "2026-07-09T01:28:40",
+      "fetched_at": "2026-07-12T00:00:55.137271",
       "ticker": null,
       "tier": 2
     },
     {
       "source": "finnhub_Reuters",
-      "title": "Wall Street ends choppy session lower as tech shares drop - Reuters",
-      "summary": "Wall Street ends choppy session lower as tech shares drop\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPUlRDSDhyZXpFd2lVaWQyUllERFNzcHA4T2ZZZzZhWGdGaDRRcDVKY202NmFRbGFwSnRZcmhOeTBIVG1kci1qc0Zld2lKX2Z0bW1reTRiZkJCV21UNW16dFd5cWFXVW9JbXI0R0RxWGhFa1NsWXB2NFJXZTM1dHI2cmY1NmVDRHFFTm9MZEJMSnlLZUxiSGtIb1pPM1NsdFliWlI0OWR2R0V4T2tneUkw?oc=5",
-      "published": "2026-07-01T23:34:20",
-      "fetched_at": "2026-07-05T00:08:03.744344",
+      "title": "Trump says 'a lot of unity' at NATO summit after lashing out at allies - Reuters",
+      "summary": "Trump says 'a lot of unity' at NATO summit after lashing out at allies\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxPUEVNU2RSNGlfY1hHTkpSVFpWcjFYcDJHa3FHRkNHWEM3U19nM1lxSWN5SUY1Zjl6czA4LTNrNENOZ1lYMFlDZ2JyWllaRURvU2ZJSTctcFEzWUNKLVoxSmdVT3RmWFNfenFhblhMZUFvXzBrb2M3VDkxQm9PdlZIWmN2YmRaS3lPaGRBcE5XcHdrZFV2NWFSNmZuWUY4VjZmWUhXUXB2RHNQS0ZYdnRHMWxkM3daNlJQR3B6eW5yem1qRDhFRXZLVU1fbjJTelh6S1UybQ?oc=5",
+      "published": "2026-07-09T00:02:32",
+      "fetched_at": "2026-07-12T00:00:55.137274",
       "ticker": null,
       "tier": 2
     },
     {
       "source": "finnhub_Reuters",
-      "title": "US car sales on cruise control despite pressures - Reuters",
-      "summary": "US car sales on cruise control despite pressures\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxPcU5RT0JPdDV4THBVQ1pUS0U3RnRpR3VYQTJ5THdjeW5WRExMSjNPS1dTUVNWVGh5RFhjMEF6MGw4Wi1ib05nRFFxbTJLWEFHUUNUa3lJanJUc1d5MEdIS1BqQl9KeFJVTDk4VE5xTDhMTVk5N21ZQUs0aEotZ1N5MFFVZE5pRVNpaWNZX1BDLWFBQjc5aG1ETkNJRHQzRGNocnFoUTR6QjczcHlSa3FMTw?oc=5",
-      "published": "2026-07-01T21:26:02",
-      "fetched_at": "2026-07-05T00:08:03.744347",
+      "title": "Trump orders halt to US trade with Spain over NATO spending, Iran - Reuters",
+      "summary": "Trump orders halt to US trade with Spain over NATO spending, Iran\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxPUHpycW05eTVleW81UVFsUkdsdzhiaDJuSTl1dDhFNy10bHpyYkVoeWFpWmtvSnFEa2MyRW4wdjExcGpMUVNRNlVveERCZXpPM0lmWkpnNVFBUzhENGdHQmVSRGw3WDN6bXQ4YkdaZGRveWVkWjlkdDFWU0lFSVF3UGFxMzREQkEyYkR0Yy1PbEl2Ul80WGJUMHp6VEE?oc=5",
+      "published": "2026-07-08T23:22:31",
+      "fetched_at": "2026-07-12T00:00:55.137278",
       "ticker": null,
       "tier": 2
     },
     {
       "source": "finnhub_Reuters",
-      "title": "Uber-backed Lime rides IPO wave to $1.7 billion valuation in Nasdaq debut - Reuters",
-      "summary": "Uber-backed Lime rides IPO wave to $1.7 billion valuation in Nasdaq debut\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQdG9jQkZhX2NncDZ4Uy12N1E0cnZ0UFdEWmRMemNENDVvZThzTU9Da0FmdzFzajA5cjZfSGdkMXJDU2NIM2RFdkhVaVhvZEN2WWt5eHVGckZLbUxkXzVKTHVTVTNTVHR1UzNwR1h3TjJKQTRoZVNCbEhqcDIxdUpxNms2MGRlNFpUWnlWbkIwdk4wMkNQaTdXUjc1Yw?oc=5",
-      "published": "2026-07-01T20:33:55",
-      "fetched_at": "2026-07-05T00:08:03.744350",
+      "title": "Giuliani defends White house handling of Iran at World Cup - Reuters",
+      "summary": "Giuliani defends White house handling of Iran at World Cup\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxPaEhTT1RLcEhFWGhjaW9CQU9RVlNOcWpON3I4QWpXTlBXU1ZUOUx4S3lHYjUtbzRwMjRzWW02YUZBR0pIbGpkbFliRkxDemxTNlZWN2d6a2RSNjc3OHo1ZTE2NVhHaHFzM0NLUmlpVjNjRWdNZzBhQTI1ZXBPZ0htcTJsdVd0M2o5RmVTaC1xUVJtbC1QbUpvRVl2em9NdkZMeHdlcg?oc=5",
+      "published": "2026-07-08T23:22:17",
+      "fetched_at": "2026-07-12T00:00:55.137281",
       "ticker": null,
       "tier": 2
     },
     {
       "source": "finnhub_Reuters",
-      "title": "Defense startups raid auto and fracking sectors for parts to speed weapons output - Reuters",
-      "summary": "Defense startups raid auto and fracking sectors for parts to speed weapons output\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxPLXdoZFNDNWR3TXRnUjBhdERaMFM3cUlDM1o0QWVfXzQwNnpLRUc1Y0kyQUJzd1U4MVJTandHYjZkekRHWGJuWnQ3UjJjS0MxaFZacElDMWFrRUkyZU5fYjg1VHFtN0tVUUFvYVptQTNjSWZnbzZ1cmhRbDNNdkNxalo2d1hod3pzbDNkNFJneWE4T3ZRUTBJZFVxMkJFeF9rTFZ5WWRpMzhwN0RFSTNjQWxlZ2JObDR2X1kxU3JHWmNMaVFCTmk3dzB5SHQ0dw?oc=5",
-      "published": "2026-07-01T20:27:46",
-      "fetched_at": "2026-07-05T00:08:03.744353",
+      "title": "S&P 500 ends down after Trump says Iran deal is 'over' - Reuters",
+      "summary": "S&P 500 ends down after Trump says Iran deal is 'over'\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxOcTlvb203c2gzM1N5b1NUS2FVd1NXMl9ONUhXaFN6bmJ2c29WSGtDbFB3cnd4SmRkY1NJX095NEg5TWxVcVh4WG1WRmdYWW92WUVZcTZBNlFnQlo3dHN4N1B2cWxZcG9QZ3FuOFBaRFFDUUxGNXU2MlpDYWFUX2JVTlAxZ0pwQnYzS1ppQ1pkcU8yT2VNNERkbTZ2aUxWdHJSZEFNeVA0QzJjbzcz?oc=5",
+      "published": "2026-07-08T23:20:01",
+      "fetched_at": "2026-07-12T00:00:55.137285",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Reuters",
+      "title": "Oil hits multi-week high, Wall Street slips as Iran tensions reignite - Reuters",
+      "summary": "Oil hits multi-week high, Wall Street slips as Iran tensions reignite\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxQTlVmYWxzRk02MjZPWnI4ZlAwZG5xbkd6elBjQjNZUEloOWpIejgxS0FTenhWX0s1Z2tmSWdpQmM5MElHQmZUZmUxNXBHV0F5YW9STzNQZHFiYlVSYzRfSjVWclIzblNkSEQxcjNVcS1Mb0JXUHhfb05ZYnM0LVJjbnBCaw?oc=5",
+      "published": "2026-07-08T23:16:12",
+      "fetched_at": "2026-07-12T00:00:55.137288",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Reuters",
+      "title": "Venture Global's second-quarter liquefaction fee jumps 69% as Iran war lifts LNG prices - Reuters",
+      "summary": "Venture Global's second-quarter liquefaction fee jumps 69% as Iran war lifts LNG prices\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxNUFplVTZwY3czQU5CNDA1RzFEWkVnTnRLVUROTG16bS14OWVRYXNpampiTjd3cVNtU251V0diZmczbmd2bGd1aXBUTUw3U0FIbWJVS3VvY1lKbXUtYVl5ODA5YXJlXzlpa2hRUWZidG5VYVBTTkVJNnpZY1U0eWhnTG5rellFRlBTdHM5dVY2V3JCd25DSUFpcVllb2IwX182UTZEWmw0TzZOSGJXU3BtVXh6TGQ3TDFGNlVvckFCSWV4eFFLQmc?oc=5",
+      "published": "2026-07-08T23:08:36",
+      "fetched_at": "2026-07-12T00:00:55.137291",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Reuters",
+      "title": "Trump wants to leave the Iran war behind. That won't happen soon - Reuters",
+      "summary": "Trump wants to leave the Iran war behind. That won't happen soon\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOdlZTdUh2QUFmVGl3LV9rMW8yR0NLVENkMG1oTFB5X0xLbU1Pd09fdDlEZ0hlSUU3NXdVbDFQSzNHc2F3dWlZby1yT05mVzJuVHRrT2x3VzA2NVJOQmNFZ0JrRkZZNzk1T1RUSnk4Y0hkak1QR2t5OFE1UDRJRWdMTHVVRjlFS0V2OF82WGRoc0xkXzdSWTVaZzlFXzVBd0hVNlNlMnoxYS1UbjVGVGc?oc=5",
+      "published": "2026-07-08T22:33:00",
+      "fetched_at": "2026-07-12T00:00:55.137295",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Reuters",
+      "title": "Oil rises more than a dollar per barrel as US launches fresh strikes against Iran - Reuters",
+      "summary": "Oil rises more than a dollar per barrel as US launches fresh strikes against Iran\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMixwFBVV95cUxNVkg2NWtteXRjblpQRDNvZVBHcVdOTUlJYlYzZUltRS10OWVVSGpjcnU4bjl3U3doZnJMRGREdEoxaTAtMXRhTVA2WGJSUjZHN244dlZsSXM2SHJwbGxmYnZxdVJNb2JNRWd6M1ZPMmd2dmlHN3FpdWt3aUZjSFE0SHBGYUVRMlloTE5tSVNzcjJqOVNqZkdDRjhOS3Jja1gyYWN6VlVNNEVtZ2NrYWFyeWdLcmNwMUFNbExiWmJxS2R1eUdodXM0?oc=5",
+      "published": "2026-07-08T22:23:53",
+      "fetched_at": "2026-07-12T00:00:55.137299",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Reuters",
+      "title": "Trading Day: War on, risk-off: Stocks drop, crude jumps as Trump calls Iran peace deal 'over' - Reuters",
+      "summary": "Trading Day: War on, risk-off: Stocks drop, crude jumps as Trump calls Iran peace deal 'over'\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxPbWx0NmZfUVlHWUprN3hTRGhoUFNScTB1cHJsVWxvZTJpeW8zTGt0ektBSF9pZ1k2VVFwc2VXQTRvSktncEM3Ml9hdVR0VDJOTG8zQ1dOSmZHeWdaMnpyd09NZG14UGp4WmY1ZmxBWUZRQ0RfY2diYkpPcjVrQ1lDYU0zaE43RVJmV3ZISFhJQ3VIT1hBeGV5Si04dklEMjFnaGQwSWhn?oc=5",
+      "published": "2026-07-08T21:59:07",
+      "fetched_at": "2026-07-12T00:00:55.137302",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Reuters",
+      "title": "Honeywell Technologies raises profit guidance after one-for-two reverse stock split - Reuters",
+      "summary": "Honeywell Technologies raises profit guidance after one-for-two reverse stock split\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxOOEVCV0NxNkxWcFdUdU9rSzFCb3lmSGNwcHBYZUt5bEdYNWpDUS1FOXo0cEMzUE9fYmVGUHhUUWdITXZILVpnanRkaU5ucTM2aHJVRlBSbEttS3dkQVlBSHRrb1pXMXFvNlQ2TUpJVS1sNVdBSGhlbmtKYmdadlZkNmp4UXBUbGdNakZMSG93VWF3LXdYVVpYMXIzak15amlMcXF4OHBETklhSUpIVnZTQmpjUmRBWGNsdjVOcHkxUWp1ZG1adGlJY0t3azRxNDM4X1MzcjItbw?oc=5",
+      "published": "2026-07-08T21:31:53",
+      "fetched_at": "2026-07-12T00:00:55.137305",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Reuters",
+      "title": "Dollar fades after touching one-week high as Iran deal in doubt - Reuters",
+      "summary": "Dollar fades after touching one-week high as Iran deal in doubt\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNVWFIZEp3ZW1HMXBhLVIwNmF5TGp6dWZzeEc0ekw3Nk1FX18tLUJlRXZ0bkhTR2pyRWNKeF95bWZFVWQ1Ri16YjNuYnM1T0RBWVFfNTZNeGZtR1JTQ0p2Q2xQNUFzSnJmTzVQT3hVeTRtUkFMLXVJM3FyY3BZbGdaTDJVSm1KMl9mRlNzZ2t0a3BDN0QtWW5USmc1RW9ndWc4VHJn?oc=5",
+      "published": "2026-07-08T20:59:13",
+      "fetched_at": "2026-07-12T00:00:55.137309",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Reuters",
+      "title": "US military is conducting fresh strikes on Iran - Reuters",
+      "summary": "US military is conducting fresh strikes on Iran\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPUTQwUnZhbGt0S2NCc3VqWUt2TnJ5Y2FZNmNUeDZBU0doUDlVMHlwc3F1ZDMwMVlIVjB6eXkwM3pqTUdPU01oNHEyaF9XZUhMeXEtcFNNNVczcHAtcF84OF85SDFuRVVWdjNld2RvR0swYTJtUGhiSk9iTFM4N1hxNHhTSXc1MjRHUjRHWHJVb3Y0ZWNwQ1ZqWWhWTExsbTA?oc=5",
+      "published": "2026-07-08T20:26:25",
+      "fetched_at": "2026-07-12T00:00:55.137312",
       "ticker": null,
       "tier": 2
     },
     {
       "source": "finnhub_CNBC",
-      "title": "World Cup could boost the June jobs report by 40,000, Goldman estimates",
-      "summary": "Nonfarm payrolls are projected to post a gain of 115,000, according to the Dow Jones consensus.",
-      "link": "https://www.cnbc.com/2026/07/01/world-cup-could-boost-the-june-jobs-report-by-40000-goldman-estimates.html",
-      "published": "2026-07-01T20:27:09",
-      "fetched_at": "2026-07-05T00:08:03.744356",
+      "title": "Levi Strauss beats quarterly expectations, raises guidance and dividend",
+      "summary": "Levi Strauss beat quarterly expectations on the top and bottom lines during its fiscal 2026 second quarter.",
+      "link": "https://www.cnbc.com/2026/07/08/levi-strauss-levi-q2-2026-earnings.html",
+      "published": "2026-07-08T20:12:47",
+      "fetched_at": "2026-07-12T00:00:55.137315",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Reuters",
+      "title": "LatAm assets slide after Trump says Iran deal 'over' - Reuters",
+      "summary": "LatAm assets slide after Trump says Iran deal 'over'\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPb1VGcTdlV2Q0NmJQbnFYZzRBNVVXN21CV1Z6SVgzdzM0bVE2VFdVbmhvVG5wZU5MaWhLSC0yM1FHSEprdWlrLTZ0VlAySGVtSTU0cW1MTm9HNnNsajRWRWNmZ291VDVYWTdSSnFBb3NubGhObG1RdXdfbzlHaHc0cWRDaTZVWFdLSjZuNkg3cnU4cVJ1X2pWMWNpQmswbmhBeHhyWE1Lbmp3dDdvNWJuVENVc28xZnpISXNWMlItNA?oc=5",
+      "published": "2026-07-08T20:10:35",
+      "fetched_at": "2026-07-12T00:00:55.137319",
+      "ticker": null,
+      "tier": 2
+    },
+    {
+      "source": "finnhub_Reuters",
+      "title": "Thousands march as Khamenei's funeral procession crosses into Iraq - Reuters",
+      "summary": "Thousands march as Khamenei's funeral procession crosses into Iraq\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxPamx0X0tpdE9oTTYtdTNBWm44Wms5WURGTXlYX1lTcHBXUzQ5SkVGYVJzdkVlZkh4SVVjVkRjVlp1bEh2MVFWUEV5SzRkT01YYWotdDN4UklneEFUVlV4X1VvQ2pzMzI2N2R4b0Z2dTlEektkdmx2VzZXaGJNZy14TXJwd3NnX29RM1UxV25nSUdDVG1YanBHYUVfdjBjNU5vM1dsbGVSWGpsdi1KMzdvY3laMkt5ejQ?oc=5",
+      "published": "2026-07-08T19:43:21",
+      "fetched_at": "2026-07-12T00:00:55.137322",
       "ticker": null,
       "tier": 2
     },
     {
       "source": "finnhub_CNBC",
-      "title": "Chip stocks that notched record rallies in second quarter start Q3 with a dud",
-      "summary": "Memory maker Micron, which jumped over 240% in the second quarter, dropped 11% on Wednesday, wiping out nearly $200 billion of market capitalization.",
-      "link": "https://www.cnbc.com/2026/07/01/chip-stocks-notched-record-rallies-in-second-quarter-start-q3-with-dud.html",
-      "published": "2026-07-01T20:12:19",
-      "fetched_at": "2026-07-05T00:08:03.744359",
+      "title": "Gas prices could rise as Iran conflict escalates\u2014a 'budget reset' may help absorb the added cost, financial planners say",
+      "summary": "Renewed tensions with Iran could push gas prices higher. Here's how financial planners say to adjust your budget.",
+      "link": "https://www.cnbc.com/2026/07/08/iran-conflict-may-lift-gas-priceshow-a-budget-reset-can-help.html",
+      "published": "2026-07-08T19:32:25",
+      "fetched_at": "2026-07-12T00:00:55.137326",
       "ticker": null,
       "tier": 2
     },
     {
       "source": "finnhub_Reuters",
-      "title": "US factory activity eases off four-year high; input prices remain elevated - Reuters",
-      "summary": "US factory activity eases off four-year high; input prices remain elevated\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxNdHdmbG9IWkhIbExKVnpqbXROZmtHRDE5bXljc2JXaF9vd0pUbmRmWVZGZmNnb3B1YTE3a2I5a0JDY05odEd3UHVGSXJEU0E3b21Za0ZrREFqWnVfcWxVUHFUakg5RTBnU1ZBLTdhaWtFQ3JTUFphRjR2ZnJNb0dISklZVHZidFdpOVM2cGdLeWxyRUV2TU81c00wYkNiRi1Wd1p2S28tbw?oc=5",
-      "published": "2026-07-01T19:07:43",
-      "fetched_at": "2026-07-05T00:08:03.744363",
+      "title": "Some war insurers advise shipowners to pause Hormuz voyages after attacks, sources say - Reuters",
+      "summary": "Some war insurers advise shipowners to pause Hormuz voyages after attacks, sources say\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMiywFBVV95cUxNRXd6QnJtZEVMdGFlS1NzcWlLNVhYSDQ2eUw2bzRXV21BSTFrUFJNdy03S3pOSzROc3J6eUNpclY3M2FWb2x1dkduM3JkR3RyRnFXc21LX0N4NHJwZk5QQ3h5SUVIOEl4SGJ1bkxQaWxDTkFxelZGNlpoUWZwejdFNzlLUW9tNDlRamdVUWxkY0xTTXE1ZE1QVVMzREVHa0Nxb2lGOExyNFdmeXRBbjNxZ2pqa2xoSVUtLXRjZVJaTkR0Z2VnbkRGUG1UTQ?oc=5",
+      "published": "2026-07-08T19:10:58",
+      "fetched_at": "2026-07-12T00:00:55.137329",
       "ticker": null,
       "tier": 2
     },
     {
       "source": "finnhub_Reuters",
-      "title": "Salah fitness race in focus for Egypt ahead of Australia clash - Reuters",
-      "summary": "Salah fitness race in focus for Egypt ahead of Australia clash\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxQYnZhcWNHR1FHLTQxNngzaG5UY1VJMXpkcjRqaFJBdG9BZzNNcGNDNnlSOU5uUTl2UDVDVXpaSWlvM0sxUDJSYmdzcVpyZlFRWFNWZ3NxNnM4NkVkYkVSUHVGWWtnNVVfUjhBUVo1V21xSzY4bWlYT25CVlRuc3Q1RndzSmc2UmlpRW1fQ0R2OWl1TlpqMHpJOHdRU2JSOGluRGtiZA?oc=5",
-      "published": "2026-07-01T18:42:10",
-      "fetched_at": "2026-07-05T00:08:03.744365",
+      "title": "Trump says he doesn't think Iran conflict will start again - Reuters",
+      "summary": "Trump says he doesn't think Iran conflict will start again\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxNNjNfYy16UERGMkFmTE01eDZtUXllSmtob0sxSHNnSzE2S1g2NFBSbm9kc1hkWEQ2alp2NV9WVG9YSjlfLWxwVDRnYjhNZTAtanB3LW42eFNTUTNaVHp4TkJjdHNoTURyTXduMnpRQzlBcndEZndjQm5DcWowVHk0OG1yUWltQWlyMmpOdTlRQURydUJla2w2UHJQRENvbnhZQjRKTW1pV3hzUWNKWWsydg?oc=5",
+      "published": "2026-07-08T18:51:05",
+      "fetched_at": "2026-07-12T00:00:55.137333",
       "ticker": null,
       "tier": 2
     },
     {
       "source": "finnhub_Reuters",
-      "title": "One US service member missing after helicopter goes down in Arabian Sea - Reuters",
-      "summary": "One US service member missing after helicopter goes down in Arabian Sea\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxQalg2MGttYm04Zm1peVhEdHZNTkVXWXFwYzMxUi1IUmZQdmtYREIxRWNaX0UzdU1ON2t4dGV1djkyQm9PemFuNm1ZbXhETUd4OURyUXBCcjdYZ2dRYUJDdWVGcTdHMV91elYwVkp0UVVWZ1Q2R1Vnbm1SMWNSWWUtV3hDejdxb0RPVmUtWVdXbGttd1BBalpxc2RNZWE3UDllRjNzOC1tSkNnSEljenVn?oc=5",
-      "published": "2026-07-01T18:26:46",
-      "fetched_at": "2026-07-05T00:08:03.744369",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_CNBC",
-      "title": "2026 laggards shine in Wednesday's mixed stock market that kicked off the third quarter",
-      "summary": "Every weekday, the Investing Club releases the Homestretch; an actionable afternoon update just in time for the last hour of trading.",
-      "link": "https://www.cnbc.com/2026/07/01/2026-laggards-shine-in-mixed-market-that-kicked-off-q3.html",
-      "published": "2026-07-01T18:23:36",
-      "fetched_at": "2026-07-05T00:08:03.744371",
+      "title": "Trump's visit a win for Turkey's Erdogan, NATO tensions aside - Reuters",
+      "summary": "Trump's visit a win for Turkey's Erdogan, NATO tensions aside\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOT2JvbWRxN04yU0Z5SDQyTExVZjRoZUhOMERIaXdKNzY2WDR5a0JvaHFrUHJMSHRuaEo4dkc0Rm5ELTRZMmhPdzZuQ1Rpdm1YZUlCSTV2TEd4ckQwYnkyaVJKRDVteDVhbkFLV25sN0djUXlJNW5haGpMRUFYMWU1SHFseFF4TnExNm5KQ0ZsSnd0VTJTZEhHVzRzMGIxMVdXQXBsR3pNMENKdw?oc=5",
+      "published": "2026-07-08T18:48:00",
+      "fetched_at": "2026-07-12T00:00:55.137336",
       "ticker": null,
       "tier": 2
     },
     {
       "source": "finnhub_Reuters",
-      "title": "South Korea cargo ship Namu to exit Strait of Hormuz after attack in Gulf - Reuters",
-      "summary": "South Korea cargo ship Namu to exit Strait of Hormuz after attack in Gulf\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxQWHdUWXEwMnhHYkRxZnN5bGRGVXFhMHh3R2RaMTRkcnRaZE9GVXUzU2plNDJmazFsTDFQQTdGMFh5VHFCblk1djNzRGM1bF9NQXlfb2JxSy1mNDBXQnJaQ2p5QXk1TGRNRGFBd2NTal9ncWJZZWVNZ2UtWkxNa3VFS1B0LTRWNWdhdzk3NUd5clFqZHpGbDR3N3BlVVZ6a0NfVVR5NDY4T2hYV2NYd1g2MmlkYmF2VWpwZ0lV?oc=5",
-      "published": "2026-07-01T17:59:19",
-      "fetched_at": "2026-07-05T00:08:03.744374",
+      "title": "EXCLUSIVE: NATO's Rutte says alliance reunited at Ankara summit after Trump 'quarrel' - Reuters",
+      "summary": "EXCLUSIVE: NATO's Rutte says alliance reunited at Ankara summit after Trump 'quarrel'\u00a0\u00a0Reuters",
+      "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQMjBPUnBjMm01NHlYT0JXbkFUU05hekRxaU1sc09CbnNUTFBzU1EwOEhEOEJjR1BCbmFMWTR2a3k5bnJVTVBuLXB1bHFKYjhMNVBMTmRYQ2xYNlFMTVZOUDBFeHlTa2l3MTlZbExJLTNzOEZNSUNzbXhKUWgzZ3FvVmVUcy1TVVFteklLLW85M3FDLWVaRmdyM0pIQmtBOGRlcWw0UnpkN0d0QS1ZWWpHUXFGSGlZb28?oc=5",
+      "published": "2026-07-08T18:24:07",
+      "fetched_at": "2026-07-12T00:00:55.137339",
       "ticker": null,
       "tier": 2
-    },
-    {
-      "source": "finnhub_CNBC",
-      "title": "The $20,000 new vehicle is all but extinct\u2014what the most affordable new car looks like now",
-      "summary": "Why the $20,000 new car disappeared, and what budget-conscious buyers can expect today.",
-      "link": "https://www.cnbc.com/2026/07/01/the-20000-new-car-is-gonewhat-the-an-affordable-car-looks-like-now.html",
-      "published": "2026-07-01T17:30:01",
-      "fetched_at": "2026-07-05T00:08:03.744377",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_CNBC",
-      "title": "Bitcoin's summer swoon creates unique trade in Strategy",
-      "summary": "Outright shorting bitcoin or high-beta crypto equities after a steep decline carries immense tail risk.",
-      "link": "https://www.cnbc.com/2026/07/01/bitcoins-summer-swoon-creates-unique-trade-in-strategy.html",
-      "published": "2026-07-01T17:10:22",
-      "fetched_at": "2026-07-05T00:08:03.744380",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_CNBC",
-      "title": "Cramer shares next steps for a software stock after a rare bullish analyst call",
-      "summary": "The Investing Club holds its \"Morning Meeting\" every weekday at 10:20 a.m. ET.",
-      "link": "https://www.cnbc.com/2026/07/01/cramer-shares-next-steps-for-a-software-stock-after-a-rare-bullish-call-.html",
-      "published": "2026-07-01T16:36:41",
-      "fetched_at": "2026-07-05T00:08:03.744384",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Reuters",
-      "title": "Gold gains over 2% after soft jobs data, Fed Chair Warsh's comments - Reuters",
-      "summary": "Gold gains over 2% after soft jobs data, Fed Chair Warsh's comments\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxQVUtDS0lOMmpVZ0RpMVM2VUVXQUJtQV95bG5xUHVGalJ1UnlxcENxQk44eHRVMElaalhEWm5tb3RVaEVuU1lscWFpdkFtMUJjUlQ4SXpmNFc2TnY0VlBGNEFjbTE5X1l3eDNmRG5wV2tmN3YwSlRNUWZyUDNNd25mZjBGWWYzNXpXU0NHZmJaRGM5akhpOWVUMHVVN0pQTTZzV3c0aUpJWV9jX2tXSmdwMHZ0Uk92SnRjZWc?oc=5",
-      "published": "2026-07-01T16:14:18",
-      "fetched_at": "2026-07-05T00:08:03.744387",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Reuters",
-      "title": "European shares pause after rally as concerns over Fed rates, Iran peace deal linger - Reuters",
-      "summary": "European shares pause after rally as concerns over Fed rates, Iran peace deal linger\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOR1ZZdmJidkhHYWdFT3A4aHhEbEkxSWFIS0NMTDdFbWVhTVZZd0hONnVDTkZCUEhoQy1XYzU3Y1hFN2s0X1BQckNablJFTHRMcVFQVThvTHBNMU4xTEpEeVFwbFdiRFctel9PZ3NSbFVWaUIxVjVDUHNGRXJwZk9VR09PY09JUXZlenZsY293R2Fsa0ZNTFhwVUlzNHNka0tKblJybDRuNjdISVJjSG9XdDliVHZMUFJOdmdF?oc=5",
-      "published": "2026-07-01T16:12:33",
-      "fetched_at": "2026-07-05T00:08:03.744389",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Reuters",
-      "title": "NEWSLETTER: The rush to monetize oil - Reuters",
-      "summary": "NEWSLETTER: The rush to monetize oil\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMie0FVX3lxTE9ZaXNVWlpQbTdtQUk1ZkZ1T2h3UU5nUWI1NFBnampIWld4Y19aY3ZuMVI4czZVZ0Jndm1hcDkwb0lGeFRHb1FEbnAyQVhBTnJYX2p6dGt5bWVEdi1rcGJZNzg2VUY5TFhUOXpmdDJzRl8zN3MyUDFaS0VTVQ?oc=5",
-      "published": "2026-07-01T16:05:00",
-      "fetched_at": "2026-07-05T00:08:03.744392",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Reuters",
-      "title": "Germany backs compulsory reservist training to strengthen armed forces - Reuters",
-      "summary": "Germany backs compulsory reservist training to strengthen armed forces\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxQYlg4emVGbERoU2pDc0xpQmN4a3FveHYxQWFHdXAyYlQwUUoxMkVUZVUyS2dqTmtfMU9uZnBTYzlOMzJPQ3NadXM4S1dpRWU1WmE1SkRXMnFraE1oVUxuejd4SFM0czdEckozVkhwOWI0ZWY2aUdWNzJwQXJHYzliSmZlZVVoVS1xQlVxbElZYm5JS21GNTJBZXVCZ2N1R3VodVB5bVZnNUNjQXkzaEtXbFhVR1M3VkgyRkp3QzNVZ0JUYWxkR2tjWmtB?oc=5",
-      "published": "2026-07-01T15:51:44",
-      "fetched_at": "2026-07-05T00:08:03.744395",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Reuters",
-      "title": "Factory activity was strong in June despite war-driven cost pressures, PMIs show - Reuters",
-      "summary": "Factory activity was strong in June despite war-driven cost pressures, PMIs show\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxQTHBDYWVQWXRJN0tHcTh2R1NBYlFJRTRBSk9DWlhwbzlaUlRmdkk1Z0RZdm1xYjIzS3NVQkRzOGZPTTZLMkRIWnFQLWVJNEtVRmtRTXlCbU1la1lIXzJWbjJCUC04akVXNUMyRWdHNVYzdkVXVlNkLW40d0hyWGhPUlJPMndhRXpKV3ItYThFXzVweE5ldktjbUtuVzMxNkpISVI2bVdVMWkyTC1oTklBXzltd1dFLVJ4UG5xR0tjS1dKQQ?oc=5",
-      "published": "2026-07-01T15:00:47",
-      "fetched_at": "2026-07-05T00:08:03.744398",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_CNBC",
-      "title": "PlayStation will end physical disc production for new games in 2028",
-      "summary": "PlayStation will end physical disc production for new games in 2028, the company announced Wednesday morning.",
-      "link": "https://www.cnbc.com/2026/07/01/sony-playstation-physical-disc-production-2028.html",
-      "published": "2026-07-01T13:21:29",
-      "fetched_at": "2026-07-05T00:08:03.744401",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Reuters",
-      "title": "Petrobras CEO sees oil settling in range of $72 to $75 per barrel - Reuters",
-      "summary": "Petrobras CEO sees oil settling in range of $72 to $75 per barrel\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNOGZ6b0drYzFMdTl6V3lRdEo2Z2ZjZ1NST3V5ZmZVd0FhSUdSdEhWTks1MTgxUVlBcHlLUnpIN1Z5OXBWVW9KbzIyN04tNkdaTndzNHhQTEFyNlVBTFUyUXBMZGRwYWU3VU1vOGUyLWZzdGJ3ZU9uVGRybEZwbWVmMVNfWjN4WDNBYzVnUUNYNUltVVh5ZzZzclhMNzVsYnU5b2ZnOTdOZTQ0dw?oc=5",
-      "published": "2026-07-01T13:01:43",
-      "fetched_at": "2026-07-05T00:08:03.744404",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Reuters",
-      "title": "Trump says the U.S. and Iran getting along very well - Reuters",
-      "summary": "Trump says the U.S. and Iran getting along very well\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxPSmVQdnh2NEFfRURhdUkyalRaYzc3WFduRjdGY2ZzcXhIUDJNUkhqY19Jb193Ri1tSjBjTmlUbHJiV1VuSkV6MUtOcVZQQ3BqZURsZGgtSnUxcGptTDlPZVN4M2ZxLUlaT1NkZUQzSWFiNFNPa2dOTjhoY0wwdXJreG1mRE5qdHJWMTdEbmVtYncxSFc4emhZNnllakk?oc=5",
-      "published": "2026-07-01T12:59:34",
-      "fetched_at": "2026-07-05T00:08:03.744407",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_CNBC",
-      "title": "We're exiting a troubled stock after a muted quarter, while considering better options",
-      "summary": "The quarter offered some signs that management's turnaround strategy is gaining traction, but progress remains slow.",
-      "link": "https://www.cnbc.com/2026/07/01/were-exiting-a-troubled-stock-after-a-muted-quarter-while-considering-better-options.html",
-      "published": "2026-07-01T12:47:49",
-      "fetched_at": "2026-07-05T00:08:03.744410",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_CNBC",
-      "title": "Buy the UK DIP? Defense stocks lifted by $20 billion spending boost as gilts come under fire",
-      "summary": "British defense stocks are marching higher once again after the U.K. confirmed a near-$20 billion military spending boost on Tuesday.",
-      "link": "https://www.cnbc.com/2026/07/01/defense-stocks-uk-investment-plan-gilts-bae-systems.html",
-      "published": "2026-07-01T11:52:39",
-      "fetched_at": "2026-07-05T00:08:03.744414",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Reuters",
-      "title": "Turkey interested in joining EU's payment system, minister says - Reuters",
-      "summary": "Turkey interested in joining EU's payment system, minister says\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOZ1E5SE1vWXZpcW1hLUdTYzRVNU9nWnE1bFpUVkZuTkkzbFpoZ0VfN1Y3R2JtX0hZWHpXbDdOaDJqOXZXZVdUNm9LNld3eVo5S3B1cDg0LU8yVkF3YUtTRWN4TFE0Sl9OcFVEclZqSjF5dF8wNEYxSjkydWw5YnhVaDZtTDY3Zkxfel9jZDFVa0h4QXRxWFpoa19iZVpES210eDRrZVhxTjAzNmtmcEZCYkZR?oc=5",
-      "published": "2026-07-01T11:35:43",
-      "fetched_at": "2026-07-05T00:08:03.744416",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Reuters",
-      "title": "Breakingviews - Tanker data is better Hormuz gauge than oil prices - Reuters",
-      "summary": "Breakingviews - Tanker data is better Hormuz gauge than oil prices\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxNZExLMmZZZjZSSE9MLXV6WEl6QnVqOWlfOG1NWDZtNUZsclF0YjJuR0k4ZTh1WTUzUGp4S2NyTXdrdVlpYWpTSmxZcjBDTUZ0NlIybjBScXNJVTRCcWotd0pQQkVWMmVXV2xSc1ptV1Zrd19ma0RkbE5rRmpKY0x3STNpZEJ6eGNaTlZDMENTUks2SDFOZFJPRTg5bFh3NmRNT2FRNkpTZ3N5VlZoeUxyQQ?oc=5",
-      "published": "2026-07-01T11:25:24",
-      "fetched_at": "2026-07-05T00:08:03.744420",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Reuters",
-      "title": "Iran warns of immediate response to any threat, cites US commitment to restrain Israel - Reuters",
-      "summary": "Iran warns of immediate response to any threat, cites US commitment to restrain Israel\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxPYWN4MVRUWnFzZkJNVjRneXVXUFlxcG0zekxKbXRqdml6bVhUUmI3ajV0THo0NVRTR1BaUjRXaVJHUjBoRVM3dlViekpfY1FtWERPODNGVEdiQ3BnajJ6YjNiZTZmYjM1ZzZ4NHN1UTRSbU1fdUtxc25MdGMzUjQtNjlKRGEzWFhXTjNHRS1ZX2pOYmtxUm1jSzRaSld6Wk9MSnUwYTJUUDI3bkhBSGprNUMtN0Rabk40d2JKTjV5VTJsV0RnMjVHaU9n?oc=5",
-      "published": "2026-07-01T11:11:43",
-      "fetched_at": "2026-07-05T00:08:03.744423",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Reuters",
-      "title": "The next Iran war may come sooner than you think - Reuters",
-      "summary": "The next Iran war may come sooner than you think\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxPaGhZVGxYcGxXVFlVSXdiMDkxN0Z1QnJwX1k1Nm1pWTRJX0hBR0c4QW5CUFg2Ukw3dmxJUUstR2EtUDY2TDNuMjBVWmRTNnNNeTR4MkVGU3AwYkV5Wmo4OU9ZYWR1enRRNk9PUlNLcnBpVElzTnNaVTBTOVNkcmtyVE9FSXRVUWpKQ3ZWeDA1QWxVblNaTURUWk92YlR5VF9VRDNJczJTaDhYakQtbk9PVHo5a0R4MldOcW12amV5bVhYRm05VVJOTQ?oc=5",
-      "published": "2026-07-01T11:01:57",
-      "fetched_at": "2026-07-05T00:08:03.744426",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "finnhub_Reuters",
-      "title": "Iran insists on keeping control over Hormuz, senior Iranian sources say - Reuters",
-      "summary": "Iran insists on keeping control over Hormuz, senior Iranian sources say\u00a0\u00a0Reuters",
-      "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxNTFBydmx6S2JaLXlSTGotcDJJemY3STctRmNiX1M1aEtQR3czZzU5VEtiYjdObEloOXRVVkNEckpmY1BmaG5DZUV6UjVaTzhZd0ZSNkZaYkw4WURhbWZ3eWpBeDlBVW0wTU9XcGFLVk9PZzBtSkpQVzA0ampJOVd4X0c1U3JkTDFzUXZTUFFrZmQ3aGRWZkllSmE5Nml5M2ZPS3VWWEhDMi1nVzRCbzhrSWZXZlMzbGhrcTZTajVB?oc=5",
-      "published": "2026-07-01T10:30:02",
-      "fetched_at": "2026-07-05T00:08:03.744429",
-      "ticker": null,
-      "tier": 2
-    },
-    {
-      "source": "yahoo_finance",
-      "title": "Best high-yield savings interest rates today, Friday, July 3, 2026: Cash in on a 4.10% APY with Bask Bank",
-      "summary": "",
-      "link": "https://finance.yahoo.com/personal-finance/banking/article/best-high-yield-savings-interest-rates-today-friday-july-3-2026-cash-in-on-a-410-apy-with-bask-bank-100000894.html",
-      "published": "2026-07-01T10:00:00+00:00",
-      "fetched_at": "2026-07-05T00:08:03.592683"
     }
   ]
 }
