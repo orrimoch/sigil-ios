@@ -2,166 +2,158 @@
 
 # Sigil — AI Stock Intelligence
 
-**AI-Powered Stock Recommendations for S&P 500**
+**Explainable BUY / HOLD / SELL signals for the S&P 500, delivered to an iOS app.**
 
-![CI](https://github.com/YOUR_USERNAME/sigil/actions/workflows/ci.yml/badge.svg)
+Sigil scores ~486 US equities from four independent angles — fundamentals, news
+sentiment, technicals, and macro alignment — combines them into a single signal,
+and shows *why* it reached that conclusion. A SwiftUI client presents the
+ranking; a FastAPI backend does the work.
+
+Built for the "busy builder": someone technical who wants a defensible weekly
+read on the market in five minutes, not a day-trading terminal.
 
 ---
 
-## 🐳 Quick Start with Docker
+## Why it exists
 
+Retail stock tools tend to sit at two extremes: opaque black-box "AI picks" with
+no reasoning, or raw screeners that hand you 40 columns and no opinion.
+
+Sigil takes a deliberate middle position:
+
+- **Ranking, not prediction.** It does not forecast prices. It ranks the universe
+  on evidence available today, which is a far more honest problem.
+- **Every score is explainable.** Each signal decomposes into the factors that
+  produced it, so you can disagree with the reasoning rather than the number.
+- **Free data only.** Yahoo Finance, SEC filings, FRED, RSS feeds, Alpha Vantage
+  and Finnhub free tiers — no paid market-data dependency.
+
+---
+
+## Architecture
+
+```
+┌─────────────────┐        ┌──────────────────────────────────┐
+│  iOS (SwiftUI)  │ ─────▶ │  FastAPI  /api/v1                │
+│  85 Swift files │  REST  │                                  │
+└─────────────────┘        │  scoring/     4-factor composite │
+                           │  sentiment/   news + recency     │
+                           │  backtest/    historical harness │
+                           │  crowd_wisdom/ aggregate signal  │
+                           │  agent/ llm/  LLM analysis       │
+                           │  ibkr/ trading/ risk/  execution │
+                           │  scheduler/   periodic refresh   │
+                           └───────────────┬──────────────────┘
+                                           │
+                              PostgreSQL + Redis
+                                           │
+              Yahoo Finance · SEC · FRED · RSS · Alpha Vantage · Finnhub
+```
+
+**Backend** — Python, FastAPI, SQLAlchemy, Alembic, Redis, pandas, scikit-learn.
+21 modules under `backend/src/`, 78 test modules under `backend/tests/`.
+
+**iOS** — SwiftUI, Xcode project at `ios/TradingApp/TradingApp.xcodeproj`.
+Design direction is "Institutional Dark" — Bloomberg/IBKR restraint rather than
+neon fintech.
+
+**Infrastructure** — Docker Compose for local, Railway for deploy.
+
+---
+
+## The scoring model
+
+| Factor | Inputs | Question it answers |
+|---|---|---|
+| **Fundamental** | Value, quality, growth from SEC filings | Is the business sound and fairly priced? |
+| **Sentiment** | News and RSS, weighted by recency | What is the market being told right now? |
+| **Technical** | RSI, momentum, trend | What is price action doing? |
+| **Macro** | FRED indicators, sector alignment | Is this sector positioned for the regime? |
+
+The four combine into a composite BUY / HOLD / SELL, and every score carries an
+explanation of the factors that drove it.
+
+Beyond the core model, the repo includes a **backtesting harness** over stored
+historical scores, a **crowd-wisdom** aggregate signal, LLM-assisted sentiment
+analysis, and Interactive Brokers integration for paper trading.
+
+---
+
+## Running it
+
+**Docker (recommended):**
 ```bash
-# Start backend
 cd backend
-docker-compose up -d
-
-# API available at http://localhost:8000
-curl http://localhost:8000/api/v1/health
+cp .env.example .env      # then fill in your keys
+docker compose up
 ```
 
-### Development Mode (hot reload)
-```bash
-docker-compose --profile dev up backend-dev
-```
-
-### Environment Setup
-```bash
-cp .env.example .env
-# Edit .env with your API keys
-```
-
----
-
-## 📁 Project Structure
-
-```
-TradingApp_iOS/
-├── README.md                    ← You are here
-│
-├── 01_PRD.md                    ← Product Requirements (start here)
-├── 02_TECHNICAL_SPEC.md         ← Technical Specification
-├── 03_DESIGN_UX_SPEC.md         ← Design & UX Specification
-├── 04_ANALYTICS_PLAN.md         ← Analytics & Metrics
-├── 05_FEATURE_SPEC.md           ← All Features (for Linear tickets)
-│
-├── design/
-│   └── inspiration/
-│       ├── DESIGN_INSPIRATION.md    ← Design direction & palette
-│       ├── DIRECT_LINKS.md          ← Reference links to open
-│       └── screenshots/             ← (save screenshots here)
-│
-├── papers/
-│   └── REFERENCES.md            ← Academic citations
-│
-├── references/
-│   └── resources.md             ← Quick reference links
-│
-└── archive/
-    └── TradingApp_Report_FULL.md    ← Original 6K line doc (reference)
-```
-
----
-
-## 📖 Document Guide
-
-| Doc | Purpose | Audience |
-|-----|---------|----------|
-| **01_PRD.md** | Problem, vision, user flows, success metrics | Product, leadership |
-| **02_TECHNICAL_SPEC.md** | Architecture, APIs, data models, Docker, Git | Engineering |
-| **03_DESIGN_UX_SPEC.md** | Wireframes, colors, typography, interactions | Design, eng, PM |
-| **04_ANALYTICS_PLAN.md** | Events, metrics, dashboards, testing | Analytics, product |
-| **05_FEATURE_SPEC.md** | All 45 features with acceptance criteria | Eng, PM, QA |
-
----
-
-## 🎯 Quick Start
-
-1. **Understand the product:** Read `01_PRD.md`
-2. **Technical setup:** Read `02_TECHNICAL_SPEC.md`
-3. **Design system:** Read `03_DESIGN_UX_SPEC.md`
-4. **Start building:** Create Linear tickets from roadmap
-
----
-
-## 🔑 Key Decisions
-
-- **Design:** "Institutional Dark" (Bloomberg/IBKR style, NOT neon fintech)
-- **Target User:** "Busy Builder" (tech professional, 30-40, 5 min/week)
-- **MVP Approach:** Ranking over prediction, simple keywords over ML
-- **Data Sources:** FREE only for MVP (Yahoo Finance, SEC, FRED, RSS, Alpha Vantage, Finnhub)
-- **Broker:** Interactive Brokers (paper trading first)
-
----
-
-## 🛠 Backend Status
-
-### F1.x Data Pipeline — ✅ COMPLETE
-
-| Feature | Description | Tests |
-|---------|-------------|-------|
-| F1.1 | Stock Universe (486 stocks) | 9 ✅ |
-| F1.2 | Price Fetcher (yfinance) | 12 ✅ |
-| F1.3 | Fundamental Fetcher | 14 ✅ |
-| F1.4 | News Fetcher (RSS + APIs) | 22 ✅ |
-| F1.5 | Macro Fetcher (FRED) | 19 ✅ |
-| F1.6 | Pipeline Orchestration | 15 ✅ |
-
-### F2.x Scoring System — ✅ COMPLETE
-
-| Feature | Description | Tests |
-|---------|-------------|-------|
-| F2.1 | Fundamental Score (Value/Quality/Growth) | 4 ✅ |
-| F2.2 | Sentiment Score (News + Recency) | 4 ✅ |
-| F2.3 | Technical Score (RSI/Momentum/Trend) | 5 ✅ |
-| F2.4 | Macro Score (Sector alignment) | 5 ✅ |
-| F2.5 | Composite Score (BUY/HOLD/SELL) | 6 ✅ |
-| F2.6 | Score Explainability | 4 ✅ |
-
-**Total: 118 tests**
-
-### Run Backend
+**Direct:**
 ```bash
 cd backend
 pip install -r requirements.txt
 uvicorn src.api.main:app --reload
 ```
 
-### API Endpoints
-```
-# Stocks
-GET /api/v1/stocks              — Stock universe
-GET /api/v1/stocks/{ticker}     — Single stock
+**iOS:** open `ios/TradingApp/TradingApp.xcodeproj` in Xcode and run.
 
-# Scores (F2.x)
-GET /api/v1/scores              — All scores with signals
-GET /api/v1/scores/{ticker}     — Score + explanation
-GET /api/v1/scores/top/{n}      — Top N stocks
-POST /api/v1/scores/calculate   — Trigger scoring
-
-# Data
-GET /api/v1/prices/{ticker}     — Latest price
-GET /api/v1/fundamentals/{ticker}
-GET /api/v1/news/{ticker}       — News + sentiment
-GET /api/v1/macro               — Macro indicators
-```
-
-### Optional API Keys (for enhanced news)
+**Tests:**
 ```bash
-export ALPHA_VANTAGE_API_KEY="..."  # Free: alphavantage.co
-export FINNHUB_API_KEY="..."        # Free: finnhub.io
+cd backend && pytest
+```
+
+### API keys
+
+All optional — the app degrades gracefully without them, using free sources only.
+
+```bash
+ALPHA_VANTAGE_API_KEY=...   # free tier: alphavantage.co
+FINNHUB_API_KEY=...         # free tier: finnhub.io
+```
+
+See `backend/.env.example` for the full list. **Never commit a filled-in `.env`.**
+
+---
+
+## Selected endpoints
+
+```
+GET  /api/v1/stocks               Stock universe
+GET  /api/v1/stocks/{ticker}      Single stock
+GET  /api/v1/scores               All scores with signals
+GET  /api/v1/scores/{ticker}      Score plus explanation
+GET  /api/v1/scores/top/{n}       Top N ranked
+POST /api/v1/scores/calculate     Trigger a scoring run
+GET  /api/v1/news/{ticker}        News with sentiment
+GET  /api/v1/macro                Macro indicators
 ```
 
 ---
 
-## 📋 Linear Tasks
+## Repository layout
 
-| ID | Task | Status |
-|----|------|--------|
-| REC-21 | Backend Scoring Pipeline (F2.x) | Todo |
-| REC-22 | iOS App Foundation | Todo |
-| REC-23 | IBKR Integration | Todo |
-| REC-24 | ML Model Improvements | Todo |
+```
+backend/       FastAPI service — scoring, sentiment, backtesting, trading
+ios/           SwiftUI client (Xcode project)
+analysis/      Research notebooks and exploratory analysis
+backtesting/   Backtest configurations and outputs
+docs/          Product, technical, design, and feature specifications
+infra/         Deployment configuration
+scripts/       Operational tooling
+```
+
+`docs/` holds the full written record — PRD, technical spec, UX spec, analytics
+plan, and per-feature specs for backtesting, crowd wisdom, sentiment, and sector
+analysis. Start with `docs/01_PRD.md` for the product argument and
+`docs/02_TECHNICAL_SPEC.md` for the system design.
 
 ---
 
-*Last updated: February 2, 2026*
+## Status
+
+Working system, actively developed. The data pipeline and four-factor scoring
+model are complete and tested; the iOS client, backtesting harness, and broker
+integration are functional and evolving.
+
+This is a personal project — the trading logic is research, not investment
+advice.
