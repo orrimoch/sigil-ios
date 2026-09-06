@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-30T01:09:50.493236",
+  "updated_at": "2026-09-06T00:38:40.285536",
   "indicators": {
     "fed_funds_rate": {
       "series_id": "FEDFUNDS",
@@ -7,26 +7,26 @@
       "previous": 3.63,
       "change": 0.0,
       "change_percent": 0.0,
-      "date": "2026-07-01",
-      "fetched_at": "2026-08-30T01:09:43.772327"
+      "date": "2026-08-01",
+      "fetched_at": "2026-09-06T00:38:33.026045"
     },
     "treasury_10y": {
       "series_id": "DGS10",
-      "value": 4.67,
-      "previous": 4.66,
-      "change": 0.01,
-      "change_percent": 0.21,
-      "date": "2026-08-27",
-      "fetched_at": "2026-08-30T01:09:44.147190"
+      "value": 4.77,
+      "previous": 4.79,
+      "change": -0.02,
+      "change_percent": -0.42,
+      "date": "2026-09-03",
+      "fetched_at": "2026-09-06T00:38:33.517800"
     },
     "treasury_2y": {
       "series_id": "DGS2",
-      "value": 4.2,
-      "previous": 4.19,
-      "change": 0.01,
-      "change_percent": 0.24,
-      "date": "2026-08-27",
-      "fetched_at": "2026-08-30T01:09:44.744906"
+      "value": 4.34,
+      "previous": 4.39,
+      "change": -0.05,
+      "change_percent": -1.14,
+      "date": "2026-09-03",
+      "fetched_at": "2026-09-06T00:38:33.967191"
     },
     "cpi_yoy": {
       "series_id": "CPIAUCSL",
@@ -35,7 +35,7 @@
       "change": 0.245,
       "change_percent": 0.07,
       "date": "2026-07-01",
-      "fetched_at": "2026-08-30T01:09:45.105203"
+      "fetched_at": "2026-09-06T00:38:34.304992"
     },
     "core_pce": {
       "series_id": "PCEPILFE",
@@ -44,34 +44,34 @@
       "change": 0.32,
       "change_percent": 0.25,
       "date": "2026-07-01",
-      "fetched_at": "2026-08-30T01:09:45.599364"
+      "fetched_at": "2026-09-06T00:38:34.910988"
     },
     "unemployment_rate": {
       "series_id": "UNRATE",
       "value": 4.1,
-      "previous": 4.2,
-      "change": -0.1,
-      "change_percent": -2.38,
-      "date": "2026-07-01",
-      "fetched_at": "2026-08-30T01:09:46.010850"
+      "previous": 4.1,
+      "change": 0.0,
+      "change_percent": 0.0,
+      "date": "2026-08-01",
+      "fetched_at": "2026-09-06T00:38:35.519867"
     },
     "nonfarm_payrolls": {
       "series_id": "PAYEMS",
-      "value": 158858.0,
-      "previous": 158881.0,
-      "change": -23.0,
-      "change_percent": -0.01,
-      "date": "2026-07-01",
-      "fetched_at": "2026-08-30T01:09:46.462393"
+      "value": 159075.0,
+      "previous": 158913.0,
+      "change": 162.0,
+      "change_percent": 0.1,
+      "date": "2026-08-01",
+      "fetched_at": "2026-09-06T00:38:35.871214"
     },
     "initial_claims": {
       "series_id": "ICSA",
-      "value": 203000.0,
-      "previous": 207000.0,
-      "change": -4000.0,
-      "change_percent": -1.93,
-      "date": "2026-08-22",
-      "fetched_at": "2026-08-30T01:09:46.815530"
+      "value": 206000.0,
+      "previous": 204000.0,
+      "change": 2000.0,
+      "change_percent": 0.98,
+      "date": "2026-08-29",
+      "fetched_at": "2026-09-06T00:38:36.237012"
     },
     "gdp": {
       "series_id": "GDP",
@@ -80,7 +80,7 @@
       "change": 620.345,
       "change_percent": 1.95,
       "date": "2026-04-01",
-      "fetched_at": "2026-08-30T01:09:47.163450"
+      "fetched_at": "2026-09-06T00:38:36.748461"
     },
     "gdp_growth": {
       "series_id": "A191RL1Q225SBEA",
@@ -89,7 +89,7 @@
       "change": -0.6,
       "change_percent": -28.57,
       "date": "2026-04-01",
-      "fetched_at": "2026-08-30T01:09:47.620344"
+      "fetched_at": "2026-09-06T00:38:37.028634"
     },
     "industrial_production": {
       "series_id": "INDPRO",
@@ -98,7 +98,7 @@
       "change": 0.2071,
       "change_percent": 0.2,
       "date": "2026-07-01",
-      "fetched_at": "2026-08-30T01:09:47.958472"
+      "fetched_at": "2026-09-06T00:38:37.553988"
     },
     "consumer_sentiment": {
       "series_id": "UMCSENT",
@@ -107,7 +107,7 @@
       "change": 5.7,
       "change_percent": 11.52,
       "date": "2026-07-01",
-      "fetched_at": "2026-08-30T01:09:48.278520"
+      "fetched_at": "2026-09-06T00:38:37.956068"
     },
     "retail_sales": {
       "series_id": "RSXFS",
@@ -116,7 +116,7 @@
       "change": -5007.0,
       "change_percent": -0.75,
       "date": "2026-07-01",
-      "fetched_at": "2026-08-30T01:09:48.757457"
+      "fetched_at": "2026-09-06T00:38:38.397685"
     },
     "housing_starts": {
       "series_id": "HOUST",
@@ -125,7 +125,7 @@
       "change": -176.0,
       "change_percent": -12.44,
       "date": "2026-07-01",
-      "fetched_at": "2026-08-30T01:09:49.108820"
+      "fetched_at": "2026-09-06T00:38:38.899072"
     },
     "existing_home_sales": {
       "series_id": "EXHOSLUSM495S",
@@ -134,25 +134,25 @@
       "change": -70000.0,
       "change_percent": -1.69,
       "date": "2026-07-01",
-      "fetched_at": "2026-08-30T01:09:49.441149"
+      "fetched_at": "2026-09-06T00:38:39.399787"
     },
     "vix": {
       "series_id": "VIXCLS",
-      "value": 14.51,
-      "previous": 15.21,
-      "change": -0.7,
-      "change_percent": -4.6,
-      "date": "2026-08-27",
-      "fetched_at": "2026-08-30T01:09:49.958002"
+      "value": 14.32,
+      "previous": 15.2,
+      "change": -0.88,
+      "change_percent": -5.79,
+      "date": "2026-09-03",
+      "fetched_at": "2026-09-06T00:38:39.764777"
     },
     "sp500": {
       "series_id": "SP500",
-      "value": 7711.76,
-      "previous": 7730.99,
-      "change": -19.23,
-      "change_percent": -0.25,
-      "date": "2026-08-28",
-      "fetched_at": "2026-08-30T01:09:50.493065"
+      "value": 7718.6,
+      "previous": 7747.71,
+      "change": -29.11,
+      "change_percent": -0.38,
+      "date": "2026-09-04",
+      "fetched_at": "2026-09-06T00:38:40.285310"
     }
   }
 }
