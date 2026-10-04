@@ -18,7 +18,7 @@ feedparser>=6.0.0
 praw>=7.7.0
 
 # Database
-sqlalchemy>=2.0.0
+sqlalchemy[asyncio]>=2.0.0
 psycopg2-binary>=2.9.9
 asyncpg>=0.29.0  # REC-272: PostgreSQL async driver
 pgvector>=0.2.0  # REC-321: Vector embeddings for agent memory
